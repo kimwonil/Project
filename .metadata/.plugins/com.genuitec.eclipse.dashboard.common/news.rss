@@ -12,12 +12,29 @@
 	<atom:link href="https://www.genuitec.com/feed/" rel="self" type="application/rss+xml" />
 	<link>https://www.genuitec.com</link>
 	<description>The Cloud Control Company</description>
-	<lastBuildDate>Fri, 07 Jul 2017 02:42:26 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 10 Jul 2017 21:48:02 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>hourly</sy:updatePeriod>
 	<sy:updateFrequency>1</sy:updateFrequency>
 	<generator>https://wordpress.org/?v=4.6.1</generator>
 	<item>
+		<title>CI 7 &#8212; More Treasures Unveiled.</title>
+		<link>https://www.genuitec.com/ci-7-treasures-unveiled/</link>
+		<pubDate>Mon, 10 Jul 2017 15:23:30 +0000</pubDate>
+		<dc:creator><![CDATA[Wanda Muriy]]></dc:creator>
+				<category><![CDATA[Eclipse]]></category>
+		<category><![CDATA[Genuitec]]></category>
+		<category><![CDATA[Programming Tips]]></category>
+		<category><![CDATA[Webclipse]]></category>
+		<category><![CDATA[ci 7 release]]></category>
+		<category><![CDATA[software updates]]></category>
+
+		<guid isPermaLink="false">https://www.genuitec.com/?p=529224</guid>
+		<description><![CDATA[<p>The wondrous world of CI 7 is opening its doors for you in our 12th release this year with more software updates. Whether you prefer using Angular IDE or Eclipse, this release has a few gems in store for you: we’ve added support for Eclipse 4.7-Oxygen, TypeScript 2.3, as well as a totally new Open [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.genuitec.com/ci-7-treasures-unveiled/">CI 7 &#8212; More Treasures Unveiled.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
+]]></description>
+		</item>
+		<item>
 		<title>Take a deep breath — Eclipse Oxygen is here!</title>
 		<link>https://www.genuitec.com/eclipse-oxygen-here/</link>
 		<pubDate>Wed, 28 Jun 2017 14:37:52 +0000</pubDate>
@@ -245,31 +262,14 @@
 <p>The post <a rel="nofollow" href="https://www.genuitec.com/codetogether-collaborative-development-made-possible-ide-work/">CodeTogether &#8212; Collaborative Development Made Possible for IDE Work.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
 ]]></description>
 		</item>
-		<item>
-		<title>Updating your Angular app to Angular 4</title>
-		<link>https://www.genuitec.com/updating-angular-app-angular-4/</link>
-		<pubDate>Fri, 19 May 2017 13:29:41 +0000</pubDate>
-		<dc:creator><![CDATA[Wanda Muriy]]></dc:creator>
-				<category><![CDATA[Eclipse]]></category>
-		<category><![CDATA[Genuitec]]></category>
-		<category><![CDATA[Programming Tips]]></category>
-		<category><![CDATA[Webclipse]]></category>
-		<category><![CDATA[Angular]]></category>
-		<category><![CDATA[angular ide]]></category>
-
-		<guid isPermaLink="false">https://www.genuitec.com/?p=523282</guid>
-		<description><![CDATA[<p>Hopefully at this point you are no longer lost in Angular migration &#8212; you’ve either installed the lastest version of Angular or have upgraded to it.  But what if you still have an app that you’d been working on with Angular 2, for instance?  No worries!  It’s a breeze getting it up to speed!An Angular [&#8230;]</p>
-<p>The post <a rel="nofollow" href="https://www.genuitec.com/updating-angular-app-angular-4/">Updating your Angular app to Angular 4</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
-]]></description>
-		</item>
 	</channel>
 </rss>
 
 <!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
 
-Object Caching 9130/9253 objects using disk
+Object Caching 9134/9257 objects using disk
 Page Caching using disk: enhanced (Requested URI is rejected)
 Content Delivery Network via resources.cloud.genuitec.com
-Database Caching 43/45 queries in 0.006 seconds using disk
+Database Caching 40/45 queries in 0.010 seconds using disk
 
- Served from: www.genuitec.com @ 2017-07-07 00:26:34 by W3 Total Cache -->
+ Served from: www.genuitec.com @ 2017-07-10 20:14:23 by W3 Total Cache -->
