@@ -95,36 +95,59 @@
 		</div>
 	</header>
 	<!-- END .header -->
-	<style>
-	.photo{
-		position: relative;
-		float: left;
-		margin-right: 30px;
-		width: 300px;
-		height: 300px;
-		
-	}
-	
-	</style>
+
 	
 	<div id="fh5co-main">
 		<div class="container">
 			<div class="row">
 			
-				<div class="col-md-8 col-md-offset-2">
-					<h2>프로필 관리</h2>
-					<img src="images/img_29.jpg" alt="Free HTML5 template by FREEHTML5.co" class="img-rounded img-responsive photo">
+				<div class="col-md-offset-2">
 
-					<p>닉네임</p>
-				
-					<p>관심분야</p>
 					
-					<p>판매완료 : 00건</p>
-					<p>구매완료 : 00건</p>
-					<p>판매평점 : 00점</p>
-					<div class="fh5co-spacer fh5co-spacer-sm"></div>
-					<p>판매 가능 재능 목록</p>
-					<input type="button" value="수정" class="btn-success">
+					<style>
+ 					.deal-info{ 
+ 					position: absolute; 
+ 					right: 13%; 
+ 					width: 357px;
+ 					height: 564px;
+										
+ 					} 
+				
+ 					
+ 					.deal-position{
+ 					position: absolute;
+ 					left: 13%;
+ 					}
+					</style> 
+					
+					
+					<div id="fh5co-board" data-columns>
+						<div class="item deal-position">
+				       		<div class="animate-box">
+				        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?" ><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template" style="width: 800px; height: 500px;"></a>
+				       		</div>
+				       		<div class="fh5co-desc">글제목</div>
+				       	</div>
+				       	
+				       	
+				       	
+				       	<div class="item deal-info">
+				       		<p>판매자 닉네임 <button>판매자 프로필</button>
+							</p>
+						
+							<p>가격</p>
+							<p>옵션추가</p>
+							
+							<p>날짜</p>
+							<p>장소</p>
+							<p>인원</p>
+							<button>구매하기</button><button>찜하기</button>
+				       	</div>    	
+			       	
+			       	
+			       	
+			       	</div>
+					
 					
 				</div>
 				
