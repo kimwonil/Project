@@ -12,7 +12,7 @@
     .column {
         float: none;
         position: relative;
-        clear: both;
+/*         clear: both; */
     }
 }
 .size-1of4 {
