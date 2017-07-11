@@ -1,0 +1,60 @@
+2017-07-06 12:13:32,982 [Worker-6] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2017-07-06 20:43:57,697 [Worker-4] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2017-07-06 20:52:32,110 [Worker-5] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2017-07-06 21:00:51,324 [Worker-5] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2017-07-07 09:00:35,842 [Worker-4] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2017-07-07 14:26:28,300 [Worker-3] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2017-07-11 10:14:49,761 [Worker-1] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: FinalProject:FinalProject:0.0.1-SNAPSHOT @ C:\hanbit\gitspace\Project\FinalProject\pom.xml.
+2017-07-11 10:14:49,761 [Worker-19] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: FinalProject:FinalProject:0.0.1-SNAPSHOT @ C:\hanbit\gitspace\Project\FinalProject\pom.xml.
+2017-07-11 10:14:51,506 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:14:51,507 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\hanbit\gitspace\Project\FinalProject\src\main\resources
+2017-07-11 10:14:51,509 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:14:51,509 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\hanbit\gitspace\Project\FinalProject\src\test\resources
+2017-07-11 10:14:52,564 [Worker-13] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: FinalProject:FinalProject:0.0.1-SNAPSHOT @ C:\hanbit\gitspace\Project\FinalProject\pom.xml.
+2017-07-11 10:14:57,911 [Worker-13] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:14:57,912 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\hanbit\gitspace\Project\FinalProject\src\main\resources
+2017-07-11 10:14:57,913 [Worker-13] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:14:57,914 [Worker-13] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\hanbit\gitspace\Project\FinalProject\src\test\resources
+2017-07-11 10:15:55,370 [Worker-4] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2017-07-11 10:15:55,738 [Worker-4] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: FinalProject:FinalProject:0.0.1-SNAPSHOT @ C:\hanbit\gitspace\Project\FinalProject\pom.xml.
+2017-07-11 10:15:56,284 [Worker-4] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /FinalProject/src
+2017-07-11 10:15:56,285 [Worker-4] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Not adding source folder /FinalProject/src/test/java because it overlaps with /FinalProject/src
+2017-07-11 10:15:56,631 [Worker-4] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Cleaning filtered folder for FinalProject
+2017-07-11 10:15:56,637 [Worker-4] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 1 sec
+2017-07-11 10:15:57,241 [Worker-7] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:15:57,243 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\hanbit\gitspace\Project\FinalProject\src\main\resources
+2017-07-11 10:15:57,245 [Worker-7] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:15:57,246 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\hanbit\gitspace\Project\FinalProject\src\test\resources
+2017-07-11 10:15:57,247 [Worker-7] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of FinalProject
+2017-07-11 10:15:57,248 [Worker-7] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for FinalProject
+2017-07-11 10:15:57,254 [Worker-7] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for org.apache.maven.plugins:maven-clean-plugin:jar:2.5 is missing, no dependency information available
+2017-07-11 10:15:57,263 [Worker-7] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:16:26,251 [Worker-23] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: FinalProject:FinalProject:0.0.1-SNAPSHOT @ C:\hanbit\gitspace\Project\FinalProject\pom.xml.
+2017-07-11 10:16:26,885 [Worker-23] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /FinalProject/src
+2017-07-11 10:16:26,886 [Worker-23] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Not adding source folder /FinalProject/src/test/java because it overlaps with /FinalProject/src
+2017-07-11 10:16:27,120 [Worker-23] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2017-07-11 10:16:27,366 [Worker-23] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: FinalProject:FinalProject:0.0.1-SNAPSHOT @ C:\hanbit\gitspace\Project\FinalProject\pom.xml.
+2017-07-11 10:16:27,982 [Worker-23] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /FinalProject/src
+2017-07-11 10:16:27,982 [Worker-23] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Not adding source folder /FinalProject/src/test/java because it overlaps with /FinalProject/src
+2017-07-11 10:16:28,239 [Worker-23] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Cleaning filtered folder for FinalProject
+2017-07-11 10:16:28,249 [Worker-23] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 1 sec
+2017-07-11 10:16:29,315 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:16:29,315 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\hanbit\gitspace\Project\FinalProject\src\main\resources
+2017-07-11 10:16:29,317 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:16:29,317 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\hanbit\gitspace\Project\FinalProject\src\test\resources
+2017-07-11 10:16:29,318 [Worker-6] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of FinalProject
+2017-07-11 10:16:29,318 [Worker-6] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for FinalProject
+2017-07-11 10:16:29,321 [Worker-6] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:16:37,518 [Worker-19] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2017-07-11 10:16:37,786 [Worker-19] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: FinalProject:FinalProject:0.0.1-SNAPSHOT @ C:\hanbit\gitspace\Project\FinalProject\pom.xml.
+2017-07-11 10:16:38,284 [Worker-19] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /FinalProject/src
+2017-07-11 10:16:38,285 [Worker-19] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Not adding source folder /FinalProject/src/test/java because it overlaps with /FinalProject/src
+2017-07-11 10:16:38,459 [Worker-19] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Cleaning filtered folder for FinalProject
+2017-07-11 10:16:38,462 [Worker-19] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 0 sec
+2017-07-11 10:16:39,249 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:16:39,250 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\hanbit\gitspace\Project\FinalProject\src\main\resources
+2017-07-11 10:16:39,251 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-11 10:16:39,252 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\hanbit\gitspace\Project\FinalProject\src\test\resources
+2017-07-11 10:16:39,252 [Worker-0] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of FinalProject
+2017-07-11 10:16:39,252 [Worker-0] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for FinalProject
+2017-07-11 10:16:39,256 [Worker-0] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
