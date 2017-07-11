@@ -6400,3 +6400,9 @@ org.eclipse.equinox.p2.core.ProvisionException: No repository found at http://do
 	at org.eclipse.equinox.internal.p2.updatechecker.UpdateChecker$UpdateCheckThread.run(UpdateChecker.java:79)
 !SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2017-07-11 17:57:20.297
 !MESSAGE No repository found at http://download.oracle.com/otn_software/oepe/oracle-cloud-messaging-service-sdk-14.3.
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-11 18:00:39.445
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-11 18:00:39.448
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
