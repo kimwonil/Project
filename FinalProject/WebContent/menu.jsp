@@ -77,7 +77,7 @@
 		<a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <i class="icon-cross"></i> </a>
 		<h1 class="fh5co-logo"><a class="navbar-brand" href="index.html">Hydrogen</a></h1>
 		<ul>
-			<li class="active"><a href="index.jsp">Home</a></li>
+			<li class="active"><a href="index.html">Home</a></li>
 			<li><a href="profile.jsp">프로필</a></li>
 			<li><a href="authority.jsp">권한 신청</a></li>
 			<li><a href="detail.jsp">글상세(임시)</a></li>
@@ -105,7 +105,7 @@
 		<div class="row">
 		검색 <input type="text"> 
 		<div id="linkGroup">
-			<a href='#'>판매등록</a>
+			<a href='boardForm.jsp'>판매등록</a>
 			<a href='#'>로그인</a>
 			<a href='#'>알림</a>
 			<a href='#'>마이페이지</a>
