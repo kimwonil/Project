@@ -7,18 +7,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-	<div id="fh5co-main">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-md-offset-2">
-
-
 <style>
 .deal-info {
 	position: absolute;
 	right: 13%;
+	left: 64%;
 	width: 357px;
 	height: 564px;
 	top:25%;
@@ -29,21 +22,31 @@
 	left: 13%;
 	top:25%;
 }
-</style>
 
+.deal-detail {
+	position: absolute;
+	left: 13%;
+	right: 13%;
+	top: 100%;
+}
+</style>
+<body>
+	<div id="fh5co-main">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-offset-2">
 
 					<div id="fh5co-board" data-columns>
 						<div class="item deal-position">
 							<div class="animate-box">
 								<a href="images/img_1.jpg" class="image-popup fh5co-board-img"
-									title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img
-									src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"
-									style="width: 800px; height: 500px;"></a>
+									title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?">
+									<img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"	style="width: 800px; height: 500px;">
+									</a>
 							</div>
 							<div class="fh5co-desc">글제목</div>
 						</div>
-
-
 
 						<div class="item deal-info">
 							<p>
@@ -61,14 +64,15 @@
 							<button>찜하기</button>
 						</div>
 
-
-
 					</div>
-
-
 				</div>
-
-
+			</div>
+			<div class="row">
+				<div id="fh5co-board" data-columns>
+					<div class="item deal-detail">
+						<h4 align="center">여기다가 상세 내용 쓸거야</h4>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
