@@ -15,15 +15,7 @@
 		<div class="container">
 
 
-			<div>
-				<div class="row">
-					<a href="#" class="fh5co-logo">카테고리1</a> <a href="#"
-						class="fh5co-logo">카테고리2</a> <a href="#" class="fh5co-logo">카테고리3</a>
-					<a href="#" class="fh5co-logo">카테고리4</a> <a href="#"
-						class="fh5co-logo">카테고리5</a> <a href="#" class="fh5co-logo">카테고리6</a>
-				</div>
-
-				<div>
+	
 					<table border="1">
 						<tr>
 							<th>공지사항</th>
@@ -34,6 +26,7 @@
 
 				<h3>여기부터 프리미엄</h3>
 				<div class="row">
+				
 					<div id="fh5co-board" data-columns>
 						<div class="item">
 							<div class="animate-box">
@@ -76,6 +69,8 @@
 								consectetur adipisicing elit. Explicabo, eos?</div>
 						</div>
 					</div>
+					
+					
 				</div>
 			</div>
 

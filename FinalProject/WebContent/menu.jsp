@@ -114,11 +114,6 @@
 			<a href="#" class="fh5co-logo">카테고리6</a>
 		</div>
 	
-		<div>
-			<table border="1">
-				<tr><th>공지사항</th><td><input type="text"></td></tr>
-			</table>
-		</div>
 	</div>
 	</header>
 	<!-- END .header -->
