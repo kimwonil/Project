@@ -80,7 +80,7 @@
 							<table id="messageWrite">
 								<tr>
 									<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목 : <input type="text" class="messageInput" name="title"></td>
-									<td width="20%" rowspan="2"  align="center"><button type="button" id="messageBtn" class="btn btn-info">보내기</button></td>
+									<td width="20%" rowspan="2"  align="center"><button type="button" id="messageBtn" class="btn btn-sm btn-info">보내기</button></td>
 								</tr>
 								<tr>
 									
@@ -111,7 +111,7 @@
 												: <label>메세지 리스트</label>
 											</td>
 											<td width="20%" rowspan="2" align="center"><button
-													type="button" id="messageDelete" class="btn btn-danger">삭제</button></td>
+													type="button" id="messageDelete" class="btn btn-sm btn-danger">삭제</button></td>
 										</tr>
 										<tr>
 

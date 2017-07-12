@@ -34,7 +34,7 @@
 					<p>판매평점 : 00점</p>
 					<div class="fh5co-spacer fh5co-spacer-sm"></div>
 					<p>판매 가능 재능 목록</p>
-					<input type="button" value="수정" class="btn btn-info">
+					<input type="button" value="수정" class="btn btn-sm btn-info">
 				</div>
         	</div>
        </div>

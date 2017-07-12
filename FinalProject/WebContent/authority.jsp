@@ -24,7 +24,7 @@
 	}
 	
 	.btn-danger{
-		border-radius:5px;
+		margin: 10px auto;
 	}
 	
 	</style>
@@ -49,10 +49,10 @@
 							<td>1</td>
 							<td>대분류</td>
 							<td>2017.07.11</td>
-							<td>승인대기중 / <button type="button" class="btn-danger" data-toggle="modal" data-target="#deleteModal">삭제</button></td>
+							<td>승인대기중 / <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">삭제</button></td>
 						</tr>
 					</table>
-					<button type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
+					<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
 
 						  <!-- 재능 신청 Modal -->
 						  <div class="modal fade" id="addModal" role="dialog">
@@ -93,7 +93,7 @@
 									</table>
 						        </div>
 						        <div class="modal-footer">
-						          <button type="button" class="btn btn-info" data-dismiss="modal">닫기</button>
+						          <button type="button" class="btn btn-sm btn-info" data-dismiss="modal">닫기</button>
 						        </div>
 						      </div>
 						      

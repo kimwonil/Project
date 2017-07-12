@@ -124,6 +124,7 @@
 							<li><a href="#tabs-2">거래내역</a></li>
 							<li><a href="#tabs-3">정산신청</a></li>
 							<li><a href="#tabs-4">환전신청</a></li>
+							<li><a href="#tabs-5">환전신청내역</a></li>
 						</ul>
 						<div id="tabs-1">
 							<p>
@@ -177,6 +178,22 @@
 							</table>
 						</div>
 						<div id="tabs-4">
+							<table>
+								<tr>
+									<td width="35%">현재 포인트 : <label>10,500</label></td>
+								</tr>
+								<tr>
+									<td width="15%">신청 포인트 : <input type="text"></td>
+								</tr>
+								<tr>
+									<td width="35%">환전 후 포인트 : <label>6,500</label></td>
+								</tr>
+								<tr>
+									<td width="15%"><button class="btn btn-sm btn-info">환전</button></td>
+								</tr>
+							</table>
+						</div>
+						<div id="tabs-5">
 							<table id="exchangeList">
 								<tr>
 									<td width="15%">처리일</td>
