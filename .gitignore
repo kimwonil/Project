@@ -1,6 +1,6 @@
-/.metadata/
+/.metadata/*.*
 /.recommenders/
-Project/.metadata/
 *.xmi
 *.snap
 .metadata
+.metadata/.plugins/org.eclipse.m2e.logback.configuration/0.log

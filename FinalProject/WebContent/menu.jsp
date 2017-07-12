@@ -70,9 +70,10 @@
 		<a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <i class="icon-cross"></i> </a>
 		<h1 class="fh5co-logo"><a class="navbar-brand" href="index.html">Hydrogen</a></h1>
 		<ul>
-			<li class="active"><a href="index.html">Home</a></li>
+			<li class="active"><a href="index.jsp">Home</a></li>
 			<li><a href="profile.jsp">프로필</a></li>
 			<li><a href="authority.jsp">권한 신청</a></li>
+			<li><a href="detail.jsp">글상세(임시)</a></li>
 			<li><a href="pricing.jsp">Pricing</a></li>
 			<li><a href="contact.jsp">Contact</a></li>
 		</ul>
