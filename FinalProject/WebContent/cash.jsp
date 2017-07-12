@@ -12,10 +12,70 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 <script>
 	$(function() {
 		$("#tabs").tabs();
 	});
+	var IMP = window.IMP;
+	IMP.init('imp11518283');
+	$(document).ready(function(){
+		$('#payCash').click(function(){
+			var amount = document.getElementsByName("amount");
+			var size = amount.length;
+			var cash = 0;
+			for(var i=0; i<size;i++){
+				if(amount[i].checked){
+					cash = amount[i].value;
+					break;					
+				}
+			}
+			
+			
+			IMP.request_pay({
+				pg : 'html5_inicis',
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '캐시 충전',
+			    amount : cash,
+			    buyer_email : 'iamport@siot.do',
+			    buyer_name : '구매자이름',
+			    m_redirect_url:'http://192.168.0.3:8080/Pay_practice/mobile.cash'
+			}, function(rsp) {
+				if ( rsp.success ) {
+			    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+			    	console.log(rsp);
+//	 		    	var msg = '결제가 완료되었습니다.';
+//	     			msg += '\n고유ID : ' + rsp.imp_uid;
+//	     			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+//	     			msg += '\결제 금액 : ' + rsp.paid_amount;
+//	     			msg += '카드 승인번호 : ' + rsp.apply_num;
+
+//	     			alert(msg);
+			    	$.ajax({
+			    		url: "complete.cash", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+			    		type: 'POST',
+			    		dataType: 'json',
+			    		data: 
+			    		{
+				    		imp_uid : rsp.imp_uid,
+				    		merchant_uid : rsp.merchant_uid,
+				    		amount : rsp.paid_amount
+			    		}
+			    	});
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+
+			        alert(msg);
+			    }
+			});
+		});
+		
+	});	
+	
+	
+	
 </script>
 <style type="text/css">
 	#cashList{
@@ -33,6 +93,12 @@
 		width: 200px;
 		line-height: 80px;
 		margin-left: 70px;
+	}
+	#refillTable{
+		border:1px solid black;
+		width:500px;
+		text-align:center;
+		margin: 0 auto;
 	}
 
 </style>
@@ -88,36 +154,37 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">재능 신청</h4>
+									<h4 class="modal-title">캐시 충전소</h4>
 								</div>
 								<div class="modal-body">
-									<table id="talentTable">
+									<table id="refillTable">
 										<tr>
-											<td>신청 재능</td>
-											<td><select>
-													<option>디자인/그래픽</option>
-													<option>컴퓨터/개발</option>
-													<option>음악/영상</option>
-													<option>생활/대행/상담</option>
-													<option>노하우/여행</option>
-											</select></td>
+											<td><b>충전 금액</b></td>
 										</tr>
 										<tr>
-											<td colspan="2"><b>관련 자료</b></td>
+											<td>
+												<table style="width:400px;margin: 0 auto;">
+													<tr>
+														<td><div class="radio"><label><input type="radio" value="1000" name="amount">&nbsp;&nbsp;1,000원</label></div></td>
+														<td><div class="radio"><label><input type="radio" value="3000" name="amount">&nbsp;&nbsp;3,000원</label></div></td>
+													</tr>
+													<tr>
+														<td><div class="radio"><label><input type="radio" value="5000" name="amount">&nbsp;&nbsp;5,000원</label></div></td>
+														<td><div class="radio"><label><input type="radio" value="10000" name="amount">10,000원</label></div></td>
+													</tr>
+													<tr>
+														<td><div class="radio"><label><input type="radio" value="30000" name="amount">30,000원</label></div></td>
+														<td><div class="radio"><label><input type="radio" value="50000" name="amount">50,000원</label></div></td>
+													</tr>
+												</table>
+											</td>
 										</tr>
 										<tr>
-											<td colspan="2"><input type="file"></td>
-										</tr>
-										<tr>
-											<td colspan="2"><input type="file"></td>
-										</tr>
-										<tr>
-											<td colspan="2"><input type="file"></td>
-										</tr>
+											<td><button type="button" class="btn btn-info" id="payCash">충전하기</button></td>
+										</tr>	
 									</table>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-info" data-dismiss="modal">닫기</button>
+									
+									
 								</div>
 							</div>
 
