@@ -74,6 +74,7 @@
 			<li><a href="profile.jsp">프로필</a></li>
 			<li><a href="authority.jsp">권한 신청</a></li>
 			<li><a href="detail.jsp">글상세(임시)</a></li>
+			<li><a href="cash.jsp">캐시관리</a></li>
 			<li><a href="pricing.jsp">Pricing</a></li>
 			<li><a href="contact.jsp">Contact</a></li>
 		</ul>
