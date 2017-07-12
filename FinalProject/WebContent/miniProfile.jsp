@@ -14,16 +14,14 @@
 		text-align: center;
 		width:200px;
 	}
-	#miniImg{
+	.miniImg{
 		width: 100px;
 		height: 100px;
-		border:1px solid red;
 		
 		position: absolute;
 		left: 13%;
 		top:30%;
 		
-		border-radius:50px;
 		z-index:5;
 	}
 	#imgSpace{
@@ -33,7 +31,7 @@
 </head>
 <body>
 <div>
-<img src="images/img_1.jpg" id="miniImg">
+<img src="images/img_1.jpg" class="img-circle miniImg">
 <table id="miniProfile">
 	<tr>
 		<td id="imgSpace"></td>
