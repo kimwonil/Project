@@ -56,9 +56,6 @@ border: 1px solid black;
 							</table>
 						</div>
 					
-						<div class="form-group">
-							<input type="submit" class="btn btn-primary" value="글 작성하기" style="width: 120px; height: 40px;">
-						</div>
 					</div>
 					
 

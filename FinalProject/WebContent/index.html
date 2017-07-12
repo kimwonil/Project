@@ -63,6 +63,14 @@
 	<![endif]-->
 
 	</head>
+	<style>
+	#linkGroup{
+	position: relative;
+	right: 1%;
+	float: right;
+	}
+	</style>
+	
 	<body>
 		
 <!-- 	메뉴 -->
@@ -74,8 +82,8 @@
 			<li><a href="profile.jsp">프로필</a></li>
 			<li><a href="authority.jsp">권한 신청</a></li>
 			<li><a href="detail.jsp">글상세(임시)</a></li>
-			<li><a href="purchasing.jsp">구매관리</a></li>
 			<li><a href="selling.jsp">판매관리</a></li>
+			<li><a href="purchasing.jsp">구매관리</a></li>
 			<li><a href="cash.jsp">캐시관리</a></li>
 			<li><a href="pricing.jsp">Pricing</a></li>
 			<li><a href="contact.jsp">Contact</a></li>
@@ -96,9 +104,12 @@
 		<div class="container">
 		<div class="row">
 		검색 <input type="text"> 
-		<a href='#'>로그인</a>
-		<a href='#'>알림</a>
-		<a href='#'>마이페이지</a>
+		<div id="linkGroup">
+			<a href='#'>판매등록</a>
+			<a href='#'>로그인</a>
+			<a href='#'>알림</a>
+			<a href='#'>마이페이지</a>
+		</div>
 		</div>
 			<div class="row">
 				<div class="col-md-12">
