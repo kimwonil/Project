@@ -64,6 +64,13 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 </head>
+	<style>
+	#linkGroup{
+	position: relative;
+	right: 1%;
+	float: right;
+	}
+	</style>
 <body>
 <!-- 	메뉴 -->
 	<div id="fh5co-offcanvass">
@@ -96,9 +103,12 @@
 		<div class="container">
 		<div class="row">
 		검색 <input type="text"> 
-		<a href='#'>로그인</a>
-		<a href='#'>알림</a>
-		<a href='#'>마이페이지</a>
+		<div id="linkGroup">
+			<a href='#'>판매등록</a>
+			<a href='#'>로그인</a>
+			<a href='#'>알림</a>
+			<a href='#'>마이페이지</a>
+		</div>
 		</div>
 			<div class="row">
 				<div class="col-md-12">
