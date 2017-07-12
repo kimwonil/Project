@@ -59,13 +59,14 @@
 
 						<div class="item deal-info">
 							<p>
-								판매자 닉네임 : nickname <button>판매자 프로필</button>
+								판매자 닉네임 : nickname <button>프로필 보기</button>
 							</p>
-							<p>날짜</p>
-							<p>장소</p>
-							<p>인원 또는 건수</p>
+							<p>글 등록 날짜 : </p>
+							<p>마감 일 : </p>
+							<p>장소 (지도 api)</p>
+							<p>인원 또는 건수 : </p>
 							
-							<p>가격</p>
+							<p>기본가격 : </p>
 							<p>옵션추가</p>
 							<button>구매하기</button>
 							<button>찜하기</button>
