@@ -1,18 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="menu.jsp"%>
-<%@ include file="miniProfile.jsp"%>
+    pageEncoding="UTF-8"%>
+    <%@ include file="menu.jsp" %>
+    <%@ include file="miniProfile.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
+<title>Insert title here</title>
 <script>
 	$(function() {
 		$("#tabs").tabs();
@@ -100,16 +98,26 @@
 		text-align:center;
 		margin: 0 auto;
 	}
+	#tradeList, #completeList, #exchangeList{
+		width:700px;
+		text-align: center;
+		margin: 0 auto;
+	}
+	#tradeList td, #completeList td, #exchangeList td{
+		
+		border:1px solid black;
+	}
 
 </style>
 </head>
 <body>
 
+	
 	<div id="fh5co-main">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<h2>캐시관리</h2>
+			<div class="col-md-8 col-md-offset-2">
+			<h2>캐시관리</h2>
 					<div id="tabs">
 						<ul>
 							<li><a href="#tabs-1">충전</a></li>
@@ -135,13 +143,54 @@
 							</p>
 						</div>
 						<div id="tabs-2">
-							<p>2번</p>
+							<table id="tradeList">
+								<tr>
+									<td width="15%">처리일</td>
+									<td width="60%">제목</td>
+									<td width="15%">판매/구매</td>
+									<td width="10%">상태</td>
+								</tr>
+								<tr>
+									<td>2017-07-12</td>
+									<td>임시 배치용 글</td>
+									<td>판매</td>
+									<td>완료</td>
+								</tr>
+							</table>
 						</div>
 						<div id="tabs-3">
-							<p>3번</p>
+							<table id="completeList">
+								<tr>
+									<td width="15%">처리일</td>
+									<td width="50%">제목</td>
+									<td width="15%">구매자</td>
+									<td width="10%">금액</td>
+									<td width="10%">상태</td>
+								</tr>
+								<tr>
+									<td>2017-07-12</td>
+									<td>임시 배치용 글</td>
+									<td>구매자ID</td>
+									<td>10,000</td>
+									<td>정산완료</td>
+								</tr>
+							</table>
 						</div>
 						<div id="tabs-4">
-							<p>4번</p>
+							<table id="exchangeList">
+								<tr>
+									<td width="15%">처리일</td>
+									<td width="35%">신청 포인트</td>
+									<td width="35%">환전 후 포인트</td>
+									<td width="15%">상태</td>
+								</tr>
+								<tr>
+									<td>2017-07-12</td>
+									<td>5,000</td>
+									<td>6,500</td>
+									<td>승인대기</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 					
@@ -191,10 +240,9 @@
 						</div>
 					</div>
 					<!-- Modal -->
-
 				</div>
-			</div>
-		</div>
+        	</div>
+       </div>
 	</div>
 </body>
 </html>
