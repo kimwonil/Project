@@ -29,9 +29,6 @@
 	#imgSpace{
 		height: 50px;
 	}
-	.refileCash{
-		border-radius:10px;
-	}
 </style>
 </head>
 <body>
@@ -49,7 +46,7 @@
 		<td>200원</td>
 	</tr>
 	<tr>
-		<td><input type="button" value="충전" class="btn-info refileCash"></td>
+		<td><input type="button" value="충전" class="btn btn-sm btn-info"></td>
 	</tr>
 	<tr>
 		<td>나의 재능 : 0건</td>
