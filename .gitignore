@@ -1,6 +1,5 @@
-/.metadata/
+/.metadata/*.*
 /.recommenders/
-Project/.metadata/
 *.xmi
 *.snap
 .metadata
