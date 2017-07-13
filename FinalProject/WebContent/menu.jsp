@@ -71,8 +71,43 @@
 	right: 1%;
 	float: right;
 	}
+	
+	#alarm-content{
+	position: absolute;
+	display : none;
+	right: 15%;
+	top: 10%;
+	border: 1px solid red;
+	}
 	</style>
+	
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous"></script>
+	
+	
+<script>
+$(document).ready(function(){
+    $("#toggler").click(function(){
+    	$( "#alarm-content" ).slideToggle(1000);
+    });   
+});
+</script>
+	
 <body>
+<!-- 	알림띄울 내용 -->
+<div id="alarm-content">
+<!-- 		<div class="col-md-4"> -->
+<!-- 			<div class="fh5co-pricing-table"> -->
+				<table class="table" style="background: white;">
+					<tr><th>새로도착한 쪽지</th><th>보낸이</th></tr>
+					<tr><td>칼갈아드립니다</td><td>려차ㅑㅜㅎ 샣힏</td></tr>
+				</table>
+<!-- 			</div> -->
+<!-- 		</div> -->
+</div>
+
+
 <!-- 	메뉴 -->
 	<div id="fh5co-offcanvass">
 		<a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <i class="icon-cross"></i> </a>
@@ -108,7 +143,7 @@
 		<div id="linkGroup">
 			<a href='boardForm.jsp'>판매등록</a>
 			<a href='#'>로그인</a>
-			<a href='#'>알림</a>
+			<a href='#' id="toggler">알림</a>
 			<a href='#'>마이페이지</a>
 		</div>
 		</div>
