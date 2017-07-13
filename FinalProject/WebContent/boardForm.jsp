@@ -8,19 +8,6 @@
 <title>Insert title here</title>
 </head>
 <style>
-#condition{
-width: 630px;
-
-}
-
-h3{
-/* display: inline-block; */
-float: left;
-}
-
-#condition tr {
-border-bottom: 1px solid grey;
-}
 
 #bckground{
 width: 655px;
@@ -39,7 +26,7 @@ text-align: right;
 						
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
-								<table id="condition">
+								<table class="table">
 									<tr><th>카테고리</th><th><select><option>대분류</option><option>카테고리2</option><option>카테고리3</option> </select> <select><option>소분류</option><option>카테고리2</option><option>카테고리3</option> </select></th></tr>
 									<tr><th>글제목</th><th> <input type="text"> </th></tr>
 									<tr><th>등록 마감일</th><th> <input type="text"> </th></tr>
