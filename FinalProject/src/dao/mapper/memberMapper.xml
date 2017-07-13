@@ -17,6 +17,10 @@
 	insert into cash values(0, #{id}, sysdate(), #{amount}, #{balance}, #{code}, 1)
  </insert>
  
+ <select id="cashList" parameterType="String" resultType="CashRecord">
+ 	select * from cash where id=#{id}
+ </select>
+ 
  </mapper>
  
  

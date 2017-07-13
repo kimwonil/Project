@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
+import model.CashRecord;
 import model.Member;
 import service.MemeberService;
 
@@ -61,8 +66,24 @@ public class MemberController {
 	
 	@RequestMapping("cashList.do")
 	public void cashList(HttpServletRequest request, HttpServletResponse response) {
-		Member member = (Member) request.getAttribute("member");
-		memberService.cashList(member.getId());
+		
+		String id = request.getParameter("id");
+		Gson gson = new Gson();
+		try {
+			PrintWriter printWriter = response.getWriter();
+			List<CashRecord> list = memberService.cashList(id);
+			System.out.println(list.size());
+//			String json = gson.toJson();
+//			printWriter.write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 
+		
+		
+		
 	}
 	
 	
