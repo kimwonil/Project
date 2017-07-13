@@ -9,6 +9,13 @@
  	select * from profile where id=#{id}
  </select>
  
+ <update id="refillCash" parameterType="Member">
+ 	update profile set balance=#{balance} where id=#{id}
+ </update>
+ 
+ <insert id="cashRecord" parameterType="Member">
+	insert into cash values(0, #{id}, sysdate(), #{amount}, #{balance}, #{code}, 1)
+ </insert>
  
  </mapper>
  
