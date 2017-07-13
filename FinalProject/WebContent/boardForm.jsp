@@ -31,7 +31,8 @@ text-align: right;
 									<tr><th>글제목</th><th> <input type="text"> </th></tr>
 									<tr><th>등록 마감일</th><th> <input type="text"> </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text"> </th></tr>
-									<tr><th>장소 또는 지역</th><th>  </th></tr>
+									<tr><th>장소 또는 지역</th><th> <input type="text"> 
+									<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">검색</button> </th></tr>
 									<tr><th>기본가격</th><th> <input type="text"> </th></tr>
 									<tr><th>옵션가격</th><th> <input type="text"> </th></tr>
 									<tr><th>썸네일</th><th> <input type="file"> </th></tr>
@@ -51,5 +52,28 @@ text-align: right;
         	</div>
        </div>
 <!-- 	</div> -->
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>This is a large modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 </body>
 </html>
