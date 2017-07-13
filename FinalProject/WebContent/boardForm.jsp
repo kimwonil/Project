@@ -14,6 +14,20 @@ width: 655px;
 text-align: right;
 }
 </style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#mapSearch').on('click', function(){
+		var inputAddr = $('#inputAddr').serialize();
+		
+	 if($('#inputAddr').val() == ""){
+   		 alert('검색하실 주소를 입력하세요');
+   	 }else{
+   		alert(inputAddr);
+	})
+})
+</script>
+
 <body>
 	
 <!-- 	<div id="fh5co-main"> -->
@@ -27,12 +41,15 @@ text-align: right;
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
 								<table class="table">
-									<tr><th>카테고리</th><th><select><option>대분류</option><option>카테고리2</option><option>카테고리3</option> </select> <select><option>소분류</option><option>카테고리2</option><option>카테고리3</option> </select></th></tr>
+									<tr><th>카테고리</th><th>
+									<select><option>대분류</option><option>카테고리2</option><option>카테고리3</option> </select> 
+									<select><option>소분류</option><option>카테고리2</option><option>카테고리3</option> </select>
+									</th></tr>
 									<tr><th>글제목</th><th> <input type="text"> </th></tr>
 									<tr><th>등록 마감일</th><th> <input type="text"> </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text"> </th></tr>
-									<tr><th>장소 또는 지역</th><th> <input type="text"> 
-									<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">검색</button> </th></tr>
+									<tr><th>장소 또는 지역</th><th> <input type="text" id="inputAddr" name="inputAddr"> 
+									<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" id="mapSearch">검색</button> </th></tr>
 									<tr><th>기본가격</th><th> <input type="text"> </th></tr>
 									<tr><th>옵션가격</th><th> <input type="text"> </th></tr>
 									<tr><th>썸네일</th><th> <input type="file"> </th></tr>
