@@ -28,16 +28,47 @@ border: 1px solid red;
 </style>
 
 <script type="text/javascript">
-$(document).ready(function(){
-
-	var mapOptions = {
-	    center: new naver.maps.LatLng(37.3595704, 127.105399),
+window.onload = function(){
+	
+	//내가 표시하고 싶은 곳 좌표
+	var flag = new naver.maps.LatLng(37.3595704, 127.105399);
+	
+	//지도 생성, 중심 좌표, 줌
+	var map = new naver.maps.Map('map', {
+		center: flag,
 	    zoom: 10
-	}
+	});
+	
+	//마커
+	var marker = new naver.maps.Marker({
+		position : flag,
+		map: map
+	});
+	
+	var contentString = [
+        '<div class="iw_inner" >',
+        '   <h6>여기가 바로 네이버</h6><br>',
+        '       <a href="http://www.naver.com" target="_blank">www.naver.com/</a>',
+        '   </p>',
+        '</div>'
+    ].join('');
 
-	var map = new naver.maps.Map('map', mapOptions );
+var infowindow = new naver.maps.InfoWindow({
+    content: contentString,
+    anchorSkew: true,
+    pixelOffset: new naver.maps.Point(0, 0)
+});
 
-})
+naver.maps.Event.addListener(marker, "click", function(e) {
+    if (infowindow.getMap()) {
+        infowindow.close();
+    } else {
+        infowindow.open(map, marker);
+    }
+});
+
+infowindow.open(map, marker);
+}
 </script>
 
 <body>
@@ -82,7 +113,7 @@ $(document).ready(function(){
 					
 						<h3>지도 띄울 곳</h3>
 						<div id="mapContent">
-							 <div id="map" style="width:50%;height:400px;"></div>
+							 <div id="map" style="width:400px; height:400px;" align="center"></div>
 <!-- 							 	<table id="table"> -->
 <!-- 									<tr><th>명칭</th><th>주소</th></tr> -->
 <!-- 							  	</table> -->
@@ -96,39 +127,7 @@ $(document).ready(function(){
 				</div>
         		
         	</div>
-       </div>
-<!-- 	</div> -->
 
-
-<!--   <!-- Modal --> -->
-<!--   <div class="modal fade" id="myModal" role="dialog"> -->
-<!--     <div class="modal-dialog modal-lg"> -->
-<!--       <div class="modal-content"> -->
-<!--         <div class="modal-header"> -->
-<!--           <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-<!--           <h4 class="modal-title">검색 결과에서 알맞은 것을 선택 또는 지도에 찍은 뒤에 완료를 클릭하세요</h4> -->
-<!--         </div> -->
-<!--         <div class="modal-body"> -->
-<!--           <p>This is a large modal.</p> -->
-<!--           <div id="map" style="width:400px;height:400px;text-align: center;"></div> -->
-<!--           <table id="table"> -->
-<!-- 			<tr><th>명칭</th><th>주소</th></tr> -->
-<!-- 		  </table> -->
-<!--         </div> -->
-<!--         <div class="modal-footer"> -->
-<!--           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-
-<!-- 	<div id="mapContent"> -->
-<!-- 		 <div id="map" style="width:400px;height:400px;text-align: center;"></div> -->
-<!-- 		 	<table id="table"> -->
-<!-- 				<tr><th>명칭</th><th>주소</th></tr> -->
-<!-- 		  	</table> -->
-<!-- 		 </div> -->
-<!-- 	</div> -->
 
 
 </body>
