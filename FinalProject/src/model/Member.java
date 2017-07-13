@@ -6,7 +6,13 @@ public class Member {
 	private String photo;
 	private int balance;
 	private int admin;
+	private String code;
+	private int amount;
 	
+	public void refillCash(int refillCash) {
+		this.amount = refillCash;
+		this.balance += refillCash;
+	}
 	
 	public Member() {
 		super();
@@ -52,11 +58,28 @@ public class Member {
 		this.admin = admin;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
 	@Override
 	public String toString() {
-		return "member [id=" + id + ", nickName=" + nickName + ", photo=" + photo + ", balance=" + balance + ", admin="
-				+ admin + "]";
+		return "Member [id=" + id + ", nickName=" + nickName + ", photo=" + photo + ", balance=" + balance + ", admin="
+				+ admin + ", code=" + code + ", amount=" + amount + "]";
 	}
+
 	
 	
 }

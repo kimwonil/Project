@@ -18,6 +18,7 @@
 	var IMP = window.IMP;
 	IMP.init('imp11518283');
 	$(document).ready(function(){
+		
 		$('#payCash').click(function(){
 			var amount = document.getElementsByName("amount");
 			var size = amount.length;
@@ -36,29 +37,40 @@
 			    merchant_uid : 'merchant_' + new Date().getTime(),
 			    name : '캐시 충전',
 			    amount : cash,
-			    buyer_email : 'iamport@siot.do',
-			    buyer_name : '구매자이름',
+			    buyer_email : $('#memberId').val(),
+			    buyer_name : $('#memberNickName').val(),
 			    m_redirect_url:'http://192.168.0.3:8080/Pay_practice/mobile.cash'
 			}, function(rsp) {
 				if ( rsp.success ) {
 			    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 			    	console.log(rsp);
-//	 		    	var msg = '결제가 완료되었습니다.';
-//	     			msg += '\n고유ID : ' + rsp.imp_uid;
-//	     			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-//	     			msg += '\결제 금액 : ' + rsp.paid_amount;
-//	     			msg += '카드 승인번호 : ' + rsp.apply_num;
+	 		    	var msg = '결제가 완료되었습니다.';
+	     			msg += '\n고유ID : ' + rsp.imp_uid;
+	     			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	     			msg += '\n결제 금액 : ' + rsp.paid_amount;
+	     			msg += '\n카드 승인번호 : ' + rsp.apply_num;
 
-//	     			alert(msg);
+	     			alert(msg);
+	     			
 			    	$.ajax({
-			    		url: "complete.cash", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+			    		url: "cash.do", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
 			    		type: 'POST',
 			    		dataType: 'json',
 			    		data: 
 			    		{
 				    		imp_uid : rsp.imp_uid,
 				    		merchant_uid : rsp.merchant_uid,
-				    		amount : rsp.paid_amount
+				    		refillCash : rsp.paid_amount
+			    		},
+			    		success:function(data){
+			    			$('#refillModal').modal("hide");
+			    			
+			    			console.log(data);
+			    			$('.balance').text(data.cash);
+			    		},
+			    		error:function(jqXHR, textStatus, errorThrown){
+			    			alert(textStatus);     //응답상태
+			    			alert(errorThrown);     //응답에 대한 메세지
 			    		}
 			    	});
 			    } else {
@@ -68,15 +80,33 @@
 			        alert(msg);
 			    }
 			});
-		});
+		});//PayCash 결제
 		
-	});	
+		$('#cashList').click(function(){
+			$.ajax({
+				url:"cashList.do",
+				type:"POST",
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+// 					$('#tradeList tr:gt(0)').remove();
+// 					$('#tradeList').append();
+				},
+				error:function(){}
+			});
+			
+			
+		});//cashList 캐시 내역
+		
+		
+		
+	});	//document
 	
 	
 	
 </script>
 <style type="text/css">
-	#cashList{
+	#cashTable{
 		width: 700px;
 		height: 100px;
 		text-align: center;
@@ -121,18 +151,21 @@
 					<div id="tabs">
 						<ul>
 							<li><a href="#tabs-1">충전</a></li>
-							<li><a href="#tabs-2">거래내역</a></li>
+							<li><a href="#tabs-2" id="cashList">거래내역</a></li>
 							<li><a href="#tabs-3">정산신청</a></li>
 							<li><a href="#tabs-4">환전신청</a></li>
 							<li><a href="#tabs-5">환전신청내역</a></li>
 						</ul>
 						<div id="tabs-1">
 							<p>
-							<table id="cashList">
+							<table id="cashTable">
 								<tr>
 									<td>
 									<div  id="balanceTD">
-									잔액 200원
+									
+									잔액 : <label class="balance"> ${member.balance}</label>원
+									<input type="hidden" value="${member.id}" id="memberId">
+									<input type="hidden" value="${member.nickName}" id="memberNickName">
 									</div>
 									</td>
 									<td>
@@ -147,16 +180,12 @@
 							<table id="tradeList">
 								<tr>
 									<td width="15%">처리일</td>
-									<td width="60%">제목</td>
-									<td width="15%">판매/구매</td>
+									<td width="15%">금액</td>
+									<td width="15%">잔액</td>
+									<td width="15%">전표코드</td>
 									<td width="10%">상태</td>
 								</tr>
-								<tr>
-									<td>2017-07-12</td>
-									<td>임시 배치용 글</td>
-									<td>판매</td>
-									<td>완료</td>
-								</tr>
+								
 							</table>
 						</div>
 						<div id="tabs-3">
