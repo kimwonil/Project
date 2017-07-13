@@ -37,20 +37,31 @@ border: 1px solid black;
 							<li><a href="#tabs-2">완료된 거래</a></li>
 							<li><a href="#tabs-3">취소된 거래</a></li>
 						</ul>
+						<div align="center">
+							<select>
+								<option>검색조건</option>
+								<option>닉네임</option>
+								<option>글제목</option>
+								<option>날짜</option>
+							</select>
+							<input type="text">
+							<button>검색</button>
+						</div>
+						<div class="fh5co-spacer fh5co-spacer-sm"></div>
 						<div id="tabs-1" >
-							<table>
+							<table style="width: 100%;">
 								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th><th>진행상황</th><th>비고</th></tr>
 								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td><td>진행중</td><td>버튼만들어야해</td></tr>
 							</table>
 						</div>
 						<div id="tabs-2">
-							<table>
+							<table style="width: 100%;">
 								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th></tr>
 								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td></tr>
 							</table>
 						</div>
 						<div id="tabs-3">
-							<table>
+							<table style="width: 100%;">
 								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th></tr>
 								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td></tr>
 							</table>
