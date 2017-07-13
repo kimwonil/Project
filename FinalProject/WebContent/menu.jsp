@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -78,7 +79,7 @@
 		<h1 class="fh5co-logo"><a class="navbar-brand" href="index.html">Hydrogen</a></h1>
 		<ul>
 			<li class="active"><a href="index.html">Home</a></li>
-			<li><a href="profile.jsp">프로필</a></li>
+			<li><a href="profile.do?id=kwi1222@naver.com">프로필</a></li>
 			<li><a href="authority.jsp">권한 신청</a></li>
 			<li><a href="detail.jsp">글상세(임시)</a></li>
 			<li><a href="selling.jsp">판매관리</a></li>
