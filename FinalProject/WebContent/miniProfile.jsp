@@ -41,7 +41,7 @@
 		<td>아이디</td>
 	</tr>
 	<tr>
-		<td>200원</td>
+		<td>${member.balance}원</td>
 	</tr>
 	<tr>
 		<td><input type="button" value="충전" class="btn btn-sm btn-info"></td>
