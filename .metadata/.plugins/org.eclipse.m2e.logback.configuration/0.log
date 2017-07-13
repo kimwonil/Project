@@ -4349,3 +4349,15 @@
 2017-07-13 17:58:02,087 [Worker-140] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\main\resources
 2017-07-13 17:58:02,087 [Worker-140] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 2017-07-13 17:58:02,089 [Worker-140] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\test\resources
+2017-07-13 18:00:39,646 [Worker-139] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: FinalProject:FinalProject:0.0.1-SNAPSHOT @ C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\pom.xml.
+2017-07-13 18:00:40,377 [Worker-139] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-13 18:00:40,378 [Worker-139] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\main\resources
+2017-07-13 18:00:40,379 [Worker-139] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-13 18:00:40,380 [Worker-139] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\test\resources
+2017-07-13 18:00:40,381 [Worker-139] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of FinalProject
+2017-07-13 18:00:40,381 [Worker-139] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for FinalProject
+2017-07-13 18:00:40,384 [Worker-139] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-13 18:00:44,702 [Worker-125] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-13 18:00:44,702 [Worker-125] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\main\resources
+2017-07-13 18:00:44,702 [Worker-125] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-13 18:00:44,702 [Worker-125] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\test\resources
