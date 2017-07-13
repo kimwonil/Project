@@ -83,13 +83,10 @@ public class boardController{
 //		resp.setContentType("text/html; charset=UTF-8");
 //		PrintWriter pw = resp.getWriter();
 //		
-//		
 //		if(url1.equals(context + "/searchAddr.do")){
 //			System.out.println("searchAddr 하러 왔어");
 //			String inputAddr = req.getParameter("inputAddr");
 //			System.out.println("검색하려는 주소 : " + inputAddr);
-//			
-//			
 //			
 //			//주소검색 시작
 //			String clientId = "yWnmGXGFAVlHFUidS2ri";//애플리케이션 클라이언트 아이디값";
@@ -125,27 +122,7 @@ public class boardController{
 //	        }finally {
 //				pw.close();
 //			}
-//			
-//			
-//			
-//			
-//			
-//			
-//			
-//			
-//			
-//			
-//			
-//			
-//			
-//			
-//			
-//			
 //		}
-//		
-//
-//		
-//		
 //	}
 	
 

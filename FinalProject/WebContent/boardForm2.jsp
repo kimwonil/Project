@@ -29,99 +29,13 @@ border: 1px solid red;
 
 <script type="text/javascript">
 $(document).ready(function(){
-// 	$('#mapSearch').on('click', function(){
-// 		var inputAddr = $('#inputAddr').serialize();
-		
-// 	 if($('#inputAddr').val() == ""){
-//    		 alert('검색하실 주소를 입력하세요');
-//    		 //그리고 모달이 안뜨게 해야해!!!!!
-//    	 }else{
-// //    		 $( "#mapContent" ).slideToggle(1000);
-   		
-// 		 $.ajax({
-// 			type : 'get',
-// 			url : 'searchAddr.do',
-// 			data : inputAddr,
-// 			dataType : 'json',
-// 			success : function(data){
-// 				alert(data.items[0].address + "를 입력하셨습니다");
-		   		
-// 				var juso = data.items[0].address;
-// 				var destination = data.items[0].title;
-				
-// 			     var myaddress = juso;// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
-// 			      naver.maps.Service.geocode({address: myaddress}, function(status, response) {
-// 			          if (status !== naver.maps.Service.Status.OK) {
-// 			              return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
-// 			          }
-			          
-// 			          var result = response.result;
-// 			          // 검색 결과 갯수: result.total
-// 			          // 첫번째 결과 결과 주소: result.items[0].address
-// 			          // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
-// 			          var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
-// 			          map.setCenter(myaddr); // 검색된 좌표로 지도 이동
-			          
-// 			          //주소리스트
-// 			          $.each(data.items, function(index, value){
-// 			        	  $('#table').append("<tr><td>"+value.title+"</td><td>"+value.address+"</td></tr>");
-// 			          })
-			          
-			          
-			          
-// 			          // 마커 표시
-// 			          var marker = new naver.maps.Marker({
-// 			            position: myaddr,
-// 			            map: map
-// 			          });
-			          
-			          
-// 			          // 마커 클릭 이벤트 처리
-// 			          naver.maps.Event.addListener(marker, "click", function(e) {
-// 			            if (infowindow.getMap()) {
-// 			                infowindow.close();
-// 			            } else {
-// 			                infowindow.open(map, marker);
-// 			            }
-// 			          });
-// 			          // 마크 클릭시 인포윈도우 오픈
-// 			          var infowindow = new naver.maps.InfoWindow({
-// 			        	  content : "<h5>"+destination+"</h5><br>"
-// 			          });
-// 			      });
-// // 			      $('#myModal').modal();
-			      
-			      
-			      
-			      
-// // 			      $('#myModal').on('show.bs.modal', function (event) { // myModal 윈도우가 오픈할때 아래의 옵션을 적용
-// // 			    	  var button = $(event.relatedTarget) // 모달 윈도우를 오픈하는 버튼
-// // 			    	  var titleTxt = button.data('title') // 버튼에서 data-title 값을 titleTxt 변수에 저장
-// // 			    	  var modal = $(this)
-// // 			    	  modal.find('.modal boddy').text('Title : ' + destination) // 모달위도우에서 .modal-title을 찾아 titleTxt 값을 치환
-// // 			    	})
-// 			},
-// 			error : function(jpXHR, textStatus, errorThrown){
-//                 alert(textStatus);
-//                 alert(errorThrown);
-//             }
-// 		 });
-   		 
 
-//    	 }
-// 	})
+	var mapOptions = {
+	    center: new naver.maps.LatLng(37.3595704, 127.105399),
+	    zoom: 10
+	}
 
-
-
-var mapOptions = {
-
-    center: new naver.maps.LatLng(37.3595704, 127.105399),
-
-    zoom: 10
-
-}
-
-var map = new naver.maps.Map('map', mapOptions );
+	var map = new naver.maps.Map('map', mapOptions );
 
 })
 </script>
@@ -168,10 +82,10 @@ var map = new naver.maps.Map('map', mapOptions );
 					
 						<h3>지도 띄울 곳</h3>
 						<div id="mapContent">
-							 <div id="map" style="width:400px;height:400px;text-align: center;"></div>
-							 	<table id="table">
-									<tr><th>명칭</th><th>주소</th></tr>
-							  	</table>
+							 <div id="map" style="width:50%;height:400px;"></div>
+<!-- 							 	<table id="table"> -->
+<!-- 									<tr><th>명칭</th><th>주소</th></tr> -->
+<!-- 							  	</table> -->
 							 </div>
 						</div>
 					
