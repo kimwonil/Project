@@ -68,6 +68,17 @@ naver.maps.Event.addListener(marker, "click", function(e) {
 });
 
 infowindow.open(map, marker);
+
+
+//Form 내용 파라미터로 받아서 넘기기
+	$('#go').on('click', function(){
+		$.ajax({
+			url : 
+		})
+	
+	
+	
+	});
 }
 </script>
 
@@ -85,8 +96,8 @@ infowindow.open(map, marker);
 							<div class="fh5co-pricing-table" id="bckground">
 								<table class="table">
 									<tr><th>카테고리</th><th>
-									<select><option>대분류</option><option>카테고리2</option><option>카테고리3</option> </select> 
-									<select><option>소분류</option><option>카테고리2</option><option>카테고리3</option> </select>
+									<select name="category1"><option>대분류</option><option >카테고리2</option><option>카테고리3</option> </select> 
+									<select name="category2"><option>소분류</option><option>카테고리2</option><option>카테고리3</option> </select>
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text"> </th></tr>
 									<tr><th>등록 마감일</th><th> <input type="text"> </th></tr>
@@ -101,7 +112,7 @@ infowindow.open(map, marker);
 								</table>
 							
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<a href="#" class="btn btn-sm btn-primary" >GO!</a>
+								<a href="#" class="btn btn-sm btn-primary" id="go" >GO!</a>
 							</div>
 						</div>
 					
