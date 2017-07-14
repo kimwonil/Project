@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +54,10 @@ public class MemberController {
 
 				memberService.cashRecord(member);	
 				
-				response.getWriter().write("{\"result\":true, \"cash\":"+member.getBalance()+"}");
+				DecimalFormat number = new DecimalFormat("#,###");
+				String balance = number.format(member.getBalance());
+				
+				response.getWriter().write("{\"result\":true, \"cash\":"+balance+"}");
 			}else {
 				response.getWriter().write("{\"result\":false}");
 			}
@@ -66,21 +70,31 @@ public class MemberController {
 	
 	@RequestMapping("cashList.do")
 	public void cashList(HttpServletRequest request, HttpServletResponse response) {
-		
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+
 		String id = request.getParameter("id");
 		Gson gson = new Gson();
 		try {
 			PrintWriter printWriter = response.getWriter();
 			List<CashRecord> list = memberService.cashList(id);
 			System.out.println(list.size());
-//			String json = gson.toJson();
-//			printWriter.write(json);
+			
+			
+			String json = gson.toJson(list);
+			printWriter.write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		 
+	}
+	
+	
+	
+	@RequestMapping("exchange.do")
+	public void exchange(HttpServletRequest request, HttpServletResponse response) {
+		int amount = Integer.parseInt(request.getParameter("amount"));
 		
 		
 		
