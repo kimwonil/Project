@@ -47,37 +47,49 @@ $(document).ready(function(){
   			data : inputAddr,
   			dataType : 'json',
   			success : function(data){
-  				alert(data.items[0].address + "를 입력하셨습니다");
-  				juso = data.items[0].address;
-  				destination = data.items[0].title;
-  				
-  			     var myaddress = juso;// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
-  			      naver.maps.Service.geocode({address: myaddress}, function(status, response) {
-  			          if (status !== naver.maps.Service.Status.OK) {
-  			              return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
-  			          }
-  			          var result = response.result;
-  			          // 검색 결과 갯수: result.total
-  			          // 첫번째 결과 결과 주소: result.items[0].address
-  			          // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
-  			          var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
-  			          map.setCenter(myaddr); // 검색된 좌표로 지도 이동
+  			//주소리스트
+		          $.each(data.items, function(index, value){
+//			        	  $('#table').append("<tr><td>"+value.title+"</td><td>"+value.address+"</td></tr>");
+		          	$('#table').append('<input type="radio" name="address" value="'+index+'">' + value.title + value.address + '<br>');
+		          });
+  			
+  			
+  			
+  			//일단 item[0]기준으로 마커 찍고
+  				var myaddress = data.items[0].address;// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+  			    naver.maps.Service.geocode({address: myaddress}, function(status, response) {
+  			    	if (status !== naver.maps.Service.Status.OK) {
+  			    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
+  			        }
+  			        var result = response.result;
+  			        // 검색 결과 갯수: result.total
+  			        // 첫번째 결과 결과 주소: result.items[0].address
+  			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+  			        console.log(result);
+  			        for(var i=0;i<result.items.length;i++){
+  			        	console.log(result.items[i]);
+  			        }
+  			        
+  			        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
+  			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동
   			          
-  			          //주소리스트
-  			          $.each(data.items, function(index, value){
-//   			        	  $('#table').append("<tr><td>"+value.title+"</td><td>"+value.address+"</td></tr>");
   			          
-  			          	$('#table').append('<input type="radio">' + value.title + value.address + '<br>');
-  			          	
-  			          })
-  			          
-  			          
-  			          // 마커 표시
-  			          var marker = new naver.maps.Marker({
-  			            position: myaddr,
+  			        // 마커 표시
+  			        var marker = new naver.maps.Marker({
+  			        	position: myaddr,
   			            map: map
-  			          });
-  			          
+  			        });
+
+
+
+  			
+  			
+  			//직접 지도에서 찍은 곳으로 마커 이동
+	  			naver.maps.Event.addListener(map, 'click', function(e) {
+				    marker.setPosition(e.latlng);
+				});
+
+  			
   			          
   			          // 마커 클릭 이벤트 처리
   			          naver.maps.Event.addListener(marker, "click", function(e) {
@@ -89,7 +101,7 @@ $(document).ready(function(){
   			          });
   			          // 마크 클릭시 인포윈도우 오픈
   			          var infowindow = new naver.maps.InfoWindow({
-  			        	  content : "<h5>"+destination+"</h5><br>"
+  			        	  content : "<h5>"+"맵의 좌표에 해당하는 주소에서 정보 가져와야해 그리고 인포윈도우는 마커를 따라다녀야해 하하핳하하하하"+"</h5><br>"
   			          });
   			      });
   				
@@ -103,7 +115,40 @@ $(document).ready(function(){
   	 }
   	  
     });
+    
+    
+		//라디오 선택한 곳으로 마커이동
+		$('input[name=address]').on('click', function(){
+			alert($('input[name=address]:checked').val());
+//			var mapx = $('input[name=address]:checked');
+//			var mapy = ;
+//			var latlng = naver.maps.Point(mapx, mapy);
+//			marker.setPosition(latlng);
+
+		var mapx = data.items[$('input[name=address]:checked').val()].mapx;
+		var mapy = data.items[$('input[name=address]:checked').val()].mapy;
+		
+		console.log(mapx + mapy);
+		var point = new naver.maps.Point(mapx, mapy);
+		
+		map.setCenter(point);
+		
+//	        var map = new naver.maps.Map('map', {
+//	        	center: new naver.maps.Point(mapx, mapy),
+//	        	zoom: 11
+////   			        	position: $('input[name=address]:checked').val(),
+	            
+//	        });
+		
+		});
 });
+</script>
+
+<script type="text/javascript">
+
+
+
+
 </script>
 
 <body>
