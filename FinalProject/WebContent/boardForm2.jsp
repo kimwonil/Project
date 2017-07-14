@@ -28,58 +28,19 @@ border: 1px solid red;
 </style>
 
 <script type="text/javascript">
-window.onload = function(){
-	
-	//내가 표시하고 싶은 곳 좌표
-	var flag = new naver.maps.LatLng(37.3595704, 127.105399);
-	
-	//지도 생성, 중심 좌표, 줌
-	var map = new naver.maps.Map('map', {
-		center: flag,
-	    zoom: 10
-	});
-	
-	//마커
-	var marker = new naver.maps.Marker({
-		position : flag,
-		map: map
-	});
-	
-	var contentString = [
-        '<div class="iw_inner" >',
-        '   <h6>여기가 바로 네이버</h6><br>',
-        '       <a href="http://www.naver.com" target="_blank">www.naver.com/</a>',
-        '   </p>',
-        '</div>'
-    ].join('');
+$(document).ready(function(){
+	var mapOptions = {
 
-var infowindow = new naver.maps.InfoWindow({
-    content: contentString,
-    anchorSkew: true,
-    pixelOffset: new naver.maps.Point(0, 0)
-});
+		    center: new naver.maps.LatLng(37.3595704, 127.105399),
 
-naver.maps.Event.addListener(marker, "click", function(e) {
-    if (infowindow.getMap()) {
-        infowindow.close();
-    } else {
-        infowindow.open(map, marker);
-    }
-});
+		    zoom: 10
 
-infowindow.open(map, marker);
+		}
+
+		var map = new naver.maps.Map('map', mapOptions );
 
 
-//Form 내용 파라미터로 받아서 넘기기
-	$('#go').on('click', function(){
-		$.ajax({
-			url : 
-		})
-	
-	
-	
-	});
-}
+})
 </script>
 
 <body>
@@ -121,15 +82,9 @@ infowindow.open(map, marker);
 					
 					
 					<div class="row">
-					
 						<h3>지도 띄울 곳</h3>
-						<div id="mapContent">
-							 <div id="map" style="width:400px; height:400px;" align="center"></div>
-<!-- 							 	<table id="table"> -->
-<!-- 									<tr><th>명칭</th><th>주소</th></tr> -->
-<!-- 							  	</table> -->
-							 </div>
-						</div>
+						<div id="map" style="width:50%;height:400px;"></div>
+					</div>
 					
 					</div>
 					
