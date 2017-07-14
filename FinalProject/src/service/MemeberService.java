@@ -51,4 +51,10 @@ public class MemeberService {
 	public List<Exchange> exchangeList(String id) {
 		return memberDao.exchangeList(id);
 	}
+	
+	public int exchangeManager(HashMap<String, Object> map) {
+		System.out.println(map+"//서비스");
+		return memberDao.exchangeManager(map);
+	}
+	
 }

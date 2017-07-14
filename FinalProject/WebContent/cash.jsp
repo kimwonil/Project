@@ -97,7 +97,7 @@
 													+data[i].amount+"</td><td>"
 													+data[i].balance+"</td><td>"
 													+data[i].code+"</td><td>"
-													+data[i].state+"</td></tr>");
+													+(data[i].state==1?"충전":data[i].state==2?"구매":data[i].state==3?"환불":data[i].state==4?"정산대기":"정산완료")+"</td></tr>");
 					}
 				},
 				error:function(jqXHR, textStatus, errorThrown){

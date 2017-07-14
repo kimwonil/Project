@@ -32,6 +32,11 @@
  <select id="exchangeList" parameterType="String" resultType="Exchange">
  	select * from exchange where id=#{id}
  </select>
+ 
+ 
+ <update id="exchangeManager" parameterType="java.util.HashMap">
+ 	update exchange set state=#{state} where no=#{no}
+ </update>
  </mapper>
  
  
