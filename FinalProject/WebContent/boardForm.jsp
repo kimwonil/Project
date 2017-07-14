@@ -52,8 +52,7 @@ $(document).ready(function(){
 //			        	  $('#table').append("<tr><td>"+value.title+"</td><td>"+value.address+"</td></tr>");
 		          	$('#table').append('<input type="radio" name="address" value="'+index+'">' + value.title + value.address + '<br>');
 		          });
-  			
-  			
+  			 			
   			
   			//일단 item[0]기준으로 마커 찍고
   				var myaddress = data.items[0].address;// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
@@ -65,14 +64,9 @@ $(document).ready(function(){
   			        // 검색 결과 갯수: result.total
   			        // 첫번째 결과 결과 주소: result.items[0].address
   			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
-  			        console.log(result);
-  			        for(var i=0;i<result.items.length;i++){
-  			        	console.log(result.items[i]);
-  			        }
   			        
   			        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
-  			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동
-  			          
+  			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  			          
   			          
   			        // 마커 표시
   			        var marker = new naver.maps.Marker({
@@ -84,7 +78,7 @@ $(document).ready(function(){
 
   			
   			
-  			//직접 지도에서 찍은 곳으로 마커 이동
+  				//직접 지도에서 찍은 곳으로 마커 이동
 	  			naver.maps.Event.addListener(map, 'click', function(e) {
 				    marker.setPosition(e.latlng);
 				});
