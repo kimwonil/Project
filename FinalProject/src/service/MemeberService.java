@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import dao.MemberDao;
 import model.CashRecord;
+import model.Exchange;
 import model.Member;
 
 @Service
@@ -34,5 +35,20 @@ public class MemeberService {
 		return memberDao.cashList(id);
 	}
 	
+	public int exchange(HashMap<String, Object> map){
+		int result = memberDao.exchange(map);
+		if(result>=1) {
+			changeBalance(map);
+		}
+		
+		return result;
+	}
 	
+	public int changeBalance(HashMap<String, Object> map) {
+		return memberDao.changeBalance(map);
+	}
+	
+	public List<Exchange> exchangeList(String id) {
+		return memberDao.exchangeList(id);
+	}
 }

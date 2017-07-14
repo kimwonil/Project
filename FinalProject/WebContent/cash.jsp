@@ -88,13 +88,12 @@
 			$.ajax({
 				url:"cashList.do",
 				type:"POST",
-				data:{id:$('#memberId').val()},
 				dataType:"json",
 				success:function(data){
 // 					console.log(data);
-					$('#tradeList tr:gt(0)').remove();
+					$('#tradeTable tr:gt(0)').remove();
 					for(var i=0;i<data.length;i++){
-					$('#tradeList').append("<tr><td>"+data[i].date+"</td><td>"
+					$('#tradeTable').append("<tr><td>"+data[i].date+"</td><td>"
 													+data[i].amount+"</td><td>"
 													+data[i].balance+"</td><td>"
 													+data[i].code+"</td><td>"
@@ -127,20 +126,50 @@
 		
 		
 		$('#exchange').click(function(){
-			var amount = $('#exchangeAmount').val();
 			$.ajax({
 				url:"exchange.do",
 				type:"POST",
-				data:{amount:amount},
+				data:{amount:$('#exchangeAmount').val()},
 				dataType:"json",
 				success:function(data){
 					console.log(data);
+					alert("환전 신청 되었습니다.");
+					$('#exchangeAmount').val("");
+					$('.balance').text(data.cash);
 				},
-				error:function(data){
-					console.log("실패");
+				error:function(jqXHR, textStatus, errorThrown){
+					console.log(textStatus);
+					console.log(errorThrown);
 				}
 			});
 		});//환전 클릭
+		
+		
+		$('#exchangeList').click(function(){
+			$.ajax({
+				url:"exchangeList.do",
+				type:"POST",
+				data:{id:$('#memberId').val()},
+				dataType:"json",
+				success:function(data){
+// 					console.log(data);
+					$('#exchangeTable tr:gt(0)').remove();
+					for(var i=0;i<data.length;i++){
+					$('#exchangeTable').append("<tr><td>"+data[i].date+"</td><td>"
+													+data[i].request+"</td><td>"
+													+data[i].balance+"</td><td>"
+													+(data[i].state==1?"환전대기":data[i].state==2?"환전완료":"환전취소")+"</td></tr>");
+					}
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+					console.log(textStatus);
+					console.log(errorThrown);
+					
+				}
+			});
+			
+		});//환전 리스트 클릭
+		
 		
 	});	//document
 	
@@ -170,12 +199,12 @@
 		text-align:center;
 		margin: 0 auto;
 	}
-	#tradeList, #completeList, #exchangeList{
+	#tradeTable, #exchangeTable{
 		width:700px;
 		text-align: center;
 		margin: 0 auto;
 	}
-	#tradeList td, #completeList td, #exchangeList td{
+	#tradeTable td, #exchangeTable td{
 		
 		border:1px solid black;
 	}
@@ -195,7 +224,7 @@
 							<li><a href="#tabs-1">충전</a></li>
 							<li><a href="#tabs-2" id="cashList">캐시 내역</a></li>
 							<li><a href="#tabs-3">환전 신청</a></li>
-							<li><a href="#tabs-4">환전 신청 내역</a></li>
+							<li><a href="#tabs-4" id="exchangeList">환전 신청 내역</a></li>
 						</ul>
 						<div id="tabs-1">
 							<p>
@@ -218,7 +247,7 @@
 							</p>
 						</div>
 						<div id="tabs-2">
-							<table id="tradeList">
+							<table id="tradeTable">
 								<tr>
 									<td width="15%">처리일</td>
 									<td width="15%">충전금액</td>
@@ -232,7 +261,7 @@
 						<div id="tabs-3">
 							<table>
 								<tr>
-									<td width="35%">현재 포인트 : <label><fmt:formatNumber value="${member.balance}" type="number"/> </label></td>
+									<td width="35%">현재 포인트 : <label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/> </label></td>
 								</tr>
 								<tr>
 									<td width="15%">신청 포인트 : <input type="text" id="exchangeAmount">
@@ -240,7 +269,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td width="35%">환전 후 포인트 : <label id="afterBalance">6,500</label></td>
+									<td width="35%">환전 후 포인트 : <label class="balance" id="afterBalance"><fmt:formatNumber value="${member.balance}" type="number"/> </label></td>
 								</tr>
 								<tr>
 									<td width="15%"><button class="btn btn-sm btn-info" id="exchange">환전</button></td>
@@ -248,20 +277,12 @@
 							</table>
 						</div>
 						<div id="tabs-4">
-							<table id="completeList">
+							<table id="exchangeTable">
 								<tr>
-									<td width="15%">처리일</td>
-									<td width="50%">제목</td>
-									<td width="15%">구매자</td>
-									<td width="10%">금액</td>
+									<td width="30%">처리일</td>
+									<td width="30%">요청금액</td>
+									<td width="30%">잔액</td>
 									<td width="10%">상태</td>
-								</tr>
-								<tr>
-									<td>2017-07-12</td>
-									<td>임시 배치용 글</td>
-									<td>구매자ID</td>
-									<td>10,000</td>
-									<td>정산완료</td>
 								</tr>
 							</table>
 						</div>
