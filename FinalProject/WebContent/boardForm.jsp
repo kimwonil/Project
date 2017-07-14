@@ -31,16 +31,14 @@ border: 1px solid red;
 $(document).ready(function(){
 	
     var map = new naver.maps.Map('map');
-    var juso = "";
-    var destination = "";
-    
+    var marker;
     $('#mapSearch').on('click', function(){
   	  
   	  if($('#inputAddr').val() == ""){
   		 alert('검색하실 주소를 입력하세요');
   	 }else{
   		 $.ajax({
-  			type : 'get',
+  			type : 'post',
   			url : 'searchAddr.do',
   			data : {inputAddr:$('#inputAddr').val()},
   			dataType : 'json',
@@ -68,11 +66,11 @@ $(document).ready(function(){
   			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  			          
   			          
   			        // 마커 표시
-  			        var marker = new naver.maps.Marker({
+  			        marker = new naver.maps.Marker({
   			        	position: myaddr,
   			            map: map
   			        });
-  			
+  			      console.log(marker._target);
   				//직접 지도에서 찍은 곳으로 마커 이동
 	  			naver.maps.Event.addListener(map, 'click', function(e) {
 				    marker.setPosition(e.latlng);
@@ -123,16 +121,19 @@ $(document).ready(function(){
 	        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
 	        
 	        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
-	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  			          
 	          
+	    	marker.setMap(null);
 	        // 마커 표시
-	        var marker = new naver.maps.Marker({
+	        marker = new naver.maps.Marker({
 	        	position: myaddr,
 	            map: map
 	        });
-	
+	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  			          
+
 	    });
     });
+    
+    $()
     
     
     
@@ -159,25 +160,26 @@ $(document).ready(function(){
 						
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
+							<form id="detailInfo">
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select><option>대분류</option><option>카테고리2</option><option>카테고리3</option> </select> 
 									<select><option>소분류</option><option>카테고리2</option><option>카테고리3</option> </select>
 									</th></tr>
-									<tr><th>글제목</th><th> <input type="text"> </th></tr>
-									<tr><th>등록 마감일</th><th> <input type="text"> </th></tr>
-									<tr><th>인원 또는 건수</th><th> <input type="text"> </th></tr>
-									<tr><th>장소 또는 지역</th><th> <input type="text" id="inputAddr" name="inputAddr"> 
+									<tr><th>글제목</th><th> <input type="text" name="title"> </th></tr>
+									<tr><th>등록 마감일</th><th> <input type="text" name="end_date"> </th></tr>
+									<tr><th>인원 또는 건수</th><th> <input type="text" name="limit"> </th></tr>
+									<tr><th>장소 또는 지역</th><th> <input type="text" id="inputAddr" name="inputAddr" > 
 									<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> </th></tr>
-									<tr><th>기본가격</th><th> <input type="text"> </th></tr>
+									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션가격</th><th> <input type="text"> </th></tr>
-									<tr><th>썸네일</th><th> <input type="file"> </th></tr>
-									<tr><th>상세내용</th><th> <textarea rows="10" cols="10"></textarea> </th></tr>
-									<tr><th>상세 이미지 또는 동영상</th><th> <input type="file"> </th></tr>
+									<tr><th>썸네일</th><th> <input type="file" name="thumbnail"> </th></tr>
+									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>
+									<tr><th>상세 이미지 또는 동영상</th><th> <input type="file" name="file_name"> </th></tr>
 								</table>
-							
+							</form>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<a href="#" class="btn btn-sm btn-primary" >GO!</a>
+								<a href="#" class="btn btn-sm btn-primary" id="go">GO!</a>
 							</div>
 						</div>
 					
@@ -199,7 +201,6 @@ $(document).ready(function(){
           <h4 class="modal-title">검색 결과에서 알맞은 것을 선택 또는 지도에 찍은 뒤에 완료를 클릭하세요</h4>
         </div>  
         <div class="modal-body">
-          <p>This is a large modal.</p>
           <div id="map" style="width:858px;height:400px;text-align: center;"></div>
           <table id="table">
 			<tr><th>명칭</th><th>주소</th></tr>
