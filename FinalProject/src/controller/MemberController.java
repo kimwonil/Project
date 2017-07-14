@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import model.CashRecord;
+import model.Exchange;
 import model.Member;
 import service.MemeberService;
 
@@ -26,10 +29,9 @@ public class MemberController {
 	private MemeberService memberService;
 	
 	@RequestMapping("profile.do")
-	public ModelAndView profile(String id, HttpServletRequest request) {
+	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("profile");
 //		Member m = new Member(id, "kwi1222", "empty", 0, 0);
-		HttpSession session = request.getSession();
 		session.setAttribute("member", memberService.selectOne(id));
 		
 //		mv.addObject("member", memberService.selectOne(id));
@@ -53,7 +55,10 @@ public class MemberController {
 
 				memberService.cashRecord(member);	
 				
-				response.getWriter().write("{\"result\":true, \"cash\":"+member.getBalance()+"}");
+				DecimalFormat number = new DecimalFormat("#,###");
+				String balance = number.format(member.getBalance());
+				
+				response.getWriter().write("{\"result\":true, \"cash\":"+balance+"}");
 			}else {
 				response.getWriter().write("{\"result\":false}");
 			}
@@ -65,26 +70,77 @@ public class MemberController {
 	
 	
 	@RequestMapping("cashList.do")
-	public void cashList(HttpServletRequest request, HttpServletResponse response) {
-		
-		String id = request.getParameter("id");
+	public void cashList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		Member member = (Member)session.getAttribute("member");
+		String id = member.getId();
 		Gson gson = new Gson();
 		try {
 			PrintWriter printWriter = response.getWriter();
 			List<CashRecord> list = memberService.cashList(id);
-			System.out.println(list.size());
-//			String json = gson.toJson();
-//			printWriter.write(json);
+			String json = gson.toJson(list);
+			printWriter.write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		 
+	}
+	
+	
+	
+	@RequestMapping("exchange.do")
+	public void exchange(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		Member member = (Member)session.getAttribute("member");
+		int amount = Integer.parseInt(request.getParameter("amount"));
+		int currentBalance = member.getBalance()-amount;
+		HashMap<String, Object> map = new HashMap<>();
 		
+		map.put("amount", amount);
+		map.put("balance", currentBalance);
+		map.put("id", member.getId());
+		int result = memberService.exchange(map);
+		
+		session.setAttribute("member", memberService.selectOne(member.getId()));
+		
+		
+		
+		try {
+			if(result>=1) {
+				DecimalFormat number = new DecimalFormat("#,###");
+				String balance = number.format(currentBalance);
+				response.getWriter().write("{\"result\":true, \"cash\":\""+balance+"\"}");
+			}else {
+				response.getWriter().write("{\"result\":false}");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	@RequestMapping("exchangeList.do")
+	public void exchangeList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		Member member = (Member)session.getAttribute("member");
+		List<Exchange> list = memberService.exchangeList(member.getId());
+		Gson gson = new Gson();
+		try {
+			PrintWriter printWriter = response.getWriter();
+			String json = gson.toJson(list);
+			printWriter.write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}
+	
 	
 	
 

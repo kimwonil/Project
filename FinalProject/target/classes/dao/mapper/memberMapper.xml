@@ -21,6 +21,17 @@
  	select * from cash where id=#{id}
  </select>
  
+ <insert id="exchange" parameterType="java.util.HashMap">
+ 	insert into exchange values(0, sysdate(), #{amount}, #{balance}, 1, #{id})
+ </insert>
+ 
+ <update id="changeBalance" parameterType="java.util.HashMap">
+ 	update profile set balance=#{balance} where id=#{id}
+ </update>
+ 
+ <select id="exchangeList" parameterType="String" resultType="Exchange">
+ 	select * from exchange where id=#{id}
+ </select>
  </mapper>
  
  

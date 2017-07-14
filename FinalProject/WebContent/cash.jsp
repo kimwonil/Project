@@ -43,10 +43,10 @@
 			}, function(rsp) {
 				if ( rsp.success ) {
 			    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-			    	console.log(rsp);
+// 			    	console.log(rsp);
 	 		    	var msg = '결제가 완료되었습니다.';
-	     			msg += '\n고유ID : ' + rsp.imp_uid;
-	     			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+// 	     			msg += '\n고유ID : ' + rsp.imp_uid;
+// 	     			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
 	     			msg += '\n결제 금액 : ' + rsp.paid_amount;
 	     			msg += '\n카드 승인번호 : ' + rsp.apply_num;
 
@@ -65,8 +65,10 @@
 			    		success:function(data){
 			    			$('#refillModal').modal("hide");
 			    			
-			    			console.log(data);
-			    			$('.balance').text(data.cash);
+// 			    			console.log(data);
+							if(data.result){
+								$('.balance').text(data.cash);
+							}
 			    		},
 			    		error:function(jqXHR, textStatus, errorThrown){
 			    			alert(textStatus);     //응답상태
@@ -86,19 +88,87 @@
 			$.ajax({
 				url:"cashList.do",
 				type:"POST",
-				data:{id:$('#memberId').val()},
 				dataType:"json",
 				success:function(data){
-					console.log(data);
-// 					$('#tradeList tr:gt(0)').remove();
-// 					$('#tradeList').append();
+// 					console.log(data);
+					$('#tradeTable tr:gt(0)').remove();
+					for(var i=0;i<data.length;i++){
+					$('#tradeTable').append("<tr><td>"+data[i].date+"</td><td>"
+													+data[i].amount+"</td><td>"
+													+data[i].balance+"</td><td>"
+													+data[i].code+"</td><td>"
+													+data[i].state+"</td></tr>");
+					}
 				},
-				error:function(){}
+				error:function(jqXHR, textStatus, errorThrown){
+					console.log(textStatus);
+					console.log(errorThrown);
+					
+				}
 			});
 			
 			
 		});//cashList 캐시 내역
 		
+		$('#exchangeAmount').keyup(function(){
+			var current = $('#currentBalance').val();
+			var amount = $('#exchangeAmount').val();
+			
+			var after = current - amount;
+			if(after<0){
+				alert("포인트가 부족합니다.");
+				$('#exchangeAmount').val("");
+				$('#afterBalance').text(Number(current).toLocaleString());
+			}else{
+				$('#afterBalance').text(Number(after).toLocaleString());
+			}
+		});//환전 금액 입력
+		
+		
+		$('#exchange').click(function(){
+			$.ajax({
+				url:"exchange.do",
+				type:"POST",
+				data:{amount:$('#exchangeAmount').val()},
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					alert("환전 신청 되었습니다.");
+					$('#exchangeAmount').val("");
+					$('.balance').text(data.cash);
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
+		});//환전 클릭
+		
+		
+		$('#exchangeList').click(function(){
+			$.ajax({
+				url:"exchangeList.do",
+				type:"POST",
+				data:{id:$('#memberId').val()},
+				dataType:"json",
+				success:function(data){
+// 					console.log(data);
+					$('#exchangeTable tr:gt(0)').remove();
+					for(var i=0;i<data.length;i++){
+					$('#exchangeTable').append("<tr><td>"+data[i].date+"</td><td>"
+													+data[i].request+"</td><td>"
+													+data[i].balance+"</td><td>"
+													+(data[i].state==1?"환전대기":data[i].state==2?"환전완료":"환전취소")+"</td></tr>");
+					}
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+					console.log(textStatus);
+					console.log(errorThrown);
+					
+				}
+			});
+			
+		});//환전 리스트 클릭
 		
 		
 	});	//document
@@ -129,12 +199,12 @@
 		text-align:center;
 		margin: 0 auto;
 	}
-	#tradeList, #completeList, #exchangeList{
+	#tradeTable, #exchangeTable{
 		width:700px;
 		text-align: center;
 		margin: 0 auto;
 	}
-	#tradeList td, #completeList td, #exchangeList td{
+	#tradeTable td, #exchangeTable td{
 		
 		border:1px solid black;
 	}
@@ -152,10 +222,9 @@
 					<div id="tabs">
 						<ul>
 							<li><a href="#tabs-1">충전</a></li>
-							<li><a href="#tabs-2" id="cashList">거래내역</a></li>
-							<li><a href="#tabs-3">정산신청</a></li>
-							<li><a href="#tabs-4">환전신청</a></li>
-							<li><a href="#tabs-5">환전신청내역</a></li>
+							<li><a href="#tabs-2" id="cashList">캐시 내역</a></li>
+							<li><a href="#tabs-3">환전 신청</a></li>
+							<li><a href="#tabs-4" id="exchangeList">환전 신청 내역</a></li>
 						</ul>
 						<div id="tabs-1">
 							<p>
@@ -164,7 +233,7 @@
 									<td>
 									<div  id="balanceTD">
 									
-									잔액 : <label class="balance"> ${member.balance}</label>원
+									잔액 : <label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/> </label>원
 									<input type="hidden" value="${member.id}" id="memberId">
 									<input type="hidden" value="${member.nickName}" id="memberNickName">
 									</div>
@@ -178,10 +247,10 @@
 							</p>
 						</div>
 						<div id="tabs-2">
-							<table id="tradeList">
+							<table id="tradeTable">
 								<tr>
 									<td width="15%">처리일</td>
-									<td width="15%">금액</td>
+									<td width="15%">충전금액</td>
 									<td width="15%">잔액</td>
 									<td width="15%">전표코드</td>
 									<td width="10%">상태</td>
@@ -190,52 +259,30 @@
 							</table>
 						</div>
 						<div id="tabs-3">
-							<table id="completeList">
+							<table>
 								<tr>
-									<td width="15%">처리일</td>
-									<td width="50%">제목</td>
-									<td width="15%">구매자</td>
-									<td width="10%">금액</td>
-									<td width="10%">상태</td>
+									<td width="35%">현재 포인트 : <label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/> </label></td>
 								</tr>
 								<tr>
-									<td>2017-07-12</td>
-									<td>임시 배치용 글</td>
-									<td>구매자ID</td>
-									<td>10,000</td>
-									<td>정산완료</td>
+									<td width="15%">신청 포인트 : <input type="text" id="exchangeAmount">
+															  <input type="hidden" value="${member.balance}" id="currentBalance">
+									</td>
+								</tr>
+								<tr>
+									<td width="35%">환전 후 포인트 : <label class="balance" id="afterBalance"><fmt:formatNumber value="${member.balance}" type="number"/> </label></td>
+								</tr>
+								<tr>
+									<td width="15%"><button class="btn btn-sm btn-info" id="exchange">환전</button></td>
 								</tr>
 							</table>
 						</div>
 						<div id="tabs-4">
-							<table>
+							<table id="exchangeTable">
 								<tr>
-									<td width="35%">현재 포인트 : <label>10,500</label></td>
-								</tr>
-								<tr>
-									<td width="15%">신청 포인트 : <input type="text"></td>
-								</tr>
-								<tr>
-									<td width="35%">환전 후 포인트 : <label>6,500</label></td>
-								</tr>
-								<tr>
-									<td width="15%"><button class="btn btn-sm btn-info">환전</button></td>
-								</tr>
-							</table>
-						</div>
-						<div id="tabs-5">
-							<table id="exchangeList">
-								<tr>
-									<td width="15%">처리일</td>
-									<td width="35%">신청 포인트</td>
-									<td width="35%">환전 후 포인트</td>
-									<td width="15%">상태</td>
-								</tr>
-								<tr>
-									<td>2017-07-12</td>
-									<td>5,000</td>
-									<td>6,500</td>
-									<td>승인대기</td>
+									<td width="30%">처리일</td>
+									<td width="30%">요청금액</td>
+									<td width="30%">잔액</td>
+									<td width="10%">상태</td>
 								</tr>
 							</table>
 						</div>
