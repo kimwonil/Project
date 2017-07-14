@@ -41,7 +41,7 @@
 		<td>아이디</td>
 	</tr>
 	<tr>
-		<td><label class="balance"> ${member.balance}</label>원</td>
+		<td><label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/></label>원</td>
 	</tr>
 	<tr>
 		<td><input type="button" value="충전" class="btn btn-sm btn-info"></td>

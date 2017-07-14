@@ -12,12 +12,30 @@
 	<atom:link href="https://www.genuitec.com/feed/" rel="self" type="application/rss+xml" />
 	<link>https://www.genuitec.com</link>
 	<description>The Cloud Control Company</description>
-	<lastBuildDate>Thu, 13 Jul 2017 02:06:10 +0000</lastBuildDate>
+	<lastBuildDate>Thu, 13 Jul 2017 20:25:28 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>hourly</sy:updatePeriod>
 	<sy:updateFrequency>1</sy:updateFrequency>
 	<generator>https://wordpress.org/?v=4.6.1</generator>
 	<item>
+		<title>Create a Kanban Board with Angular 4</title>
+		<link>https://www.genuitec.com/create-kanban-board-angular-4/</link>
+		<pubDate>Thu, 13 Jul 2017 13:43:09 +0000</pubDate>
+		<dc:creator><![CDATA[Bob at Genuitec]]></dc:creator>
+				<category><![CDATA[Eclipse]]></category>
+		<category><![CDATA[Genuitec]]></category>
+		<category><![CDATA[MyEclipse]]></category>
+		<category><![CDATA[Programming Tips]]></category>
+		<category><![CDATA[Angular 4]]></category>
+		<category><![CDATA[angular 4 app]]></category>
+		<category><![CDATA[kanban board]]></category>
+
+		<guid isPermaLink="false">https://www.genuitec.com/?p=527574</guid>
+		<description><![CDATA[<p>In this tutorial, we will be creating a simple Kanban board with Angular 4. A Kanban board is a work and workflow visualization tool that enables you to optimize the flow of your work, a basic Kanban board has a three-step workflow: To Do, In Progress, and Done.Live DemoWe represent every work item as a [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.genuitec.com/create-kanban-board-angular-4/">Create a Kanban Board with Angular 4</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
+]]></description>
+		</item>
+		<item>
 		<title>CI 7 &#8212; More Treasures Unveiled.</title>
 		<link>https://www.genuitec.com/ci-7-treasures-unveiled/</link>
 		<pubDate>Mon, 10 Jul 2017 15:23:30 +0000</pubDate>
@@ -246,30 +264,14 @@
 <p>The post <a rel="nofollow" href="https://www.genuitec.com/creating-first-angular-app/">Creating Your First Angular App.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
 ]]></description>
 		</item>
-		<item>
-		<title>CodeTogether &#8212; Collaborative Development Made Possible for IDE Work.</title>
-		<link>https://www.genuitec.com/codetogether-collaborative-development-made-possible-ide-work/</link>
-		<pubDate>Tue, 23 May 2017 14:55:37 +0000</pubDate>
-		<dc:creator><![CDATA[Wanda Muriy]]></dc:creator>
-				<category><![CDATA[Eclipse]]></category>
-		<category><![CDATA[Genuitec]]></category>
-		<category><![CDATA[MyEclipse]]></category>
-		<category><![CDATA[Programming Tips]]></category>
-		<category><![CDATA[Webclipse]]></category>
-
-		<guid isPermaLink="false">https://www.genuitec.com/?p=523772</guid>
-		<description><![CDATA[<p>If a developer was ever viewed as a hermit buried deeply in his or her screen, such a notion can no longer hold ground. In the XXI century, web development does not imply an activity that is necessarily done individually. At the same time, collaboration goes beyond using a white board, a task list or [&#8230;]</p>
-<p>The post <a rel="nofollow" href="https://www.genuitec.com/codetogether-collaborative-development-made-possible-ide-work/">CodeTogether &#8212; Collaborative Development Made Possible for IDE Work.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
-]]></description>
-		</item>
 	</channel>
 </rss>
 
 <!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
 
-Object Caching 9123/9442 objects using disk
+Object Caching 9158/9280 objects using disk
 Page Caching using disk: enhanced (Requested URI is rejected)
 Content Delivery Network via resources.cloud.genuitec.com
-Database Caching 4/44 queries in 1.156 seconds using disk
+Database Caching 43/45 queries in 0.006 seconds using disk
 
- Served from: www.genuitec.com @ 2017-07-13 00:24:24 by W3 Total Cache -->
+ Served from: www.genuitec.com @ 2017-07-13 19:05:48 by W3 Total Cache -->
