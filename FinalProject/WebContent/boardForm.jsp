@@ -35,8 +35,8 @@ $(document).ready(function(){
     var destination = "";
     
     $('#mapSearch').on('click', function(){
-  	  var inputAddr = $('#inputAddr').serialize();	
-  	  alert(inputAddr);
+//   	  var inputAddr = $('#inputAddr').serialize();	
+//   	  alert(inputAddr);
   	  
   	  if($('#inputAddr').val() == ""){
   		 alert('검색하실 주소를 입력하세요');
@@ -44,13 +44,13 @@ $(document).ready(function(){
   		 $.ajax({
   			type : 'get',
   			url : 'searchAddr.do',
-  			data : inputAddr,
+  			data : {inputAddr:$('#inputAddr').val()},
   			dataType : 'json',
   			success : function(data){
   			//주소리스트
 		          $.each(data.items, function(index, value){
 //			        	  $('#table').append("<tr><td>"+value.title+"</td><td>"+value.address+"</td></tr>");
-		          	$('#table').append('<input type="radio" name="address" value="'+index+'">' + value.title + value.address + '<br>');
+		          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'">' + value.title +'</td><td>'+ value.address + '</td></tr>');
 		          });
   			 			
   			
@@ -105,36 +105,23 @@ $(document).ready(function(){
                   alert(errorThrown);
               }
   		 });
+  		 
   		 $('#myModal').modal();
   	 }
   	  
+    });//지도 modal 끝(검색 클릭)
+    
+    
+    
+    
+    $(document).on('click',".addrRadio",function(){
+    	alert($(this).val());
+    	
     });
     
     
-		//라디오 선택한 곳으로 마커이동
-		$('input[name=address]').on('click', function(){
-			alert($('input[name=address]:checked').val());
-//			var mapx = $('input[name=address]:checked');
-//			var mapy = ;
-//			var latlng = naver.maps.Point(mapx, mapy);
-//			marker.setPosition(latlng);
-
-		var mapx = data.items[$('input[name=address]:checked').val()].mapx;
-		var mapy = data.items[$('input[name=address]:checked').val()].mapy;
+    
 		
-		console.log(mapx + mapy);
-		var point = new naver.maps.Point(mapx, mapy);
-		
-		map.setCenter(point);
-		
-//	        var map = new naver.maps.Map('map', {
-//	        	center: new naver.maps.Point(mapx, mapy),
-//	        	zoom: 11
-////   			        	position: $('input[name=address]:checked').val(),
-	            
-//	        });
-		
-		});
 });
 </script>
 
@@ -158,7 +145,7 @@ $(document).ready(function(){
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
 								<table class="table">
-									<tr><th>카테고리</th><th>
+									<tr><th>카테고리 </th><th>
 									<select><option>대분류</option><option>카테고리2</option><option>카테고리3</option> </select> 
 									<select><option>소분류</option><option>카테고리2</option><option>카테고리3</option> </select>
 									</th></tr>
