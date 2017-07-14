@@ -121,6 +121,7 @@ $(document).ready(function(){
 			<li><a href="selling.jsp">판매관리</a></li>
 			<li><a href="purchasing.jsp">구매관리</a></li>
 			<li><a href="cash.jsp">캐시관리</a></li>
+			<li><a href="cashManager.jsp">캐시 매니저</a></li>
 			<li><a href="message.jsp">쪽지관리</a></li>
 			<li><a href="pricing.jsp">Pricing</a></li>
 			<li><a href="contact.jsp">Contact</a></li>

@@ -141,6 +141,42 @@ public class MemberController {
 		
 	}
 	
+	@RequestMapping("exchangeManager.do")
+	public void exchangeManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		int no = Integer.parseInt(request.getParameter("no"));
+		int state=0;
+		if(request.getParameter("state").equals("2")) {
+			state=2;
+		}else {
+			state=3;
+		}
+			
+		System.out.println(no+"//"+state);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("no", no);
+		map.put("state", state);
+		
+		System.out.println(map);
+		
+		try {
+			if(memberService.exchangeManager(map)>=1) {
+				response.getWriter().write("{\"result\":true}");
+			}else {
+				response.getWriter().write("{\"result\":false}");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 	
 

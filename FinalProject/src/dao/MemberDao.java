@@ -15,4 +15,5 @@ public interface MemberDao {
 	public int exchange(HashMap<String, Object> map);
 	public int changeBalance(HashMap<String, Object> map);
 	public List<Exchange> exchangeList(String id);
+	public int exchangeManager(HashMap<String, Object> map); 
 }
