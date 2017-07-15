@@ -32,6 +32,9 @@ $(document).ready(function(){
 	
     var map = new naver.maps.Map('map');
     var marker;
+    var info_title = "";
+    var info_address = "";
+    
     $('#mapSearch').on('click', function(){
   	  
   	  if($('#inputAddr').val() == ""){
@@ -86,7 +89,7 @@ $(document).ready(function(){
   			          });
   			          // 마크 클릭시 인포윈도우 오픈
   			          var infowindow = new naver.maps.InfoWindow({
-  			        	  content : "<h5>"+"맵의 좌표에 해당하는 주소에서 정보 가져와야해 그리고 인포윈도우는 마커를 따라다녀야해 하하핳하하하하"+"</h5><br>"
+  			        	  content : "<h5>"+"info_title찍고"+"</h5><br><h6>"+"info_address찍자"+"</h6>"
   			          });
   			      });
   				
@@ -128,7 +131,9 @@ $(document).ready(function(){
 	        	position: myaddr,
 	            map: map
 	        });
-	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  			          
+	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
+	        
+	        console.log("여기여기"+result.items[0]);
 
 	    });
     });
