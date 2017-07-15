@@ -50,7 +50,7 @@ $(document).ready(function(){
   			$('#table tr').empty();
 		          $.each(data.items, function(index, value){
 		        	  
-		          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'">' + value.title +'</td><td><input type="hidden" name="title" value="'+value.title+'">'+ value.address + '</td></tr>');
+		          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'">' + value.title +'</td><td><input type="hidden" name="ttt" value="'+value.title+'">'+ value.address + '</td></tr>');
 		          });
   			
   			//검색 결과 item[0]의 address를 가져와서 지도 api에서 검색한 뒤 중심이동&마커표시
@@ -141,6 +141,7 @@ $(document).ready(function(){
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
 	        
 	        console.log("여기여기"+result.items[0]);
+	        console.log("title도 나오니?" + $('input[name=ttt]').val());
 
         // 마커 클릭 이벤트 처리
         naver.maps.Event.addListener(marker, "click", function(e) {
