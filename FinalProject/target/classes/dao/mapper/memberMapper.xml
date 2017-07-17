@@ -33,10 +33,22 @@
  	select * from exchange where id=#{id}
  </select>
  
- 
  <update id="exchangeManager" parameterType="java.util.HashMap">
  	update exchange set state=#{state} where no=#{no}
  </update>
+ 
+ <select id="messageList" parameterType="String" resultType="Message">
+ 	select * from message where receiver=#{id}
+ </select>
+ 
+ <update id="messageState" parameterType="int">
+ 	update message set state=2 where no=#{no}
+ </update>
+ 
+ <select id="messageDetail" parameterType="int" resultType="Message">
+ 	select * from message where no=#{no}
+ </select>
+ 
  </mapper>
  
  

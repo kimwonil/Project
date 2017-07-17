@@ -14,6 +14,7 @@
 		border: 1px solid black;
 		width: 700px;
 		text-align: center;
+		margin:10px 0px;
 		
 	}
 	#talentTable{
@@ -53,7 +54,7 @@
 							<td>승인대기중 / <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">삭제</button></td>
 						</tr>
 					</table>
-					<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
+					<button type="button" class="btn-sm btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
 
 						  <!-- 재능 신청 Modal -->
 						  <div class="modal fade" id="addModal" role="dialog">
@@ -114,8 +115,8 @@
 						        </div>
 						        <div class="modal-body">
 						         	<b>등록된 재능을 삭제하시겠습니까?</b>
-						          <button type="button" class="btn btn-danger">삭제</button>
-						          <button type="button" class="btn btn-info" data-dismiss="modal">닫기</button>
+						          <button type="button" class="btn-sm btn-danger">삭제</button>
+						          <button type="button" class="btn-sm btn-info" data-dismiss="modal">닫기</button>
 						        </div>
 						      </div>
 						      

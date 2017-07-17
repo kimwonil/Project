@@ -51,9 +51,10 @@
 				$('#exchangeTable tr:gt(0)').remove();
 				for(var i=0;i<data.length;i++){
 				$('#exchangeTable').append("<tr><td>"+data[i].date+"</td><td>"
+												+data[i].id+"</td><td>"
 												+data[i].request+"</td><td>"
 												+data[i].balance+"</td><td>"
-												+(data[i].state==1?"<button class='approvalBtn btn btn-sm btn-info' value='"+data[i].no+"'>승인</button><button class='cancelBtn btn btn-sm btn-info' value='"+data[i].no+"'>취소</button>":data[i].state==2?"환전완료":"환전취소")+"</td></tr>");
+												+(data[i].state==1?"<button class='approvalBtn btn btn-info' value='"+data[i].no+"'>승인</button><button class='cancelBtn btn btn-info' value='"+data[i].no+"'>취소</button>":data[i].state==2?"환전완료":"환전취소")+"</td></tr>");
 				}
 			},
 			error:function(jqXHR, textStatus, errorThrown){
@@ -166,6 +167,7 @@
 	.btn{
 		line-height:15px;
 		margin: 10px 10px;
+		padding: 3px;
 	}
 
 </style>
@@ -198,10 +200,11 @@
 						<div id="tabs-2">
 							<table id="exchangeTable">
 								<tr>
-									<td width="25%">처리일</td>
-									<td width="25%">요청금액</td>
-									<td width="25%">잔액</td>
-									<td width="30%">상태</td>
+									<td width="15%">처리일</td>
+									<td width="35%">아이디</td>
+									<td width="15%">요청금액</td>
+									<td width="15%">잔액</td>
+									<td width="20%">상태</td>
 								</tr>
 							</table>
 						</div>

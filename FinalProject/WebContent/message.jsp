@@ -16,12 +16,65 @@
 		$("#tabs").tabs();
 	});
 	
+	function messageList(){
+		
+		$.ajax({
+			url:"messageList.do",
+			type:"POST",
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				$('#messageList tr:gt(0)').remove();
+				for(var i=0;i<data.length;i++){
+				$('#messageList').append("<tr><td>"+data[i].date+"</td><td><a id='"+data[i].no+"'class='messageDetail' data-toggle='modal' data-target='#messageModal'>"
+												+data[i].title+"</a></td><td>"
+												+data[i].sender+"</td><td>"
+												+(data[i].state==1?"읽지 않음":"읽음")+"</td></tr>");
+				}
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+		
+	};
+	
+	messageList();
+	
+	
+	$(document).on('click','.messageDetail',function(){
+		$.ajax({
+			url:"messageDetail.do",
+			type:"POST",
+			data:{no:$(this).attr('id')},
+			dataType:"json",
+			success:function(data){
+				messageList();
+				$('#messageTitle').text(data.title);
+				$('#messageSender').text(data.sender);
+				$('#messageContent').text(data.content);
+			},
+			error:function(){
+				alert("실패");
+			}
+		});
+		
+	});
+	
+	
+	
+	
+	
 </script>
 <style type="text/css">
-	
+	#messageList{
+		text-align: center;
+	}
 	#messageList, #messageWrite{
 		width:700px;
 		margin: 0 auto;
+		
 	}
 	#messageDetail{
 		width: 548px;
@@ -68,12 +121,6 @@
 									<td width="20%">보낸사람</td>
 									<td width="15%">상태</td>
 								</tr>
-								<tr>
-									<td>2017-07-12</td>
-									<td><a data-toggle="modal" href="#messageModal">메세지 리스트</a></td>
-									<td>운영자</td>
-									<td>읽음</td>
-								</tr>
 							</table>
 						</div>
 						<div id="tabs-2">
@@ -108,18 +155,18 @@
 									<table id="messageDetail">
 										<tr>
 											<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
-												: <label>메세지 리스트</label>
+												: <label id="messageTitle">메세지 리스트</label>
 											</td>
 											<td width="20%" rowspan="2" align="center"><button
 													type="button" id="messageDelete" class="btn btn-sm btn-danger">삭제</button></td>
 										</tr>
 										<tr>
 
-											<td width="80%">보낸사람 : <label>운영자</label>
+											<td width="80%">보낸사람 : <label id="messageSender">운영자</label>
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3"><textarea rows="10" cols="78" readonly="readonly">내용입니다.</textarea></td>
+											<td colspan="3"><textarea id="messageContent" rows="10" cols="78" readonly="readonly">내용입니다.</textarea></td>
 										</tr>
 									</table>
 								</div>
