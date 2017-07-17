@@ -30,11 +30,17 @@ border: 1px solid red;
 <script type="text/javascript">
 $(document).ready(function(){
 	
-    var map = new naver.maps.Map('map');
+    var map = new naver.maps.Map('map', {
+    	zoom: 12
+    });
     var marker;
     var info_title = "";
-    var info_address = "";
+    var info_address = "";//도로명
+    var info_address2 = "";//지번
     var infoWindow;
+    
+    
+    
     
     $('#mapSearch').on('click', function(){
   	  
@@ -56,9 +62,12 @@ $(document).ready(function(){
 		          });
   			
   			//검색 결과 item[0]의 address를 가져와서 지도 api에서 검색한 뒤 중심이동&마커표시
+  			
+  				console.log(data);
   				var myaddress = data.items[0].address;// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
   				info_title = data.items[0].title;
   				info_address = myaddress;
+  				info_address2 = "";
   			    naver.maps.Service.geocode({address: myaddress}, function(status, response) {
   			    	if (status !== naver.maps.Service.Status.OK) {
   			    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
@@ -86,6 +95,9 @@ $(document).ready(function(){
   						
   			      	//직접 지도에서 찍은 곳으로 마커 이동
 		  			naver.maps.Event.addListener(map, 'click', function(e) {
+		  				map = new naver.maps.Map('map', {
+		  			    	zoom: 12
+		  			    });
 // 		  				infowindow.close();
 					    marker.setPosition(e.latlng);
 					
@@ -119,6 +131,8 @@ $(document).ready(function(){
 						  	        	  content : "<h5>title이 없어서 미안해</h5><h6>"+items[0].address+"</h6><h6>"+items[1].address+"</h6>"
 						  	          });
 						  	        infowindow.open(map, marker);
+						  	       info_address = items[0].address;
+						  	       info_address2 = items[1].address
 
 
 					        });
@@ -136,8 +150,11 @@ $(document).ready(function(){
   			      	
 		  	        // 마커 클릭 이벤트 처리
 		  	        naver.maps.Event.addListener(marker, "click", function(e) {
+		  	        	map = new naver.maps.Map('map', {
+		  	          	zoom: 12
+		  	          });
 		  	          if (infowindow.getMap()) {
-// 		  	              infowindow.close();
+		  	              infowindow.close();
 		  	          } else {
 		  	              infowindow.open(map, marker);
 		  	          }
@@ -146,7 +163,9 @@ $(document).ready(function(){
 		  	          infowindow = new naver.maps.InfoWindow({
 		  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
 		  	          });
+		  	          console.log(info_title);
 		  	          infowindow.open(map, marker);
+		  	          
   			      	
 	     	  	      
 
@@ -173,6 +192,9 @@ $(document).ready(function(){
 		var myaddress = $(this).val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
 				
 	    naver.maps.Service.geocode({address: myaddress}, function(status, response) {
+	    	map = new naver.maps.Map('map', {
+	        	zoom: 12
+	        });
 	    	if (status !== naver.maps.Service.Status.OK) {
 	    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
 	        }
@@ -192,12 +214,14 @@ $(document).ready(function(){
 	        });
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
 	        console.log(result.items);
-	        info_address = result.items[0].address;
+	        info_address = myaddress;
+	        info_address2 = "";
 	        info_title = $('input[name=address]:checked + input').val()
 	        
 
         // 마커 클릭 이벤트 처리
         naver.maps.Event.addListener(marker, "click", function(e) {
+        	
           if (infowindow.getMap()) {
 //               infowindow.close();
           } else {
@@ -206,10 +230,7 @@ $(document).ready(function(){
         });
 	        
 	        
-	      //마커는 찍히는 순간 우선 infowindow가 켜지고 클릭하면 꺼지게
-	      
-	        
-	        
+ 
 	        
           // 마크 클릭시 인포윈도우 오픈
           infowindow = new naver.maps.InfoWindow({
@@ -232,6 +253,9 @@ $(document).ready(function(){
     	//infowindow에 있는 내용 담아두자
     	var addrResult = $('h6').text();
     	console.log($('h6').text());
+    	
+    	//부모창 div에 넣기
+    	$('#addrResult').html(info_address +"<br>"+info_address2);
     });
     
     
@@ -270,8 +294,7 @@ $(document).ready(function(){
 									<tr><th>인원 또는 건수</th><th> <input type="text" name="limit"> </th></tr>
 									<tr><th>장소 또는 지역</th><th> <input type="text" id="inputAddr" name="inputAddr" > 
 									<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
-										<c:if test="">
-										</c:if>
+										<div id="addrResult"></div>
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션가격</th><th> <input type="text"> </th></tr>
