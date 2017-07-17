@@ -194,6 +194,7 @@ $(document).ready(function(){
 	  		 
 	  		
   	 }//키워드로 지도 찾는 경우 끝
+  	 
   	 else{//주소로 검색하는 경우
   		var myaddress = $('#inputAddr').val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
 			info_address = myaddress;
@@ -401,7 +402,7 @@ $(document).ready(function(){
 									<tr><th>등록 마감일</th><th> <input type="text" name="end_date"> </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text" name="limit"> </th></tr>
 									<tr><th>장소 또는 지역</th><th> 
-									          <input type="radio" name="way" value="1">주소
+									          <input type="radio" name="way" value="1" checked="checked">주소
           									<input type="radio" name="way" value="2"> 키워드<br>
 									
 									<input type="text" id="inputAddr" name="inputAddr" > 
