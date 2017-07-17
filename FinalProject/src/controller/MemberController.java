@@ -208,5 +208,28 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("messageSend.do")
+	public void messageSend(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		String title = request.getParameter("title");
+		String receiver = request.getParameter("receiver");
+		String content = request.getParameter("content");
+		String sender = ((Member)session.getAttribute("member")).getId();
+		
+		Message message = new Message(sender, receiver, title, content);
+		
+		memberService.messageSend(message);
+	}
+	
+	
+	
+	
+	
+	
+//	@RequestMapping("kakaoLogin.do")
+//	public void kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+////		System.out.println(request.getParameter("email"));
+//		session.setAttribute("email", request.getParameter("email")+"//카카오");
+//		
+//	}
 
 }

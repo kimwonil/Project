@@ -24,9 +24,9 @@
 			dataType:"json",
 			success:function(data){
 				console.log(data);
-				$('#messageList tr:gt(0)').remove();
+				$('#messageTable tr:gt(0)').remove();
 				for(var i=0;i<data.length;i++){
-				$('#messageList').append("<tr><td>"+data[i].date+"</td><td><a id='"+data[i].no+"'class='messageDetail' data-toggle='modal' data-target='#messageModal'>"
+				$('#messageTable').append("<tr><td>"+data[i].date+"</td><td><a id='"+data[i].no+"'class='messageDetail' data-toggle='modal' data-target='#messageModal'>"
 												+data[i].title+"</a></td><td>"
 												+data[i].sender+"</td><td>"
 												+(data[i].state==1?"읽지 않음":"읽음")+"</td></tr>");
@@ -42,6 +42,9 @@
 	
 	messageList();
 	
+	$(document).on('click','#messageList',function(){
+		messageList();
+	});
 	
 	$(document).on('click','.messageDetail',function(){
 		$.ajax({
@@ -51,9 +54,9 @@
 			dataType:"json",
 			success:function(data){
 				messageList();
-				$('#messageTitle').text(data.title);
-				$('#messageSender').text(data.sender);
-				$('#messageContent').text(data.content);
+				$('#titleLabel').text(data.title);
+				$('#senderLabel').text(data.sender);
+				$('#contentLabel').text(data.content);
 			},
 			error:function(){
 				alert("실패");
@@ -62,16 +65,40 @@
 		
 	});
 	
+	$(document).on('click','#messageBtn',function(){
+		
+		$.ajax({
+			url:"messageSend.do",
+			type:"POST",
+			data:{
+				title:$('#messageTitle').val(),
+				receiver:$('#messageReceiver').val(),
+				content:$('#messageContent').val()
+			},
+			success:function(){
+				alert("성공");
+				$('#messageTitle').val("");
+				$('#messageReceiver').val("");
+				$('#messageContent').val("");
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+			
+		});
+		
+	});
 	
 	
 	
 	
 </script>
 <style type="text/css">
-	#messageList{
+	#messageTable{
 		text-align: center;
 	}
-	#messageList, #messageWrite{
+	#messageTable, #messageWrite{
 		width:700px;
 		margin: 0 auto;
 		
@@ -83,7 +110,7 @@
 	#messageDetail > button{
 		margin: 0 auto;
 	}
-	#messageList td{
+	#messageTable td{
 		
 		border:1px solid black;
 	}
@@ -110,11 +137,11 @@
 			<h2>쪽지관리</h2>
 					<div id="tabs">
 						<ul>
-							<li><a href="#tabs-1">쪽지 내역</a></li>
+							<li><a href="#tabs-1" id="messageList">쪽지 내역</a></li>
 							<li><a href="#tabs-2">쪽지 작성</a></li>
 						</ul>
 						<div id="tabs-1">
-							<table id="messageList">
+							<table id="messageTable">
 								<tr>
 									<td width="15%">작성일</td>
 									<td width="50%">제목</td>
@@ -126,15 +153,15 @@
 						<div id="tabs-2">
 							<table id="messageWrite">
 								<tr>
-									<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목 : <input type="text" class="messageInput" name="title"></td>
+									<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목 : <input type="text" class="messageInput" id="messageTitle"></td>
 									<td width="20%" rowspan="2"  align="center"><button type="button" id="messageBtn" class="btn btn-sm btn-info">보내기</button></td>
 								</tr>
 								<tr>
 									
-									<td width="80%">받는사람 : <input type="text" class="messageInput" name="title">	</td>
+									<td width="80%">받는사람 : <input type="text" class="messageInput" id="messageReceiver"></td>
 								</tr>
 								<tr>
-									<td colspan="3"><textarea rows="10" cols="85"></textarea></td>
+									<td colspan="3"><textarea rows="10" cols="85" id="messageContent"></textarea></td>
 								</tr>
 							</table>
 						</div>
@@ -155,18 +182,18 @@
 									<table id="messageDetail">
 										<tr>
 											<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
-												: <label id="messageTitle">메세지 리스트</label>
+												: <label id="titleLabel"></label>
 											</td>
 											<td width="20%" rowspan="2" align="center"><button
 													type="button" id="messageDelete" class="btn btn-sm btn-danger">삭제</button></td>
 										</tr>
 										<tr>
 
-											<td width="80%">보낸사람 : <label id="messageSender">운영자</label>
+											<td width="80%">보낸사람 : <label id="senderLabel"></label>
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3"><textarea id="messageContent" rows="10" cols="78" readonly="readonly">내용입니다.</textarea></td>
+											<td colspan="3"><textarea id="contentLabel" rows="10" cols="78" readonly="readonly"></textarea></td>
 										</tr>
 									</table>
 								</div>

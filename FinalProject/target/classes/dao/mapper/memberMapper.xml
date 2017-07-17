@@ -49,6 +49,10 @@
  	select * from message where no=#{no}
  </select>
  
+ <insert id="messageSend" parameterType="Message">
+ 	insert into message values(0, #{sender}, #{receiver}, #{title}, #{content}, 1, sysdate())
+ </insert>
+ 
  </mapper>
  
  
