@@ -47,6 +47,7 @@ $(document).ready(function(){
   			data : {inputAddr:$('#inputAddr').val()},
   			dataType : 'json',
   			success : function(data){
+  				
   			//주소리스트
   			$('#table tr').empty();
 		          $.each(data.items, function(index, value){
@@ -74,14 +75,18 @@ $(document).ready(function(){
   			        marker = new naver.maps.Marker({
   			        	position: myaddr,
   			            map: map
+  			            
   			        });
+  			        
+		  	        
+  			        
   			      console.log("78번째줄"+marker.position);
   				  console.log("78번째줄"+ result.items[0].address);
   			   	  console.log("78번째줄"+ result.items[0].title);
   						
   			      	//직접 지도에서 찍은 곳으로 마커 이동
 		  			naver.maps.Event.addListener(map, 'click', function(e) {
-		  				infowindow.close();
+// 		  				infowindow.close();
 					    marker.setPosition(e.latlng);
 					
 					    console.log(e.latlng);
@@ -113,6 +118,7 @@ $(document).ready(function(){
 						  	          infowindow = new naver.maps.InfoWindow({
 						  	        	  content : "<h5>title이 없어서 미안해</h5><h6>"+items[0].address+"</h6><h6>"+items[1].address+"</h6>"
 						  	          });
+						  	        infowindow.open(map, marker);
 
 
 					        });
@@ -131,7 +137,7 @@ $(document).ready(function(){
 		  	        // 마커 클릭 이벤트 처리
 		  	        naver.maps.Event.addListener(marker, "click", function(e) {
 		  	          if (infowindow.getMap()) {
-		  	              infowindow.close();
+// 		  	              infowindow.close();
 		  	          } else {
 		  	              infowindow.open(map, marker);
 		  	          }
@@ -140,8 +146,9 @@ $(document).ready(function(){
 		  	          infowindow = new naver.maps.InfoWindow({
 		  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
 		  	          });
+		  	          infowindow.open(map, marker);
   			      	
-  			      	
+	     	  	      
 
   			      });
   				
@@ -184,7 +191,7 @@ $(document).ready(function(){
 	            map: map
 	        });
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
-	        
+	        console.log(result.items);
 	        info_address = result.items[0].address;
 	        info_title = $('input[name=address]:checked + input').val()
 	        
@@ -192,16 +199,25 @@ $(document).ready(function(){
         // 마커 클릭 이벤트 처리
         naver.maps.Event.addListener(marker, "click", function(e) {
           if (infowindow.getMap()) {
-              infowindow.close();
+//               infowindow.close();
           } else {
               infowindow.open(map, marker);
           }
         });
+	        
+	        
+	      //마커는 찍히는 순간 우선 infowindow가 켜지고 클릭하면 꺼지게
+	      
+	        
+	        
+	        
           // 마크 클릭시 인포윈도우 오픈
           infowindow = new naver.maps.InfoWindow({
         	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
           });
           
+          infowindow.open(map, marker);
+	     
 	    });
 		
 		
@@ -209,10 +225,18 @@ $(document).ready(function(){
     });
     
     
+    //클릭하면 지도 검색한 주소 가지고 부모창으로 가기
+    $(document).on('click', "#submit", function(){
+    	console.log('클릭');
+    	
+    	//infowindow에 있는 내용 담아두자
+    	var addrResult = $('h6').text();
+    	console.log($('h6').text());
+    });
     
-    $(document).on('click', "submit", function(){
-    	
-    	
+    
+    $(document).on('click', "#go", function(){
+    	alert($('form').serialize());
     	
     	
     });
@@ -222,12 +246,6 @@ $(document).ready(function(){
 });
 </script>
 
-<script type="text/javascript">
-
-
-
-
-</script>
 
 <body>
 	
@@ -251,7 +269,10 @@ $(document).ready(function(){
 									<tr><th>등록 마감일</th><th> <input type="text" name="end_date"> </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text" name="limit"> </th></tr>
 									<tr><th>장소 또는 지역</th><th> <input type="text" id="inputAddr" name="inputAddr" > 
-									<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> </th></tr>
+									<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
+										<c:if test="">
+										</c:if>
+									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션가격</th><th> <input type="text"> </th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="thumbnail"> </th></tr>
