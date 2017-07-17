@@ -9,6 +9,10 @@
  	select * from profile where id=#{id}
  </select>
  
+ <select id="selectAll" resultType="Member">
+ 	select * from profile
+ </select>
+ 
  <update id="refillCash" parameterType="Member">
  	update profile set balance=#{balance} where id=#{id}
  </update>
