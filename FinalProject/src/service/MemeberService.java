@@ -10,6 +10,7 @@ import dao.MemberDao;
 import model.CashRecord;
 import model.Exchange;
 import model.Member;
+import model.Message;
 
 @Service
 public class MemeberService {
@@ -53,8 +54,16 @@ public class MemeberService {
 	}
 	
 	public int exchangeManager(HashMap<String, Object> map) {
-		System.out.println(map+"//서비스");
 		return memberDao.exchangeManager(map);
+	}
+	
+	public List<Message> messageList(String id) {
+		return memberDao.messageList(id);
+	}
+	
+	public Message messageDetail(int no) {
+		memberDao.messageState(no);
+		return memberDao.messageDetail(no);
 	}
 	
 }

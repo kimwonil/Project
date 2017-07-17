@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import model.CashRecord;
 import model.Exchange;
 import model.Member;
+import model.Message;
 import service.MemeberService;
 
 @Controller
@@ -169,15 +170,43 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
-		
 	}
 	
+	
+	@RequestMapping("messageList.do")
+	public void message(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		Member member = (Member)session.getAttribute("member");
+		List<Message> list = memberService.messageList(member.getId());
+		Gson gson = new Gson();
+		try {
+			if(list != null) {
+				String json = gson.toJson(list);
+				response.getWriter().write(json);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("messageDetail.do")
+	public void messageDetail(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		Message message = memberService.messageDetail(no);
+		Gson gson = new Gson();
+		String json = gson.toJson(message);
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 
 }
