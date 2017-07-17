@@ -22,6 +22,10 @@ public class MemeberService {
 		return memberDao.selectOne(id);
 	}
 	
+	public List<Member> selectAll() {
+		return memberDao.selectAll();
+	}
+	
 	public int refillCash(Member member) {
 		return memberDao.refillCash(member);
 	}
@@ -70,5 +74,7 @@ public class MemeberService {
 		System.out.println(message);
 		return memberDao.messageSend(message);
 	}
+	
+	
 	
 }

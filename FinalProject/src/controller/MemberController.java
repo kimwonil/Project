@@ -29,6 +29,8 @@ public class MemberController {
 	@Autowired
 	private MemeberService memberService;
 	
+	Gson gson = new Gson();
+	
 	@RequestMapping("profile.do")
 	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("profile");
@@ -76,7 +78,7 @@ public class MemberController {
 		response.setContentType("text/xml;charset=UTF-8");
 		Member member = (Member)session.getAttribute("member");
 		String id = member.getId();
-		Gson gson = new Gson();
+//		Gson gson = new Gson();
 		try {
 			PrintWriter printWriter = response.getWriter();
 			List<CashRecord> list = memberService.cashList(id);
@@ -129,7 +131,7 @@ public class MemberController {
 		response.setContentType("text/xml;charset=UTF-8");
 		Member member = (Member)session.getAttribute("member");
 		List<Exchange> list = memberService.exchangeList(member.getId());
-		Gson gson = new Gson();
+//		Gson gson = new Gson();
 		try {
 			PrintWriter printWriter = response.getWriter();
 			String json = gson.toJson(list);
@@ -179,7 +181,7 @@ public class MemberController {
 		response.setContentType("text/xml;charset=UTF-8");
 		Member member = (Member)session.getAttribute("member");
 		List<Message> list = memberService.messageList(member.getId());
-		Gson gson = new Gson();
+//		Gson gson = new Gson();
 		try {
 			if(list != null) {
 				String json = gson.toJson(list);
@@ -198,7 +200,7 @@ public class MemberController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		
 		Message message = memberService.messageDetail(no);
-		Gson gson = new Gson();
+//		Gson gson = new Gson();
 		String json = gson.toJson(message);
 		try {
 			response.getWriter().write(json);
@@ -221,8 +223,37 @@ public class MemberController {
 	}
 	
 	
+	@RequestMapping("memberList.do")
+	public void memberList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		List<Member> memeberList = memberService.selectAll();
+		
+//		Gson gson = new Gson();
+		String json = gson.toJson(memeberList);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
-	
+	@RequestMapping("memberUpdateForm.do")
+	public void memberUpdateForm(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		String id = request.getParameter("id");
+		System.out.println(id);
+		
+		Member member = memberService.selectOne(id);
+		String json = gson.toJson(member);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 //	@RequestMapping("kakaoLogin.do")
