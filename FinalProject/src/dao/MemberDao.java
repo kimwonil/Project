@@ -20,4 +20,5 @@ public interface MemberDao {
 	public List<Message> messageList(String id);
 	public int messageState(int no);
 	public Message messageDetail(int no);
+	public int messageSend(Message message);
 }

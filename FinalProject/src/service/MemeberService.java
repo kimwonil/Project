@@ -66,4 +66,9 @@ public class MemeberService {
 		return memberDao.messageDetail(no);
 	}
 	
+	public int messageSend(Message message) {
+		System.out.println(message);
+		return memberDao.messageSend(message);
+	}
+	
 }

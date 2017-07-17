@@ -9,6 +9,17 @@ public class Message {
 	private int state;
 	private String date;
 	
+	
+	
+	public Message() {
+		super();
+	}
+	public Message(String sender, String receiver, String title, String content) {
+		this.sender = sender;
+		this.receiver = receiver;
+		this.title = title;
+		this.content = content;
+	}
 	public int getNo() {
 		return no;
 	}
