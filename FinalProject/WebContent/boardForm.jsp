@@ -30,6 +30,12 @@ border: 1px solid red;
 <script type="text/javascript">
 $(document).ready(function(){
 	
+
+
+	
+	
+	
+	
     var map = new naver.maps.Map('map', {
     	zoom: 12
     });
@@ -43,143 +49,245 @@ $(document).ready(function(){
     
     
     $('#mapSearch').on('click', function(){
+    	var way = $('input[name=way]:checked').val();
+ 		console.log("검색방식 1은 주소/ 2는 키워드 : " + way);
+    	
+    	if(way == null){
+  			alert('검색방법을 선택하세요');
+  		}else{
   	  
-  	  if($('#inputAddr').val() == ""){
-  		 alert('검색하실 주소를 입력하세요');
-  	 }else{
-  		 $.ajax({
-  			type : 'post',
-  			url : 'searchAddr.do',
-  			data : {inputAddr:$('#inputAddr').val()},
-  			dataType : 'json',
-  			success : function(data){
-  				
-  			//주소리스트
-  			$('#table tr').empty();
-		          $.each(data.items, function(index, value){
-		        	  
-		          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</td><td>'+ value.address + '</td></tr>');
-		          });
-  			
-  			//검색 결과 item[0]의 address를 가져와서 지도 api에서 검색한 뒤 중심이동&마커표시
-  			
-  				console.log(data);
-  				var myaddress = data.items[0].address;// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
-  				info_title = data.items[0].title;
-  				info_address = myaddress;
-  				info_address2 = "";
-  			    naver.maps.Service.geocode({address: myaddress}, function(status, response) {
-  			    	if (status !== naver.maps.Service.Status.OK) {
-  			    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
-  			        }
-  			        var result = response.result;
-  			        // 검색 결과 갯수: result.total
-  			        // 첫번째 결과 결과 주소: result.items[0].address
-  			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
-  			        
-  			        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
-  			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  			          
-  			          
-  			        // 마커 표시
-  			        marker = new naver.maps.Marker({
-  			        	position: myaddr,
-  			            map: map
-  			            
-  			        });
-  			        
-		  	        
-  			        
-  			      console.log("78번째줄"+marker.position);
-  				  console.log("78번째줄"+ result.items[0].address);
-  			   	  console.log("78번째줄"+ result.items[0].title);
-  						
-  			      	//직접 지도에서 찍은 곳으로 마커 이동
-		  			naver.maps.Event.addListener(map, 'click', function(e) {
-		  				map = new naver.maps.Map('map', {
-		  			    	zoom: 12
-		  			    });
-// 		  				infowindow.close();
-					    marker.setPosition(e.latlng);
-					
-					    console.log(e.latlng);
-					    searchCoordinateToAddress(e.latlng);
-					    
-					 // search by tm128 coordinate
-					    function searchCoordinateToAddress(latlng) {
-						 
-						 console.log("도대체 좌표는 어디여 " + latlng);
-						 
-					        var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
-
-
-					        naver.maps.Service.reverseGeocode({
-					            location: tm128,
-					            coordType: naver.maps.Service.CoordType.TM128
-					        }, function(status, response) {
-					        	
-					        	
-					            if (status === naver.maps.Service.Status.ERROR) {
-					                return alert('Something Wrong!');
-					            }
-
-					            var items = response.result.items,
-					                htmlAddresses = [];
-					            
-
-						  	          // 마크 클릭시 인포윈도우 오픈
-						  	          infowindow = new naver.maps.InfoWindow({
-						  	        	  content : "<h5>title이 없어서 미안해</h5><h6>"+items[0].address+"</h6><h6>"+items[1].address+"</h6>"
-						  	          });
-						  	        infowindow.open(map, marker);
-						  	       info_address = items[0].address;
-						  	       info_address2 = items[1].address
-
-
-					        });
-					    }
-					    
-					    
-
-  			          
-  			          
-  			          
-					});
-  			      	
-  			      	
-  			      	
-  			      	
-		  	        // 마커 클릭 이벤트 처리
-		  	        naver.maps.Event.addListener(marker, "click", function(e) {
-		  	        	map = new naver.maps.Map('map', {
-		  	          	zoom: 12
-		  	          });
-		  	          if (infowindow.getMap()) {
-		  	              infowindow.close();
-		  	          } else {
-		  	              infowindow.open(map, marker);
-		  	          }
-		  	        });
-		  	          // 마크 클릭시 인포윈도우 오픈
-		  	          infowindow = new naver.maps.InfoWindow({
-		  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
-		  	          });
-		  	          console.log(info_title);
-		  	          infowindow.open(map, marker);
-		  	          
-  			      	
-	     	  	      
-
-  			      });
-  				
-  			},
-  			error : function(jpXHR, textStatus, errorThrown){
-                  alert(textStatus);
-                  alert(errorThrown);
-              }
-  		 });
+	  	  if($('#inputAddr').val() == ""){
+	  		 alert('검색어를 입력하세요');
+	  	 }else{
   		 
-  		 $('#myModal').modal();
+  		 	if(way == 2){//키워드로 검색할 경우
+	  		 
+	  		 $.ajax({
+	  			type : 'post',
+	  			url : 'searchAddr.do',
+	  			data : {inputAddr:$('#inputAddr').val()},
+	  			dataType : 'json',
+	  			success : function(data){
+	  				
+	  			//주소리스트
+	  			$('#table tr').empty();
+	  			
+			          $.each(data.items, function(index, value){
+			        	  
+			          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</td><td>'+ value.address + '</td></tr>');
+			          });
+	  			
+	  			//검색 결과 item[0]의 address를 가져와서 지도 api에서 검색한 뒤 중심이동&마커표시
+	  			
+	  				console.log(data.items);
+	  			
+	  				
+	  				if(data.items[0] == null){
+	  					$('#table tbody').append('<tr><th><h3>검색결과가 올바르지 않습니다. 검색방법이 맞는지 확인하세요</h3></th></tr>');
+	  				}
+	  				else{
+	  				
+	  				var myaddress = data.items[0].address;// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+	  				
+	  				info_title = data.items[0].title;
+	  				info_address = myaddress;
+	  				info_address2 = "";
+	  			    naver.maps.Service.geocode({address: myaddress}, function(status, response) {
+	  			    	if (status !== naver.maps.Service.Status.OK) {
+	  			    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
+	  			        }
+	  			        var result = response.result;
+	  			        // 검색 결과 갯수: result.total
+	  			        // 첫번째 결과 결과 주소: result.items[0].address
+	  			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+	  			        
+	  			        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
+	  			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  			          
+	  			          
+	  			        // 마커 표시
+	  			        marker = new naver.maps.Marker({
+	  			        	position: myaddr,
+	  			            map: map
+	  			            
+	  			        });
+	  			        
+	  			      console.log("검색어로 검색할때 " + response.result.item);
+	  			      console.log("78번째줄"+marker.position);
+	  				  console.log("78번째줄"+ result.items[0].address);
+	  			   	  console.log("78번째줄"+ result.items[0].title);
+	  						
+	  			      	//직접 지도에서 찍은 곳으로 마커 이동
+			  			naver.maps.Event.addListener(map, 'click', function(e) {
+			  				
+	// 		  				infowindow.close();
+						    marker.setPosition(e.latlng);
+						
+						    console.log(e.latlng);
+						    searchCoordinateToAddress(e.latlng);
+						    
+						 // search by tm128 coordinate
+						    function searchCoordinateToAddress(latlng) {
+							 
+							 console.log("도대체 좌표는 어디여 " + latlng);
+							 
+						        var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
+	
+	
+						        naver.maps.Service.reverseGeocode({
+						            location: tm128,
+						            coordType: naver.maps.Service.CoordType.TM128
+						        }, function(status, response) {
+						        	
+						            if (status === naver.maps.Service.Status.ERROR) {
+						                return alert('Something Wrong!');
+						            }
+	
+						            var items = response.result.items,
+						                htmlAddresses = [];
+						            
+							  	          // 마크 클릭시 인포윈도우 오픈
+							  	          infowindow = new naver.maps.InfoWindow({
+							  	        	  content : "<h5>title이 없어서 미안해</h5><h6>"+items[0].address+"</h6><h6>"+items[1].address+"</h6>"
+							  	          });
+							  	        infowindow.open(map, marker);
+							  	       info_address = items[0].address;
+							  	       info_address2 = items[1].address
+	
+						        });
+						    }
+						});
+	  			      	
+	  			      	
+			  	        // 마커 클릭 이벤트 처리
+			  	        naver.maps.Event.addListener(marker, "click", function(e) {
+			  	        	map = new naver.maps.Map('map', {
+			  	          	zoom: 12
+			  	          });
+			  	          if (infowindow.getMap()) {
+			  	              infowindow.close();
+			  	          } else {
+			  	              infowindow.open(map, marker);
+			  	          }
+			  	        });
+			  	          // 마크 클릭시 인포윈도우 오픈
+			  	          infowindow = new naver.maps.InfoWindow({
+			  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
+			  	          });
+			  	          console.log(info_title);
+			  	          infowindow.open(map, marker);
+			  	          
+	  			      	
+		     	  	      
+	
+	  			      });
+	  			}
+	  				
+	  			},
+	  			error : function(jpXHR, textStatus, errorThrown){
+	                  alert(textStatus);
+	                  alert(errorThrown);
+	              }
+	  		 });
+	  		 
+	  		 $('#myModal').modal();
+	  		 
+	  		 
+	  		
+  	 }//키워드로 지도 찾는 경우 끝
+  	 else{//주소로 검색하는 경우
+  		var myaddress = $('#inputAddr').val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+			info_address = myaddress;
+			info_address2 = "";
+		    naver.maps.Service.geocode({address: myaddress}, function(status, response) {
+		    	if (status !== naver.maps.Service.Status.OK) {
+		    		return alert('검색방법이 잘못 되었거나 기타 네트워크 에러');
+		        }
+		    	else{
+		        var result = response.result;
+		        // 검색 결과 갯수: result.total
+		        // 첫번째 결과 결과 주소: result.items[0].address
+		        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+		        
+		        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
+		        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  			          
+		          
+		        // 마커 표시
+		        marker = new naver.maps.Marker({
+		        	position: myaddr,
+		            map: map
+		            
+		        });
+		        console.log(result);
+		        
+		      console.log(response.result.items);
+// 		      console.log("78번째줄"+marker.position);
+// 			  console.log("78번째줄"+ result.items[0].address);
+// // 			  console.log(result.items[1].address);
+					
+		      	//직접 지도에서 찍은 곳으로 마커 이동
+  			naver.maps.Event.addListener(map, 'click', function(e) {
+
+// 		  				infowindow.close();
+			    marker.setPosition(e.latlng);
+			
+			    console.log(e.latlng);
+			    searchCoordinateToAddress(e.latlng);
+			    
+			 // search by tm128 coordinate
+			    function searchCoordinateToAddress(latlng) {
+				 
+				 console.log("도대체 좌표는 어디여 " + latlng);
+				 
+			        var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
+
+
+			        naver.maps.Service.reverseGeocode({
+			            location: tm128,
+			            coordType: naver.maps.Service.CoordType.TM128
+			        }, function(status, response) {
+			        	
+			            if (status === naver.maps.Service.Status.ERROR) {
+			                return alert('Something Wrong!');
+			            }
+
+			            var items = response.result.items,
+			                htmlAddresses = [];
+			            
+				  	          // 마크 클릭시 인포윈도우 오픈
+				  	          infowindow = new naver.maps.InfoWindow({
+				  	        	  content : "<h5>title이 없어서 미안해</h5><h6>"+items[0].address+"</h6><h6>"+items[1].address+"</h6>"
+				  	          });
+				  	        infowindow.open(map, marker);
+				  	       info_address = items[0].address;
+				  	       info_address2 = items[1].address
+			        });
+			    }
+			});
+		      	
+		      	
+  	        // 마커 클릭 이벤트 처리
+  	        naver.maps.Event.addListener(marker, "click", function(e) {
+
+  	          if (infowindow.getMap()) {
+  	              infowindow.close();
+  	          } else {
+  	              infowindow.open(map, marker);
+  	          }
+  	        });
+  	        
+  	          //인포윈도우 오픈
+  	          infowindow = new naver.maps.InfoWindow({
+  	        	  content : info_address
+  	          });
+  	          console.log(info_title);
+  	          infowindow.open(map, marker);
+		    }
+		      });
+		    $('#myModal').modal();
+		    
   	 }
+    }
+    }//검색방식 선택 했을경우 
   	  
     });//지도 modal 끝(검색 클릭)
     
@@ -292,7 +400,11 @@ $(document).ready(function(){
 									<tr><th>글제목</th><th> <input type="text" name="title"> </th></tr>
 									<tr><th>등록 마감일</th><th> <input type="text" name="end_date"> </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text" name="limit"> </th></tr>
-									<tr><th>장소 또는 지역</th><th> <input type="text" id="inputAddr" name="inputAddr" > 
+									<tr><th>장소 또는 지역</th><th> 
+									          <input type="radio" name="way" value="1">주소
+          									<input type="radio" name="way" value="2"> 키워드<br>
+									
+									<input type="text" id="inputAddr" name="inputAddr" > 
 									<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
 										<div id="addrResult"></div>
 									</th></tr>
@@ -323,15 +435,14 @@ $(document).ready(function(){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">검색 결과에서 알맞은 것을 선택 또는 지도에 찍은 뒤에 완료를 클릭하세요</h4>
+          <h4 class="modal-title">주소를 선택하거나 지도상에서 직접 찍은 후 확인을 눌러주세요</h4>
+
         </div>  
         <div class="modal-body">
           <div id="map" style="width:858px;height:400px;text-align: center;"></div>
           <table id="table">
 			<tr><th>명칭</th><th>주소</th></tr>
 		  </table>
-<!-- 		  <div id="table"> -->
-<!-- 		  </div> -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" id="submit">Close</button>
