@@ -8988,3 +8988,6 @@ Java Model Exception: Java Model Status [LoginTest does not exist]
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-17 17:43:34.205
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.core.resources 2 10035 2017-07-17 17:44:04.834
+!MESSAGE The workspace will exit with unsaved changes in this session.
