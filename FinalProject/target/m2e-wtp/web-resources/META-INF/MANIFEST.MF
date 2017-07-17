@@ -1,14 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-<<<<<<< HEAD
-Built-By: kwi12
-Build-Jdk: 1.8.0_131
-=======
-Built-By: 용굥
-=======
 Built-By: USER
->>>>>>> syk
 Build-Jdk: 1.8.0_121
->>>>>>> master
 Created-By: Maven Integration for Eclipse
 

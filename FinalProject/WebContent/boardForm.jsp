@@ -34,6 +34,7 @@ $(document).ready(function(){
     var marker;
     var info_title = "";
     var info_address = "";
+    var infoWindow;
     
     $('#mapSearch').on('click', function(){
   	  
@@ -74,30 +75,74 @@ $(document).ready(function(){
   			        	position: myaddr,
   			            map: map
   			        });
-  			      	console.log("78번째줄"+marker.Object);
   			      console.log("78번째줄"+marker.position);
-  			    console.log("78번째줄"+marker.address);
-  			  console.log("78번째줄"+ result.items[0].address);
-  			console.log("78번째줄"+ result.items[0].title);
-  					
+  				  console.log("78번째줄"+ result.items[0].address);
+  			   	  console.log("78번째줄"+ result.items[0].title);
+  						
   			      	//직접 지도에서 찍은 곳으로 마커 이동
 		  			naver.maps.Event.addListener(map, 'click', function(e) {
+		  				infowindow.close();
 					    marker.setPosition(e.latlng);
+					
+					    console.log(e.latlng);
+					    searchCoordinateToAddress(e.latlng);
 					    
-					});
+					 // search by tm128 coordinate
+					    function searchCoordinateToAddress(latlng) {
+						 
+						 console.log("도대체 좌표는 어디여 " + latlng);
+						 
+					        var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
 
-			          // 마커 클릭 이벤트 처리
-			          naver.maps.Event.addListener(marker, "click", function(e) {
-			            if (infowindow.getMap()) {
-			                infowindow.close();
-			            } else {
-			                infowindow.open(map, marker);
-			            }
-			          });
-  			          // 마크 클릭시 인포윈도우 오픈
-  			          var infowindow = new naver.maps.InfoWindow({
-  			        	  content : "<h5>"+info_title+"</h5><br><h6>"+info_address+"</h6>"
-  			          });
+
+					        naver.maps.Service.reverseGeocode({
+					            location: tm128,
+					            coordType: naver.maps.Service.CoordType.TM128
+					        }, function(status, response) {
+					        	
+					        	
+					            if (status === naver.maps.Service.Status.ERROR) {
+					                return alert('Something Wrong!');
+					            }
+
+					            var items = response.result.items,
+					                htmlAddresses = [];
+					            
+
+						  	          // 마크 클릭시 인포윈도우 오픈
+						  	          infowindow = new naver.maps.InfoWindow({
+						  	        	  content : "<h5>title이 없어서 미안해</h5><h6>"+items[0].address+"</h6><h6>"+items[1].address+"</h6>"
+						  	          });
+
+
+					        });
+					    }
+					    
+					    
+
+  			          
+  			          
+  			          
+					});
+  			      	
+  			      	
+  			      	
+  			      	
+		  	        // 마커 클릭 이벤트 처리
+		  	        naver.maps.Event.addListener(marker, "click", function(e) {
+		  	          if (infowindow.getMap()) {
+		  	              infowindow.close();
+		  	          } else {
+		  	              infowindow.open(map, marker);
+		  	          }
+		  	        });
+		  	          // 마크 클릭시 인포윈도우 오픈
+		  	          infowindow = new naver.maps.InfoWindow({
+		  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
+		  	          });
+  			      	
+  			      	
+
   			      });
   				
   			},
@@ -153,8 +198,8 @@ $(document).ready(function(){
           }
         });
           // 마크 클릭시 인포윈도우 오픈
-          var infowindow = new naver.maps.InfoWindow({
-        	  content : "<h5 id='info_title'>"+info_title+"</h5><h6 id='info_address'>"+info_address+"</h6>"
+          infowindow = new naver.maps.InfoWindow({
+        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
           });
           
 	    });
@@ -164,6 +209,13 @@ $(document).ready(function(){
     });
     
     
+    
+    $(document).on('click', "submit", function(){
+    	
+    	
+    	
+    	
+    });
     
     
 		
@@ -238,7 +290,7 @@ $(document).ready(function(){
 <!-- 		  </div> -->
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="submit">Close</button>
         </div>
       </div>
     </div>
