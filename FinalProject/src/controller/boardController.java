@@ -88,7 +88,6 @@ public class boardController{
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping("boardInsert.do")
 	public void board(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
-		String id = ((Member)session.getAttribute("member")).getId();
 		
 		int major = Integer.parseInt(req.getParameter("major"));
 		int minor = Integer.parseInt(req.getParameter("minor"));
@@ -106,6 +105,8 @@ public class boardController{
 		System.out.println("제목" + title);
 		System.out.println("마감일" + end_date);
 		
+		String id = ((Member)session.getAttribute("member")).getId();
+		System.out.println("id찍어볼거야 = "+ id);
 		
 		Board board = new Board(major, minor, title, id, content, new Date(), end_date, limit, 0, price, optionprice, 0, 0, 0, 0);
 		
