@@ -44,27 +44,7 @@ public class controller {
 	}
 
 	
-	@RequestMapping("board.do")
-	public void board(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-//		try {
-//			request.setCharacterEncoding("UTF-8");
-//		} catch (UnsupportedEncodingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		response.setHeader("Content-Type", "application/xml");
-//		response.setContentType("text/xml;charset=UTF-8");
-		
-		
-		
-		try {
-			String a = URLDecoder.decode((String)request.getParameter("content"), "UTF-8");
-			System.out.println(a);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 	
 
 }

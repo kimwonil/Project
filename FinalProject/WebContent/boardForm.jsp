@@ -292,9 +292,10 @@ $(document).ready(function(){
     
     
     $(document).on('click', "#go", function(){
+    	
     	console.log($('#detailInfo').serialize());
     	$.ajax({
-    		url:"board.do",
+    		url:"boardDetail.do",
     		type:"POST",
     		data:{content:$('#detailInfo').serialize()},
     		success:function(){
@@ -306,8 +307,6 @@ $(document).ready(function(){
     		
     	});
 
-//     	var str = decodeURIComponent(str).replace(/\+/g, '%20');
-    	
     	
     });
 	
@@ -336,7 +335,7 @@ $(document).ready(function(){
 									<select name="minor"><option>소분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select>
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title"> </th></tr>
-									<tr><th>등록 마감일</th><th> <input type="text" name="end_date"> </th></tr>
+									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" value="2017-01-01"> </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text" name="limit"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
