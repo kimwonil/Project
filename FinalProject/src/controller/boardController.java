@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -80,6 +81,17 @@ public class boardController{
 		try {
 			detail = URLDecoder.decode((String)request.getParameter("content"), "UTF-8");
 			System.out.println(detail);
+			
+			String major = request.getParameter("major");
+			String minor = request.getParameter("minor");
+			String title = request.getParameter("title");
+			String end_date = request.getParameter("end_date");
+			String address = request.getParameter("address");
+			String price = request.getParameter("price");
+			String optionprice = request.getParameter("optionprice");
+			String content = request.getParameter("content");
+			
+			
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

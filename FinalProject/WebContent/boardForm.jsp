@@ -292,12 +292,10 @@ $(document).ready(function(){
     
     
     $(document).on('click', "#go", function(){
-    	
-    	console.log($('#detailInfo').serialize());
     	$.ajax({
     		url:"boardDetail.do",
     		type:"POST",
-    		data:{content:$('#detailInfo').serialize()},
+    		data:$('#detailInfo').serialize(),
     		success:function(){
     			alert("성공");
     		},
