@@ -44,12 +44,20 @@
 					dataType:"json",
 					success:function(data){
 						console.log(data);
+						var select="";
+						
+						if(data.admin==1){
+							select='<input type="radio" name="memberAdmin" value="1" checked="checked">관리자<input type="radio" name="memberAdmin" value="0">회원';	
+						}else{
+							select='<input type="radio" name="memberAdmin" value="1">관리자<input type="radio" name="memberAdmin" value="0" checked="checked">회원';
+						}
+						
 						$('#updateTable').append(
-								"<tr><td width='20%'>아이디</td><td width='40%'><label>"+data.id+"</label></td></tr>"
-								+"<tr><td>닉네임</td><td><input type='text' value='"+data.nickName+"'></td></tr>"
-								+"<tr><td>사진</td><td><input type='text' value='"+data.photo+"'></td></tr>"
-								+"<tr><td>포인트</td><td><input type='text' value='"+data.balance+"'></td></tr>"
-								+"<tr><td>비고</td><td>"+data.admin+"</td></tr>"
+								"<tr><td width='20%'>아이디</td><td width='40%'><label id='memberId'>"+data.id+"</label></td></tr>"
+								+"<tr><td>닉네임</td><td><input id='memberNickname' type='text' value='"+data.nickName+"'></td></tr>"
+								+"<tr><td>사진</td><td><input id='memberPhoto' type='text' value='"+data.photo+"'></td></tr>"
+								+"<tr><td>포인트</td><td><input id='memberBalance' type='text' value='"+data.balance+"'></td></tr>"
+								+"<tr><td>비고</td><td>"+select+"</td></tr>"
 						);
 					},
 					error:function(){
@@ -58,10 +66,51 @@
 					
 				});
 				
-				
 				$('#updateModal').modal();
 				
+			});
+			
+			
+			$('.updateBtn').click(function(){
 				
+				$.ajax({
+					url:"memberUpdate.do",
+					type:"POST",
+					data:{
+						id:$('input[name=memberCheck]:checked').val(),
+						nickname:$('#memberNickname').val(),
+						photo:$('#memberPhoto').val(),
+						balance:$('#memberBalance').val(),
+						admin:$('input[name=memberAdmin]:checked').val()
+					},
+					success:function(){
+						$('#updateModal').modal("hide");
+						memberList();
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
+				
+			});
+			
+			
+			$('#deleteMember').click(function(){
+				$.ajax({
+					url:"memberDelete.do",
+					type:"POST",
+					data:{
+						id:$('input[name=memberCheck]:checked').val()
+					},
+					dataType:"json",
+					success:function(data){
+						alert(data.result+"님이 삭제되었습니다.");
+						memberList();
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
 			});
 			
 		});//document.ready
@@ -117,7 +166,8 @@
 						
 					</table>
 					<a href="#" class="btn btn-sm btn-info" id="updateMember">회원수정</a>
-					<a href="#" class="btn btn-sm btn-info" data-toggle="modal"	data-target="#deleteModal">회원삭제</a>
+					<a href="#" class="btn btn-sm btn-info" id="deleteMember">회원삭제</a>
+					
 					
 					
 				</div>

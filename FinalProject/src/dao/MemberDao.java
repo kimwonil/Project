@@ -11,6 +11,8 @@ import model.Message;
 public interface MemberDao {
 	public Member selectOne(String id);
 	public List<Member> selectAll();
+	public int memberUpdate(Member member);
+	public int memberDelete(String id);
 	public int refillCash(Member member);
 	public int cashRecord(Member member);
 	public List<CashRecord> cashList(String id);

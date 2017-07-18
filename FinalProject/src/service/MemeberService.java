@@ -26,6 +26,14 @@ public class MemeberService {
 		return memberDao.selectAll();
 	}
 	
+	public int memberUpdate(Member member) {
+		return memberDao.memberUpdate(member);
+	}
+	
+	public int memberDelete(String id) {
+		return memberDao.memberDelete(id);
+	}
+	
 	public int refillCash(Member member) {
 		return memberDao.refillCash(member);
 	}

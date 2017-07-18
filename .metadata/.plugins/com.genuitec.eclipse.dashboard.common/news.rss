@@ -12,12 +12,29 @@
 	<atom:link href="https://www.genuitec.com/feed/" rel="self" type="application/rss+xml" />
 	<link>https://www.genuitec.com</link>
 	<description>The Cloud Control Company</description>
-	<lastBuildDate>Sun, 16 Jul 2017 15:41:34 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 17 Jul 2017 22:08:21 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>hourly</sy:updatePeriod>
 	<sy:updateFrequency>1</sy:updateFrequency>
 	<generator>https://wordpress.org/?v=4.6.1</generator>
 	<item>
+		<title>Angular IDE vs WebStorm for Angular Coding.</title>
+		<link>https://www.genuitec.com/angular-ide-vs-webstorm-for-angular-coding/</link>
+		<pubDate>Mon, 17 Jul 2017 14:31:33 +0000</pubDate>
+		<dc:creator><![CDATA[Bob at Genuitec]]></dc:creator>
+				<category><![CDATA[Eclipse]]></category>
+		<category><![CDATA[Genuitec]]></category>
+		<category><![CDATA[MyEclipse]]></category>
+		<category><![CDATA[Programming Tips]]></category>
+		<category><![CDATA[Angular]]></category>
+		<category><![CDATA[WebStorm]]></category>
+
+		<guid isPermaLink="false">https://www.genuitec.com/?p=527638</guid>
+		<description><![CDATA[<p>As we know, our favorite IDE can become an unparalleled ally when it comes to undertaking an agile workflow entailing TypeScript compilation at runtime, static type checking and introspection, and code completion and visual assistance for debugging and building our app. In this article, we will compare WebStorm vs Angular IDE for Angular coding. So [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.genuitec.com/angular-ide-vs-webstorm-for-angular-coding/">Angular IDE vs WebStorm for Angular Coding.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
+]]></description>
+		</item>
+		<item>
 		<title>Create a Kanban Board with Angular 4</title>
 		<link>https://www.genuitec.com/create-kanban-board-angular-4/</link>
 		<pubDate>Thu, 13 Jul 2017 13:43:09 +0000</pubDate>
@@ -249,29 +266,14 @@
 <p>The post <a rel="nofollow" href="https://www.genuitec.com/angular-4-is-ready-to-crack-the-toughest-cookies/">Angular 4 is Ready to Crack the Toughest Cookies.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
 ]]></description>
 		</item>
-		<item>
-		<title>Creating Your First Angular App.</title>
-		<link>https://www.genuitec.com/creating-first-angular-app/</link>
-		<pubDate>Thu, 25 May 2017 16:28:47 +0000</pubDate>
-		<dc:creator><![CDATA[Wanda Muriy]]></dc:creator>
-				<category><![CDATA[Genuitec]]></category>
-		<category><![CDATA[How-to's]]></category>
-		<category><![CDATA[Programming Tips]]></category>
-		<category><![CDATA[Webclipse]]></category>
-
-		<guid isPermaLink="false">https://www.genuitec.com/?p=524109</guid>
-		<description><![CDATA[<p>So you are keeping up with the latest technology and you already have your Angular IDE downloaded.  You are now ready to start working on a project.  How?  Just follow this simple series of steps or watch the video below and let the Angular app fun begin!Creating your first Angular app:Click on File-New-Angular Project.Name the [&#8230;]</p>
-<p>The post <a rel="nofollow" href="https://www.genuitec.com/creating-first-angular-app/">Creating Your First Angular App.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
-]]></description>
-		</item>
 	</channel>
 </rss>
 
 <!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
 
-Object Caching 9158/9280 objects using disk
+Object Caching 9176/9295 objects using disk
 Page Caching using disk: enhanced (Requested URI is rejected)
 Content Delivery Network via resources.cloud.genuitec.com
-Database Caching 43/45 queries in 0.006 seconds using disk
+Database Caching 1/44 queries in 0.022 seconds using disk
 
- Served from: www.genuitec.com @ 2017-07-16 19:03:50 by W3 Total Cache -->
+ Served from: www.genuitec.com @ 2017-07-17 18:59:01 by W3 Total Cache -->
