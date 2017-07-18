@@ -288,25 +288,29 @@ $(document).ready(function(){
     	
     	//부모창 div에 넣기
     	$('#addrResult').html(info_address +"<br>"+info_address2);
+    	$('#hidn').val(info_address);
+    	$('#hidn2').val(info_address2);
+    	console.log($('#hidn').text());
     });//부모창에 주소 가져가기 끝
     
     
-    $(document).on('click', "#go", function(){
-    	$.ajax({
-    		url:"boardDetail.do",
-    		type:"POST",
-    		data:$('#detailInfo').serialize(),
-    		success:function(){
-    			alert("성공");
-    		},
-    		error:function(){
-    			alert("실패");
-    		}
-    		
-    	});
+//     $(document).on('click', "#go", function(){
+    	
+//     	$.ajax({
+//     		url:"boardInsert.do",
+//     		type:"POST",
+//     		data:$('#detailInfo').serialize(),
+//     		success:function(){
+//     			alert("성공");
+//     		},
+//   			error : function(jpXHR, textStatus, errorThrown){
+//                 alert(textStatus);
+//                 alert(errorThrown);
+//           }
+//     	});
 
     	
-    });
+//     });
 	
 	
 });//document.ready
@@ -326,21 +330,23 @@ $(document).ready(function(){
 						
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
-							<form id="detailInfo">
+							<form id="detailInfo" action="boardInsert.do" method="post">
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select name="major"><option>대분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select> 
 									<select name="minor"><option>소분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select>
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title"> </th></tr>
-									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" value="2017-01-01"> </th></tr>
+									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" value="2017-07-01"> </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text" name="limit"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
           								<input type="radio" name="way" value="2"> 키워드<br>
-									<input type="text" id="inputAddr" name="inputAddr" > 
-									<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
+										<input type="text" id="inputAddr" name="inputAddr" > 
+										<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
 										<div id="addrResult"></div>
+										<input type="hidden" id="hidn" name="addrResult">
+										<input type="hidden" id="hidn2" name="addrResult2">
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션가격</th><th> <input type="text" name="optionprice"> </th></tr>
@@ -348,9 +354,9 @@ $(document).ready(function(){
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>
 									<tr><th>상세 이미지 또는 동영상</th><th> <input type="file" name="file_name"> </th></tr>
 								</table>
-							</form>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<a href="#" class="btn btn-sm btn-primary" id="go">GO!</a>
+								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">
+							</form>
 							</div>
 						</div>
 					

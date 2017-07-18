@@ -1,6 +1,6 @@
 package model;
 
-public class Map {
+public class MapInfo {
 	private int no; //글번호
 	private int x; //longitude 경도
 	private int y; //latitude 위도
