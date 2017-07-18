@@ -3,7 +3,7 @@ package dao;
 import java.util.List;
 
 import model.Board;
-import model.Map;
+import model.MapInfo;
 
 public interface BoardDao {
 	//테이블명 : board
@@ -14,8 +14,8 @@ public interface BoardDao {
 	public List<Board> selectAll();
 	
 	//테이블명 : map
-	public int insertMap(Map map);
-	public int updateMap(Map map);
+	public int insertMap(MapInfo map);
+	public int updateMap(MapInfo map);
 	public int deleteMap(int no);
 	
 	

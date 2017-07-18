@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -21,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import model.Board;
+import model.Member;
 import service.BoardService;
 
 
@@ -83,27 +86,31 @@ public class boardController{
 	
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
-	@RequestMapping("boardDetail.do")
+	@RequestMapping("boardInsert.do")
 	public void board(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
-		String detail = "";
+		String id = ((Member)session.getAttribute("member")).getId();
 		
-		try {
-			detail = URLDecoder.decode((String)req.getParameter("content"), "UTF-8");
-			System.out.println(detail);
-			
-			String major = req.getParameter("major");
-			String minor = req.getParameter("minor");
-			String title = req.getParameter("title");
-			String end_date = req.getParameter("end_date");
-			String address = req.getParameter("address");
-			String price = req.getParameter("price");
-			String optionprice = req.getParameter("optionprice");
-			String content = req.getParameter("content");
-			
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		int major = Integer.parseInt(req.getParameter("major"));
+		int minor = Integer.parseInt(req.getParameter("minor"));
+		String title = req.getParameter("title");
+		String end_date = req.getParameter("end_date");
+		int limit = Integer.parseInt(req.getParameter("limit"));
+		String address = req.getParameter("addrResult");
+		String address2 = req.getParameter("addrResult2");
+		int price = Integer.parseInt(req.getParameter("price"));
+		int optionprice = Integer.parseInt(req.getParameter("optionprice"));
+		String content = req.getParameter("content");
+		System.out.println("major ="+major+" / minor ="+minor);
+		System.out.println(address);
+		System.out.println(address2);
+		System.out.println("제목" + title);
+		System.out.println("마감일" + end_date);
+		
+		
+		Board board = new Board(major, minor, title, id, content, new Date(), end_date, limit, 0, price, optionprice, 0, 0, 0, 0);
+		
+		boardService.insertBoard(board);
+		
 	}
 
 

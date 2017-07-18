@@ -3,12 +3,13 @@ package model;
 import java.util.Date;
 
 public class Board {
-	private int category_no;
+	private int category_major;
+	private int category_minor;
 	private String title;
 	private String writer;
 	private String content;
 	private Date date;
-	private Date end_date;
+	private String end_date;
 	private int limit;
 	private int state;
 	private int price;
@@ -19,19 +20,20 @@ public class Board {
 	private int num_evaluator;
 	
 	
-		
+	
+	
+	
 	
 	
 	public Board() {
 		super();
 	}
-
-
-
-	public Board(int category_no, String title, String writer, String content, Date date, Date end_date, int limit,
-			int state, int price, int optionprice, int read_count, int premium, int total_star, int num_evaluator) {
+	public Board(int category_major, int category_minor, String title, String writer, String content, Date date,
+			String end_date, int limit, int state, int price, int optionprice, int read_count, int premium,
+			int total_star, int num_evaluator) {
 		super();
-		this.category_no = category_no;
+		this.category_major = category_major;
+		this.category_minor = category_minor;
 		this.title = title;
 		this.writer = writer;
 		this.content = content;
@@ -46,14 +48,17 @@ public class Board {
 		this.total_star = total_star;
 		this.num_evaluator = num_evaluator;
 	}
-	
-	
-	
-	public int getCategory_no() {
-		return category_no;
+	public int getCategory_major() {
+		return category_major;
 	}
-	public void setCategory_no(int category_no) {
-		this.category_no = category_no;
+	public void setCategory_major(int category_major) {
+		this.category_major = category_major;
+	}
+	public int getCategory_minor() {
+		return category_minor;
+	}
+	public void setCategory_minor(int category_minor) {
+		this.category_minor = category_minor;
 	}
 	public String getTitle() {
 		return title;
@@ -79,10 +84,10 @@ public class Board {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public Date getEnd_date() {
+	public String getEnd_date() {
 		return end_date;
 	}
-	public void setEnd_date(Date end_date) {
+	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
 	}
 	public int getLimit() {
@@ -133,16 +138,17 @@ public class Board {
 	public void setNum_evaluator(int num_evaluator) {
 		this.num_evaluator = num_evaluator;
 	}
-	
-	
 	@Override
 	public String toString() {
-		return "Board [category_no=" + category_no + ", title=" + title + ", writer=" + writer + ", content=" + content
-				+ ", date=" + date + ", end_date=" + end_date + ", limit=" + limit + ", state=" + state + ", price="
-				+ price + ", optionprice=" + optionprice + ", read_count=" + read_count + ", premium=" + premium
-				+ ", total_star=" + total_star + ", num_evaluator=" + num_evaluator + "]";
+		return "Board [category_major=" + category_major + ", category_minor=" + category_minor + ", title=" + title
+				+ ", writer=" + writer + ", content=" + content + ", date=" + date + ", end_date=" + end_date
+				+ ", limit=" + limit + ", state=" + state + ", price=" + price + ", optionprice=" + optionprice
+				+ ", read_count=" + read_count + ", premium=" + premium + ", total_star=" + total_star
+				+ ", num_evaluator=" + num_evaluator + "]";
 	}
 	
+	
+		
 	
 	
 	
