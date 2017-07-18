@@ -36,17 +36,12 @@ $(document).ready(function(){
     var info_title = "";
     var info_address = "";//도로명
     var info_address2 = "";//지번
-    var infoWindow;
+//     var infowindow;
     
     
     $(document).on('click', '#mapSearch', function(){
     	var way = $('input[name=way]:checked').val();
  		console.log("검색방식 1은 주소/ 2는 키워드 : " + way);
- 		
- 		map = new naver.maps.Map('map', {
- 	    	zoom: 12
- 	    });
- 		
  		
     	if($('#inputAddr').val() == ""){
 	  		 alert('검색어를 입력하세요');
@@ -68,7 +63,12 @@ $(document).ready(function(){
 				        $.each(data.items, function(index, value){
 				          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</td><td>'+ value.address + '</td></tr>');
 				        });
+				        
+				        map.destroy();
 		  			
+				        map = new naver.maps.Map('map', {
+	  				    	zoom: 12
+	  				    });
 		  				
 		  				if(data.items[0] == null){
 		  					$('#table tbody').append('<tr><th><h3>검색결과가 올바르지 않습니다. 검색방법이 맞는지 확인하세요</h3></th></tr>');
@@ -77,6 +77,7 @@ $(document).ready(function(){
 		  					info_title = data.items[0].title;
 		  					info_address = data.items[0].address;
 		  					info_address2 = "";
+		  					
 		  					
 		  			    	naver.maps.Service.geocode({address: info_address}, function(status, response) {
 			  			    	if (status !== naver.maps.Service.Status.OK) {
@@ -134,9 +135,15 @@ $(document).ready(function(){
   	 		}//키워드로 지도 찾는 경우 끝
   	 		////////////////////////////////////////////////////////////////////////////////////////////////////
   	 		else{//주소로 검색하는 경우(way==1)
-  	 			$('#table tr:gt(0)').remove();
+  	 			$('#table tr:gt(0)').empty();
 				info_address = $('#inputAddr').val();
 				info_address2 = "";
+				
+		        map.destroy();
+		        map = new naver.maps.Map('map', {
+				    	zoom: 12
+				    });
+				
 			    naver.maps.Service.geocode({address: info_address}, function(status, response) {
 			    	if (status !== naver.maps.Service.Status.OK) {
 			    		return alert('검색방법이 잘못 되었거나 기타 네트워크 에러');
@@ -148,7 +155,14 @@ $(document).ready(function(){
 			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
 		        
 			        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
-			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  			          
+			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  		
+			        
+			        
+			        //얘도 리스트 뿌릴수잇나
+		        	$.each(result.items, function(index, value){
+			          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'"></td><td>'+ value.address + '</td></tr>');
+			        });
+			        
 	          
 			        // 마커 표시
 			        marker = new naver.maps.Marker({
@@ -172,20 +186,67 @@ $(document).ready(function(){
 					});
   	        
 		  	        //인포윈도우 오픈
-		  	        var infowindow = new naver.maps.InfoWindow({
-		  	        	content : info_address
+		  	        infowindow = new naver.maps.InfoWindow({
+		  	        	content : result.userquery
 		  	        });
 		  	        console.log(info_title);
 		  	        infowindow.open(map, marker);
 		    		
-		      });//geocode 끝
 		      $('#myModal').modal();
+		      });//geocode 끝
 		    
   	 	}//(way==1) else 끝
   	 		
 	  	}//검색어 입력 else
     })//검색방식 선택 했을경우 
-  	  
+    
+    
+    
+    //라디오 선택
+    $(document).on('click',".addrRadio",function(){
+    	alert($(this).val());
+    	
+		var myaddress = $(this).val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+				
+	    naver.maps.Service.geocode({address: myaddress}, function(status, response) {
+// 	    	map = new naver.maps.Map('map', {
+// 	        	zoom: 12
+// 	        });
+	    	if (status !== naver.maps.Service.Status.OK) {
+	    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
+	        }
+	        var result = response.result;
+	        console.log(result);
+	        // 검색 결과 갯수: result.total
+	        // 첫번째 결과 결과 주소: result.items[0].address
+	        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+	        
+	        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
+	          
+	    	marker.setMap(null);
+	        // 마커 표시
+	        marker = new naver.maps.Marker({
+	        	position: myaddr,
+	            map: map
+	        });
+	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
+	        console.log(result.items);
+	        info_address = myaddress;
+	        info_address2 = "";
+	        info_title = $('input[name=address]:checked + input').val()
+	        
+
+          // 인포윈도우 오픈
+          infowindow = new naver.maps.InfoWindow({
+        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
+          });
+          
+          infowindow.open(map, marker);
+	     
+	    });
+
+    });//라디오 선택 끝
+
     
     //지점 찍었을 때 해당 좌표 -> 주소로 변환해주는 함수
     function searchCoordinateToAddress(latlng) {
@@ -206,18 +267,40 @@ $(document).ready(function(){
         
   	          // 인포윈도우 오픈
   	        infowindow = new naver.maps.InfoWindow({
-  	        	content : "<h5>title이 없어서 미안해</h5><h6>"+items[0].address+"</h6><h6>"+items[1].address+"</h6>"
+  	        	content : "<h6>" + items[0].address+"</h6><h6>"+items[1].address+"</h6>"
   	        });
   	          
   	        infowindow.open(map, marker);
   	        info_address = items[0].address;
   	        info_address2 = items[1].address
     	});
-	}
+	}//searchCoordinateToAddress 함수 끝
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+    //클릭하면 지도 검색한 주소 가지고 부모창으로 가기
+    $(document).on('click', "#submit", function(){
+    	console.log('클릭');
+    	
+    	//infowindow에 있는 내용 담아두자
+    	var addrResult = $('h6').text();
+    	console.log($('h6').text());
+    	
+    	//부모창 div에 넣기
+    	$('#addrResult').html(info_address +"<br>"+info_address2);
+    });//부모창에 주소 가져가기 끝
+    
+    
+    $(document).on('click', "#go", function(){
+    	alert($('form').serialize());
+    	
+    	
+    });
 	
 	
 });//document.ready
 </script>
+
 
 
 <body>
