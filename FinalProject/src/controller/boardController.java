@@ -17,13 +17,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import service.BoardService;
 
 
 @Controller
 public class boardController{
 	
+	@Autowired
+	private BoardService boardService;
+	
+	/**
+	 * 검색 api
+	 * */
 	@RequestMapping("searchAddr.do")
 	public void mapSearch(HttpServletRequest req, HttpServletResponse resp){
 		resp.setCharacterEncoding("UTF-8");
@@ -73,24 +82,23 @@ public class boardController{
 	}
 	
 
-	
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping("boardDetail.do")
-	public void board(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public void board(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		String detail = "";
 		
 		try {
-			detail = URLDecoder.decode((String)request.getParameter("content"), "UTF-8");
+			detail = URLDecoder.decode((String)req.getParameter("content"), "UTF-8");
 			System.out.println(detail);
 			
-			String major = request.getParameter("major");
-			String minor = request.getParameter("minor");
-			String title = request.getParameter("title");
-			String end_date = request.getParameter("end_date");
-			String address = request.getParameter("address");
-			String price = request.getParameter("price");
-			String optionprice = request.getParameter("optionprice");
-			String content = request.getParameter("content");
-			
+			String major = req.getParameter("major");
+			String minor = req.getParameter("minor");
+			String title = req.getParameter("title");
+			String end_date = req.getParameter("end_date");
+			String address = req.getParameter("address");
+			String price = req.getParameter("price");
+			String optionprice = req.getParameter("optionprice");
+			String content = req.getParameter("content");
 			
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
