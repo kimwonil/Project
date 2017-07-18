@@ -13,7 +13,17 @@
 
 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="suffix" value=".jsp"></property>
+	<property name="order" value="1"></property>
 </bean>
 
+
+	<!-- 업로드 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+	
+	<!-- 다운로드 -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"/>
+	</bean>
 
 </beans>
