@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
@@ -13,12 +14,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
 import model.CashRecord;
 import model.Exchange;
+import model.FileUpload;
 import model.Member;
 import model.Message;
 import service.MemeberService;
@@ -41,6 +44,40 @@ public class MemberController {
 		
 		return mv;
 	}
+	
+	
+	@RequestMapping("profileUpdate.do")
+	public String profileUpdate(FileUpload file, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		
+		String path = session.getServletContext().getRealPath("/profile/");
+		String id = ((Member)session.getAttribute("member")).getId();
+		MultipartFile photo = file.getFile();
+		String fileName = photo.getOriginalFilename();
+		System.out.println(path);
+		File dir = new File(path+id);
+		if(!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		
+		try {
+			photo.transferTo(new File(path+id+"/"+fileName));
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		Member member = (Member)session.getAttribute("member");
+		member.setPhoto(fileName);
+		
+		memberService.memberUpdate(member);
+		
+		
+		
+		return "profile";
+	}
+	
+	
 	
 	@RequestMapping("cash.do")
 	public void refillCash(HttpServletRequest request, HttpServletResponse response) {
@@ -242,6 +279,9 @@ public class MemberController {
 	
 	@RequestMapping("memberUpdateForm.do")
 	public void memberUpdateForm(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
 		String id = request.getParameter("id");
 		System.out.println(id);
 		
@@ -259,6 +299,7 @@ public class MemberController {
 	
 	@RequestMapping("memberUpdate.do")
 	public void memberUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		
 		String id = request.getParameter("id");
 		String nickName = request.getParameter("nickname");
 		String photo = request.getParameter("photo");

@@ -7,6 +7,11 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
+			function numberWithCommas(x) {
+			    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
+			
 			function memberList(){
 				$.ajax({
 					url:"memberList.do",
@@ -20,7 +25,7 @@
 									+data[i].id+"</td><td>"
 									+data[i].nickName+"</td><td>"
 									+data[i].photo+"</td><td>"
-									+data[i].balance+"</td><td>"
+									+numberWithCommas(data[i].balance)+"</td><td>"
 									+(data[i].admin==1?"관리자":"일반회원")+"</td></tr>");
 						}
 						

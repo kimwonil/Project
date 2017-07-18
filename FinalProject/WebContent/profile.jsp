@@ -4,6 +4,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#profileUpdate').click(function(){
+				
+				
+			});
+			
+		});
+	
+	</script>
+	
 	</head>
 	<body>
 	<style>
@@ -23,12 +34,12 @@
 			
 				<div class="col-md-8 col-md-offset-2">
 					<h2>프로필 관리</h2>
-					<img src="images/img_29.jpg" alt="Free HTML5 template by FREEHTML5.co" class="img-rounded img-responsive photo">
+					<img src="<c:url value="/profile/${member.id}"/>/${member.photo}" alt="Free HTML5 template by FREEHTML5.co" class="img-rounded img-responsive photo">
 					
 					<p>아이디 : ${member.id}</p>
 					<p>닉네임 : ${member.nickName}</p>
 					<p>사진 : ${member.photo==null?"사진 없음":member.photo}</p>
-					<p>포인트 : ${member.balance} 포인트</p>
+					<p>포인트 : <fmt:formatNumber value="${member.balance}" type="number"/> 포인트</p>
 					<p>관리자 : ${member.admin}</p>
 					
 					<p>관심분야 :</p>
@@ -59,14 +70,17 @@
 					<h4 class="modal-title">정보 수정</h4>
 				</div>
 				<div class="modal-body">
+					<form action="profileUpdate.do" method="post" enctype="multipart/form-data">
 					<table id="profileTable">
 						<tr>
-							<td>사진 : </td><td><input type="file"></td>
+							<td>사진 : </td><td><input type="file" name="file"></td>
 						</tr>
 						<tr>
 							<td>관심 분야 : </td><td>관심분야 선택</td>
 						</tr>
 					</table>
+					<input type="submit" value="수정" class="btn-sm btn-info">
+					</form>
 				</div>
 			</div>
 
