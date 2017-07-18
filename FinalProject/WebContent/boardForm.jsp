@@ -292,7 +292,10 @@ $(document).ready(function(){
     
     
     $(document).on('click', "#go", function(){
-    	alert($('form').serialize());
+    	console.log($('#detailInfo').serialize());
+    	
+
+//     	var str = decodeURIComponent(str).replace(/\+/g, '%20');
     	
     	
     });
@@ -318,22 +321,21 @@ $(document).ready(function(){
 							<form id="detailInfo">
 								<table class="table">
 									<tr><th>카테고리 </th><th>
-									<select><option>대분류</option><option>카테고리2</option><option>카테고리3</option> </select> 
-									<select><option>소분류</option><option>카테고리2</option><option>카테고리3</option> </select>
+									<select name="major"><option>대분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select> 
+									<select name="minor"><option>소분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select>
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title"> </th></tr>
 									<tr><th>등록 마감일</th><th> <input type="text" name="end_date"> </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text" name="limit"> </th></tr>
-									<tr><th>장소 또는 지역</th><th> 
-									          <input type="radio" name="way" value="1" checked="checked">주소
-          									<input type="radio" name="way" value="2"> 키워드<br>
-									
+									<tr><th>장소 또는 지역</th><th>
+										<input type="radio" name="way" value="1" checked="checked">주소
+          								<input type="radio" name="way" value="2"> 키워드<br>
 									<input type="text" id="inputAddr" name="inputAddr" > 
 									<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
 										<div id="addrResult"></div>
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
-									<tr><th>옵션가격</th><th> <input type="text"> </th></tr>
+									<tr><th>옵션가격</th><th> <input type="text" name="optionprice"> </th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="thumbnail"> </th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>
 									<tr><th>상세 이미지 또는 동영상</th><th> <input type="file" name="file_name"> </th></tr>
