@@ -7176,3 +7176,15 @@
 2017-07-18 12:27:41,698 [Worker-159] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\main\resources
 2017-07-18 12:27:41,698 [Worker-159] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 2017-07-18 12:27:41,700 [Worker-159] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\test\resources
+2017-07-18 12:39:50,375 [Worker-164] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-18 12:39:50,377 [Worker-164] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\main\resources
+2017-07-18 12:39:50,378 [Worker-164] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-18 12:39:50,379 [Worker-164] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\test\resources
+2017-07-18 12:39:51,397 [Worker-160] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-18 12:39:51,398 [Worker-160] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\main\resources
+2017-07-18 12:39:51,399 [Worker-160] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-18 12:39:51,400 [Worker-160] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\test\resources
+2017-07-18 12:43:03,776 [Worker-164] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-18 12:43:03,778 [Worker-164] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\main\resources
+2017-07-18 12:43:03,778 [Worker-164] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-18 12:43:03,780 [Worker-164] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\test\resources
