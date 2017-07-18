@@ -225,8 +225,9 @@ public class MemberController {
 	
 	@RequestMapping("memberList.do")
 	public void memberList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
 		List<Member> memeberList = memberService.selectAll();
-		
 //		Gson gson = new Gson();
 		String json = gson.toJson(memeberList);
 		
@@ -253,6 +254,43 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	
+	@RequestMapping("memberUpdate.do")
+	public void memberUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		String id = request.getParameter("id");
+		String nickName = request.getParameter("nickname");
+		String photo = request.getParameter("photo");
+		int balance = Integer.parseInt(request.getParameter("balance"));
+		int admin = Integer.parseInt(request.getParameter("admin"));
+		Member member = new Member(id, nickName, photo, balance, admin);
+		
+		memberService.memberUpdate(member);
+		
+	}
+	
+	
+	@RequestMapping("memberDelete.do")
+	public void memberDelete(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		
+		String id = request.getParameter("id");
+		
+		int result = memberService.memberDelete(id);
+		
+		
+		try {
+			if(result>=1) {
+				response.getWriter().write("{\"result\":\""+id+"\"}");
+			}else {
+				response.getWriter().write("{\"result\":false}");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	
