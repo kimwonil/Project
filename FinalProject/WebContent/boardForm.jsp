@@ -293,7 +293,18 @@ $(document).ready(function(){
     
     $(document).on('click', "#go", function(){
     	console.log($('#detailInfo').serialize());
-    	
+    	$.ajax({
+    		url:"board.do",
+    		type:"POST",
+    		data:{content:$('#detailInfo').serialize()},
+    		success:function(){
+    			alert("성공");
+    		},
+    		error:function(){
+    			alert("실패");
+    		}
+    		
+    	});
 
 //     	var str = decodeURIComponent(str).replace(/\+/g, '%20');
     	
