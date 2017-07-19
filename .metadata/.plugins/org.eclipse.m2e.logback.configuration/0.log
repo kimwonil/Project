@@ -8480,3 +8480,8 @@
 2017-07-19 16:01:57,574 [Worker-216] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\main\resources
 2017-07-19 16:01:57,575 [Worker-216] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 2017-07-19 16:01:57,576 [Worker-216] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\test\resources
+2017-07-19 17:08:09,543 [Worker-237] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-19 17:08:09,544 [Worker-237] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\main\resources
+2017-07-19 17:08:09,545 [Worker-237] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-07-19 17:08:09,547 [Worker-237] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\kwi12\OneDrive\문서\GitHub\Project\FinalProject\src\test\resources
+2017-07-19 17:35:20,998 [Worker-251] INFO  j.exodus.env.EnvironmentImpl - Exodus environment created: C:\Users\kwi12\OneDrive\문서\GitHub\Project\.metadata\com.genuitec.eclipse.webclipse.livepreview\3\store
