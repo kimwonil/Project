@@ -79,10 +79,15 @@ public class MemeberService {
 	}
 	
 	public int messageSend(Message message) {
-		System.out.println(message);
 		return memberDao.messageSend(message);
 	}
 	
+	public int authorityReg(HashMap<String, Object> params) {
+		return memberDao.authorityReg(params);
+	}
 	
+	public int authorityFiles(HashMap<String, Object> params) {
+		return memberDao.authorityFiles(params);
+	}
 	
 }

@@ -24,4 +24,6 @@ public interface MemberDao {
 	public int messageState(int no);
 	public Message messageDetail(int no);
 	public int messageSend(Message message);
+	public int authorityReg(HashMap<String, Object> params);
+	public int authorityFiles(HashMap<String, Object> params);
 }

@@ -4,16 +4,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#profileUpdate').click(function(){
-				
-				
-			});
-			
-		});
-	
-	</script>
 	
 	</head>
 	<body>
@@ -34,7 +24,7 @@
 			
 				<div class="col-md-8 col-md-offset-2">
 					<h2>프로필 관리</h2>
-					<img src="<c:url value="/profile/${member.id}"/>/${member.photo}" alt="Free HTML5 template by FREEHTML5.co" class="img-rounded img-responsive photo">
+					<img src="<c:url value="/user/profile/${member.id}"/>/${member.photo}" alt="Free HTML5 template by FREEHTML5.co" class="img-rounded img-responsive photo">
 					
 					<p>아이디 : ${member.id}</p>
 					<p>닉네임 : ${member.nickName}</p>

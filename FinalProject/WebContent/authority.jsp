@@ -18,27 +18,13 @@
 $(document).ready(function(){
 	
 	$('#regBtn').click(function(){
-		$('#multiFiles').MultiFile('reset');
+// 		$('#multiFiles').MultiFile('reset');
 	});
 	
 	
-	$('#register').click(function(){
-		$('#addModal').modal('hide');
-		
-		$.ajax({
-			url:"authorityReg.do",
-			type:"POST",
-			data:{files:$('#multiFiles')},
-// 			dataType:"json",
-			success:function(){
-				alert("확인");
-			},
-			error:function(){
-				alert("실패");
-			}
-			
-		});
-	});
+	
+	
+	
 });
 
 
@@ -106,17 +92,18 @@ $(document).ready(function(){
 						          <button type="button" class="close" data-dismiss="modal">&times;</button>
 						          <h4 class="modal-title">재능 신청</h4>
 						        </div>
+						        <form id="registerForm" action="authorityReg.do" method="post" enctype="multipart/form-data">
 						        <div class="modal-body">
 						          <table id="talentTable">
 										<tr>
 											<td>신청 재능</td>
 											<td>
-												<select>
-													<option>디자인/그래픽</option>
-													<option>컴퓨터/개발</option>
-													<option>음악/영상</option>
-													<option>생활/대행/상담</option>
-													<option>노하우/여행</option>
+												<select name="category_no">
+													<option value="1">디자인/그래픽</option>
+													<option value="2">컴퓨터/개발</option>
+													<option value="3">음악/영상</option>
+													<option value="4">생활/대행/상담</option>
+													<option value="5">노하우/여행</option>
 												</select>
 											</td>
 										</tr>
@@ -125,16 +112,20 @@ $(document).ready(function(){
 										</tr>
 										<tr>
 											<td colspan="2">
-												<input name="files[]" type="file"  id="multiFiles" maxlength="3" accept="gif|jpg|jpeg|png" class="multi with-preview" />
+												<input name="files" type="file" />
+												<input name="files" type="file" />
+												<input name="files" type="file" />
 											</td>
 										</tr>
 									</table>
 						        </div>
 						        <div id="btnDiv">
-						          <button type="button" class="btn btn-sm btn-info register" id="register">등록</button>
+						          <input type="submit" class="btn btn-sm btn-info register" value="등록">
+<!-- 						          <button type="button" class="btn btn-sm btn-info register" id="register">등록</button> -->
 						          <button type="button" class="btn btn-sm btn-info register" data-dismiss="modal">닫기</button>
 						        
 						        </div>
+						        </form>
 						        <div class="modal-footer">
 						        </div>
 						      </div>
