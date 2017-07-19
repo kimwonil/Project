@@ -12840,6 +12840,7 @@ Caused by: java.io.IOException: Could not find service$BoardService
 >>>>>>> wonil
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 
+<<<<<<< HEAD
 !ENTRY org.eclipse.ui.ide 4 4 2017-07-19 18:06:38.315
 !MESSAGE Problems saving workspace
 
@@ -12850,3 +12851,10 @@ Caused by: java.io.IOException: Could not find service$BoardService
 
 !ENTRY org.eclipse.core.resources 2 10035 2017-07-19 18:06:40.113
 !MESSAGE The workspace will exit with unsaved changes in this session.
+=======
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-19 17:08:09.543
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-19 17:08:09.546
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+>>>>>>> wonil
