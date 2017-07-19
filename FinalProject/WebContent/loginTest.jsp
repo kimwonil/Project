@@ -19,7 +19,7 @@
 <meta name="google-signin-client_id" content="427985089734-bhj7cddethlpgqgm0jqgh7i7071en55t.apps.googleusercontent.com"></meta>
 
 
-<title>아이디 버튼 통합 테스트 0001</title>
+<title>아이디 버튼 통합 테스트</title>
 
 
 </head>
