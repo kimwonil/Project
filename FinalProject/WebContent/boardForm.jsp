@@ -294,23 +294,7 @@ $(document).ready(function(){
     });//부모창에 주소 가져가기 끝
     
     
-//     $(document).on('click', "#go", function(){
-    	
-//     	$.ajax({
-//     		url:"boardInsert.do",
-//     		type:"POST",
-//     		data:$('#detailInfo').serialize(),
-//     		success:function(){
-//     			alert("성공");
-//     		},
-//   			error : function(jpXHR, textStatus, errorThrown){
-//                 alert(textStatus);
-//                 alert(errorThrown);
-//           }
-//     	});
 
-    	
-//     });
 	
 	
 });//document.ready
@@ -330,7 +314,7 @@ $(document).ready(function(){
 						
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
-							<form id="detailInfo" action="boardInsert.do" method="post">
+							<form id="detailInfo" action="insertBoard.do" method="post">
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select name="major"><option>대분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select> 

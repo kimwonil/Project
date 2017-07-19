@@ -33,7 +33,7 @@
  </insert>
  
  <update id="updateMap" parameterType="MapInfo">
- 	update map set x=#{x}, y=#{y}, title=#{title}, content=#{content} where no=#{no}
+ 	update map set x=#{x}, y=#{y}, title=#{title}, address=#{address} where no=#{no}
  </update>
  
  <delete id="deleteMap" parameterType="int">
