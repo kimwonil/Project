@@ -60,7 +60,7 @@
 						$('#updateTable').append(
 								"<tr><td width='20%'>아이디</td><td width='40%'><label id='memberId'>"+data.id+"</label></td></tr>"
 								+"<tr><td>닉네임</td><td><input id='memberNickname' type='text' value='"+data.nickName+"'></td></tr>"
-								+"<tr><td>사진</td><td><input id='memberPhoto' type='text' value='"+data.photo+"'></td></tr>"
+								+"<tr><td>사진</td><td><label id='memberPhoto'>"+data.photo+"</label></td></tr>"
 								+"<tr><td>포인트</td><td><input id='memberBalance' type='text' value='"+data.balance+"'></td></tr>"
 								+"<tr><td>비고</td><td>"+select+"</td></tr>"
 						);
@@ -84,7 +84,7 @@
 					data:{
 						id:$('input[name=memberCheck]:checked').val(),
 						nickname:$('#memberNickname').val(),
-						photo:$('#memberPhoto').val(),
+						photo:$('#memberPhoto').text(),
 						balance:$('#memberBalance').val(),
 						admin:$('input[name=memberAdmin]:checked').val()
 					},
