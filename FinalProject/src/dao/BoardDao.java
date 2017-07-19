@@ -10,13 +10,14 @@ public interface BoardDao {
 	public boolean insertBoard(Board board);
 	public boolean updateBoard(Board board);
 	public boolean deleteBoard(int no);
-	public Board selectOne(int no);
-	public List<Board> selectAll();
+	public Board selectOneBoard(int no);
+	public List<Board> selectAllBoard();
 	
 	//테이블명 : map
-	public int insertMap(MapInfo map);
-	public int updateMap(MapInfo map);
-	public int deleteMap(int no);
+	public boolean insertMap(MapInfo map);
+	public boolean updateMap(MapInfo map);
+	public boolean deleteMap(int no);
+	public MapInfo selectOneMap(int no);
 	
 	
 	//테이블명 : file
