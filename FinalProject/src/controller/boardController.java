@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import model.Board;
+import model.MapInfo;
 import model.Member;
 import service.BoardService;
 
@@ -99,21 +100,27 @@ public class boardController{
 		int limit = Integer.parseInt(req.getParameter("limit"));
 		String address = req.getParameter("addrResult");
 		String address2 = req.getParameter("addrResult2");
+		String info_title = req.getParameter("info_title");
+		String lat = req.getParameter("lat");
+		String lng = req.getParameter("lng");
 		int price = Integer.parseInt(req.getParameter("price"));
 		int optionprice = Integer.parseInt(req.getParameter("optionprice"));
 		String content = req.getParameter("content");
+		String id = ((Member)session.getAttribute("member")).getId();
+
+		System.out.println("id찍어볼거야 = "+ id);
 		System.out.println("major ="+major+" / minor ="+minor);
-		System.out.println(address);
-		System.out.println(address2);
 		System.out.println("제목" + title);
 		System.out.println("마감일" + end_date);
-		
-		String id = ((Member)session.getAttribute("member")).getId();
-		System.out.println("id찍어볼거야 = "+ id);
+		System.out.println("info_title : "+info_title+" / address : "+address+" / address2 : "+ address2 + " / 위도 : "+lat+" / 경도 : "+lng);
 		
 		Board board = new Board(major, minor, title, id, content, new Date(), end_date, limit, 0, price, optionprice, 0, 0, 0, 0);
+		MapInfo map = new MapInfo(0, 0, lat, lng, info_title, address, address2);
 		
 		boardService.insertBoard(board);
+		boardService.insertMap(map);
+		
+		
 		
 	}
 
