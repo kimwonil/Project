@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -334,12 +335,10 @@ public class MemberController {
 		
 	}
 	
-	
-//	@RequestMapping("kakaoLogin.do")
-//	public void kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-////		System.out.println(request.getParameter("email"));
-//		session.setAttribute("email", request.getParameter("email")+"//카카오");
-//		
-//	}
+	@RequestMapping("authorityReg.do")
+	public void authorityReg(@RequestPart(required=false, value="file") List<MultipartFile> files, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		
+	}
+
 
 }

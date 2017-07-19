@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="path/to/your/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
 <script type="text/javascript"></script>
 
 </head>
@@ -86,13 +87,10 @@
 											<td colspan="2"><b>관련 자료</b></td>
 										</tr>
 										<tr>
-											<td colspan="2"><input type="file"></td>
-										</tr>
-										<tr>
-											<td colspan="2"><input type="file"></td>
-										</tr>
-										<tr>
-											<td colspan="2"><input type="file"></td>
+											<td colspan="2"><input type="file" class="multi with-preview" multiple />
+											<div class="MultiFile-list"></div>
+											
+											</td>
 										</tr>
 									</table>
 						        </div>
