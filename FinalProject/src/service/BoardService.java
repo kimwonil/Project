@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class BoardService {
 	/**
 	 * table명 : board
 	 * */
-	public boolean insertBoard(Board board){
-		return boardDao.insertBoard(board);
+	public boolean insertBoard(HashMap<String, Object> params){
+		return boardDao.insertBoard(params);
 	}
 	
 	public boolean updateBoard(Board board){
@@ -42,8 +43,8 @@ public class BoardService {
 	/**
 	 * table명 : map
 	 * */
-	public boolean insertMap(MapInfo map){
-		return boardDao.insertMap(map);
+	public boolean insertMap(HashMap<String, Object>parmas){
+		return boardDao.insertMap(parmas);
 	}
 	
 	public boolean updateMap(MapInfo map){

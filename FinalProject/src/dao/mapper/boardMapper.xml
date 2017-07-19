@@ -5,9 +5,12 @@
  
  <mapper namespace="dao.BoardDao">
 <!--  table명 : board -->
- <insert id="insertBoard" parameterType="Board">
- 	insert into board values(0, #{category_major}, #{category_minor}, #{title}, #{writer}, #{content}, sysdate(), #{end_date}, 
- 	#{limit}, #{state}, #{price}, #{optionprice}, #{read_count}, #{premium}, #{total_star}, #{num_evaluator})
+ <insert id="insertBoard" parameterType="java.util.HashMap">
+ 	insert into board values(0, #{major}, #{minor}, #{title}, #{id}, #{content}, sysdate(), #{end_date}, 
+ 	#{limit}, 0, #{price}, #{optionprice}, 0, 0, 0, 0)
+ 		<selectKey keyProperty="no" order="AFTER" resultType="int">
+ 			select max(no) as no from board
+ 		</selectKey>
  </insert>
  
  <delete id="deleteBoard" parameterType="int">
@@ -28,8 +31,8 @@
  </select>
  
 <!--  table명 : map -->
- <insert id="insertMap" parameterType="MapInfo">
- 	insert into map values(0, #{lat}, #{lng}, #{title}, #{address}, #{address2}, #{board_no})
+ <insert id="insertMap" parameterType="java.util.HashMap">
+ 	insert into map values(0, #{lat}, #{lng}, #{info_title}, #{addrResult}, #{addrResult2}, #{no})
  </insert>
  
  <update id="updateMap" parameterType="MapInfo">
