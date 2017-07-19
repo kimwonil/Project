@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="dao.BoardDao">
+<!--  table명 : board -->
+ <insert id="insertBoard" parameterType="Board">
+ 	insert into board values(0, #{category_major}, #{category_minor}, #{title}, #{writer}, #{content}, sysdate(), #{end_date}, 
+ 	#{limit}, #{state}, #{price}, #{optionprice}, #{read_count}, #{premium}, #{total_star}, #{num_evaluator})
+ </insert>
+ 
+ <delete id="deleteBoard" parameterType="int">
+ 	delete from board where no=#{no}
+ </delete>
+ 
+ <update id="udpateBoard" parameterType="Board">
+ 	update board set category_major=#{category_major}, category_minor=#{category_minor}, title=#{title}, writer=#{writer}, content=#{content}, date=sysdate(), end_date=#{end_date}, limit=#{limit}, state=#{state},
+ 	price=#{price}, optionprice=#{optionprice}, read_count=#{read_count}, premium=#{premium}, totla_star=#{total_star}, num_evaluator=#{num_evaluator} where no=#{no}
+ </update>
+ 
+ <select id="selectOne" parameterType="Board" resultType="Board">
+ 	select * from board where no=#{no}
+ </select>
+ 
+ <select id="selectAll" parameterType="Board" resultType="Board">
+ 	select * from board
+ </select>
+ 
+<!--  table명 : map -->
+
+<!-- table명 : file -->
+ 
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
