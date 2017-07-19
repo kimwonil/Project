@@ -7,8 +7,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="path/to/your/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
-<script type="text/javascript"></script>
+<script src="js/jquery.form.js"></script>
+<script src="js/jquery.MetaData.js"></script>
+<script src="js/jQuery.MultiFile.min.js"></script>
+
+<script type="text/javascript">
+
+
+
+$(document).ready(function(){
+	
+	$('#regBtn').click(function(){
+		$('#multiFiles').MultiFile('reset');
+	});
+	
+	
+	$('#register').click(function(){
+		$('#addModal').modal('hide');
+		
+		$.ajax({
+			url:"authorityReg.do",
+			type:"POST",
+			data:{files:$('#multiFiles')},
+// 			dataType:"json",
+			success:function(){
+				alert("확인");
+			},
+			error:function(){
+				alert("실패");
+			}
+			
+		});
+	});
+});
+
+
+</script>
 
 </head>
 <body>
@@ -28,8 +62,11 @@
 		text-align: center;
 	}
 	
-	.btn-danger{
-		margin: 10px auto;
+	.btn-danger, .register{
+		margin: 10px;
+	}
+	#btnDiv{
+		text-align: right;
 	}
 	
 	</style>
@@ -57,8 +94,8 @@
 							<td>승인대기중 / <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">삭제</button></td>
 						</tr>
 					</table>
-					<button type="button" class="btn-sm btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
-
+					<button type="button" id="regBtn" class="btn-sm btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
+					
 						  <!-- 재능 신청 Modal -->
 						  <div class="modal fade" id="addModal" role="dialog">
 						    <div class="modal-dialog">
@@ -87,15 +124,18 @@
 											<td colspan="2"><b>관련 자료</b></td>
 										</tr>
 										<tr>
-											<td colspan="2"><input type="file" class="multi with-preview" multiple />
-											<div class="MultiFile-list"></div>
-											
+											<td colspan="2">
+												<input name="files[]" type="file"  id="multiFiles" maxlength="3" accept="gif|jpg|jpeg|png" class="multi with-preview" />
 											</td>
 										</tr>
 									</table>
 						        </div>
+						        <div id="btnDiv">
+						          <button type="button" class="btn btn-sm btn-info register" id="register">등록</button>
+						          <button type="button" class="btn btn-sm btn-info register" data-dismiss="modal">닫기</button>
+						        
+						        </div>
 						        <div class="modal-footer">
-						          <button type="button" class="btn btn-sm btn-info" data-dismiss="modal">닫기</button>
 						        </div>
 						      </div>
 						      

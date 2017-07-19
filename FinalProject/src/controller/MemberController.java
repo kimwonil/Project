@@ -331,13 +331,15 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+
 		
 	}
 	
 	@RequestMapping("authorityReg.do")
 	public void authorityReg(@RequestPart(required=false, value="file") List<MultipartFile> files, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		
+		System.out.println("컨트롤러");
+		System.out.println(files);
 	}
 
 
