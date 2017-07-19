@@ -86,7 +86,10 @@ public class boardController{
 	
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
-	@RequestMapping("boardInsert.do")
+	/**
+	 * 글쓰기
+	 * */
+	@RequestMapping("insertBoard.do")
 	public void board(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		
 		int major = Integer.parseInt(req.getParameter("major"));
