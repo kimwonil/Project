@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.google.gson.Gson;
 
 import model.Board;
 import model.MapInfo;
@@ -95,20 +98,6 @@ public class BoardController{
 	@RequestMapping("insertBoard.do")
 	public void board(@RequestParam HashMap<String, Object> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		
-//		int major = Integer.parseInt(req.getParameter("major"));
-//		int minor = Integer.parseInt(req.getParameter("minor"));
-//		String title = req.getParameter("title");
-//		String end_date = req.getParameter("end_date");
-//		int limit = Integer.parseInt(req.getParameter("limit"));
-//		String address = req.getParameter("addrResult");
-//		String address2 = req.getParameter("addrResult2");
-//		String info_title = req.getParameter("info_title");
-//		String lat = req.getParameter("lat");
-//		String lng = req.getParameter("lng");
-//		int price = Integer.parseInt(req.getParameter("price"));
-//		int optionprice = Integer.parseInt(req.getParameter("optionprice"));
-//		String content = req.getParameter("content");
-		
 		String id = ((Member)session.getAttribute("member")).getId();
 		params.put("id", id);
 		
@@ -118,16 +107,29 @@ public class BoardController{
 //		System.out.println("마감일" + end_date);
 //		System.out.println("info_title : "+info_title+" / address : "+address+" / address2 : "+ address2 + " / 위도 : "+lat+" / 경도 : "+lng);
 		
-//		Board board = new Board(0, major, minor, title, id, content, new Date(), end_date, limit, 0, price, optionprice, 0, 0, 0, 0);
 		boardService.insertBoard(params);
-//		System.out.println(board.getNo());
-System.out.println(params.get("no"));
-
-		
-//		MapInfo map = new MapInfo(0, 0, lat, lng, info_title, address, address2);
+		System.out.println(params.get("no"));
 		boardService.insertMap(params);
+
+	}
+	
+	@RequestMapping("load.do")
+	public void load(HttpServletRequest req, HttpServletResponse resp){
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+
+		System.out.println("load.do하러옴");
+		String gson = new Gson().toJson(boardService.selectAllBoard());
+		System.out.println("인덱스페이지에 리스트 가져갈거야");
+		System.out.println(gson);
 		
-		
+		try {
+			PrintWriter pw =  resp.getWriter();
+			pw.write(gson);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
