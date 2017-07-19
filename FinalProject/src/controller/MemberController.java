@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,7 +50,7 @@ public class MemberController {
 	@RequestMapping("profileUpdate.do")
 	public String profileUpdate(FileUpload file, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
-		String path = session.getServletContext().getRealPath("/profile/");
+		String path = session.getServletContext().getRealPath("/user/profile/");
 		String id = ((Member)session.getAttribute("member")).getId();
 		MultipartFile photo = file.getFile();
 		String fileName = photo.getOriginalFilename();
@@ -330,16 +331,81 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+
 		
 	}
 	
-	
-//	@RequestMapping("kakaoLogin.do")
-//	public void kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-////		System.out.println(request.getParameter("email"));
-//		session.setAttribute("email", request.getParameter("email")+"//카카오");
-//		
-//	}
+	@RequestMapping("authorityReg.do")
+	public String authorityReg(FileUpload files, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		
+		
+		List<MultipartFile> fileList = files.getFiles();
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("id", ((Member)session.getAttribute("member")).getId());
+		params.put("category_no", request.getParameter("category_no"));
+		
+		memberService.authorityReg(params);
+		
+		
+		
+		int fileNo = 1;
+		
+		for(MultipartFile file : fileList) {
+			params.put("file"+fileNo, file.getOriginalFilename());
+			fileNo++;
+		}
+		System.out.println(params);
+		memberService.authorityFiles(params);
+//		System.out.println(fileList.get(0).getOriginalFilename());
+//		System.out.println(fileList.get(1).getOriginalFilename());
+//		System.out.println(fileList.get(2).getOriginalFilename());
+		
+		
+		String path = session.getServletContext().getRealPath("/user/authority/");
+		int no = Integer.parseInt(params.get("no").toString());
+		MultipartFile file1 = fileList.get(0);
+		MultipartFile file2 = fileList.get(1);
+		MultipartFile file3 = fileList.get(2);
+		String fileName1=null, fileName2=null, fileName3=null;
+		if(file1 != null) {
+			fileName1 = file1.getOriginalFilename();
+		}
+		
+		if(file2 != null) {
+			fileName2 = file2.getOriginalFilename();
+		}
+		
+		if(file3 != null) {
+			fileName3 = file3.getOriginalFilename();
+		}
+		System.out.println(path);
+		File dir = new File(path+no);
+		if(!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		
+		try {
+			
+			if(!fileName1.equals("")) {
+				file1.transferTo(new File(path+no+"/"+fileName1));
+			}
+			if(!fileName2.equals("")) {
+				file2.transferTo(new File(path+no+"/"+fileName2));
+			}
+			if(!fileName3.equals("")) {
+				file3.transferTo(new File(path+no+"/"+fileName3));
+			}
+			
+			
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "authority";
+		
+	}
+
 
 }

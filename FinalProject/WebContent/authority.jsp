@@ -7,7 +7,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript"></script>
+<script src="js/jquery.form.js"></script>
+<script src="js/jquery.MetaData.js"></script>
+<script src="js/jQuery.MultiFile.min.js"></script>
+
+<script type="text/javascript">
+
+
+
+$(document).ready(function(){
+	
+	$('#regBtn').click(function(){
+// 		$('#multiFiles').MultiFile('reset');
+	});
+	
+	
+	
+	
+	
+});
+
+
+</script>
 
 </head>
 <body>
@@ -27,8 +48,11 @@
 		text-align: center;
 	}
 	
-	.btn-danger{
-		margin: 10px auto;
+	.btn-danger, .register{
+		margin: 10px;
+	}
+	#btnDiv{
+		text-align: right;
 	}
 	
 	</style>
@@ -56,8 +80,8 @@
 							<td>승인대기중 / <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">삭제</button></td>
 						</tr>
 					</table>
-					<button type="button" class="btn-sm btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
-
+					<button type="button" id="regBtn" class="btn-sm btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
+					
 						  <!-- 재능 신청 Modal -->
 						  <div class="modal fade" id="addModal" role="dialog">
 						    <div class="modal-dialog">
@@ -68,17 +92,18 @@
 						          <button type="button" class="close" data-dismiss="modal">&times;</button>
 						          <h4 class="modal-title">재능 신청</h4>
 						        </div>
+						        <form id="registerForm" action="authorityReg.do" method="post" enctype="multipart/form-data">
 						        <div class="modal-body">
 						          <table id="talentTable">
 										<tr>
 											<td>신청 재능</td>
 											<td>
-												<select>
-													<option>디자인/그래픽</option>
-													<option>컴퓨터/개발</option>
-													<option>음악/영상</option>
-													<option>생활/대행/상담</option>
-													<option>노하우/여행</option>
+												<select name="category_no">
+													<option value="1">디자인/그래픽</option>
+													<option value="2">컴퓨터/개발</option>
+													<option value="3">음악/영상</option>
+													<option value="4">생활/대행/상담</option>
+													<option value="5">노하우/여행</option>
 												</select>
 											</td>
 										</tr>
@@ -86,18 +111,22 @@
 											<td colspan="2"><b>관련 자료</b></td>
 										</tr>
 										<tr>
-											<td colspan="2"><input type="file"></td>
-										</tr>
-										<tr>
-											<td colspan="2"><input type="file"></td>
-										</tr>
-										<tr>
-											<td colspan="2"><input type="file"></td>
+											<td colspan="2">
+												<input name="files" type="file" />
+												<input name="files" type="file" />
+												<input name="files" type="file" />
+											</td>
 										</tr>
 									</table>
 						        </div>
+						        <div id="btnDiv">
+						          <input type="submit" class="btn btn-sm btn-info register" value="등록">
+<!-- 						          <button type="button" class="btn btn-sm btn-info register" id="register">등록</button> -->
+						          <button type="button" class="btn btn-sm btn-info register" data-dismiss="modal">닫기</button>
+						        
+						        </div>
+						        </form>
 						        <div class="modal-footer">
-						          <button type="button" class="btn btn-sm btn-info" data-dismiss="modal">닫기</button>
 						        </div>
 						      </div>
 						      
