@@ -12,23 +12,24 @@
 <style>
 .deal-info {
 	position: absolute;
-	right: 13%;
-	left: 64%;
-	width: 357px;
+	right: 20%;
+	left: 57%;
+	width: 340px;
 	height: 564px;
 	top:25%;
+	padding: 1%;
 }
 
 .deal-position {
 	position: absolute;
-	left: 13%;
+	left: 20%;
 	top:25%;
 }
 
 .deal-detail {
 	position: absolute;
-	left: 13%;
-	right: 12%;
+	left: 20%;
+	right: 20%;
 	top: 100%;
 }
 </style>
@@ -51,7 +52,7 @@
 							<div class="animate-box">
 								<a href="images/img_1.jpg" class="image-popup fh5co-board-img"
 									title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?">
-									<img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"	style="width: 800px; height: 500px;">
+									<img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"	style="width: 573px; height: 500px;">
 									</a>
 							</div>
 							<div class="fh5co-desc">글제목</div>

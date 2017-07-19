@@ -33,9 +33,10 @@ $(document).ready(function(){
     	zoom: 12
     });
     var marker;
-    var info_title = "";
+    var info_title = ""; //장소명
     var info_address = "";//도로명
     var info_address2 = "";//지번
+    var latlng="";//위도경도
 //     var infowindow;
     
     
@@ -99,7 +100,7 @@ $(document).ready(function(){
 			  			        });
 		  			        
 				  			    console.log("검색어로 검색할때 " + response.result.item);
-				  			    console.log("78번째줄"+marker.position);
+				  			    console.log("78번째줄"+marker.position.x);
 				  			    console.log("78번째줄"+ result.items[0].address);
 				  			    console.log("78번째줄"+ result.items[0].title);
 		  						
@@ -119,6 +120,9 @@ $(document).ready(function(){
 					  	        });
 					  	        
 					  	        infowindow.open(map, marker);
+					  	        lat = marker.position.y;
+					  	        lng = marker.position.x;
+					  	        	
 		
 		  			      	});//geocode 
 		  			      	
@@ -191,6 +195,8 @@ $(document).ready(function(){
 		  	        });
 		  	        console.log(info_title);
 		  	        infowindow.open(map, marker);
+		  	        lat = marker.position.y;
+		  	        lng = marker.position.x;
 		    		
 		      $('#myModal').modal();
 		      });//geocode 끝
@@ -290,27 +296,14 @@ $(document).ready(function(){
     	$('#addrResult').html(info_address +"<br>"+info_address2);
     	$('#hidn').val(info_address);
     	$('#hidn2').val(info_address2);
+    	$('#hidn3').val(info_title);
+    	$('#hidn4').val(lat);
+    	$('#hidn5').val(lng);
     	console.log($('#hidn').text());
     });//부모창에 주소 가져가기 끝
     
     
-//     $(document).on('click', "#go", function(){
-    	
-//     	$.ajax({
-//     		url:"boardInsert.do",
-//     		type:"POST",
-//     		data:$('#detailInfo').serialize(),
-//     		success:function(){
-//     			alert("성공");
-//     		},
-//   			error : function(jpXHR, textStatus, errorThrown){
-//                 alert(textStatus);
-//                 alert(errorThrown);
-//           }
-//     	});
 
-    	
-//     });
 	
 	
 });//document.ready
@@ -330,7 +323,7 @@ $(document).ready(function(){
 						
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
-							<form id="detailInfo" action="boardInsert.do" method="post">
+							<form id="detailInfo" action="insertBoard.do" method="post">
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select name="major"><option>대분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select> 
@@ -347,6 +340,9 @@ $(document).ready(function(){
 										<div id="addrResult"></div>
 										<input type="hidden" id="hidn" name="addrResult">
 										<input type="hidden" id="hidn2" name="addrResult2">
+										<input type="hidden" id="hidn3" name="info_title">
+										<input type="hidden" id="hidn4" name="lat">
+										<input type="hidden" id="hidn5" name="lng">
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션가격</th><th> <input type="text" name="optionprice"> </th></tr>

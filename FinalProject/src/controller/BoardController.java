@@ -10,6 +10,8 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,14 +23,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.google.gson.Gson;
 
 import model.Board;
+import model.MapInfo;
 import model.Member;
 import service.BoardService;
 
 
 @Controller
-public class boardController{
+public class BoardController{
 	
 	@Autowired
 	private BoardService boardService;
@@ -86,32 +92,48 @@ public class boardController{
 	
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
-	@RequestMapping("boardInsert.do")
-	public void board(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
-		
-		int major = Integer.parseInt(req.getParameter("major"));
-		int minor = Integer.parseInt(req.getParameter("minor"));
-		String title = req.getParameter("title");
-		String end_date = req.getParameter("end_date");
-		int limit = Integer.parseInt(req.getParameter("limit"));
-		String address = req.getParameter("addrResult");
-		String address2 = req.getParameter("addrResult2");
-		int price = Integer.parseInt(req.getParameter("price"));
-		int optionprice = Integer.parseInt(req.getParameter("optionprice"));
-		String content = req.getParameter("content");
-		System.out.println("major ="+major+" / minor ="+minor);
-		System.out.println(address);
-		System.out.println(address2);
-		System.out.println("제목" + title);
-		System.out.println("마감일" + end_date);
+	/**
+	 * 글쓰기
+	 * */
+	@RequestMapping("insertBoard.do")
+	public void board(@RequestParam HashMap<String, Object> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		
 		String id = ((Member)session.getAttribute("member")).getId();
-		System.out.println("id찍어볼거야 = "+ id);
+		params.put("id", id);
 		
-		Board board = new Board(major, minor, title, id, content, new Date(), end_date, limit, 0, price, optionprice, 0, 0, 0, 0);
+//		System.out.println("id찍어볼거야 = "+ id);
+//		System.out.println("major ="+major+" / minor ="+minor);
+//		System.out.println("제목" + title);
+//		System.out.println("마감일" + end_date);
+//		System.out.println("info_title : "+info_title+" / address : "+address+" / address2 : "+ address2 + " / 위도 : "+lat+" / 경도 : "+lng);
 		
-		boardService.insertBoard(board);
+		boardService.insertBoard(params);
+		System.out.println(params.get("no"));
+		boardService.insertMap(params);
+
+	}
+	
+	@RequestMapping("load.do")
+	public String load(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+
+		System.out.println("load.do하러옴");
 		
+		
+		session.setAttribute("list", boardService.selectAllBoard());
+//		String gson = new Gson().toJson(boardService.selectAllBoard());
+//		System.out.println("인덱스페이지에 리스트 가져갈거야");
+//		System.out.println(gson);
+		
+//		try {
+//			PrintWriter pw =  resp.getWriter();
+//			pw.write(gson);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		return "main";
 	}
 
 

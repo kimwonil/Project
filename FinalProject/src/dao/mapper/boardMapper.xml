@@ -5,29 +5,47 @@
  
  <mapper namespace="dao.BoardDao">
 <!--  table명 : board -->
- <insert id="insertBoard" parameterType="Board">
- 	insert into board values(0, #{category_major}, #{category_minor}, #{title}, #{writer}, #{content}, sysdate(), #{end_date}, 
- 	#{limit}, #{state}, #{price}, #{optionprice}, #{read_count}, #{premium}, #{total_star}, #{num_evaluator})
+ <insert id="insertBoard" parameterType="java.util.HashMap">
+ 	insert into board values(0, #{major}, #{minor}, #{title}, #{id}, #{content}, sysdate(), #{end_date}, 
+ 	#{limit}, 0, #{price}, #{optionprice}, 0, 0, 0, 0)
+ 		<selectKey keyProperty="no" order="AFTER" resultType="int">
+ 			select max(no) as no from board
+ 		</selectKey>
  </insert>
  
  <delete id="deleteBoard" parameterType="int">
  	delete from board where no=#{no}
  </delete>
  
- <update id="udpateBoard" parameterType="Board">
+ <update id="updateBoard" parameterType="Board">
  	update board set category_major=#{category_major}, category_minor=#{category_minor}, title=#{title}, writer=#{writer}, content=#{content}, date=sysdate(), end_date=#{end_date}, limit=#{limit}, state=#{state},
  	price=#{price}, optionprice=#{optionprice}, read_count=#{read_count}, premium=#{premium}, totla_star=#{total_star}, num_evaluator=#{num_evaluator} where no=#{no}
  </update>
  
- <select id="selectOne" parameterType="Board" resultType="Board">
+ <select id="selectOneBoard" parameterType="Board" resultType="Board">
  	select * from board where no=#{no}
  </select>
  
- <select id="selectAll" parameterType="Board" resultType="Board">
+ <select id="selectAllBoard" parameterType="Board" resultType="Board">
  	select * from board
  </select>
  
 <!--  table명 : map -->
+ <insert id="insertMap" parameterType="java.util.HashMap">
+ 	insert into map values(0, #{lat}, #{lng}, #{info_title}, #{addrResult}, #{addrResult2}, #{no})
+ </insert>
+ 
+ <update id="updateMap" parameterType="MapInfo">
+ 	update map set lat=#{lat}, lng=#{lng}, title=#{title}, address=#{address}, address2=#{address} board_no=#{board_no} where no=#{no}
+ </update>
+ 
+ <delete id="deleteMap" parameterType="int">
+ 	delete from map where no=#{no}
+ </delete>
+ 
+ <select id="selectOneMap" parameterType="int" resultType="MapInfo">
+ 	select * from map where no=#{no}
+ </select>
 
 <!-- table명 : file -->
  
