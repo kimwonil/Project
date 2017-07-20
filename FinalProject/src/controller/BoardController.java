@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
@@ -124,10 +125,15 @@ public class BoardController{
 	}
 	
 	@RequestMapping("detailOneBoard.do")
-	public String selectOneBoard(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+	public ModelAndView selectOneBoard(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 		System.out.println("detailOneBoard.do들어옴");
-		System.out.println(req.getParameter("no"));
-		return "profile";
+		int no = Integer.parseInt(req.getParameter("no"));
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("board", boardService.selectOneBoard(no));
+		mav.setViewName("detail");
+		
+		return mav;
 	}
 
 
