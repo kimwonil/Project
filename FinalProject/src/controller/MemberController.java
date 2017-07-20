@@ -38,10 +38,7 @@ public class MemberController {
 	@RequestMapping("profile.do")
 	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("profile");
-//		Member m = new Member(id, "kwi1222", "empty", 0, 0);
 		session.setAttribute("member", memberService.selectOne(id));
-		
-//		mv.addObject("member", memberService.selectOne(id));
 		
 		return mv;
 	}
@@ -407,5 +404,10 @@ public class MemberController {
 		
 	}
 
+	
+	@RequestMapping("authorityList.do")
+	public void authorityList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		System.out.println("권한 신청 리스트");
+	}
 
 }

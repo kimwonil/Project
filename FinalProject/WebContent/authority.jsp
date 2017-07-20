@@ -17,6 +17,23 @@
 
 $(document).ready(function(){
 	
+	function authorityList(){
+		
+		$.ajax({
+			url:"authorityList.do",
+			type:"POST",
+			success:function(){
+				alert("성공");
+			},
+			error:function(){
+				alert("실패");
+			}
+		});
+	}
+	
+	authorityList();
+	
+	
 	$('#regBtn').click(function(){
 // 		$('#multiFiles').MultiFile('reset');
 	});
