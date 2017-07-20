@@ -117,6 +117,7 @@ $(document).ready(function(){
 			<li class="active"><a href="index.jsp">Home</a></li>
 			<li><a href="profile.do?id=kwi1222@naver.com">프로필</a></li>
 			<li><a href="authority.jsp">권한 신청</a></li>
+			<li><a href="authorityManager.jsp">권한 신청 매니저</a></li>
 			<li><a href="detail.jsp">글상세(임시)</a></li>
 			<li><a href="selling.jsp">판매관리</a></li>
 			<li><a href="purchasing.jsp">구매관리</a></li>
