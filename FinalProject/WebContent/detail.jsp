@@ -65,7 +65,9 @@
 							글 등록 날짜 : <fmt:formatDate value="${board.date}" pattern="yyyy-MM-dd"/><br>
 							마감 일 : ${board.end_date}<br>
 							장소 (지도 api)<br>
-							<div>지도 넣을 자리</div>
+							<div>지도 넣을 자리
+							${mapinfo }
+							</div>
 							<p>인원 또는 건수 : ${board.limit }</p>
 							기본가격 : ${board.price }<br>
 							옵션추가<br>
