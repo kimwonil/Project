@@ -95,8 +95,20 @@ public class MemeberService {
 		return memberDao.authorityList(id);
 	}
 	
+	public List<Authority> authorityAll() {
+		return memberDao.authorityAll();
+	}
+	
+	public int authorityUpdate(HashMap<String, Object> params) {
+		return memberDao.authorityUpdate(params);
+	}
+	
 	public int authorityDelete(int no) {
 		return memberDao.authorityDelete(no);
+	}
+	
+	public Authority authorityDetail(int no) {
+		return memberDao.authorityDetail(no);
 	}
 	
 }

@@ -10,17 +10,14 @@
 <script src="js/jquery.form.js"></script>
 <script src="js/jquery.MetaData.js"></script>
 <script src="js/jQuery.MultiFile.min.js"></script>
-
+<script src="js/jquery.cycle2.js"></script>
 <script type="text/javascript">
-
-
 
 $(document).ready(function(){
 	
-	function authorityList(){
-		
+	function telentList(){
 		$.ajax({
-			url:"authorityList.do",
+			url:"authorityManager.do",
 			type:"POST",
 			dataType:"json",
 			success:function(data){
@@ -29,9 +26,12 @@ $(document).ready(function(){
 				for(var i=0; i<data.length;i++){
 					$('#talentList').append(
 						"<tr height='40px'><td>"+data[i].no+"</td><td>"+
+						data[i].id+"</td><td>"+
 						data[i].category_no+"</td><td>"+
 						data[i].date+"</td><td>"+
-						(data[i].state==1?"승인 대기 / <button value='"+data[i].no+"' type='button' class='btn btn-sm btn-danger authorityDelete' data-toggle='modal' data-target='#deleteModal' >삭제</button>":data[i].state==2?"승인":"취소")+"</td></tr>"
+						data[i].file1+"<br>"+data[i].file2+"<br>"+data[i].file3+"</td><td>"+
+						"<button value='"+data[i].no+"' class='btn-sm btn-info detailBtn'>상세보기</button></td><td>"+
+						"<button type='button' value='"+data[i].no+"' class='btn btn-sm btn-info approvalBtn' >승인</button> / <button type='button' value='"+data[i].no+"' class='btn btn-sm btn-danger cancelBtn' >취소</button></td></tr>"
 					);
 					
 				}
@@ -43,29 +43,70 @@ $(document).ready(function(){
 		});
 	}
 	
-	authorityList();
+	telentList();
 	
-	
-	$(document).on('click','.authorityDelete', function(){
-		$('#authorityHidden').val($(this).val());
+	$(document).on('click','.approvalBtn', function(){
+		$.ajax({
+			url:"authorityUpdate.do",
+			type:"POST",
+			data:{
+				no:$(this).val(),
+				state:2
+			},
+			success:function(){
+				telentList();
+			},
+			error:function(){
+				alert("실패");
+			}
+		});
+		
 	});
 	
-	
-	$(document).on('click', '#authorityDelete', function(){
+	$(document).on('click','.cancelBtn', function(){
 		$.ajax({
-			url:"authorityDelete.do",
+			url:"authorityUpdate.do",
 			type:"POST",
-			data:{no:$('#authorityHidden').val()},
-// 			dataType:"json",
+			data:{
+				no:$(this).val(),
+				state:3
+			},
 			success:function(){
-				authorityList();
-				$('#deleteModal').modal('hide');
+				telentList();
 			},
 			error:function(){
 				alert("실패");
 			}
 		});
 	});
+	
+	$(document).on('click', '.detailBtn', function(){
+		$.ajax({
+			url:"authorityDetail.do",
+			type:"POST",
+			data:{no:$(this).val()},
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				alert("성공");
+				$('#imageFile1').attr('src','<c:url value="/user/authority/'+data.no+'"/>/'+data.file1);
+				$('#detailModal').modal('show');
+			},
+			error:function(){
+				alert("실패");
+			}
+			
+		});
+		
+// 		$('#imageFile1').attr('src', '<c:url value="/user/authority/'+no+'"/>/')
+		
+// 		$('#detailModal').modal('show');
+		
+		
+	});
+	
+	
+	
 	
 	
 });
@@ -78,7 +119,7 @@ $(document).ready(function(){
 <style>
 	#talentList{
 		border: 1px solid black;
-		width: 700px;
+		width: 900px;
 		text-align: center;
 		margin:10px 0px;
 		
@@ -101,6 +142,12 @@ $(document).ready(function(){
 	#btnDiv{
 		text-align: right;
 	}
+	.modal-body{
+		text-align: center;
+	}
+	.cycle-pager{
+		font-size: 50px;
+	}
 	
 	</style>
 	
@@ -109,102 +156,54 @@ $(document).ready(function(){
 			<div class="row">
 			
 				<div class="col-md-8 col-md-offset-2">
-					<h2>권한신청</h2>
+					<h2>권한 신청 매니저</h2>
 					<table id="talentList">
 						<tr>
-							<td colspan="4">신청한 재능</td>
+							<td colspan="7">신청한 재능</td>
 						</tr>
 						<tr>
 							<td>번호</td>
+							<td>아이디</td>
 							<td>재능</td>
 							<td>신청일시</td>
+							<td colspan="2">첨부</td>
 							<td>비고</td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>대분류</td>
-							<td>2017.07.11</td>
-							<td>승인대기중 / <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">삭제</button></td>
-						</tr>
 					</table>
-					<button type="button" id="regBtn" class="btn-sm btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
-					
-						  <!-- 재능 신청 Modal -->
-						  <div class="modal fade" id="addModal" role="dialog">
-						    <div class="modal-dialog">
-						    
-						      <!-- Modal content-->
-						      <div class="modal-content">
-						        <div class="modal-header">
-						          <button type="button" class="close" data-dismiss="modal">&times;</button>
-						          <h4 class="modal-title">재능 신청</h4>
-						        </div>
-						        <form id="registerForm" action="authorityReg.do" method="post" enctype="multipart/form-data">
-						        <div class="modal-body">
-						          <table id="talentTable">
-										<tr>
-											<td>신청 재능</td>
-											<td>
-												<select name="category_no">
-													<option value="1">디자인/그래픽</option>
-													<option value="2">컴퓨터/개발</option>
-													<option value="3">음악/영상</option>
-													<option value="4">생활/대행/상담</option>
-													<option value="5">노하우/여행</option>
-												</select>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2"><b>관련 자료</b></td>
-										</tr>
-										<tr>
-											<td colspan="2">
-												<input name="files" type="file" />
-												<input name="files" type="file" />
-												<input name="files" type="file" />
-											</td>
-										</tr>
-									</table>
-						        </div>
-						        <div id="btnDiv">
-						          <input type="submit" class="btn btn-sm btn-info register" value="등록">
-<!-- 						          <button type="button" class="btn btn-sm btn-info register" id="register">등록</button> -->
-						          <button type="button" class="btn btn-sm btn-info register" data-dismiss="modal">닫기</button>
-						        
-						        </div>
-						        </form>
-						        <div class="modal-footer">
-						        </div>
-						      </div>
-						      
-						    </div>
-						  </div>
-						  <!-- Modal -->
 						  
-						  <!-- 재능 삭제 Modal -->
-						  <div class="modal fade" id="deleteModal" role="dialog">
-						    <div class="modal-dialog">
-						    
-						      <!-- Modal content-->
-						      <div class="modal-content">
-						        <div class="modal-header">
-						          <button type="button" class="close" data-dismiss="modal">&times;</button>
-						          <h4 class="modal-title">재능 삭제</h4>
-						        </div>
-						        <div class="modal-body">
-						         	<b>재능을 삭제하시겠습니까?</b>
-						         	<input type="hidden" value="" id="authorityHidden">
-						          <button type="button" id="authorityDelete" class="btn-sm btn-danger">삭제</button>
-						          <button type="button" class="btn-sm btn-info" data-dismiss="modal">닫기</button>
-						        </div>
-						      </div>
-						      
-						    </div>
-						  </div>
-						  <!-- Modal -->
 				</div>
         	</div>
        </div>
 	</div>
+	
+						<!-- 상세보기 Modal -->
+						  <div class="modal fade" id="detailModal" role="dialog">
+						    <div class="modal-dialog">
+						    
+						      <!-- Modal content-->
+						      <div class="modal-content">
+						        <div class="modal-header">
+						          <button type="button" class="close" data-dismiss="modal">&times;</button>
+						          <h4 class="modal-title">상세 보기</h4>
+						        </div>
+						        <div class="modal-body">
+						        	<div class="cycle-slideshow" cycle-slideshow data-cycle-loader="wait">
+							         	<div class="cycle-pager"></div>
+							         	
+							         	<img src="images/img_1.jpg" id="imageFile1">
+							          	<img src="images/img_1.jpg" id="imageFile2">
+<!-- 							          	<img src="/images/img_1.jpg" id="imageFile3"> -->
+						          	</div>
+						        </div>
+						        <div class="modal-footer">
+						        	<button type="button" id="authorityDelete" class="btn-sm btn-danger">삭제</button>
+						        	<button type="button" class="btn-sm btn-info" data-dismiss="modal">닫기</button>
+						        </div>
+						      </div>
+						      
+						    </div>
+						  </div>
+						  <!-- Modal -->
+	
 </body>
 </html>

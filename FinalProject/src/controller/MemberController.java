@@ -429,5 +429,52 @@ public class MemberController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		memberService.authorityDelete(no);
 	}
+	
+	@RequestMapping("authorityManager.do")
+	public void authorityManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+		HashMap<String, Object> params = new HashMap<>();
+		List<Authority> list = memberService.authorityAll();
+		
+		String json = gson.toJson(list);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@RequestMapping("authorityUpdate.do")
+	public void authorityUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		
+		
+		int no = Integer.parseInt(request.getParameter("no"));
+		int state = Integer.parseInt(request.getParameter("state"));
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("no", no);
+		params.put("state", state);
+		memberService.authorityUpdate(params);
+	}
+	
+	@RequestMapping("authorityDetail.do")
+	public void authorityDetail(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		String json = gson.toJson(memberService.authorityDetail(no));
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
