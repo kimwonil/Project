@@ -129,10 +129,14 @@ public class BoardController{
 		System.out.println("detailOneBoard.do들어옴");
 		int no = Integer.parseInt(req.getParameter("no"));
 		
+		//board 테이블에서 가져온 정보
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("board", boardService.selectOneBoard(no));
 		mav.setViewName("detail");
 		
+		//map 테이블에서 가져온 정보
+		System.out.println(boardService.selectOneMap(no));
+		mav.addObject("mapinfo", boardService.selectOneMap(no));
 		return mav;
 	}
 
