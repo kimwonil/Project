@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import model.Authority;
 import model.CashRecord;
 import model.Exchange;
 import model.FileUpload;
@@ -38,10 +39,7 @@ public class MemberController {
 	@RequestMapping("profile.do")
 	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("profile");
-//		Member m = new Member(id, "kwi1222", "empty", 0, 0);
 		session.setAttribute("member", memberService.selectOne(id));
-		
-//		mv.addObject("member", memberService.selectOne(id));
 		
 		return mv;
 	}
@@ -407,5 +405,29 @@ public class MemberController {
 		
 	}
 
+	
+	@RequestMapping("authorityList.do")
+	public void authorityList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		String id = ((Member)session.getAttribute("member")).getId();
+		
+		List<Authority> list = memberService.authorityList(id);
+		
+		String json = gson.toJson(list);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	
+	
+	@RequestMapping("authorityDelete.do")
+	public void authorityDelete(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		int no = Integer.parseInt(request.getParameter("no"));
+		memberService.authorityDelete(no);
+	}
 
 }

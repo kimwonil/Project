@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.MemberDao;
+import model.Authority;
 import model.CashRecord;
 import model.Exchange;
 import model.Member;
@@ -86,8 +87,16 @@ public class MemeberService {
 		return memberDao.authorityReg(params);
 	}
 	
-	public int authorityFiles(HashMap<String, Object> params) {
+	public int authorityFiles(HashMap<String, Object> params) { 
 		return memberDao.authorityFiles(params);
+	}
+	
+	public List<Authority> authorityList(String id) {
+		return memberDao.authorityList(id);
+	}
+	
+	public int authorityDelete(int no) {
+		return memberDao.authorityDelete(no);
 	}
 	
 }
