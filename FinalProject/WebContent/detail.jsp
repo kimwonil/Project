@@ -10,6 +10,8 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=A5owm24oXM2NprihulHy&submodules=geocoder"></script>
 </head>
 <style>
 .deal-info {
@@ -40,7 +42,65 @@
   $( function() {
     $( "#tabs" ).tabs();
   } );
-  </script>
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$.ajax({
+		url : "selectOneMap.do",
+		type : "post",
+		data : {board_no:$('#board_no').val()},
+		dataType: "json",
+		success : function(data){
+			alert(data.address);
+        	var map = new naver.maps.Map('map', {
+        	    center: new naver.maps.LatLng(data.lat, data.lng),
+        	    zoom: 10
+        	});
+        	
+        	var marker = new naver.maps.Marker({
+        	    position: new naver.maps.LatLng(data.lat, data.lng),
+        	    map: map
+        	});
+			
+        	var a="";
+        	
+        	a +='<div class="iw_inner" >';
+        	
+     		if(data.title != "undefined"){
+     			a += '<h5>'+data.title+'</h5>';
+     		}
+     		
+     		a += '<h6>'+data.address+'</h6>';
+     		
+            if(data.address2 != null){
+            	a += '<h6>'+data.address2+'</h6>';
+            }
+            a += '</div>';
+        	
+        	var contentString = [
+        		a
+            ].join('');
+        	
+        	var infowindow = new naver.maps.InfoWindow({
+        	    content: contentString
+        	});
+        	
+        	infowindow.open(map, marker);
+			
+		},//success 끝
+		error : function(){
+			alert("실패");
+		
+      	}//error 끝
+	});//ajax끝
+	
+	
+	
+	
+	
+})
+</script>
 
 <body>
 	<div id="fh5co-main">
@@ -64,11 +124,10 @@
 							판매자 닉네임 : ${board.writer } <button>프로필</button><br>
 							글 등록 날짜 : <fmt:formatDate value="${board.date}" pattern="yyyy-MM-dd"/><br>
 							마감 일 : ${board.end_date}<br>
-							장소 (지도 api)<br>
-							<div>지도 넣을 자리
-							${mapinfo }
-							</div>
 							<p>인원 또는 건수 : ${board.limit }</p>
+							장소 (지도 api)<br>
+							<div id="map" style="width::250px;height:250px;"></div>
+							<input type="hidden" value="${board.no}" id="board_no">
 							기본가격 : ${board.price }<br>
 							옵션추가<br>
 							<p>옵션가격 : ${board.optionprice }</p>

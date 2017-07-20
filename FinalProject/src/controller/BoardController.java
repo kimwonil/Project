@@ -102,17 +102,11 @@ public class BoardController{
 		String id = ((Member)session.getAttribute("member")).getId();
 		params.put("id", id);
 		
-//		System.out.println("id찍어볼거야 = "+ id);
-//		System.out.println("major ="+major+" / minor ="+minor);
-//		System.out.println("제목" + title);
-//		System.out.println("마감일" + end_date);
-//		System.out.println("info_title : "+info_title+" / address : "+address+" / address2 : "+ address2 + " / 위도 : "+lat+" / 경도 : "+lng);
-		
 		boardService.insertBoard(params);
 		System.out.println(params.get("no"));
 		boardService.insertMap(params);
-
 	}
+	
 	
 	@RequestMapping("load.do")
 	public String load(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
@@ -124,6 +118,7 @@ public class BoardController{
 		return "main";
 	}
 	
+	
 	@RequestMapping("detailOneBoard.do")
 	public ModelAndView selectOneBoard(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 		System.out.println("detailOneBoard.do들어옴");
@@ -134,10 +129,37 @@ public class BoardController{
 		mav.addObject("board", boardService.selectOneBoard(no));
 		mav.setViewName("detail");
 		
-		//map 테이블에서 가져온 정보
-		System.out.println(boardService.selectOneMap(no));
-		mav.addObject("mapinfo", boardService.selectOneMap(no));
 		return mav;
+	}
+	
+	
+	@RequestMapping("selectOneMap.do")
+	public void selectOneMap(HttpServletRequest req, HttpServletResponse resp){
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		
+		System.out.println("mapinfo 가지러 들어왔엉");
+		System.out.println(req.getParameter("board_no"));
+		int board_no = Integer.parseInt(req.getParameter("board_no"));
+		if(boardService.selectOneMap(board_no) == null){
+			System.out.println("이거 지도 없다요");
+		}else{
+			System.out.println(boardService.selectOneMap(board_no));
+
+			Gson gson = new Gson();
+			String mapinfo=gson.toJson(boardService.selectOneMap(board_no));
+			
+			try {
+				PrintWriter pw;
+				pw = resp.getWriter();
+				pw.write(mapinfo);
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 

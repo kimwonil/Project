@@ -44,7 +44,7 @@
  </delete>
  
  <select id="selectOneMap" parameterType="int" resultType="MapInfo">
- 	select * from map where no=#{no}
+ 	select * from map where board_no=#{board_no}
  </select>
 
 <!-- table명 : file -->

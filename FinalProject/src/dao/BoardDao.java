@@ -18,7 +18,7 @@ public interface BoardDao {
 	public boolean insertMap(HashMap<String, Object> params);
 	public boolean updateMap(MapInfo map);
 	public boolean deleteMap(int no);
-	public MapInfo selectOneMap(int no);
+	public MapInfo selectOneMap(int board_no);
 	
 	
 	//테이블명 : file
