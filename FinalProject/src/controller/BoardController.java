@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
@@ -119,21 +120,20 @@ public class BoardController{
 		resp.setContentType("text/html; charset=utf-8");
 
 		System.out.println("load.do하러옴");
-		
-		
 		session.setAttribute("list", boardService.selectAllBoard());
-//		String gson = new Gson().toJson(boardService.selectAllBoard());
-//		System.out.println("인덱스페이지에 리스트 가져갈거야");
-//		System.out.println(gson);
+		return "main";
+	}
+	
+	@RequestMapping("detailOneBoard.do")
+	public ModelAndView selectOneBoard(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+		System.out.println("detailOneBoard.do들어옴");
+		int no = Integer.parseInt(req.getParameter("no"));
 		
-//		try {
-//			PrintWriter pw =  resp.getWriter();
-//			pw.write(gson);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		return "maintest";
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("board", boardService.selectOneBoard(no));
+		mav.setViewName("detail");
+		
+		return mav;
 	}
 
 

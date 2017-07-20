@@ -112,9 +112,9 @@ $(document).ready(function(){
 <!-- 	메뉴 -->
 	<div id="fh5co-offcanvass">
 		<a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <i class="icon-cross"></i> </a>
-		<h1 class="fh5co-logo"><a class="navbar-brand" href="index.html">Hydrogen</a></h1>
+		<h1 class="fh5co-logo"><a class="navbar-brand" href="index.jsp">Hydrogen</a></h1>
 		<ul>
-			<li class="active"><a href="index.html">Home</a></li>
+			<li class="active"><a href="index.jsp">Home</a></li>
 			<li><a href="profile.do?id=kwi1222@naver.com">프로필</a></li>
 			<li><a href="authority.jsp">권한 신청</a></li>
 			<li><a href="detail.jsp">글상세(임시)</a></li>
@@ -152,7 +152,7 @@ $(document).ready(function(){
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i class="icon-menu"></i></a>
-					<a class="navbar-brand" href="index.html">Hydrogen</a>		
+					<a class="navbar-brand" href="index.jsp">Hydrogen</a>		
 				</div>
 			</div>
 		

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="menu.jsp" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,20 +57,19 @@
 									<img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"	style="width: 573px; height: 500px;">
 									</a>
 							</div>
-							<div class="fh5co-desc">글제목</div>
+							<div class="fh5co-desc">${board.title }</div>
 						</div>
 
 						<div class="item deal-info">
-							<p>
-								판매자 닉네임 : nickname <button>프로필 보기</button>
-							</p>
-							<p>글 등록 날짜 : </p>
-							<p>마감 일 : </p>
-							<p>장소 (지도 api)</p>
-							<p>인원 또는 건수 : </p>
-							
-							<p>기본가격 : </p>
-							<p>옵션추가</p>
+							판매자 닉네임 : ${board.writer } <button>프로필</button><br>
+							글 등록 날짜 : <fmt:formatDate value="${board.date}" pattern="yyyy-MM-dd"/><br>
+							마감 일 : ${board.end_date}<br>
+							장소 (지도 api)<br>
+							<div>지도 넣을 자리</div>
+							<p>인원 또는 건수 : ${board.limit }</p>
+							기본가격 : ${board.price }<br>
+							옵션추가<br>
+							<p>옵션가격 : ${board.optionprice }</p>
 							<button>구매하기</button>
 							<button>찜하기</button>
 							<button>쪽지문의</button>
