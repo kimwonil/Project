@@ -92,20 +92,28 @@ public class BoardController{
 	}
 	
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * 글쓰기
 	 * */
 	@RequestMapping("insertBoard.do")
-	public void board(@RequestParam HashMap<String, Object> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+	public ModelAndView board(@RequestParam HashMap<String, Object> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		
 		String id = ((Member)session.getAttribute("member")).getId();
 		params.put("id", id);
 		
 		boardService.insertBoard(params);
 		System.out.println(params.get("no"));
+		int no = Integer.parseInt(params.get("no").toString());
 		boardService.insertMap(params);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("board", boardService.selectOneBoard(no));
+		mav.setViewName("detail");
+		
+		return mav;
 	}
+	
 	
 	
 	@RequestMapping("load.do")
@@ -158,7 +166,6 @@ public class BoardController{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 	}
 
