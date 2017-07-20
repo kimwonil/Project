@@ -3,6 +3,7 @@ package dao;
 import java.util.HashMap;
 import java.util.List;
 
+import model.Authority;
 import model.CashRecord;
 import model.Exchange;
 import model.Member;
@@ -26,4 +27,6 @@ public interface MemberDao {
 	public int messageSend(Message message);
 	public int authorityReg(HashMap<String, Object> params);
 	public int authorityFiles(HashMap<String, Object> params);
+	public List<Authority> authorityList(String id);
+	public int authorityDelete(int no);
 }

@@ -75,9 +75,16 @@
  
  <insert id="authorityFiles" parameterType="java.util.HashMap">
  	insert into authority_file values(0, #{no}, #{id}, #{file1}, #{file2}, #{file3})
- 	
  </insert>
+
+ <select id="authorityList" parameterType="String" resultType="Authority">
+ 	select * from authority where id=#{id}
+ </select>
  
+ <delete id="authorityDelete" parameterType="int">
+ 	delete from authority where no=#{no}
+ </delete> 
+
  </mapper>
  
  
