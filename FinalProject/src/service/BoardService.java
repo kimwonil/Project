@@ -55,8 +55,8 @@ public class BoardService {
 		return boardDao.deleteMap(no);
 	}
 	
-	public MapInfo selectOneMap(int no){
-		return boardDao.selectOneMap(no);
+	public MapInfo selectOneMap(int board_no){
+		return boardDao.selectOneMap(board_no);
 	}
 		
 
