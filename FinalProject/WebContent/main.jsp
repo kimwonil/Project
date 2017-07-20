@@ -9,6 +9,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+#fh5co-board{
+position: relative;
+left : -200%; 
+width: 500%; 
+}
+.sp-content{
+/* left: 0%; */
+/* width: 100%;  */
+}
+.sp-slideshow{
+/* left: 0%; */
+/* width: 200%; */
+}
+.container{
+/* left: 0%; */
+/* width: 100%; */
+}
+
+</style>
 <body>
 <div id="fh5co-main">
 	<div class="container">
@@ -41,14 +61,14 @@
 					<div class="sp-parallax-bg"></div>
 					<ul class="sp-slider clearfix">
 			
-				<c:forEach items="${list}" var="item" varStatus="status" >
+				<c:forEach items="${list}" var="item" varStatus="status">
 					<c:if test="${status.count%4 eq 1}">
 					<li>
 					</c:if>
 						<div class="column size-1of4">
 							<div class="item">
 								<div class="animate-box">
-									<a href="images/img_1.jpg" class="image-popup fh5co-board-img"
+									<a href="detailOneBoard.do?no=${item.no}" 
 										title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img
 										src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
 								</div>
@@ -56,6 +76,7 @@
 							</div>
 						</div>
 						<c:if test="${status.count%4 eq 0}">
+						
 					</li>
 					</c:if>
 				</c:forEach>

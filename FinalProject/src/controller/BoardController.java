@@ -122,6 +122,13 @@ public class BoardController{
 		session.setAttribute("list", boardService.selectAllBoard());
 		return "main";
 	}
+	
+	@RequestMapping("detailOneBoard.do")
+	public String selectOneBoard(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+		System.out.println("detailOneBoard.do들어옴");
+		System.out.println(req.getParameter("no"));
+		return "profile";
+	}
 
 
 	
