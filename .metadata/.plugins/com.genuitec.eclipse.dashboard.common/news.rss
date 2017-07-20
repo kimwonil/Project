@@ -12,12 +12,27 @@
 	<atom:link href="https://www.genuitec.com/feed/" rel="self" type="application/rss+xml" />
 	<link>https://www.genuitec.com</link>
 	<description>The Cloud Control Company</description>
-	<lastBuildDate>Tue, 18 Jul 2017 21:35:53 +0000</lastBuildDate>
+	<lastBuildDate>Wed, 19 Jul 2017 19:08:30 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>hourly</sy:updatePeriod>
 	<sy:updateFrequency>1</sy:updateFrequency>
 	<generator>https://wordpress.org/?v=4.6.1</generator>
 	<item>
+		<title>Beware of Software Scams</title>
+		<link>https://www.genuitec.com/beware-software-scams/</link>
+		<pubDate>Wed, 19 Jul 2017 15:28:21 +0000</pubDate>
+		<dc:creator><![CDATA[Maher Masri]]></dc:creator>
+				<category><![CDATA[Genuitec]]></category>
+		<category><![CDATA[fraud]]></category>
+		<category><![CDATA[internet fraud]]></category>
+		<category><![CDATA[software fraud]]></category>
+
+		<guid isPermaLink="false">https://www.genuitec.com/?p=530839</guid>
+		<description><![CDATA[<p>Even though imitation might be the best form of flattery, we are Genuitec, LLC, not Genuitec, Inc. Someone is using our name and old logo to run a number of scams, including real estate transactions and software sales, with the clear intent to hide behind Genuitec’s good name. We are, however, already taking action to [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.genuitec.com/beware-software-scams/">Beware of Software Scams</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
+]]></description>
+		</item>
+		<item>
 		<title>Angular IDE vs WebStorm for Angular Coding.</title>
 		<link>https://www.genuitec.com/angular-ide-vs-webstorm-for-angular-coding/</link>
 		<pubDate>Mon, 17 Jul 2017 14:31:33 +0000</pubDate>
@@ -251,29 +266,14 @@
 <p>The post <a rel="nofollow" href="https://www.genuitec.com/creating-icons-for-darkest-dark-theme/">Creating Icons for Darkest Dark Theme.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
 ]]></description>
 		</item>
-		<item>
-		<title>Angular 4 is Ready to Crack the Toughest Cookies.</title>
-		<link>https://www.genuitec.com/angular-4-is-ready-to-crack-the-toughest-cookies/</link>
-		<pubDate>Thu, 01 Jun 2017 14:01:32 +0000</pubDate>
-		<dc:creator><![CDATA[Wanda Muriy]]></dc:creator>
-				<category><![CDATA[Genuitec]]></category>
-		<category><![CDATA[Angular]]></category>
-		<category><![CDATA[Angular 4]]></category>
-		<category><![CDATA[typescript]]></category>
-
-		<guid isPermaLink="false">https://www.genuitec.com/?p=524274</guid>
-		<description><![CDATA[<p>For all those who might have continued to resist its charms, Angular 4 is worth your while!  A wide range of companies have put their trust in it when it comes to their apps.  More and more developers are also excited about working with this IDE.  You might wonder why.Simple!  For a business or an [&#8230;]</p>
-<p>The post <a rel="nofollow" href="https://www.genuitec.com/angular-4-is-ready-to-crack-the-toughest-cookies/">Angular 4 is Ready to Crack the Toughest Cookies.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
-]]></description>
-		</item>
 	</channel>
 </rss>
 
 <!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
 
-Object Caching 9176/9295 objects using disk
+Object Caching 9149/9413 objects using disk
 Page Caching using disk: enhanced (Requested URI is rejected)
 Content Delivery Network via resources.cloud.genuitec.com
-Database Caching 42/44 queries in 0.006 seconds using disk
+Database Caching 6/47 queries in 1.388 seconds using disk
 
- Served from: www.genuitec.com @ 2017-07-18 19:02:04 by W3 Total Cache -->
+ Served from: www.genuitec.com @ 2017-07-19 19:13:17 by W3 Total Cache -->
