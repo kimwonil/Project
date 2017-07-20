@@ -94,6 +94,20 @@ public class BoardController{
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
+	 * main화면 전체글 로드
+	 * */
+	@RequestMapping("load.do")
+	public String load(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		
+		System.out.println("load.do하러옴");
+		session.setAttribute("list", boardService.selectAllBoard());
+		return "main";
+	}
+
+	
+	/**
 	 * 글쓰기
 	 * */
 	@RequestMapping("insertBoard.do")
@@ -115,18 +129,9 @@ public class BoardController{
 	}
 	
 	
-	
-	@RequestMapping("load.do")
-	public String load(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html; charset=utf-8");
-
-		System.out.println("load.do하러옴");
-		session.setAttribute("list", boardService.selectAllBoard());
-		return "main";
-	}
-	
-	
+	/**
+	 * 글상세
+	 * */
 	@RequestMapping("detailOneBoard.do")
 	public ModelAndView selectOneBoard(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 		System.out.println("detailOneBoard.do들어옴");
@@ -167,6 +172,25 @@ public class BoardController{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	
+	/**
+	 * 글수정
+	 * */
+	@RequestMapping("updateBoardForm.do")
+	public ModelAndView detailForm(@RequestParam HashMap<String, Object> params){
+		System.out.println("udpateBoardForm.do");
+		int no = Integer.parseInt(params.get("no").toString());
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("board", boardService.selectOneBoard(no));
+		mav.setViewName("updateBoard");
+		return mav;
+	}
+	
+	@RequestMapping("updateBoard.do")
+	public void updateOneBoard(){
+		
 	}
 
 

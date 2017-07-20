@@ -52,7 +52,8 @@ $(document).ready(function(){
 		data : {board_no:$('#board_no').val()},
 		dataType: "json",
 		success : function(data){
-			alert(data.address);
+			alert("성공");
+			
         	var map = new naver.maps.Map('map', {
         	    center: new naver.maps.LatLng(data.lat, data.lng),
         	    zoom: 10
@@ -63,35 +64,28 @@ $(document).ready(function(){
         	    map: map
         	});
 			
+        	//infowindow에 들어갈 내용
         	var a="";
-        	
         	a +='<div class="iw_inner" >';
-        	
      		if(data.title != "undefined"){
      			a += '<h5>'+data.title+'</h5>';
      		}
-     		
      		a += '<h6>'+data.address+'</h6>';
-     		
             if(data.address2 != null){
             	a += '<h6>'+data.address2+'</h6>';
             }
             a += '</div>';
-        	
-        	var contentString = [
-        		a
-            ].join('');
+
         	
         	var infowindow = new naver.maps.InfoWindow({
-        	    content: contentString
+        	    content: a
         	});
         	
         	infowindow.open(map, marker);
 			
 		},//success 끝
 		error : function(){
-			alert("실패");
-		
+			$('#map').append('<h5>전지역 가능</h5>');
       	}//error 끝
 	});//ajax끝
 	
@@ -121,20 +115,21 @@ $(document).ready(function(){
 
 						<div class="item deal-info">
 							판매자 닉네임 : ${board.writer } 
+							<a href="updateBoardForm.do?no=${board.no }" class="btn btn-info btn-sm">글수정</a>
 							<form action="profile.do" method="post">
 								<input type="hidden" name="nickname" value="${board.writer }">
 								<input type="submit" value="프로필">
 							</form><br>
-							글 등록 날짜 : <fmt:formatDate value="${board.date}" pattern="yyyy-MM-dd"/><br>
+							등록일 : <fmt:formatDate value="${board.date}" pattern="yyyy-MM-dd"/><br>
 							마감일 : ${board.end_date}<br>
 							<p>인원 또는 건수 : ${board.limit }</p>
 							기본가격 : ${board.price }<br>
 							옵션추가<br>
-							<p>옵션가격 : ${board.optionprice }</p>
-							<button>구매하기</button>
+							옵션가격 : ${board.optionprice }<br>
+							<p><button>구매하기</button>
 							<button>찜하기</button>
-							<button>쪽지문의</button><br>
-							장소 (지도 api)<br>
+							<button>쪽지문의</button></p>
+							장소<br>
 							<div id="map" style="width::250px;height:250px;"></div>
 							<input type="hidden" value="${board.no}" id="board_no">
 						</div>
