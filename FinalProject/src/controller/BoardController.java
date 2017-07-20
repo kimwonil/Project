@@ -119,21 +119,8 @@ public class BoardController{
 		resp.setContentType("text/html; charset=utf-8");
 
 		System.out.println("load.do하러옴");
-		
-		
 		session.setAttribute("list", boardService.selectAllBoard());
-//		String gson = new Gson().toJson(boardService.selectAllBoard());
-//		System.out.println("인덱스페이지에 리스트 가져갈거야");
-//		System.out.println(gson);
-		
-//		try {
-//			PrintWriter pw =  resp.getWriter();
-//			pw.write(gson);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		return "maintest";
+		return "main";
 	}
 
 
