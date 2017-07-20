@@ -6,6 +6,9 @@ public class Authority {
 	private int category_no;
 	private String date;
 	private int state;
+	private String file1;
+	private String file2;
+	private String file3;
 	
 	
 	public Authority() {
@@ -20,6 +23,22 @@ public class Authority {
 		this.category_no = category_no;
 		this.date = date;
 		this.state = state;
+	}
+	
+	
+
+
+	public Authority(int no, String id, int category_no, String date, int state, String file1, String file2,
+			String file3) {
+		super();
+		this.no = no;
+		this.id = id;
+		this.category_no = category_no;
+		this.date = date;
+		this.state = state;
+		this.file1 = file1;
+		this.file2 = file2;
+		this.file3 = file3;
 	}
 
 
@@ -72,12 +91,46 @@ public class Authority {
 		this.state = state;
 	}
 
+	
+	
+	
+	public String getFile1() {
+		return file1;
+	}
+
+
+	public void setFile1(String file1) {
+		this.file1 = file1;
+	}
+
+
+	public String getFile2() {
+		return file2;
+	}
+
+
+	public void setFile2(String file2) {
+		this.file2 = file2;
+	}
+
+
+	public String getFile3() {
+		return file3;
+	}
+
+
+	public void setFile3(String file3) {
+		this.file3 = file3;
+	}
+
 
 	@Override
 	public String toString() {
-		return "authority [no=" + no + ", id=" + id + ", category_no=" + category_no + ", date=" + date + ", state="
-				+ state + "]";
+		return "Authority [no=" + no + ", id=" + id + ", category_no=" + category_no + ", date=" + date + ", state="
+				+ state + ", file1=" + file1 + ", file2=" + file2 + ", file3=" + file3 + "]";
 	}
+
+
 	
 	
 }

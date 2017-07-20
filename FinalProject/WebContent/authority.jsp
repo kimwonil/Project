@@ -109,7 +109,7 @@ $(document).ready(function(){
 			<div class="row">
 			
 				<div class="col-md-8 col-md-offset-2">
-					<h2>권한신청</h2>
+					<h2>권한 신청</h2>
 					<table id="talentList">
 						<tr>
 							<td colspan="4">신청한 재능</td>

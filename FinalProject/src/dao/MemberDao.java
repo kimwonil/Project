@@ -28,5 +28,8 @@ public interface MemberDao {
 	public int authorityReg(HashMap<String, Object> params);
 	public int authorityFiles(HashMap<String, Object> params);
 	public List<Authority> authorityList(String id);
+	public List<Authority> authorityAll();
+	public int authorityUpdate(HashMap<String, Object> params);
 	public int authorityDelete(int no);
+	public Authority authorityDetail(int no);
 }

@@ -81,9 +81,24 @@
  	select * from authority where id=#{id}
  </select>
  
+ <select id="authorityAll" resultType="Authority">
+ 	select authority.no as no, authority.id as id, authority.category_no as category_no, authority.date as date, authority.state as state, authority_file.file1 as file1, authority_file.file2 as file2, authority_file.file3 as file3
+	from authority join authority_file
+	on authority.no = authority_file.authority_no 
+	where state=1;
+ </select>
+ 
+ <update id="authorityUpdate" parameterType="java.util.HashMap">
+ 	update authority set state=#{state} where no=#{no}
+ </update>
+ 
  <delete id="authorityDelete" parameterType="int">
  	delete from authority where no=#{no}
  </delete> 
+ 
+ <select id="authorityDetail" parameterType="int" resultType="Authority">
+ 	select * from authority_file where authority_no=#{no}
+ </select>
 
  </mapper>
  
