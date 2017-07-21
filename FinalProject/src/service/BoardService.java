@@ -23,8 +23,8 @@ public class BoardService {
 		return boardDao.insertBoard(params);
 	}
 	
-	public boolean updateBoard(Board board){
-		return boardDao.updateBoard(board);
+	public boolean updateBoard(HashMap<String, Object> params){
+		return boardDao.updateBoard(params);
 	}
 	
 	public boolean deleteBoard(int no){
@@ -47,8 +47,8 @@ public class BoardService {
 		return boardDao.insertMap(parmas);
 	}
 	
-	public boolean updateMap(MapInfo map){
-		return boardDao.updateMap(map);
+	public boolean updateMap(HashMap<String, Object>parmas){
+		return boardDao.updateMap(parmas);
 	}
 	
 	public boolean deleteMap(int no){

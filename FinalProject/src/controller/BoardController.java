@@ -112,18 +112,25 @@ public class BoardController{
 	 * */
 	@RequestMapping("insertBoard.do")
 	public ModelAndView board(@RequestParam HashMap<String, Object> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
-		
+		//세션에서 id가져와성
 		String id = ((Member)session.getAttribute("member")).getId();
 		params.put("id", id);
 		
+		//table에 넣고
 		boardService.insertBoard(params);
 		System.out.println(params.get("no"));
-		int no = Integer.parseInt(params.get("no").toString());
-		boardService.insertMap(params);
+		if(params.get("address") != null){
+			boardService.insertMap(params);
+		}
 		
+		//다시 뽑아서 글상세에서 보여주깅
 		ModelAndView mav = new ModelAndView();
+		int no = Integer.parseInt(params.get("no").toString());
 		mav.addObject("board", boardService.selectOneBoard(no));
 		mav.setViewName("detail");
+		if(boardService.selectOneMap(no) != null){
+			mav.addObject("mapinfo", boardService.selectOneMap(no));
+		}
 		
 		return mav;
 	}
@@ -179,18 +186,39 @@ public class BoardController{
 	 * 글수정
 	 * */
 	@RequestMapping("updateBoardForm.do")
-	public ModelAndView detailForm(@RequestParam HashMap<String, Object> params){
-		System.out.println("udpateBoardForm.do");
-		int no = Integer.parseInt(params.get("no").toString());
+	public ModelAndView updateBoardForm(int no){
+		System.out.println("updateBoardForm.do");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("board", boardService.selectOneBoard(no));
 		mav.setViewName("updateBoard");
+		
+		//map에서 주소 뽑아서 넣어주기
+		mav.addObject("mapinfo", boardService.selectOneMap(no));
+		
 		return mav;
 	}
 	
 	@RequestMapping("updateBoard.do")
-	public void updateOneBoard(){
+	public ModelAndView updateOneBoard(@RequestParam HashMap<String, Object> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+		System.out.println("updateBoard.do");
+		int no = Integer.parseInt(params.get("no").toString());
+		Board board = boardService.selectOneBoard(no);
+		params.put("read_count", board.getRead_count());
+		params.put("premium", board.getPremium());
+		params.put("total_star", board.getTotal_star());
+		params.put("num_evaluator", board.getNum_evaluator());
+		System.out.println(params);
+
+		//board, map 수정하기
+		boardService.updateBoard(params);
+		boardService.updateMap(params);
 		
+		//수정 후 페이지 이동
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("board", board);
+		mav.addObject("mapinfo", boardService.selectOneMap(no));
+		mav.setViewName("detail");
+		return mav;
 	}
 
 
