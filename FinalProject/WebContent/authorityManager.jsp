@@ -24,19 +24,22 @@ $(document).ready(function(){
 				var filename = "";
 				
 				
-				if(data[i].file1 nq ""){
-					filename = data[i].file1;
-				}
-				if(data[i].file2 nq ""){
-					filename = data[i].file1 + "<br>"+data[i].file2;
-				}
-				if(data[i].file3 nq ""){
-					filename = data[i].file1 + "<br>"+data[i].file2 + "<br>"+data[i].file3;
-				}
+				
 				
 				console.log(data);
 				$('#talentList tr:gt(1)').remove();
 				for(var i=0; i<data.length;i++){
+					if(data[i].file1 == ""){
+						filename = data[i].file1;
+					}
+					if(data[i].file2 == ""){
+						filename = data[i].file1 + "<br>"+data[i].file2;
+					}
+					if(data[i].file3 == ""){
+						filename = data[i].file1 + "<br>"+data[i].file2 + "<br>"+data[i].file3;
+					}
+					
+					
 					$('#talentList').append(
 						"<tr height='40px'><td>"+data[i].no+"</td><td>"+
 						data[i].id+"</td><td>"+
