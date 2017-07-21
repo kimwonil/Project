@@ -14,6 +14,10 @@
 
 </head>
 <body>
+
+
+유저정보 출력 [카카오 로그인 성공시!]
+
 <a id="kakao-login-btn"></a>
 <script type='text/javascript'>
   //<![CDATA[
