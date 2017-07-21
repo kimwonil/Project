@@ -24,11 +24,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
 import model.Board;
+import model.FileUpload;
 import model.MapInfo;
 import model.Member;
 import service.BoardService;
@@ -111,26 +113,37 @@ public class BoardController{
 	 * 글쓰기
 	 * */
 	@RequestMapping("insertBoard.do")
-	public ModelAndView board(@RequestParam HashMap<String, Object> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
-		//세션에서 id가져와성
-		String id = ((Member)session.getAttribute("member")).getId();
-		params.put("id", id);
+	public ModelAndView board(@RequestParam HashMap<String, Object> params, FileUpload files, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+		System.out.println("글넣기");
 		
-		//table에 넣고
-		boardService.insertBoard(params);
-		System.out.println(params.get("no"));
-		if(params.get("info_address") != null){
-			boardService.insertMap(params);
+		List<MultipartFile> names = files.getFiles();
+		for(MultipartFile name : names){
+			System.out.println(name.getOriginalFilename());
 		}
+		//세션에서 id가져와성
+//		String id = ((Member)session.getAttribute("member")).getId();
+//		params.put("id", id);
+		
+		//사진을 가져오자
+//		List<MultipartFile> fileList = files.getFiles();
+//		System.out.println(thumbnail.getFile().getOriginalFilename());
+//		System.out.println(fileList.get(0).getOriginalFilename());
+		//table에 넣고
+//		boardService.insertBoard(params);
+//		System.out.println(params.get("no"));
+//		if(params.get("info_address") != null){
+//			boardService.insertMap(params);
+//		}
 		
 		//다시 뽑아서 글상세에서 보여주깅
 		ModelAndView mav = new ModelAndView();
-		int no = Integer.parseInt(params.get("no").toString());
-		mav.addObject("board", boardService.selectOneBoard(no));
+//		int no = Integer.parseInt(params.get("no").toString());
+//		mav.addObject("board", boardService.selectOneBoard(no));
 		mav.setViewName("detail");
-		if(boardService.selectOneMap(no) != null){
-			mav.addObject("mapinfo", boardService.selectOneMap(no));
-		}
+//		if(boardService.selectOneMap(no) != null){
+//			mav.addObject("mapinfo", boardService.selectOneMap(no));
+//		}
+//		
 		
 		return mav;
 	}

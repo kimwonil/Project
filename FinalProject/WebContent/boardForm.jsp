@@ -349,9 +349,13 @@ $(document).ready(function(){
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션가격</th><th> <input type="text" name="optionprice"> </th></tr>
-									<tr><th>썸네일</th><th> <input type="file" name="thumbnail"> </th></tr>
+<!-- 									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr> -->
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>
-									<tr><th>상세 이미지 또는 동영상</th><th> <input type="file" name="file_name"> </th></tr>
+									<tr><th>상세 이미지 또는 동영상</th><th> 
+									<input type="file" name="files">
+									<input type="file" name="files">
+									<input type="file" name="files">
+									</th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
 								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">
