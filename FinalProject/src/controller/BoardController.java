@@ -206,6 +206,10 @@ public class BoardController{
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("board", boardService.selectOneBoard(no));
 		mav.setViewName("detail");
+		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
+			mav.addObject("fileinfo", boardService.selectOneFromFile(no));
+		}
+		
 		
 		return mav;
 	}
