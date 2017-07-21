@@ -5,13 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<!-- 네이버아이디로로그인 초기화 Script는 2.1.1.을 참고 -->
-<!-- 네이버아이디로로그인 Callback 페이지 처리 Script -->
+이메일 출력 [네이버 아이디 로그인 성공시]
+
+<div id="EmailN"></div>
+
 <script type="text/javascript">
  
 
@@ -34,10 +36,6 @@ naver_id_login.get_naver_userprofile("naverSignInCallback()");
 
 	</script>
 
-
-이메일 출력 [네이버 아이디 로그인 성공시]
-
-<div id="EmailN"></div>
 
 </body>
 </html>
