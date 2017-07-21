@@ -112,6 +112,7 @@ $(document).ready(function(){
 								
 								    console.log(e.latlng);
 								    searchCoordinateToAddress(e.latlng);
+								    info_title = "";
 								    
 								});
 					  	        
@@ -142,6 +143,7 @@ $(document).ready(function(){
   	 			$('#table tr:gt(0)').empty();
 				info_address = $('#inputAddr').val();
 				info_address2 = "";
+				info_title = "";
 				
 		        map.destroy();
 		        map = new naver.maps.Map('map', {
@@ -187,6 +189,7 @@ $(document).ready(function(){
 		    			marker.setPosition(e.latlng);
 		
 					    searchCoordinateToAddress(e.latlng);
+					    info_title="";
 					});
   	        
 		  	        //인포윈도우 오픈
@@ -293,7 +296,7 @@ $(document).ready(function(){
     	console.log($('h6').text());
     	
     	//부모창 div에 넣기
-    	$('#addrResult').html(info_address +"<br>"+info_address2);
+    	$('#addrResult').html(info_title +"<br>"+ info_address +"<br>"+info_address2);
     	$('#hidn').val(info_address);
     	$('#hidn2').val(info_address2);
     	$('#hidn3').val(info_title);
