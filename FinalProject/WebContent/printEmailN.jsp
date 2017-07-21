@@ -10,10 +10,10 @@
 
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<!-- 네이버아디디로로그인 초기화 Script는 2.1.1.을 참고 -->
-<!-- 네이버아디디로로그인 Callback 페이지 처리 Script -->
+<!-- 네이버아이디로로그인 초기화 Script는 2.1.1.을 참고 -->
+<!-- 네이버아이디로로그인 Callback 페이지 처리 Script -->
 <script type="text/javascript">
-
+ 
 
 var naver_id_login = new naver_id_login("4hbqrclSjqpbsBAmXZy9", "http://localhost:8080/LoginTo_123_test0001/printEmail.jsp");
 
