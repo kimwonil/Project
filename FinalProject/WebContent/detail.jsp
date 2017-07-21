@@ -49,7 +49,7 @@ $(document).ready(function(){
 	$.ajax({
 		url : "selectOneMap.do",
 		type : "post",
-		data : {board_no:$('#board_no').val()},
+		data : {board_no:$('#boardNo').val()},
 		dataType: "json",
 		success : function(data){
 			alert("성공");
@@ -90,6 +90,15 @@ $(document).ready(function(){
 	});//ajax끝
 	
 	
+	//글수정 가기 전에 state확인
+	$('#modify').on('click', function(){
+		var state = $('#modify').val();
+		if(state == 0){
+			location.href = "updateBoardForm.do?no="+$('#boardNo').val();
+		}else{
+			alert("거래 진행 후에는 글을 수정할 수 없습니다");
+		}
+	});//글수정 state확인 끝
 	
 	
 	
@@ -110,28 +119,29 @@ $(document).ready(function(){
 									<img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"	style="width: 573px; height: 500px;">
 									</a>
 							</div>
-							<div class="fh5co-desc">${board.title }</div>
+							<div class="fh5co-desc">${board.title}</div>
 						</div>
 
 						<div class="item deal-info">
 							판매자 닉네임 : ${board.writer } 
-							<a href="updateBoardForm.do?no=${board.no }" class="btn btn-info btn-sm">글수정</a>
+							<input type="hidden" value="${board.no}" name="no" id="boardNo">
+<%-- 							<a href="updateBoardForm.do?no=${board.no}" class="btn btn-info btn-sm">글수정</a> --%>
+							<button id="modify" value="${board.state}">글수정</button>
 							<form action="profile.do" method="post">
-								<input type="hidden" name="nickname" value="${board.writer }">
+								<input type="hidden" name="nickname" value="${board.writer}">
 								<input type="submit" value="프로필">
 							</form><br>
 							등록일 : <fmt:formatDate value="${board.date}" pattern="yyyy-MM-dd"/><br>
 							마감일 : ${board.end_date}<br>
-							<p>인원 또는 건수 : ${board.limit }</p>
-							기본가격 : ${board.price }<br>
+							<p>인원 또는 건수 : ${board.limit}</p>
+							기본가격 : ${board.price}<br>
 							옵션추가<br>
-							옵션가격 : ${board.optionprice }<br>
+							옵션가격 : ${board.optionprice}<br>
 							<p><button>구매하기</button>
 							<button>찜하기</button>
 							<button>쪽지문의</button></p>
 							장소<br>
 							<div id="map" style="width::250px;height:250px;"></div>
-							<input type="hidden" value="${board.no}" id="board_no">
 						</div>
 
 					</div>

@@ -154,10 +154,6 @@ $(document).ready(function(){
 			        }
 			    	
 			        var result = response.result;
-			        // 검색 결과 갯수: result.total
-			        // 첫번째 결과 결과 주소: result.items[0].address
-			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
-		        
 			        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
 			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  		
 			        
@@ -176,16 +172,13 @@ $(document).ready(function(){
 				        
 		        	console.log(result);
 		      		console.log(response.result.items);
-		// 		    console.log("78번째줄"+marker.position);
-		// 			console.log("78번째줄"+ result.items[0].address);
-		// // 		console.log(result.items[1].address);
+
 					
 		      		//직접 지도에서 찍은 곳으로 마커 이동
 					naver.maps.Event.addListener(map, 'click', function(e) {
 
 // 		  				infowindow.close();
 		    			marker.setPosition(e.latlng);
-		
 					    searchCoordinateToAddress(e.latlng);
 					});
   	        
@@ -309,8 +302,6 @@ $(document).ready(function(){
 });//document.ready
 </script>
 
-
-
 <body>
 	
 	<!-- 	<div id="fh5co-main"> -->
@@ -323,39 +314,42 @@ $(document).ready(function(){
 						
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
-							<form id="detailInfo" action="insertBoard.do" method="post">
+							<form id="detailInfo" action="updateBoard.do?no=${board.no}" method="post">
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select name="major"><option>대분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select> 
 									<select name="minor"><option>소분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select>
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title" value="${board.title}"> </th></tr>
-									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" value="2017-07-01"> </th></tr>
+									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" value="${board.end_date }"> </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text" name="limit" value="${board.limit }"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
           								<input type="radio" name="way" value="2"> 키워드<br>
 										<input type="text" id="inputAddr" name="inputAddr" > 
 										<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
-										<div id="addrResult">${board.address}</div>
+										<div id="addrResult">${mapinfo.address}
+											<c:if test="${mapinfo.address2 != null }">
+											${mapinfo.address2 }
+											</c:if>
+										</div>
 										<input type="hidden" id="hidn" name="addrResult">
 										<input type="hidden" id="hidn2" name="addrResult2">
 										<input type="hidden" id="hidn3" name="info_title">
 										<input type="hidden" id="hidn4" name="lat">
 										<input type="hidden" id="hidn5" name="lng">
 									</th></tr>
-									<tr><th>기본가격</th><th> <input type="text" name="price" > </th></tr>
-									<tr><th>옵션가격</th><th> <input type="text" name="optionprice"> </th></tr>
+									<tr><th>기본가격</th><th> <input type="text" name="price" value="${board.price}"> </th></tr>
+									<tr><th>옵션가격</th><th> <input type="text" name="optionprice" value="${board.optionprice}"> </th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="thumbnail"> </th></tr>
-									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>
+									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content">${board.content}</textarea> </th></tr>
 									<tr><th>상세 이미지 또는 동영상</th><th> <input type="file" name="file_name"> </th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">
+								<input type="submit" class="btn btn-sm btn-primary" value="GO!">
 							</form>
 							</div>
 						</div>
-					
 					</div>
 
 					

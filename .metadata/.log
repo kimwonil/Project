@@ -935,6 +935,18 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-21 09:14:57.029
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 
+<<<<<<< HEAD
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-21 15:20:51.284
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-21 15:20:51.287
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-21 15:20:52.303
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-21 15:20:52.305
+=======
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-21 09:32:13.339
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 
@@ -1427,4 +1439,5 @@ java.net.UnknownHostException: spring.io
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-21 15:19:54.144
+>>>>>>> wonil
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!

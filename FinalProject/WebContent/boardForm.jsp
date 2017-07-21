@@ -112,6 +112,7 @@ $(document).ready(function(){
 								
 								    console.log(e.latlng);
 								    searchCoordinateToAddress(e.latlng);
+								    info_title = "";
 								    
 								});
 					  	        
@@ -142,6 +143,7 @@ $(document).ready(function(){
   	 			$('#table tr:gt(0)').empty();
 				info_address = $('#inputAddr').val();
 				info_address2 = "";
+				info_title = "";
 				
 		        map.destroy();
 		        map = new naver.maps.Map('map', {
@@ -187,6 +189,7 @@ $(document).ready(function(){
 		    			marker.setPosition(e.latlng);
 		
 					    searchCoordinateToAddress(e.latlng);
+					    info_title="";
 					});
   	        
 		  	        //인포윈도우 오픈
@@ -293,7 +296,7 @@ $(document).ready(function(){
     	console.log($('h6').text());
     	
     	//부모창 div에 넣기
-    	$('#addrResult').html(info_address +"<br>"+info_address2);
+    	$('#addrResult').html(info_title +"<br>"+ info_address +"<br>"+info_address2);
     	$('#hidn').val(info_address);
     	$('#hidn2').val(info_address2);
     	$('#hidn3').val(info_title);
@@ -338,17 +341,21 @@ $(document).ready(function(){
 										<input type="text" id="inputAddr" name="inputAddr" > 
 										<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
 										<div id="addrResult"></div>
-										<input type="hidden" id="hidn" name="addrResult">
-										<input type="hidden" id="hidn2" name="addrResult2">
+										<input type="hidden" id="hidn" name="info_address">
+										<input type="hidden" id="hidn2" name="info_address2">
 										<input type="hidden" id="hidn3" name="info_title">
 										<input type="hidden" id="hidn4" name="lat">
 										<input type="hidden" id="hidn5" name="lng">
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션가격</th><th> <input type="text" name="optionprice"> </th></tr>
-									<tr><th>썸네일</th><th> <input type="file" name="thumbnail"> </th></tr>
+<!-- 									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr> -->
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>
-									<tr><th>상세 이미지 또는 동영상</th><th> <input type="file" name="file_name"> </th></tr>
+									<tr><th>상세 이미지 또는 동영상</th><th> 
+									<input type="file" name="files">
+									<input type="file" name="files">
+									<input type="file" name="files">
+									</th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
 								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">
