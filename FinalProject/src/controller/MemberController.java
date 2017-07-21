@@ -496,5 +496,7 @@ public class MemberController {
 		//다운 가능한 뷰 이동
 		return new ModelAndView("downLoadCustomView", "file", file);
 	}
+	
+	
 
 }
