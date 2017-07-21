@@ -32,7 +32,7 @@
  
 <!--  table명 : map -->
  <insert id="insertMap" parameterType="java.util.HashMap">
- 	insert into map values(0, #{lat}, #{lng}, #{info_title}, #{addrResult}, #{addrResult2}, #{no})
+ 	insert into map values(0, #{lat}, #{lng}, #{info_title}, #{info_address}, #{info_address2}, #{no})
  </insert>
  
  <update id="updateMap" parameterType="java.util.HashMap">

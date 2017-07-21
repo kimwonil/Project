@@ -341,8 +341,8 @@ $(document).ready(function(){
 										<input type="text" id="inputAddr" name="inputAddr" > 
 										<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
 										<div id="addrResult"></div>
-										<input type="hidden" id="hidn" name="addrResult">
-										<input type="hidden" id="hidn2" name="addrResult2">
+										<input type="hidden" id="hidn" name="info_address">
+										<input type="hidden" id="hidn2" name="info_address2">
 										<input type="hidden" id="hidn3" name="info_title">
 										<input type="hidden" id="hidn4" name="lat">
 										<input type="hidden" id="hidn5" name="lng">

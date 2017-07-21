@@ -119,7 +119,7 @@ public class BoardController{
 		//table에 넣고
 		boardService.insertBoard(params);
 		System.out.println(params.get("no"));
-		if(params.get("address") != null){
+		if(params.get("info_address") != null){
 			boardService.insertMap(params);
 		}
 		
