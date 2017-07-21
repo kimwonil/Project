@@ -15,6 +15,16 @@
 
 $(document).ready(function(){
 	
+	$('#cycle-slideshow').cycle({
+		fx: 'fade',
+		speed: 300,
+		timeout:0,
+		next:'#nextImg',
+		prev:'#prevImg'
+	});
+	
+	
+	
 	function telentList(){
 		$.ajax({
 			url:"authorityManager.do",
@@ -29,14 +39,14 @@ $(document).ready(function(){
 				console.log(data);
 				$('#talentList tr:gt(1)').remove();
 				for(var i=0; i<data.length;i++){
-					if(data[i].file1 == ""){
+					if(data[i].file1 != ""){
 						filename = data[i].file1;
 					}
-					if(data[i].file2 == ""){
-						filename = data[i].file1 + "<br>"+data[i].file2;
+					if(data[i].file2 != ""){
+						filename += "<br>"+data[i].file2;
 					}
-					if(data[i].file3 == ""){
-						filename = data[i].file1 + "<br>"+data[i].file2 + "<br>"+data[i].file3;
+					if(data[i].file3 != ""){
+						filename += "<br>"+data[i].file3;
 					}
 					
 					
@@ -115,11 +125,14 @@ $(document).ready(function(){
 				if(data.file1!=""){
 					$('#imageFile1').attr('src',"<c:url value='/user/authority/"+data.no+"'/>/"+data.file1);
 					$('#download1').html("<a href='download.do?no="+data.no+"&name="+data.file1+"'>"+data.file1+"</a>");
+					$('#download2').html("첨부 파일 없음");
+					$('#download3').html("첨부 파일 없음");
 				}
 				
 				if(data.file2!=""){
 					$('#imageFile2').attr('src',"<c:url value='/user/authority/"+data.no+"'/>/"+data.file2);
 					$('#download2').html("<a href='download.do?no="+data.no+"&name="+data.file2+"'>"+data.file2+"</a>");
+					$('#download3').html("첨부 파일 없음");
 				}
 				
 				if(data.file3!=""){
@@ -232,11 +245,14 @@ $(document).ready(function(){
 						          <h4 class="modal-title">상세 보기</h4>
 						        </div>
 						        <div class="modal-body">
-						        	<div class="cycle-slideshow" cycle-slideshow data-cycle-loader="wait">
-							         	<div class="cycle-pager"></div>
+						        	<div id="cycle-slideshow" >
 							         	<img src="images/img_1.jpg" id="imageFile1">
 							          	<img src="images/img_1.jpg" id="imageFile2">
 							          	<img src="images/img_1.jpg" id="imageFile3">
+						          	</div>
+						          	<div id="nav" class="nav">
+						          		<a id="prevImg" href="#">이전</a>
+						          		<a id="nextImg" href="#">다음</a>
 						          	</div>
 						        </div>
 						        <div class="modal-footer">
