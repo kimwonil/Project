@@ -48,6 +48,21 @@
  </select>
 
 <!-- table명 : file -->
+ <insert id="insertFile" parameterType="java.util.HashMap">
+	insert into file values(0, #{no}, #{file_name1}, #{file_name2}, #{file_name3}, #{file_name4})
+ </insert>
+ 
+ <update id="updateFile" parameterType="java.util.HashMap">
+ 	update file set file_name1=#{file_name1}, file_name2=#{file_name2}, file_name3=#{file_name3}, file_name4=#{file_name4} where no=#{no}
+ </update>
+ 
+ <delete id="deleteFile" parameterType="int">
+ 	delete from file where no=#{no}
+ </delete>
+ 
+ <select id="selectOneFromFile" parameterType="int" resultType="File">
+ 	select * from file where no=#{no}
+ </select>
  
  </mapper>
  

@@ -326,7 +326,7 @@ $(document).ready(function(){
 						
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
-							<form id="detailInfo" action="insertBoard.do" method="post">
+							<form id="detailInfo" action="insertBoard.do" method="post" enctype="multipart/form-data" >
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select name="major"><option>대분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select> 
@@ -349,7 +349,7 @@ $(document).ready(function(){
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션가격</th><th> <input type="text" name="optionprice"> </th></tr>
-<!-- 									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr> -->
+									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>
 									<tr><th>상세 이미지 또는 동영상</th><th> 
 									<input type="file" name="files">
