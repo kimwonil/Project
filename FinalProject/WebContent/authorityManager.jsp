@@ -21,15 +21,33 @@ $(document).ready(function(){
 			type:"POST",
 			dataType:"json",
 			success:function(data){
+				var filename = "";
+				
+				
+				
+				
 				console.log(data);
 				$('#talentList tr:gt(1)').remove();
 				for(var i=0; i<data.length;i++){
+					if(data[i].file1 == ""){
+						filename = data[i].file1;
+					}
+					if(data[i].file2 == ""){
+						filename = data[i].file1 + "<br>"+data[i].file2;
+					}
+					if(data[i].file3 == ""){
+						filename = data[i].file1 + "<br>"+data[i].file2 + "<br>"+data[i].file3;
+					}
+					
+					
 					$('#talentList').append(
 						"<tr height='40px'><td>"+data[i].no+"</td><td>"+
 						data[i].id+"</td><td>"+
 						data[i].category_no+"</td><td>"+
 						data[i].date+"</td><td>"+
-						data[i].file1+"<br>"+data[i].file2+"<br>"+data[i].file3+"</td><td>"+
+						filename+
+						"</td><td>"+
+						
 						"<button value='"+data[i].no+"' class='btn-sm btn-info detailBtn'>상세보기</button></td><td>"+
 						"<button type='button' value='"+data[i].no+"' class='btn btn-sm btn-info approvalBtn' >승인</button> / <button type='button' value='"+data[i].no+"' class='btn btn-sm btn-danger cancelBtn' >취소</button></td></tr>"
 					);
@@ -81,6 +99,11 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click', '.detailBtn', function(){
+		$('#imageFile1').attr('src','images/img_1.jpg');
+		$('#imageFile2').attr('src','images/img_1.jpg');
+		$('#imageFile3').attr('src','images/img_1.jpg');
+		$('li').empty();
+		
 		$.ajax({
 			url:"authorityDetail.do",
 			type:"POST",
@@ -88,8 +111,23 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(data){
 				console.log(data);
-				alert("성공");
-				$('#imageFile1').attr('src','<c:url value="/user/authority/'+data.no+'"/>/'+data.file1);
+				
+				if(data.file1!=""){
+					$('#imageFile1').attr('src',"<c:url value='/user/authority/"+data.no+"'/>/"+data.file1);
+					$('#download1').html("<a href='download.do?no="+data.no+"&name="+data.file1+"'>"+data.file1+"</a>");
+				}
+				
+				if(data.file2!=""){
+					$('#imageFile2').attr('src',"<c:url value='/user/authority/"+data.no+"'/>/"+data.file2);
+					$('#download2').html("<a href='download.do?no="+data.no+"&name="+data.file2+"'>"+data.file2+"</a>");
+				}
+				
+				if(data.file3!=""){
+					$('#imageFile3').attr('src',"<c:url value='/user/authority/"+data.no+"'/>/"+data.file3);
+					$('#download3').html("<a href='download.do?no="+data.no+"&name="+data.file3+"'>"+data.file3+"</a>");
+				}
+				
+				
 				$('#detailModal').modal('show');
 			},
 			error:function(){
@@ -148,6 +186,13 @@ $(document).ready(function(){
 	.cycle-pager{
 		font-size: 50px;
 	}
+	img{
+		width: 550px;
+		height: 600px;
+	}
+	ul{
+		text-align: left;
+	}
 	
 	</style>
 	
@@ -189,15 +234,17 @@ $(document).ready(function(){
 						        <div class="modal-body">
 						        	<div class="cycle-slideshow" cycle-slideshow data-cycle-loader="wait">
 							         	<div class="cycle-pager"></div>
-							         	
 							         	<img src="images/img_1.jpg" id="imageFile1">
 							          	<img src="images/img_1.jpg" id="imageFile2">
-<!-- 							          	<img src="/images/img_1.jpg" id="imageFile3"> -->
+							          	<img src="images/img_1.jpg" id="imageFile3">
 						          	</div>
 						        </div>
 						        <div class="modal-footer">
-						        	<button type="button" id="authorityDelete" class="btn-sm btn-danger">삭제</button>
-						        	<button type="button" class="btn-sm btn-info" data-dismiss="modal">닫기</button>
+						        	<ul>
+						        		<li id="download1"></li>
+						        		<li id="download2"></li>
+						        		<li id="download3"></li>
+						        	</ul>
 						        </div>
 						      </div>
 						      
