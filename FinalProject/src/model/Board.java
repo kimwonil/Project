@@ -21,6 +21,8 @@ public class Board {
 	private int num_evaluator;
 	
 	
+	
+	
 	public Board() {
 		super();
 	}
