@@ -13,7 +13,8 @@
 #fh5co-board{
 position: relative;
 left : -200%; 
-width: 500%; 
+width: 500%;
+height: 50%; 
 }
 .sp-content{
 /* left: 0%; */
@@ -27,7 +28,12 @@ width: 500%;
 /* left: 0%; */
 /* width: 100%; */
 }
-
+.fh5co-desc{
+color: #444;
+}
+.animate-box{
+height: 350px;
+}
 </style>
 <body>
 <div id="fh5co-main">
