@@ -339,6 +339,17 @@ public class MemberController {
 		
 		
 		List<MultipartFile> fileList = files.getFiles();
+		
+		
+		if(fileList.get(0).getOriginalFilename().equals("")) {
+			return "authority";
+		}else if(fileList.get(1).getOriginalFilename().equals("")) {
+			System.out.println("비어있음2");
+		}else if(fileList.get(2).getOriginalFilename().equals("")) {
+			System.out.println("비어있음3");
+		}
+		
+		
 		HashMap<String, Object> params = new HashMap<>();
 		params.put("id", ((Member)session.getAttribute("member")).getId());
 		params.put("category_no", request.getParameter("category_no"));
@@ -475,6 +486,15 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("download.do")
+	public ModelAndView downLoad(HttpServletRequest request, String no, String name, HttpSession session){
+		String path = session.getServletContext().getRealPath("/authority");
+//		String path = session.getServletContext().getContextPath()+"/photoFile/";
+		File file = new File(path+"/"+no+"/"+name);
+		//다운 가능한 뷰 이동
+		return new ModelAndView("downLoadCustomView", "file", file);
 	}
 
 }
