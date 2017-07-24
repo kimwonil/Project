@@ -7,8 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="js/jquery.form.js"></script>
-<script src="js/jquery.MetaData.js"></script>
+<!-- <script src="js/jquery.form.js"></script> -->
+<!-- <script src="js/jquery.MetaData.js"></script> -->
 <script src="js/jQuery.MultiFile.min.js"></script>
 <script src="js/jquery.cycle2.js"></script>
 <script type="text/javascript">
@@ -112,7 +112,7 @@ $(document).ready(function(){
 		$('#imageFile1').attr('src','images/img_1.jpg');
 		$('#imageFile2').attr('src','images/img_1.jpg');
 		$('#imageFile3').attr('src','images/img_1.jpg');
-		$('li').empty();
+		$('#downloadList li').empty();
 		
 		$.ajax({
 			url:"authorityDetail.do",
@@ -256,7 +256,7 @@ $(document).ready(function(){
 						          	</div>
 						        </div>
 						        <div class="modal-footer">
-						        	<ul>
+						        	<ul id="downloadList">
 						        		<li id="download1"></li>
 						        		<li id="download2"></li>
 						        		<li id="download3"></li>
