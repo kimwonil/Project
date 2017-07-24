@@ -290,18 +290,31 @@ public class BoardController{
 	 * 가격
 	 * */
 	@RequestMapping("price.do")
-	public ModelAndView price(@RequestParam(value="opt[]") List<String> params, @RequestParam(value="optPrice[]") List<String> params2, 
-			@RequestParam HashMap<String, Object> pr){
+	public ModelAndView price( 
+			@RequestParam HashMap<String, Object> pr, @RequestParam(value="option[]") List<String> params, 
+			@RequestParam(value="optionPrice[]") List<String> params2, FileUpload files){
 		ModelAndView mav = new ModelAndView();
-//		System.out.println("프라이스");
-//		System.out.println(pr.get("base"));
-//		System.out.println(pr.get("basePrice"));
-//		System.out.println(params);
-//		System.out.println(params2);
-		mav.addObject("base", pr.get("base"));
+		
+		System.out.println("프라이스");
+		System.out.println(pr.get("base"));
+		System.out.println(pr.get("basePrice"));
+		System.out.println(pr);
+		System.out.println(params);
+		System.out.println(params2);
+		System.out.println(pr.get("content"));
+		System.out.println(pr.get("title"));
+		
+		List<MultipartFile> fileList = files.getFiles();
+		int fileNo = 1;
+		for(MultipartFile file : fileList){
+			System.out.println(file.getOriginalFilename());
+			fileNo++;
+		}
+		
+		
 		mav.addObject("basePrice", pr.get("basePrice"));
-		mav.addObject("option", params);
-		mav.addObject("optionPrice", params2);
+//		mav.addObject("option", params);
+//		mav.addObject("optionPrice", params2);
 		mav.setViewName("option");
 		return mav;
 	}

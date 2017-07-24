@@ -40,16 +40,18 @@ $(document).ready(function(){
 				optionPrice.push($('#optionPrice'+i).val());
 			}
 		}
-				console.log(option);
-				console.log(optionPrice);
-				$.ajax({
-					url : "price.do",
-					type : "post",
-					data : {base: $('#base').val(), basePrice: $('#basePrice').val(), opt : option, optPrice : optionPrice},
-					success : function(){
-						alert('성공');
-					}
-				})
+		
+		console.log(option);
+		console.log(optionPrice);
+		$.ajax({
+			url : "price.do",
+			type : "post",
+			data : {base: $('#base').val(), basePrice: $('#basePrice').val(), opt : option, optPrice : optionPrice},
+			success : function(){
+				alert('성공');
+			}
+		})
+		
 	});
 	
 	$(document).on('click', '.delete', function(){
