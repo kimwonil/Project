@@ -40,4 +40,14 @@
 	<property name="mapperInterface" value="dao.NoticeDao"></property>
 </bean>
 
+<bean id="QnADao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	<property name="mapperInterface" value="dao.QnADao"></property>
+</bean>
+
+<bean id="AnswerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	<property name="mapperInterface" value="dao.AnswerDao"></property>
+</bean>
+
 </beans>
