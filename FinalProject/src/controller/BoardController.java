@@ -10,8 +10,10 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -280,6 +282,21 @@ public class BoardController{
 		mav.addObject("board", board);
 		mav.addObject("mapinfo", boardService.selectOneMap(no));
 		mav.setViewName("detail");
+		return mav;
+	}
+	
+	
+	/**
+	 * 가격
+	 * */
+	@RequestMapping("price.do")
+	public ModelAndView price(@RequestParam(value="opt[]") List<String> params, @RequestParam(value="optPrice[]") List<String> params2){
+		ModelAndView mav = new ModelAndView();
+		System.out.println("프라이스");
+		
+		System.out.println(params);
+		System.out.println(params2);
+		
 		return mav;
 	}
 

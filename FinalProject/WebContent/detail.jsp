@@ -131,7 +131,9 @@ $(document).ready(function(){
 							마감일 : ${board.end_date}<br>
 							<p>인원 또는 건수 : ${board.limit}</p>
 							기본가격 : ${board.price}<br>
-							옵션추가<br>
+							추가옵션
+
+							<br>
 							옵션가격 : ${board.optionprice}<br>
 							<p><button>구매하기</button>
 							<button>찜하기</button>
