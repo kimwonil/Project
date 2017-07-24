@@ -45,7 +45,7 @@ $(document).ready(function(){
 				$.ajax({
 					url : "price.do",
 					type : "post",
-					data : {opt : option, optPrice : optionPrice},
+					data : {base: $('#base').val(), basePrice: $('#basePrice').val(), opt : option, optPrice : optionPrice},
 					success : function(){
 						alert('성공');
 					}
@@ -65,7 +65,13 @@ $(document).ready(function(){
 
 <table id="tableOption">
 	<tr>
-		<td>종류</td>
+		<td>기본종류</td>
+		<td><input type="text" id="base"></td>
+		<td>가격</td>
+		<td><input type="text" id="basePrice"></td>
+	</tr>
+	<tr>
+		<td>옵션종류</td>
 		<td><input type="text" id="option0"></td>
 		<td>가격</td>
 		<td><input type="text" id="optionPrice0"></td>

@@ -290,13 +290,19 @@ public class BoardController{
 	 * 가격
 	 * */
 	@RequestMapping("price.do")
-	public ModelAndView price(@RequestParam(value="opt[]") List<String> params, @RequestParam(value="optPrice[]") List<String> params2){
+	public ModelAndView price(@RequestParam(value="opt[]") List<String> params, @RequestParam(value="optPrice[]") List<String> params2, 
+			@RequestParam HashMap<String, Object> pr){
 		ModelAndView mav = new ModelAndView();
-		System.out.println("프라이스");
-		
-		System.out.println(params);
-		System.out.println(params2);
-		
+//		System.out.println("프라이스");
+//		System.out.println(pr.get("base"));
+//		System.out.println(pr.get("basePrice"));
+//		System.out.println(params);
+//		System.out.println(params2);
+		mav.addObject("base", pr.get("base"));
+		mav.addObject("basePrice", pr.get("basePrice"));
+		mav.addObject("option", params);
+		mav.addObject("optionPrice", params2);
+		mav.setViewName("option");
 		return mav;
 	}
 
