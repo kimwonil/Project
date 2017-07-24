@@ -25,17 +25,23 @@
 </head>
 <body>
 
-<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-<div id="naver_id_login"></div>
-<!-- //네이버아이디로로그인 버튼 노출 영역 -->
+<!--                        Login - Naver                         -->
 
-<!-- 네이버아디디로로그인 초기화 Script -->
+<!-- 네이버 아이디로 로그인 버튼 -->
+<div id="naver_id_login"></div>
+<!-- 네이버 아이디로 로그인 버튼 -->
+
+<!-- 초기화 -->
 <script type="text/javascript">
+//첫값은 키값(naver developer에서 받아와야 함) / 두번째 값은 redirect 주소값
 	var naver_id_login = new naver_id_login("4hbqrclSjqpbsBAmXZy9", "http://localhost:8080/FinalProject/printEmailN.jsp");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("white", 2,40);
+
+// 얘는 콜백도메인이랑 네아로 로그인 버튼 달린 페이지랑 도메인이 다를때 씀. https://developers.naver.com/docs/login/web/ 접근 토큰 요청 참조
 	//naver_id_login.setDomain(".service.com");
-	//: 얘는 콜백도메인이랑 네아로 로그인 버튼 달린 페이지랑 도메인이 다를때 씀. https://developers.naver.com/docs/login/web/ 접근 토큰 요청 참조
+// 얘는 콜백도메인이랑 네아로 로그인 버튼 달린 페이지랑 도메인이 다를때 씀. https://developers.naver.com/docs/login/web/ 접근 토큰 요청 참조
+
 	naver_id_login.setState(state);
 	
 	//여기서부터 팝업설정
@@ -44,27 +50,29 @@
 	naver_id_login.init_naver_id_login();
 	
 </script>
-<!-- // 네이버아이디로로그인 초기화 Script -->
+<!-- 초기화 -->
 
 <br>
+<!--                        Login - Naver                         -->
 
+<!--                        Login - Kakao                         -->
 
-
+<!-- 해당 kakaologin은 토큰값을 반환하고 있음.
+이메일 주소 등의 개인정보를 출력하는 printEmailK.jsp에서 확인할것 -->
 <a id="custom-login-btn" href="javascript:loginWithKakao()">
 <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
 </a>
 <script type='text/javascript'>
   //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    // 사용할 앱의 JavaScript 키를 설정 : kakao developer 내부에서 설정
     Kakao.init('13308cd14b4fa75d3ba8015f7fff2604');
     function loginWithKakao() {
-      // 로그인 창을 띄웁니다.
+      // 로그인 창을 띄우고(팝업)
       Kakao.Auth.login({
-        success: function(authObj) {
+        
+    	  //성공시 토큰정보 출력
+    	 success: function(authObj) {
           alert(JSON.stringify(authObj));
-          //test1
-     	    alert(Kakao.Auth.getStatus(scope));
-          //test1
           
         },
         fail: function(err) {
@@ -75,8 +83,13 @@
   //]]>
 </script>
 
+<!--                        Login - Kakao                         -->
+
+
+<!--                        Login - Google                         -->
 <br>
-    <!-- Container with the Sign-In button. -->
+
+<!-- 구글 로그인 버튼 -->
     <div id="gConnect" class="button">
       <button class="g-signin"
           data-scope="email"
@@ -91,6 +104,8 @@
   /**
    * Handler for the signin callback triggered after the user selects an account.
    */
+   
+   //콜백시 무슨 행동을 할 것인가?
   function onSignInCallback(resp) {
     gapi.client.load('plus', 'v1', apiClientLoaded);
   }
@@ -98,6 +113,8 @@
   /**
    * Sets up an API call after the Google API client loads.
    */
+   
+  //handleEmailResopnse로 가져온 이메일 주소를 가져오는 기능(콜백함수에서 호출하는 그 기능) 
   function apiClientLoaded() {
     gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
   }
@@ -107,6 +124,8 @@
    *
    * @param resp The API response object with the user email and profile information.
    */
+
+//이메일 값을 받아서 출력하는 함수
 
   function handleEmailResponse(resp) {
     var primaryEmail;	
@@ -122,5 +141,8 @@
 Google 이메일 : <div id="EmailG"> </div>
 
 <br>
+
+<!--                        Login - Google                         -->
+
 </body>
 </html>

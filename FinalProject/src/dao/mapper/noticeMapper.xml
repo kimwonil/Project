@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="dao.NoticeDao">
+ 
+ <insert id="insertNotice" parameterType="java.util.HashMap">
+ 	insert into notice values(0,sysdate(),#{category_no},#{title},#{writer},0,#{content})
+ </insert>
+ 
+ <select id="selectAllNotice" resultType="Notice">
+ 	select * from Notice
+ </select>
+ 
+ <select id="selectOneNotice" parameterType="int" resultType="Notice">
+ 	select * from Notice where no=#{no}
+ </select>
+ 
+ <update id="updateNotice" parameterType="java.util.HashMap">
+ 	update Notice set title=#{title},content=#{content},category_no=#{category_no} where no= #{no}
+ </update>
+ 
+  <update id="updateNoticeCount" parameterType="java.util.HashMap">
+ 	update Notice set read_count=#{read_count} where no= #{no}
+ </update>
+ 
+ <delete id="deleteNotice" parameterType="int">
+ 	delete from notice where no= #{no}
+ </delete>
+ 
+ </mapper>

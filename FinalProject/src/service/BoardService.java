@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import dao.BoardDao;
 import model.Board;
+import model.File;
+import model.FileUpload;
 import model.MapInfo;
 
 @Service
@@ -58,6 +60,25 @@ public class BoardService {
 	public MapInfo selectOneMap(int board_no){
 		return boardDao.selectOneMap(board_no);
 	}
+
+	
+	/**
+	 * table명 : file
+	 * */
+	public boolean insertFile(HashMap<String, Object> params) {
+		return boardDao.insertFile(params);
+	}
+	
+	public boolean updateFile(HashMap<String, Object> params){
+		return boardDao.updateFile(params);
+	}
+	
+	public boolean deleteFile(int no){
+		return boardDao.deleteFile(no);
+	}
 		
+	public File selectOneFromFile(int no){
+		return boardDao.selectOneFromFile(no);
+	}
 
 }

@@ -100,7 +100,7 @@ $(document).ready(function(){
 		}
 	});//글수정 state확인 끝
 	
-	
+	$('#img')//상세정보 tab안에 사진 넣기
 	
 })
 </script>
@@ -116,21 +116,17 @@ $(document).ready(function(){
 						<div class="item deal-position">
 							<div class="animate-box">
 								<a href="images/img_1.jpg" class="image-popup fh5co-board-img">
-									<img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"	style="width: 573px; height: 500px;">
+									<img src="<c:url value="/user/board/${board.no}"/>/${fileinfo.file_name1}" alt="Free HTML5 Bootstrap template"	style="width: 573px; height: 500px;">
 									</a>
 							</div>
 							<div class="fh5co-desc">${board.title}</div>
 						</div>
 
 						<div class="item deal-info">
-							판매자 닉네임 : ${board.writer } 
+							
+							판매자 닉네임 : <a href="profile.do?nickname="+${board.writer}>${board.writer}</a>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
-<%-- 							<a href="updateBoardForm.do?no=${board.no}" class="btn btn-info btn-sm">글수정</a> --%>
-							<button id="modify" value="${board.state}">글수정</button>
-							<form action="profile.do" method="post">
-								<input type="hidden" name="nickname" value="${board.writer}">
-								<input type="submit" value="프로필">
-							</form><br>
+							<button id="modify" value="${board.state}">글수정</button><br>
 							등록일 : <fmt:formatDate value="${board.date}" pattern="yyyy-MM-dd"/><br>
 							마감일 : ${board.end_date}<br>
 							<p>인원 또는 건수 : ${board.limit}</p>
@@ -158,7 +154,8 @@ $(document).ready(function(){
 						    <li><a href="#tabs-3">사용자 리뷰</a></li>
 						  </ul>
 						  <div id="tabs-1">
-						    <p>${board.content}</p>
+						    <div>${board.content}</div>
+						    <div id="img"></div>
 						  </div>
 						  <div id="tabs-2">
 						    <p>주문시 유의사항 내용</p>

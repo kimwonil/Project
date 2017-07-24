@@ -1,5 +1,6 @@
 package controller;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -116,34 +117,78 @@ public class BoardController{
 	public ModelAndView board(@RequestParam HashMap<String, Object> params, FileUpload files, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		System.out.println("글넣기");
 		
-		List<MultipartFile> names = files.getFiles();
-		for(MultipartFile name : names){
-			System.out.println(name.getOriginalFilename());
-		}
-		//세션에서 id가져와성
-//		String id = ((Member)session.getAttribute("member")).getId();
-//		params.put("id", id);
+		//세션에서 id가져와성 params에 넣자
+		String id = ((Member)session.getAttribute("member")).getId();
+		params.put("id", id);
 		
 		//사진을 가져오자
-//		List<MultipartFile> fileList = files.getFiles();
-//		System.out.println(thumbnail.getFile().getOriginalFilename());
-//		System.out.println(fileList.get(0).getOriginalFilename());
-		//table에 넣고
-//		boardService.insertBoard(params);
-//		System.out.println(params.get("no"));
-//		if(params.get("info_address") != null){
-//			boardService.insertMap(params);
-//		}
+		List<MultipartFile> fileList = files.getFiles();
+		int fileNo = 1;
+		for(MultipartFile file : fileList){
+			System.out.println(file.getOriginalFilename());
+			params.put("file_name"+fileNo, file.getOriginalFilename());
+			fileNo++;
+		}
+		//table:board에 넣기
+		boardService.insertBoard(params);
+		System.out.println(params.get("no"));
+		int no = Integer.parseInt(params.get("no").toString());
+		
+		//files가 있으면 table:file에 넣기
+		if(files != null){
+			boardService.insertFile(params);
+		}
+		//info_address가 있으면 table:map에 넣기
+		if(params.get("info_address") != null){
+			boardService.insertMap(params);
+		}
+		
+		//사진이 저장될 위치 만들어주기
+		String path = session.getServletContext().getRealPath("/user/board/");
+		System.out.println(path);
+		MultipartFile file1 = fileList.get(0); //fileList에 들어있는 파일들을 하나씩 꺼내주고
+		MultipartFile file2 = fileList.get(1);
+		MultipartFile file3 = fileList.get(2);
+		MultipartFile file4 = fileList.get(3);
+		
+		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
+		if(!dir.isDirectory()){//폴더가 없으면 생성
+			dir.mkdirs();
+		}
+		
+			try {
+				if(file1 != null){
+					file1.transferTo(new File(path+no+"/"+file1.getOriginalFilename()));
+				}
+				if(file2 != null){
+					file2.transferTo(new File(path+no+"/"+file2.getOriginalFilename()));
+				}
+				if(file3 != null){
+					file3.transferTo(new File(path+no+"/"+file3.getOriginalFilename()));
+				}
+				if(file4 != null){
+					file4.transferTo(new File(path+no+"/"+file4.getOriginalFilename()));
+				}
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		
 		//다시 뽑아서 글상세에서 보여주깅
 		ModelAndView mav = new ModelAndView();
-//		int no = Integer.parseInt(params.get("no").toString());
-//		mav.addObject("board", boardService.selectOneBoard(no));
 		mav.setViewName("detail");
-//		if(boardService.selectOneMap(no) != null){
-//			mav.addObject("mapinfo", boardService.selectOneMap(no));
-//		}
-//		
+		mav.addObject("board", boardService.selectOneBoard(no));//board 뽑아서 가져오고
+		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
+			mav.addObject("mapinfo", boardService.selectOneMap(no));
+		}
+		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
+			mav.addObject("fileinfo", boardService.selectOneFromFile(no));
+		}
+		
 		
 		return mav;
 	}
@@ -161,6 +206,10 @@ public class BoardController{
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("board", boardService.selectOneBoard(no));
 		mav.setViewName("detail");
+		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
+			mav.addObject("fileinfo", boardService.selectOneFromFile(no));
+		}
+		
 		
 		return mav;
 	}

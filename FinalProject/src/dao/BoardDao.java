@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.Board;
+import model.File;
+import model.FileUpload;
 import model.MapInfo;
 
 public interface BoardDao {
@@ -22,6 +24,10 @@ public interface BoardDao {
 	
 	
 	//테이블명 : file
+	public boolean insertFile(HashMap<String, Object> params);
+	public boolean updateFile(HashMap<String, Object> params);
+	public boolean deleteFile(int no);
+	public File selectOneFromFile(int no);
 	
 	
 

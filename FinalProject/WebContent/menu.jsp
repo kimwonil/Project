@@ -124,7 +124,7 @@ $(document).ready(function(){
 			<li><a href="cash.jsp">캐시관리</a></li>
 			<li><a href="cashManager.jsp">캐시 매니저</a></li>
 			<li><a href="message.jsp">쪽지관리</a></li>
-			<li><a href="pricing.jsp">Pricing</a></li>
+			<li><a href="customerCenterCall.do">고객센터</a></li>
 			<li><a href="contact.jsp">Contact</a></li>
 		</ul>
 		<h3 class="fh5co-lead">Connect with us</h3>
