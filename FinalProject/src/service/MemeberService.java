@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.MemberDao;
+import model.Authority;
 import model.CashRecord;
 import model.Exchange;
 import model.Member;
+import model.Message;
 
 @Service
 public class MemeberService {
@@ -19,6 +21,18 @@ public class MemeberService {
 	
 	public Member selectOne(String id) {
 		return memberDao.selectOne(id);
+	}
+	
+	public List<Member> selectAll() {
+		return memberDao.selectAll();
+	}
+	
+	public int memberUpdate(Member member) {
+		return memberDao.memberUpdate(member);
+	}
+	
+	public int memberDelete(String id) {
+		return memberDao.memberDelete(id);
 	}
 	
 	public int refillCash(Member member) {
@@ -53,8 +67,48 @@ public class MemeberService {
 	}
 	
 	public int exchangeManager(HashMap<String, Object> map) {
-		System.out.println(map+"//서비스");
 		return memberDao.exchangeManager(map);
+	}
+	
+	public List<Message> messageList(String id) {
+		return memberDao.messageList(id);
+	}
+	
+	public Message messageDetail(int no) {
+		memberDao.messageState(no);
+		return memberDao.messageDetail(no);
+	}
+	
+	public int messageSend(Message message) {
+		return memberDao.messageSend(message);
+	}
+	
+	public int authorityReg(HashMap<String, Object> params) {
+		return memberDao.authorityReg(params);
+	}
+	
+	public int authorityFiles(HashMap<String, Object> params) { 
+		return memberDao.authorityFiles(params);
+	}
+	
+	public List<Authority> authorityList(String id) {
+		return memberDao.authorityList(id);
+	}
+	
+	public List<Authority> authorityAll() {
+		return memberDao.authorityAll();
+	}
+	
+	public int authorityUpdate(HashMap<String, Object> params) {
+		return memberDao.authorityUpdate(params);
+	}
+	
+	public int authorityDelete(int no) {
+		return memberDao.authorityDelete(no);
+	}
+	
+	public Authority authorityDetail(int no) {
+		return memberDao.authorityDetail(no);
 	}
 	
 }

@@ -12,12 +12,44 @@
 	<atom:link href="https://www.genuitec.com/feed/" rel="self" type="application/rss+xml" />
 	<link>https://www.genuitec.com</link>
 	<description>The Cloud Control Company</description>
-	<lastBuildDate>Fri, 14 Jul 2017 01:55:16 +0000</lastBuildDate>
+	<lastBuildDate>Sun, 23 Jul 2017 14:56:28 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>hourly</sy:updatePeriod>
 	<sy:updateFrequency>1</sy:updateFrequency>
 	<generator>https://wordpress.org/?v=4.6.1</generator>
 	<item>
+		<title>Beware of Software Scams</title>
+		<link>https://www.genuitec.com/beware-software-scams/</link>
+		<pubDate>Wed, 19 Jul 2017 15:28:21 +0000</pubDate>
+		<dc:creator><![CDATA[Maher Masri]]></dc:creator>
+				<category><![CDATA[Genuitec]]></category>
+		<category><![CDATA[fraud]]></category>
+		<category><![CDATA[internet fraud]]></category>
+		<category><![CDATA[software fraud]]></category>
+
+		<guid isPermaLink="false">https://www.genuitec.com/?p=530839</guid>
+		<description><![CDATA[<p>Even though imitation might be the best form of flattery, we are Genuitec, LLC, not Genuitec, Inc. Someone is using our name and old logo to run a number of scams, including real estate transactions and software sales, with the clear intent to hide behind Genuitec’s good name. We are, however, already taking action to [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.genuitec.com/beware-software-scams/">Beware of Software Scams</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
+]]></description>
+		</item>
+		<item>
+		<title>Angular IDE vs WebStorm for Angular Coding.</title>
+		<link>https://www.genuitec.com/angular-ide-vs-webstorm-for-angular-coding/</link>
+		<pubDate>Mon, 17 Jul 2017 14:31:33 +0000</pubDate>
+		<dc:creator><![CDATA[Bob at Genuitec]]></dc:creator>
+				<category><![CDATA[Eclipse]]></category>
+		<category><![CDATA[Genuitec]]></category>
+		<category><![CDATA[MyEclipse]]></category>
+		<category><![CDATA[Programming Tips]]></category>
+		<category><![CDATA[Angular]]></category>
+		<category><![CDATA[WebStorm]]></category>
+
+		<guid isPermaLink="false">https://www.genuitec.com/?p=527638</guid>
+		<description><![CDATA[<p>As we know, our favorite IDE can become an unparalleled ally when it comes to undertaking an agile workflow entailing TypeScript compilation at runtime, static type checking and introspection, and code completion and visual assistance for debugging and building our app. In this article, we will compare WebStorm vs Angular IDE for Angular coding. So [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.genuitec.com/angular-ide-vs-webstorm-for-angular-coding/">Angular IDE vs WebStorm for Angular Coding.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
+]]></description>
+		</item>
+		<item>
 		<title>Create a Kanban Board with Angular 4</title>
 		<link>https://www.genuitec.com/create-kanban-board-angular-4/</link>
 		<pubDate>Thu, 13 Jul 2017 13:43:09 +0000</pubDate>
@@ -234,44 +266,14 @@
 <p>The post <a rel="nofollow" href="https://www.genuitec.com/creating-icons-for-darkest-dark-theme/">Creating Icons for Darkest Dark Theme.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
 ]]></description>
 		</item>
-		<item>
-		<title>Angular 4 is Ready to Crack the Toughest Cookies.</title>
-		<link>https://www.genuitec.com/angular-4-is-ready-to-crack-the-toughest-cookies/</link>
-		<pubDate>Thu, 01 Jun 2017 14:01:32 +0000</pubDate>
-		<dc:creator><![CDATA[Wanda Muriy]]></dc:creator>
-				<category><![CDATA[Genuitec]]></category>
-		<category><![CDATA[Angular]]></category>
-		<category><![CDATA[Angular 4]]></category>
-		<category><![CDATA[typescript]]></category>
-
-		<guid isPermaLink="false">https://www.genuitec.com/?p=524274</guid>
-		<description><![CDATA[<p>For all those who might have continued to resist its charms, Angular 4 is worth your while!  A wide range of companies have put their trust in it when it comes to their apps.  More and more developers are also excited about working with this IDE.  You might wonder why.Simple!  For a business or an [&#8230;]</p>
-<p>The post <a rel="nofollow" href="https://www.genuitec.com/angular-4-is-ready-to-crack-the-toughest-cookies/">Angular 4 is Ready to Crack the Toughest Cookies.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
-]]></description>
-		</item>
-		<item>
-		<title>Creating Your First Angular App.</title>
-		<link>https://www.genuitec.com/creating-first-angular-app/</link>
-		<pubDate>Thu, 25 May 2017 16:28:47 +0000</pubDate>
-		<dc:creator><![CDATA[Wanda Muriy]]></dc:creator>
-				<category><![CDATA[Genuitec]]></category>
-		<category><![CDATA[How-to's]]></category>
-		<category><![CDATA[Programming Tips]]></category>
-		<category><![CDATA[Webclipse]]></category>
-
-		<guid isPermaLink="false">https://www.genuitec.com/?p=524109</guid>
-		<description><![CDATA[<p>So you are keeping up with the latest technology and you already have your Angular IDE downloaded.  You are now ready to start working on a project.  How?  Just follow this simple series of steps or watch the video below and let the Angular app fun begin!Creating your first Angular app:Click on File-New-Angular Project.Name the [&#8230;]</p>
-<p>The post <a rel="nofollow" href="https://www.genuitec.com/creating-first-angular-app/">Creating Your First Angular App.</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
-]]></description>
-		</item>
 	</channel>
 </rss>
 
 <!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
 
-Object Caching 9158/9280 objects using disk
+Object Caching 9167/9284 objects using disk
 Page Caching using disk: enhanced (Requested URI is rejected)
 Content Delivery Network via resources.cloud.genuitec.com
-Database Caching 40/45 queries in 0.007 seconds using disk
+Database Caching 41/43 queries in 0.005 seconds using disk
 
- Served from: www.genuitec.com @ 2017-07-14 01:19:33 by W3 Total Cache -->
+ Served from: www.genuitec.com @ 2017-07-23 19:09:58 by W3 Total Cache -->

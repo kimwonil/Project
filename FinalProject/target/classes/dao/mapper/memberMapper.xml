@@ -9,6 +9,18 @@
  	select * from profile where id=#{id}
  </select>
  
+ <select id="selectAll" resultType="Member">
+ 	select * from profile
+ </select>
+ 
+ <update id="memberUpdate" parameterType="Member">
+ 	update profile set nickname=#{nickName}, photo=#{photo}, balance=#{balance}, admin=#{admin} where id=#{id}
+ </update>
+ 
+ <delete id="memberDelete" parameterType="String">
+ 	delete from profile where id=#{id}
+ </delete>
+ 
  <update id="refillCash" parameterType="Member">
  	update profile set balance=#{balance} where id=#{id}
  </update>
@@ -33,10 +45,61 @@
  	select * from exchange where id=#{id}
  </select>
  
- 
  <update id="exchangeManager" parameterType="java.util.HashMap">
  	update exchange set state=#{state} where no=#{no}
  </update>
+ 
+ <select id="messageList" parameterType="String" resultType="Message">
+ 	select * from message where receiver=#{id}
+ </select>
+ 
+ <update id="messageState" parameterType="int">
+ 	update message set state=2 where no=#{no}
+ </update>
+ 
+ <select id="messageDetail" parameterType="int" resultType="Message">
+ 	select * from message where no=#{no}
+ </select>
+ 
+ <insert id="messageSend" parameterType="Message">
+ 	insert into message values(0, #{sender}, #{receiver}, #{title}, #{content}, 1, sysdate())
+ </insert>
+ 
+ <insert id="authorityReg" parameterType="java.util.HashMap">
+ 	insert into authority values(0, #{id}, #{category_no}, sysdate(), 1)
+ 	
+ 	<selectKey keyProperty="no" order="AFTER" resultType="int">
+       	SELECT MAX(no) AS no FROM authority
+   	</selectKey>
+ </insert>
+ 
+ <insert id="authorityFiles" parameterType="java.util.HashMap">
+ 	insert into authority_file values(0, #{no}, #{id}, #{file1}, #{file2}, #{file3})
+ </insert>
+
+ <select id="authorityList" parameterType="String" resultType="Authority">
+ 	select * from authority where id=#{id}
+ </select>
+ 
+ <select id="authorityAll" resultType="Authority">
+ 	select authority.no as no, authority.id as id, authority.category_no as category_no, authority.date as date, authority.state as state, authority_file.file1 as file1, authority_file.file2 as file2, authority_file.file3 as file3
+	from authority join authority_file
+	on authority.no = authority_file.authority_no 
+	where state=1;
+ </select>
+ 
+ <update id="authorityUpdate" parameterType="java.util.HashMap">
+ 	update authority set state=#{state} where no=#{no}
+ </update>
+ 
+ <delete id="authorityDelete" parameterType="int">
+ 	delete from authority where no=#{no}
+ </delete> 
+ 
+ <select id="authorityDetail" parameterType="int" resultType="Authority">
+ 	select * from authority_file where authority_no=#{no}
+ </select>
+
  </mapper>
  
  

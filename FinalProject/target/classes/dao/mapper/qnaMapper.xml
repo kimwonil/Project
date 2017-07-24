@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="dao.QnADao">
+ 
+ <insert id="insertQnA" parameterType="java.util.HashMap">
+ 	insert into qna values(0,sysdate(),#{category_no},#{title},0,0,#{content},#{writer})
+ </insert>
+ 
+  <select id="selectAllQnA" resultType="QnA">
+ 	select * from qna
+ </select>
+ 
+ <select id="selectOneQnA" resultType="QnA" parameterType="int">
+ 	select * from qna where no=#{no}
+ </select>
+ 
+ 	<update id="updateQnA" parameterType="java.util.HashMap">
+ 	update qna set title=#{title},content=#{content},category_no=#{category_no} where no= #{no}
+ </update>
+ 
+  <update id="updateQnACount" parameterType="java.util.HashMap">
+ 	update qna set read_count=#{read_count} where no= #{no}
+ </update>
+ 
+ 
+  <update id="updateQnAAnswer" parameterType="java.util.HashMap">
+ 	update qna set state=#{state} where no= #{no}
+ </update>
+ 
+ 
+  <delete id="deleteQnA" parameterType="int">
+ 	delete from qna where no= #{no}
+ </delete>
+ </mapper>
