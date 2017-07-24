@@ -133,7 +133,7 @@ $(document).ready(function(){
 					'</tr>'		
 				)
 			},
-		})//ajax 끝
+		}); //ajax 끝
 	})//옵션추가하면 밑에 테이블에 띄우기
 	
 	
@@ -142,6 +142,11 @@ $(document).ready(function(){
 		$(this).parent().parent().remove();
 	})//추가한 옵션 삭제하기
 	
+	//수량 change하면 옵션가격*수량 해서 띄우기
+	$(document).on('click', '.wan-spinner wan-spinner-2', function(){
+		
+	})
+	
 	
 
 	
@@ -149,14 +154,13 @@ $(document).ready(function(){
 </script>
 <script type="text/javascript">
   $(document).ready(function() {
-
+	//옵션 수량 체크
 	$(document).on('click', '.wan-spinner-2', function(){
 	    $(".wan-spinner-2").WanSpinner();
-		
 	})
 
   });
-  </script>
+</script>
 
 <body>
 	<div id="fh5co-main">
