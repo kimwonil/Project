@@ -9,6 +9,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="css/wan-spinner.css">
+  <script type="text/javascript" src="js/wan-spinner.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=A5owm24oXM2NprihulHy&submodules=geocoder"></script>
@@ -119,7 +121,13 @@ $(document).ready(function(){
 				$('#purchaseList').append(
 					'<tr>'+
 					'<td>'+ data.kind +'/'+ data.price +'</td>'+
-					'<td>'+ 1+'</td>'+
+					'<td>'+ 
+				    '<div class="wan-spinner wan-spinner-2">'+
+				    '<a href="javascript:void(0)" class="minus">-</a>'+
+				    '<input type="text" value="1">'+
+				    '<a href="javascript:void(0)" class="plus">+</a>'+
+				    '</div>'+
+					'</td>'+
 					'<td>'+data.price+'원</td>'+
 					'<td><button class="optionDelete">x</button></td>'+
 					'</tr>'		
@@ -139,6 +147,16 @@ $(document).ready(function(){
 	
 })
 </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+	$(document).on('click', '.wan-spinner-2', function(){
+	    $(".wan-spinner-2").WanSpinner();
+		
+	})
+
+  });
+  </script>
 
 <body>
 	<div id="fh5co-main">

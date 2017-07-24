@@ -30,5 +30,12 @@ public interface BoardDao {
 	public File selectOneFromFile(int no);
 	
 	
+	//테이블명 : board_option
+	public boolean insertBoard_option(HashMap<String, Object> board_option);
+	public List<HashMap<String, Object>> selectBoard_option(int no);
+	public HashMap<String, Object> selectKind(HashMap<String, Object> params);
+
+	
+	
 
 }
