@@ -310,47 +310,16 @@ $(document).ready(function(){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //가격 입력하기
 
-//     $(document).ready(function(){
-//     	var optionNum = 0;
-//     	var priceNum = 0;
-//     	var option = new Array();
-//     	var optionPrice = new Array();
     	$(document).on('click', '.add', function(){
-//     		optionNum++;
-//     		priceNum++;
     		$('#tableOption').append(
    				'<tr>'+
-				'<td><input type="text" name="option"></td>'+
-				'<td><input type="text" name="optionPrice"></td>'+
+				'<td><input type="text" name="option[]"></td>'+
+				'<td><input type="text" name="optionPrice[]"></td>'+
 				'<td><button class="delete">삭제</button></td>'+
 				'</tr>'
     		);
     	});
 
-//     	$('#submit').click(function(){
-//     		option = [];
-//     		optionPrice = [];
-//     		for(var i=0;i<=optionNum;i++){
-//     			if($('#option'+i).val() != undefined){
-//     				option.push($('#option'+i).val());
-//     			}
-//     			if($('#optionPrice'+i).val() != undefined){
-//     				optionPrice.push($('#optionPrice'+i).val());
-//     			}
-//     		}
-    		
-//     		console.log(option);
-//     		console.log(optionPrice);
-//     		$.ajax({
-//     			url : "price.do",
-//     			type : "post",
-//     			data : {base: $('#base').val(), basePrice: $('#basePrice').val(), opt : option, optPrice : optionPrice},
-//     			success : function(){
-//     				alert('성공');
-//     			}
-//     		})
-    		
-//     	});
     	
     	$(document).on('click', '.delete', function(){
     		$(this).parent().parent().remove();	
@@ -360,11 +329,8 @@ $(document).ready(function(){
     		$('#detailInfo').submit(function(){
     			
     		});
-//     		var test2 = $('#detailInfo').serialize();
-//     		alert(test2);
     	});
     	
-//     });
 	
 	
 });//document.ready
@@ -384,7 +350,7 @@ $(document).ready(function(){
 						
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
-							<form id="detailInfo" action="price.do" method="post" enctype="multipart/form-data" >
+							<form id="detailInfo" action="insertBoard.do" method="post" enctype="multipart/form-data" >
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select name="major"><option>대분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select> 
@@ -405,15 +371,15 @@ $(document).ready(function(){
 										<input type="hidden" id="hidn4" name="lat">
 										<input type="hidden" id="hidn5" name="lng">
 									</th></tr>
-									<tr><th>기본가격</th><th> <input type="text" name="basePrice"> </th></tr>
+									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션사항</th><th> 
 										<table id="tableOption">
 											<tr>
 											<th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th>
 											</tr>
 											<tr>
-											<td><input type="text" name="option"></td>
-											<td><input type="text" name="optionPrice"></td>
+											<td><input type="text" name="option[]"></td>
+											<td><input type="text" name="optionPrice[]"></td>
 											<td><button class="delete">삭제</button></td>
 											</tr>
 										</table> 
@@ -428,7 +394,6 @@ $(document).ready(function(){
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
 								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">
-								<input type="button" id="test" value="ㄱㄱ">
 							</form>
 							</div>
 						</div>

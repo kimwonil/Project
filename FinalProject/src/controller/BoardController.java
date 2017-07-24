@@ -116,7 +116,10 @@ public class BoardController{
 	 * 글쓰기
 	 * */
 	@RequestMapping("insertBoard.do")
-	public ModelAndView board(@RequestParam HashMap<String, Object> params, FileUpload files, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+	public ModelAndView board(
+			@RequestParam HashMap<String, Object> params, @RequestParam(value="option[]") List<String> paramArray1, 
+			@RequestParam(value="optionPrice[]") List<String> paramArray2, FileUpload files, 
+			HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		System.out.println("글넣기");
 		
 		//세션에서 id가져와성 params에 넣자
@@ -136,14 +139,28 @@ public class BoardController{
 		System.out.println(params.get("no"));
 		int no = Integer.parseInt(params.get("no").toString());
 		
-		//files가 있으면 table:file에 넣기
-		if(files != null){
-			boardService.insertFile(params);
-		}
 		//info_address가 있으면 table:map에 넣기
 		if(params.get("info_address") != null){
 			boardService.insertMap(params);
 		}
+
+		//files가 있으면 table:file에 넣기
+		if(files != null){
+			boardService.insertFile(params);
+		}
+		
+		//table : board_option
+		if(paramArray1 != null){
+			HashMap<String, Object> board_option = new HashMap<>();
+			board_option.put("no", no);
+			for(int i=0;i<paramArray1.size();i++){
+				board_option.put("kind", paramArray1.get(i));
+				board_option.put("price", paramArray2.get(i));
+				boardService.insertBoard_option(board_option);
+			}
+			
+		}
+		
 		
 		//사진이 저장될 위치 만들어주기
 		String path = session.getServletContext().getRealPath("/user/board/");
@@ -190,7 +207,9 @@ public class BoardController{
 		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
 			mav.addObject("fileinfo", boardService.selectOneFromFile(no));
 		}
-		
+		if(boardService.selectBoard_option(no) != null){
+			mav.addObject("board_option", boardService.selectBoard_option(no));
+		}
 		
 		return mav;
 	}
@@ -207,9 +226,14 @@ public class BoardController{
 		//board 테이블에서 가져온 정보
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("board", boardService.selectOneBoard(no));
-		mav.setViewName("detail");
+		mav.setViewName("detail2");
 		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
 			mav.addObject("fileinfo", boardService.selectOneFromFile(no));
+		}
+		if(boardService.selectBoard_option(no) != null){
+			System.out.println("컨트롤러에 selectOneBoard_option하러왔엉");
+			System.out.println(boardService.selectBoard_option(no));
+			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
 		
 		
@@ -287,36 +311,26 @@ public class BoardController{
 	
 	
 	/**
-	 * 가격
+	 * 옵션추가할 경우
 	 * */
-	@RequestMapping("price.do")
-	public ModelAndView price( 
-			@RequestParam HashMap<String, Object> pr, @RequestParam(value="option[]") List<String> params, 
-			@RequestParam(value="optionPrice[]") List<String> params2, FileUpload files){
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping("searchOption.do")
+	public void price(@RequestParam HashMap<String, Object> params, HttpServletRequest req, HttpServletResponse resp){
+		System.out.println("searchOption.do");
+		String kind = params.get("kind").toString();
+		int no = Integer.parseInt(params.get("no").toString());
+		System.out.println("글번호 = "+no+" / 옵션종류 = "+kind);
 		
-		System.out.println("프라이스");
-		System.out.println(pr.get("base"));
-		System.out.println(pr.get("basePrice"));
-		System.out.println(pr);
-		System.out.println(params);
-		System.out.println(params2);
-		System.out.println(pr.get("content"));
-		System.out.println(pr.get("title"));
-		
-		List<MultipartFile> fileList = files.getFiles();
-		int fileNo = 1;
-		for(MultipartFile file : fileList){
-			System.out.println(file.getOriginalFilename());
-			fileNo++;
+		try {
+			PrintWriter pw = resp.getWriter();
+			Gson gson = new Gson();
+			String json = gson.toJson(boardService.selectKind(params));
+			pw.write(json);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		
-		mav.addObject("basePrice", pr.get("basePrice"));
-//		mav.addObject("option", params);
-//		mav.addObject("optionPrice", params2);
-		mav.setViewName("option");
-		return mav;
+
 	}
 
 

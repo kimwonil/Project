@@ -64,6 +64,28 @@
  	select * from file where no=#{no}
  </select>
  
+ 
+<!--  table명 : board_option -->
+ <insert id="insertBoard_option" parameterType="java.util.HashMap">
+	insert into board_option values(0, #{no}, #{kind}, #{price})
+ </insert>
+ 
+ <update id="updateBoard_option" parameterType="java.util.HashMap">
+ 	update board_option set kind=#{kind}, price=#{price} where no=#{no}
+ </update>
+ 
+ <delete id="deleteBoard_option" parameterType="int">
+ 	delete from board_option where no=#{no}
+ </delete>
+ 
+ <select id="selectBoard_option" parameterType="int" resultType="java.util.HashMap">
+ 	select * from board_option where no=#{no}
+ </select>
+ 
+ <select id="selectKind" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+ 	select * from board_option where no=#{no} and kind=#{kind}
+ </select>
+ 
  </mapper>
  
  

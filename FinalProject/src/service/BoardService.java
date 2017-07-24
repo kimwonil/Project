@@ -80,5 +80,23 @@ public class BoardService {
 	public File selectOneFromFile(int no){
 		return boardDao.selectOneFromFile(no);
 	}
+	
+	
+	/**
+	 * table명 : board_option
+	 * */
+	public boolean insertBoard_option(HashMap<String, Object> board_option) {
+		return boardDao.insertBoard_option(board_option);
+	}
+
+	public List<HashMap<String, Object>> selectBoard_option(int no) {
+		System.out.println("서비스 selectBoard_option하러 왔엉");
+		System.out.println(boardDao.selectBoard_option(no));
+		return boardDao.selectBoard_option(no);
+	}
+	
+	public HashMap<String, Object> selectKind(HashMap<String, Object> params){
+		return boardDao.selectKind(params);
+	}
 
 }
