@@ -7,24 +7,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="js/jquery.form.js"></script>
-<script src="js/jquery.MetaData.js"></script>
+<!-- <script src="js/jquery.form.js"></script> -->
+<!-- <script src="js/jquery.MetaData.js"></script> -->
 <script src="js/jQuery.MultiFile.min.js"></script>
 <script src="js/jquery.cycle2.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
-	$('#cycle-slideshow').cycle({
-		fx: 'fade',
-		speed: 300,
-		timeout:0,
-		next:'#nextImg',
-		prev:'#prevImg'
-	});
-	
-	
-	
+
 	function telentList(){
 		$.ajax({
 			url:"authorityManager.do",
@@ -109,10 +99,9 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click', '.detailBtn', function(){
-		$('#imageFile1').attr('src','images/img_1.jpg');
-		$('#imageFile2').attr('src','images/img_1.jpg');
-		$('#imageFile3').attr('src','images/img_1.jpg');
-		$('li').empty();
+
+		$('#cycle-slideshow').empty();
+		$('#downloadList li').empty();
 		
 		$.ajax({
 			url:"authorityDetail.do",
@@ -121,25 +110,38 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(data){
 				console.log(data);
-				
+
 				if(data.file1!=""){
+					$('#cycle-slideshow').append('<img src="" id="imageFile1">');
 					$('#imageFile1').attr('src',"<c:url value='/user/authority/"+data.no+"'/>/"+data.file1);
+			
 					$('#download1').html("<a href='download.do?no="+data.no+"&name="+data.file1+"'>"+data.file1+"</a>");
 					$('#download2').html("첨부 파일 없음");
 					$('#download3').html("첨부 파일 없음");
 				}
 				
 				if(data.file2!=""){
+					$('#cycle-slideshow').append('<img src="" id="imageFile2">');
+					
 					$('#imageFile2').attr('src',"<c:url value='/user/authority/"+data.no+"'/>/"+data.file2);
 					$('#download2').html("<a href='download.do?no="+data.no+"&name="+data.file2+"'>"+data.file2+"</a>");
 					$('#download3').html("첨부 파일 없음");
 				}
 				
 				if(data.file3!=""){
+					$('#cycle-slideshow').append('<img src="" id="imageFile3">');
+					
 					$('#imageFile3').attr('src',"<c:url value='/user/authority/"+data.no+"'/>/"+data.file3);
 					$('#download3').html("<a href='download.do?no="+data.no+"&name="+data.file3+"'>"+data.file3+"</a>");
 				}
 				
+				$('#cycle-slideshow').cycle({
+					fx: 'fade',
+					speed: 300,
+					timeout:0,
+					next:'#nextImg',
+					prev:'#prevImg'
+				});
 				
 				$('#detailModal').modal('show');
 			},
@@ -246,9 +248,9 @@ $(document).ready(function(){
 						        </div>
 						        <div class="modal-body">
 						        	<div id="cycle-slideshow" >
-							         	<img src="images/img_1.jpg" id="imageFile1">
-							          	<img src="images/img_1.jpg" id="imageFile2">
-							          	<img src="images/img_1.jpg" id="imageFile3">
+<!-- 							         	<img src="images/img_1.jpg" id="imageFile1"> -->
+<!-- 							          	<img src="images/img_1.jpg" id="imageFile2"> -->
+<!-- 							          	<img src="images/img_1.jpg" id="imageFile3"> -->
 						          	</div>
 						          	<div id="nav" class="nav">
 						          		<a id="prevImg" href="#">이전</a>
@@ -256,7 +258,7 @@ $(document).ready(function(){
 						          	</div>
 						        </div>
 						        <div class="modal-footer">
-						        	<ul>
+						        	<ul id="downloadList">
 						        		<li id="download1"></li>
 						        		<li id="download2"></li>
 						        		<li id="download3"></li>

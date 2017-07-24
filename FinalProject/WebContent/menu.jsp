@@ -80,6 +80,128 @@
 	top: 10%;
 	border: 1px solid red;
 	}
+	
+	/* ///////////////////////DropDown/////////////////////////////////// */
+	.menu,
+	.menu ul,
+	.menu li,
+	.menu a {
+	    margin: 0;
+	    padding: 0;
+	    border: none;
+	    outline: none;
+	}
+	 
+	.menu {
+	    height: 40px;
+	    width: 1170px;
+	 
+	    background: #4c4e5a;
+	    background: -webkit-linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
+	    background: -moz-linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
+	    background: -o-linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
+	    background: -ms-linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
+	    background: linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
+	 
+	    -webkit-border-radius: 5px;
+	    -moz-border-radius: 5px;
+	    border-radius: 5px;
+	}
+	 
+	.menu li {
+	    position: relative;
+	    list-style: none;
+	    float: left;
+	    display: block;
+	    height: 40px;
+	}
+	
+/* 	.menu ul { display: none; } */
+	
+	.menu li a {
+	    display: block;
+	    padding: 0 14px;
+	    margin: 6px 0;
+	    line-height: 28px;
+	    text-decoration: none;
+	 
+	    border-left: 1px solid #393942;
+	    border-right: 1px solid #4f5058;
+	 
+	    font-family: Helvetica, Arial, sans-serif;
+	    font-weight: bold;
+	    font-size: 13px;
+	 
+	    color: #f3f3f3;
+	    text-shadow: 1px 1px 1px rgba(0,0,0,.6);
+	 
+	    -webkit-transition: color .2s ease-in-out;
+	    -moz-transition: color .2s ease-in-out;
+	    -o-transition: color .2s ease-in-out;
+	    -ms-transition: color .2s ease-in-out;
+	    transition: color .2s ease-in-out;
+	}
+	 
+	.menu li:first-child a { border-left: none; }
+	.menu li:last-child a{ border-right: none; }
+	 
+	.menu li:hover > a { color: #8fde62; }
+	
+	.menu ul {
+	    position: absolute;
+	    z-index:5;
+	    top: 40px;
+	    left: 0;
+	 
+	    opacity: 0;
+	    background: #1f2024;
+	 
+	    -webkit-border-radius: 0 0 5px 5px;
+	    -moz-border-radius: 0 0 5px 5px;
+	    border-radius: 0 0 5px 5px;
+	 
+	    -webkit-transition: opacity .25s ease .1s;
+	    -moz-transition: opacity .25s ease .1s;
+	    -o-transition: opacity .25s ease .1s;
+	    -ms-transition: opacity .25s ease .1s;
+	    transition: opacity .25s ease .1s;
+	}
+	 
+	.menu li:hover > ul { opacity: 1; }
+	 
+	.menu ul li {
+	    height: 0;
+	    overflow: hidden;
+	    padding: 0;
+	 
+	    -webkit-transition: height .25s ease .1s;
+	    -moz-transition: height .25s ease .1s;
+	    -o-transition: height .25s ease .1s;
+	    -ms-transition: height .25s ease .1s;
+	    transition: height .25s ease .1s;
+	}
+	 
+	.menu li:hover > ul li {
+	    height: 36px;
+	    overflow: visible;
+	    padding: 0;
+	}
+	
+ 	.menu ul li a { 
+ 	    width: 300px; 
+ 	    z-index: 5;
+/* 	    padding: 4px 0 4px 40px; */
+/* 	    margin: 0; */
+	 
+/* 	    border: none; */
+/* 	    border-bottom: 1px solid #353539; */
+ 	} 
+	 
+/* 	.menu ul li:last-child a { border: none; } */
+	
+	
+	
+	/* //////////////////////////////////////////////////////////////// */
 	</style>
 	
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -159,12 +281,135 @@ $(document).ready(function(){
 		
 		
 		<div class="row">
-			<a href="#" class="fh5co-logo">카테고리1</a>
-			<a href="#" class="fh5co-logo">카테고리2</a>
-			<a href="#" class="fh5co-logo">카테고리3</a>
-			<a href="#" class="fh5co-logo">카테고리4</a>
-			<a href="#" class="fh5co-logo">카테고리5</a>
-			<a href="#" class="fh5co-logo">카테고리6</a>
+<!-- 			<a href="#" class="fh5co-logo">카테고리1</a> -->
+<!-- 			<a href="#" class="fh5co-logo">카테고리2</a> -->
+<!-- 			<a href="#" class="fh5co-logo">카테고리3</a> -->
+<!-- 			<a href="#" class="fh5co-logo">카테고리4</a> -->
+<!-- 			<a href="#" class="fh5co-logo">카테고리5</a> -->
+<!-- 			<a href="#" class="fh5co-logo">카테고리6</a> -->
+				<ul class="menu">
+				    <li><a href="#">디자인/그래픽</a>
+				    	<ul>
+				    		<li><a href="#" class="documents">캐리커쳐/인물/캐릭터/아이콘</a></li>
+				    		<li><a href="#" class="documents">일러스트/초상화/스케치</a></li>
+				    		<li><a href="#" class="documents">PPT 디자인/인포그래픽/캘리그라피/폰트/싸인</a></li>
+				    		<li><a href="#" class="documents">만화/웹툰</a></li>
+				    		<li><a href="#" class="documents">사진/명함/이미지/포토샵/보정/합성</a></li>
+				    		<li><a href="#" class="documents">블로그&카페 디자인/페이지/배경</a></li>
+				    		<li><a href="#" class="documents">로고/심볼/마크/앰블럼/배너</a></li>
+				    		<li><a href="#" class="documents">현수막/전단/간판/포스터</a></li>
+				    		<li><a href="#" class="documents">도면/CAD/인테리어/3D</a></li>
+				    		<li><a href="#" class="documents">기타</a></li>
+				    	</ul>
+				    </li>
+				    <li><a href="#">바이럴/마케팅/광고</a>
+				    	<ul>
+				    		<li><a href="#" class="documents">블로그/카페/체험단</a></li>
+				    		<li><a href="#" class="documents">인스타그램/페이스북/카카오/트위터</a></li>
+				    		<li><a href="#" class="documents">일반광고/옥외광고/광고대행/디스플레이 광고</a></li>
+				    		<li><a href="#" class="documents">기획/컨설팅/분석/마케팅자료</a></li>
+				    		<li><a href="#" class="documents">언론/기사/보도자료</a></li>
+				    		<li><a href="#" class="documents">기타</a></li>
+				    	</ul>
+				    </li>
+				    <li><a href="#">문서/서식/레포트</a>
+				        <ul>
+				    		<li><a href="#" class="documents">워드/타이핑/엑셀/통계</a></li>
+				    		<li><a href="#" class="documents">창작/대본/시나리오/카피라이팅</a></li>
+				    		<li><a href="#" class="documents">교정/교열/편집</a></li>
+				    		<li><a href="#" class="documents">PPT제작/프리젠테이션</a></li>
+				    		<li><a href="#" class="documents">글작성/리뷰/서평</a></li>
+				    		<li><a href="#" class="documents">문서서식/자료/폼</a></li>
+				    		<li><a href="#" class="documents">자기소개서/이력서</a></li>
+				    		<li><a href="#" class="documents">사업게획서/제안서</a></li>
+				    		<li><a href="#" class="documents">논문 컨설팅/보고서/리서치</a></li>
+				    		<li><a href="#" class="documents">기타</a></li>
+				    	</ul>
+				    </li>
+				    <li><a href="#">컴퓨터/개발</a>
+				    	<ul>
+				    		<li><a href="#" class="documents">홈페이지/웹개발</a></li>
+				    		<li><a href="#" class="documents">모바일/Web/App/어플</a></li>
+				    		<li><a href="#" class="documents">수리/최적화/PC/서버/견적</a></li>
+				    		<li><a href="#" class="documents">프로그래밍/프로그램/소스</a></li>
+				    		<li><a href="#" class="documents">플래시/스크립트</a></li>
+				    		<li><a href="#" class="documents">기타</a></li>
+				    	</ul>
+				    </li>
+				    <li><a href="#">음악/영상</a>
+				    	<ul>
+				    		<li><a href="#" class="documents">영상제작/자막제작/편집</a></li>
+				    		<li><a href="#" class="documents">작사/작곡/MR/음악편집/녹음</a></li>
+				    		<li><a href="#" class="documents">나레이션/성우/목소리</a></li>
+				    		<li><a href="#" class="documents">음악레슨/노래/댄스</a></li>
+				    		<li><a href="#" class="documents">인디음악/창작음악</a></li>
+				    		<li><a href="#" class="documents">기타</a></li>
+				    	</ul>
+				    </li>
+				    <li><a href="#">생활/대행/상담</a>
+				    	<ul>
+				    		<li><a href="#" class="documents">고민상담/진로상담/취업상담/기타상담</a></li>
+				    		<li><a href="#" class="documents">점/운세/사주/토정비결/궁합</a></li>
+				    		<li><a href="#" class="documents">개인학습/강습</a></li>
+				    		<li><a href="#" class="documents">이벤트/행사도우미/레크레이션</a></li>
+				    		<li><a href="#" class="documents">미용/코디/스타일링/모델/피팅/건강</a></li>
+				    		<li><a href="#" class="documents">하객대행/역할/MC/사회/연주/축가</a></li>
+				    		<li><a href="#" class="documents">심부름/가사도우미/청소/이사</a></li>
+				    		<li><a href="#" class="documents">단기알바/부업</a></li>
+				    		<li><a href="#" class="documents">구매대행</a></li>
+				    		<li><a href="#" class="documents">기타</a></li>
+				    	</ul>
+				    </li>
+				    <li><a href="#">노하우/여행</a>
+				    	<ul>
+				    		<li><a href="#" class="documents">생활지식/비법/수리/노하우/팁</a></li>
+				    		<li><a href="#" class="documents">투자/재테크</a></li>
+				    		<li><a href="#" class="documents">자동차/연비/부품부속/튜닝</a></li>
+				    		<li><a href="#" class="documents">요리/레시피</a></li>
+				    		<li><a href="#" class="documents">국내여행/해외여행</a></li>
+				    		<li><a href="#" class="documents">가이드/여행코스/여행지추천</a></li>
+				    		<li><a href="#" class="documents">온라인게임</a></li>
+				    		<li><a href="#" class="documents">기타</a></li>
+				    	</ul>
+				    </li>
+				    <li><a href="#">비즈니스/창업/사업</a>
+				    	<ul>
+				    		<li><a href="#" class="documents">사업계획/사업제안</a></li>
+				    		<li><a href="#" class="documents">법인설립/사업자등록/통신판매</a></li>
+				    		<li><a href="#" class="documents">리서치/컨설팅</a></li>
+				    		<li><a href="#" class="documents">투자/금융/경매</a></li>
+				    		<li><a href="#" class="documents">법무/인사/노동법/세무/회계</a></li>
+				    		<li><a href="#" class="documents">창업상담/비즈니스 모델진단</a></li>
+				    		<li><a href="#" class="documents">창업정보/창업자료/창업노하우</a></li>
+				    		<li><a href="#" class="documents">기타</a></li>
+				    	</ul>
+				    </li>
+				    <li><a href="#">번역/외국어</a>
+				    	<ul>
+				    		<li><a href="#" class="documents">영어</a></li>
+				    		<li><a href="#" class="documents">일본어</a></li>
+				    		<li><a href="#" class="documents">중국어</a></li>
+				    		<li><a href="#" class="documents">러시아어</a></li>
+				    		<li><a href="#" class="documents">프랑스어</a></li>
+				    		<li><a href="#" class="documents">스페인어</a></li>
+				    		<li><a href="#" class="documents">독일어</a></li>
+				    		<li><a href="#" class="documents">기타</a></li>
+				    	</ul>
+				    </li>
+				    <li><a href="#">선물/핸드메이드/DIY</a>
+				    	<ul>
+				    		<li><a href="#" class="documents">예술/공예/도예/액세서리/쥬얼리/장신구</a></li>
+				    		<li><a href="#" class="documents">옷/패션/잡화/생활소품/DECO</a></li>
+				    		<li><a href="#" class="documents">아이디어선물/이벤트선물/디자인상품</a></li>
+				    		<li><a href="#" class="documents">천연화장품/천연비누/천연샴푸</a></li>
+				    		<li><a href="#" class="documents">카드/문구/청첩장</a></li>
+				    		<li><a href="#" class="documents">식품/농작물/유기농/오가닉</a></li>
+				    		<li><a href="#" class="documents">DIY/수집품</a></li>
+				    		<li><a href="#" class="documents">기타</a></li>
+				    	</ul>
+				    </li>
+				</ul>
+
 		</div>
 	
 	</div>
