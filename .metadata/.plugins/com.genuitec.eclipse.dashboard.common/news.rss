@@ -269,9 +269,9 @@
 
 <!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
 
-Object Caching 9161/9278 objects using disk
+Object Caching 9099/9587 objects using disk
 Page Caching using disk: enhanced (Requested URI is rejected)
 Content Delivery Network via resources.cloud.genuitec.com
-Database Caching 41/43 queries in 0.005 seconds using disk
+Database Caching 65/92 queries in 1.626 seconds using disk
 
- Served from: www.genuitec.com @ 2017-07-24 19:07:42 by W3 Total Cache -->
+ Served from: www.genuitec.com @ 2017-07-24 19:38:07 by W3 Total Cache -->
