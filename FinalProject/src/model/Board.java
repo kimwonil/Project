@@ -11,6 +11,7 @@ public class Board {
 	private String content;
 	private String date;
 	private String end_date;
+	private int count;
 	private int limit;
 	private int state;
 	private int price;
@@ -23,6 +24,20 @@ public class Board {
 	
 	
 	
+	public int getCount() {
+		return count;
+	}
+
+
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+
+
+
 	public Board() {
 		super();
 	}

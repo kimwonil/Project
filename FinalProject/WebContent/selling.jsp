@@ -16,6 +16,10 @@
 		$("#tabs").tabs();
 	});
 	
+
+
+	
+	
 	function sellingList(){
 		$.ajax({
 			url:"sellingList.do",
@@ -24,11 +28,10 @@
 			success:function(data){
 				console.log(data[0].no);
 				$('#tabs-1 > table tr:gt(0)').remove();
-				
 				$.each(data, function(index, value){
 					$('#tabs-1 > table').append(
 						'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
-						value.limit + '</td><td><button>진행</button><button>중단</button></td></tr>'		
+						value.count + ' / ' + value.limit + '</td><td>'+value.state+'</td><td><button class="btn-sm btn-info continueBtn" value="'+value.no+'">진행</button> <button class="btn-sm btn-info stopBtn" value="'+value.no+'">중단</button></td></tr>'		
 					);
 				})
 							
@@ -39,8 +42,53 @@
 		})
 	}
 	
+	
+	
 	$(document).ready(function(){
 		sellingList();
+		
+		
+		$(document).on('click','.continueBtn', function(){
+			alert($(this).val());
+			$.ajax({
+				url:"purchaseList.do",
+				type:"POST",
+				data:{no:$(this).val()},
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					$('#purchaseTable tr:gt(0)').remove();
+					$.each(data, function(index, value){
+						$('#purchaseTable').append(
+								'<tr>'+
+									'<td><input type="checkbox" name="purchaseCheck" value=""></td>'+
+									'<td>'+value.prchaser+'</td>'+
+									'<td>'+value.optionList+'</td>'+
+									'<td>'+value.optionList+'</td>'+
+									'<td>총액</td>'+
+								'</tr>'
+								
+								
+						);
+					});
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+			
+			
+			
+			$('#continueModal').modal('show');
+			
+			
+		});
+		
+		$(document).on('click','.stopBtn', function(){
+			alert($(this).val());
+		});
+		
+		
 	});
 	
 </script>
@@ -48,9 +96,11 @@
 
 #tabs tr,#tabs td,#tabs th{
 	border: 1px solid black;
+	text-align: center;
 }
 table{
 	width: 100%;
+	
 }
 
 </style>
@@ -91,6 +141,7 @@ table{
 								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>가격(수량)</th><th>진행상황</th><th>비고</th></tr>
 								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td><td>진행중</td><td>버튼만들어야해</td></tr>
 							</table>
+							
 						</div>
 						<div id="tabs-3">
 							<table>
@@ -109,5 +160,39 @@ table{
 			</div>
 		</div>
 	</div>
+	
+	
+	
+				<!-- 진행  Modal -->
+					<div class="modal fade" id="continueModal" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">구매자 현황</h4>
+								</div>
+								<div class="modal-body">
+									<table id="purchaseTable">
+										<tr>
+											<td>선택</td>
+											<td>구매자</td>
+											<td>옵션</td>
+											<td>금액</td>
+											<td>총액</td>
+										</tr>
+									</table>
+									
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- Modal -->
+	
+	
+	
+	
 </body>
 </html>
