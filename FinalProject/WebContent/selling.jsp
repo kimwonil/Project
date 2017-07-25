@@ -21,20 +21,36 @@
 			url:"sellingList.do",
 			type:"POST",
 			dataType:"json",
-			success:function(){},
-			error:function(){}
+			success:function(data){
+				console.log(data[0].no);
+				$('#tabs-1 > table tr:gt(0)').remove();
+				
+				$.each(data, function(index, value){
+					$('#tabs-1 > table').append(
+						'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
+						value.limit + '</td><td><button>진행</button><button>중단</button></td></tr>'		
+					);
+				})
+							
+			},
+			error:function(){
+				alert("실패");
+			}
 		})
 	}
 	
 	$(document).ready(function(){
-		
+		sellingList();
 	});
 	
 </script>
 <style type="text/css">
 
 #tabs tr,#tabs td,#tabs th{
-border: 1px solid black;
+	border: 1px solid black;
+}
+table{
+	width: 100%;
 }
 
 </style>
@@ -65,25 +81,25 @@ border: 1px solid black;
 						</div>
 						<div class="fh5co-spacer fh5co-spacer-sm"></div>
 						<div id="tabs-1" >
-							<table style="width: 100%;">
-								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>가격(수량)</th><th>진행상황</th><th>비고</th></tr>
-								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td><td>진행중</td><td>버튼만들어야해</td></tr>
+							<table>
+								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>상태</th><th>비고</th></tr>
+								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>진행중</td><td>버튼만들어야해</td></tr>
 							</table>
 						</div>
 						<div id="tabs-2">
-							<table style="width: 100%;">
+							<table>
 								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>가격(수량)</th><th>진행상황</th><th>비고</th></tr>
 								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td><td>진행중</td><td>버튼만들어야해</td></tr>
 							</table>
 						</div>
 						<div id="tabs-3">
-							<table style="width: 100%;">
+							<table>
 								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>가격(수량)</th><th>진행상황</th><th>비고</th></tr>
 								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td><td>진행중</td><td>버튼만들어야해</td></tr>
 							</table>
 						</div>
 						<div id="tabs-4">
-							<table style="width: 100%;">
+							<table>
 								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>가격(수량)</th><th>진행상황</th><th>비고</th></tr>
 								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td><td>진행중</td><td>버튼만들어야해</td></tr>
 							</table>
