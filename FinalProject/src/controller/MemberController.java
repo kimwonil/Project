@@ -39,7 +39,7 @@ public class MemberController {
 	
 	@RequestMapping("profile.do")
 	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
-		ModelAndView mv = new ModelAndView("profile");
+		ModelAndView mv = new ModelAndView("member/profile");
 		session.setAttribute("member", memberService.selectOne(id));
 		
 		return mv;
@@ -74,9 +74,18 @@ public class MemberController {
 		
 		
 		
-		return "profile";
+		return "member/profile";
 	}
 	
+	@RequestMapping("cashPage.do")
+	public String cashPage() {
+		return "member/cash";
+	}
+	
+	@RequestMapping("cashManager.do")
+	public String cashManager() {
+		return "member/cashManager";
+	}
 	
 	
 	@RequestMapping("cash.do")
@@ -211,6 +220,10 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("message.do")
+	public String message() {
+		return "member/message";
+	}
 	
 	@RequestMapping("messageList.do")
 	public void message(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -259,6 +272,11 @@ public class MemberController {
 		memberService.messageSend(message);
 	}
 	
+	@RequestMapping("memberManager.do")
+	public String memeberManager() {
+		return "member/memberList";
+	}
+	
 	
 	@RequestMapping("memberList.do")
 	public void memberList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -274,7 +292,6 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	@RequestMapping("memberUpdateForm.do")
@@ -334,6 +351,20 @@ public class MemberController {
 
 		
 	}
+	
+	
+	@RequestMapping("authority.do")
+	public String authority() {
+		return "member/authority";
+	}
+	
+	
+	@RequestMapping("authorityManagerPage.do")
+	public String authorityManagerPage() {
+		return "member/authorityManager";
+	}
+	
+	
 	
 	@RequestMapping("authorityReg.do")
 	public String authorityReg(FileUpload files, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -413,7 +444,7 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
-		return "authority";
+		return "member/authority";
 		
 	}
 
