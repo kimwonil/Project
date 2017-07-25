@@ -126,6 +126,8 @@ $(document).ready(function(){
 				
 				//table에 넣기
 				$('#purchaseList').append(
+						
+						
 					'<tr>'+
 					'<td>'+ data.kind +'/'+ data.price +'</td>'+
 					'<td>'+ 
@@ -202,7 +204,7 @@ $(document).ready(function(){
 							판매자 닉네임 : <a href="profile.do?nickname="+${board.writer}>${board.writer}</a>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
 							<button id="modify" value="${board.state}">글수정</button><br>
-							등록일 : <fmt:formatDate value="${board.date}" pattern="yyyy-MM-dd"/><br>
+							등록일 : ${board.date}<br>
 							마감일 : ${board.end_date}<br>
 							인원 또는 건수 : ${board.limit}<br>
 
@@ -215,7 +217,7 @@ $(document).ready(function(){
 										<th>주문옵션</th>
 										<td>
 											<select id="optionList">
-											<option>옵션없음</option>
+												<option>옵션없음</option>
 												<c:forEach var="i" items="${board_option}">
 													<option value="${i.kind}">${i.kind} / ${i.price}</option>
 												</c:forEach>
@@ -225,6 +227,21 @@ $(document).ready(function(){
 								</c:if>
 							</table>
 							<table id="purchaseList">
+							<tr>
+							<td> data.kind / data.price </td>
+							<td>
+								<table class="quantityBox" border="1" cellspacing="0">
+									<tr>
+										<td width="20%"><a href="#" class="minus">-</a></td>
+										<td width="40%"><input type="text" size="1" class="quantity" value=1>
+										<input type="hidden" value="'+data.price+'" class="hiddenPrice" ></td>
+										<td width="20%"><a href="#" class="plus">+</a></td>
+									</tr>
+								</table>
+							</td>
+							<td><div class="optionResult">'+data.price+'</div></td>
+							<td><button class="optionDelete">x</button></td>
+							</tr>	
 							</table>
 							<br>
 							<p><button>구매하기</button>
