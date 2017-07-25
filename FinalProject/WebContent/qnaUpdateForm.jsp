@@ -46,35 +46,35 @@ border: 1px solid red;
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
-					<h2>공지사항 수정</h2>
+					<h2>질문 수정</h2>
 					<div class="fh5co-spacer fh5co-spacer-sm"></div>
 					<div class="row">
 						
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
-							<form id="detailInfo" action="NoticeUpdate.do" method="post">
+							<form id="detailInfo" action="QnAUpdate.do" method="post">
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select name="major">
 									<option>대분류</option>
-									<option value="1" <c:if test="${notice.category_no/10 < 2}">selected</c:if>>카테고리1</option>
-									<option value="2" <c:if test="${notice.category_no/10>= 2 && notice.category_no/10 < 3}">selected</c:if>>카테고리2</option>
-									<option value="3" <c:if test="${notice.category_no/10>= 3}">selected</c:if>>카테고리3</option>
+									<option value="1" <c:if test="${qna.category_no/10 < 2}">selected</c:if>>카테고리1</option>
+									<option value="2" <c:if test="${qna.category_no/10>= 2 && qna.category_no/10 < 3}">selected</c:if>>카테고리2</option>
+									<option value="3" <c:if test="${qna.category_no/10>= 3}">selected</c:if>>카테고리3</option>
 									</select> 
 									<select name="minor">
 									<option>소분류</option>
-									<option value="1" <c:if test="${notice.category_no%10== 1}">selected</c:if>>카테고리1</option>
-									<option value="2" <c:if test="${notice.category_no%10== 2}">selected</c:if>>카테고리2</option>
-									<option value="3" <c:if test="${notice.category_no%10== 3}">selected</c:if>>카테고리3</option>
+									<option value="1" <c:if test="${qna.category_no%10== 1}">selected</c:if>>카테고리1</option>
+									<option value="2" <c:if test="${qna.category_no%10== 2}">selected</c:if>>카테고리2</option>
+									<option value="3" <c:if test="${qna.category_no%10== 3}">selected</c:if>>카테고리3</option>
 									</select>
 									</th></tr>
-									<tr><th>글제목</th><th> <input type="text" name="title" value="${notice.title }"> </th></tr>	
-									<tr><th>상세내용</th><th> <textarea rows="10" cols="50" name="content">${notice.content }</textarea> </th></tr>
-									<input type="hidden" name="no" value="${notice.no }">
+									<tr><th>글제목</th><th> <input type="text" name="title" value="${qna.title }"> </th></tr>	
+									<tr><th>상세내용</th><th> <textarea rows="10" cols="50" name="content">${qna.content }</textarea> </th></tr>
+									<input type="hidden" name="no" value="${qna.no }">
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
 								<input type="submit" class="btn btn-sm btn-primary" id="go" value="수정">
-								<input type="button" class="btn btn-sm btn-primary" value="돌아가기" onclick="location.href='NoticeContent.do?no=${notice.no }'">
+								<input type="button" class="btn btn-sm btn-primary" value="돌아가기" onclick="location.href='qnaContent.do?no=${qna.no }'">
 							</form>
 							</div>
 						</div>

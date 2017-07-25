@@ -9,6 +9,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="css/wan-spinner.css">
+  <script type="text/javascript" src="js/wan-spinner.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=A5owm24oXM2NprihulHy&submodules=geocoder"></script>
@@ -119,13 +121,19 @@ $(document).ready(function(){
 				$('#purchaseList').append(
 					'<tr>'+
 					'<td>'+ data.kind +'/'+ data.price +'</td>'+
-					'<td>'+ 1+'</td>'+
+					'<td>'+ 
+				    '<div class="wan-spinner wan-spinner-2">'+
+				    '<a href="javascript:void(0)" class="minus">-</a>'+
+				    '<input type="text" value="1">'+
+				    '<a href="javascript:void(0)" class="plus">+</a>'+
+				    '</div>'+
+					'</td>'+
 					'<td>'+data.price+'원</td>'+
 					'<td><button class="optionDelete">x</button></td>'+
 					'</tr>'		
 				)
 			},
-		})//ajax 끝
+		}); //ajax 끝
 	})//옵션추가하면 밑에 테이블에 띄우기
 	
 	
@@ -134,10 +142,24 @@ $(document).ready(function(){
 		$(this).parent().parent().remove();
 	})//추가한 옵션 삭제하기
 	
+	//수량 change하면 옵션가격*수량 해서 띄우기
+	$(document).on('click', '.wan-spinner wan-spinner-2', function(){
+		
+	})
+	
 	
 
 	
 })
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+	//옵션 수량 체크
+	$(document).on('click', '.wan-spinner-2', function(){
+	    $(".wan-spinner-2").WanSpinner();
+	})
+
+  });
 </script>
 
 <body>

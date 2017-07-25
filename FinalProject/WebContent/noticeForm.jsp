@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="menu.jsp" %>
+    <%@ include file="miniProfile.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -60,7 +61,7 @@ border: 1px solid red;
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="50" name="content"></textarea> </th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<input type="button" class="btn btn-sm btn-primary" value="돌아가기" onclick = "location.href = 'customerCenter.do' ">
+								<input type="button" class="btn btn-sm btn-primary" value="돌아가기"  onclick="location.href='customerCenterCall.do'">
 								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">
 							</form>
 							</div>
