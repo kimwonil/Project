@@ -9,7 +9,7 @@ public class Board {
 	private String title;
 	private String writer;
 	private String content;
-	private Date date;
+	private String date;
 	private String end_date;
 	private int limit;
 	private int state;
@@ -30,7 +30,7 @@ public class Board {
 	
 	
 
-	public Board(int no, int category_major, int category_minor, String title, String writer, String content, Date date,
+	public Board(int no, int category_major, int category_minor, String title, String writer, String content, String date,
 			String end_date, int limit, int state, int price, int optionprice, int read_count, int premium,
 			int total_star, int num_evaluator) {
 		super();
@@ -115,12 +115,12 @@ public class Board {
 	}
 
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
