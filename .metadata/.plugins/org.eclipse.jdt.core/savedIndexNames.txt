@@ -11,7 +11,6 @@ INDEX VERSION 1.130+C:\Users\kwi12\OneDrive\¹®¼­\GitHub\Project\.metadata\.plugi
 3888395995.index
 2732092537.index
 605900171.index
-378753145.index
 2837709571.index
 1978387526.index
 1038890974.index
