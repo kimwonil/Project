@@ -45,7 +45,7 @@ public class QnAService {
 		return qnaDao.updateQnAAnswer(params);
 	}
 	
-	public boolean delectQnA(int no)
+	public boolean deleteQnA(int no)
 	{
 		return qnaDao.deleteQnA(no);
 	}

@@ -16,11 +16,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import model.Answer;
 import model.Member;
+import model.Message;
 import model.Notice;
 import model.QnA;
+import model.Report;
 import service.AnswerService;
+import service.MemeberService;
 import service.NoticeService;
 import service.QnAService;
+import service.ReportService;
 
 @Controller
 public class CustomerCenterController {
@@ -34,15 +38,23 @@ public class CustomerCenterController {
 	@Autowired
 	private AnswerService answerService;
 	
+	@Autowired
+	private ReportService reportService;
+	
+	@Autowired
+	private MemeberService memberService;
 	//리스트 호출
 	@RequestMapping("customerCenterCall.do")
 	public ModelAndView All()
 	{
 		List<Notice> noticeList=noticeService.selectAllNotice();
 		List<QnA> qnaList=qnaService.selectAllQnA();
+		List<Report> reportList=reportService.selectAllReport();
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("noticeList", noticeList);
 		mav.addObject("qnaList", qnaList);
+		mav.addObject("reportList", reportList);
 		mav.setViewName("customerCenter");
 		
 		return mav;
@@ -213,7 +225,7 @@ public class CustomerCenterController {
 	@RequestMapping("deleteQnA.do")
 	public String deleteQnA(int no)
 	{
-		qnaService.delectQnA(no);
+		qnaService.deleteQnA(no);
 		return "redirect:customerCenterCall.do";
 	}
 	
@@ -223,5 +235,67 @@ public class CustomerCenterController {
 		System.out.println(params);
 		answerService.updateAnswer(params);
 		return "redirect:qnaContent.do?no=" + params.get("qna_no");
+	}
+	
+	@RequestMapping("deleteAnswer.do")
+	public String deleteAnswer(int no)
+	{
+		answerService.deleteAnswer(no);
+		HashMap<String, Object> params=new HashMap<String, Object>();
+		params.put("state", 0);
+		params.put("no", no);
+		qnaService.updateQnAAnswer(params);
+		return "redirect:qnaContent.do?no="+no;
+	}
+	
+	@RequestMapping("insertReport.do")
+	public String insertReport(@RequestParam HashMap<String, Object> params, HttpSession session){
+		String id = ((Member)session.getAttribute("member")).getId();
+		params.put("writer", id);
+		int category_no=Integer.parseInt(((String)params.get("major"))+((String)params.get("minor")));
+		params.remove("major");
+		params.remove("minor");
+		params.put("category_no", category_no);
+		System.out.println("신고 인설트");
+		System.out.println(params);
+		reportService.insertReport(params);
+		return "redirect:customerCenterCall.do";
+	}
+	
+	@RequestMapping("ReportContent.do")
+	public ModelAndView ReportContent(int no)
+	{
+		
+		System.out.println(no);
+		Report report=reportService.selectOneReport(no);
+		int read_count=report.getRead_count();
+		HashMap<String , Object> params = new HashMap<String , Object>();
+		params.put("no", no);
+		params.put("read_count", read_count+1);
+		reportService.updateReportCount(params);
+		System.out.println(report);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("report", report);
+		mav.setViewName("reportContent");
+		
+		return mav;
+	}
+	
+	@RequestMapping("ReportClear.do")
+	public String ReportClear(String id,int no, HttpSession session) {
+		System.out.println(no);
+		String title = "신고 상황 해결";
+		String receiver = id;
+		String content = receiver+"님이 접수하신 신고상황을 해결했습니다." ;
+		String sender = ((Member)session.getAttribute("member")).getId();
+		
+		Message message = new Message(sender, receiver, title, content);
+		
+		memberService.messageSend(message);
+		HashMap<String, Object> params=new HashMap<String, Object>();
+		params.put("no", no);
+		params.put("state", 1);
+		reportService.updateReportAnswer(params);
+		return "redirect:ReportContent.do?no="+no;
 	}
 }
