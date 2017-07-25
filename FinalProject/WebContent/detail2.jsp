@@ -45,6 +45,7 @@ height: 26px;
 .quantityBox a {
 text-decoration: none;
 }
+
 </style>
 
 <script>
@@ -143,8 +144,9 @@ $(document).ready(function(){
 					'</td>'+
 					'<td><div class="optionResult">'+data.price+'</div></td>'+
 					'<td><button class="optionDelete">x</button></td>'+
-					'</tr>'		
+					'</tr>'
 				)
+				$('#totalPrice').text(totalPrice());
 			},
 		})//ajax 끝
 	})//옵션추가하면 밑에 테이블에 띄우기
@@ -153,6 +155,7 @@ $(document).ready(function(){
 	//추가한 옵션 삭제하기
 	$(document).on('click', '.optionDelete', function(){
 		$(this).parent().parent().remove();
+		$('#totalPrice').text(totalPrice());
 	})//추가한 옵션 삭제하기
 	
 	
@@ -163,6 +166,7 @@ $(document).ready(function(){
 		var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
 		console.log(hiddenPrice);
 		$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
+		$('#totalPrice').text(totalPrice());
 	});//마이너스 클릭하면 줄어들고
 	$(document).on('click', '.plus', function(){
 		var q = parseInt($(this).parent().parent().find('.quantity').val())+1;
@@ -170,15 +174,29 @@ $(document).ready(function(){
 		var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
 		console.log(hiddenPrice);
 		$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
+		$('#totalPrice').text(totalPrice());
 	});//플러스 클릭하면 늘어나고
 	
 	
+
 	
 	
 	
 
 	
 })
+</script>
+<script type="text/javascript">
+function totalPrice(){
+	var result=0;
+	$('.optionResult').each(function(){
+		result += parseInt($(this).text());
+		
+	});
+	
+	return result;
+}
+
 </script>
 
 
@@ -201,7 +219,7 @@ $(document).ready(function(){
 
 						<div class="item deal-info">
 							
-							판매자 닉네임 : <a href="profile.do?nickname="+${board.writer}>${board.writer}</a>
+							판매자 닉네임 : <a href="profile.do?nickname="+${board.writer} id="writer" style="display: inline-block;">${board.writer}</a>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
 							<button id="modify" value="${board.state}">글수정</button><br>
 							등록일 : ${board.date}<br>
@@ -219,7 +237,7 @@ $(document).ready(function(){
 											<select id="optionList">
 												<option>옵션없음</option>
 												<c:forEach var="i" items="${board_option}">
-													<option value="${i.kind}">${i.kind} / +${i.price}</option>
+													<option value="${i.kind}">${i.kind} (+${i.price})</option>
 												</c:forEach>
 											</select>
 										</td>									
@@ -241,10 +259,11 @@ $(document).ready(function(){
 								</table>
 							</td>
 							<td><div class="optionResult">${board.price}</div></td>
-							<td><button class="optionDelete">x</button></td>
-							</tr>	
+							<td></td>
+							</tr>
 							</table>
 							<br>
+							<div id="totalPrice">${board.price }</div>
 							<p><button>구매하기</button>
 							<button>찜하기</button>
 							<button>쪽지문의</button></p>
