@@ -3174,3 +3174,9 @@ Java Model Exception: Java Model Status [test does not exist]
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-25 10:58:18.926
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-25 10:59:38.986
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-25 10:59:38.988
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
