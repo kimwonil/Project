@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="menu.jsp" %>
+    <%@ include file="../menu.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -41,7 +41,7 @@
 					<p>판매 가능 재능 목록</p>
 					<a data-toggle="modal" href="#profileModal" class="btn btn-sm btn-info">정보 수정</a>
 					<c:if test="${member.admin==1}">
-						<a href="memberList.jsp" class="btn btn-sm btn-info">회원관리</a>
+						<a href="memberManager.do" class="btn btn-sm btn-info">회원관리</a>
 					</c:if>
 					
 				</div>

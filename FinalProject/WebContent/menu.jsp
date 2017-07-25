@@ -238,25 +238,16 @@ $(document).ready(function(){
 		<ul>
 			<li class="active"><a href="index.jsp">Home</a></li>
 			<li><a href="profile.do?id=kwi1222@naver.com">프로필</a></li>
-			<li><a href="authority.jsp">권한 신청</a></li>
-			<li><a href="authorityManager.jsp">권한 신청 매니저</a></li>
-			<li><a href="detail.jsp">글상세(임시)</a></li>
+			<li><a href="detailOneBoard2.do?no=1">글상세</a></li>
+			<li><a href="authority.do">권한 신청</a></li>
+			<li><a href="authorityManagerPage.do">권한 신청 매니저</a></li>
 			<li><a href="selling.jsp">판매관리</a></li>
 			<li><a href="purchasing.jsp">구매관리</a></li>
-			<li><a href="cash.jsp">캐시관리</a></li>
-			<li><a href="cashManager.jsp">캐시 매니저</a></li>
-			<li><a href="message.jsp">쪽지관리</a></li>
+			<li><a href="cashPage.do">캐시관리</a></li>
+			<li><a href="cashManager.do">캐시 매니저</a></li>
+			<li><a href="message.do">쪽지관리</a></li>
 			<li><a href="customerCenterCall.do">고객센터</a></li>
-			<li><a href="contact.jsp">Contact</a></li>
 		</ul>
-		<h3 class="fh5co-lead">Connect with us</h3>
-		<p class="fh5co-social-icons">
-			<a href="#"><i class="icon-twitter"></i></a>
-			<a href="#"><i class="icon-facebook"></i></a>
-			<a href="#"><i class="icon-instagram"></i></a>
-			<a href="#"><i class="icon-dribbble"></i></a>
-			<a href="#"><i class="icon-youtube"></i></a>
-		</p>
 	</div>
 <!-- 	메뉴 끝 -->
 	
@@ -279,14 +270,8 @@ $(document).ready(function(){
 				</div>
 			</div>
 		
-		
+<!-- 		카테고리 메뉴                    -->
 		<div class="row">
-<!-- 			<a href="#" class="fh5co-logo">카테고리1</a> -->
-<!-- 			<a href="#" class="fh5co-logo">카테고리2</a> -->
-<!-- 			<a href="#" class="fh5co-logo">카테고리3</a> -->
-<!-- 			<a href="#" class="fh5co-logo">카테고리4</a> -->
-<!-- 			<a href="#" class="fh5co-logo">카테고리5</a> -->
-<!-- 			<a href="#" class="fh5co-logo">카테고리6</a> -->
 				<ul class="menu">
 				    <li><a href="#">디자인/그래픽</a>
 				    	<ul>
