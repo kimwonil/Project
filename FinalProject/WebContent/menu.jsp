@@ -238,6 +238,7 @@ $(document).ready(function(){
 		<ul>
 			<li class="active"><a href="index.jsp">Home</a></li>
 			<li><a href="profile.do?id=kwi1222@naver.com">프로필</a></li>
+			<li><a href="detailOneBoard2.do?no=1">글상세</a></li>
 			<li><a href="authority.do">권한 신청</a></li>
 			<li><a href="authorityManagerPage.do">권한 신청 매니저</a></li>
 			<li><a href="selling.jsp">판매관리</a></li>
