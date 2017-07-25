@@ -129,7 +129,8 @@ $(document).ready(function(){
 						
 						
 					'<tr>'+
-					'<td>'+ data.kind +'/'+ data.price +'</td>'+
+					'<td>'+ data.kind +'</td>'+ 
+					'<td>'+ data.price +'</td>'+
 					'<td>'+ 
 						'<table class="quantityBox" border="1" cellspacing="0">'+
 						'<tr>'+
@@ -156,7 +157,6 @@ $(document).ready(function(){
 	
 	
 	//클릭해서 구매 수량 변하게!
-	
 	$(document).on('click', '.minus', function(){
 		var q = parseInt($(this).parent().parent().find('.quantity').val())-1;
 		$(this).parent().parent().find('.quantity').val(q);
@@ -210,16 +210,16 @@ $(document).ready(function(){
 
 							<table>
 								<tr>
-									<th>기본가격</th><td>${board.price}</td>
+									<th>기본항목</th><td>${board.price}</td>
 								</tr>
 								<c:if test="${board_option ne null}">
 									<tr>
-										<th>주문옵션</th>
+										<th>옵션항목</th>
 										<td>
 											<select id="optionList">
 												<option>옵션없음</option>
 												<c:forEach var="i" items="${board_option}">
-													<option value="${i.kind}">${i.kind} / ${i.price}</option>
+													<option value="${i.kind}">${i.kind} / +${i.price}</option>
 												</c:forEach>
 											</select>
 										</td>									
@@ -228,18 +228,19 @@ $(document).ready(function(){
 							</table>
 							<table id="purchaseList">
 							<tr>
-							<td> data.kind / data.price </td>
+							<td> 기본항목 </td>
+							<td> ${board.price} </td>
 							<td>
 								<table class="quantityBox" border="1" cellspacing="0">
 									<tr>
 										<td width="20%"><a href="#" class="minus">-</a></td>
 										<td width="40%"><input type="text" size="1" class="quantity" value=1>
-										<input type="hidden" value="'+data.price+'" class="hiddenPrice" ></td>
+										<input type="hidden" value="${board.price}" class="hiddenPrice" ></td>
 										<td width="20%"><a href="#" class="plus">+</a></td>
 									</tr>
 								</table>
 							</td>
-							<td><div class="optionResult">'+data.price+'</div></td>
+							<td><div class="optionResult">${board.price}</div></td>
 							<td><button class="optionDelete">x</button></td>
 							</tr>	
 							</table>
