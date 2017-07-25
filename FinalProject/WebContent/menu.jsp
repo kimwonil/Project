@@ -279,14 +279,8 @@ $(document).ready(function(){
 				</div>
 			</div>
 		
-		
+<!-- 		카테고리 메뉴                      -->
 		<div class="row">
-<!-- 			<a href="#" class="fh5co-logo">카테고리1</a> -->
-<!-- 			<a href="#" class="fh5co-logo">카테고리2</a> -->
-<!-- 			<a href="#" class="fh5co-logo">카테고리3</a> -->
-<!-- 			<a href="#" class="fh5co-logo">카테고리4</a> -->
-<!-- 			<a href="#" class="fh5co-logo">카테고리5</a> -->
-<!-- 			<a href="#" class="fh5co-logo">카테고리6</a> -->
 				<ul class="menu">
 				    <li><a href="#">디자인/그래픽</a>
 				    	<ul>
