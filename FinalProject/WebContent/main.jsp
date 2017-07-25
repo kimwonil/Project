@@ -82,7 +82,6 @@ height: 350px;
 							</div>
 						</div>
 						<c:if test="${status.count%4 eq 0}">
-						
 					</li>
 					</c:if>
 				</c:forEach>
