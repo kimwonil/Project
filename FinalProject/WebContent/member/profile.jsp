@@ -16,6 +16,9 @@
 		height: 300px;
 		
 	}
+	#mainTable{
+		display: inline;
+	}
 	
 	</style>
 	<div id="fh5co-main">
@@ -25,20 +28,54 @@
 				<div class="col-md-8 col-md-offset-2">
 					<h2>프로필 관리</h2>
 					<img src="<c:url value="/user/profile/${member.id}"/>/${member.photo}" alt="Free HTML5 template by FREEHTML5.co" class="img-rounded img-responsive photo">
-					
-					<p>아이디 : ${member.id}</p>
-					<p>닉네임 : ${member.nickName}</p>
-					<p>사진 : ${member.photo==null?"사진 없음":member.photo}</p>
-					<p>포인트 : <fmt:formatNumber value="${member.balance}" type="number"/> 포인트</p>
-					<p>관리자 : ${member.admin}</p>
-					
-					<p>관심분야 :</p>
-					
-					<p>판매완료 : 00건</p>
-					<p>구매완료 : 00건</p>
-					<p>판매평점 : 00점</p>
+					<table id="mainTable" class="table">
+						<tr>
+							<td>아이디 : ${member.id}</td>
+						</tr>
+						<tr>
+							<td>닉네임 : ${member.nickName}</td>
+						</tr>
+						<tr>
+							<td>사진 : ${member.photo==null?"사진 없음":member.photo}</td>
+						</tr>
+						<tr>
+							<td>포인트 : <fmt:formatNumber value="${member.balance}"
+									type="number" /> 포인트
+							</td>
+						</tr>
+						<tr>
+							<td>관리자 : ${member.admin}</td>
+						</tr>
+						<tr>
+							<td>관심분야 :</td>
+						</tr>
+						<tr><td></td></tr>
+					</table>
+					<br><br>
+					<br><br>
+					<table>
+						<tr>
+							<td>판매완료 : 00건</td>
+						</tr>
+						<tr>
+							<td>구매완료 : 00건</td>
+						</tr>
+						<tr>
+							<td>판매평점 : 00점</td>
+						</tr>
+						<tr>
+							<td>판매 가능 재능 목록</td>
+						</tr>
+						<tr>
+							<td>
+								<ul>
+									<li>리스트1</li>
+									<li>리스트2</li>
+								</ul>
+							</td>
+						</tr>
+					</table>
 					<div class="fh5co-spacer fh5co-spacer-sm"></div>
-					<p>판매 가능 재능 목록</p>
 					<a data-toggle="modal" href="#profileModal" class="btn btn-sm btn-info">정보 수정</a>
 					<c:if test="${member.admin==1}">
 						<a href="memberManager.do" class="btn btn-sm btn-info">회원관리</a>
