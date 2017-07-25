@@ -75,7 +75,7 @@
 						<c:choose>
 								<c:when test="${answer.content == null }">
 						<div class="form-group" style="text-align: right;">
-							
+								
 								<button type="button" class="btn btn-info btn-lg"
 									data-toggle="modal" data-target="#myModal">답변 등록</button>
 							</div>
@@ -121,7 +121,7 @@
 							</c:when>
 							<c:when test="${answer.content != null }">
 								<div class="form-group" style="text-align: right;">
-							
+								<button type="button" class="btn btn-info btn-lg" onclick="location.href='deleteAnswer.do?no='+${qna.no }">답변 삭제</button> 
 								<button type="button" class="btn btn-info btn-lg"
 									data-toggle="modal" data-target="#myModal">답변 수정</button>
 							</div>

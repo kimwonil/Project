@@ -103,8 +103,27 @@
 												pattern="yyyy-MM-dd" /></td>
 										<td>${qna.no }</td>
 										<td>${qna.category_no }</td>
-										<td><a href="qnaContent.do?no=${qna.no }">${qna.title }</a></td>
-										<td>${qna.writer }</td>
+										<td>
+										<c:choose>
+										<c:when test="${qna.open==0}">
+										<a href="qnaContent.do?no=${qna.no }">${qna.title }</a>
+										</c:when>
+										<c:when test="${qna.open==1}">
+											<c:choose>
+												<c:when test="${member.admin==1 }">
+												<a href="qnaContent.do?no=${qna.no }">비공개</a>
+												</c:when>
+												<c:when test="${member.id==qna.writer }">
+												<a href="qnaContent.do?no=${qna.no }">비공개</a>
+												</c:when>
+												<c:otherwise>
+												비공개
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										</c:choose>
+										</td>
+										<td><c:choose><c:when test="${qna.open==0}">${qna.writer }</c:when><c:when test="${qna.open==1}">비공개</c:when></c:choose></td>
 										<td><c:choose><c:when test="${qna.state==0}">미답변</c:when><c:when test="${qna.state==1}">답변완료</c:when></c:choose></td>
 										<td>${qna.read_count }</td>
 									</tr>
@@ -151,6 +170,13 @@
 																<th><textarea rows="10" cols="50" name="content"></textarea>
 																</th>
 															</tr>
+															<tr>															
+																<th>공개/비공개</th>
+																<th>
+																<input type="checkbox" name="open" value="0">공개
+																<input type="checkbox" name="open" value="1">비공개
+																</th>
+															</tr>
 														</table>
 														<div class="fh5co-spacer fh5co-spacer-sm"></div>
 														<input type="submit" class="btn btn-sm btn-primary"
@@ -172,21 +198,83 @@
 							<table style="width: 100%;">
 								<tr>
 									<th>등록일</th>
+									<th>글번호</th>
+									<th>분류</th>
 									<th>글제목</th>
-									<th>구매자</th>
-									<th>가격(수량)</th>
-									<th>진행상황</th>
-									<th>비고</th>
+									<th>작성자</th>
+									<th>처리상태</th>
+									<th>조회수</th>
 								</tr>
-								<tr>
-									<td>2017.07.07</td>
-									<td>칼 갈아드립니다</td>
-									<td>칼갈이</td>
-									<td>3000/1</td>
-									<td>진행중</td>
-									<td>버튼만들어야해</td>
-								</tr>
+								<c:forEach var="report" items="${ reportList }">
+									<tr>
+										<td><fmt:formatDate value="${report.date }"
+												pattern="yyyy-MM-dd" /></td>
+										<td>${report.no }</td>
+										<td>${report.category_no }</td>
+										<td><a href="ReportContent.do?no=${report.no }">${report.title }</a></td>
+										<td>${report.writer }</td>
+										<td><c:choose><c:when test="${report.state==0}">미처리</c:when><c:when test="${report.state==1}">처리완료</c:when></c:choose></td>
+										<td>${report.read_count }</td>
+									</tr>
+								</c:forEach>
 							</table>
+														<br>
+							<div class="form-group" style="text-align: right;">
+								<button type="button" class="btn btn-info btn-lg"
+									data-toggle="modal" data-target="#myModal2">신고 등록</button>
+							</div>
+							<!-- Modal -->
+							<div class="modal fade" id="myModal2" role="dialog">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">신고 등록</h4>
+										</div>
+										<div class="modal-body">
+
+
+										
+													<form id="detailInfo" action="insertReport.do"
+														method="post">
+														<table class="table">
+															<tr>
+																<th>카테고리</th>
+																<th><select name="major"><option>대분류</option>
+																		<option value="1">카테고리1</option>
+																		<option value="2">카테고리2</option>
+																		<option value="3">카테고리3</option></select> 
+																		<select name="minor"><option>소분류</option>
+																		<option value="1">카테고리1</option>
+																		<option value="2">카테고리2</option>
+																		<option value="3">카테고리3</option></select></th>
+															</tr>
+															<tr>
+																<th>신고 제목</th>
+																<th><input type="text" name="title"></th>
+															</tr>
+															<tr>
+																<th>신고 내용</th>
+																<th><textarea rows="10" cols="50" name="content"></textarea>
+																</th>
+															</tr>
+																
+														</table>
+														<div class="fh5co-spacer fh5co-spacer-sm"></div>
+														<input type="submit" class="btn btn-sm btn-primary"
+															id="go" value="신고하기">
+														<button type="button" class="btn btn-primary btn-sm"
+															data-dismiss="modal">취소하기</button>
+													</form>
+											
+
+
+
+										</div>
+
+									</div>
+								</div>
+							</div>
 						</div>
 
 
