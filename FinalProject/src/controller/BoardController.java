@@ -226,7 +226,7 @@ public class BoardController{
 		//board 테이블에서 가져온 정보
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("board", boardService.selectOneBoard(no));
-		mav.setViewName("detail2");
+		mav.setViewName("detail");
 		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
 			mav.addObject("fileinfo", boardService.selectOneFromFile(no));
 		}

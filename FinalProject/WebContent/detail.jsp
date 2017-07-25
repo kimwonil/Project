@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="menu.jsp" %>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=A5owm24oXM2NprihulHy&submodules=geocoder"></script>
 </head>
@@ -36,6 +35,17 @@
 	right: 20%;
 	top: 100%;
 }
+.quantityBox td{
+width: 20px;
+text-align: center;
+}
+.quantityBox input{
+height: 26px;
+}
+.quantityBox a {
+text-decoration: none;
+}
+
 </style>
 
 <script>
@@ -117,13 +127,26 @@ $(document).ready(function(){
 				
 				//table에 넣기
 				$('#purchaseList').append(
+						
+						
 					'<tr>'+
-					'<td>'+ data.kind +'/'+ data.price +'</td>'+
-					'<td>'+ 1+'</td>'+
-					'<td>'+data.price+'원</td>'+
+					'<td>'+ data.kind +'</td>'+ 
+					'<td>'+ data.price +'</td>'+
+					'<td>'+ 
+						'<table class="quantityBox" border="1" cellspacing="0">'+
+						'<tr>'+
+							'<td width="20%"><a href="#" class="minus">-</a></td>'+
+							'<td width="40%"><input type="text" size="1" class="quantity" value=1>'+
+							'<input type="hidden" value="'+data.price+'" class="hiddenPrice" ></td>'+
+							'<td width="20%"><a href="#" class="plus">+</a></td>'+
+						'</tr>'+
+						'</table>'+
+					'</td>'+
+					'<td><div class="optionResult">'+data.price+'</div></td>'+
 					'<td><button class="optionDelete">x</button></td>'+
-					'</tr>'		
+					'</tr>'
 				)
+				$('#totalPrice').text(totalPrice());
 			},
 		})//ajax 끝
 	})//옵션추가하면 밑에 테이블에 띄우기
@@ -132,13 +155,50 @@ $(document).ready(function(){
 	//추가한 옵션 삭제하기
 	$(document).on('click', '.optionDelete', function(){
 		$(this).parent().parent().remove();
+		$('#totalPrice').text(totalPrice());
 	})//추가한 옵션 삭제하기
+	
+	
+	//클릭해서 구매 수량 변하게!
+	$(document).on('click', '.minus', function(){
+		var q = parseInt($(this).parent().parent().find('.quantity').val())-1;
+		$(this).parent().parent().find('.quantity').val(q);
+		var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
+		console.log(hiddenPrice);
+		$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
+		$('#totalPrice').text(totalPrice());
+	});//마이너스 클릭하면 줄어들고
+	$(document).on('click', '.plus', function(){
+		var q = parseInt($(this).parent().parent().find('.quantity').val())+1;
+		$(this).parent().parent().find('.quantity').val(q);
+		var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
+		console.log(hiddenPrice);
+		$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
+		$('#totalPrice').text(totalPrice());
+	});//플러스 클릭하면 늘어나고
+	
+	
+
+	
 	
 	
 
 	
 })
 </script>
+<script type="text/javascript">
+function totalPrice(){
+	var result=0;
+	$('.optionResult').each(function(){
+		result += parseInt($(this).text());
+		
+	});
+	
+	return result;
+}
+
+</script>
+
 
 <body>
 	<div id="fh5co-main">
@@ -159,25 +219,25 @@ $(document).ready(function(){
 
 						<div class="item deal-info">
 							
-							판매자 닉네임 : <a href="profile.do?nickname="+${board.writer}>${board.writer}</a>
+							판매자 닉네임 : <a href="profile.do?nickname="+${board.writer} id="writer" style="display: inline-block;">${board.writer}</a>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
 							<button id="modify" value="${board.state}">글수정</button><br>
-							등록일 : <fmt:formatDate value="${board.date}" pattern="yyyy-MM-dd"/><br>
+							등록일 : ${board.date}<br>
 							마감일 : ${board.end_date}<br>
 							인원 또는 건수 : ${board.limit}<br>
 
 							<table>
 								<tr>
-									<th>기본가격</th><td>${board.price}</td>
+									<th>기본항목</th><td>${board.price}</td>
 								</tr>
 								<c:if test="${board_option ne null}">
 									<tr>
-										<th>주문옵션</th>
+										<th>옵션항목</th>
 										<td>
 											<select id="optionList">
-											<option>옵션없음</option>
+												<option>옵션없음</option>
 												<c:forEach var="i" items="${board_option}">
-													<option value="${i.kind}">${i.kind} / ${i.price}</option>
+													<option value="${i.kind}">${i.kind} (+${i.price})</option>
 												</c:forEach>
 											</select>
 										</td>									
@@ -185,8 +245,25 @@ $(document).ready(function(){
 								</c:if>
 							</table>
 							<table id="purchaseList">
+							<tr>
+							<td> 기본항목 </td>
+							<td> ${board.price} </td>
+							<td>
+								<table class="quantityBox" border="1" cellspacing="0">
+									<tr>
+										<td width="20%"><a href="#" class="minus">-</a></td>
+										<td width="40%"><input type="text" size="1" class="quantity" value=1>
+										<input type="hidden" value="${board.price}" class="hiddenPrice" ></td>
+										<td width="20%"><a href="#" class="plus">+</a></td>
+									</tr>
+								</table>
+							</td>
+							<td><div class="optionResult">${board.price}</div></td>
+							<td></td>
+							</tr>
 							</table>
 							<br>
+							<div id="totalPrice">${board.price }</div>
 							<p><button>구매하기</button>
 							<button>찜하기</button>
 							<button>쪽지문의</button></p>
