@@ -9,7 +9,7 @@
   var WanSpinner = function(element, options) {
     this.defaults = {
       maxValue: 999,
-      minValue: -999,
+      minValue: 1,
       step: 1,
       start: 1,
       inputWidth: 40,

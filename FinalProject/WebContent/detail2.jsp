@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="menu.jsp" %>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,9 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="css/wan-spinner.css">
-  <script type="text/javascript" src="js/wan-spinner.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=A5owm24oXM2NprihulHy&submodules=geocoder"></script>
 </head>
@@ -37,6 +34,16 @@
 	left: 20%;
 	right: 20%;
 	top: 100%;
+}
+.quantityBox td{
+width: 20px;
+text-align: center;
+}
+.quantityBox input{
+height: 26px;
+}
+.quantityBox a {
+text-decoration: none;
 }
 </style>
 
@@ -122,13 +129,16 @@ $(document).ready(function(){
 					'<tr>'+
 					'<td>'+ data.kind +'/'+ data.price +'</td>'+
 					'<td>'+ 
-				    '<div class="wan-spinner wan-spinner-2">'+
-				    '<a href="javascript:void(0)" class="minus">-</a>'+
-				    '<input type="text" value="1">'+
-				    '<a href="javascript:void(0)" class="plus">+</a>'+
-				    '</div>'+
+						'<table class="quantityBox" border="1" cellspacing="0">'+
+						'<tr>'+
+							'<td width="20%"><a href="#" class="minus">-</a></td>'+
+							'<td width="40%"><input type="text" size="1" class="quantity" value=1>'+
+							'<input type="hidden" value="'+data.price+'" class="hiddenPrice" ></td>'+
+							'<td width="20%"><a href="#" class="plus">+</a></td>'+
+						'</tr>'+
+						'</table>'+
 					'</td>'+
-					'<td>'+data.price+'원</td>'+
+					'<td><div class="optionResult">'+data.price+'</div></td>'+
 					'<td><button class="optionDelete">x</button></td>'+
 					'</tr>'		
 				)
@@ -143,20 +153,32 @@ $(document).ready(function(){
 	})//추가한 옵션 삭제하기
 	
 	
+	//클릭해서 구매 수량 변하게!
+	
+	$(document).on('click', '.minus', function(){
+		var q = parseInt($(this).parent().parent().find('.quantity').val())-1;
+		$(this).parent().parent().find('.quantity').val(q);
+		var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
+		console.log(hiddenPrice);
+		$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
+	});//마이너스 클릭하면 줄어들고
+	$(document).on('click', '.plus', function(){
+		var q = parseInt($(this).parent().parent().find('.quantity').val())+1;
+		$(this).parent().parent().find('.quantity').val(q);
+		var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
+		console.log(hiddenPrice);
+		$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
+	});//플러스 클릭하면 늘어나고
+	
+	
+	
+	
+	
 
 	
 })
 </script>
-<script type="text/javascript">
-  $(document).ready(function() {
 
-	$(document).on('click', '.wan-spinner-2', function(){
-	    $(".wan-spinner-2").WanSpinner();
-		
-	})
-
-  });
-  </script>
 
 <body>
 	<div id="fh5co-main">
