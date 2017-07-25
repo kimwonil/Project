@@ -2595,3 +2595,9 @@ Caused by: java.io.IOException: Could not find service$AnswerService
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-25 09:09:56.879
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-25 09:10:30.372
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-07-25 09:10:30.378
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
