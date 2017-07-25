@@ -70,6 +70,12 @@ border: 1px solid red;
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title" value="${qna.title }"> </th></tr>	
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="50" name="content">${qna.content }</textarea> </th></tr>
+									<tr><th>공개/비공개</th>
+									<th> 
+									<input type="radio" name="open" value="0" <c:if test="${qna.open== 0}"> checked</c:if>>공개
+									<input type="radio" name="open" value="1" <c:if test="${qna.open== 1}"> checked</c:if>>비공개 
+									</th>
+									</tr>
 									<input type="hidden" name="no" value="${qna.no }">
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>

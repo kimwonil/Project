@@ -27,4 +27,9 @@ public class AnswerService {
 	{
 		return answerDao.updateAnswer(params);
 	}
+	
+	public boolean deleteAnswer(int no)
+	{
+		return answerDao.deleteAnswer(no);
+	}
 }

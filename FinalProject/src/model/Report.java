@@ -2,24 +2,15 @@ package model;
 
 import java.util.Date;
 
-public class QnA {
+public class Report {
 	private int no;
 	private Date date;
-	private int category_no;
+	private int category_no;	
 	private String title;
 	private int state;
 	private int read_count;
 	private String content;
 	private String writer;
-	private int open;
-	
-	
-	public int getOpen() {
-		return open;
-	}
-	public void setOpen(int open) {
-		this.open = open;
-	}
 	public int getNo() {
 		return no;
 	}
@@ -70,11 +61,9 @@ public class QnA {
 	}
 	@Override
 	public String toString() {
-		return "QnA [no=" + no + ", date=" + date + ", category_no=" + category_no + ", title=" + title + ", state="
-				+ state + ", read_count=" + read_count + ", content=" + content + ", writer=" + writer + ", open="
-				+ open + "]";
+		return "Report [no=" + no + ", date=" + date + ", category_no=" + category_no + ", title=" + title + ", state="
+				+ state + ", read_count=" + read_count + ", content=" + content + ", writer=" + writer + "]";
 	}
-	
 	
 	
 }
