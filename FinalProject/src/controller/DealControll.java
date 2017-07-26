@@ -89,22 +89,18 @@ public class DealControll {
 	public void purchase(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		System.out.println("컨트롤 도착");
 		String id = ((Member)session.getAttribute("member")).getId();
 		List<Purchase> list = dealService.purchase(id);
-		System.out.println("리스트 조회");
 		for(Purchase purchase : list) {
 			Board board = dealService.boardInfo(purchase.getNo());
 			purchase.setBoardTitle(board.getTitle());
 			purchase.setSeller(board.getWriter());
 			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
 		}
-		System.out.println("반복문 탈출");
 		
 		String json = gson.toJson(list);
 		
 		try {
-			System.out.println("자료 전송");
 			response.getWriter().write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
