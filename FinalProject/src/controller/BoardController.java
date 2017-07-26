@@ -260,7 +260,7 @@ public class BoardController{
 		mav.addObject("board", boardService.selectOneBoard(no));
 		mav.setViewName("board/detail");
 		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
-			mav.addObject("fileinfo", boardService.selectOneFromFile(no));
+			mav.addObject("files", boardService.selectOneFromFile(no));
 		}
 		if(boardService.selectBoard_option(no) != null){
 			System.out.println("컨트롤러에 selectOneBoard_option하러왔엉");
@@ -322,6 +322,8 @@ public class BoardController{
 		
 		//board_option 뽑아서 보내기
 		mav.addObject("board_optionList", boardService.selectBoard_option(no));
+		
+		mav.addObject("files", boardService.selectOneFromFile(no));
 		return mav;
 	}
 	
@@ -340,79 +342,80 @@ public class BoardController{
 		int no = Integer.parseInt(params.get("no").toString());
 		Board board = boardService.selectOneBoard(no);
 		String id = board.getWriter();
-		int quantity = Integer.parseInt(params.get("quantity").toString());
-		params.put("quantity", quantity);
 		params.put("id", id);
 		params.put("no", no);
-		System.out.println(params);
+		
+		System.out.println(paramArray1);
+		System.out.println(paramArray2);
 
 		//board, map, board_option, file 수정하기
 		boardService.updateBoard(params);
-//		boardService.updateMap(params);
-//		boardService.deleteBoard_option(no);//board_option에서 글번호에 해당하는 옵션을 다 지우고
-//		if(paramArray1 != null){//입력받은 옵션들로 새로 넣어주는거야
-//			HashMap<String, Object> board_option = new HashMap<>();
-//			board_option.put("no", no);
-//			for(int i=0;i<paramArray1.size();i++){
-//				board_option.put("kind", paramArray1.get(i));
-//				board_option.put("price", paramArray2.get(i));
-//				boardService.insertBoard_option(board_option);
-//			}
-//		}
+		boardService.updateMap(params);
+		boardService.deleteBoard_option(no);//board_option에서 글번호에 해당하는 옵션을 다 지우고
+		if(paramArray1 != null){//입력받은 옵션들로 새로 넣어주는거야
+			HashMap<String, Object> board_option = new HashMap<>();
+			board_option.put("no", no);
+			for(int i=0;i<paramArray1.size();i++){
+				board_option.put("kind", paramArray1.get(i));
+				board_option.put("price", paramArray2.get(i));
+				boardService.insertBoard_option(board_option);
+			}
+		}
 		
 		//file수정
 		//사진을 가져오자
-//		List<MultipartFile> fileList = files.getFiles();
-//		int fileNo = 1;
-//		for(MultipartFile file : fileList){
-//			System.out.println(file.getOriginalFilename());
-//			params.put("file_name"+fileNo, file.getOriginalFilename());
-//			fileNo++;
-//		}
-//		//사진이 저장될 위치 만들어주기
-//		String path = session.getServletContext().getRealPath("/user/board/");
-//		System.out.println(path);
-//		MultipartFile file1 = fileList.get(0); //fileList에 들어있는 파일들을 하나씩 꺼내주고
-//		MultipartFile file2 = fileList.get(1);
-//		MultipartFile file3 = fileList.get(2);
-//		MultipartFile file4 = fileList.get(3);
-//		
-//		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
-//		if(!dir.isDirectory()){//폴더가 없으면 생성
-//			dir.mkdirs();
-//		}
-//		
-//			try {
-//				if(file1 != null){
-//					file1.transferTo(new File(path+no+"/"+file1.getOriginalFilename()));
-//				}
-//				if(file2 != null){
-//					file2.transferTo(new File(path+no+"/"+file2.getOriginalFilename()));
-//				}
-//				if(file3 != null){
-//					file3.transferTo(new File(path+no+"/"+file3.getOriginalFilename()));
-//				}
-//				if(file4 != null){
-//					file4.transferTo(new File(path+no+"/"+file4.getOriginalFilename()));
-//				}
-//			} catch (IllegalStateException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			
-//		//files가 있으면 수정하기
-//		if(files != null){
-//			boardService.updateFile(params);
-//		}
+		List<MultipartFile> fileList = files.getFiles();
+		int fileNo = 1;
+		for(MultipartFile file : fileList){
+			System.out.println(file.getOriginalFilename());
+			params.put("file_name"+fileNo, file.getOriginalFilename());
+			fileNo++;
+		}
+		//사진이 저장될 위치 만들어주기
+		String path = session.getServletContext().getRealPath("/user/board/");
+		System.out.println(path);
+		MultipartFile file1 = fileList.get(0); //fileList에 들어있는 파일들을 하나씩 꺼내주고
+		MultipartFile file2 = fileList.get(1);
+		MultipartFile file3 = fileList.get(2);
+		MultipartFile file4 = fileList.get(3);
+		
+		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
+		if(!dir.isDirectory()){//폴더가 없으면 생성
+			dir.mkdirs();
+		}
+		
+			try {
+				if(file1 != null){
+					file1.transferTo(new File(path+no+"/"+file1.getOriginalFilename()));
+				}
+				if(file2 != null){
+					file2.transferTo(new File(path+no+"/"+file2.getOriginalFilename()));
+				}
+				if(file3 != null){
+					file3.transferTo(new File(path+no+"/"+file3.getOriginalFilename()));
+				}
+				if(file4 != null){
+					file4.transferTo(new File(path+no+"/"+file4.getOriginalFilename()));
+				}
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		//files가 있으면 수정하기
+		if(files != null){
+			boardService.updateFile(params);
+		}
 		
 		//수정 후 페이지 이동
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("board", boardService.selectOneBoard(no));
-//		mav.addObject("mapinfo", boardService.selectOneMap(no));
-//		mav.addObject("board_optionList", boardService.selectBoard_option(no));
+		mav.addObject("mapinfo", boardService.selectOneMap(no));
+		mav.addObject("board_optionList", boardService.selectBoard_option(no));
+		mav.addObject("files", boardService.selectOneFromFile(no));
 		mav.setViewName("board/detail");
 		return mav;
 	}

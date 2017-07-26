@@ -370,11 +370,11 @@ $(document).ready(function(){
 											${mapinfo.address2 }
 											</c:if>
 										</div>
-										<input type="hidden" id="hidn" name="addrResult">
-										<input type="hidden" id="hidn2" name="addrResult2">
-										<input type="hidden" id="hidn3" name="info_title">
-										<input type="hidden" id="hidn4" name="lat">
-										<input type="hidden" id="hidn5" name="lng">
+										<input type="hidden" id="hidn" name="info_address" value="${mapinfo.address }">
+										<input type="hidden" id="hidn2" name="info_address2" value="${mapinfo.address2 }">
+										<input type="hidden" id="hidn3" name="info_title" value="${mapinfo.title }">
+										<input type="hidden" id="hidn4" name="lat" value="${mapinfo.lat}">
+										<input type="hidden" id="hidn5" name="lng" value="${mapinfo.lng}">
 										<input type="hidden" name="no" value="${board.no}">
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price" value="${board.price}"> </th></tr>
@@ -396,13 +396,20 @@ $(document).ready(function(){
 											
 										</table> 
 									</th></tr>
-									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr>
+									<tr><th>썸네일</th><th> <input type="file" name="files">
+									<div>${files.file_name1}</div>
+									 </th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content">${board.content}</textarea> </th></tr>
 									<tr><th>상세 이미지 또는 동영상</th>
 									<th>
-									<input type="file" name="files">
-									<input type="file" name="files">
-									<input type="file" name="files"></th></tr>
+									<input type="file" name="files" >
+									<div>${files.file_name2}</div>
+									<input type="file" name="files" >
+									<div>${files.file_name3}</div>
+									<input type="file" name="files" >
+									<div>${files.file_name4}</div>
+									</th></tr>
+								    
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
 								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">

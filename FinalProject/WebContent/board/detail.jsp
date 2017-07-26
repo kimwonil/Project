@@ -211,7 +211,7 @@ function totalPrice(){
 						<div class="item deal-position">
 							<div class="animate-box">
 								<a href="images/img_1.jpg" class="image-popup fh5co-board-img">
-									<img src="<c:url value="/user/board/${board.no}"/>/${fileinfo.file_name1}" alt="Free HTML5 Bootstrap template"	style="width: 573px; height: 500px;">
+									<img src="<c:url value="/user/board/${board.no}"/>/${files.file_name1}" alt="Free HTML5 Bootstrap template"	style="width: 573px; height: 500px;">
 									</a>
 							</div>
 							<div class="fh5co-desc">${board.title}</div>

@@ -7,7 +7,7 @@
 <!--  table명 : board -->
  <insert id="insertBoard" parameterType="java.util.HashMap">
  	insert into board values(0, #{major}, #{minor}, #{title}, #{id}, #{content}, sysdate(), #{end_date}, 
- 	#{quantity}, 0, #{price}, 0, 0, 0, 0)
+ 	#{quantity}, 0, #{price}, 0, 1, 0, 0)
  		<selectKey keyProperty="no" order="AFTER" resultType="int">
  			select max(no) as no from board
  		</selectKey>
@@ -40,7 +40,7 @@
  </insert>
  
  <update id="updateMap" parameterType="java.util.HashMap">
- 	update map set lat=#{lat}, lng=#{lng}, title=#{title}, address=#{address}, address2=#{address2} board_no=#{board_no} where no=#{no}
+ 	update map set lat=#{lat}, lng=#{lng}, title=#{info_title}, address=#{info_address}, address2=#{info_address2}  where board_no=#{no}
  </update>
  
  <delete id="deleteMap" parameterType="int">
