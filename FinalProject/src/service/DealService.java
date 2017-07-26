@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,10 @@ public class DealService {
 
 	public List<PurchaseOption> purchaseOption(int no) {
 		return dealDao.purchaseOption(no);
+	}
+
+	public int progressState(HashMap<String, Object> map) {
+		return dealDao.progressState(map);
 	}
 	
 }

@@ -257,7 +257,7 @@ $(document).ready(function(){
 		<div class="row">
 		검색 <input type="text"> 
 		<div id="linkGroup">
-			<a href='boardForm.jsp'>판매등록</a>
+			<a href='boardForm.do'>판매등록</a>
 			<a href='#'>로그인</a>
 			<a href='#' id="toggler">알림</a>
 			<a href='#'>마이페이지</a>
@@ -273,7 +273,7 @@ $(document).ready(function(){
 <!-- 		카테고리 메뉴                    -->
 		<div class="row">
 				<ul class="menu">
-				    <li><a href="#">디자인/그래픽</a>
+				    <li><a href="profile.do?id=a@naver.com">디자인/그래픽</a>
 				    	<ul>
 				    		<li><a href="#" class="documents">캐리커쳐/인물/캐릭터/아이콘</a></li>
 				    		<li><a href="#" class="documents">일러스트/초상화/스케치</a></li>

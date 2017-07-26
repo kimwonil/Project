@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 
@@ -23,20 +24,49 @@ import service.DealService;
 public class DealControll {
 
 	@Autowired
-	DealService service;
+	DealService dealService;
 	
 	Gson gson = new Gson();
 	
-	
+	/**
+	 * 판매 현황 조회
+	 * */
 	@RequestMapping("sellingList.do")
 	public void sellingList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		String id = ((Member)session.getAttribute("member")).getId();
-		List<Board> list = service.selectAll(id);
+		List<Board> list = dealService.selectAll(id);
 		
 		for(Board board : list) {
-			board.setCount(service.purchaseCount(board.getNo()));
+			board.setCount(dealService.purchaseCount(board.getNo()));
+		}
+		
+		String json = gson.toJson(list);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * 판매글에 등록된 구매자 현황 조회
+	 * */
+	@RequestMapping("purchaseList.do")
+	public void purchaseList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		List<Purchase> list = dealService.purchaseList(no);
+		
+		for(Purchase purchase:list) {
+			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
 		}
 		
 		String json = gson.toJson(list);
@@ -51,27 +81,28 @@ public class DealControll {
 	}
 	
 	
-	@RequestMapping("purchaseList.do")
-	public void purchaseList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		response.setHeader("Content-Type", "application/xml");
-		response.setContentType("text/xml;charset=UTF-8");
+	/**
+	 * 구매 현황 조회
+	 * */
+	@RequestMapping("purchase.do")
+	public void purchase() {
 		
-		int no = Integer.parseInt(request.getParameter("no"));
-		
-		List<Purchase> list = service.purchaseList(no);
-		
-		for(Purchase purchase:list) {
-			purchase.setOptionList(service.purchaseOption(purchase.getNo()));
+	}
+	
+	/**
+	 * 판매글에 등록된 구매자 상태 변환
+	 * */
+	@RequestMapping("progress.do")
+	public void progress(@RequestParam(value="list") List<String> paramArray,int state, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		System.out.println(paramArray);
+		System.out.println(state);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("state", state);
+		for(String purchase:paramArray) {
+			map.put("purchase_no", purchase);
+			dealService.progressState(map);
 		}
 		
-		String json = gson.toJson(list);
-		
-		try {
-			response.getWriter().write(json);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 	
