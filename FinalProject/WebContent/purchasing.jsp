@@ -15,6 +15,50 @@
 	$(function() {
 		$("#tabs").tabs();
 	});
+	
+	function purchase(){
+		$.ajax({
+			url:"purchase.do",
+			type:"POST",
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				
+				$('#tabs-1 > table tr:gt(0)').remove();
+				if(data == ""){
+					$('#tabs-1 > table').append(
+							'<tr><td colspan="8">내역이 없습니다.</td></tr>'		
+					);
+				}else{
+					$.each(data, function(index, value){
+						var optionStr="";
+						var optionPrice="";
+						var optionAmount="";
+						var total = 0;
+						
+						$.each(value.optionList, function(index, option){
+							optionStr += option.kind + "<br>";
+							optionPrice += option.price + "<br>";
+							optionAmount += option.amount +"<br>";
+							total += option.price * option.amount;
+						});
+						
+						$('#tabs-1 > table').append(
+							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+							value.seller + '</td><td>' + optionStr + '</td><td>' + optionAmount + '</td><td>' +
+							optionPrice + '</td><td>' + total + '</td><td>'+
+							'<button class="btn-sm btn-info" value="'+value.no+'">취소</button></td></tr>'		
+						);
+					});
+				}
+							
+			},
+			error:function(){
+				alert("실패");
+			}
+		})
+	}
+	
 </script>
 <style type="text/css">
 
@@ -47,11 +91,9 @@ border: 1px solid black;
 							<input type="text">
 							<button>검색</button>
 						</div>
-						<div class="fh5co-spacer fh5co-spacer-sm"></div>
 						<div id="tabs-1" >
 							<table style="width: 100%;">
-								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th><th>진행상황</th><th>비고</th></tr>
-								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td><td>진행중</td><td>버튼만들어야해</td></tr>
+								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>옵션</th><th>수량</th><th>금액</th><th>총액</th><th>비고</th></tr>
 							</table>
 						</div>
 						<div id="tabs-2">

@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import model.Board;
@@ -11,4 +12,5 @@ public interface DealDao {
 	public int purchaseCount(int no);
 	public List<Purchase> purchaseList(int no);
 	public List<PurchaseOption> purchaseOption(int no);
+	public int progressState(HashMap<String, Object> map);
 }
