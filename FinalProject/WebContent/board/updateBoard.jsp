@@ -37,7 +37,7 @@ $(document).ready(function(){
     var info_address = "";//도로명
     var info_address2 = "";//지번
     var latlng="";//위도경도
-//     var infowindow;
+    var information = "";//infowindow에 표시할 내용
     
     
     $(document).on('click', '#mapSearch', function(){
@@ -112,6 +112,7 @@ $(document).ready(function(){
 								
 								    console.log(e.latlng);
 								    searchCoordinateToAddress(e.latlng);
+								    info_title = "";
 								    
 								});
 					  	        
@@ -142,6 +143,7 @@ $(document).ready(function(){
   	 			$('#table tr:gt(0)').empty();
 				info_address = $('#inputAddr').val();
 				info_address2 = "";
+				info_title = "";
 				
 		        map.destroy();
 		        map = new naver.maps.Map('map', {
@@ -154,6 +156,10 @@ $(document).ready(function(){
 			        }
 			    	
 			        var result = response.result;
+			        // 검색 결과 갯수: result.total
+			        // 첫번째 결과 결과 주소: result.items[0].address
+			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+			        
 			        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
 			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  		
 			        
@@ -179,7 +185,9 @@ $(document).ready(function(){
 
 // 		  				infowindow.close();
 		    			marker.setPosition(e.latlng);
+		    			
 					    searchCoordinateToAddress(e.latlng);
+					    info_title="";
 					});
   	        
 		  	        //인포윈도우 오픈
@@ -286,7 +294,7 @@ $(document).ready(function(){
     	console.log($('h6').text());
     	
     	//부모창 div에 넣기
-    	$('#addrResult').html(info_address +"<br>"+info_address2);
+    	$('#addrResult').html(info_title +"<br>"+ info_address +"<br>"+info_address2);
     	$('#hidn').val(info_address);
     	$('#hidn2').val(info_address2);
     	$('#hidn3').val(info_title);
@@ -297,10 +305,35 @@ $(document).ready(function(){
     
     
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//가격 입력하기
+
+	$(document).on('click', '.add', function(){
+	$('#tableOption').append(
+	'<tr>'+
+	'<td><input type="text" name="option[]"></td>'+
+	'<td><input type="text" name="optionPrice[]"></td>'+
+	'<td><button class="delete">삭제</button></td>'+
+	'</tr>'
+	);
+	});
+	
+	
+	$(document).on('click', '.delete', function(){
+	$(this).parent().parent().remove();	
+	});
+	
+   	$('#go').click(function(){
+   		$('#detailInfo').submit(function(){
+   		});
+   	});
+	
 	
 	
 });//document.ready
 </script>
+
+
 
 <body>
 	
@@ -308,13 +341,13 @@ $(document).ready(function(){
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
-					<h2>판매등록</h2>
+					<h2>판매글 수정</h2>
 					<div class="fh5co-spacer fh5co-spacer-sm"></div>
 					<div class="row">
 						
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
-							<form id="detailInfo" action="updateBoard.do?no=${board.no}" method="post">
+							<form id="detailInfo" action="updateBoard.do" method="post" enctype="multipart/form-data">
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select name="major"><option>대분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select> 
@@ -322,14 +355,18 @@ $(document).ready(function(){
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title" value="${board.title}"> </th></tr>
 									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" value="${board.end_date }"> </th></tr>
-									<tr><th>인원 또는 건수</th><th> <input type="text" name="limit" value="${board.limit }"> </th></tr>
+									<tr><th>인원 또는 건수</th><th> <input type="text" name="quantity" value="${board.quantity }"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
           								<input type="radio" name="way" value="2"> 키워드<br>
 										<input type="text" id="inputAddr" name="inputAddr" > 
 										<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
-										<div id="addrResult">${mapinfo.address}
-											<c:if test="${mapinfo.address2 != null }">
+										<div id="addrResult">
+											<c:if test="${mapinfo.title ne ''}">
+											${mapinfo.title}<br>
+											</c:if>
+											${mapinfo.address}<br>
+											<c:if test="${mapinfo.address2 ne '' }">
 											${mapinfo.address2 }
 											</c:if>
 										</div>
@@ -338,15 +375,37 @@ $(document).ready(function(){
 										<input type="hidden" id="hidn3" name="info_title">
 										<input type="hidden" id="hidn4" name="lat">
 										<input type="hidden" id="hidn5" name="lng">
+										<input type="hidden" name="no" value="${board.no}">
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price" value="${board.price}"> </th></tr>
-									<tr><th>옵션가격</th><th> <input type="text" name="optionprice" value="${board.optionprice}"> </th></tr>
-									<tr><th>썸네일</th><th> <input type="file" name="thumbnail"> </th></tr>
+									<tr><th>옵션사항</th><th> 
+										<table id="tableOption">
+											<tr>
+											<th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th>
+											</tr>
+											
+											<c:forEach items="${board_optionList }" var="board_option">
+											
+											<tr>
+											<td><input type="text" name="option[]" value="${board_option.kind}"></td>
+											<td><input type="text" name="optionPrice[]" value="${board_option.price }"></td>
+											<td><button class="delete">삭제</button></td>
+											</tr>
+											
+											</c:forEach>
+											
+										</table> 
+									</th></tr>
+									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content">${board.content}</textarea> </th></tr>
-									<tr><th>상세 이미지 또는 동영상</th><th> <input type="file" name="file_name"> </th></tr>
+									<tr><th>상세 이미지 또는 동영상</th>
+									<th>
+									<input type="file" name="files">
+									<input type="file" name="files">
+									<input type="file" name="files"></th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<input type="submit" class="btn btn-sm btn-primary" value="GO!">
+								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">
 							</form>
 							</div>
 						</div>

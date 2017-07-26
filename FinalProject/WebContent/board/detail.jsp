@@ -224,7 +224,7 @@ function totalPrice(){
 							<button id="modify" value="${board.state}">글수정</button><br>
 							등록일 : ${board.date}<br>
 							마감일 : ${board.end_date}<br>
-							인원 또는 건수 : ${board.limit}<br>
+							인원 또는 건수 : ${board.quantity}<br>
 
 							<table>
 								<tr>

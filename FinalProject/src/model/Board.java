@@ -12,7 +12,7 @@ public class Board {
 	private String date;
 	private String end_date;
 	private int count;
-	private int limit;
+	private int quantity;
 	private int state;
 	private int price;
 	private int optionprice;
@@ -60,7 +60,7 @@ public class Board {
 	
 
 	public Board(int no, int category_major, int category_minor, String title, String writer, String content, String date,
-			String end_date, int limit, int state, int price, int optionprice, int read_count, int premium,
+			String end_date, int quantity, int state, int price, int optionprice, int read_count, int premium,
 			int total_star, int num_evaluator) {
 		super();
 		this.no = no;
@@ -71,7 +71,7 @@ public class Board {
 		this.content = content;
 		this.date = date;
 		this.end_date = end_date;
-		this.limit = limit;
+		this.quantity = quantity;
 		this.state = state;
 		this.price = price;
 		this.optionprice = optionprice;
@@ -164,13 +164,13 @@ public class Board {
 	}
 
 
-	public int getLimit() {
-		return limit;
+	public int getQuantity() {
+		return quantity;
 	}
 
 
-	public void setLimit(int limit) {
-		this.limit = limit;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 
@@ -250,7 +250,7 @@ public class Board {
 	public String toString() {
 		return "Board [no=" + no + ", category_major=" + category_major + ", category_minor=" + category_minor
 				+ ", title=" + title + ", writer=" + writer + ", content=" + content + ", date=" + date + ", end_date="
-				+ end_date + ", count=" + count + ", limit=" + limit + ", state=" + state + ", price=" + price
+				+ end_date + ", count=" + count + ", quantity=" + quantity + ", state=" + state + ", price=" + price
 				+ ", optionprice=" + optionprice + ", read_count=" + read_count + ", premium=" + premium
 				+ ", total_star=" + total_star + ", num_evaluator=" + num_evaluator + ", file_name1=" + file_name1
 				+ "]";

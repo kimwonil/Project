@@ -178,9 +178,7 @@ $(document).ready(function(){
 				        
 		        	console.log(result);
 		      		console.log(response.result.items);
-		// 		    console.log("78번째줄"+marker.position);
-		// 			console.log("78번째줄"+ result.items[0].address);
-		// // 		console.log(result.items[1].address);
+
 					
 		      		//직접 지도에서 찍은 곳으로 마커 이동
 					naver.maps.Event.addListener(map, 'click', function(e) {
@@ -310,26 +308,25 @@ $(document).ready(function(){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //가격 입력하기
 
-    	$(document).on('click', '.add', function(){
-    		$('#tableOption').append(
-   				'<tr>'+
-				'<td><input type="text" name="option[]"></td>'+
-				'<td><input type="text" name="optionPrice[]"></td>'+
-				'<td><button class="delete">삭제</button></td>'+
-				'</tr>'
-    		);
-    	});
+   	$(document).on('click', '.add', function(){
+   		$('#tableOption').append(
+  				'<tr>'+
+			'<td><input type="text" name="option[]"></td>'+
+			'<td><input type="text" name="optionPrice[]"></td>'+
+			'<td><button class="delete">삭제</button></td>'+
+			'</tr>'
+   		);
+   	});
 
-    	
-    	$(document).on('click', '.delete', function(){
-    		$(this).parent().parent().remove();	
-    	});
-    	
-    	$('#go').click(function(){
-    		$('#detailInfo').submit(function(){
-    			
-    		});
-    	});
+   	
+   	$(document).on('click', '.delete', function(){
+   		$(this).parent().parent().remove();	
+   	});
+   	
+   	$('#go').click(function(){
+   		$('#detailInfo').submit(function(){
+   		});
+   	});
     	
 	
 	
@@ -358,7 +355,7 @@ $(document).ready(function(){
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title"> </th></tr>
 									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" value="2017-07-01"> </th></tr>
-									<tr><th>인원 또는 건수</th><th> <input type="text" name="limit"> </th></tr>
+									<tr><th>인원 또는 건수</th><th> <input type="text" name="quantity"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
           								<input type="radio" name="way" value="2"> 키워드<br>
@@ -378,15 +375,16 @@ $(document).ready(function(){
 											<th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th>
 											</tr>
 											<tr>
-											<td><input type="text" name="option[]"></td>
-											<td><input type="text" name="optionPrice[]"></td>
-											<td><button class="delete">삭제</button></td>
+												<td><input type="text" name="option[]" value="${board_option.kind}"></td>
+												<td><input type="text" name="optionPrice[]" value="${board_option.price}"></td>
+												<td><button class="delete">삭제</button></td>
 											</tr>
 										</table> 
 									</th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>
-									<tr><th>상세 이미지 또는 동영상</th><th> 
+									<tr><th>상세 이미지 또는 동영상</th>
+									<th> 
 									<input type="file" name="files">
 									<input type="file" name="files">
 									<input type="file" name="files">

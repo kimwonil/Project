@@ -29,13 +29,14 @@ public interface BoardDao {
 	public boolean updateFile(HashMap<String, Object> params);
 	public boolean deleteFile(int no);
 	public File selectOneFromFile(int no);
+	public String selectThumbnail(int no);//글번호로 해당글의 썸네일들만 가져와서 메인에 같이 뿌릴거야
 	
 	
 	//테이블명 : board_option
 	public boolean insertBoard_option(HashMap<String, Object> board_option);
+	public void deleteBoard_option(int no);//글번호에 해당하는 옵션들 모두 삭제
 	public List<HashMap<String, Object>> selectBoard_option(int no);
 	public HashMap<String, Object> selectKind(HashMap<String, Object> params);
-	public String selectThumbnail(int no);//글번호로 해당글의 썸네일들만 가져와서 메인에 같이 뿌릴거야
 
 	
 	
