@@ -132,7 +132,18 @@ public class BoardController{
 		mav.setViewName("board/main");;
 		return mav;
 	}
-
+	
+	
+	/**
+	 * 판매등록하러 갈거야
+	 * */
+	@RequestMapping("boardForm.do")
+	public String boardForm(){
+		
+		return "redirect:board/boardFrom";
+	}
+	
+	
 	
 	/**
 	 * 글쓰기
