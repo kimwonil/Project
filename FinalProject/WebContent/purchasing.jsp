@@ -31,23 +31,17 @@
 					);
 				}else{
 					$.each(data, function(index, value){
-						var optionStr="";
-						var optionPrice="";
-						var optionAmount="";
 						var total = 0;
 						
 						$.each(value.optionList, function(index, option){
-							optionStr += option.kind + "<br>";
-							optionPrice += option.price + "<br>";
-							optionAmount += option.amount +"<br>";
 							total += option.price * option.amount;
 						});
 						
+						
 						$('#tabs-1 > table').append(
 							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-							value.seller + '</td><td>' + optionStr + '</td><td>' + optionAmount + '</td><td>' +
-							optionPrice + '</td><td>' + total + '</td><td>'+
-							'<button class="btn-sm btn-info" value="'+value.no+'">취소</button></td></tr>'		
+							value.seller + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="'+value.no+'"></td><td>' + 
+							value.state + '</td><td><button class="btn-sm btn-info" value="'+value.purchase_no+'">취소</button></td></tr>'		
 						);
 					});
 				}
@@ -63,19 +57,95 @@
 	
 	$(document).ready(function(){
 		purchase();
+		
+		$(document).on({
+			mouseover : function(event){
+				
+				$.ajax({
+					url:"purchaseOption.do",
+					type:"POST",
+					data:{no:$(this).siblings('input[type=hidden]').val()},
+					dataType:"json",
+					success:function(data){
+						var optionStr="";
+						var optionPrice=""; 
+						
+						var optionAmount="";
+						var total = 0;
+						
+						$.each(data, function(index, option){
+							optionStr += option.kind + "<br>";
+							optionPrice += option.price + "<br>";
+							optionAmount += option.amount +"<br>";
+							total += option.price * option.amount;
+						});
+						
+						$('.popupLayer').html(
+								'<table><tr><td>옵션</td><td>수량</td><td>금액</td><td>총액</td></tr>'+
+								'<tr><td>'+optionStr+'</td><td>'+optionAmount+'</td><td>'+optionPrice+'</td><td>'+total+'</td></tr></table>'
+						);
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
+				
+				
+	 			$('.popupLayer').css({
+	 				"top": event.pageY,
+	 				"left": event.pageX,
+	 				"visibility":"visible"
+	 			});
+				
+				
+				
+			},
+			mouseout : function(event){
+				$('.popupLayer').css({
+	 				"visibility":"hidden"
+	 			});
+			}
+		}, '.optionList');
+		
+			
+
 	});
 	
 </script>
 <style type="text/css">
 
 #tabs tr,#tabs td,#tabs th{
-border: 1px solid black;
-text-align: center;
+	border: 1px solid black;
+	text-align: center;
 }
-
+#tabs table{
+	width: 100%;
+}
+.popupLayer {
+	position: absolute;
+/* 	display: none; */
+	background-color: #ffffff;
+	border: solid 2px #d0d0d0;
+	width: 350px;
+	height: 150px;
+	padding: 10px;
+	visibility: hidden;
+	z-index: 5;
+}
+.popupLayer>table td{
+	border: 1px solid black;
+	text-align: center;
+}
+.popupLayer>table{
+	width: 100%;
+}
 </style>
 </head>
 <body>
+	<div class="popupLayer">
+	
+	</div>
+
 
 	<div id="fh5co-main">
 		<div class="container">
@@ -99,18 +169,18 @@ text-align: center;
 							<button>검색</button>
 						</div>
 						<div id="tabs-1" >
-							<table style="width: 100%;">
-								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>옵션</th><th>수량</th><th>금액</th><th>총액</th><th>비고</th></tr>
+							<table>
+								<tr><th width="15%">등록일</th><th width="40%">글제목</th><th width="15%">판매자</th><th width="10%">총액</th><th width="10%">상태</th><th width="10%">비고</th></tr>
 							</table>
 						</div>
 						<div id="tabs-2">
-							<table style="width: 100%;">
+							<table>
 								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th></tr>
 								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td></tr>
 							</table>
 						</div>
 						<div id="tabs-3">
-							<table style="width: 100%;">
+							<table>
 								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th></tr>
 								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td></tr>
 							</table>

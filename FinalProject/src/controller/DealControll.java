@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import model.Board;
 import model.Member;
 import model.Purchase;
+import model.PurchaseOption;
 import service.DealService;
 
 @Controller
@@ -109,13 +110,36 @@ public class DealControll {
 		
 	}
 	
+	
+	/**
+	 * 구매 관리 옵션 조회
+	 * */
+	@RequestMapping("purchaseOption.do")
+	public void purchaseOption(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		List<PurchaseOption> list = dealService.purchaseOption(no);
+		
+		String json = gson.toJson(list);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 판매글에 등록된 구매자 상태 변환
 	 * */
 	@RequestMapping("progress.do")
 	public void progress(@RequestParam(value="list") List<String> paramArray, int state, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		System.out.println(paramArray);
-		System.out.println(state);
+//		System.out.println(paramArray);
+//		System.out.println(state);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("state", state);
 		for(String purchase:paramArray) {

@@ -94,8 +94,9 @@
 	 
 	.menu {
 	    height: 40px;
-	    width: 1020px;
-	 
+	    width: 1130px;
+	 	margin: 0px auto;
+	 	
 	    background: #4c4e5a;
 	    background: -webkit-linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
 	    background: -moz-linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
@@ -114,6 +115,7 @@
 	    float: left;
 	    display: block;
 	    height: 40px;
+	    padding:0px 6px;
 	}
 	
 /* 	.menu ul { display: none; } */
