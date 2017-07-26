@@ -19,7 +19,7 @@
 <meta name="google-signin-client_id" content="427985089734-bhj7cddethlpgqgm0jqgh7i7071en55t.apps.googleusercontent.com"></meta>
 
 
-<title>아이디 버튼 통합 테스트 0001</title>
+<title>이메일 주소로 로그인</title>
 
 
 </head>
@@ -58,7 +58,7 @@
 <!--                        Login - Kakao                         -->
 
 <!-- 해당 kakaologin은 토큰값을 반환하고 있음.
-이메일 주소 등의 개인정보를 출력하는 printEmailK.jsp에서 확인할것 -->
+이메일 주소 등의 개인정보 출력은 printEmailK.jsp에서 확인할것 -->
 <a id="custom-login-btn" href="javascript:loginWithKakao()">
 <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
 </a>

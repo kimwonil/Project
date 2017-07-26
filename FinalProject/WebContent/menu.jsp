@@ -258,7 +258,7 @@ $(document).ready(function(){
 		검색 <input type="text"> 
 		<div id="linkGroup">
 			<a href='boardForm.do'>판매등록</a>
-			<a href='#'>로그인</a>
+			<a href='loginprototype.jsp'>로그인</a>
 			<a href='#' id="toggler">알림</a>
 			<a href='#'>마이페이지</a>
 		</div>

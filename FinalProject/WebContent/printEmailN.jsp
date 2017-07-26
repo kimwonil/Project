@@ -29,6 +29,7 @@ naver_id_login.get_naver_userprofile("naverSignInCallback()");
 //		alert(naver_id_login.getProfileData('email'));
 
 		$('#EmailN').append('<br/>Email: ');
+		//이메일 값 출력
 		$('#EmailN').append(naverEmail);
 
 		}
