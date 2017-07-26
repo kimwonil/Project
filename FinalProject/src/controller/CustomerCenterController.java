@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import model.Answer;
 import model.Member;
@@ -29,6 +32,7 @@ import service.ReportService;
 @Controller
 public class CustomerCenterController {
 
+	Gson gson = new Gson();
 	@Autowired
 	private NoticeService noticeService;
 	
@@ -59,11 +63,72 @@ public class CustomerCenterController {
 		
 		return mav;
 	}
-	//공지사항 상세
-	@RequestMapping("NoticeContent.do")
-	public ModelAndView NoticeContent(int no)
-	{
+	
+	@RequestMapping("noticeList.do")
+	public void noticeList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
 		
+		List<Notice> list = noticeService.selectAllNotice();
+//		Gson gson = new Gson();
+		try {
+			if(list != null) {
+				String json = gson.toJson(list);
+				System.out.println(json);
+				response.getWriter().write(json);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@RequestMapping("qnaList.do")
+	public void qnaList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+		List<QnA> list = qnaService.selectAllQnA();
+//		Gson gson = new Gson();
+		try {
+			if(list != null) {
+				String json = gson.toJson(list);
+				System.out.println(json);
+				response.getWriter().write(json);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("reportList.do")
+	public void reportList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+		List<Report> list = reportService.selectAllReport();
+//		Gson gson = new Gson();
+		try {
+			if(list != null) {
+				String json = gson.toJson(list);
+				System.out.println(json);
+				response.getWriter().write(json);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//공지사항 상세
+	@RequestMapping("noticeContent.do")
+	public void NoticeContent(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	{
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		Notice notice=noticeService.selectOneNotice(no);
 		int read_count=notice.getRead_count();
@@ -72,11 +137,14 @@ public class CustomerCenterController {
 		params.put("read_count", read_count+1);
 		noticeService.updateNoticeCount(params);
 		System.out.println(notice);
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("notice", notice);
-		mav.setViewName("noticeContent");
-		
-		return mav;
+		String json = gson.toJson(notice);
+		System.out.println(json);
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	//공지사항 수정폼 호출
 	@RequestMapping("NoticeUpdateForm.do")
@@ -94,23 +162,29 @@ public class CustomerCenterController {
 	}
 	//공지사항 수정
 	@RequestMapping("NoticeUpdate.do")
-	public String NoticeUpdate(@RequestParam HashMap<String, Object> params)
+	public void NoticeUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 	{
 		
+		int no=Integer.parseInt(request.getParameter("no"));
+		int category_no=Integer.parseInt((request.getParameter("category_no")));
+		String title=request.getParameter("title");
+		String content=request.getParameter("content");
 		
-		int category_no=Integer.parseInt(((String)params.get("major"))+((String)params.get("minor")));
-		System.out.println(category_no);
-		params.remove("major");
-		params.remove("minor");
+		HashMap<String, Object> params=new HashMap<String, Object>();
+		params.put("no", no);
 		params.put("category_no", category_no);
+		params.put("title", title);
+		params.put("content", content);
+	
+		
 		noticeService.updateNotice(params);
-		Notice notice=noticeService.selectOneNotice(Integer.parseInt((String) params.get("no")));
+		Notice notice=noticeService.selectOneNotice(no);
 		int read_count=notice.getRead_count();
 		params.put("read_count", read_count-1);
 		noticeService.updateNoticeCount(params);
 	
 		
-		return "redirect:NoticeContent.do?no=" + params.get("no");
+		
 	}
 	
 	//공지사항 등록
@@ -129,24 +203,32 @@ public class CustomerCenterController {
 	
 	//공지사항 삭제
 	@RequestMapping("deleteNotice.do")
-	public String deleteNotice(int no)
+	public void deleteNotice(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 	{
+		int no=Integer.parseInt(request.getParameter("no"));
 		noticeService.delectNotice(no);
-		return "redirect:customerCenterCall.do";
+		
 	}
 	
 	@RequestMapping("insertQuestion.do")
-	public String insertQuestion(@RequestParam HashMap<String, Object> params, HttpSession session){
+	public void insertQuestion(HttpServletRequest request, HttpServletResponse response, HttpSession session){
 		String id = ((Member)session.getAttribute("member")).getId();
+		int category_no=Integer.parseInt((request.getParameter("major")+request.getParameter("minor")));
+		String title=request.getParameter("title");
+		String content=request.getParameter("content");
+		int open=Integer.parseInt(request.getParameter("open")); 
+		HashMap<String, Object> params=new HashMap<String, Object>();
 		params.put("writer", id);
-		int category_no=Integer.parseInt(((String)params.get("major"))+((String)params.get("minor")));
-		params.remove("major");
-		params.remove("minor");
 		params.put("category_no", category_no);
+		params.put("title", title);
+		params.put("content", content);
+		params.put("open", open);
+		
 		System.out.println("질문 인설트");
 		System.out.println(params);
 		qnaService.insertQnA(params);
-		return "redirect:customerCenterCall.do";
+		
+		
 	}
 	
 	@RequestMapping("insertAnswer.do")
@@ -168,11 +250,14 @@ public class CustomerCenterController {
 	}
 	
 	@RequestMapping("qnaContent.do")
-	public ModelAndView QnAContent(int no)
+	public void QnAContent(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 	{
-		
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		QnA qna=qnaService.selectOneQnA(no);
+		
 		int read_count=qna.getRead_count();
 		HashMap<String , Object> params = new HashMap<String , Object>();
 		params.put("no", no);
@@ -183,13 +268,14 @@ public class CustomerCenterController {
 		{
 		answer=answerService.selectOneAnswer(no);
 		}
-		System.out.println(qna);
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("qna", qna);
-		mav.addObject("answer", answer);
-		mav.setViewName("qnaContent");
-		
-		return mav;
+		String json = gson.toJson(qna);
+		System.out.println(json);
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping("QnAUpdateForm.do")
@@ -207,26 +293,34 @@ public class CustomerCenterController {
 	}
 	
 	@RequestMapping("QnAUpdate.do")
-	public String QnAUpdate(@RequestParam HashMap<String, Object> params)
+	public void QnAUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 	{
-		int category_no=Integer.parseInt(((String)params.get("major"))+((String)params.get("minor")));
-		params.remove("major");
-		params.remove("minor");
+		int no=Integer.parseInt(request.getParameter("no"));
+		int category_no=Integer.parseInt((request.getParameter("category_no")));
+		String title=request.getParameter("title");
+		String content=request.getParameter("content");
+		int open=Integer.parseInt(request.getParameter("open"));
+		HashMap<String, Object> params=new HashMap<String, Object>();
+		params.put("no", no);
 		params.put("category_no", category_no);
+		params.put("title", title);
+		params.put("content", content);
+		params.put("open", open);
 		qnaService.updateQnA(params);
-		QnA qna=qnaService.selectOneQnA(Integer.parseInt((String) params.get("no")));
+		QnA qna=qnaService.selectOneQnA(no);
 		int read_count=qna.getRead_count();
 		params.put("read_count", read_count-1);
 		qnaService.updateQnACount(params);
 		
-		return "redirect:qnaContent.do?no=" + params.get("no");
+
 	}
 	
 	@RequestMapping("deleteQnA.do")
-	public String deleteQnA(int no)
+	public void deleteQnA(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 	{
+		int no=Integer.parseInt(request.getParameter("no"));
 		qnaService.deleteQnA(no);
-		return "redirect:customerCenterCall.do";
+		
 	}
 	
 	@RequestMapping("updateAnswer.do")
@@ -249,23 +343,32 @@ public class CustomerCenterController {
 	}
 	
 	@RequestMapping("insertReport.do")
-	public String insertReport(@RequestParam HashMap<String, Object> params, HttpSession session){
+	public void insertReport(HttpServletRequest request, HttpServletResponse response, HttpSession session){
 		String id = ((Member)session.getAttribute("member")).getId();
+		int category_no=Integer.parseInt((request.getParameter("major")+request.getParameter("minor")));
+		String title=request.getParameter("title");
+		String content=request.getParameter("content"); 
+		HashMap<String, Object> params=new HashMap<String, Object>();
 		params.put("writer", id);
-		int category_no=Integer.parseInt(((String)params.get("major"))+((String)params.get("minor")));
-		params.remove("major");
-		params.remove("minor");
 		params.put("category_no", category_no);
-		System.out.println("신고 인설트");
+		params.put("title", title);
+		params.put("content", content);
+		
+		
+		System.out.println("질문 인설트");
 		System.out.println(params);
 		reportService.insertReport(params);
-		return "redirect:customerCenterCall.do";
+		
+		
 	}
 	
-	@RequestMapping("ReportContent.do")
-	public ModelAndView ReportContent(int no)
+	
+	@RequestMapping("reportContent.do")
+	public void ReportContent(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 	{
-		
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		Report report=reportService.selectOneReport(no);
 		int read_count=report.getRead_count();
@@ -274,11 +377,14 @@ public class CustomerCenterController {
 		params.put("read_count", read_count+1);
 		reportService.updateReportCount(params);
 		System.out.println(report);
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("report", report);
-		mav.setViewName("reportContent");
-		
-		return mav;
+		String json = gson.toJson(report);
+		System.out.println(json);
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping("ReportClear.do")
