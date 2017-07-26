@@ -129,7 +129,7 @@ public class BoardController{
 		
 		mav.addObject("premiumList", premiumList);
 		mav.addObject("normalList", normalList);
-		mav.setViewName("main");;
+		mav.setViewName("board/main");;
 		return mav;
 	}
 
@@ -221,7 +221,7 @@ public class BoardController{
 		
 		//다시 뽑아서 글상세에서 보여주깅
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("detail");
+		mav.setViewName("board/detail");
 		mav.addObject("board", boardService.selectOneBoard(no));//board 뽑아서 가져오고
 		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
 			mav.addObject("mapinfo", boardService.selectOneMap(no));
@@ -248,7 +248,7 @@ public class BoardController{
 		//board 테이블에서 가져온 정보
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("board", boardService.selectOneBoard(no));
-		mav.setViewName("detail");
+		mav.setViewName("board/detail");
 		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
 			mav.addObject("fileinfo", boardService.selectOneFromFile(no));
 		}
@@ -261,28 +261,7 @@ public class BoardController{
 		
 		return mav;
 	}
-	
-	@RequestMapping("detailOneBoard2.do")
-	public ModelAndView selectOneBoard2(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
-		System.out.println("detailOneBoard.do들어옴");
-		int no = Integer.parseInt(req.getParameter("no"));
-		
-		//board 테이블에서 가져온 정보
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("board", boardService.selectOneBoard(no));
-		mav.setViewName("detail3");
-		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
-			mav.addObject("fileinfo", boardService.selectOneFromFile(no));
-		}
-		if(boardService.selectBoard_option(no) != null){
-			System.out.println("컨트롤러에 selectOneBoard_option하러왔엉");
-			System.out.println(boardService.selectBoard_option(no));
-			mav.addObject("board_option", boardService.selectBoard_option(no));
-		}
-		
-		
-		return mav;
-	}
+
 	
 	@RequestMapping("selectOneMap.do")
 	public void selectOneMap(HttpServletRequest req, HttpServletResponse resp){
@@ -348,7 +327,7 @@ public class BoardController{
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("board", board);
 		mav.addObject("mapinfo", boardService.selectOneMap(no));
-		mav.setViewName("detail");
+		mav.setViewName("board/detail");
 		return mav;
 	}
 	
