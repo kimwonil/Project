@@ -25,13 +25,15 @@
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="dao.DealDao"/>
 <fullyQualifiedTypeName name="com.google.gson.Gson"/>
-<fullyQualifiedTypeName name="model.Member"/>
+<fullyQualifiedTypeName name="model.purchaseOption"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="model.Member"/>
 <fullyQualifiedTypeName name="model.Board"/>
+<fullyQualifiedTypeName name="javax.rmi.ssl.SslRMIClientSocketFactory"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
-<fullyQualifiedTypeName name="model.purchaseOption"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="model.Purchase"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="model.PurchaseOption"/>
 </qualifiedTypeNameHistroy>
