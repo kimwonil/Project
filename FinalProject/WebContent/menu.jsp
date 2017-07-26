@@ -94,7 +94,7 @@
 	 
 	.menu {
 	    height: 40px;
-	    width: 1170px;
+	    width: 1020px;
 	 
 	    background: #4c4e5a;
 	    background: -webkit-linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
@@ -381,20 +381,7 @@ $(document).ready(function(){
 				    		<li><a href="#" class="documents">기타</a></li>
 				    	</ul>
 				    </li>
-				    <li><a href="#">선물/핸드메이드/DIY</a>
-				    	<ul>
-				    		<li><a href="#" class="documents">예술/공예/도예/액세서리/쥬얼리/장신구</a></li>
-				    		<li><a href="#" class="documents">옷/패션/잡화/생활소품/DECO</a></li>
-				    		<li><a href="#" class="documents">아이디어선물/이벤트선물/디자인상품</a></li>
-				    		<li><a href="#" class="documents">천연화장품/천연비누/천연샴푸</a></li>
-				    		<li><a href="#" class="documents">카드/문구/청첩장</a></li>
-				    		<li><a href="#" class="documents">식품/농작물/유기농/오가닉</a></li>
-				    		<li><a href="#" class="documents">DIY/수집품</a></li>
-				    		<li><a href="#" class="documents">기타</a></li>
-				    	</ul>
-				    </li>
 				</ul>
-
 		</div>
 	
 	</div>

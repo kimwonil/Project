@@ -22,7 +22,7 @@
 		left: 13%;
 		top:30%;
 		
-		z-index:5;
+		z-index:4;
 	}
 	#imgSpace{
 		height: 50px;

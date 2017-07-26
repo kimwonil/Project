@@ -59,13 +59,24 @@
 					console.log(data);
 					$('#purchaseTable tr:gt(0)').remove();
 					$.each(data, function(index, value){
+						var optionStr="";
+						var optionPrice="";
+						var optionAmount="";
+						var total = 0;
+						$.each(value.optionList, function(index, option){
+							optionStr += option.kind + "<br>";
+							optionPrice += option.price + "<br>";
+							optionAmount += option.amount +"<br>";
+							total += option.price;
+						});
 						$('#purchaseTable').append(
 								'<tr>'+
 									'<td><input type="checkbox" name="purchaseCheck" value=""></td>'+
-									'<td>'+value.prchaser+'</td>'+
-									'<td>'+value.optionList+'</td>'+
-									'<td>'+value.optionList+'</td>'+
-									'<td>총액</td>'+
+									'<td>'+value.purchaser+'</td>'+
+									'<td>'+optionStr+'</td>'+
+									'<td>'+optionAmount+'</td>'+
+									'<td>'+optionPrice+'</td>'+
+									'<td>'+total+'</td>'+
 								'</tr>'
 								
 								
@@ -94,7 +105,7 @@
 </script>
 <style type="text/css">
 
-#tabs tr,#tabs td,#tabs th{
+#tabs tr,#tabs td,#tabs th,#purchaseTable td{
 	border: 1px solid black;
 	text-align: center;
 }
@@ -102,6 +113,7 @@ table{
 	width: 100%;
 	
 }
+
 
 </style>
 </head>
@@ -179,6 +191,7 @@ table{
 											<td>선택</td>
 											<td>구매자</td>
 											<td>옵션</td>
+											<td>수량</td>
 											<td>금액</td>
 											<td>총액</td>
 										</tr>
