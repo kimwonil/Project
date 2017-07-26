@@ -7,7 +7,7 @@
 <!--  table명 : board -->
  <insert id="insertBoard" parameterType="java.util.HashMap">
  	insert into board values(0, #{major}, #{minor}, #{title}, #{id}, #{content}, sysdate(), #{end_date}, 
- 	#{limit}, 0, #{price}, #{optionprice}, 0, 0, 0, 0)
+ 	#{quantity}, 0, #{price}, 0, 0, 0, 0)
  		<selectKey keyProperty="no" order="AFTER" resultType="int">
  			select max(no) as no from board
  		</selectKey>
@@ -18,8 +18,8 @@
  </delete>
  
  <update id="updateBoard" parameterType="java.util.HashMap">
- 	update board set category_major=#{major}, category_minor=#{minor}, title=#{title}, writer=#{id}, content=#{content}, date=sysdate(), end_date=#{end_date}, limit=#{limit}, state=0,
- 	price=#{price}, optionprice=#{optionprice}, read_count=#{read_count}, premium=#{premium}, total_star=#{total_star}, num_evaluator=#{num_evaluator} where no=#{no}
+ 	update board set category_major=#{major}, category_minor=#{minor}, title=#{title}, writer=#{id}, content=#{content}, date=sysdate(), end_date=#{end_date},  state=0,
+ 	price=#{price}, quantity=#{quantity} where no=#{no}
  </update>
  
  <select id="selectOneBoard" parameterType="int" resultType="Board">
@@ -78,9 +78,9 @@
 	insert into board_option values(0, #{no}, #{kind}, #{price})
  </insert>
  
- <update id="updateBoard_option" parameterType="java.util.HashMap">
- 	update board_option set kind=#{kind}, price=#{price} where no=#{no}
- </update>
+<!--  <update id="updateBoard_option" parameterType="java.util.HashMap"> -->
+<!--  	update board_option set kind=#{kind}, price=#{price} where no=#{no} -->
+<!--  </update> -->
  
  <delete id="deleteBoard_option" parameterType="int">
  	delete from board_option where no=#{no}
