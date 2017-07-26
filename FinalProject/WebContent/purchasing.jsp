@@ -53,17 +53,24 @@
 				}
 							
 			},
-			error:function(){
-				alert("실패");
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(textStatus);
+				console.log(errorThrown);
 			}
 		})
 	}
+	
+	
+	$(document).ready(function(){
+		purchase();
+	});
 	
 </script>
 <style type="text/css">
 
 #tabs tr,#tabs td,#tabs th{
 border: 1px solid black;
+text-align: center;
 }
 
 </style>
