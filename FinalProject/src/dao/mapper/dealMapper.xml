@@ -12,6 +12,10 @@
 		select count(no) from purchase where state=0
 	</select>
 	
+	<select id="purchase" parameterType="String" resultType="Purchase">
+		select * from purchase where purchaser=#{id}
+	</select>
+	
 	<select id="purchaseList" parameterType="int" resultType="Purchase">
 		select * from purchase where no=#{no} and state in(0,1,2)
 	</select>
@@ -23,6 +27,10 @@
 	<update id="progressState">
 		update purchase set state=#{state} where purchase_no=#{purchase_no}
 	</update>
+	
+	<select id="boardInfo" parameterType="int" resultType="Board">
+		select * from board where no=#{no}
+	</select>
  </mapper>
  
  

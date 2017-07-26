@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.rmi.ssl.SslRMIClientSocketFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -85,7 +86,30 @@ public class DealControll {
 	 * 구매 현황 조회
 	 * */
 	@RequestMapping("purchase.do")
-	public void purchase() {
+	public void purchase(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		System.out.println("컨트롤 도착");
+		String id = ((Member)session.getAttribute("member")).getId();
+		List<Purchase> list = dealService.purchase(id);
+		System.out.println("리스트 조회");
+		for(Purchase purchase : list) {
+			Board board = dealService.boardInfo(purchase.getNo());
+			purchase.setBoardTitle(board.getTitle());
+			purchase.setSeller(board.getWriter());
+			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
+		}
+		System.out.println("반복문 탈출");
+		
+		String json = gson.toJson(list);
+		
+		try {
+			System.out.println("자료 전송");
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -93,7 +117,7 @@ public class DealControll {
 	 * 판매글에 등록된 구매자 상태 변환
 	 * */
 	@RequestMapping("progress.do")
-	public void progress(@RequestParam(value="list") List<String> paramArray,int state, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public void progress(@RequestParam(value="list") List<String> paramArray, int state, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		System.out.println(paramArray);
 		System.out.println(state);
 		HashMap<String, Object> map = new HashMap<>();

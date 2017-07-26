@@ -36,5 +36,13 @@ public class DealService {
 	public int progressState(HashMap<String, Object> map) {
 		return dealDao.progressState(map);
 	}
+
+	public List<Purchase> purchase(String id) {
+		return dealDao.purchase(id);
+	}
+
+	public Board boardInfo(int no) {
+		return dealDao.boardInfo(no);
+	}
 	
 }
