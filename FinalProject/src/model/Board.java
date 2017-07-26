@@ -20,10 +20,24 @@ public class Board {
 	private int premium;
 	private int total_star;
 	private int num_evaluator;
+	private String file_name1;
 	
 	
 	
-	
+	public String getFile_name1() {
+		return file_name1;
+	}
+
+
+
+
+	public void setFile_name1(String file_name1) {
+		this.file_name1 = file_name1;
+	}
+
+
+
+
 	public int getCount() {
 		return count;
 	}
@@ -230,14 +244,20 @@ public class Board {
 	}
 
 
+
+
 	@Override
 	public String toString() {
 		return "Board [no=" + no + ", category_major=" + category_major + ", category_minor=" + category_minor
 				+ ", title=" + title + ", writer=" + writer + ", content=" + content + ", date=" + date + ", end_date="
-				+ end_date + ", limit=" + limit + ", state=" + state + ", price=" + price + ", optionprice="
-				+ optionprice + ", read_count=" + read_count + ", premium=" + premium + ", total_star=" + total_star
-				+ ", num_evaluator=" + num_evaluator + "]";
+				+ end_date + ", count=" + count + ", limit=" + limit + ", state=" + state + ", price=" + price
+				+ ", optionprice=" + optionprice + ", read_count=" + read_count + ", premium=" + premium
+				+ ", total_star=" + total_star + ", num_evaluator=" + num_evaluator + ", file_name1=" + file_name1
+				+ "]";
 	}
+
+
+
 	
 	
 	

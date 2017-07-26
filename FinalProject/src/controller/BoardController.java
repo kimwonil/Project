@@ -102,13 +102,35 @@ public class BoardController{
 	 * main화면 전체글 로드
 	 * */
 	@RequestMapping("load.do")
-	public String load(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+	public ModelAndView load(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=utf-8");
-		
 		System.out.println("load.do하러옴");
-		session.setAttribute("list", boardService.selectAllBoard());
-		return "main";
+		ModelAndView mav = new ModelAndView();
+		
+		//프리미엄 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
+		List<Board> premiumList = new ArrayList<>();
+		for(Board board : boardService.selectAllPremiumBoard()){
+			int no = board.getNo();//글번호
+			String file_name1 = boardService.selectThumbnail(no);
+			board.setFile_name1(file_name1);
+			premiumList.add(board);
+		}//selectAllPremiumBoard에 각각 file_name1 넣기 끝
+		
+		//일반 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
+		List<Board> normalList = new ArrayList<>();
+		for(Board board : boardService.selectAllNormalBoard()){
+			int no = board.getNo();//글번호
+			String file_name1 = boardService.selectThumbnail(no);
+			board.setFile_name1(file_name1);
+			normalList.add(board);
+		}//selectAllPremiumBoard에 각각 file_name1 넣기 끝
+		
+		
+		mav.addObject("premiumList", premiumList);
+		mav.addObject("normalList", normalList);
+		mav.setViewName("main");;
+		return mav;
 	}
 
 	

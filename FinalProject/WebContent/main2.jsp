@@ -10,34 +10,19 @@
 <title>Insert title here</title>
 </head>
 <style>
-#fh5co-board{
-position: relative;
-left : -200%; 
-width: 500%;
-height: 50%; 
-}
-.sp-content{
-/* left: 0%; */
-/* width: 100%;  */
-}
-.sp-slideshow{
-/* left: 0%; */
-/* width: 200%; */
-}
-.container{
-/* left: 0%; */
-/* width: 100%; */
-}
-.fh5co-desc{
-color: #444;
-}
-.animate-box{
-height: 350px;
-}
+	.item{
+		width: 275px;
+		height: 570px;
+		position: relative;
+		float: left;
+		
+	}
 </style>
+
 <body>
 <div id="fh5co-main">
 	<div class="container">
+	<div>
 		<h3>여기부터 프리미엄</h3>
 		<div class="row">
 			<div id="fh5co-board" data-columns>
@@ -93,7 +78,104 @@ height: 350px;
 				
 			</div>
 		</div>
+			
+			
+			
+			
+		
+		
+		<h3>이 아래로 일반글</h3>
+		<div class="row">
+
+        	<div id="fh5co-board" data-columns>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	<div class="item">
+	        		<div class="animate-box">
+		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+	        		</div>
+	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
+	        	</div>
+	        	
+	        	
+			</div>
+			</div>
+		</div>
+		
 	</div>
+</div>
+	
+	
 
 
 </body>

@@ -26,8 +26,12 @@
  	select * from board where no=#{no}
  </select>
  
- <select id="selectAllBoard" parameterType="Board" resultType="Board">
- 	select * from board
+ <select id="selectAllPremiumBoard" parameterType="int" resultType="Board">
+ 	select * from board where premium = 0
+ </select>
+ 
+ <select id="selectAllNormalBoard" parameterType="int" resultType="Board">
+ 	select * from board where premium = 1
  </select>
  
 <!--  table명 : map -->
@@ -62,6 +66,10 @@
  
  <select id="selectOneFromFile" parameterType="int" resultType="File">
  	select * from file where no=#{no}
+ </select>
+ 
+ <select id="selectThumbnail" parameterType="int" resultType="String">
+ 	select file_name1 from file where no=#{no}
  </select>
  
  

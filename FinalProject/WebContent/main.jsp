@@ -10,12 +10,15 @@
 <title>Insert title here</title>
 </head>
 <style>
-	.item{
-		width: 275px;
-		height: 570px;
+	.normal>.item{
+		width: 200px;
+		height: 400px;
 		position: relative;
 		float: left;
 		
+	}
+	.fh5co-desc {
+	color: #444;
 	}
 </style>
 
@@ -52,18 +55,18 @@
 					<div class="sp-parallax-bg"></div>
 					<ul class="sp-slider clearfix">
 			
-				<c:forEach items="${list}" var="item" varStatus="status">
+				<c:forEach items="${premiumList}" var="premium" varStatus="status">
 					<c:if test="${status.count%4 eq 1}">
 					<li>
 					</c:if>
 						<div class="column size-1of4">
 							<div class="item">
 								<div class="animate-box">
-									<a href="detailOneBoard.do?no=${item.no}" 
-										title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img
-										src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
+									<a href="detailOneBoard.do?no=${premium.no}" 
+										title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?">
+									<img src='<c:url value="/user/board/${premium.no}"/>/${premium.file_name1}' alt="Free HTML5 Bootstrap template"></a>
 								</div>
-								<div class="fh5co-desc">${item.title}</div>
+								<div class="fh5co-desc">${premium.title}</div>
 							</div>
 						</div>
 						<c:if test="${status.count%4 eq 0}">
@@ -72,101 +75,26 @@
 				</c:forEach>
 				</ul>
 				</div><!-- sp-content -->
-				
 			</div><!-- sp-slideshow -->
 			</div>
-				
 			</div>
 		</div>
 			
-			
-			
-			
-		
-		
 		<h3>이 아래로 일반글</h3>
 		<div class="row">
 
-        	<div id="fh5co-board" data-columns>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	<div class="item">
-	        		<div class="animate-box">
-		        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?"><img src="images/img_1.jpg" alt="Free HTML5 Bootstrap template"></a>
-	        		</div>
-	        		<div class="fh5co-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?</div>
-	        	</div>
-	        	
+        	<div id="fh5co-board"  class="normal" data-columns>
+        	
+        		<c:forEach items="${normalList}" var="normal">
+		        	<div class="item">
+		        		<div class="animate-box">
+			        		<a href="detailOneBoard.do?no=${normal.no}" class="image-popup fh5co-board-img"
+			        		   title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?">
+			        		   <img src='<c:url value="/user/board/${normal.no}"/>/${normal.file_name1}' alt="Free HTML5 Bootstrap template"></a>
+		        		</div>
+		        		<div class="fh5co-desc">${normal.title}</div>
+		        	</div>
+	        	</c:forEach>
 	        	
 			</div>
 			</div>

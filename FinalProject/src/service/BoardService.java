@@ -37,8 +37,12 @@ public class BoardService {
 		return boardDao.selectOneBoard(no);
 	}
 	
-	public List<Board>selectAllBoard(){
-		return boardDao.selectAllBoard();
+	public List<Board>selectAllPremiumBoard(){
+		return boardDao.selectAllPremiumBoard();
+	}
+	
+	public List<Board>selectAllNormalBoard(){
+		return boardDao.selectAllNormalBoard();
 	}
 	
 	
@@ -80,6 +84,10 @@ public class BoardService {
 	public File selectOneFromFile(int no){
 		return boardDao.selectOneFromFile(no);
 	}
+	
+	public String selectThumbnail(int no){
+		return boardDao.selectThumbnail(no);
+	}//글번호로 해당글의 썸네일들만 가져와서 메인에 같이 뿌릴거야
 	
 	
 	/**
