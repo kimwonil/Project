@@ -178,7 +178,21 @@ $(document).ready(function(){
 	});//플러스 클릭하면 늘어나고
 	
 	
-
+	$(document).on('click', '#dips', function(){
+		$.ajax({
+			url : "dips.do",
+			type : "post",
+			data : $('#boardNo'),
+			dateType : "json",
+			success : function(data){
+				alert("찜하기 성공");
+				alert(data.msg);
+			},
+			error : function(){
+				alert("실패");
+			}
+		})
+	});//찜하기
 	
 	
 	
@@ -265,7 +279,7 @@ function totalPrice(){
 							<br>
 							<div id="totalPrice">${board.price }</div>
 							<p><button>구매하기</button>
-							<button>찜하기</button>
+							<button id="dips">찜하기</button>
 							<button>쪽지문의</button></p>
 							장소<br>
 							<div id="map" style="width::250px;height:250px;"></div>

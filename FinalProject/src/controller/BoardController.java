@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -442,6 +443,31 @@ public class BoardController{
 			e.printStackTrace();
 		}
 
+	}
+	
+	
+	/**
+	 * 찜하기
+	 * */
+	@RequestMapping("dips.do")
+	public void interest(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		
+		System.out.println("찜하기  interest.do");
+		System.out.println(req.getParameter("no"));
+		String id = ((Member)session.getAttribute("member")).getId();
+		try {
+			PrintWriter pw = resp.getWriter();
+			if(id == null){
+				
+				pw.println("{\"msg\" : \"로그인 후에 찜할 수 있습니다\"}");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 
