@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import model.Board;
 import model.Member;
 import model.Purchase;
+import model.PurchaseOption;
 import service.DealService;
 
 @Controller
@@ -89,22 +90,18 @@ public class DealControll {
 	public void purchase(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		System.out.println("컨트롤 도착");
 		String id = ((Member)session.getAttribute("member")).getId();
 		List<Purchase> list = dealService.purchase(id);
-		System.out.println("리스트 조회");
 		for(Purchase purchase : list) {
 			Board board = dealService.boardInfo(purchase.getNo());
 			purchase.setBoardTitle(board.getTitle());
 			purchase.setSeller(board.getWriter());
 			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
 		}
-		System.out.println("반복문 탈출");
 		
 		String json = gson.toJson(list);
 		
 		try {
-			System.out.println("자료 전송");
 			response.getWriter().write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -113,13 +110,36 @@ public class DealControll {
 		
 	}
 	
+	
+	/**
+	 * 구매 관리 옵션 조회
+	 * */
+	@RequestMapping("purchaseOption.do")
+	public void purchaseOption(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		List<PurchaseOption> list = dealService.purchaseOption(no);
+		
+		String json = gson.toJson(list);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 판매글에 등록된 구매자 상태 변환
 	 * */
 	@RequestMapping("progress.do")
 	public void progress(@RequestParam(value="list") List<String> paramArray, int state, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		System.out.println(paramArray);
-		System.out.println(state);
+//		System.out.println(paramArray);
+//		System.out.println(state);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("state", state);
 		for(String purchase:paramArray) {

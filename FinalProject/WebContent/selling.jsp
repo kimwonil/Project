@@ -37,7 +37,7 @@
 					$.each(data, function(index, value){
 						$('#tabs-1 > table').append(
 							'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
-							value.count + ' / ' + value.limit + '</td><td>'+(value.state==0?"대기중":value.state==1?"인원마감":"마감일 초과")+'</td><td>'+
+							value.count + ' / ' + value.quantity + '</td><td>'+(value.state==0?"대기중":value.state==1?"인원마감":"마감일 초과")+'</td><td>'+
 							'<button class="btn-sm btn-info continueBtn" value="'+value.no+'">진행</button> <button class="btn-sm btn-info stopBtn" value="'+value.no+'">중단</button></td></tr>'		
 						);
 					});
