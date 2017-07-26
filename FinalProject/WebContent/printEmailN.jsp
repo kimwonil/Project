@@ -10,14 +10,12 @@
 </head>
 <body>
 
-이메일 출력 [네이버 아이디 로그인 성공시]
-
 <div id="EmailN"></div>
 
 <script type="text/javascript">
  
 
-var naver_id_login = new naver_id_login("4hbqrclSjqpbsBAmXZy9", "http://localhost:8080/LoginTo_123_test0001/printEmail.jsp");
+var naver_id_login = new naver_id_login("4hbqrclSjqpbsBAmXZy9", "http://localhost:8080/FianlProject/printEmail.jsp");
 
 // 네이버 사용자 프로필 조회
 naver_id_login.get_naver_userprofile("naverSignInCallback()");

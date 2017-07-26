@@ -33,7 +33,7 @@
           success: function(res) {
             alert(JSON.stringify(res));
             //EmailK에 호출한 개인정보 출력 
-    		$('#EmailK').append(JSON.stringify(res));
+    		$('#EmailK').append(JSON.stringify(res.kaccount_email));
           },
           fail: function(error) {
             alert(JSON.stringify(error));
