@@ -18,4 +18,17 @@ public interface DealDao {
 	public Board boardInfo(int no);
 	public List<Purchase> ongoingPurcharse(int no);
 	public List<Purchase> completionPurcharse(int no);
+	
+
+	//테이블명 : purchase
+	public void insertPurchase(Purchase purchase);
+	
+	
+	//purchase_option
+	public boolean insertPurchaseOption(PurchaseOption option);
+	
+	
+	//profile
+	public boolean minusCash(HashMap<String, Object> params);
+
 }

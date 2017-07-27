@@ -38,7 +38,9 @@ import model.FileUpload;
 import model.MapInfo;
 import model.Member;
 import model.Purchase;
+import model.PurchaseOption;
 import service.BoardService;
+import service.DealService;
 
 
 @Controller
@@ -46,6 +48,9 @@ public class BoardController{
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private DealService dealService;
 	
 	/**
 	 * 검색 api
@@ -517,23 +522,23 @@ public class BoardController{
 	 * 구매하기 버튼 누르면!
 	 * */
 	@RequestMapping("thisIsAllMine.do")
-	public void thisIsAllMine(int no,
+	public void thisIsAllMine(int no, int totalPrice,
 			@RequestParam(value="kind") List<String> kindArr,
 			@RequestParam(value="price") List<String> priceArr,
 			@RequestParam(value="quantity") List<String> quantityArr,
 			HttpSession session, HttpServletRequest req, HttpServletResponse resp){
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
 		System.out.println("thisIsAllMine.do");
 		System.out.println(no);
 		System.out.println(kindArr);
 		System.out.println(priceArr);
 		System.out.println(quantityArr);
+		System.out.println(totalPrice);
 		Member member = (Member)session.getAttribute("member");
 		//1. 세션확인
 		//2. 구매자 포인트 충분한지 확인
-		//3. 정보들 가져와서 purchase, purchase_option, board(quantity에 마이너스 해줘), 구매자의 cash테이블 수정, 구매관리&판매관리에 정보 뿌리기
-		
-
-		Purchase purchase = new Purchase(0, no, member.getId(), 0, null );
+		//3. 정보들 가져와서 purchase, purchase_option, 구매자의 cash테이블 수정, board(quantity에 마이너스 해줘)
 		
 		try {
 			PrintWriter pw = resp.getWriter();
@@ -542,7 +547,24 @@ public class BoardController{
 //			}else if(member.getBalance()  ){//구매자 잔여캐시<금액
 				
 			}else{//성고옹!
+				//purchase
+				Purchase purchase = new Purchase(0, no, member.getId(), 0, null);
+				dealService.insertPurchase(purchase);
+				int purchaseNo = purchase.getPurchase_no();
 				
+				//purchase_option
+				for(int i=0; i<kindArr.size(); i++){
+					PurchaseOption option = new PurchaseOption(0, purchaseNo, kindArr.get(i), Integer.parseInt(priceArr.get(i).toString()), Integer.parseInt(quantityArr.get(i).toString()));
+					dealService.insertPurchaseOption(option);
+				}
+				
+				//구매자 포인트 제하기
+				HashMap<String, Object> params = new HashMap<>();
+				params.put("totalPrice", totalPrice);
+				params.put("id", member.getId());
+				dealService.minusCash(params);
+				
+				//
 			}
 			
 		} catch (IOException e) {

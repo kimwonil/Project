@@ -53,4 +53,25 @@ public class DealService {
 		return dealDao.completionPurcharse(no);
 	}
 	
+	
+	/**
+	 * table명 : purchase
+	 * */
+	public void insertPurchase(Purchase purchase) {
+		dealDao.insertPurchase(purchase);
+	}
+
+	
+	/**
+	 * table명 : purchase_option
+	 * */
+	public boolean insertPurchaseOption(PurchaseOption option) {
+		return dealDao.insertPurchaseOption(option);
+	}
+
+	public boolean minusCash(HashMap<String, Object> params) {
+		return dealDao.minusCash(params);
+	}
+
+	
 }
