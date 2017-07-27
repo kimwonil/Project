@@ -111,5 +111,17 @@ public class BoardService {
 		return boardDao.selectKind(params);
 	}
 
+	
+	/**
+	 * table명 : interest
+	 * */
+	public boolean insertInterest(HashMap<String, Object> params) {
+		return boardDao.insertInterest(params);
+	}
+
+	public HashMap<String, Object> selectOneInterest(HashMap<String, Object> params) {
+		return boardDao.selectOneInterest(params);
+	}
+
 
 }

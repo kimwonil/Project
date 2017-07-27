@@ -37,6 +37,11 @@ public interface BoardDao {
 	public void deleteBoard_option(int no);//글번호에 해당하는 옵션들 모두 삭제
 	public List<HashMap<String, Object>> selectBoard_option(int no);
 	public HashMap<String, Object> selectKind(HashMap<String, Object> params);
+	
+	
+	//테이블명 : interest
+	public boolean insertInterest(HashMap<String, Object> params);
+	public HashMap<String, Object> selectOneInterest(HashMap<String, Object> params);
 
 	
 	

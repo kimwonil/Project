@@ -455,13 +455,26 @@ public class BoardController{
 		resp.setContentType("text/html; charset=UTF-8");
 		
 		System.out.println("찜하기  interest.do");
-		System.out.println(req.getParameter("no"));
-		String id = ((Member)session.getAttribute("member")).getId();
+		int board_no = Integer.parseInt(req.getParameter("no").toString());
+//		Object member = session.getAttribute("member");
+		Member member = (Member)session.getAttribute("member");
 		try {
 			PrintWriter pw = resp.getWriter();
-			if(id == null){
+			if(member == null){
+				pw.println("로그인 후에 찜할 수 있습니다");
+			}else{
+				String id = member.getId();
+				HashMap<String, Object> params = new HashMap<>();
+				params.put("board_no", board_no);
+				params.put("id", id);
 				
-				pw.println("{\"msg\" : \"로그인 후에 찜할 수 있습니다\"}");
+				if(boardService.selectOneInterest(params) != null){
+					pw.println("이미 찜한 글입니다");
+				}else{
+					//interest table에 글번호 insert
+					boardService.insertInterest(params);
+					pw.println("성공");
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

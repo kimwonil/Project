@@ -4,6 +4,8 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="dao.BoardDao">
+ 
+ 
 <!--  table명 : board -->
  <insert id="insertBoard" parameterType="java.util.HashMap">
  	insert into board values(0, #{major}, #{minor}, #{title}, #{id}, #{content}, sysdate(), #{end_date}, 
@@ -34,6 +36,7 @@
  	select * from board where premium = 1
  </select>
  
+ 
 <!--  table명 : map -->
  <insert id="insertMap" parameterType="java.util.HashMap">
  	insert into map values(0, #{lat}, #{lng}, #{info_title}, #{info_address}, #{info_address2}, #{no})
@@ -50,6 +53,7 @@
  <select id="selectOneMap" parameterType="int" resultType="MapInfo">
  	select * from map where board_no=#{board_no}
  </select>
+
 
 <!-- table명 : file -->
  <insert id="insertFile" parameterType="java.util.HashMap">
@@ -92,6 +96,16 @@
  
  <select id="selectKind" parameterType="java.util.HashMap" resultType="java.util.HashMap">
  	select * from board_option where no=#{no} and kind=#{kind}
+ </select>
+ 
+ 
+<!--  table명 : interest -->
+ <insert id="insertInterest" parameterType="java.util.HashMap">
+ 	insert into interest values(0, #{id}, #{board_no});
+ </insert>
+ 
+ <select id="selectOneInterest" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+ 	select * from interest where id=#{id} and board_no=#{board_no}
  </select>
  
  </mapper>

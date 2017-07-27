@@ -183,10 +183,9 @@ $(document).ready(function(){
 			url : "dips.do",
 			type : "post",
 			data : $('#boardNo'),
-			dateType : "json",
+			dateType : "text",
 			success : function(data){
-				alert("찜하기 성공");
-				alert(data.msg);
+				alert(data);
 			},
 			error : function(){
 				alert("실패");
