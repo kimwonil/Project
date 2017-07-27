@@ -130,13 +130,13 @@ $(document).ready(function(){
 						
 						
 					'<tr>'+
-					'<td>'+ data.kind +'</td>'+ 
-					'<td>'+ data.price +'</td>'+
+					'<td name="kind[]" class="kind">'+ data.kind +'</td>'+ 
+					'<td name="price[]" class="price">'+ data.price +'</td>'+
 					'<td>'+ 
 						'<table class="quantityBox" border="1" cellspacing="0">'+
 						'<tr>'+
 							'<td width="20%"><a href="#" class="minus">-</a></td>'+
-							'<td width="40%"><input type="text" size="1" class="quantity" value=1>'+
+							'<td width="40%"><input type="text" size="1" name="quantity[]" class="quantity" value=1>'+
 							'<input type="hidden" value="'+data.price+'" class="hiddenPrice" ></td>'+
 							'<td width="20%"><a href="#" class="plus">+</a></td>'+
 						'</tr>'+
@@ -178,6 +178,7 @@ $(document).ready(function(){
 	});//플러스 클릭하면 늘어나고
 	
 	
+	//찜하기
 	$(document).on('click', '#dips', function(){
 		$.ajax({
 			url : "dips.do",
@@ -193,7 +194,44 @@ $(document).ready(function(){
 		})
 	});//찜하기
 	
-	
+	$(document).on('click', '#buy', function(){
+		
+		var kind = [];
+		$('.kind').each(function(){
+			kind.push($(this).text());
+		})
+		console.log(kind);
+		
+		var price = [];
+		$('.price').each(function(){
+			price.push($(this).text());
+		})
+		console.log(price);
+		
+		var quantity = [];
+		$('.quantity').each(function(){
+			quantity.push($(this).val());
+		})
+		console.log(quantity);
+		jQuery.ajaxSettings.traditional = true;
+		
+		$.ajax({
+			url : "thisIsAllMine.do",
+			type : "post",
+			data : {
+				kind : kind,
+				price : price,
+				quantity : quantity,
+				no : $('#boardNo').val()},
+			dataType : "text",
+			success : function(){
+				alert("구매하기 값 넘겼어");
+			},error : function(jpXHR, textStatus, errorThrown){
+                alert(textStatus);
+                alert(errorThrown);
+            }
+		})
+	})
 	
 
 	
@@ -257,27 +295,31 @@ function totalPrice(){
 									</tr>
 								</c:if>
 							</table>
-							<table id="purchaseList">
-							<tr>
-							<td> 기본항목 </td>
-							<td> ${board.price} </td>
-							<td>
-								<table class="quantityBox" border="1" cellspacing="0">
-									<tr>
-										<td width="20%"><a href="#" class="minus">-</a></td>
-										<td width="40%"><input type="text" size="1" class="quantity" value=1>
-										<input type="hidden" value="${board.price}" class="hiddenPrice" ></td>
-										<td width="20%"><a href="#" class="plus">+</a></td>
-									</tr>
+							<form action="thisIsAllMine.do" method="post">
+								<table id="purchaseList">
+								<tr>
+								<td name="kind[]" class="kind"> 기본항목 </td>
+								<td name="price[]" class="price"> ${board.price} </td>
+								<td>
+									<table class="quantityBox" border="1" cellspacing="0">
+										<tr>
+											<td width="20%"><a href="#" class="minus">-</a></td>
+											<td width="40%"><input type="text" size="1" name="quantity[]" class="quantity" value=1>
+											<input type="hidden" value="${board.price}" class="hiddenPrice" ></td>
+											<input type="hidden" name="no" value="${board.no}">
+											<td width="20%"><a href="#" class="plus">+</a></td>
+										</tr>
+									</table>
+								</td>
+								<td><div class="optionResult">${board.price}</div></td>
+								<td>
+								</td>
+								</tr>
 								</table>
-							</td>
-							<td><div class="optionResult">${board.price}</div></td>
-							<td></td>
-							</tr>
-							</table>
+							</form>
 							<br>
 							<div id="totalPrice">${board.price }</div>
-							<p><button>구매하기</button>
+							<p><button id="buy">구매하기</button>
 							<button id="dips">찜하기</button>
 							<button>쪽지문의</button></p>
 							장소<br>

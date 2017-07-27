@@ -37,6 +37,7 @@ import model.Board;
 import model.FileUpload;
 import model.MapInfo;
 import model.Member;
+import model.Purchase;
 import service.BoardService;
 
 
@@ -512,6 +513,49 @@ public class BoardController{
 	}
 
 
+	/**
+	 * 구매하기 버튼 누르면!
+	 * */
+	@RequestMapping("thisIsAllMine.do")
+	public void thisIsAllMine(int no,
+			@RequestParam(value="kind") List<String> kindArr,
+			@RequestParam(value="price") List<String> priceArr,
+			@RequestParam(value="quantity") List<String> quantityArr,
+			HttpSession session, HttpServletRequest req, HttpServletResponse resp){
+		System.out.println("thisIsAllMine.do");
+		System.out.println(no);
+		System.out.println(kindArr);
+		System.out.println(priceArr);
+		System.out.println(quantityArr);
+		Member member = (Member)session.getAttribute("member");
+		//1. 세션확인
+		//2. 구매자 포인트 충분한지 확인
+		//3. 정보들 가져와서 purchase, purchase_option, board(quantity에 마이너스 해줘), 구매자의 cash테이블 수정, 구매관리&판매관리에 정보 뿌리기
+		
+
+		Purchase purchase = new Purchase(0, no, member.getId(), 0, null );
+		
+		try {
+			PrintWriter pw = resp.getWriter();
+			if(member == null){//로그인이 안된 상태면
+				pw.println("로그인 후에 구매할 수 있습니다");
+//			}else if(member.getBalance()  ){//구매자 잔여캐시<금액
+				
+			}else{//성고옹!
+				
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+
+		
+	}
 	
 	
 
