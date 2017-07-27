@@ -480,7 +480,23 @@ public class BoardController{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	
+	/**
+	 * 찜목록으로 가기
+	 * */
+	@RequestMapping("dipsList.do")
+	public ModelAndView selectMyDips(String id){
+		System.out.println("dipsList.do");
+		ModelAndView mav = new ModelAndView();
 		
+		
+		
+		
+		
+		mav.setViewName("board/dipsList");
+		return mav;
 	}
 
 

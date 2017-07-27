@@ -232,7 +232,7 @@ function totalPrice(){
 
 						<div class="item deal-info">
 							
-							판매자 닉네임 : <a href="profile.do?nickname="+${board.writer} id="writer" style="display: inline-block;">${board.writer}</a>
+							판매자 닉네임 : <a href="profile.do?id=${board.writer}" id="writer" style="display: inline-block;">${board.writer}</a>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
 							<button id="modify" value="${board.state}">글수정</button><br>
 							등록일 : ${board.date}<br>

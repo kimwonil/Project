@@ -21,6 +21,10 @@
 	}
 	
 	</style>
+	
+
+	
+	
 	<div id="fh5co-main">
 		<div class="container">
 			<div class="row">
@@ -47,7 +51,7 @@
 							<td>관리자 : ${member.admin}</td>
 						</tr>
 						<tr>
-							<td>관심분야 :</td>
+							<td>관심분야 : <button onclick="location.href='dipsList.do?id=${member.id}'">찜목록</button></td>
 						</tr>
 						<tr><td></td></tr>
 					</table>
