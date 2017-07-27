@@ -16,4 +16,6 @@ public interface DealDao {
 	public List<Purchase> purchaseList(String id);
 	public List<Purchase> purchase(String id);
 	public Board boardInfo(int no);
+	public List<Purchase> ongoingPurcharse(int no);
+	public List<Purchase> completionPurcharse(int no);
 }

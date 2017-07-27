@@ -41,7 +41,8 @@
 						$('#tabs-1 > table').append(
 							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
 							value.seller + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="'+value.no+'"></td><td>' + 
-							value.state + '</td><td><button class="btn-sm btn-info" value="'+value.purchase_no+'">취소</button></td></tr>'		
+							(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'</td><td><button class="btn-sm btn-info" value="'+value.purchase_no+'">완료</button>':"완료") + 
+							'</td><td><button class="btn-sm btn-info" value="'+value.purchase_no+'">취소</button></td></tr>'		
 						);
 					});
 				}
@@ -90,10 +91,25 @@
 					}
 				});
 				
+				var Wwidth = window.innerWidth;
+				var Wheight = window.innerHeight;
+				var popWidth = $('.popupLayer').width();
+				var popHeight = $('.popupLayer').height();
+				var mouseX=event.pageX;
+				var mouseY=event.pageY;
+				
+				if(Wwidth < popWidth + event.pageX){
+					mouseX -= popWidth;
+				}
+				
+				if(Wheight < popHeight + event.pageY){
+					mouseY -= popHeight;
+				}
+				
 				
 	 			$('.popupLayer').css({
-	 				"top": event.pageY,
-	 				"left": event.pageX,
+	 				"top": mouseY,
+	 				"left": mouseX,
 	 				"visibility":"visible"
 	 			});
 				
