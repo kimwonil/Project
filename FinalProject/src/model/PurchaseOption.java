@@ -9,7 +9,6 @@ public class PurchaseOption {
 	
 	
 	
-	
 	public PurchaseOption() {
 		super();
 	}
