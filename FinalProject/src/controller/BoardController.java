@@ -427,6 +427,8 @@ public class BoardController{
 	 * */
 	@RequestMapping("searchOption.do")
 	public void price(@RequestParam HashMap<String, Object> params, HttpServletRequest req, HttpServletResponse resp){
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
 		System.out.println("searchOption.do");
 		String kind = params.get("kind").toString();
 		int no = Integer.parseInt(params.get("no").toString());
@@ -489,9 +491,19 @@ public class BoardController{
 	@RequestMapping("dipsList.do")
 	public ModelAndView selectMyDips(String id){
 		System.out.println("dipsList.do");
+		System.out.println(id);
 		ModelAndView mav = new ModelAndView();
 		
+		List<Board> dipsList = new ArrayList<>();
 		
+		//해당 id가 찜한 글번호들
+		for(HashMap<String, Object> dips : boardService.selectAllDips(id)){
+			int no = Integer.parseInt(dips.get("board_no").toString());
+			Board board = boardService.selectOneBoard(no);
+			board.setFile_name1(boardService.selectThumbnail(no));
+			dipsList.add(board);
+		}
+		mav.addObject("dipsList", dipsList);
 		
 		
 		

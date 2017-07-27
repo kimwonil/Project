@@ -88,7 +88,7 @@
         		<c:forEach items="${normalList}" var="normal">
 		        	<div class="item">
 		        		<div class="animate-box">
-			        		<a href="detailOneBoard.do?no=${normal.no}" class="image-popup fh5co-board-img"
+			        		<a href="detailOneBoard.do?no=${normal.no}" 
 			        		   title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?">
 			        		   <img src='<c:url value="/user/board/${normal.no}"/>/${normal.file_name1}' alt="Free HTML5 Bootstrap template"></a>
 		        		</div>

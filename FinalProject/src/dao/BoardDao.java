@@ -42,6 +42,7 @@ public interface BoardDao {
 	//테이블명 : interest
 	public boolean insertInterest(HashMap<String, Object> params);
 	public HashMap<String, Object> selectOneInterest(HashMap<String, Object> params);
+	public List<HashMap<String, Object>> selectAllDips(String id);
 
 	
 	

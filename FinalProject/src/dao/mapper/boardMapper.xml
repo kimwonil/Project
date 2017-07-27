@@ -108,6 +108,9 @@
  	select * from interest where id=#{id} and board_no=#{board_no}
  </select>
  
+ <select id="selectAllDips" parameterType="String" resultType="java.util.HashMap">
+ 	select * from interest where id=#{id}
+ </select>
  </mapper>
  
  
