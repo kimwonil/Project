@@ -44,5 +44,13 @@ public class DealService {
 	public Board boardInfo(int no) {
 		return dealDao.boardInfo(no);
 	}
+
+	public List<Purchase> ongoingPurcharse(int no) {
+		return dealDao.ongoingPurcharse(no);
+	}
+
+	public List<Purchase> completionPurcharse(int no) {
+		return dealDao.completionPurcharse(no);
+	}
 	
 }
