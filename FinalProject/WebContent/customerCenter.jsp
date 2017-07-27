@@ -18,6 +18,12 @@
 		$("#tabs").tabs();
 	});
 	
+	var member_id = "<%=session.getAttribute("member")%>"
+	var a=member_id.indexOf(",");
+	var admin=member_id.indexOf("admin");
+	var num=member_id.substr(admin+6,1);
+	var id=member_id.substr(11,a-11);
+	//질문 리스트
 function qnaList(){
 		
 		$.ajax({
@@ -28,14 +34,14 @@ function qnaList(){
 				console.log(data);
 				$('#qnaTable tr:gt(0)').remove();
 				for(var i=0;i<data.length;i++){
-				$('#qnaTable').append("<tr><td>"+data[i].date+"</td><td>"
-												+data[i].no+"</td><td>"
-												+data[i].category_no+"</td><td><a id='"+data[i].no+"'class='QnADetail' data-toggle='modal' data-target='#QnAContentModal'>"
-												+(data[i].open==0?data[i].title:"비공개")+"</a></td><td>"
-												+(data[i].open==0?data[i].writer:"비공개")+"</td><td>"
-												+(data[i].state==0?"미답변":"답변완료")+"</td><td>"
-												+data[i].read_count+"</td></tr>");
-				}
+					$('#qnaTable').append("<tr><td>"+data[i].date+"</td><td>"
+							+data[i].no+"</td><td>"
+							+data[i].category_no+"</td><td><a id='"+data[i].no+"'class='QnADetail' data-toggle='modal' data-target='#QnAContentModal'>"
+							+(data[i].open==0?data[i].title:"비공개")+"</a></td><td>"
+							+(data[i].open==0?data[i].writer:"비공개")+"</td><td>"
+							+(data[i].state==0?"미답변":"답변완료")+"</td><td>"
+							+data[i].read_count+"</td></tr>");
+}
 			},
 			error:function(jqXHR, textStatus, errorThrown){
 				console.log(textStatus);
@@ -44,7 +50,7 @@ function qnaList(){
 		});
 		
 	};
-	
+	//공지 리스트
 function noticeList(){
 		
 		$.ajax({
@@ -70,7 +76,7 @@ function noticeList(){
 		});
 		
 	};
-	
+	//신고 리스트
 function reportList(){
 		
 		$.ajax({
@@ -102,6 +108,7 @@ function reportList(){
 	reportList();
 	//질문 상세
 	$(document).on('click','.QnADetail',function(){
+	
 		$.ajax({
 			url:"qnaContent.do",
 			type:"POST",
@@ -111,16 +118,166 @@ function reportList(){
 				qnaList();
 				$('#QnAtitleLabel').text(data.title);
 				$('#QnAwriterLabel').text(data.writer);
-				$('#QnAcontentLabel').text(data.content);
+				$('#QnAcontentLabel').text("질문 내용 : "+data.content);
+				$('#AnswercontentLabel').text("답변 내용 : "+(data.answercontent==null?"":data.answercontent));
+				
 				$('#QnAUpdateForm').val(data.no);
 				$('#QnADelete').val(data.no);
+				$('#AnswerInsertForm').val(data.no);
+				
+				if(id!=data.writer && num==0)
+					{
+					$("#QnAUpdateForm").hide();
+					$("#QnADelete").hide();
+					}
+				
+				if(data.state==0)
+					{
+					$("#AnswerInsertForm").attr("name","AnswerInsertForm")
+					$('#AnswerInsertForm').text("답변 등록");
+					}
+				else
+					{
+					$("#AnswerInsertForm").attr("name","AnswerUpdate");
+					$("#AnswerInsertForm").attr('data-toggle',"modal");
+					$("#AnswerInsertForm").attr('data-target',"#AnswerUpdateModal");
+
+					$('#AnswerInsertForm').text("답변 수정");
+					}
+				if(num==0)
+					{
+					$('#AnswerInsertForm').hide();
+					}
+				
+			
 			},
-			error:function(){
+			error:function(jqXHR, textStatus, errorThrown){
 				alert("실패");
+				console.log(textStatus);
+				console.log(errorThrown);
 			}
 		});
 		
 	});
+	
+	//답변 폼
+	$(document).on('click','button[name=AnswerInsertForm]',function(){
+
+		
+
+		$.ajax({
+			url:"qnaContent.do",
+			type:"POST",
+			data:{
+			no:$("#AnswerInsertForm").val(),
+			},
+			dataType:"json",
+			success:function(data){
+				qnaList();
+				$('#QnAAnswertitleLabel').text(data.title);
+				$('#QnAAnswerwriterLabel').text(data.writer);
+				$('#QnAAnswercontentLabel').text("질문 내용 : "+data.content);
+				
+				$('#QnAContentModal').modal('hide');
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				alert("실패");
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+		
+	});
+	
+	//답변 등록
+		$(document).on('click','#AnswerInsert',function(){
+				var st=$('#AnswerInsertContent').val();
+				
+				st=st.substr(8);
+				
+				$.ajax({
+					url:"insertAnswer.do",
+					type:"POST",
+					data:{
+					
+						qna_no:$("#AnswerInsertForm").val(),
+						content:st
+					
+					},
+					success:function(){
+						
+						qnaList();
+						$('#AnswerInsertModal').modal('hide');
+					
+						$('#AnswerInsertContent').val("");
+					
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+						console.log(textStatus);
+						console.log(errorThrown);
+						alert("실패");
+					}
+				});
+				
+			});
+	
+	//답변 수정 폼
+	$(document).on('click','button[name=AnswerUpdate]',function(){
+
+		
+
+		$.ajax({
+			url:"qnaContent.do",
+			type:"POST",
+			data:{
+			no:$("#AnswerInsertForm").val(),
+			},
+			dataType:"json",
+			success:function(data){
+				qnaList();
+				$('#AnswertitleLabel').text(data.title);
+				$('#AnswerwriterLabel').text(data.writer);
+				$('#AnswerUpdatecontentLabel').text("질문 내용 : "+data.content);
+				$('#AnswerUpdateContent').val(data.answercontent);
+				$('#QnAContentModal').modal('hide');
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				alert("실패");
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+		
+	});
+	
+	//답변 수정
+			$(document).on('click','#AnswerUpdate',function(){
+
+				
+
+				$.ajax({
+					url:"AnswerUpdate.do",
+					type:"POST",
+					data:{
+					qna_no:$("#AnswerInsertForm").val(),
+					content:$("#AnswerUpdateContent").val()
+					
+				
+					},
+					success:function(){
+						qnaList();
+					
+						$('#AnswerUpdateModal').modal('hide');
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
+				
+			});
+	
+	
+	
 	//질문 수정폼
 		$(document).on('click','#QnAUpdateForm',function(){
 			
@@ -136,13 +293,12 @@ function reportList(){
 					var cate=data.category_no;
 					var minor=cate%10;
 					var major=(cate-minor)/10;
-					alert(data.title);
-					alert(data.content);
+		
 					$('#QnAContentModal').modal('hide');
 					$('#QnAMajorUpdate option:eq('+major+')').prop("selected", true);
 					$('#QnAMinorUpdate option:eq('+minor+')').prop("selected", true);
 					$('#QnAtitleUpdate').val(data.title);
-					$('#QnAcontentUpdate').text(data.content);
+					$('#QnAcontentUpdate').val(data.content);
 					$('#QnAUpdateBtn').val(data.no);
 					$('input:radio[name=QnAUpdateopen]:input[value=' + data.open + ']').attr("checked", true);
 
@@ -154,7 +310,7 @@ function reportList(){
 			
 		});
 	
-	
+		
 		//질문 수정
 		$(document).on('click','#QnAUpdateBtn',function(){
 
@@ -172,7 +328,7 @@ function reportList(){
 				},
 				success:function(){
 					qnaList();
-					alert("성공");
+				
 					$('#QnAContentUpdateModal').modal('hide');
 				},
 				error:function(){
@@ -195,7 +351,7 @@ function reportList(){
 			},
 			success:function(){
 				qnaList();
-				alert("성공");
+			
 				$('#QnAContentModal').modal('hide');
 			},
 			error:function(){
@@ -218,6 +374,12 @@ function reportList(){
 				$('#NoticecontentLabel').text(data.content);
 				$('#NoticeUpdateForm').val(data.no);
 				$('#NoticeDelete').val(data.no);
+				
+				if(num==0)
+				{
+				$('#NoticeUpdateForm').hide();
+				$('#NoticeDelete').hide();
+				}
 			},
 			error:function(){
 				alert("실패");
@@ -247,7 +409,7 @@ function reportList(){
 				$('#NoticeMajorUpdate option:eq('+major+')').prop("selected", true);
 				$('#NoticeMinorUpdate option:eq('+minor+')').prop("selected", true);
 				$('#NoticetitleUpdate').val(data.title);
-				$('#NoticecontentUpdate').text(data.content);
+				$('#NoticecontentUpdate').val(data.content);
 				$('#NoticeUpdateBtn').val(data.no);
 				
 			},
@@ -273,7 +435,7 @@ function reportList(){
 			},
 			success:function(){
 				noticeList();
-				alert("성공");
+				
 				$('#NoticeContentUpdateModal').modal('hide');
 			},
 			error:function(){
@@ -296,7 +458,7 @@ function reportList(){
 			},
 			success:function(){
 				noticeList();
-				alert("성공");
+			
 				$('#NoticeContentModal').modal('hide');
 			},
 			error:function(){
@@ -307,7 +469,7 @@ function reportList(){
 	});
 	
 	
-	
+	//신고 상세
 	$(document).on('click','.ReportDetail',function(){
 		$.ajax({
 			url:"reportContent.do",
@@ -316,9 +478,33 @@ function reportList(){
 			dataType:"json",
 			success:function(data){
 				reportList();
+// 				alert(data.state);
 				$('#ReporttitleLabel').text(data.title);
 				$('#ReportwriterLabel').text(data.writer);
 				$('#ReportcontentLabel').text(data.content);
+				$('#ReportUpdateForm').val(data.no);
+				$('#ReportDelete').val(data.no);
+				$('#ReportClearBtn').val(data.no);
+				if(id!=data.writer && num==0)
+					{
+					$("#ReportUpdateForm").hide();
+					$("#ReportDelete").hide();
+					}
+				if(data.state==0)
+					{
+					$("#ReportClearBtn").attr("name","ReportClearBtn")
+					$('#ReportClearBtn').text("처리 완료 메세지 전송");
+					}
+				else
+					{
+					$("#ReportClearBtn").attr("name","ReportClearEndBtn")
+					$('#ReportClearBtn').text("처리 완료");
+					}
+
+					if(num==0)
+					{
+					$('#ReportClearBtn').hide();
+					}
 			},
 			error:function(){
 				alert("실패");
@@ -326,8 +512,122 @@ function reportList(){
 		});
 		
 	});
-
 	
+	//신고 수정폼
+	$(document).on('click','#ReportUpdateForm',function(){
+		
+		
+		$.ajax({
+			url:"reportContent.do",
+			type:"POST",
+			data:{no:$("#ReportUpdateForm").val()},
+			dataType:"json",
+			success:function(data){
+				reportList();
+				
+				var cate=data.category_no;
+				var minor=cate%10;
+				var major=(cate-minor)/10;
+	
+				$('#ReportContentModal').modal('hide');
+				$('#ReportMajorUpdate option:eq('+major+')').prop("selected", true);
+				$('#ReportMinorUpdate option:eq('+minor+')').prop("selected", true);
+				$('#ReporttitleUpdate').val(data.title);
+				$('#ReportcontentUpdate').val(data.content);
+				$('#ReportUpdateBtn').val(data.no);
+				
+
+			},
+			error:function(){
+				alert("실패");
+			}
+		});
+		
+	});
+	
+	
+	//신고 완료 메세지 전송
+			$(document).on('click','button[name=ReportClearBtn]',function(){
+
+				
+
+				$.ajax({
+					url:"ReportClear.do",
+					type:"POST",
+					data:{
+					no:$("#ReportClearBtn").val(),
+					},
+					success:function(){
+						reportList();
+						
+						$('#ReportContentModal').modal('hide');
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
+				
+			});
+	//신고 처리 완료 버튼 클릭
+		$(document).on('click','button[name=ReportClearEndBtn]',function(){
+
+				reportList();
+			
+				$('#ReportContentModal').modal('hide');
+
+			
+				
+			});
+	
+	//신고 수정
+		$(document).on('click','#ReportUpdateBtn',function(){
+
+			var category=""+$('#ReportMajorUpdate').val()+""+$('#ReportMinorUpdate').val();
+
+			$.ajax({
+				url:"ReportUpdate.do",
+				type:"POST",
+				data:{
+				no:$("#ReportUpdateBtn").val(),
+				category_no:category,
+				title:$('#ReporttitleUpdate').val(),
+				content:$('#ReportcontentUpdate').val()
+				},
+				success:function(){
+					reportList();
+					
+					$('#ReportContentUpdateModal').modal('hide');
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+			
+		});
+		//신고 삭제
+		$(document).on('click','#ReportDelete',function(){
+
+			
+
+			$.ajax({
+				url:"deleteReport.do",
+				type:"POST",
+				data:{
+				no:$('#ReportDelete').val(),
+				
+				},
+				success:function(){
+					reportList();
+				
+					$('#ReportContentModal').modal('hide');
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+			
+		});
+	//질문 등록
 	$(document).on('click','#qnainsert',function(){
 		
 		
@@ -342,7 +642,7 @@ function reportList(){
 				open:$(":input:radio[name=qnaopen]:checked").val()
 			},
 			success:function(){
-				alert("성공");
+				
 				qnaList();
 				$('#QnAinsertModal').modal('hide');
 				$('#qnaMajor option:eq(0)').prop("selected", true);
@@ -359,7 +659,7 @@ function reportList(){
 		});
 		
 	});
-	
+	//신고 등록
 $(document).on('click','#reportinsert',function(){
 		
 		
@@ -374,7 +674,7 @@ $(document).on('click','#reportinsert',function(){
 				
 			},
 			success:function(){
-				alert("성공");
+				
 				reportList();
 				$('#ReportinsertModal').modal('hide');
 				$('#reportMajor option:eq(0)').prop("selected", true);
@@ -622,7 +922,7 @@ $(document).on('click','#reportinsert',function(){
 											<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
 												: <label id="QnAtitleLabel"></label>
 											</td>
-			
+
 										</tr>
 										<tr>
 
@@ -630,15 +930,42 @@ $(document).on('click','#reportinsert',function(){
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3"><textarea id="QnAcontentLabel" rows="10"
+											<td colspan="3"><textarea id="QnAcontentLabel" rows="5"
 													cols="78" readonly="readonly"></textarea></td>
 										</tr>
+										<tr>
+											<td>
+												<br>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3"><textarea id="AnswercontentLabel" rows="5"
+													cols="78" readonly="readonly"></textarea></td>
+										</tr>
+											<tr>
+											<td>
+												<br>
+											</td>
+										</tr>
+										
+										
 										<tr>
 											<td><button type="button" class="btn btn-sm btn-danger"
 													id="QnAUpdateForm" data-toggle="modal"
 													data-target="#QnAContentUpdateModal">질문 수정 하기</button>
 												<button type="button" id="QnADelete"
 													class="btn btn-sm btn-danger">질문 삭제</button></td>
+										</tr>
+					
+										
+										<tr>
+										
+												<td><div class="form-group" style="text-align: right;">
+													<button type="button" class="btn btn-info btn-lg" id="AnswerInsertForm" name=""  data-toggle="modal"
+													data-target="#AnswerInsertModal">
+														</button>
+												</div></td>
+										
 										</tr>
 									</table>
 								</div>
@@ -647,7 +974,121 @@ $(document).on('click','#reportinsert',function(){
 						</div>
 					</div>
 					<!-- qna상세 끝 -->
-				<!--QnAContentUpdateModal Notice업데이트상세-->
+					
+					<!--QnAContentModal AnswerForm상세-->
+					<div class="modal fade" id="AnswerInsertModal" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">질문 상세</h4>
+								</div>
+								<div class="modal-body">
+									<table id="AnswerDetail">
+										<tr>
+											<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
+												: <label id="QnAAnswertitleLabel"></label>
+											</td>
+
+										</tr>
+										<tr>
+
+											<td width="80%">작성자 : <label id="QnAAnswerwriterLabel"></label>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3"><textarea id="QnAAnswercontentLabel" rows="5"
+													cols="78" readonly="readonly"></textarea></td>
+										</tr>
+										<tr>
+											<td>
+												<br>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3"><textarea id="AnswerInsertContent" rows="5"
+													cols="78"  placeholder="답변을 입력하세요"></textarea></td>
+										</tr>
+											<tr>
+											<td>
+												<br>
+											</td>
+										</tr>
+										<tr>
+											<td><button type="button" class="btn btn-sm btn-danger"
+													id="AnswerInsert" >답변 등록</button>
+												<button type="button" id="Answercancel"
+													class="btn btn-sm btn-danger" data-dismiss="modal">취소</button></td>
+										</tr>
+									
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- qna상세 끝 -->
+					
+					<!--QnAContentModal AnswerUpdateForm상세-->
+					<div class="modal fade" id="AnswerUpdateModal" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">질문 상세</h4>
+								</div>
+								<div class="modal-body">
+									<table id="AnswerDetail">
+										<tr>
+											<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
+												: <label id="AnswertitleLabel"></label>
+											</td>
+
+										</tr>
+										<tr>
+
+											<td width="80%">작성자 : <label id="AnswerwriterLabel"></label>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3"><textarea id="AnswerUpdatecontentLabel" rows="5"
+													cols="78" readonly="readonly"></textarea></td>
+										</tr>
+										<tr>
+											<td>
+												<br>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3"><textarea id="AnswerUpdateContent" rows="5"
+													cols="78">답변 입력 : </textarea></td>
+										</tr>
+											<tr>
+											<td>
+												<br>
+											</td>
+										</tr>
+										<tr>
+											<td><button type="button" class="btn btn-sm btn-danger"
+													id="AnswerUpdate" >답변 수정</button>
+												<button type="button" id="Answercancel"
+													class="btn btn-sm btn-danger" data-dismiss="modal">취소</button></td>
+										</tr>
+									
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- qna상세 끝 -->
+					
+					
+					<!--QnAContentUpdateModal qna업데이트상세-->
 					<div class="modal fade" id="QnAContentUpdateModal" role="dialog">
 						<div class="modal-dialog">
 
@@ -655,7 +1096,7 @@ $(document).on('click','#reportinsert',function(){
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">질문 수정</h4>
+									<h4 class="modal-title">질문 수정 폼</h4>
 								</div>
 								<div class="modal-body">
 									<table id="qnaDetail">
@@ -680,15 +1121,15 @@ $(document).on('click','#reportinsert',function(){
 
 										<tr>
 											<th>내용 :</th>
-											<td><textarea id="QnAcontentUpdate" rows="10"
-													cols="50"></textarea></td>
+											<td><input type="text" size="48" id="QnAcontentUpdate"
+												style="height: 200px;"></td>
 										</tr>
-											<tr><th>공개/비공개</th>
-									<th> 
-									<input type="radio" name="QnAUpdateopen" value="0">공개
-									<input type="radio" name="QnAUpdateopen" value="1">비공개 
-									</th>
-									</tr>
+										<tr>
+											<th>공개/비공개</th>
+											<th><input type="radio" name="QnAUpdateopen" value="0">공개
+												<input type="radio" name="QnAUpdateopen" value="1">비공개
+											</th>
+										</tr>
 										<tr>
 											<td><button type="button" class="btn btn-sm btn-danger"
 													id="QnAUpdateBtn">질문 수정</button></td>
@@ -751,7 +1192,7 @@ $(document).on('click','#reportinsert',function(){
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">공지 상세</h4>
+									<h4 class="modal-title">공지 수정 폼</h4>
 								</div>
 								<div class="modal-body">
 									<table id="NoticeDetail">
@@ -776,8 +1217,8 @@ $(document).on('click','#reportinsert',function(){
 
 										<tr>
 											<th>내용 :</th>
-											<td><textarea id="NoticecontentUpdate" rows="10"
-													cols="50"></textarea></td>
+											<td><input type="text" size="48"
+												id="NoticecontentUpdate" style="height: 200px;"></td>
 										</tr>
 										<tr>
 											<td><button type="button" class="btn btn-sm btn-danger"
@@ -807,9 +1248,7 @@ $(document).on('click','#reportinsert',function(){
 											<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
 												: <label id="ReporttitleLabel"></label>
 											</td>
-											<td width="20%" rowspan="2" align="center"><button
-													type="button" id="reportDelete"
-													class="btn btn-sm btn-danger">삭제</button></td>
+
 										</tr>
 										<tr>
 
@@ -820,6 +1259,22 @@ $(document).on('click','#reportinsert',function(){
 											<td colspan="3"><textarea id="ReportcontentLabel"
 													rows="10" cols="78" readonly="readonly"></textarea></td>
 										</tr>
+
+										<tr>
+											<td><button type="button" class="btn btn-sm btn-danger"
+													id="ReportUpdateForm" data-toggle="modal"
+													data-target="#ReportContentUpdateModal">신고 수정 하기</button>
+												<button type="button" id="ReportDelete"
+													class="btn btn-sm btn-danger">신고 삭제</button></td>
+										</tr>
+										<tr>
+										
+												<td><div class="form-group" style="text-align: right;">
+													<button type="button" class="btn btn-info btn-lg" id="ReportClearBtn" name="">
+														</button>
+												</div></td>
+										
+										</tr>
 									</table>
 								</div>
 							</div>
@@ -828,6 +1283,53 @@ $(document).on('click','#reportinsert',function(){
 					</div>
 					<!-- Report상세 끝 -->
 
+					<!--ReportContentUpdateModal Report업데이트상세-->
+					<div class="modal fade" id="ReportContentUpdateModal" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">신고 수정 폼</h4>
+								</div>
+								<div class="modal-body">
+									<table id="ReportDetail">
+										<tr>
+											<th>카테고리</th>
+											<th><select id="ReportMajorUpdate" name="major">
+													<option>대분류</option>
+													<option value="1">카테고리1</option>
+													<option value="2">카테고리2</option>
+													<option value="3">카테고리3</option>
+											</select> <select id="ReportMinorUpdate" name="minor">
+													<option>소분류</option>
+													<option value="1">카테고리1</option>
+													<option value="2">카테고리2</option>
+													<option value="3">카테고리3</option>
+											</select></th>
+										</tr>
+										<tr>
+											<th>제목 :</th>
+											<td><input size="48" type="text" id="ReporttitleUpdate"></td>
+										</tr>
+
+										<tr>
+											<th>내용 :</th>
+											<td><input type="text" size="48"
+												id="ReportcontentUpdate" style="height: 200px;"></td>
+										</tr>
+										<tr>
+											<td><button type="button" class="btn btn-sm btn-danger"
+													id="ReportUpdateBtn">신고 수정</button></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- Report업데이트상세 끝 -->
 
 
 				</div>
