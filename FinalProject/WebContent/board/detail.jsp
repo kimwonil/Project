@@ -225,9 +225,9 @@ $(document).ready(function(){
 				no : $('#boardNo').val(),
 				totalPrice : $('#totalPrice').text()
 				},
-			dataType : "text",
+			dataType : "json",
 			success : function(data){
-				alert(data);
+				alert(data.result);
 			},error : function(jpXHR, textStatus, errorThrown){
                 alert(textStatus);
                 alert(errorThrown);

@@ -36,6 +36,10 @@
  	select * from board where premium = 1
  </select>
  
+ <update id="reduceQuantity" parameterType="java.util.HashMap">
+ 	update board set quantity=quantity-#{reduce} where no=#{no}
+ </update>
+ 
  
 <!--  table명 : map -->
  <insert id="insertMap" parameterType="java.util.HashMap">

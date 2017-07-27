@@ -17,6 +17,7 @@ public interface BoardDao {
 	public Board selectOneBoard(int no);
 	public List<Board> selectAllPremiumBoard();//프리미엄글 전체 select
 	public List<Board> selectAllNormalBoard();//일반글 전체 select
+	public boolean reduceQuantity(HashMap<String, Object> params);
 	
 	//테이블명 : map
 	public boolean insertMap(HashMap<String, Object> params);
@@ -44,6 +45,7 @@ public interface BoardDao {
 	public boolean insertInterest(HashMap<String, Object> params);
 	public HashMap<String, Object> selectOneInterest(HashMap<String, Object> params);
 	public List<HashMap<String, Object>> selectAllDips(String id);
+	
 	
 	
 	

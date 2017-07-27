@@ -46,6 +46,10 @@ public class BoardService {
 		return boardDao.selectAllNormalBoard();
 	}
 	
+	public boolean reduceQuantity(HashMap<String, Object> params) {
+		return boardDao.reduceQuantity(params);
+	}
+	
 	
 	/**
 	 * table명 : map
@@ -127,6 +131,8 @@ public class BoardService {
 	public List<HashMap<String, Object>> selectAllDips(String id) {
 		return boardDao.selectAllDips(id);
 	}
+
+	
 
 	
 
