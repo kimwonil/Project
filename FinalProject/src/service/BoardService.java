@@ -11,6 +11,7 @@ import model.Board;
 import model.File;
 import model.FileUpload;
 import model.MapInfo;
+import model.Purchase;
 
 @Service
 public class BoardService {
@@ -126,6 +127,8 @@ public class BoardService {
 	public List<HashMap<String, Object>> selectAllDips(String id) {
 		return boardDao.selectAllDips(id);
 	}
+
+	
 
 
 }

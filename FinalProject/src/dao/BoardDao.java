@@ -7,6 +7,7 @@ import model.Board;
 import model.File;
 import model.FileUpload;
 import model.MapInfo;
+import model.Purchase;
 
 public interface BoardDao {
 	//테이블명 : board
@@ -43,7 +44,8 @@ public interface BoardDao {
 	public boolean insertInterest(HashMap<String, Object> params);
 	public HashMap<String, Object> selectOneInterest(HashMap<String, Object> params);
 	public List<HashMap<String, Object>> selectAllDips(String id);
-
+	
+	
 	
 	
 

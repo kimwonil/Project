@@ -222,10 +222,12 @@ $(document).ready(function(){
 				kind : kind,
 				price : price,
 				quantity : quantity,
-				no : $('#boardNo').val()},
+				no : $('#boardNo').val(),
+				totalPrice : $('#totalPrice').text()
+				},
 			dataType : "text",
-			success : function(){
-				alert("구매하기 값 넘겼어");
+			success : function(data){
+				alert(data);
 			},error : function(jpXHR, textStatus, errorThrown){
                 alert(textStatus);
                 alert(errorThrown);
@@ -298,8 +300,8 @@ function totalPrice(){
 							<form action="thisIsAllMine.do" method="post">
 								<table id="purchaseList">
 								<tr>
-								<td name="kind[]" class="kind"> 기본항목 </td>
-								<td name="price[]" class="price"> ${board.price} </td>
+								<td name="kind[]" class="kind">기본항목</td>
+								<td name="price[]" class="price">${board.price}</td>
 								<td>
 									<table class="quantityBox" border="1" cellspacing="0">
 										<tr>
