@@ -62,7 +62,7 @@ border: 1px solid red;
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
 								<input type="button" class="btn btn-sm btn-primary" value="돌아가기"  onclick="location.href='customerCenterCall.do'">
-								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">
+								<input type="submit" class="btn btn-sm btn-primary" id="go" value="공지등록">
 							</form>
 							</div>
 						</div>

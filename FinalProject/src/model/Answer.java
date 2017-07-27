@@ -5,7 +5,7 @@ import java.util.Date;
 public class Answer {
 	private int no;
 	private int qna_no;
-	private Date date;
+	private String date;
 	private String content;
 	private String writer;
 	public int getNo() {
@@ -20,10 +20,11 @@ public class Answer {
 	public void setQna_no(int qna_no) {
 		this.qna_no = qna_no;
 	}
-	public Date getDate() {
+	
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getContent() {

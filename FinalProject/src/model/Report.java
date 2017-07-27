@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Report {
 	private int no;
-	private Date date;
+	private String date;
 	private int category_no;	
 	private String title;
 	private int state;
@@ -17,10 +17,11 @@ public class Report {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public Date getDate() {
+
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public int getCategory_no() {
