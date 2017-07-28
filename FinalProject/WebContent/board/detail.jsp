@@ -9,6 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="css/starStyle.css">
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=A5owm24oXM2NprihulHy&submodules=geocoder"></script>
@@ -61,7 +62,23 @@ text-decoration: none;
 		  data : $('#boardNo'),
 		  dataType : "json",
 		  success : function(data){
-			  alert(data.date);
+			  $.each(data, function(index, value){
+				  console.log(value.content);
+				  //사용자 리뷰 탭에 table만들어서 넣을거야
+				  $('#selectUserReview').append(
+						  '<table border="1" width="100%">'+
+					    	'<tr><td colspan="2">'+value.content+'</td></tr>'+
+					    	'<tr><td>'+value.date+'</td>'+
+					    	'<td>'+
+					    	'<div class="star-ratings-css">'+
+					    	  '<div class="star-ratings-css-top" style="width:'+value.star*25+'%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>'+
+					    	  '<div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>'+
+					    	'</div>'+
+					    	'</td></tr>'+
+					    	'</table>'
+// '<h5>사용자 리뷰리뷰리뷰</h5>'
+				  );
+			  });
 		  },error : function(){
 			  alert("실패");
 		  }
@@ -118,9 +135,10 @@ $(document).ready(function(){
 	
 	
 	//사용자리뷰 탭 내용 뿌리기(star_point)
-	$(document).on('click', '#selectUserReview', function(){
+	$(document).on('click', '#selectUserReviewBTN', function(){
 		selectUserReview();
 	})
+	
 	
 	
 	
@@ -331,7 +349,20 @@ function totalPrice(){
 									<img src="<c:url value="/user/board/${board.no}"/>/${files.file_name1}" alt="Free HTML5 Bootstrap template"	style="width: 573px; height: 500px;">
 									</a>
 							</div>
-							<div class="fh5co-desc">${board.title}</div>
+							
+							<table>
+							<tr>
+								<td><div class="fh5co-desc">${board.title}</div></td>
+								<td>
+								<div class="star-ratings-css">
+								  
+								  <div class="star-ratings-css-top" id="starPercent" style="width:%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+								  <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+								</div>
+								</td>
+							</tr>
+							</table>
+							
 						</div>
 
 						<div class="item deal-info">
@@ -403,7 +434,7 @@ function totalPrice(){
 						  <ul>
 						    <li><a href="#tabs-1">상세정보</a></li>
 						    <li><a href="#tabs-2">주문시 유의사항</a></li>
-						    <li><a href="#tabs-3" id="selectUserReview">사용자 리뷰</a></li>
+						    <li><a href="#tabs-3" id="selectUserReviewBTN">사용자 리뷰</a></li>
 						  </ul>
 						  <div id="tabs-1">
 						    <div>${board.content}</div>
@@ -413,8 +444,7 @@ function totalPrice(){
 						    <p>주문시 유의사항 내용</p>
 						  </div>
 						  <div id="tabs-3">
-						    <p>사용자 리뷰</p>
-						    <p>사용자 리뷰</p>
+						    <div id="selectUserReview"></div>
 						  </div>
 						</div>
 						
@@ -423,7 +453,6 @@ function totalPrice(){
 			</div>
 		</div>
 	</div>
-	
 	
 
 <!-- Modal -->
