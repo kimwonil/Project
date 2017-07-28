@@ -12,4 +12,10 @@ public interface NoticeDao {
 	public boolean updateNotice(HashMap<String , Object> params);
 	public boolean deleteNotice(int no);
 	public boolean updateNoticeCount(HashMap<String , Object> params);
+
+
+	public List<Notice> selectNoticePage(HashMap<String, Object> params);
+	public int getNoticeCount(HashMap<String, Object> params);
+
+
 }

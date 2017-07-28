@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,12 +67,48 @@ public class CustomerCenterController {
 		return mav;
 	}
 
+	// 공지 리스트
 	@RequestMapping("noticeList.do")
-	public void noticeList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public void noticeList(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type)
+			throws ParseException {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
+		System.out.println("공지 리스트 들어옴");
+		int page = Integer.parseInt(request.getParameter("page"));
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		System.out.println(request.getParameter("start"));
+		System.out.println(request.getParameter("page"));
+		if (request.getParameter("start") != null && request.getParameter("end") != null) {
+			System.out.println("날짜 들어와라");
+			
+			
+				params.put("startdate", request.getParameter("start"));
+				params.put("enddate", request.getParameter("end"));
+			
+		}
+		System.out.println("현재 페이지 : " + page);
+		params.put("type", type);
+		params.put("keyword", keyword);
 
-		List<Notice> list = noticeService.selectAllNotice();
+		if (type == 1) {
+			params.put("writer", keyword);
+		} else if (type == 2) {
+			params.put("title", keyword);
+		} else if (type == 3) {
+			params.put("date", keyword);
+		}
+		if(request.getParameter("start")==null ||request.getParameter("start").equals("")||request.getParameter("start").equals("undefined") ||request.getParameter("start").equals("null"))
+		{
+			System.out.println("널 들어옴");
+			params.remove("startdate");
+			params.remove("enddate");
+			
+		}
+		System.out.println("파람 : " + params);
+		List<Notice> list = noticeService.getNoticeListPage(params, page);
+		System.out.println(list);
 		// Gson gson = new Gson();
 		try {
 			if (list != null) {
@@ -83,6 +122,58 @@ public class CustomerCenterController {
 		}
 	}
 
+	// 공지 페이지
+	@RequestMapping("noticePage.do")
+	public void noticePage(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type)
+			throws ParseException {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		System.out.println("공지 페이지 들어옴");
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("페이지에서"+request.getParameter("start"));
+		if (request.getParameter("start") != null && request.getParameter("end") != null) {
+			System.out.println("날짜 들어와라");
+				params.put("startdate", request.getParameter("start"));
+				params.put("enddate", request.getParameter("end"));
+			
+		}
+		System.out.println("현재 페이지 : " + page);
+		params.put("type", type);
+		params.put("keyword", keyword);
+
+		if (type == 1) {
+			params.put("writer", keyword);
+		} else if (type == 2) {
+			params.put("title", keyword);
+		} else if (type == 3) {
+			params.put("date", keyword);
+		}
+		if(request.getParameter("start")==null ||request.getParameter("start").equals("") ||request.getParameter("start").equals("undefined") ||request.getParameter("start").equals("null"))
+		{
+			System.out.println("널 들어옴");
+			params.remove("startdate");
+			params.remove("enddate");
+			
+		}
+		HashMap<String, Object> results = noticeService.getNoticePage(params, page);
+		System.out.println(results);
+		// Gson gson = new Gson();
+		try {
+			if (results != null) {
+				String json = gson.toJson(results);
+				System.out.println(json);
+				response.getWriter().write(json);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	// 질문 리스트
 	@RequestMapping("qnaList.do")
 	public void qnaList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -102,6 +193,7 @@ public class CustomerCenterController {
 		}
 	}
 
+	// 신고 리스트
 	@RequestMapping("reportList.do")
 	public void reportList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -193,7 +285,9 @@ public class CustomerCenterController {
 		params.remove("major");
 		params.remove("minor");
 		params.put("category_no", category_no);
-		noticeService.insertNotice(params);
+		
+			noticeService.insertNotice(params);
+	
 		return "redirect:customerCenterCall.do";
 	}
 
@@ -205,6 +299,7 @@ public class CustomerCenterController {
 
 	}
 
+	// 질문 등록
 	@RequestMapping("insertQuestion.do")
 	public void insertQuestion(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String id = ((Member) session.getAttribute("member")).getId();
@@ -267,8 +362,8 @@ public class CustomerCenterController {
 		QnA qna = qnaService.selectOneQnA(no);
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		int read_count = qna.getRead_count();
-		System.out.println("디비에 작성자"+qna.getWriter());
-		System.out.println("현재 접속자"+id);
+		System.out.println("디비에 작성자" + qna.getWriter());
+		System.out.println("현재 접속자" + id);
 		if (admin == 1 || qna.getWriter().equals(id)) {
 			System.out.println("조건 맞음");
 			params.put("no", no);
@@ -452,7 +547,7 @@ public class CustomerCenterController {
 	public void ReportClear(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int no = Integer.parseInt(request.getParameter("no"));
 		Report report = reportService.selectOneReport(no);
-		String title = "신고 상황 해결";
+		String title = report.getTitle() + "신고 상황 해결";
 		String receiver = report.getWriter();
 		String content = receiver + "님이 접수하신" + report.getTitle() + " 신고상황을 해결했습니다.";
 		String sender = ((Member) session.getAttribute("member")).getId();
