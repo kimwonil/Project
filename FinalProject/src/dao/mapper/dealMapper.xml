@@ -40,7 +40,10 @@
 		select * from purchase where no=#{no} and state in(11, 20, 30)
 	</select>
 	
-<<<<<<< HEAD
+	<select id="purchaseComplete" parameterType="String" resultType="Purchase">
+		select * from purchase where purchaser=#{id} and state in(20, 30)
+	</select>
+	
 	
 <!-- 	연경 -->
 	<insert id="insertPurchase" parameterType="Purchase">
@@ -58,11 +61,6 @@
 	<update id="minusCash" parameterType="java.util.HashMap">
 		update profile set balance=balance-#{totalPrice} where id=#{id}
 	</update>
-=======
-	<select id="purchaseComplete" parameterType="String" resultType="Purchase">
-		select * from purchase where purchaser=#{id} and state in(20, 30)
-	</select>
->>>>>>> wonil
  </mapper>
  
  
