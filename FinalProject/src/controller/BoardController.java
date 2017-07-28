@@ -112,7 +112,6 @@ public class BoardController{
 	public ModelAndView load(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=utf-8");
-		System.out.println("load.do하러옴");
 		ModelAndView mav = new ModelAndView();
 		
 		//프리미엄 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
@@ -136,7 +135,7 @@ public class BoardController{
 		
 		mav.addObject("premiumList", premiumList);
 		mav.addObject("normalList", normalList);
-		mav.setViewName("board/main");;
+		mav.setViewName("board/main");
 		return mav;
 	}
 	
