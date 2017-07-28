@@ -52,6 +52,10 @@ public class DealService {
 	public List<Purchase> completionPurcharse(int no) {
 		return dealDao.completionPurcharse(no);
 	}
+
+	public List<Purchase> purchaseComplete(String id) {
+		return dealDao.purchaseComplete(id);
+	}
 	
 	
 	/**

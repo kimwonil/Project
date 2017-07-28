@@ -92,7 +92,13 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		String id = ((Member)session.getAttribute("member")).getId();
-		List<Purchase> list = dealService.purchase(id);
+		int state = Integer.parseInt(request.getParameter("state"));
+		List<Purchase> list = null;
+		if(state == 20) {
+			list = dealService.purchaseComplete(id);
+		}else {
+			list = dealService.purchase(id);
+		}
 		for(Purchase purchase : list) {
 			Board board = dealService.boardInfo(purchase.getNo());
 			purchase.setBoardTitle(board.getTitle());
@@ -202,7 +208,7 @@ public class DealControll {
 	
 	
 	/**
-	 * 판매관리의 진행중 거래 조회
+	 * 판매관리의  완료 거래 조회
 	 * */
 	@RequestMapping("completion.do")
 	public void completion(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -238,5 +244,21 @@ public class DealControll {
 		}
 		
 	}
+	
+	
+//	/**
+//	 * 구매관리 완료된 거래 조회
+//	 * */
+//	@RequestMapping("completePurchase.do")
+//	public void completePurchase(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+//		response.setHeader("Content-Type", "application/xml");
+//		response.setContentType("text/xml;charset=UTF-8");
+//		
+//		
+//		
+//		
+//	}
+	
+	
 	
 }
