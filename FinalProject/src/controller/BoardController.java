@@ -315,6 +315,33 @@ public class BoardController{
 	}
 	
 	
+	
+	/**
+	 * 글상세에서 사용자리뷰탭
+	 * */
+	@RequestMapping("selectUserReview.do")
+	public void selectUserReview(HttpServletRequest req, HttpServletResponse resp){
+		System.out.println("selectUserReview.do");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		int no = Integer.parseInt(req.getParameter("no").toString());
+		
+		PrintWriter pw;
+		Gson gson = new Gson();
+		try {
+			//star_point에서 글번호로 리스트 뽑고
+			pw = resp.getWriter();
+			String json = gson.toJson(boardService.selectUserReview(no));
+			System.out.println(json);
+			pw.write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	/**
 	 * 글수정 폼요청
 	 * */
