@@ -5,6 +5,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			url:"profile.do",
+			type:"POST",
+			success:function(){
+				alert("성공");
+			},
+			error:function(){
+				location.href = "load.do";
+			}
+		})
+		
+	});
+</script>
 <style type="text/css">
 	#miniProfile{
 		border:1px solid black;
