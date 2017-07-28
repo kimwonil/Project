@@ -20,10 +20,30 @@ public class Board {
 	private int premium;
 	private int total_star;
 	private int num_evaluator;
+	private float rating;
 	private String file_name1;
 	
 	
+	public void rating(){
+		this.rating = total_star / num_evaluator *25;
+	}
 	
+	
+	
+	public float getRating() {
+		return rating;
+	}
+
+
+
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+
+
+
+
 	public String getFile_name1() {
 		return file_name1;
 	}
