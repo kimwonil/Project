@@ -1,3 +1,4 @@
+<%@page import="model.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="../menu.jsp" %>
@@ -233,7 +234,41 @@ $(document).ready(function(){
                 alert(errorThrown);
             }
 		})
-	})
+	});
+	
+	//쪽지문의 모달 띄우기
+	$(document).on('click', '#msgModal', function(){
+		$('#myModal').modal();
+	});
+	
+	$(document).on('click', '#messageSend', function(){
+		 if($('#messageTitle').val() == "" ){
+			alert("제목을 입력하세요")
+		}else if($('#messageContent').val() == ""){
+			alert("내용을 입력하세요")
+		}else{
+		
+			$.ajax({
+				url : "messageSend.do",
+				type : "post",
+				data : {
+					title : $('#messageTitle').val(),
+					content : $('#messageContent').val(),
+					receiver : $('#receiver').text()
+				},
+				success:function(){
+					alert("성공");
+					$('#myModal').modal('hide'); 
+					$('#messageTitle').val("");
+					$('#messageContent').val("");
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+					alert("로그인 후에 이용하세요");
+					$('#myModal').modal('hide'); 
+				}
+			})
+		}
+	});
 	
 
 	
@@ -323,7 +358,7 @@ function totalPrice(){
 							<div id="totalPrice">${board.price }</div>
 							<p><button id="buy">구매하기</button>
 							<button id="dips">찜하기</button>
-							<button>쪽지문의</button></p>
+							<button id="msgModal">쪽지문의</button></p>
 							장소<br>
 							<div id="map" style="width::250px;height:250px;"></div>
 						</div>
@@ -359,5 +394,40 @@ function totalPrice(){
 			</div>
 		</div>
 	</div>
+	
+	
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+		<table id="messageWrite">
+			<tr>
+				<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목 : <input type="text" class="messageInput" id="messageTitle"></td>
+				<td width="20%" rowspan="2"  align="center"><button type="button" id="messageSend" class="btn btn-sm btn-info">보내기</button></td>
+			</tr>
+			<tr>
+				
+				<td width="80%">받는사람 : <div id="receiver" style="display: inline;;">${board.writer}</div></td>
+			</tr>
+			<tr>
+				<td colspan="3"><textarea rows="10" cols="78" id="messageContent"></textarea></td>
+			</tr>
+		</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal end -->
 </body>
 </html>
