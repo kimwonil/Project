@@ -41,7 +41,7 @@
 						
 						$('#tabs-1 > table').append(
 							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-							value.seller + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="'+value.no+'"></td><td>' + 
+							value.seller + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="'+value.purchase_no+'"></td><td>' + 
 							(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.purchase_no+'">완료</button>':"완료") + 
 							'</td><td><button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
 						);
@@ -81,7 +81,7 @@
 						
 						$('#tabs-2 > table').append(
 							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-							value.seller + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="'+value.no+'"></td><td>' + 
+							value.seller + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="'+value.purchase_no+'"></td><td>' + 
 							'완료</td></tr>'		
 						);
 					});

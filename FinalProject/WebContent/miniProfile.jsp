@@ -6,20 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$.ajax({
-			url:"profile.do",
-			type:"POST",
-			data:{id:$('#id').val()},
-			success:function(){
-				
-			},
-			error:function(){
-				location.href = "load.do";
-			}
-		})
-		
-	});
+
 </script>
 <style type="text/css">
 	#miniProfile{
@@ -54,7 +41,7 @@
 	</tr>
 
 	<tr>
-		<td>${member.nickName }<input type="hidden" id="id" value="${member.id }"></td>
+		<td>${member.nickName }</td>
 	</tr>
 	<tr>
 		<td><label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/></label>원</td>
