@@ -10,8 +10,9 @@
 		$.ajax({
 			url:"profile.do",
 			type:"POST",
+			data:{id:$('#id').val()},
 			success:function(){
-				alert("성공");
+				
 			},
 			error:function(){
 				location.href = "load.do";
@@ -53,7 +54,7 @@
 	</tr>
 
 	<tr>
-		<td>${member.nickName }</td>
+		<td>${member.nickName }<input type="hidden" id="id" value="${member.id }"></td>
 	</tr>
 	<tr>
 		<td><label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/></label>원</td>
