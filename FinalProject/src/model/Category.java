@@ -5,8 +5,6 @@ public class Category {
 	private int no;
 	private String category_name;
 	
-	
-	
 	public Category() {
 		super();
 	}
