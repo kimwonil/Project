@@ -25,7 +25,7 @@ public class Board {
 	
 	
 	public void rating(){
-		this.rating = total_star / num_evaluator *25;
+		this.rating = (float)total_star / (float)num_evaluator *25;
 	}
 	
 	
