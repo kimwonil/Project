@@ -107,7 +107,7 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
         Kakao.API.request({
           url: '/v1/user/me',
           success: function(res) {
-            // 호출된 이메일주소를 EmailK에 출력 
+            // 호출된 개인정보 중 이메일주소만 EmailK에 출력 
     		$('#EmailK').append(JSON.stringify(res.kaccount_email));
           },
           fail: function(error) {
