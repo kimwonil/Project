@@ -138,6 +138,12 @@ public class BoardService {
 
 	
 
+	/**
+	 * table명 : star_point
+	 * */
+	public List<HashMap<String, Object>> selectUserReview(int no){
+		return boardDao.selectUserReview(no);
+	}
 	
 
 	

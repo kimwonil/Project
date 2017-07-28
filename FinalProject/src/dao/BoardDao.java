@@ -48,6 +48,10 @@ public interface BoardDao {
 	public List<HashMap<String, Object>> selectAllDips(String id);
 	
 	
+	//테이블명 : star_point
+	public List<HashMap<String, Object>> selectUserReview(int no);
+	
+	
 	
 	
 	

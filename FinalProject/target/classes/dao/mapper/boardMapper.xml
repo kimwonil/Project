@@ -119,6 +119,15 @@
  <select id="selectAllDips" parameterType="String" resultType="java.util.HashMap">
  	select * from interest where id=#{id}
  </select>
+ 
+ 
+ 
+<!--  table명 : star_point -->
+ <select id="selectUserReview" parameterType="int" resultType="java.util.HashMap">
+ 	select * from star_point where board_no=#{no}
+ </select>
+ 
+ 
  </mapper>
  
  
