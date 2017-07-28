@@ -11,7 +11,6 @@ import model.EmailInfo;
 @Service
 public class EmailInfoService {
 	
-	@Autowired
 	private EmailInfoDao emailinfodao;
 	
 	public int insertEmailInfo(HashMap<String, Object> params){
