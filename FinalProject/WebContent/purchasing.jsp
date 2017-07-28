@@ -176,21 +176,25 @@
 		
 		$(document).on('click', '.completeBtn', function(){
 			
-			$.ajax({
-				url:"progress.do",
-				type:"POST",
-				data:{
-					no:$(this).val(),
-					state:20
-				},
-				success:function(){
-					alert("성공");
-					purchase();
-				},
-				error:function(){
-					alert("실패");
-				}
-			})
+			//별점&리뷰 입력창 띄우기
+			
+			
+			
+// 			$.ajax({
+// 				url:"progress.do",
+// 				type:"POST",
+// 				data:{
+// 					no:$(this).val(),
+// 					state:20
+// 				},
+// 				success:function(){
+// 					alert("성공");
+// 					purchase();
+// 				},
+// 				error:function(){
+// 					alert("실패");
+// 				}
+// 			})
 			
 		});
 		
