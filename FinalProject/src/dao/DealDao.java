@@ -18,6 +18,7 @@ public interface DealDao {
 	public Board boardInfo(int no);
 	public List<Purchase> ongoingPurcharse(int no);
 	public List<Purchase> completionPurcharse(int no);
+<<<<<<< HEAD
 	
 
 	//테이블명 : purchase
@@ -31,4 +32,7 @@ public interface DealDao {
 	//profile
 	public boolean minusCash(HashMap<String, Object> params);
 
+=======
+	public List<Purchase> purchaseComplete(String id);
+>>>>>>> wonil
 }
