@@ -195,6 +195,8 @@ $(document).ready(function(){
 		})
 	});//찜하기
 	
+	
+	//구매버튼클릭
 	$(document).on('click', '#buy', function(){
 		
 		var kind = [];
@@ -229,6 +231,7 @@ $(document).ready(function(){
 			dataType : "json",
 			success : function(data){
 				alert(data.result);
+				location.href="purchasing.jsp";
 			},error : function(jpXHR, textStatus, errorThrown){
                 alert(textStatus);
                 alert(errorThrown);
