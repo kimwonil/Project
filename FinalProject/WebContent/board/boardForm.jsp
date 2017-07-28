@@ -329,6 +329,33 @@ $(document).ready(function(){
    	});
     	
 	
+   	$(document).on('change','#major', function(){
+   		$.ajax({
+   			url:"categoryLow.do",
+   			type:"POST",
+   			data:{high_no:$(this).val()},
+   			dataType:"json",
+   			success:function(data){
+   				console.log(data);
+   				$('#minor').empty();
+   				$.each(data, function(index, value){
+	   				$('#minor').append(
+	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+	   				);
+   				});
+   				
+   				
+   				
+   			},
+   			error:function(){
+   				alert("실패");
+   			}
+   			
+   		});
+   		
+   		
+   		
+   	});
 	
    	
    	
@@ -355,10 +382,12 @@ $(document).ready(function(){
 							<form id="detailInfo" action="insertBoard.do" method="post" enctype="multipart/form-data" >
 								<table class="table">
 									<tr><th>카테고리 </th><th>
-									<select name="major">
-										<option>대분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option>
+									<select name="major" id="major">
+										<c:forEach items="${categoryList}" var="high">
+											<option value="${high.no}">${high.category_name}</option>
+										</c:forEach>
 									</select> 
-									<select name="minor">
+									<select name="minor" id="minor">
 										<option>소분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option>
 									</select>
 									</th></tr>

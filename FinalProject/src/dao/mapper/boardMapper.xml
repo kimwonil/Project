@@ -128,6 +128,14 @@
  </select>
  
  
+<!--  카테고리 -->
+ <select id="category" resultType="Category">
+ 	select * from category_high
+ </select>
+ 
+ <select id="categoryLow" parameterType="int" resultType="Category">
+ 	select * from category_low where high_no=#{high_no}
+ </select>
  </mapper>
  
  
