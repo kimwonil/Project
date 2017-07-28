@@ -25,7 +25,11 @@ public class Board {
 	
 	
 	public void rating(){
-		this.rating = (float)total_star / (float)num_evaluator *25;
+		if(total_star != 0 && num_evaluator != 0){
+			this.rating = (float)total_star / (float)num_evaluator *25;
+		}else{
+			this.rating = 0;
+		}
 	}
 	
 	
