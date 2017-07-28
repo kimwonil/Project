@@ -31,5 +31,9 @@ public interface DealDao {
 	
 	//profile
 	public boolean minusCash(HashMap<String, Object> params);
+	
+	
+	//star_point
+	public boolean insertStar_point(HashMap<String, Object> map);
 
 }

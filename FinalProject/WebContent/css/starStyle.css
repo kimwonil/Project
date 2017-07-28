@@ -27,6 +27,14 @@
   z-index: 0;
 }
 
+
+
+
+
+
+
+
+
 .star-cb-group {
   /* remove inline-block whitespace */
   font-size: 0;
@@ -89,7 +97,7 @@
 fieldset {
   border: 0;
 /*   background: #222; */
-  width: 5em;
+/*   width: 5em; */
   border-radius: 1px;
   padding: 1em 1.5em 0.9em;
   margin: 1em auto;

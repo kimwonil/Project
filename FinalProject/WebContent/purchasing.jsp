@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="css/starStyle.css">
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
@@ -42,7 +43,7 @@
 						$('#tabs-1 > table').append(
 							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
 							value.seller + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="'+value.purchase_no+'"></td><td>' + 
-							(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.purchase_no+'">완료</button>':"완료") + 
+							(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료") + 
 							'</td><td><button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
 						);
 					});
@@ -174,29 +175,38 @@
 		
 			
 		
+		//완료 버튼 누르면 별점&리뷰 입력창 띄우기
 		$(document).on('click', '.completeBtn', function(){
-			
-			//별점&리뷰 입력창 띄우기
-			
-			
-			
-// 			$.ajax({
-// 				url:"progress.do",
-// 				type:"POST",
-// 				data:{
-// 					no:$(this).val(),
-// 					state:20
-// 				},
-// 				success:function(){
-// 					alert("성공");
-// 					purchase();
-// 				},
-// 				error:function(){
-// 					alert("실패");
-// 				}
-// 			})
-			
+			$('#myModal').modal();
+			$('#hiddenBoard_no').val($(this).val());
+			$('#hiddenPurchase_no').val($(this).parent().parent().find('input').val());
 		});
+		
+		
+		//별점&리뷰 입력 후 확인 누르면 ajax
+		$(document).on('click', '#starReview', function(){
+			
+			$.ajax({
+				url:"progress.do",
+				type:"POST",
+				data:{
+					board_no:$('#hiddenBoard_no').val(),
+					purchase_no:$('#hiddenPurchase_no').val(),
+					state:20,
+					star:$('input[name="rating"]:checked').val(),
+					content:$('#review').val()
+				},
+				success:function(){
+					alert("성공");
+					purchase();
+					$('#myModal').modal('hide');
+				},
+				error:function(){
+					alert("실패");
+				}
+			})
+		});
+		
 		
 		
 		$(document).on('click', '.stopBtn', function(){
@@ -313,22 +323,30 @@
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
-		<table id="messageWrite">
-			<tr>
-				<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목 : <input type="text" class="messageInput" id="messageTitle"></td>
-				<td width="20%" rowspan="2"  align="center"><button type="button" id="messageSend" class="btn btn-sm btn-info">보내기</button></td>
-			</tr>
-			<tr>
-				
-				<td width="80%">받는사람 : <div id="receiver" style="display: inline;;">${board.writer}</div></td>
-			</tr>
-			<tr>
-				<td colspan="3"><textarea rows="10" cols="78" id="messageContent"></textarea></td>
-			</tr>
-		</table>
+
+		<h5>별점평가</h5>
+		<form>
+		  <fieldset>
+		    <span class="star-cb-group">
+		      <input type="radio" id="rating-5" name="rating" value="5"/><label for="rating-5">5</label>
+		      <input type="radio" id="rating-4" name="rating" value="4" /><label for="rating-4">4</label>
+		      <input type="radio" id="rating-3" name="rating" value="3" checked="checked"/><label for="rating-3">3</label>
+		      <input type="radio" id="rating-2" name="rating" value="2"/><label for="rating-2">2</label>
+		      <input type="radio" id="rating-1" name="rating" value="1"/><label for="rating-1">1</label>
+		      <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
+		    </span>
+		  </fieldset>
+		</form>
+		
+		<div>리뷰작성</div>
+		<textarea id="review" rows="3" cols="78"></textarea>
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+      	<button type="button"  id="starReview">확인</button>
+      	<input type="hidden" id="hiddenBoard_no">
+      	<input type="hidden" id="hiddenPurchase_no">
+        <button type="button" class="btn" data-dismiss="modal">취소</button>
       </div>
     </div>
   </div>

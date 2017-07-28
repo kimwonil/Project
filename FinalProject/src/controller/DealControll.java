@@ -99,6 +99,7 @@ public class DealControll {
 		}else {
 			list = dealService.purchase(id);
 		}
+		
 		for(Purchase purchase : list) {
 			Board board = dealService.boardInfo(purchase.getNo());
 			purchase.setBoardTitle(board.getTitle());
@@ -145,23 +146,41 @@ public class DealControll {
 	 * */
 	@RequestMapping("progress.do")
 	public void progress(@RequestParam(value="list", required=false) List<String> paramArray,
-						 @RequestParam(value="no", required=false) Integer no,	
-						 int state, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+						 @RequestParam(value="purchase_no", required=false) Integer purchase_no, int state,
+						 @RequestParam(value="board_no", required=false) int board_no,
+						 @RequestParam(value="star", required=false) int star,
+						 @RequestParam(value="content", required=false) String content,
+						 HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 //		System.out.println(paramArray+"1번");
 //		System.out.println(no+"2번");
 //		System.out.println(state);
+		
+		System.out.println("progress.do");
+		System.out.println(star);
+		System.out.println(content);
+		System.out.println(state);
+		System.out.println(purchase_no);
+		
+		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("state", state);
-		if(paramArray != null) {
+		
+		if(paramArray != null) { //판매자
 			for(String purchase:paramArray) {
 				map.put("purchase_no", purchase);
 				dealService.progressState(map);
 			}
 		}
 		
-		if(no != null) {
-			map.put("purchase_no", no);
+		if(purchase_no != null) { //구매자
+			map.put("purchase_no", purchase_no);
 			dealService.progressState(map);
+			
+			map.put("board_no", board_no);
+			map.put("purchase_no", purchase_no);
+			map.put("content", content);
+			map.put("star", star);
+			dealService.insertStar_point(map);
 		}
 		
 		

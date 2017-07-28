@@ -61,6 +61,10 @@
 	<update id="minusCash" parameterType="java.util.HashMap">
 		update profile set balance=balance-#{totalPrice} where id=#{id}
 	</update>
+	
+	<insert id="insertStar_point" parameterType="java.util.HashMap">
+		insert into star_point values(0, #{board_no}, #{purchase_no}, #{content}, #{star}, sysdate())
+	</insert>
  </mapper>
  
  

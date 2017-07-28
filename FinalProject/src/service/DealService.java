@@ -77,5 +77,9 @@ public class DealService {
 		return dealDao.minusCash(params);
 	}
 
+	public boolean insertStar_point(HashMap<String, Object> map) {
+		return dealDao.insertStar_point(map);
+	}
+
 	
 }
