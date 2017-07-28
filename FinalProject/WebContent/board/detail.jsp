@@ -231,7 +231,9 @@ $(document).ready(function(){
 			dataType : "json",
 			success : function(data){
 				alert(data.result);
-				location.href="purchasing.jsp";
+				if(data.state == 1){
+					location.href="purchasing.jsp";
+				}
 			},error : function(jpXHR, textStatus, errorThrown){
                 alert(textStatus);
                 alert(errorThrown);
