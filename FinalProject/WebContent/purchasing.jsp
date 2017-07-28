@@ -297,12 +297,43 @@
 						</div>
 					
 					</div>
-					
-
-					
 				</div>
 			</div>
 		</div>
 	</div>
+	
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+		<table id="messageWrite">
+			<tr>
+				<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목 : <input type="text" class="messageInput" id="messageTitle"></td>
+				<td width="20%" rowspan="2"  align="center"><button type="button" id="messageSend" class="btn btn-sm btn-info">보내기</button></td>
+			</tr>
+			<tr>
+				
+				<td width="80%">받는사람 : <div id="receiver" style="display: inline;;">${board.writer}</div></td>
+			</tr>
+			<tr>
+				<td colspan="3"><textarea rows="10" cols="78" id="messageContent"></textarea></td>
+			</tr>
+		</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal end -->
+	
 </body>
 </html>
