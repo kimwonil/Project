@@ -543,11 +543,11 @@ public class BoardController{
 		try {
 			PrintWriter pw = resp.getWriter();
 			if(member == null){//로그인이 안된 상태면
-				pw.println("{\"result\" : \"로그인 후에 구매할 수 있습니다\"}");
+				pw.println("{\"result\" : \"로그인 후에 구매할 수 있습니다\", \"state\" : 0}");
 			}else if(boardService.selectOneBoard(no).getQuantity() < Integer.parseInt((quantityArr.get(0)).toString())){//판매 잔여량이 기본항목 구매수량 이상이어야 해
-				pw.println("{\"result\" : \"잔고 수량이 부족합니다\"}");
+				pw.println("{\"result\" : \"잔고 수량이 부족합니다\", \"state\" : 0}");
 			}else if(member.getBalance()<totalPrice){//구매자 잔여캐시<금액
-				pw.println("{\"result\" : \"캐시가 부족합니다\"}");
+				pw.println("{\"result\" : \"캐시가 부족합니다\", \"state\" : 0}");
 			}else{//성고옹!
 				//purchase
 				Purchase purchase = new Purchase(0, no, member.getId(), 0, null);
@@ -570,7 +570,7 @@ public class BoardController{
 				params.put("reduce", Integer.parseInt((quantityArr.get(0)).toString()));//redue가 기본항목 구매량이얌	
 				params.put("no", no);
 				boardService.reduceQuantity(params);
-				pw.println("{\"result\" : \"구매성공! 구매관리를 확인하세요\"}");
+				pw.println("{\"result\" : \"구매성공! 구매관리를 확인하세요\", \"state\" : 1}");
 			}
 			
 		} catch (IOException e) {
