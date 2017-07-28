@@ -21,6 +21,7 @@ import model.Board;
 import model.Member;
 import model.Purchase;
 import model.PurchaseOption;
+import service.BoardService;
 import service.DealService;
 
 @Controller
@@ -28,6 +29,9 @@ public class DealControll {
 
 	@Autowired
 	DealService dealService;
+	
+	@Autowired
+	BoardService boardService;
 	
 	Gson gson = new Gson();
 	
@@ -176,11 +180,18 @@ public class DealControll {
 			map.put("purchase_no", purchase_no);
 			dealService.progressState(map);
 			
+			//star_point에 insert
 			map.put("board_no", board_no);
 			map.put("purchase_no", purchase_no);
 			map.put("content", content);
 			map.put("star", star);
 			dealService.insertStar_point(map);
+			
+			//board에 total_star와 num_evaluator 누적
+			HashMap<String, Object> boardMap = new HashMap<>();
+			boardMap.put("board_no", board_no);
+			boardMap.put("star", star);
+			boardService.updateStar(boardMap);
 		}
 		
 		

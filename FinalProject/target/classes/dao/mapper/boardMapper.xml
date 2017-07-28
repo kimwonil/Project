@@ -40,6 +40,10 @@
  	update board set quantity=quantity-#{reduce} where no=#{no}
  </update>
  
+ <update id="updateStar" parameterType="java.util.HashMap">
+ 	update board set total_star=total_star+#{star}, num_evaluator=num_evaluator+1 where no=#{board_no}
+ </update>
+ 
  
 <!--  table명 : map -->
  <insert id="insertMap" parameterType="java.util.HashMap">

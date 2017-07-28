@@ -50,6 +50,10 @@ public class BoardService {
 		return boardDao.reduceQuantity(params);
 	}
 	
+	public void updateStar(HashMap<String, Object> boardMap) {
+		boardDao.updateStar(boardMap);
+	}
+	
 	
 	/**
 	 * table명 : map
@@ -131,6 +135,8 @@ public class BoardService {
 	public List<HashMap<String, Object>> selectAllDips(String id) {
 		return boardDao.selectAllDips(id);
 	}
+
+	
 
 	
 
