@@ -200,6 +200,7 @@
 					alert("성공");
 					purchase();
 					$('#myModal').modal('hide');
+					$('#review').val("");
 				},
 				error:function(){
 					alert("실패");
