@@ -264,8 +264,12 @@ public class BoardController{
 		
 		//board 테이블에서 가져온 정보
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("board", boardService.selectOneBoard(no));
+		Board board = boardService.selectOneBoard(no);
+		board.setCount(dealService.purchaseCount(no));
+		mav.addObject("board", board);
+		
 		mav.setViewName("board/detail");
+		
 		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
 			mav.addObject("files", boardService.selectOneFromFile(no));
 		}
@@ -566,10 +570,10 @@ public class BoardController{
 				params.put("id", member.getId());
 				dealService.minusCash(params);
 				
-				//board quantity에서 제하기
-				params.put("reduce", Integer.parseInt((quantityArr.get(0)).toString()));//redue가 기본항목 구매량이얌	
-				params.put("no", no);
-				boardService.reduceQuantity(params);
+//				//board quantity에서 제하기
+//				params.put("reduce", Integer.parseInt((quantityArr.get(0)).toString()));//redue가 기본항목 구매량이얌	
+//				params.put("no", no);
+//				boardService.reduceQuantity(params);
 				pw.println("{\"result\" : \"구매성공! 구매관리를 확인하세요\", \"state\" : 1}");
 			}
 			
