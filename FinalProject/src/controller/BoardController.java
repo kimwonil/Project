@@ -34,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import model.Board;
+import model.Category;
 import model.FileUpload;
 import model.MapInfo;
 import model.Member;
@@ -144,11 +145,36 @@ public class BoardController{
 	 * 판매등록하러 갈거야
 	 * */
 	@RequestMapping("boardForm.do")
-	public String boardForm(){
+	public ModelAndView boardForm(){
+		ModelAndView mv = new ModelAndView();
 		
-		return "board/boardForm";
+		List<Category> categoryList = boardService.category();
+		
+		mv.addObject(categoryList);
+		mv.setViewName("board/boardForm");
+		
+		return mv;
 	}
 	
+	/**
+	 * 카테고리 소분류
+	 * */
+	@RequestMapping("categoryLow.do")
+	public void categoryLow(int high_no, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		
+		List<Category> list = boardService.categoryLow(high_no);
+		Gson gson = new Gson();
+		String json = gson.toJson(list);
+		try {
+			resp.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	/**

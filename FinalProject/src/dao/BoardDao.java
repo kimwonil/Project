@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.Board;
+import model.Category;
 import model.File;
 import model.FileUpload;
 import model.MapInfo;
@@ -52,8 +53,9 @@ public interface BoardDao {
 	public List<HashMap<String, Object>> selectUserReview(int no);
 	
 	
-	
-	
+	//테이블명 : category_high
+	public List<Category> category();
+	public List<Category> categoryLow(int high_no);
 	
 
 }

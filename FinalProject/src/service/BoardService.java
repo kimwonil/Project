@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import dao.BoardDao;
 import model.Board;
+import model.Category;
 import model.File;
 import model.FileUpload;
 import model.MapInfo;
@@ -143,6 +144,18 @@ public class BoardService {
 	 * */
 	public List<HashMap<String, Object>> selectUserReview(int no){
 		return boardDao.selectUserReview(no);
+	}
+	
+	
+	/**
+	 * 카테고리 조회(대분류)
+	 * */
+	public List<Category> category() {
+		return boardDao.category();
+	}
+
+	public List<Category> categoryLow(int high_no) {
+		return boardDao.categoryLow(high_no);
 	}
 	
 
