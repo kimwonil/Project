@@ -291,6 +291,9 @@ public class BoardController{
 		ModelAndView mav = new ModelAndView();
 		Board board = boardService.selectOneBoard(no);
 		board.setCount(dealService.purchaseCount(no));
+		board.rating();
+		
+		
 		mav.addObject("board", board);
 		
 		mav.setViewName("board/detail");

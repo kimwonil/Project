@@ -356,7 +356,7 @@ function totalPrice(){
 								<td>
 								<div class="star-ratings-css">
 								  
-								  <div class="star-ratings-css-top" id="starPercent" style="width:%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+								  <div class="star-ratings-css-top" id="starPercent" style="width:${board.rating}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 								  <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 								</div>
 								</td>
