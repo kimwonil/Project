@@ -16,6 +16,8 @@
 <script>
 	$(function() {
 		$("#tabs").tabs();
+	 	noticeList(1,0,"0");
+	 
 	});
 	
 	var member_id = "<%=session.getAttribute("member")%>"
@@ -23,6 +25,135 @@
 	var admin=member_id.indexOf("admin");
 	var num=member_id.substr(admin+6,1);
 	var id=member_id.substr(11,a-11);
+	
+	var Noticepage=1;
+	var Noticetype=0;
+	var Noticekeyword;
+	var Noticestart;
+	var Noticeend;
+	
+	var QnApage=1;
+	var QnAtype=0;
+	var QnAkeyword;
+	var QnAstart;
+	var QnAend;
+	
+	//공지 리스트
+function noticeList(page,type,keyword,start,end){
+//  		alert(page+" "+type+" "+keyword+" "+start+" "+end);
+		if(type==null || keyword==null)
+			{
+			type=0;
+			keyword="0";
+			}
+	
+		var startDate=new String();
+		startDate=start;
+// 		alert(startDate);
+		var endDate=new String();
+		endDate=end;
+// 		alert(startDate);
+		noticePage(page,type,keyword,start,end);
+		$.ajax({
+			url:"noticeList.do",
+			type:"POST",
+			dataType:"json",
+			data:{
+			page:page,
+			type:type,
+			keyword:keyword,
+			start:startDate,
+			end:endDate
+			},
+			success:function(data){
+				console.log(data);
+				$('#noticeTable tr:gt(0)').remove();
+
+				for(var i=0;i<data.length;i++){
+				$('#noticeTable').append("<tr><td>"+data[i].date+"</td><td>"
+												+data[i].no+"</td><td>"
+												+data[i].category_no+"</td><td><a id='"+data[i].no+"'class='NoticeDetail' data-toggle='modal' data-target='#NoticeContentModal'>"
+												+data[i].title+"</a></td><td>"
+												+data[i].writer+"</td><td>"
+												+data[i].read_count+"</td></tr>");
+				}
+// 				$('#noticeTable').append("")
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+		
+	};
+	//공지 페이징
+	function noticePage(pagenum,type,keyword,start,end){
+		Noticepage=pagenum;
+		if(type==null || keyword==null)
+			{
+			type=0;
+			keyword="0";
+			}
+		var startDate=new String();
+		startDate=start;
+		
+		var endDate=new String();
+		endDate=end;
+	
+		$.ajax({
+			url:"noticePage.do",
+			type:"POST",
+			dataType:"json",
+			data:{
+				page:pagenum,
+				type:type,
+				keyword:keyword,
+				start:startDate,
+				end:endDate
+			
+			},
+			success:function(data){
+				console.log(data);
+				$('#noticePage tr:gt(0)').remove();
+				var str="<tr><td>";
+
+				if(data.start!=1)
+					{
+					str=str+
+					"<a href='#' onclick='noticeList(1,"+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[처음]</a><a href='#' onclick='noticeList("+
+							(data.start-1)+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[이전]</a>";
+					}
+					
+				for(var i=data.start;i<=(data.end<data.last?data.end:data.last);i++){
+					if(i==data.current)
+						{
+						str=str+"<b>["+i+"]</b>";
+						}
+					else
+						{
+						str=str+"<a href='#' onclick='noticeList("+i+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>["+i+"]</a>";
+						}
+				}
+				if(data.end<data.last)
+					{
+					str=str+"<a href='#' onclick='noticeList("+(data.end+1)+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[다음]</a>";
+					str=str+"<a href='#' onclick='noticeList("+(data.last)+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[마지막]</a>";
+					}
+				str=str+"</td></tr>";
+				
+				$('#noticePage').append(str);
+
+
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+		
+	}
+	
+	
 	//질문 리스트
 function qnaList(){
 		
@@ -41,7 +172,8 @@ function qnaList(){
 							+(data[i].open==0?data[i].writer:"비공개")+"</td><td>"
 							+(data[i].state==0?"미답변":"답변완료")+"</td><td>"
 							+data[i].read_count+"</td></tr>");
-}
+							};
+				
 			},
 			error:function(jqXHR, textStatus, errorThrown){
 				console.log(textStatus);
@@ -50,32 +182,7 @@ function qnaList(){
 		});
 		
 	};
-	//공지 리스트
-function noticeList(){
-		
-		$.ajax({
-			url:"noticeList.do",
-			type:"POST",
-			dataType:"json",
-			success:function(data){
-				console.log(data);
-				$('#noticeTable tr:gt(0)').remove();
-				for(var i=0;i<data.length;i++){
-				$('#noticeTable').append("<tr><td>"+data[i].date+"</td><td>"
-												+data[i].no+"</td><td>"
-												+data[i].category_no+"</td><td><a id='"+data[i].no+"'class='NoticeDetail' data-toggle='modal' data-target='#NoticeContentModal'>"
-												+data[i].title+"</a></td><td>"
-												+data[i].writer+"</td><td>"
-												+data[i].read_count+"</td></tr>");
-				}
-			},
-			error:function(jqXHR, textStatus, errorThrown){
-				console.log(textStatus);
-				console.log(errorThrown);
-			}
-		});
-		
-	};
+
 	//신고 리스트
 function reportList(){
 		
@@ -103,9 +210,141 @@ function reportList(){
 		});
 		
 	};
-	noticeList();
+
 	qnaList();
 	reportList();
+	//공지 상세
+		$(document).on('click','.NoticeDetail',function(){
+			$.ajax({
+				url:"noticeContent.do",
+				type:"POST",
+				data:{no:$(this).attr('id')},
+				dataType:"json",
+				success:function(data){
+					noticeList(Noticepage,Noticetype,Noticekeyword,Noticestart,Noticeend);
+					$('#NoticetitleLabel').text(data.title);
+					$('#NoticewriterLabel').text(data.writer);
+					$('#NoticecontentLabel').text(data.content);
+					$('#NoticeUpdateForm').val(data.no);
+					$('#NoticeDelete').val(data.no);
+					
+					if(num==0)
+					{
+					$('#NoticeUpdateForm').hide();
+					$('#NoticeDelete').hide();
+					}
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+			
+		});
+		//공지 수정폼
+		$(document).on('click','#NoticeUpdateForm',function(){
+			
+			
+			$.ajax({
+				url:"noticeContent.do",
+				type:"POST",
+				data:{no:$("#NoticeUpdateForm").val()},
+				dataType:"json",
+				success:function(data){
+					noticeList(Noticepage,Noticetype,Noticekeyword,Noticestart,Noticeend);
+//	 				alert(data.category_no);
+//	 				alert(data.content);
+					var cate=data.category_no;
+					var minor=cate%10;
+					var major=(cate-minor)/10;
+				
+					
+					$('#NoticeContentModal').modal('hide');
+					$('#NoticeMajorUpdate option:eq('+major+')').prop("selected", true);
+					$('#NoticeMinorUpdate option:eq('+minor+')').prop("selected", true);
+					$('#NoticetitleUpdate').val(data.title);
+					$('#NoticecontentUpdate').val(data.content);
+					$('#NoticeUpdateBtn').val(data.no);
+					
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+			
+		});
+		//공지 수정
+		$(document).on('click','#NoticeUpdateBtn',function(){
+
+			var category=""+$('#NoticeMajorUpdate').val()+""+$('#NoticeMinorUpdate').val();
+
+			$.ajax({
+				url:"NoticeUpdate.do",
+				type:"POST",
+				data:{
+				no:$("#NoticeUpdateBtn").val(),
+				category_no:category,
+				title:$('#NoticetitleUpdate').val(),
+				content:$('#NoticecontentUpdate').val()
+				},
+				success:function(){
+					noticeList(Noticepage,Noticetype,Noticekeyword,Noticestart,Noticeend);
+					
+					$('#NoticeContentUpdateModal').modal('hide');
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+			
+		});
+		//공지 삭제
+		$(document).on('click','#NoticeDelete',function(){
+
+			
+
+			$.ajax({
+				url:"deleteNotice.do",
+				type:"POST",
+				data:{
+				no:$('#NoticeDelete').val(),
+				
+				},
+				success:function(){
+					noticeList(Noticepage,Noticetype,Noticekeyword,Noticestart,Noticeend);
+				
+					$('#NoticeContentModal').modal('hide');
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+			
+		});
+	//공지 검색
+	$(document).on('click','#noticeSerchBtn',function(){
+		Noticetype=$('#noticeSerch').val();
+		Noticekeyword=$('#noticeSerchKeyword').val();
+		Noticestart=$('#noticestartDate').val();
+		Noticeend=$('#noticeendDate').val();
+		noticeList(1,$('#noticeSerch').val(),$('#noticeSerchKeyword').val(),$('#noticestartDate').val(),$('#noticeendDate').val());
+	
+	});
+	
+	//공지 검색 초기화
+	$(document).on('click','#noticeResetBtn',function(){
+		
+		Noticetype=0
+		Noticekeyword=null;
+		Noticestart=null;
+		Noticeend=null;
+		$('#noticeSerch option:eq(0)').prop("selected", true);
+		$('#noticeSerchKeyword').val("");
+		$('#noticestartDate').val("");
+		$('#noticeendDate').val("");
+		noticeList(1,0,"0",null,null);
+	
+	});
+	
 	//질문 상세
 	$(document).on('click','.QnADetail',function(){
 	
@@ -191,9 +430,7 @@ function reportList(){
 	
 	//답변 등록
 		$(document).on('click','#AnswerInsert',function(){
-				var st=$('#AnswerInsertContent').val();
 				
-				st=st.substr(8);
 				
 				$.ajax({
 					url:"insertAnswer.do",
@@ -201,7 +438,7 @@ function reportList(){
 					data:{
 					
 						qna_no:$("#AnswerInsertForm").val(),
-						content:st
+						content:$('#AnswerInsertContent').val()
 					
 					},
 					success:function(){
@@ -266,7 +503,7 @@ function reportList(){
 					},
 					success:function(){
 						qnaList();
-					
+						$("#AnswerUpdateContent").val("");
 						$('#AnswerUpdateModal').modal('hide');
 					},
 					error:function(){
@@ -360,114 +597,34 @@ function reportList(){
 		});
 		
 	});
-	//공지 상세
-	$(document).on('click','.NoticeDetail',function(){
-		$.ajax({
-			url:"noticeContent.do",
-			type:"POST",
-			data:{no:$(this).attr('id')},
-			dataType:"json",
-			success:function(data){
-				noticeList();
-				$('#NoticetitleLabel').text(data.title);
-				$('#NoticewriterLabel').text(data.writer);
-				$('#NoticecontentLabel').text(data.content);
-				$('#NoticeUpdateForm').val(data.no);
-				$('#NoticeDelete').val(data.no);
-				
-				if(num==0)
-				{
-				$('#NoticeUpdateForm').hide();
-				$('#NoticeDelete').hide();
-				}
-			},
-			error:function(){
-				alert("실패");
-			}
-		});
-		
-	});
-	//공지 수정폼
-	$(document).on('click','#NoticeUpdateForm',function(){
-		
-		
-		$.ajax({
-			url:"noticeContent.do",
-			type:"POST",
-			data:{no:$("#NoticeUpdateForm").val()},
-			dataType:"json",
-			success:function(data){
-				noticeList();
-// 				alert(data.category_no);
-// 				alert(data.content);
-				var cate=data.category_no;
-				var minor=cate%10;
-				var major=(cate-minor)/10;
-			
-				
-				$('#NoticeContentModal').modal('hide');
-				$('#NoticeMajorUpdate option:eq('+major+')').prop("selected", true);
-				$('#NoticeMinorUpdate option:eq('+minor+')').prop("selected", true);
-				$('#NoticetitleUpdate').val(data.title);
-				$('#NoticecontentUpdate').val(data.content);
-				$('#NoticeUpdateBtn').val(data.no);
-				
-			},
-			error:function(){
-				alert("실패");
-			}
-		});
-		
-	});
-	//공지 수정
-	$(document).on('click','#NoticeUpdateBtn',function(){
-
-		var category=""+$('#NoticeMajorUpdate').val()+""+$('#NoticeMinorUpdate').val();
-
-		$.ajax({
-			url:"NoticeUpdate.do",
-			type:"POST",
-			data:{
-			no:$("#NoticeUpdateBtn").val(),
-			category_no:category,
-			title:$('#NoticetitleUpdate').val(),
-			content:$('#NoticecontentUpdate').val()
-			},
-			success:function(){
-				noticeList();
-				
-				$('#NoticeContentUpdateModal').modal('hide');
-			},
-			error:function(){
-				alert("실패");
-			}
-		});
-		
-	});
-	//공지 삭제
-	$(document).on('click','#NoticeDelete',function(){
-
-		
-
-		$.ajax({
-			url:"deleteNotice.do",
-			type:"POST",
-			data:{
-			no:$('#NoticeDelete').val(),
-			
-			},
-			success:function(){
-				noticeList();
-			
-				$('#NoticeContentModal').modal('hide');
-			},
-			error:function(){
-				alert("실패");
-			}
-		});
-		
+	
+	
+	//질문 검색
+	$(document).on('click','#qnaSerchBtn',function(){
+		QnAtype=$('#qnaSerch').val();
+		QnAkeyword=$('#qnaSerchKeyword').val();
+		QnAstart=$('#qnastartDate').val();
+		QnAend=$('#qnaendDate').val();
+		qnaList(1,$('#qnaSerch').val(),$('#qnaSerchKeyword').val(),$('#qnastartDate').val(),$('#qnaendDate').val());
+	
 	});
 	
+	//질문 검색 초기화
+	$(document).on('click','#qnaResetBtn',function(){
+		
+		Noticetype=0
+		Noticekeyword=null;
+		Noticestart=null;
+		Noticeend=null;
+		$('#qnaSerch option:eq(0)').prop("selected", true);
+		$('#qnaSerchKeyword').val("");
+		$('#qnastartDate').val("");
+		$('#qnaendDate').val("");
+		qnaList(1,0,"0",null,null);
+	
+	});
+		
+		
 	
 	//신고 상세
 	$(document).on('click','.ReportDetail',function(){
@@ -558,7 +715,7 @@ function reportList(){
 					no:$("#ReportClearBtn").val(),
 					},
 					success:function(){
-						reportList();
+						reportList();ㅏㅑㅗ
 						
 						$('#ReportContentModal').modal('hide');
 					},
@@ -712,17 +869,23 @@ $(document).on('click','#reportinsert',function(){
 							<li><a href="#tabs-3" id="reportList">신 고</a></li>
 
 						</ul>
-						<div align="center">
-							<select>
-								<option>검색조건</option>
-								<option>닉네임</option>
-								<option>글제목</option>
-								<option>날짜</option>
-							</select> <input type="text">
-							<button>검색</button>
-						</div>
+						
 						<div class="fh5co-spacer fh5co-spacer-sm"></div>
 						<div id="tabs-1">
+						
+						<div align="center">
+						<input type="date" id="noticestartDate"> <input type="date"
+							id="noticeendDate">
+							<select name="noticeSerch" id="noticeSerch">
+								<option value="0">검색조건</option>
+								<option value="1">닉네임</option>
+								<option value="2">글제목</option>
+							</select> 
+							<input type="text" id="noticeSerchKeyword">
+							<button id="noticeSerchBtn">검색</button>
+							<button id="noticeResetBtn">검색초기화</button>
+						</div>
+						
 							<table id="noticeTable" style="width: 100%;">
 								<tr>
 									<th>등록일</th>
@@ -735,6 +898,12 @@ $(document).on('click','#reportinsert',function(){
 								</tr>
 
 
+							</table>
+							<table id="noticePage" style="width: 100%;">
+								<tr>
+								<th>
+								</th>
+								</tr>
 							</table>
 							<c:choose>
 
@@ -750,6 +919,20 @@ $(document).on('click','#reportinsert',function(){
 							</c:choose>
 						</div>
 						<div id="tabs-2">
+						
+						<div align="center">
+						<input type="date" id="qnastartDate"> <input type="date"
+							id="qnaendDate">
+							<select name="qnaSerch" id="qnaSerch">
+								<option value="0">검색조건</option>
+								<option value="1">닉네임</option>
+								<option value="2">글제목</option>
+							</select> 
+							<input type="text" id="qnaSerchKeyword">
+							<button id="qnaSerchBtn">검색</button>
+							<button id="qnaResetBtn">검색초기화</button>
+						</div>
+						
 							<table id="qnaTable" style="width: 100%;">
 								<tr>
 									<th>등록일</th>
