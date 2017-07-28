@@ -57,20 +57,7 @@
     <id>tag:spring.io,2017-07-27:2991</id>
     <updated>2017-07-27T09:15:00Z</updated>
     <content type="html">&lt;p&gt;On behalf of the team, I am pleased to announce that Spring Boot 1.5.6 has been released and is available now from &lt;a href="http://repo.spring.io/release"&gt;repo.spring.io&lt;/a&gt; and &lt;a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.springframework.boot%22"&gt;Maven Central&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Spring Boot 1.5.6 fixes a &lt;a href="https://github.com/spring-projects/spring-boot/issues/9871"&gt;problem with Spring Data&amp;rsquo;s dependency management&lt;/a&gt; that was introduced in 1.5.5. Sorry for the inconvenience.&lt;/p&gt;&lt;h3&gt;&lt;a href="#gradle-plugin" class="anchor" name="gradle-plugin"&gt;&lt;/a&gt;Gradle plugin&lt;/h3&gt;
-&lt;p&gt;Regrettably, due to some infrastructure problems, the Gradle Plugin for 1.5.6.RELEASE is not available from the Gradle Plugin Portal at this time. It is, as usual, available from Maven Central:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="prettyprint"&gt;buildscript {&#xD;
-  repositories {&#xD;
-    mavenCentral()&#xD;
-  }&#xD;
-  dependencies {&#xD;
-    classpath &amp;quot;org.springframework.boot:spring-boot-gradle-plugin:1.5.6.RELEASE&amp;quot;&#xD;
-  }&#xD;
-}&#xD;
-&#xD;
-apply plugin: &amp;quot;org.springframework.boot&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We are working with the Gradle team to resolve the problem.&lt;/p&gt;&lt;h3&gt;&lt;a href="#what-rsquo-s-next" class="anchor" name="what-rsquo-s-next"&gt;&lt;/a&gt;What&amp;rsquo;s next?&lt;/h3&gt;
+&lt;p&gt;Spring Boot 1.5.6 fixes a &lt;a href="https://github.com/spring-projects/spring-boot/issues/9871"&gt;problem with Spring Data&amp;rsquo;s dependency management&lt;/a&gt; that was introduced in 1.5.5. Sorry for the inconvenience.&lt;/p&gt;&lt;h3&gt;&lt;a href="#what-rsquo-s-next" class="anchor" name="what-rsquo-s-next"&gt;&lt;/a&gt;What&amp;rsquo;s next?&lt;/h3&gt;
 &lt;p&gt;After the &lt;a href="https://spring.io/blog/2017/07/24/spring-framework-5-0-rc3-on-the-way-to-ga"&gt;recent release of Spring Framework 5.0 RC3&lt;/a&gt; and the flurry of other releases that followed, Spring Boot 2.0 M3 &lt;a href="https://spring.io/blog/2017/07/26/spring-boot-2-0-0-m3-available-now"&gt;has just been released&lt;/a&gt;. If you want to take an early look at Spring Boot 2, and we¡¯d love to hear your feedback if you do, please go to &lt;a href="https://start.spring.io"&gt;start.spring.io&lt;/a&gt; and select Spring Boot &lt;code&gt;2.0.0.M3&lt;/code&gt; or &lt;code&gt;2.0.0.BUILD-SNAPSHOT&lt;/code&gt;.&lt;/p&gt;&lt;h3&gt;&lt;a href="#how-can-you-help" class="anchor" name="how-can-you-help"&gt;&lt;/a&gt;How can you help?&lt;/h3&gt;
 &lt;p&gt;If you&amp;rsquo;re interested in helping out, check out the &lt;a href="https://github.com/spring-projects/spring-boot/labels/status%3A%20ideal-for-contribution"&gt;&amp;ldquo;ideal for contribution&amp;rdquo; tag&lt;/a&gt; in the issue repository. If you have general questions, please ask on &lt;a href="http://stackoverflow.com"&gt;stackoverflow.com&lt;/a&gt; using the &lt;a href="http://stackoverflow.com/tags/spring-boot"&gt;&lt;code&gt;spring-boot&lt;/code&gt; tag&lt;/a&gt; or chat with the community on &lt;a href="https://gitter.im/spring-projects/spring-boot"&gt;Gitter&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://projects.spring.io/spring-boot/"&gt;Project Page&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-boot"&gt;GitHub&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-boot/issues"&gt;Issues&lt;/a&gt; | &lt;a href="http://docs.spring.io/spring-boot/docs/1.5.6.RELEASE/reference/htmlsingle"&gt;Documentation&lt;/a&gt; | &lt;a href="http://stackoverflow.com/questions/tagged/spring-boot"&gt;Stack Overflow&lt;/a&gt; | &lt;a href="https://gitter.im/spring-projects/spring-boot"&gt;Gitter&lt;/a&gt;&lt;/p&gt;</content>
