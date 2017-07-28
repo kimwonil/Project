@@ -53,7 +53,23 @@ text-decoration: none;
   $( function() {
     $( "#tabs" ).tabs();
   } );
+  
+  function selectUserReview(){
+	  $.ajax({
+		  url : "selectUserReview.do",
+		  type : "post",
+		  data : $('#boardNo'),
+		  dataType : "json",
+		  success : function(data){
+			  alert(data.date);
+		  },error : function(){
+			  alert("실패");
+		  }
+	  });//ajax 끝
+	  
+  }
 </script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -99,6 +115,13 @@ $(document).ready(function(){
 			$('#map').append('<h5>전지역 가능</h5>');
       	}//error 끝
 	});//ajax끝
+	
+	
+	//사용자리뷰 탭 내용 뿌리기(star_point)
+	$(document).on('click', '#selectUserReview', function(){
+		selectUserReview();
+	})
+	
 	
 	
 	//글수정 가기 전에 state확인
@@ -275,6 +298,7 @@ $(document).ready(function(){
 		}
 	});
 	
+	
 
 	
 })
@@ -379,7 +403,7 @@ function totalPrice(){
 						  <ul>
 						    <li><a href="#tabs-1">상세정보</a></li>
 						    <li><a href="#tabs-2">주문시 유의사항</a></li>
-						    <li><a href="#tabs-3">사용자 리뷰</a></li>
+						    <li><a href="#tabs-3" id="selectUserReview">사용자 리뷰</a></li>
 						  </ul>
 						  <div id="tabs-1">
 						    <div>${board.content}</div>
