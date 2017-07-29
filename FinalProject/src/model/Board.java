@@ -9,9 +9,10 @@ public class Board {
 	private String title;
 	private String writer;
 	private String content;
-	private Date date;
+	private String date;
 	private String end_date;
-	private int limit;
+	private int count;
+	private int quantity;
 	private int state;
 	private int price;
 	private int optionprice;
@@ -19,10 +20,62 @@ public class Board {
 	private int premium;
 	private int total_star;
 	private int num_evaluator;
+	private float rating;
+	private String file_name1;
+	
+	
+	public void rating(){
+		if(total_star != 0 && num_evaluator != 0){
+			this.rating = (float)total_star / (float)num_evaluator *25;
+		}else{
+			this.rating = 0;
+		}
+	}
 	
 	
 	
-	
+	public float getRating() {
+		return rating;
+	}
+
+
+
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+
+
+
+
+	public String getFile_name1() {
+		return file_name1;
+	}
+
+
+
+
+	public void setFile_name1(String file_name1) {
+		this.file_name1 = file_name1;
+	}
+
+
+
+
+	public int getCount() {
+		return count;
+	}
+
+
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+
+
+
 	public Board() {
 		super();
 	}
@@ -30,8 +83,8 @@ public class Board {
 	
 	
 
-	public Board(int no, int category_major, int category_minor, String title, String writer, String content, Date date,
-			String end_date, int limit, int state, int price, int optionprice, int read_count, int premium,
+	public Board(int no, int category_major, int category_minor, String title, String writer, String content, String date,
+			String end_date, int quantity, int state, int price, int optionprice, int read_count, int premium,
 			int total_star, int num_evaluator) {
 		super();
 		this.no = no;
@@ -42,7 +95,7 @@ public class Board {
 		this.content = content;
 		this.date = date;
 		this.end_date = end_date;
-		this.limit = limit;
+		this.quantity = quantity;
 		this.state = state;
 		this.price = price;
 		this.optionprice = optionprice;
@@ -115,12 +168,12 @@ public class Board {
 	}
 
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -135,13 +188,13 @@ public class Board {
 	}
 
 
-	public int getLimit() {
-		return limit;
+	public int getQuantity() {
+		return quantity;
 	}
 
 
-	public void setLimit(int limit) {
-		this.limit = limit;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 
@@ -215,14 +268,20 @@ public class Board {
 	}
 
 
+
+
 	@Override
 	public String toString() {
 		return "Board [no=" + no + ", category_major=" + category_major + ", category_minor=" + category_minor
 				+ ", title=" + title + ", writer=" + writer + ", content=" + content + ", date=" + date + ", end_date="
-				+ end_date + ", limit=" + limit + ", state=" + state + ", price=" + price + ", optionprice="
-				+ optionprice + ", read_count=" + read_count + ", premium=" + premium + ", total_star=" + total_star
-				+ ", num_evaluator=" + num_evaluator + "]";
+				+ end_date + ", count=" + count + ", quantity=" + quantity + ", state=" + state + ", price=" + price
+				+ ", optionprice=" + optionprice + ", read_count=" + read_count + ", premium=" + premium
+				+ ", total_star=" + total_star + ", num_evaluator=" + num_evaluator + ", file_name1=" + file_name1
+				+ "]";
 	}
+
+
+
 	
 	
 	

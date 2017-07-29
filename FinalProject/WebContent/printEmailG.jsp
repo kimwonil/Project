@@ -18,7 +18,7 @@
 
 <br>
 
-    <!-- Container with the Sign-In button. -->
+<!-- 버튼 -->
     <div id="gConnect" class="button">
       <button class="g-signin"
           data-scope="email"
@@ -33,6 +33,8 @@
   /**
    * Handler for the signin callback triggered after the user selects an account.
    */
+   //콜백시 무슨 행동을 할 것인가?
+
   function onSignInCallback(resp) {
     gapi.client.load('plus', 'v1', apiClientLoaded);
   }
@@ -40,6 +42,8 @@
   /**
    * Sets up an API call after the Google API client loads.
    */
+   //handleEmailResopnse로 가져온 이메일 주소를 가져오는 기능(콜백함수에서 호출하는 그 기능) 
+
   function apiClientLoaded() {
     gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
   }
@@ -49,7 +53,8 @@
    *
    * @param resp The API response object with the user email and profile information.
    */
-
+   
+ //이메일 값을 받아서 출력하는 함수
   function handleEmailResponse(resp) {
     var primaryEmail;	
    for (var i=0; i < resp.emails.length; i++) {

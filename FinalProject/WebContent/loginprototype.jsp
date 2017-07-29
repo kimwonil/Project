@@ -19,7 +19,7 @@
 <meta name="google-signin-client_id" content="427985089734-bhj7cddethlpgqgm0jqgh7i7071en55t.apps.googleusercontent.com"></meta>
 
 
-<title>아이디 버튼 통합 테스트 0001</title>
+<title>이메일 주소로 로그인</title>
 
 
 </head>
@@ -27,6 +27,10 @@
 
 <!--                        Login - Naver                         -->
 
+<!-- 네이버 로그인에 한해 로그인 작업을 끝내면
+http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후 
+해당 페이지에서 이메일주소가 출력됨
+-->
 <!-- 네이버 아이디로 로그인 버튼 -->
 <div id="naver_id_login"></div>
 <!-- 네이버 아이디로 로그인 버튼 -->
@@ -57,8 +61,8 @@
 
 <!--                        Login - Kakao                         -->
 
-<!-- 해당 kakaologin은 토큰값을 반환하고 있음.
-이메일 주소 등의 개인정보를 출력하는 printEmailK.jsp에서 확인할것 -->
+<!-- 해당 주석처리된 코드는 kakao 로그인 성공시 토큰값을 반환하고 있음.-->
+<!-- 
 <a id="custom-login-btn" href="javascript:loginWithKakao()">
 <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
 </a>
@@ -82,6 +86,44 @@
     };
   //]]>
 </script>
+ -->
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<!-- 카카오 로그인 버튼 -->
+<a id="kakao-login-btn"></a>
+<!-- 카카오 로그인 버튼 -->
+<script type='text/javascript'>
+
+    // 사용할 앱의 JavaScript 키를 설정 : kakao developer 에서 설정
+    Kakao.init('13308cd14b4fa75d3ba8015f7fff2604');
+    // 카카오 아이디로 로그인 버튼 생성시 호출되는 기능
+    Kakao.Auth.createLoginButton({
+      container: '#kakao-login-btn',
+      success: function(authObj) {
+        // 로그인 성공시 API 호출 - /v1/user/me : 개인정보 호출(kakaodeveloper 제공)
+        Kakao.API.request({
+          url: '/v1/user/me',
+          success: function(res) {
+            // 호출된 개인정보 중 이메일주소만 EmailK에 출력 
+    		$('#EmailK').append(JSON.stringify(res.kaccount_email));
+          },
+          fail: function(error) {
+            alert(JSON.stringify(error));
+          }
+        });
+      },
+      fail: function(err) {
+        alert(JSON.stringify(err));
+      }
+    });
+    
+</script>
+
+카카오 이메일 : <div id=EmailK></div><br>
+
 
 <!--                        Login - Kakao                         -->
 
@@ -99,13 +141,13 @@
           data-cookiepolicy="single_host_origin">
       </button>
     </div>
-
+<!-- 구글 로그인 버튼 -->
   <script>
   /**
    * Handler for the signin callback triggered after the user selects an account.
    */
    
-   //콜백시 무슨 행동을 할 것인가?
+   //콜백시 무슨 행동을 할 것인가? -> 정보 불러오기
   function onSignInCallback(resp) {
     gapi.client.load('plus', 'v1', apiClientLoaded);
   }
@@ -139,8 +181,6 @@
   </script>
 
 Google 이메일 : <div id="EmailG"> </div>
-
-<br>
 
 <!--                        Login - Google                         -->
 

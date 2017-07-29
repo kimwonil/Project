@@ -21,18 +21,19 @@
 <a id="kakao-login-btn"></a>
 <script type='text/javascript'>
   //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    // 사용할 앱의 JavaScript 키를 설정 : kakao developer 에서 설정
     Kakao.init('13308cd14b4fa75d3ba8015f7fff2604');
-    // 카카오 로그인 버튼을 생성합니다.
+    // 버튼 생성
     Kakao.Auth.createLoginButton({
       container: '#kakao-login-btn',
       success: function(authObj) {
-        // 로그인 성공시, API를 호출합니다.
+        // 로그인 성공시 API 호출 - /v1/user/me : 개인정보 호출(kakaodeveloper 제공)
         Kakao.API.request({
           url: '/v1/user/me',
           success: function(res) {
             alert(JSON.stringify(res));
-    		$('#EmailK').append(JSON.stringify(res));
+            //EmailK에 호출한 개인정보 출력 
+    		$('#EmailK').append(JSON.stringify(res.kaccount_email));
           },
           fail: function(error) {
             alert(JSON.stringify(error));

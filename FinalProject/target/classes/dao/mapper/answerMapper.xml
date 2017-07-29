@@ -15,5 +15,9 @@
   <update id="updateAnswer" parameterType="java.util.HashMap">
   	update answer set content=#{content} where qna_no=#{qna_no}
   </update>
+  
+  <delete id="deleteAnswer" parameterType="int">
+  	delete from answer where qna_no=#{no}
+  </delete>
   </mapper>
  

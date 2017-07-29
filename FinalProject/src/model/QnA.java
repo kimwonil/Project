@@ -4,23 +4,33 @@ import java.util.Date;
 
 public class QnA {
 	private int no;
-	private Date date;
+	private String date;
 	private int category_no;
 	private String title;
 	private int state;
 	private int read_count;
 	private String content;
 	private String writer;
+	private int open;
+	
+	
+	public int getOpen() {
+		return open;
+	}
+	public void setOpen(int open) {
+		this.open = open;
+	}
 	public int getNo() {
 		return no;
 	}
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public Date getDate() {
+	
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public int getCategory_no() {
@@ -62,8 +72,10 @@ public class QnA {
 	@Override
 	public String toString() {
 		return "QnA [no=" + no + ", date=" + date + ", category_no=" + category_no + ", title=" + title + ", state="
-				+ state + ", read_count=" + read_count + ", content=" + content + ", writer=" + writer + "]";
+				+ state + ", read_count=" + read_count + ", content=" + content + ", writer=" + writer + ", open="
+				+ open + "]";
 	}
+	
 	
 	
 }

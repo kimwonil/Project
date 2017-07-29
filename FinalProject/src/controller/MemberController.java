@@ -37,15 +37,20 @@ public class MemberController {
 	
 	Gson gson = new Gson();
 	
+	/**
+	 * 프로필 조회
+	 * */
 	@RequestMapping("profile.do")
 	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
-		ModelAndView mv = new ModelAndView("profile");
+		ModelAndView mv = new ModelAndView("member/profile");
 		session.setAttribute("member", memberService.selectOne(id));
 		
 		return mv;
 	}
 	
-	
+	/**
+	 * 프로필 사진 수정
+	 * */
 	@RequestMapping("profileUpdate.do")
 	public String profileUpdate(FileUpload file, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
@@ -74,11 +79,24 @@ public class MemberController {
 		
 		
 		
-		return "profile";
+		return "member/profile";
+	}
+	
+	@RequestMapping("cashPage.do")
+	public String cashPage() {
+		return "member/cash";
+	}
+	
+	@RequestMapping("cashManager.do")
+	public String cashManager() {
+		return "member/cashManager";
 	}
 	
 	
 	
+	/**
+	 * 캐시 화면
+	 * */
 	@RequestMapping("cash.do")
 	public void refillCash(HttpServletRequest request, HttpServletResponse response) {
 //		ModelAndView mv = new ModelAndView("cash");
@@ -108,7 +126,9 @@ public class MemberController {
 		}
 	}
 	
-	
+	/**
+	 * 캐시 충전 내역 조회
+	 * */
 	@RequestMapping("cashList.do")
 	public void cashList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -129,7 +149,9 @@ public class MemberController {
 	}
 	
 	
-	
+	/**
+	 * 환전 화면
+	 * */
 	@RequestMapping("exchange.do")
 	public void exchange(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		Member member = (Member)session.getAttribute("member");
@@ -161,7 +183,9 @@ public class MemberController {
 		
 	}
 	
-	
+	/**
+	 * 캐시 환전 내역 조회
+	 * */
 	@RequestMapping("exchangeList.do")
 	public void exchangeList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -181,6 +205,9 @@ public class MemberController {
 		
 	}
 	
+	/**
+	 * 캐시 환전 관리자
+	 * */
 	@RequestMapping("exchangeManager.do")
 	public void exchangeManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int no = Integer.parseInt(request.getParameter("no"));
@@ -211,7 +238,18 @@ public class MemberController {
 		}
 	}
 	
+	/**
+	 * 쪽지 화면
+	 * */
+	@RequestMapping("message.do")
+	public String message() {
+		return "member/message";
+	}
 	
+	
+	/**
+	 * 쪽지 리스트 조회
+	 * */
 	@RequestMapping("messageList.do")
 	public void message(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -230,6 +268,10 @@ public class MemberController {
 		}
 	}
 	
+	
+	/**
+	 * 쪽찌 상세 보기
+	 * */
 	@RequestMapping("messageDetail.do")
 	public void messageDetail(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -247,6 +289,9 @@ public class MemberController {
 		}
 	}
 	
+	/**
+	 * 쪽지 보내기
+	 * */
 	@RequestMapping("messageSend.do")
 	public void messageSend(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String title = request.getParameter("title");
@@ -259,7 +304,17 @@ public class MemberController {
 		memberService.messageSend(message);
 	}
 	
+	/**
+	 * 회원관리 화면
+	 * */
+	@RequestMapping("memberManager.do")
+	public String memeberManager() {
+		return "member/memberList";
+	}
 	
+	/**
+	 * 회원 리스트 조회
+	 * */
 	@RequestMapping("memberList.do")
 	public void memberList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -274,9 +329,11 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
+	/**
+	 * 회원 상세 보기
+	 * */
 	@RequestMapping("memberUpdateForm.do")
 	public void memberUpdateForm(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -297,6 +354,9 @@ public class MemberController {
 	}
 	
 	
+	/**
+	 * 회원 정보 수정
+	 * */
 	@RequestMapping("memberUpdate.do")
 	public void memberUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
@@ -311,7 +371,9 @@ public class MemberController {
 		
 	}
 	
-	
+	/**
+	 * 회원 삭제
+	 * */
 	@RequestMapping("memberDelete.do")
 	public void memberDelete(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
@@ -335,6 +397,26 @@ public class MemberController {
 		
 	}
 	
+	/**
+	 * 권한 신청 화면
+	 * */
+	@RequestMapping("authority.do")
+	public String authority() {
+		return "member/authority";
+	}
+	
+	/**
+	 * 권한 신청 관리자 화면
+	 * */
+	@RequestMapping("authorityManagerPage.do")
+	public String authorityManagerPage() {
+		return "member/authorityManager";
+	}
+	
+	
+	/**
+	 * 권한 신청 등록
+	 * */
 	@RequestMapping("authorityReg.do")
 	public String authorityReg(FileUpload files, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
@@ -413,11 +495,13 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
-		return "authority";
+		return "member/authority";
 		
 	}
 
-	
+	/**
+	 * 권한 신청 현황 조회
+	 * */
 	@RequestMapping("authorityList.do")
 	public void authorityList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String id = ((Member)session.getAttribute("member")).getId();
@@ -435,13 +519,18 @@ public class MemberController {
 	
 	}
 	
-	
+	/**
+	 * 권한 신청 삭제
+	 * */
 	@RequestMapping("authorityDelete.do")
 	public void authorityDelete(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int no = Integer.parseInt(request.getParameter("no"));
 		memberService.authorityDelete(no);
 	}
 	
+	/**
+	 * 권한 신청 관리자 화면
+	 * */
 	@RequestMapping("authorityManager.do")
 	public void authorityManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -461,6 +550,9 @@ public class MemberController {
 		
 	}
 	
+	/**
+	 * 권한 신청 상태 변환
+	 * */
 	@RequestMapping("authorityUpdate.do")
 	public void authorityUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
@@ -473,6 +565,9 @@ public class MemberController {
 		memberService.authorityUpdate(params);
 	}
 	
+	/**
+	 * 권한 신청 상세 보기
+	 * */
 	@RequestMapping("authorityDetail.do")
 	public void authorityDetail(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -489,6 +584,9 @@ public class MemberController {
 		}
 	}
 	
+	/**
+	 * 파일 다운로드(권한 신청)
+	 * */
 	@RequestMapping("download.do")
 	public ModelAndView downLoad(HttpServletRequest request, String no, String name, HttpSession session){
 		String path = session.getServletContext().getRealPath("/authority");

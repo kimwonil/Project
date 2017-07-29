@@ -6,7 +6,7 @@
   <mapper namespace="dao.QnADao">
  
  <insert id="insertQnA" parameterType="java.util.HashMap">
- 	insert into qna values(0,sysdate(),#{category_no},#{title},0,0,#{content},#{writer})
+ 	insert into qna values(0,sysdate(),#{category_no},#{title},0,0,#{content},#{writer},#{open})
  </insert>
  
   <select id="selectAllQnA" resultType="QnA">
@@ -18,7 +18,7 @@
  </select>
  
  	<update id="updateQnA" parameterType="java.util.HashMap">
- 	update qna set title=#{title},content=#{content},category_no=#{category_no} where no= #{no}
+ 	update qna set title=#{title},content=#{content},category_no=#{category_no},open=#{open} where no= #{no}
  </update>
  
   <update id="updateQnACount" parameterType="java.util.HashMap">

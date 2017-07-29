@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import dao.BoardDao;
 import model.Board;
+import model.Category;
 import model.File;
 import model.FileUpload;
 import model.MapInfo;
+import model.Purchase;
 
 @Service
 public class BoardService {
@@ -37,8 +39,20 @@ public class BoardService {
 		return boardDao.selectOneBoard(no);
 	}
 	
-	public List<Board>selectAllBoard(){
-		return boardDao.selectAllBoard();
+	public List<Board>selectAllPremiumBoard(){
+		return boardDao.selectAllPremiumBoard();
+	}
+	
+	public List<Board>selectAllNormalBoard(){
+		return boardDao.selectAllNormalBoard();
+	}
+	
+	public boolean reduceQuantity(HashMap<String, Object> params) {
+		return boardDao.reduceQuantity(params);
+	}
+	
+	public void updateStar(HashMap<String, Object> boardMap) {
+		boardDao.updateStar(boardMap);
 	}
 	
 	
@@ -81,12 +95,20 @@ public class BoardService {
 		return boardDao.selectOneFromFile(no);
 	}
 	
+	public String selectThumbnail(int no){
+		return boardDao.selectThumbnail(no);
+	}//글번호로 해당글의 썸네일들만 가져와서 메인에 같이 뿌릴거야
+	
 	
 	/**
 	 * table명 : board_option
 	 * */
 	public boolean insertBoard_option(HashMap<String, Object> board_option) {
 		return boardDao.insertBoard_option(board_option);
+	}
+
+	public void deleteBoard_option(int no) {
+		boardDao.deleteBoard_option(no);
 	}
 
 	public List<HashMap<String, Object>> selectBoard_option(int no) {
@@ -98,5 +120,46 @@ public class BoardService {
 	public HashMap<String, Object> selectKind(HashMap<String, Object> params){
 		return boardDao.selectKind(params);
 	}
+
+	
+	/**
+	 * table명 : interest
+	 * */
+	public boolean insertInterest(HashMap<String, Object> params) {
+		return boardDao.insertInterest(params);
+	}
+
+	public HashMap<String, Object> selectOneInterest(HashMap<String, Object> params) {
+		return boardDao.selectOneInterest(params);
+	}
+
+	public List<HashMap<String, Object>> selectAllDips(String id) {
+		return boardDao.selectAllDips(id);
+	}
+
+	
+
+	/**
+	 * table명 : star_point
+	 * */
+	public List<HashMap<String, Object>> selectUserReview(int no){
+		return boardDao.selectUserReview(no);
+	}
+	
+	
+	/**
+	 * 카테고리 조회(대분류)
+	 * */
+	public List<Category> category() {
+		return boardDao.category();
+	}
+
+	public List<Category> categoryLow(int high_no) {
+		return boardDao.categoryLow(high_no);
+	}
+	
+
+	
+
 
 }
