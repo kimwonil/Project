@@ -645,6 +645,7 @@ public class BoardController{
 		
 		//판매자 검색
 		
+		
 		//글검색(제목 + 내용, 최신순)
 		
 		return mav;
