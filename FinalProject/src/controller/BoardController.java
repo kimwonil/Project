@@ -638,15 +638,15 @@ public class BoardController{
 	 * 검색
 	 * */
 	@RequestMapping("search.do")
-	public ModelAndView search(HttpServletRequest req, HttpServletResponse resp){
+	public ModelAndView search(String word, HttpServletRequest req, HttpServletResponse resp){
 		System.out.println("search.do");
 		System.out.println(req.getParameter("word"));
 		ModelAndView mav = new ModelAndView();
 		
 		//판매자 검색
 		
-		
-		//글검색(제목 + 내용, 최신순)
+		//글검색(제목 + 내용으로 쿼리만들고  최신순, 카테고리 버튼 만들기)
+		boardService.selectSearchResult(word);
 		
 		return mav;
 	}
