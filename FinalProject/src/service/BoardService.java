@@ -47,9 +47,9 @@ public class BoardService {
 		return boardDao.selectAllNormalBoard();
 	}
 	
-	public boolean reduceQuantity(HashMap<String, Object> params) {
-		return boardDao.reduceQuantity(params);
-	}
+//	public boolean reduceQuantity(HashMap<String, Object> params) {
+//		return boardDao.reduceQuantity(params);
+//	}
 	
 	public void updateStar(HashMap<String, Object> boardMap) {
 		boardDao.updateStar(boardMap);
@@ -59,6 +59,10 @@ public class BoardService {
 		boardDao.udpateBoardRead_count(no);
 	}
 	
+	public List<Board> selectSearchResult(String word) {
+		return boardDao.selectSearchResult(word);
+	}
+
 	
 	/**
 	 * table명 : map
@@ -161,6 +165,7 @@ public class BoardService {
 	public List<Category> categoryLow(int high_no) {
 		return boardDao.categoryLow(high_no);
 	}
+
 
 	
 
