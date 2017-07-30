@@ -16,7 +16,7 @@ public interface MemberDao {
 	public int memberDelete(String id);
 	public int refillCash(Member member);
 	public int cashRecord(Member member);
-	public List<CashRecord> cashList(String id);
+	public List<CashRecord> cashList(HashMap<String, Object> map);
 	public int exchange(HashMap<String, Object> map);
 	public int changeBalance(HashMap<String, Object> map);
 	public List<Exchange> exchangeList(String id);

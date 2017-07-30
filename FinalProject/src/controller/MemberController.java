@@ -133,12 +133,17 @@ public class MemberController {
 	public void cashList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		Member member = (Member)session.getAttribute("member");
-		String id = member.getId();
+		int page = Integer.parseInt(request.getParameter("page").toString());
+		String id = ((Member)session.getAttribute("member")).getId();
 //		Gson gson = new Gson();
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("page", page);
 		try {
 			PrintWriter printWriter = response.getWriter();
-			List<CashRecord> list = memberService.cashList(id);
+			
+			List<CashRecord> list = memberService.cashList(map);
+			
 			String json = gson.toJson(list);
 			printWriter.write(json);
 		} catch (IOException e) {

@@ -29,8 +29,8 @@
 	insert into cash values(0, #{id}, sysdate(), #{amount}, #{balance}, #{code}, 1)
  </insert>
  
- <select id="cashList" parameterType="String" resultType="CashRecord">
- 	select * from cash where id=#{id}
+ <select id="cashList" parameterType="java.util.HashMap" resultType="CashRecord">
+ 	select * from cash where id=#{id} order by no limit #{page}, 10
  </select>
  
  <insert id="exchange" parameterType="java.util.HashMap">
