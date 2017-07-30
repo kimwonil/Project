@@ -372,6 +372,7 @@ function totalPrice(){
 							<button id="modify" value="${board.state}">글수정</button><br>
 							등록일 : ${board.date}<br>
 							마감일 : ${board.end_date}<br>
+							조회수 : ${board.read_count} <br>
 							인원 또는 건수 : ${board.count}/${board.quantity}<br>
 
 							<table>

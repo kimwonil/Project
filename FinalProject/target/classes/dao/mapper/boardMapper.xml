@@ -44,6 +44,10 @@
  	update board set total_star=total_star+#{star}, num_evaluator=num_evaluator+1 where no=#{board_no}
  </update>
  
+ <update id="udpateBoardRead_count" parameterType="java.util.HashMap" >
+ 	update board set read_count = read_count+1 where no=#{no}
+ </update>
+ 
  
 <!--  table명 : map -->
  <insert id="insertMap" parameterType="java.util.HashMap">

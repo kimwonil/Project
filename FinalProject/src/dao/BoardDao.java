@@ -20,6 +20,7 @@ public interface BoardDao {
 	public List<Board> selectAllNormalBoard();//일반글 전체 select
 	public boolean reduceQuantity(HashMap<String, Object> params);
 	public void updateStar(HashMap<String, Object> boardMap);
+	public void udpateBoardRead_count(int no);
 	
 	//테이블명 : map
 	public boolean insertMap(HashMap<String, Object> params);

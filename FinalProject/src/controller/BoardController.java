@@ -287,9 +287,12 @@ public class BoardController{
 		System.out.println("detailOneBoard.do들어옴");
 		int no = Integer.parseInt(req.getParameter("no"));
 		
+		//조회수 올리기
+		boardService.udpateBoardRead_count(no);
+				
 		//board 테이블에서 가져온 정보
-		ModelAndView mav = new ModelAndView();
 		Board board = boardService.selectOneBoard(no);
+		ModelAndView mav = new ModelAndView();
 		board.setCount(dealService.purchaseCount(no));
 		board.rating();
 		

@@ -55,6 +55,10 @@ public class BoardService {
 		boardDao.updateStar(boardMap);
 	}
 	
+	public void udpateBoardRead_count(int no) {
+		boardDao.udpateBoardRead_count(no);
+	}
+	
 	
 	/**
 	 * table명 : map
@@ -157,6 +161,7 @@ public class BoardService {
 	public List<Category> categoryLow(int high_no) {
 		return boardDao.categoryLow(high_no);
 	}
+
 	
 
 	
