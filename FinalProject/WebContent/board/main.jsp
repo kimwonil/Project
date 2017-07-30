@@ -22,6 +22,17 @@
 	}
 </style>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#searchInput').on('keydown', function(key){
+		if(key.key.Code == 13){
+			alert('엔터');
+		}
+	});
+	
+});
+</script>
+
 <body>
 <div id="fh5co-main">
 	<div class="container">
