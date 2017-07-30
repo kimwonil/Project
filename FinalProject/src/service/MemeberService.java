@@ -44,9 +44,9 @@ public class MemeberService {
 		return memberDao.cashRecord(member);
 	}
 	
-	public List<CashRecord> cashList(String id){
+	public List<CashRecord> cashList(HashMap<String, Object> map){
 		
-		return memberDao.cashList(id);
+		return memberDao.cashList(map);
 	}
 	
 	public int exchange(HashMap<String, Object> map){

@@ -88,6 +88,9 @@
 			$.ajax({
 				url:"cashList.do",
 				type:"POST",
+				data:{
+					page:0
+				},
 				dataType:"json",
 				success:function(data){
 // 					console.log(data);
