@@ -592,11 +592,6 @@ public class BoardController{
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
 		System.out.println("thisIsAllMine.do");
-		System.out.println(no);
-		System.out.println(kindArr);
-		System.out.println(priceArr);
-		System.out.println(quantityArr);
-		System.out.println(totalPrice);
 		Member member = (Member)session.getAttribute("member");
 		//1. 세션확인
 		//2. 구매자 포인트 충분한지 확인
@@ -628,10 +623,6 @@ public class BoardController{
 				params.put("id", member.getId());
 				dealService.minusCash(params);
 				
-//				//board quantity에서 제하기
-//				params.put("reduce", Integer.parseInt((quantityArr.get(0)).toString()));//redue가 기본항목 구매량이얌	
-//				params.put("no", no);
-//				boardService.reduceQuantity(params);
 				pw.println("{\"result\" : \"구매성공! 구매관리를 확인하세요\", \"state\" : 1}");
 			}
 			
@@ -639,14 +630,25 @@ public class BoardController{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-
-		
 	}
 	
+	
+	
+	/**
+	 * 검색
+	 * */
+	@RequestMapping("search.do")
+	public ModelAndView search(HttpServletRequest req, HttpServletResponse resp){
+		System.out.println("search.do");
+		System.out.println(req.getParameter("word"));
+		ModelAndView mav = new ModelAndView();
+		
+		//판매자 검색
+		
+		//글검색(제목 + 내용, 최신순)
+		
+		return mav;
+	}
 	
 
 
