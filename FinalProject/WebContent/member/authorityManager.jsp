@@ -15,45 +15,30 @@
 
 $(document).ready(function(){
 
-	function telentList(){
+	function telentList(page){
 		$.ajax({
 			url:"authorityManager.do",
 			type:"POST",
+			data:{
+				page:page
+			},
 			dataType:"json",
 			success:function(data){
-				var filename = "";
-				
-				
-				
-				
 				console.log(data);
 				$('#talentList tr:gt(1)').remove();
-				for(var i=0; i<data.length;i++){
-					if(data[i].file1 != ""){
-						filename = data[i].file1;
-					}
-					if(data[i].file2 != ""){
-						filename += "<br>"+data[i].file2;
-					}
-					if(data[i].file3 != ""){
-						filename += "<br>"+data[i].file3;
-					}
-					
-					
+				$.each(data.list, function(index, value){
 					$('#talentList').append(
-						"<tr height='40px'><td>"+data[i].no+"</td><td>"+
-						data[i].id+"</td><td>"+
-						data[i].category_no+"</td><td>"+
-						data[i].date+"</td><td>"+
-						filename+
-						"</td><td>"+
-						
-						"<button value='"+data[i].no+"' class='btn-sm btn-info detailBtn'>상세보기</button></td><td>"+
-						"<button type='button' value='"+data[i].no+"' class='btn btn-sm btn-info approvalBtn' >승인</button> / <button type='button' value='"+data[i].no+"' class='btn btn-sm btn-danger cancelBtn' >취소</button></td></tr>"
+						"<tr><td>"+value.no+"</td><td>"+
+						value.id+"</td><td>"+
+						value.category_no+"</td><td>"+
+						value.date+"</td><td>"+
+						"<button value='"+value.no+"' class='btn-sm btn-info detailBtn'>상세보기</button></td><td>"+
+						"<button type='button' value='"+value.no+"' class='btn btn-sm btn-info approvalBtn' >승인</button> / <button type='button' value='"+value.no+"' class='btn btn-sm btn-danger cancelBtn' >취소</button></td></tr>"
 					);
-					
-				}
-				
+				});	
+				$('#currentPage').val(data.page);
+				$('.prev').val(data.page==0?0:data.page-10);
+				$('.next').val(data.totalPage-10>data.page?data.page+10:data.page);
 			},
 			error:function(){
 				alert("실패");
@@ -61,7 +46,12 @@ $(document).ready(function(){
 		});
 	}
 	
-	telentList();
+	telentList(0);
+	
+	$('#btnDiv button').click(function(){
+		telentList($(this).val());
+	});
+	
 	
 	$(document).on('click','.approvalBtn', function(){
 		$.ajax({
@@ -72,7 +62,7 @@ $(document).ready(function(){
 				state:2
 			},
 			success:function(){
-				telentList();
+				telentList(0);
 			},
 			error:function(){
 				alert("실패");
@@ -90,7 +80,7 @@ $(document).ready(function(){
 				state:3
 			},
 			success:function(){
-				telentList();
+				telentList(0);
 			},
 			error:function(){
 				alert("실패");
@@ -172,7 +162,7 @@ $(document).ready(function(){
 <style>
 	#talentList{
 		border: 1px solid black;
-		width: 900px;
+		width: 750px;
 		text-align: center;
 		margin:10px 0px;
 		
@@ -208,9 +198,19 @@ $(document).ready(function(){
 	ul{
 		text-align: left;
 	}
+	.col-md-8{
+		position: relative;
+		left: 10%;
+	}
+	#btnDiv{
+		text-align:center;
+		position: absolute;
+		top: 95%;
+		left: 55%;
+	}
 	
 	</style>
-	
+	<input type="hidden" id="currentPage" value="">
 	<div id="fh5co-main">
 		<div class="container">
 			<div class="row">
@@ -226,11 +226,14 @@ $(document).ready(function(){
 							<td>아이디</td>
 							<td>재능</td>
 							<td>신청일시</td>
-							<td colspan="2">첨부</td>
+							<td>첨부</td>
 							<td>비고</td>
 						</tr>
 					</table>
 						  
+				</div>
+				<div id="btnDiv">
+					<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 				</div>
         	</div>
        </div>
