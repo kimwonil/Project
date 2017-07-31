@@ -19,7 +19,7 @@ public interface MemberDao {
 	public List<CashRecord> cashList(HashMap<String, Object> map);
 	public int exchange(HashMap<String, Object> map);
 	public int changeBalance(HashMap<String, Object> map);
-	public List<Exchange> exchangeList(String id);
+	public List<Exchange> exchangeList(HashMap<String, Object> map);
 	public int exchangeManager(HashMap<String, Object> map);
 	public List<Message> messageList(String id);
 	public int messageState(int no);
@@ -32,4 +32,10 @@ public interface MemberDao {
 	public int authorityUpdate(HashMap<String, Object> params);
 	public int authorityDelete(int no);
 	public Authority authorityDetail(int no);
+	public int totalPageCash(String id);
+	public int totalPageExchange(String id);
+	public List<CashRecord> allCashList(int page);
+	public int allTotalPageCash();
+	public List<Exchange> allExchangeList(HashMap<String, Object> map);
+	public int allTotalPageExchange();
 }

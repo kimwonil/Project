@@ -62,8 +62,8 @@ public class MemeberService {
 		return memberDao.changeBalance(map);
 	}
 	
-	public List<Exchange> exchangeList(String id) {
-		return memberDao.exchangeList(id);
+	public List<Exchange> exchangeList(HashMap<String, Object> map) {
+		return memberDao.exchangeList(map);
 	}
 	
 	public int exchangeManager(HashMap<String, Object> map) {
@@ -109,6 +109,30 @@ public class MemeberService {
 	
 	public Authority authorityDetail(int no) {
 		return memberDao.authorityDetail(no);
+	}
+
+	public int totalPageCash(String id) {
+		return memberDao.totalPageCash(id);
+	}
+
+	public int totalPageExchange(String id) {
+		return memberDao.totalPageExchange(id);
+	}
+
+	public List<CashRecord> allCashList(int page) {
+		return memberDao.allCashList(page);
+	}
+
+	public int allTotalPageCash() {
+		return memberDao.allTotalPageCash();
+	}
+
+	public List<Exchange> allExchangeList(HashMap<String, Object> map) {
+		return memberDao.allExchangeList(map);
+	}
+
+	public int allTotalPageExchange() {
+		return memberDao.allTotalPageExchange();
 	}
 	
 }

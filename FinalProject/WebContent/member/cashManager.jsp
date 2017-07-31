@@ -16,21 +16,28 @@
 		$("#tabs").tabs();
 	});
 	
-	function cashListManager(){
+	function cashListManager(page){
 		$.ajax({
-			url:"cashList.do",
+			url:"allCashList.do",
 			type:"POST",
+			data:{
+				page:page
+			},
 			dataType:"json",
 			success:function(data){
 					console.log(data);
 				$('#tradeTable tr:gt(0)').remove();
-				for(var i=0;i<data.length;i++){
-				$('#tradeTable').append("<tr><td>"+data[i].date+"</td><td>"
-												+data[i].amount+"</td><td>"
-												+data[i].balance+"</td><td>"
-												+data[i].code+"</td><td>"
-												+(data[i].state==1?"충전":data[i].state==2?"구매":data[i].state==3?"환불":data[i].state==4?"정산대기":"정산완료")+"</td></tr>");
-				}
+				$.each(data.list, function(index, value){
+					$('#tradeTable').append("<tr><td>"+value.date+"</td><td>"
+							+value.amount+"</td><td>"
+							+value.balance+"</td><td>"
+							+value.code+"</td><td>"
+							+(value.state==1?"충전":value.state==2?"구매":value.state==3?"환불":value.state==4?"정산대기":"정산완료")+"</td></tr>");	
+				});
+				$('#currentPage').val(data.page);
+				$('#tabs-1 label').text(data.totalPage);
+				$('.prev').val(data.page==0?0:data.page-10);
+				$('.next').val(data.totalPage-10>data.page?data.page+10:data.page);	
 			},
 			error:function(jqXHR, textStatus, errorThrown){
 				console.log(textStatus);
@@ -40,22 +47,30 @@
 		});
 	}
 	
-	function exchangeListManager(){
+	function allExchangeList(page){
 		$.ajax({
-			url:"exchangeList.do",
+			url:"allExchangeList.do",
 			type:"POST",
-			data:{id:$('#memberId').val()},
+			data:{
+				page:page
+			},
 			dataType:"json",
 			success:function(data){
 //					console.log(data);
 				$('#exchangeTable tr:gt(0)').remove();
-				for(var i=0;i<data.length;i++){
-				$('#exchangeTable').append("<tr><td>"+data[i].date+"</td><td>"
-												+data[i].id+"</td><td>"
-												+data[i].request+"</td><td>"
-												+data[i].balance+"</td><td>"
-												+(data[i].state==1?"<button class='approvalBtn btn btn-info' value='"+data[i].no+"'>승인</button><button class='cancelBtn btn btn-info' value='"+data[i].no+"'>취소</button>":data[i].state==2?"환전완료":"환전취소")+"</td></tr>");
-				}
+				$.each(data.list, function(index, value){
+					$('#exchangeTable').append("<tr><td>"+value.date+"</td><td>"
+							+value.id+"</td><td>"
+							+value.request+"</td><td>"
+							+value.balance+"</td><td>"
+							+(value.state==1?"<button class='approvalBtn btn btn-info' value='"+value.no+"'>승인</button><button class='cancelBtn btn btn-info' value='"+value.no+"'>취소</button>":value.state==2?"환전완료":"환전취소")+"</td></tr>");					
+					
+				});		
+				$('#currentPage').val(data.page);
+				$('#tabs-2 label').text(data.totalPage);
+				$('.prev').val(data.page==0?0:data.page-6);
+				$('.next').val(data.totalPage-6>data.page?data.page+6:data.page);	
+				
 			},
 			error:function(jqXHR, textStatus, errorThrown){
 				console.log(textStatus);
@@ -70,35 +85,46 @@
 		
 		
 		
-		cashListManager();
+		cashListManager(0);
 		
 		$('#cashList').click(function(){
 			
-			cashListManager();
+			cashListManager(0);
 			
 		});//cashList 캐시 내역
 		
+		$('#tabs-1 button').click(function(){
+			cashListManager($(this).val());
+		});
 		
+		$('#tabs-2 button').click(function(){
+			allExchangeList($(this).val());
+		});
 		
 		
 		$('#exchangeList').click(function(){
 			
-			exchangeListManager();
+			allExchangeList(0);
 			
 		});//환전 리스트 클릭
 		
 		
 		$(document).on('click','.approvalBtn',function(){
-			alert("승인 : "+$(this).val());
 			var no = $(this).val();
+			var page = $('#currentPage').val();
+			alert(page);
 			$.ajax({
 				url:"exchangeManager.do",
 				type:"POST",
-				data:{no:no, state:2},
+				data:{
+					no:no, 
+					state:2,
+					page:page
+				},
 				dataType:"json",
 				success:function(data){
 					console.log(data);
-					exchangeListManager();
+					allExchangeList(data.page);
 				},
 				error:function(jqXHR, textStatus, errorThrown){
 					console.log(textStatus);
@@ -111,14 +137,19 @@
 		$(document).on('click','.cancelBtn',function(){
 			alert("취소 : "+$(this).val());
 			var no = $(this).val();
+			var page = $('#currentPage').val();
 			$.ajax({
 				url:"exchangeManager.do",
 				type:"POST",
-				data:{no:no, state:3},
+				data:{
+					no:no, 
+					state:3,
+					page:page
+				},
 				dataType:"json",
 				success:function(data){
 					console.log(data);
-					exchangeListManager();
+					allExchangeList(data.page);
 				},
 				error:function(jqXHR, textStatus, errorThrown){
 					console.log(textStatus);
@@ -169,10 +200,20 @@
 		margin: 10px 10px;
 		padding: 3px;
 	}
+	#tabs-2 div, #tabs-1 div{
+		text-align:center;
+		position: absolute;
+		top: 90%;
+		left: 40%;
+	}
+	#tabs-2, #tabs-1{
+		height: 370px;
+	}
 
 </style>
 </head>
 <body>
+<input type="hidden" id="currentPage" value="">
 
 	
 	<div id="fh5co-main">
@@ -196,6 +237,10 @@
 								</tr>
 								
 							</table>
+							총 <label></label>건
+							<div>
+								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
+							</div>
 						</div>
 						<div id="tabs-2">
 							<table id="exchangeTable">
@@ -207,6 +252,10 @@
 									<td width="20%">상태</td>
 								</tr>
 							</table>
+							총 <label></label>건
+							<div>
+								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
+							</div>
 						</div>
 					</div>
 

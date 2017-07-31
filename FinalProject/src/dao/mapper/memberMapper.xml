@@ -30,7 +30,7 @@
  </insert>
  
  <select id="cashList" parameterType="java.util.HashMap" resultType="CashRecord">
- 	select * from cash where id=#{id} order by no limit #{page}, 10
+ 	select * from cash where id=#{id} order by no desc limit #{page}, 10
  </select>
  
  <insert id="exchange" parameterType="java.util.HashMap">
@@ -41,8 +41,8 @@
  	update profile set balance=#{balance} where id=#{id}
  </update>
  
- <select id="exchangeList" parameterType="String" resultType="Exchange">
- 	select * from exchange where id=#{id}
+ <select id="exchangeList" parameterType="java.util.HashMap" resultType="Exchange">
+ 	select * from exchange where id=#{id} order by no desc limit #{page}, 10
  </select>
  
  <update id="exchangeManager" parameterType="java.util.HashMap">
@@ -100,6 +100,30 @@
  	select * from authority_file where authority_no=#{no}
  </select>
 
+ <select id="totalPageCash" parameterType="String" resultType="int">
+ 	select count(no) from cash where id=#{id}
+ </select>
+
+ <select id="totalPageExchange" parameterType="String" resultType="int">
+ 	select count(no) from exchange where id=#{id}
+ </select>
+
+ <select id="allCashList" parameterType="int" resultType="CashRecord">
+	select * from cash order by no desc limit #{page}, 10 
+ </select>
+ 
+ <select id="allTotalPageCash" resultType="int">
+ 	select count(no) from cash
+ </select>
+ 
+ 
+ <select id="allExchangeList" parameterType="java.util.HashMap" resultType="Exchange">
+ 	select * from exchange order by no desc limit #{page}, 6
+ </select>
+
+ <select id="allTotalPageExchange" resultType="int">
+ 	select count(no) from exchange
+ </select>
  </mapper>
  
  
