@@ -127,6 +127,33 @@ public class MemberController {
 	}
 	
 	/**
+	 * 캐시 관리자 화면
+	 * */
+	@RequestMapping("allCashList.do")
+	public void allCashList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		int page = Integer.parseInt(request.getParameter("page").toString());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("page", page);
+		try {
+			PrintWriter printWriter = response.getWriter();
+			
+			map.put("list", memberService.allCashList(page));
+			map.put("totalPage", memberService.allTotalPageCash());
+			String json = gson.toJson(map);
+			printWriter.write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	
+	/**
 	 * 캐시 충전 내역 조회
 	 * */
 	@RequestMapping("cashList.do")
@@ -135,16 +162,15 @@ public class MemberController {
 		response.setContentType("text/xml;charset=UTF-8");
 		int page = Integer.parseInt(request.getParameter("page").toString());
 		String id = ((Member)session.getAttribute("member")).getId();
-//		Gson gson = new Gson();
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("page", page);
 		try {
 			PrintWriter printWriter = response.getWriter();
 			
-			List<CashRecord> list = memberService.cashList(map);
-			
-			String json = gson.toJson(list);
+			map.put("list", memberService.cashList(map));
+			map.put("totalPage", memberService.totalPageCash(id));
+			String json = gson.toJson(map);
 			printWriter.write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -195,12 +221,18 @@ public class MemberController {
 	public void exchangeList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		Member member = (Member)session.getAttribute("member");
-		List<Exchange> list = memberService.exchangeList(member.getId());
-//		Gson gson = new Gson();
+		int page = Integer.parseInt(request.getParameter("page").toString());
+		String id = ((Member)session.getAttribute("member")).getId();
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("page", page);
+		
 		try {
 			PrintWriter printWriter = response.getWriter();
-			String json = gson.toJson(list);
+			
+			map.put("list", memberService.exchangeList(map));
+			map.put("totalPage", memberService.totalPageExchange(id));
+			String json = gson.toJson(map);
 			printWriter.write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -210,12 +242,42 @@ public class MemberController {
 		
 	}
 	
+	
+	/**
+	 * 전체 캐시 환전 내역 조회
+	 * */
+	@RequestMapping("allExchangeList.do")
+	public void allExchangeList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		int page = Integer.parseInt(request.getParameter("page").toString());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("page", page);
+		
+		try {
+			PrintWriter printWriter = response.getWriter();
+			
+			map.put("list", memberService.allExchangeList(map));
+			map.put("totalPage", memberService.allTotalPageExchange());
+			String json = gson.toJson(map);
+			printWriter.write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	
 	/**
 	 * 캐시 환전 관리자
 	 * */
 	@RequestMapping("exchangeManager.do")
 	public void exchangeManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int no = Integer.parseInt(request.getParameter("no"));
+		int page = Integer.parseInt(request.getParameter("page"));
 		int state=0;
 		if(request.getParameter("state").equals("2")) {
 			state=2;
@@ -223,20 +285,17 @@ public class MemberController {
 			state=3;
 		}
 			
-		System.out.println(no+"//"+state);
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("no", no);
 		map.put("state", state);
+		map.put("page", page);
 		
-		System.out.println(map);
 		
 		try {
-			if(memberService.exchangeManager(map)>=1) {
-				response.getWriter().write("{\"result\":true}");
-			}else {
-				response.getWriter().write("{\"result\":false}");
-			}
+			memberService.exchangeManager(map);
+			String json = gson.toJson(map);
+			response.getWriter().write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
