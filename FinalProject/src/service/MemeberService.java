@@ -27,6 +27,12 @@ public class MemeberService {
 		return memberDao.selectAll();
 	}
 	
+	//추가된 부분
+	public int memberInsert(Member member){
+		return memberDao.memberInsert(member);
+	}
+	//추가된 부분
+	
 	public int memberUpdate(Member member) {
 		return memberDao.memberUpdate(member);
 	}

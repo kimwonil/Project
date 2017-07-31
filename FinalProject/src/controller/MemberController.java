@@ -38,6 +38,56 @@ public class MemberController {
 	Gson gson = new Gson();
 	
 	/**
+	 * 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)
+	 * */
+	////////////////////////
+	
+	@RequestMapping("loginsuccess.do")
+	public void EmailAndNick(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+
+		String id = ((Member) session.getAttribute("member")).getId();
+		String nickname = ((Member) session.getAttribute("member")).getNickName() ;
+
+		//
+		//photo 초기값 = ??
+		//
+		
+		int balance = ((Member) session.getAttribute("member")).getBalance();		
+		int admin = ((Member) session.getAttribute("member")).getAdmin();	
+		String code = ((Member) session.getAttribute("member")).getCode();
+		int amount = ((Member) session.getAttribute("member")).getAmount();
+
+		if(id==null && req.getParameter("EmailK")!=null){
+			id = req.getParameter("EmailK");
+			}
+		else if(id==null && req.getParameter("EmailG")!=null){
+			id = req.getParameter("EmailG");
+			}
+		else if(id==null && req.getParameter("EmailN")!=null){
+			id = req.getParameter("EmailN");
+		}
+
+		if(nickname==null)
+			nickname = id;		
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("id", email);
+		params.put("nickname", nickname);
+		//
+		//photo 초기값 = ??
+		//
+		params.put("balance", balance);
+		params.put("admin", admin);
+		params.put("code",code);
+		params.put("amount",amount);
+		
+		Memeberservice.memberInsert(params);
+	
+	////////////////////////
+	
+	
+	/**
 	 * 프로필 조회
 	 * */
 	@RequestMapping("profile.do")
