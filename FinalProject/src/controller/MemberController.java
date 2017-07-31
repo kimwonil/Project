@@ -77,7 +77,7 @@ public class MemberController {
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		
-		params.put("id", email);
+		params.put("id", id);
 		params.put("nickname", nickname);
 		//
 		//photo 초기값 : ??
