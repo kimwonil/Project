@@ -47,6 +47,7 @@ public class MemberController {
 	 * */
 	////////////////////////
 	
+<<<<<<< HEAD
 //	@RequestMapping("loginsuccess.do")
 //	public void EmailAndNick(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 //
@@ -89,6 +90,50 @@ public class MemberController {
 //		params.put("amount",amount);
 		
 //		Memeberservice.memberInsert(member);
+=======
+	@RequestMapping("loginsuccess.do")
+	public void EmailAndNick(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+
+		String id = ((Member) session.getAttribute("member")).getId();
+		String nickname = ((Member) session.getAttribute("member")).getNickName() ;
+		//
+		//photo 초기값 : ??
+		MultipartFile photo = file.getFile();
+		//
+		
+		int balance = ((Member) session.getAttribute("member")).getBalance();		
+		int admin = ((Member) session.getAttribute("member")).getAdmin();	
+		String code = ((Member) session.getAttribute("member")).getCode();
+		int amount = ((Member) session.getAttribute("member")).getAmount();
+
+		if(id==null && req.getParameter("EmailK")!=null){
+			id = req.getParameter("EmailK");
+			}
+		else if(id==null && req.getParameter("EmailG")!=null){
+			id = req.getParameter("EmailG");
+			}
+		else if(id==null && req.getParameter("EmailN")!=null){
+			id = req.getParameter("EmailN");
+		}
+
+		if(nickname==null)
+			nickname = id;		
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("id", id);
+		params.put("nickname", nickname);
+		//
+		//photo 초기값 : ??
+		params.put("photo", photo);
+		//
+		params.put("balance", balance);
+		params.put("admin", admin);
+		params.put("code",code);
+		params.put("amount",amount);
+		
+		MemeberService.memberInsert(member);
+>>>>>>> yuna
 	
 	////////////////////////
 	
