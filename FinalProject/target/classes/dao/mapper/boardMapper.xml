@@ -76,7 +76,7 @@
  </select>
  
  <select id="getCount" resultType="int">
- 	select count(no) from board
+ 	select count(no) from board where premium=1
  </select>
  
  

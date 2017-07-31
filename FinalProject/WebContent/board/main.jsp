@@ -127,26 +127,28 @@ $(document).ready(function(){
 			<div>
 				<div class="fh5co-spacer fh5co-spacer-sm"></div>
 <!-- 				페이징 -->
-<!-- 				<div> -->
-<%-- 						<c:if test="${paging.currentPage > 1}"> --%>
-<%-- 							<a href="${pageName}?currentPage=1">[처음]</a> --%>
-<%-- 							<a href="${pageName}?currentPage=${paging.currentPage-1}&type=${type }&keyword=${keyword}">[이전]</a> --%>
-<%-- 						</c:if> --%>
-						
-<%-- 						<c:forEach begin="${paging.startPage }" end="${paging.endPage>paging.lastPage? paging.lastPage:paging.endPage }" var="i"> --%>
-<%-- 							<c:if test="${i eq paging.currentPage}"> --%>
-<%-- 								<b>${i }</b> --%>
-<%-- 							</c:if> --%>
-<%-- 							<c:if test="${i ne paging.currentPage }"> --%>
-<%-- 								<a href="${pageName }?currentPage=${i }&type=${type }&keyword=${keyword}">[${ i}]</a> --%>
-<%-- 							</c:if> --%>
-<%-- 						</c:forEach> --%>
-						
-<%-- 						<c:if test="${paging.currentPage != paging.lastPage && paging.endPage ne 0}"> --%>
-<%-- 							<a href="${pageName}?currentPage=${paging.currentPage+1 }&type=${type }&keyword=${keyword}">[다음]</a> --%>
-<%-- 							<a href="${pageName}?currentPage=${paging.lastPage }&type=${type }&keyword=${keyword}">[마지막]</a> --%>
-<%-- 						</c:if> --%>
-<!-- 				</div> -->
+				<div>
+				<center>
+					<c:if test="${paging.currentPage > 1}">
+						<a href="load.do?currentPage=1">[처음]</a>
+						<a href="load.do?currentPage=${paging.currentPage-1}">[이전]</a>
+					</c:if>
+					
+					<c:forEach begin="${paging.startPage }" end="${paging.endPage>paging.lastPage? paging.lastPage:paging.endPage }" var="i">
+						<c:if test="${i eq paging.currentPage}">
+							<b>${i }</b>
+						</c:if>
+						<c:if test="${i ne paging.currentPage }">
+							<a href="load.do?currentPage=${i}">[${i}]</a>
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${paging.currentPage != paging.lastPage && paging.endPage ne 0}">
+						<a href="load.do?currentPage=${paging.currentPage+1 }">[다음]</a>
+						<a href="load.do?currentPage=${paging.lastPage }">[마지막]</a>
+					</c:if>
+				</center>
+				</div>
 <!-- 				페이징 끝 -->
 					
 				<div class="fh5co-spacer fh5co-spacer-sm"></div>

@@ -4,7 +4,7 @@ package model;
 
 public class Paging {
 
-	private int pageSize = 20;//한페이지에 표시될 레코드 갯수
+	private int pageSize = 5;//한페이지에 표시될 레코드 갯수
 	private int count;//총 레코드 갯수
 	private int lastPage;//최종 페이지
 	private int currentPage;//현재 페이지
@@ -23,7 +23,7 @@ public class Paging {
 	
 	public Paging(int count, int currentPage) {
 		//표시할 레코드 갯수(고정)
-		pageSize=20;
+		pageSize=5;
 		//총 레코드 갯수
 		this.count=count;
 		//현재 페이지
