@@ -20,8 +20,8 @@
  </delete>
  
  <update id="updateBoard" parameterType="java.util.HashMap">
- 	update board set category_major=#{major}, category_minor=#{minor}, title=#{title}, writer=#{id}, content=#{content}, date=sysdate(), end_date=#{end_date},  state=0,
- 	price=#{price}, quantity=#{quantity} where no=#{no}
+ 	update board set category_major=#{major}, category_minor=#{minor}, title=#{title}, writer=#{id}, content=#{content}, 
+ 	date=sysdate(), end_date=#{end_date},  state=0, price=#{price}, quantity=#{quantity} where no=#{no}
  </update>
  
  <select id="selectOneBoard" parameterType="int" resultType="Board">
@@ -48,9 +48,9 @@
  	update board set read_count = read_count+1 where no=#{no}
  </update>
  
- <select id="selectSearchResult" parameterType="String" resultType="Board">
- 	select * from board 
- </select>
+<!--  <select id="selectSearchResult" parameterType="String" resultType="Board"> -->
+<!--  	select * from board  -->
+<!--  </select> -->
  
  
 <!--  table명 : map -->
