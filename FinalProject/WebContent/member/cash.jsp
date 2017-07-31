@@ -84,7 +84,9 @@
 			});
 		});//PayCash 결제
 		
-		$('#cashList').click(function(){
+		
+		
+		function cashList(){
 			$.ajax({
 				url:"cashList.do",
 				type:"POST",
@@ -109,7 +111,13 @@
 					
 				}
 			});
+		}
+		
+		
+		
+		$('#cashList').click(function(){
 			
+			cashList();
 			
 		});//cashList 캐시 내역
 		
@@ -211,6 +219,10 @@
 		
 		border:1px solid black;
 	}
+	
+	#tabs-2 div{
+		text-align:center;
+	}
 
 </style>
 </head>
@@ -260,6 +272,9 @@
 								</tr>
 								
 							</table>
+							<div>
+								<a>이전</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="cashList.do?page=10">다음</a>
+							</div>
 						</div>
 						<div id="tabs-3">
 							<table>
