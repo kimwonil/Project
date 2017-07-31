@@ -17,12 +17,14 @@ public interface BoardDao {
 	public boolean deleteBoard(int no);
 	public Board selectOneBoard(int no);
 	public List<Board> selectAllPremiumBoard();//프리미엄글 전체 select
-	public List<Board> selectAllNormalBoard();//일반글 전체 select
+	public List<Board> selectAllNormalBoard(HashMap<String, Object> pagingParam);//일반글 전체 select
 //	public boolean reduceQuantity(HashMap<String, Object> params);
 	public void updateStar(HashMap<String, Object> boardMap);
 	public void udpateBoardRead_count(int no);
 	public List<Board> selectSearchResult(HashMap<String, Object> searchMap);
 	public List<Board> searchCategory(HashMap<String, Object> searchMap);
+	public int getCount();
+	
 	
 	//테이블명 : map
 	public boolean insertMap(HashMap<String, Object> params);
@@ -59,6 +61,7 @@ public interface BoardDao {
 	//테이블명 : category_high
 	public List<Category> category();
 	public List<Category> categoryLow(int high_no);
+	
 	
 	
 

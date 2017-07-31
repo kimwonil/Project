@@ -4,7 +4,7 @@ package model;
 
 public class Paging {
 
-	private int pageSize;//한페이지에 표시될 레코드 갯수
+	private int pageSize = 20;//한페이지에 표시될 레코드 갯수
 	private int count;//총 레코드 갯수
 	private int lastPage;//최종 페이지
 	private int currentPage;//현재 페이지
@@ -23,7 +23,7 @@ public class Paging {
 	
 	public Paging(int count, int currentPage) {
 		//표시할 레코드 갯수(고정)
-		pageSize=10;
+		pageSize=20;
 		//총 레코드 갯수
 		this.count=count;
 		//현재 페이지
@@ -36,14 +36,14 @@ public class Paging {
 		lastPage = (count/pageSize) + (count%pageSize==0?0:1);
 		
 		if(currentPage<=3){
-			startPage=1;
-			endPage=5;
-		}else if(currentPage==lastPage || currentPage==lastPage-1){
-			startPage = currentPage-2;
+			startPage = 1;
+			endPage = 5;
+		}else if(currentPage>=lastPage-2){
+			startPage = currentPage - 2;
 			endPage = lastPage;
 		}else{
-			startPage = currentPage-2;
-			endPage = currentPage+2;
+			startPage = currentPage - 2;
+			endPage = currentPage + 2;
 		}
 		
 		start = (currentPage-1)*pageSize+1;
@@ -51,24 +51,24 @@ public class Paging {
 		
 	}
 
-	public void myPagePaging(){
-		lastPage = (count/pageSize) + (count%pageSize==0?0:1);
-		
-		if(currentPage<3){
-			startPage=1;
-			endPage=3;
-		}else if(currentPage==lastPage || currentPage==lastPage-1){
-			startPage = currentPage-1;
-			endPage = lastPage;
-		}else{
-			startPage = currentPage-1;
-			endPage = currentPage+1;
-		}
-		
-		start = (currentPage-1)*pageSize;
-		end = currentPage * pageSize;
-		
-	}
+//	public void myPagePaging(){
+//		lastPage = (count/pageSize) + (count%pageSize==0?0:1);
+//		
+//		if(currentPage<3){
+//			startPage=1;
+//			endPage=3;
+//		}else if(currentPage==lastPage || currentPage==lastPage-1){
+//			startPage = currentPage-1;
+//			endPage = lastPage;
+//		}else{
+//			startPage = currentPage-1;
+//			endPage = currentPage+1;
+//		}
+//		
+//		start = (currentPage-1)*pageSize;
+//		end = currentPage * pageSize;
+//		
+//	}
 	
 	
 	public void setPageSize(int pageSize) {

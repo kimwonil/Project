@@ -32,8 +32,11 @@
  	select * from board where premium = 0
  </select>
  
- <select id="selectAllNormalBoard" parameterType="int" resultType="Board">
- 	select * from board where premium = 1
+ <select id="selectAllNormalBoard" parameterType="java.util.HashMap" resultType="Board">
+ 	SELECT A.* FROM ( 
+	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board 
+	, (SELECT @searchnum:= 0) R 
+	where premium = 1 ) A WHERE A.searchnum between #{start} and #{end}
  </select>
  
 <!--  <update id="reduceQuantity" parameterType="java.util.HashMap"> -->
@@ -70,6 +73,10 @@
  		or content like '%${content}%'
  	</if>
  	and category_major=#{major} order by no desc 
+ </select>
+ 
+ <select id="getCount" resultType="int">
+ 	select count(no) from board
  </select>
  
  

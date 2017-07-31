@@ -38,6 +38,7 @@ import model.Category;
 import model.FileUpload;
 import model.MapInfo;
 import model.Member;
+import model.Paging;
 import model.Purchase;
 import model.PurchaseOption;
 import service.BoardService;
@@ -110,10 +111,17 @@ public class BoardController{
 	 * main화면 전체글 로드
 	 * */
 	@RequestMapping("load.do")
-	public ModelAndView load(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+	public ModelAndView load(
+			HttpServletRequest req, HttpServletResponse resp, HttpSession session,
+			@RequestParam(defaultValue="1") int currentPage){
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=utf-8");
 		ModelAndView mav = new ModelAndView();
+		
+		//페이징 부분
+		Paging paging = new Paging(boardService.getCount(), currentPage);
+		paging.boardPaging();
+		System.out.println(paging);
 		
 		//프리미엄 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
 		List<Board> premiumList = new ArrayList<>();
@@ -126,12 +134,18 @@ public class BoardController{
 		
 		//일반 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
 		List<Board> normalList = new ArrayList<>();
-		for(Board board : boardService.selectAllNormalBoard()){
+		HashMap<String, Object> pagingParam = new HashMap<>();
+		pagingParam.put("start", paging.getStart());
+		pagingParam.put("end", paging.getEnd());
+		for(Board board : boardService.selectAllNormalBoard(pagingParam)){
 			int no = board.getNo();//글번호
 			String file_name1 = boardService.selectThumbnail(no);
 			board.setFile_name1(file_name1);
 			normalList.add(board);
 		}//selectAllPremiumBoard에 각각 file_name1 넣기 끝
+		
+
+		
 		
 		
 		mav.addObject("premiumList", premiumList);

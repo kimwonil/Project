@@ -43,8 +43,8 @@ public class BoardService {
 		return boardDao.selectAllPremiumBoard();
 	}
 	
-	public List<Board>selectAllNormalBoard(){
-		return boardDao.selectAllNormalBoard();
+	public List<Board>selectAllNormalBoard(HashMap<String, Object> pagingParam){
+		return boardDao.selectAllNormalBoard(pagingParam);
 	}
 	
 //	public boolean reduceQuantity(HashMap<String, Object> params) {
@@ -66,6 +66,11 @@ public class BoardService {
 	public List<Board> searchCategory(HashMap<String, Object> searchMap) {
 		return boardDao.searchCategory(searchMap);//카테고리랑 키워드로 board 검색
 	}
+	
+	public int getCount() {
+		return boardDao.getCount();
+	}
+	
 
 	
 	/**
@@ -169,6 +174,8 @@ public class BoardService {
 	public List<Category> categoryLow(int high_no) {
 		return boardDao.categoryLow(high_no);
 	}
+
+	
 
 
 
