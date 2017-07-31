@@ -188,8 +188,8 @@ public class BoardController{
 		System.out.println("글넣기");
 		
 		//세션에서 id가져와성 params에 넣자
-		String id = ((Member)session.getAttribute("member")).getId();
-		params.put("id", id);
+		String nickname = ((Member)session.getAttribute("member")).getNickName();
+		params.put("nickname", nickname);
 		
 		//사진을 가져오자
 		List<MultipartFile> fileList = files.getFiles();

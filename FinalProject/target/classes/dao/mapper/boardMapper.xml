@@ -8,7 +8,7 @@
  
 <!--  table명 : board -->
  <insert id="insertBoard" parameterType="java.util.HashMap">
- 	insert into board values(0, #{major}, #{minor}, #{title}, #{id}, #{content}, sysdate(), #{end_date}, 
+ 	insert into board values(0, #{major}, #{minor}, #{title}, #{nickname}, #{content}, sysdate(), #{end_date}, 
  	#{quantity}, 0, #{price}, 0, 1, 0, 0)
  		<selectKey keyProperty="no" order="AFTER" resultType="int">
  			select max(no) as no from board
@@ -20,7 +20,7 @@
  </delete>
  
  <update id="updateBoard" parameterType="java.util.HashMap">
- 	update board set category_major=#{major}, category_minor=#{minor}, title=#{title}, writer=#{id}, content=#{content}, 
+ 	update board set category_major=#{major}, category_minor=#{minor}, title=#{title}, content=#{content}, 
  	date=sysdate(), end_date=#{end_date},  state=0, price=#{price}, quantity=#{quantity} where no=#{no}
  </update>
  

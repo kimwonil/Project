@@ -21,12 +21,30 @@
 <div id="fh5co-main">
 	<div class="container">
 	
-
-		<h4>제목 + 내용 검색결과</h4>
-
+		<h4>판매자 검색결과</h4>
 		<div class="container">
 		<div class="row">
+        	<div id="fh5co-board"  class="normal" data-columns>
+        	
+        		<c:forEach items="${boardSearchList}" var="board">
+		        	<div class="item">
+		        		<div class="animate-box">
+			        		<a href="detailOneBoard.do?no=${board.no}" 
+			        		   title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?">
+			        		   <img src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}' alt="Free HTML5 Bootstrap template"></a>
+		        		</div>
+		        		<div class="fh5co-desc">${board.title}</div>
+		        	</div>
+	        	</c:forEach>
+	        	
+			</div>
+		</div>
+		</div>
+	
 
+		<h4>제목 + 내용 검색결과</h4>
+		<div class="container">
+		<div class="row">
         	<div id="fh5co-board"  class="normal" data-columns>
         	
         		<c:forEach items="${boardSearchList}" var="board">
