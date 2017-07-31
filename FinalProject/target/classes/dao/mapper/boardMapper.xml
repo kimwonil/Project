@@ -48,9 +48,17 @@
  	update board set read_count = read_count+1 where no=#{no}
  </update>
  
-<!--  <select id="selectSearchResult" parameterType="String" resultType="Board"> -->
-<!--  	select * from board  -->
-<!--  </select> -->
+ <select id="selectSearchResult" parameterType="java.util.HashMap" resultType="Board">
+ 	select * from board 
+ 	where 1=0
+ 	<if test="title != null">
+ 		or title like '%${title}%'
+ 	</if>
+ 	<if test="content != null">
+ 		or content like '%${content}%'
+ 	</if>
+ 	order by no desc 
+ </select>
  
  
 <!--  table명 : map -->

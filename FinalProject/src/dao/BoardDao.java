@@ -21,7 +21,7 @@ public interface BoardDao {
 //	public boolean reduceQuantity(HashMap<String, Object> params);
 	public void updateStar(HashMap<String, Object> boardMap);
 	public void udpateBoardRead_count(int no);
-	public List<Board> selectSearchResult(String word);
+	public List<Board> selectSearchResult(HashMap<String, Object> searchMap);
 	
 	//테이블명 : map
 	public boolean insertMap(HashMap<String, Object> params);

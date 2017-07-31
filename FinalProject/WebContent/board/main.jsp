@@ -26,18 +26,18 @@
 $(document).ready(function(){
 	$('#searchInput').on('keydown', function(key){
 		if(key.keyCode == 13){
-			$.ajax({
-				url : "search.do",
-				type : "post",
-				data : {word : $('#searchInput').val()},
-				success : function(){
-					alert("성공");
-				},error : function(){
-					alert("실패");
-				}
-			});//ajax 끝
+// 			$.ajax({
+// 				url : "search.do",
+// 				type : "post",
+// 				data : {word : $('#searchInput').val()},
+// 				success : function(){
+// 					alert("성공");
+// 				},error : function(){
+// 					alert("실패");
+// 				}
+// 			});//ajax 끝
 			
-			
+			$('#searchInput').parent().submit();
 			
 			
 			

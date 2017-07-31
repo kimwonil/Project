@@ -59,8 +59,8 @@ public class BoardService {
 		boardDao.udpateBoardRead_count(no);
 	}
 	
-	public List<Board> selectSearchResult(String word) {
-		return boardDao.selectSearchResult(word);
+	public List<Board> selectSearchResult(HashMap<String, Object> searchMap) {
+		return boardDao.selectSearchResult(searchMap);
 	}
 
 	

@@ -257,7 +257,9 @@ $(document).ready(function(){
 	<header id="fh5co-header" role="banner">
 		<div class="container">
 		<div class="row">
-		검색 <input type="text" id="searchInput"> 
+		<form action="search.do" method="post">
+		검색 <input type="text" id="searchInput" name="word"> 
+		</form>
 		<div id="linkGroup">
 			<a href='boardForm.do'>판매등록</a>
 			<a href='loginprototype.jsp'>로그인</a>

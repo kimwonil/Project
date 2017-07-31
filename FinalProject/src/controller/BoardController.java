@@ -634,22 +634,36 @@ public class BoardController{
 	
 	
 	
-//	/**
-//	 * 검색
-//	 * */
-//	@RequestMapping("search.do")
-//	public ModelAndView search(String word, HttpServletRequest req, HttpServletResponse resp){
-//		System.out.println("search.do");
-//		System.out.println(req.getParameter("word"));
-//		ModelAndView mav = new ModelAndView();
-//		
-//		//판매자 검색
-//		
-//		//글검색(제목 + 내용으로 쿼리만들고  최신순, 카테고리 버튼 만들기)
-//		boardService.selectSearchResult(word);
-//		
-//		return mav;
-//	}
+	/**
+	 * 검색
+	 * */
+	@RequestMapping("search.do")
+	public ModelAndView search(String word, HttpServletRequest req, HttpServletResponse resp){
+		System.out.println("search.do");
+		System.out.println(req.getParameter("word"));
+		ModelAndView mav = new ModelAndView();
+		
+		//판매자 검색
+		
+		//글검색(제목 + 내용으로 쿼리만들고  최신순, 카테고리 버튼 만들기)
+		HashMap<String, Object> searchMap = new HashMap<>();
+		searchMap.put("title", word);
+		searchMap.put("content", word);
+		
+		List<Board> boardSearchList = new ArrayList<>();
+		
+		//해당 id가 찜한 글번호들
+		for(Board searchBoard : boardService.selectSearchResult(searchMap)){
+			int no = searchBoard.getNo();
+			Board boardWithThumbnail = boardService.selectOneBoard(no);
+			boardWithThumbnail.setFile_name1(boardService.selectThumbnail(no));
+			boardSearchList.add(boardWithThumbnail);
+		}
+		
+		mav.addObject("boardSearchList", boardSearchList);
+		mav.setViewName("board/searchResult");
+		return mav;
+	}
 	
 
 
