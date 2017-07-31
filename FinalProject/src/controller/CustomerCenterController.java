@@ -70,23 +70,20 @@ public class CustomerCenterController {
 	// 공지 리스트
 	@RequestMapping("noticeList.do")
 	public void noticeList(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type)
-			throws ParseException {
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		System.out.println("공지 리스트 들어옴");
 		int page = Integer.parseInt(request.getParameter("page"));
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		System.out.println(request.getParameter("start"));
 		System.out.println(request.getParameter("page"));
 		if (request.getParameter("start") != null && request.getParameter("end") != null) {
 			System.out.println("날짜 들어와라");
-			
-			
-				params.put("startdate", request.getParameter("start"));
-				params.put("enddate", request.getParameter("end"));
-			
+
+			params.put("startdate", request.getParameter("start"));
+			params.put("enddate", request.getParameter("end"));
+
 		}
 		System.out.println("현재 페이지 : " + page);
 		params.put("type", type);
@@ -99,12 +96,12 @@ public class CustomerCenterController {
 		} else if (type == 3) {
 			params.put("date", keyword);
 		}
-		if(request.getParameter("start")==null ||request.getParameter("start").equals("")||request.getParameter("start").equals("undefined") ||request.getParameter("start").equals("null"))
-		{
+		if (request.getParameter("start") == null || request.getParameter("start").equals("")
+				|| request.getParameter("start").equals("undefined") || request.getParameter("start").equals("null")) {
 			System.out.println("널 들어옴");
 			params.remove("startdate");
 			params.remove("enddate");
-			
+
 		}
 		System.out.println("파람 : " + params);
 		List<Notice> list = noticeService.getNoticeListPage(params, page);
@@ -133,12 +130,12 @@ public class CustomerCenterController {
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("페이지에서"+request.getParameter("start"));
+		System.out.println("페이지에서" + request.getParameter("start"));
 		if (request.getParameter("start") != null && request.getParameter("end") != null) {
 			System.out.println("날짜 들어와라");
-				params.put("startdate", request.getParameter("start"));
-				params.put("enddate", request.getParameter("end"));
-			
+			params.put("startdate", request.getParameter("start"));
+			params.put("enddate", request.getParameter("end"));
+
 		}
 		System.out.println("현재 페이지 : " + page);
 		params.put("type", type);
@@ -151,12 +148,12 @@ public class CustomerCenterController {
 		} else if (type == 3) {
 			params.put("date", keyword);
 		}
-		if(request.getParameter("start")==null ||request.getParameter("start").equals("") ||request.getParameter("start").equals("undefined") ||request.getParameter("start").equals("null"))
-		{
+		if (request.getParameter("start") == null || request.getParameter("start").equals("")
+				|| request.getParameter("start").equals("undefined") || request.getParameter("start").equals("null")) {
 			System.out.println("널 들어옴");
 			params.remove("startdate");
 			params.remove("enddate");
-			
+
 		}
 		HashMap<String, Object> results = noticeService.getNoticePage(params, page);
 		System.out.println(results);
@@ -175,15 +172,96 @@ public class CustomerCenterController {
 
 	// 질문 리스트
 	@RequestMapping("qnaList.do")
-	public void qnaList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public void qnaList(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		System.out.println(request.getParameter("start"));
+		System.out.println(request.getParameter("page"));
+		if (request.getParameter("start") != null && request.getParameter("end") != null) {
+			System.out.println("날짜 들어와라");
 
-		List<QnA> list = qnaService.selectAllQnA();
+			params.put("startdate", request.getParameter("start"));
+			params.put("enddate", request.getParameter("end"));
+
+		}
+		System.out.println("현재 페이지 : " + page);
+		params.put("type", type);
+		params.put("keyword", keyword);
+
+		if (type == 1) {
+			params.put("writer", keyword);
+		} else if (type == 2) {
+			params.put("title", keyword);
+		} else if (type == 3) {
+			params.put("date", keyword);
+		}
+		if (request.getParameter("start") == null || request.getParameter("start").equals("")
+				|| request.getParameter("start").equals("undefined") || request.getParameter("start").equals("null")) {
+			System.out.println("널 들어옴");
+			params.remove("startdate");
+			params.remove("enddate");
+
+		}
+		System.out.println("파람 : " + params);
+		List<QnA> list = qnaService.getQnAListPage(params, page);
+		
 		// Gson gson = new Gson();
 		try {
 			if (list != null) {
 				String json = gson.toJson(list);
+				System.out.println(json);
+				response.getWriter().write(json);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	// 질문 페이징
+	@RequestMapping("qnaPage.do")
+	public void qnaPage(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type){
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		System.out.println("질문 페이지 들어옴");
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> params = new HashMap<String, Object>();
+
+		System.out.println("페이지에서" + request.getParameter("start"));
+		if (request.getParameter("start") != null && request.getParameter("end") != null) {
+			System.out.println("날짜 들어와라");
+			params.put("startdate", request.getParameter("start"));
+			params.put("enddate", request.getParameter("end"));
+
+		}
+		System.out.println("현재 페이지 : " + page);
+		params.put("type", type);
+		params.put("keyword", keyword);
+
+		if (type == 1) {
+			params.put("writer", keyword);
+		} else if (type == 2) {
+			params.put("title", keyword);
+		} else if (type == 3) {
+			params.put("date", keyword);
+		}
+		if (request.getParameter("start") == null || request.getParameter("start").equals("")
+				|| request.getParameter("start").equals("undefined") || request.getParameter("start").equals("null")) {
+			System.out.println("널 들어옴");
+			params.remove("startdate");
+			params.remove("enddate");
+
+		}
+		HashMap<String, Object> results = qnaService.getQnAPage(params, page);
+		System.out.println(results);
+		// Gson gson = new Gson();
+		try {
+			if (results != null) {
+				String json = gson.toJson(results);
 				System.out.println(json);
 				response.getWriter().write(json);
 			}
@@ -195,11 +273,42 @@ public class CustomerCenterController {
 
 	// 신고 리스트
 	@RequestMapping("reportList.do")
-	public void reportList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public void reportList(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 
-		List<Report> list = reportService.selectAllReport();
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		System.out.println(request.getParameter("start"));
+		System.out.println(request.getParameter("page"));
+		if (request.getParameter("start") != null && request.getParameter("end") != null) {
+			System.out.println("날짜 들어와라");
+
+			params.put("startdate", request.getParameter("start"));
+			params.put("enddate", request.getParameter("end"));
+
+		}
+		System.out.println("현재 페이지 : " + page);
+		params.put("type", type);
+		params.put("keyword", keyword);
+
+		if (type == 1) {
+			params.put("writer", keyword);
+		} else if (type == 2) {
+			params.put("title", keyword);
+		} else if (type == 3) {
+			params.put("date", keyword);
+		}
+		if (request.getParameter("start") == null || request.getParameter("start").equals("")
+				|| request.getParameter("start").equals("undefined") || request.getParameter("start").equals("null")) {
+			System.out.println("널 들어옴");
+			params.remove("startdate");
+			params.remove("enddate");
+
+		}
+		System.out.println("파람 : " + params);
+		List<Report> list = reportService.getReportListPage(params, page);
 		// Gson gson = new Gson();
 		try {
 			if (list != null) {
@@ -213,6 +322,59 @@ public class CustomerCenterController {
 		}
 	}
 
+	
+	// 질문 페이징
+	@RequestMapping("reportPage.do")
+	public void reportPage(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type){
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		System.out.println("신고 페이지 들어옴");
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> params = new HashMap<String, Object>();
+
+		System.out.println("페이지에서" + request.getParameter("start"));
+		if (request.getParameter("start") != null && request.getParameter("end") != null) {
+			System.out.println("날짜 들어와라");
+			params.put("startdate", request.getParameter("start"));
+			params.put("enddate", request.getParameter("end"));
+
+		}
+		System.out.println("현재 페이지 : " + page);
+		params.put("type", type);
+		params.put("keyword", keyword);
+
+		if (type == 1) {
+			params.put("writer", keyword);
+		} else if (type == 2) {
+			params.put("title", keyword);
+		} else if (type == 3) {
+			params.put("date", keyword);
+		}
+		if (request.getParameter("start") == null || request.getParameter("start").equals("")
+				|| request.getParameter("start").equals("undefined") || request.getParameter("start").equals("null")) {
+			System.out.println("널 들어옴");
+			params.remove("startdate");
+			params.remove("enddate");
+
+		}
+		HashMap<String, Object> results = reportService.getReportPage(params, page);
+		System.out.println(results);
+		// Gson gson = new Gson();
+		try {
+			if (results != null) {
+				String json = gson.toJson(results);
+				System.out.println(json);
+				response.getWriter().write(json);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	// 공지사항 상세
 	@RequestMapping("noticeContent.do")
 	public void NoticeContent(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -285,9 +447,9 @@ public class CustomerCenterController {
 		params.remove("major");
 		params.remove("minor");
 		params.put("category_no", category_no);
-		
-			noticeService.insertNotice(params);
-	
+
+		noticeService.insertNotice(params);
+
 		return "redirect:customerCenterCall.do";
 	}
 
@@ -316,7 +478,9 @@ public class CustomerCenterController {
 
 		System.out.println("질문 인설트");
 		System.out.println(params);
+		
 		qnaService.insertQnA(params);
+	
 
 	}
 
@@ -378,6 +542,8 @@ public class CustomerCenterController {
 			params.put("writer", qna.getWriter());
 			params.put("content", qna.getContent());
 			params.put("state", qna.getState());
+			params.put("category_no", qna.getCategory_no());
+			params.put("open", qna.getOpen());
 			params.put("answercontent", answer.getContent());
 			json = gson.toJson(params);
 
@@ -395,6 +561,8 @@ public class CustomerCenterController {
 			params.put("writer", "비공개");
 			params.put("content", "비공개");
 			params.put("state", qna.getState());
+			params.put("category_no", qna.getCategory_no());
+			params.put("open", qna.getOpen());
 			params.put("answercontent", "비공개");
 			json = gson.toJson(params);
 
@@ -452,6 +620,7 @@ public class CustomerCenterController {
 		answerService.updateAnswer(params);
 		QnA qna = qnaService.selectOneQnA(qna_no);
 		int read_count = qna.getRead_count();
+		params.put("no", qna_no);
 		params.put("read_count", read_count - 1);
 		qnaService.updateQnACount(params);
 
@@ -483,8 +652,9 @@ public class CustomerCenterController {
 
 		System.out.println("질문 인설트");
 		System.out.println(params);
+		
 		reportService.insertReport(params);
-
+		
 	}
 
 	// 신고 상세

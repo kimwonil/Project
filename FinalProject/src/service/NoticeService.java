@@ -77,13 +77,13 @@ public class NoticeService {
 	public int getStartPage(int num) {
 		// TODO Auto-generated method stub
 		
-		return (num-1)/10*10+1;
+		return (num-1)/5*5+1;
 	}
 
 	
 	public int getEndPage(int num) {
 		// TODO Auto-generated method stub
-		return ((num-1)/10+1)*10;	
+		return ((num-1)/5+1)*5;	
 	}
 
 	
