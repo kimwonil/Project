@@ -23,25 +23,24 @@ public class EmailInfoController {
 	public void EmailAndNick(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 		
 		int emailno = ((EmailInfo) session.getAttribute("emailno")).getEmailno();
-		String email = null;
 				//((EmailInfo) session.getAttribute("emailinfo")).getEmail();
-		String nickname = null;
+		String email = ((EmailInfo) session.getAttribute("emailinfo")).getEmail();
+		String nickname = ((EmailInfo) session.getAttribute("emailinfo")).getNickName() ;
 		int admin = 0; //관리자 권한여부 : 기본값 0
-		
-		
-		if(req.getParameter("EmailK")!=null){
+
+
+		if(email==null && req.getParameter("EmailK")!=null){
 			email = req.getParameter("EmailK");
 			}
-		else if(req.getParameter("EmailG")!=null){
+		else if(email==null && req.getParameter("EmailG")!=null){
 			email = req.getParameter("EmailG");
 			}
-		else if(req.getParameter("EmailN")!=null){
+		else if(email==null && req.getParameter("EmailN")!=null){
 			email = req.getParameter("EmailN");
 		}
-		
+
 		if(nickname==null)
 			nickname = email;		
-
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		
