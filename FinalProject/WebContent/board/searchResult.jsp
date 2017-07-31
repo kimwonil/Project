@@ -107,3 +107,6 @@ $(document).ready(function(){
 </div>
 </body>
 </html>
+
+
+http://localhost:8080/FinalProject/user/board/36/%EC%9D%8C%EC%95%85%EC%9D%98%20%EC%8B%A0.jpg
