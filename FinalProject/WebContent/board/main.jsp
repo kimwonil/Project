@@ -92,6 +92,7 @@ $(document).ready(function(){
 									<img src='<c:url value="/user/board/${premium.no}"/>/${premium.file_name1}' alt="Free HTML5 Bootstrap template"></a>
 								</div>
 								<div class="fh5co-desc">${premium.title}</div>
+								<div class="fh5co-desc">별점이랑 평가자수 넣어</div>
 							</div>
 						</div>
 						<c:if test="${status.count%4 eq 0}">

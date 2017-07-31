@@ -52,6 +52,7 @@ public interface BoardDao {
 	public boolean insertInterest(HashMap<String, Object> params);
 	public HashMap<String, Object> selectOneInterest(HashMap<String, Object> params);
 	public List<HashMap<String, Object>> selectAllDips(String id);
+	public List<HashMap<String, Object>> dipsWithCategory(HashMap<String, Object> params);
 	
 	
 	//테이블명 : star_point

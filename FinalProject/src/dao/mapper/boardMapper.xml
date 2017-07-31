@@ -80,6 +80,7 @@
  </select>
  
  
+ 
 <!--  table명 : map -->
  <insert id="insertMap" parameterType="java.util.HashMap">
  	insert into map values(0, #{lat}, #{lng}, #{info_title}, #{info_address}, #{info_address2}, #{no})
@@ -144,7 +145,7 @@
  
 <!--  table명 : interest -->
  <insert id="insertInterest" parameterType="java.util.HashMap">
- 	insert into interest values(0, #{id}, #{board_no});
+ 	insert into interest values(0, #{board_no}, #{id}, #{category_no});
  </insert>
  
  <select id="selectOneInterest" parameterType="java.util.HashMap" resultType="java.util.HashMap">
@@ -153,6 +154,10 @@
  
  <select id="selectAllDips" parameterType="String" resultType="java.util.HashMap">
  	select * from interest where id=#{id}
+ </select>
+ 
+  <select id="dipsWithCategory" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+ 	select * from interest where id=#{id} and category_no=#{category_no}
  </select>
  
  
