@@ -52,9 +52,9 @@ public class MemberController {
 
 		String id = ((Member) session.getAttribute("member")).getId();
 		String nickname = ((Member) session.getAttribute("member")).getNickName() ;
-
 		//
-		//photo 초기값 = ??
+		//photo 초기값 : ??
+		MultipartFile photo = file.getFile();
 		//
 		
 		int balance = ((Member) session.getAttribute("member")).getBalance();		
@@ -77,17 +77,18 @@ public class MemberController {
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		
-		params.put("id", email);
+		params.put("id", id);
 		params.put("nickname", nickname);
 		//
-		//photo 초기값 = ??
+		//photo 초기값 : ??
+		params.put("photo", photo);
 		//
 		params.put("balance", balance);
 		params.put("admin", admin);
 		params.put("code",code);
 		params.put("amount",amount);
 		
-		Memeberservice.memberInsert(params);
+		Memeberservice.memberInsert(member);
 	
 	////////////////////////
 	
