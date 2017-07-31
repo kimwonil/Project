@@ -36,9 +36,9 @@
  	select * from board where premium = 1
  </select>
  
- <update id="reduceQuantity" parameterType="java.util.HashMap">
- 	update board set quantity=quantity-#{reduce} where no=#{no}
- </update>
+<!--  <update id="reduceQuantity" parameterType="java.util.HashMap"> -->
+<!--  	update board set quantity=quantity-#{reduce} where no=#{no} -->
+<!--  </update> -->
  
  <update id="updateStar" parameterType="java.util.HashMap">
  	update board set total_star=total_star+#{star}, num_evaluator=num_evaluator+1 where no=#{board_no}
@@ -47,6 +47,10 @@
  <update id="udpateBoardRead_count" parameterType="java.util.HashMap" >
  	update board set read_count = read_count+1 where no=#{no}
  </update>
+ 
+ <select id="selectSearchResult" parameterType="String" resultType="Board">
+ 	select * from board 
+ </select>
  
  
 <!--  table명 : map -->
