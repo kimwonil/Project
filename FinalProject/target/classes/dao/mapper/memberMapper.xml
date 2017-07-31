@@ -87,15 +87,23 @@
  	insert into authority_file values(0, #{no}, #{id}, #{file1}, #{file2}, #{file3})
  </insert>
 
- <select id="authorityList" parameterType="String" resultType="Authority">
- 	select * from authority where id=#{id}
+ <select id="authorityList" parameterType="java.util.HashMap" resultType="Authority">
+ 	select * from authority where id=#{id} order by no limit #{page}, 10
  </select>
  
- <select id="authorityAll" resultType="Authority">
+ <select id="totalPageAuthority" parameterType="java.util.HashMap" resultType="int">
+ 	select count(no) from authority where id=#{id}
+ </select>
+ 
+ <select id="authorityAll" parameterType="java.util.HashMap" resultType="Authority">
  	select authority.no as no, authority.id as id, authority.category_no as category_no, authority.date as date, authority.state as state, authority_file.file1 as file1, authority_file.file2 as file2, authority_file.file3 as file3
 	from authority join authority_file
 	on authority.no = authority_file.authority_no 
-	where state=1;
+	where state=1 order by no desc limit #{page}, 10
+ </select>
+ 
+ <select id="allTotalPageAuthority" resultType="int">
+ 	select count(no) from authority
  </select>
  
  <update id="authorityUpdate" parameterType="java.util.HashMap">

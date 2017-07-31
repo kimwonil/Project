@@ -207,7 +207,14 @@
 		left: 40%;
 	}
 	#tabs-2, #tabs-1{
-		height: 370px;
+		height: 420px;
+	}
+	.col-md-8{
+		position: relative;
+		left: 10%;
+	}
+	#tabs-2 tr{
+		height: 45px;
 	}
 
 </style>
@@ -227,6 +234,7 @@
 							<li><a href="#tabs-2" id="exchangeList">환전 신청 내역</a></li>
 						</ul>
 						<div id="tabs-1">
+						총 <label></label>건
 							<table id="tradeTable">
 								<tr>
 									<td width="15%">처리일</td>
@@ -237,12 +245,12 @@
 								</tr>
 								
 							</table>
-							총 <label></label>건
 							<div>
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>
 						</div>
 						<div id="tabs-2">
+						총 <label></label>건
 							<table id="exchangeTable">
 								<tr>
 									<td width="15%">처리일</td>
@@ -252,7 +260,6 @@
 									<td width="20%">상태</td>
 								</tr>
 							</table>
-							총 <label></label>건
 							<div>
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>

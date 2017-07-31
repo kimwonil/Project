@@ -30,8 +30,8 @@ public interface MemberDao {
 	public int messageSend(Message message);
 	public int authorityReg(HashMap<String, Object> params);
 	public int authorityFiles(HashMap<String, Object> params);
-	public List<Authority> authorityList(String id);
-	public List<Authority> authorityAll();
+	public List<Authority> authorityList(HashMap<String, Object> map);
+	public List<Authority> authorityAll(HashMap<String, Object> map);
 	public int authorityUpdate(HashMap<String, Object> params);
 	public int authorityDelete(int no);
 	public Authority authorityDetail(int no);
@@ -41,4 +41,6 @@ public interface MemberDao {
 	public int allTotalPageCash();
 	public List<Exchange> allExchangeList(HashMap<String, Object> map);
 	public int allTotalPageExchange();
+	public int totalPageAuthority(String id);
+	public int allTotalPageAuthority();
 }

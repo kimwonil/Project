@@ -251,6 +251,10 @@
 	#tabs-2, #tabs-4{
 		height: 370px;
 	}
+	.col-md-8{
+		position: relative;
+		left: 10%;
+	}
 
 </style>
 </head>

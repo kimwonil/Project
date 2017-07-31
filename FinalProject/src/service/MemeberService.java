@@ -97,12 +97,12 @@ public class MemeberService {
 		return memberDao.authorityFiles(params);
 	}
 	
-	public List<Authority> authorityList(String id) {
-		return memberDao.authorityList(id);
+	public List<Authority> authorityList(HashMap<String, Object> map) {
+		return memberDao.authorityList(map);
 	}
 	
-	public List<Authority> authorityAll() {
-		return memberDao.authorityAll();
+	public List<Authority> authorityAll(HashMap<String, Object> map) {
+		return memberDao.authorityAll(map);
 	}
 	
 	public int authorityUpdate(HashMap<String, Object> params) {
@@ -139,6 +139,14 @@ public class MemeberService {
 
 	public int allTotalPageExchange() {
 		return memberDao.allTotalPageExchange();
+	}
+
+	public int totalPageAuthority(String id) {
+		return memberDao.totalPageAuthority(id);
+	}
+
+	public int allTotalPageAuthority() {
+		return memberDao.allTotalPageAuthority();
 	}
 	
 }

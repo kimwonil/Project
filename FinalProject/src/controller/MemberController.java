@@ -625,12 +625,15 @@ public class MemberController {
 	@RequestMapping("authorityList.do")
 	public void authorityList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String id = ((Member)session.getAttribute("member")).getId();
-		
-		List<Authority> list = memberService.authorityList(id);
-		
-		String json = gson.toJson(list);
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("page", page);
+		map.put("list", memberService.authorityList(map));
+		map.put("totalPage", memberService.totalPageAuthority(id));
 		
 		try {
+			String json = gson.toJson(map);
 			response.getWriter().write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -656,10 +659,15 @@ public class MemberController {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-		HashMap<String, Object> params = new HashMap<>();
-		List<Authority> list = memberService.authorityAll();
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("page", page);
+		map.put("list", memberService.authorityAll(map));
+		map.put("totalPage", memberService.allTotalPageAuthority());
 		
-		String json = gson.toJson(list);
+		
+		
+		String json = gson.toJson(map);
 		
 		try {
 			response.getWriter().write(json);

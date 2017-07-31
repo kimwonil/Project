@@ -17,25 +17,28 @@
 
 $(document).ready(function(){
 	
-	function authorityList(){
+	function authorityList(page){
 		
 		$.ajax({
 			url:"authorityList.do",
 			type:"POST",
+			data:{
+				page:page
+			},
 			dataType:"json",
 			success:function(data){
 				console.log(data);
 				$('#talentList tr:gt(1)').remove();
-				for(var i=0; i<data.length;i++){
+				$.each(data.list, function(index, value){
 					$('#talentList').append(
-						"<tr height='40px'><td>"+data[i].no+"</td><td>"+
-						data[i].category_no+"</td><td>"+
-						data[i].date+"</td><td>"+
-						(data[i].state==1?"승인 대기 / <button value='"+data[i].no+"' type='button' class='btn btn-sm btn-danger authorityDelete' data-toggle='modal' data-target='#deleteModal' >삭제</button>":data[i].state==2?"승인":"취소")+"</td></tr>"
+							"<tr height='40px'><td>"+value.no+"</td><td>"+
+							value.category_no+"</td><td>"+
+							value.date+"</td><td>"+
+							(value.state==1?"승인 대기 / <button value='"+value.no+"' type='button' class='btn btn-sm btn-danger authorityDelete' data-toggle='modal' data-target='#deleteModal' >삭제</button>":value.state==2?"승인":"취소")+"</td></tr>"
 					);
-					
-				}
-				
+					$('.prev').val(data.page==0?0:data.page-10);
+					$('.next').val(data.totalPage-10>data.page?data.page+10:data.page);	
+				});
 			},
 			error:function(){
 				alert("실패");
@@ -43,7 +46,11 @@ $(document).ready(function(){
 		});
 	}
 	
-	authorityList();
+	authorityList(0);
+	
+	$('#btnDiv button').click(function(){
+		authorityList($(this).val());
+	});
 	
 	
 	$(document).on('click','.authorityDelete', function(){
@@ -101,7 +108,26 @@ $(document).ready(function(){
 	#btnDiv{
 		text-align: right;
 	}
+	#regBtn{
+		margin-top: 20px;
+		position: relative;
+		left: 65%;
+	}
+	h2{
+		float: left;
+		clear: both;
+	}
 	
+	#btnDiv{
+		text-align:center;
+		position: absolute;
+		top: 95%;
+		left: 55%;
+	}
+	.col-md-8{
+		position: relative;
+		left: 15%;
+	}
 	</style>
 	
 	<div id="fh5co-main">
@@ -109,7 +135,7 @@ $(document).ready(function(){
 			<div class="row">
 			
 				<div class="col-md-8 col-md-offset-2">
-					<h2>권한 신청</h2>
+					<h2>권한 신청</h2><button type="button" id="regBtn" class="btn-sm btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
 					<table id="talentList">
 						<tr>
 							<td colspan="4">신청한 재능</td>
@@ -127,8 +153,11 @@ $(document).ready(function(){
 							<td>승인대기중 / <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">삭제</button></td>
 						</tr>
 					</table>
-					<button type="button" id="regBtn" class="btn-sm btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
 					
+				</div>
+					<div id="btnDiv">
+						<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
+					</div>
 						  <!-- 재능 신청 Modal -->
 						  <div class="modal fade" id="addModal" role="dialog">
 						    <div class="modal-dialog">
@@ -202,7 +231,6 @@ $(document).ready(function(){
 						    </div>
 						  </div>
 						  <!-- Modal -->
-				</div>
         	</div>
        </div>
 	</div>
