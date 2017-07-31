@@ -20,10 +20,13 @@
 
 	
 	
-	function sellingList(){
+	function sellingList(page){
 		$.ajax({
 			url:"sellingList.do",
 			type:"POST",
+			data:{
+				page:page
+			},
 			dataType:"json",
 			success:function(data){
 				console.log(data);
@@ -140,7 +143,7 @@
 	
 	
 	$(document).ready(function(){
-		sellingList();
+		sellingList(0);
 		
 		
 		$(document).on('click','.continueBtn', function(){
@@ -388,6 +391,21 @@ table{
 	width: 100%;
 }
 
+	#tabs-1 div, #tabs-2 div{
+		text-align:center;
+		position: absolute;
+		top: 90%;
+		left: 40%;
+	}
+	#tabs-1, #tabs-2{
+		height: 400px;
+	}
+	.col-md-8{
+		position: relative;
+		left: 10%;
+	}
+
+
 </style>
 </head>
 <body>
@@ -422,6 +440,9 @@ table{
 							<table>
 								<tr><th width="15%">등록일</th><th width="40%">글제목</th><th width="15%">구매자</th><th width="10%">상태</th><th width="20%">비고</th></tr>
 							</table>
+							<div>
+								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
+							</div>
 						</div>
 						<div id="tabs-2">
 							<table>
