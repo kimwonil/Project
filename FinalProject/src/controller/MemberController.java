@@ -39,6 +39,11 @@ public class MemberController {
 	
 	/**
 	 * 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)
+	 * - 이메일주소 관련 변수 -
+	 * emailK : Kakao 로그인 성공시 사용
+	 * emailG : Google 로그인 성공시 사용
+	 * emailN : Naver 로그인 성공시 사용
+	 * - 이하 추가 정보는 WebContent - loginprototype.jsp 참조
 	 * */
 	////////////////////////
 	
