@@ -4,8 +4,12 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="dao.DealDao">
-	<select id="selectAll" parameterType="String" resultType="Board">
-		select * from board where writer=#{id} and state in(0,1,2)
+	<select id="selectAll" parameterType="java.util.HashMap" resultType="Board">
+		select * from board where writer=#{id} and state in(0,1,2) order by no desc limit #{page}, 8
+	</select>
+	
+	<select id="totalPageSelling" parameterType="String" resultType="int">
+		select count(no) from board where writer=#{id}
 	</select>
 	
 	<select id="purchaseCount" parameterType="int" resultType="int">
@@ -33,11 +37,19 @@
 	</select>
 	
 	<select id="ongoingPurcharse" parameterType="int" resultType="Purchase">
-		select * from purchase where no=#{no} and state=10
+		select * from purchase where no=#{no} and state=10 
+	</select>
+	
+	<select id="totalPageOngoing" parameterType="String" resultType="int">
+		select count(no) from purchase where purchaser=#{id} and state=10
 	</select>
 	
 	<select id="completionPurcharse" parameterType="int" resultType="Purchase">
-		select * from purchase where no=#{no} and state in(11, 20, 30)
+		select * from purchase where no=#{no} and state in(11, 20, 30) 
+	</select>
+	
+	<select id="totalPageCompletion" parameterType="String" resultType="int">
+		select count(no) from purchase where purchaser=#{id} and state in(11, 20, 30)
 	</select>
 	
 	<select id="purchaseComplete" parameterType="String" resultType="Purchase">
