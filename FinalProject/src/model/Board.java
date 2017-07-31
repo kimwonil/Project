@@ -22,6 +22,7 @@ public class Board {
 	private int num_evaluator;
 	private float rating;
 	private String file_name1;
+	private String path;
 	
 	
 	public void rating(){
@@ -38,6 +39,18 @@ public class Board {
 		return rating;
 	}
 
+
+
+
+	public String getPath() {
+		return path;
+	}
+
+
+
+	public void setPath(String path) {
+		this.path = path;
+	}
 
 
 

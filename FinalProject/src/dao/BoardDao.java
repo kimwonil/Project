@@ -22,6 +22,7 @@ public interface BoardDao {
 	public void updateStar(HashMap<String, Object> boardMap);
 	public void udpateBoardRead_count(int no);
 	public List<Board> selectSearchResult(HashMap<String, Object> searchMap);
+	public List<Board> searchCategory(HashMap<String, Object> searchMap);
 	
 	//테이블명 : map
 	public boolean insertMap(HashMap<String, Object> params);
@@ -58,6 +59,7 @@ public interface BoardDao {
 	//테이블명 : category_high
 	public List<Category> category();
 	public List<Category> categoryLow(int high_no);
+	
 	
 
 }
