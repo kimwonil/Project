@@ -13,6 +13,16 @@
  	select * from profile
  </select>
  
+ <!-- 추가한부분 -->
+ 
+  <insert id="memberInsert" parameterType="Member">
+ 	insert into member values(#{id},#{nickName},#{photo},#{balance},#{admin},#{code},#{amount})
+ 	 </insert>
+ 
+ 
+ <!-- 추가한부분 -->
+ 
+ 
  <update id="memberUpdate" parameterType="Member">
  	update profile set nickname=#{nickName}, photo=#{photo}, balance=#{balance}, admin=#{admin} where id=#{id}
  </update>

@@ -134,7 +134,7 @@ public class BoardController{
 		
 		//일반 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
 		List<Board> normalList = new ArrayList<>();
-		HashMap<String, Object> pagingParam = new HashMap<>();
+		HashMap<String, Object> pagingParam = new HashMap<>();//검색에 필요한 페이징 정보를 맵에 담아서
 		pagingParam.put("start", paging.getStart());
 		pagingParam.put("end", paging.getEnd());
 		for(Board board : boardService.selectAllNormalBoard(pagingParam)){
@@ -144,10 +144,7 @@ public class BoardController{
 			normalList.add(board);
 		}//selectAllPremiumBoard에 각각 file_name1 넣기 끝
 		
-
-		
-		
-		
+		mav.addObject("paging", paging);
 		mav.addObject("premiumList", premiumList);
 		mav.addObject("normalList", normalList);
 		mav.setViewName("board/main");
