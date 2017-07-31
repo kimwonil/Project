@@ -88,7 +88,7 @@ public class MemberController {
 		params.put("code",code);
 		params.put("amount",amount);
 		
-		Memeberservice.memberInsert(params);
+		Memeberservice.memberInsert(member);
 	
 	////////////////////////
 	
