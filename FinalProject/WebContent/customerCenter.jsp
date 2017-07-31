@@ -17,7 +17,8 @@
 	$(function() {
 		$("#tabs").tabs();
 	 	noticeList(1,0,"0");
-	 
+	 	qnaList(1,0,"0");
+	 	reportList(1,0,"0");
 	});
 	
 	var member_id = "<%=session.getAttribute("member")%>"
@@ -38,9 +39,16 @@
 	var QnAstart;
 	var QnAend;
 	
+	
+	var Reportpage=1;
+	var Reporttype=0;
+	var Reportkeyword;
+	var Reportstart;
+	var Reportend;
+	
 	//공지 리스트
 function noticeList(page,type,keyword,start,end){
-//  		alert(page+" "+type+" "+keyword+" "+start+" "+end);
+
 		if(type==null || keyword==null)
 			{
 			type=0;
@@ -49,10 +57,10 @@ function noticeList(page,type,keyword,start,end){
 	
 		var startDate=new String();
 		startDate=start;
-// 		alert(startDate);
+
 		var endDate=new String();
 		endDate=end;
-// 		alert(startDate);
+
 		noticePage(page,type,keyword,start,end);
 		$.ajax({
 			url:"noticeList.do",
@@ -115,7 +123,7 @@ function noticeList(page,type,keyword,start,end){
 			success:function(data){
 				console.log(data);
 				$('#noticePage tr:gt(0)').remove();
-				var str="<tr><td>";
+				var str="<tr><td align=\"center\">";
 
 				if(data.start!=1)
 					{
@@ -155,14 +163,34 @@ function noticeList(page,type,keyword,start,end){
 	
 	
 	//질문 리스트
-function qnaList(){
+function qnaList(page,type,keyword,start,end){
+	if(type==null || keyword==null)
+	{
+	type=0;
+	keyword="0";
+	}
+
+	var startDate=new String();
+	startDate=start;
+
+	var endDate=new String();
+	endDate=end;
+
+	qnaPage(page,type,keyword,start,end);
+	$.ajax({
+		url:"qnaList.do",
+		type:"POST",
+		dataType:"json",
+		data:{
+		page:page,
+		type:type,
+		keyword:keyword,
+		start:startDate,
+		end:endDate
+		},
+		success:function(data){
+		console.log(data);
 		
-		$.ajax({
-			url:"qnaList.do",
-			type:"POST",
-			dataType:"json",
-			success:function(data){
-				console.log(data);
 				$('#qnaTable tr:gt(0)').remove();
 				for(var i=0;i<data.length;i++){
 					$('#qnaTable').append("<tr><td>"+data[i].date+"</td><td>"
@@ -183,16 +211,103 @@ function qnaList(){
 		
 	};
 
-	//신고 리스트
-function reportList(){
+	
+	//질문 페이징
+	function qnaPage(pagenum,type,keyword,start,end){
+		QnApage=pagenum;
+		if(type==null || keyword==null)
+			{
+			type=0;
+			keyword="0";
+			}
+		var startDate=new String();
+		startDate=start;
 		
+		var endDate=new String();
+		endDate=end;
+	
 		$.ajax({
-			url:"reportList.do",
+			url:"qnaPage.do",
 			type:"POST",
 			dataType:"json",
+			data:{
+				page:pagenum,
+				type:type,
+				keyword:keyword,
+				start:startDate,
+				end:endDate
+			
+			},
 			success:function(data){
 				console.log(data);
-				$('#reportTable tr:gt(0)').remove();
+				$('#qnaPage tr:gt(0)').remove();
+				var str="<tr><td align=\"center\">";
+
+				if(data.start!=1)
+					{
+					str=str+
+					"<a href='#' onclick='qnaList(1,"+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[처음]</a><a href='#' onclick='qnaList("+
+							(data.start-1)+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[이전]</a>";
+					}
+					
+				for(var i=data.start;i<=(data.end<data.last?data.end:data.last);i++){
+					if(i==data.current)
+						{
+						str=str+"<b>["+i+"]</b>";
+						}
+					else
+						{
+						str=str+"<a href='#' onclick='qnaList("+i+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>["+i+"]</a>";
+						}
+				}
+				if(data.end<data.last)
+					{
+					str=str+"<a href='#' onclick='qnaList("+(data.end+1)+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[다음]</a>";
+					str=str+"<a href='#' onclick='qnaList("+(data.last)+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[마지막]</a>";
+					}
+				str=str+"</td></tr>";
+				
+				$('#qnaPage').append(str);
+
+
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+		
+	}
+	
+	//신고 리스트
+function reportList(page,type,keyword,start,end){
+	if(type==null || keyword==null)
+	{
+	type=0;
+	keyword="0";
+	}
+
+	var startDate=new String();
+	startDate=start;
+
+	var endDate=new String();
+	endDate=end;
+
+	reportPage(page,type,keyword,start,end);
+	$.ajax({
+		url:"reportList.do",
+		type:"POST",
+		dataType:"json",
+		data:{
+		page:page,
+		type:type,
+		keyword:keyword,
+		start:startDate,
+		end:endDate
+		},
+		success:function(data){
+		console.log(data);
+		$('#reportTable tr:gt(0)').remove();
 				for(var i=0;i<data.length;i++){
 				$('#reportTable').append("<tr><td>"+data[i].date+"</td><td>"
 												+data[i].no+"</td><td>"
@@ -211,8 +326,73 @@ function reportList(){
 		
 	};
 
-	qnaList();
-	reportList();
+	//질문 페이징
+		function reportPage(pagenum,type,keyword,start,end){
+			Reportpage=pagenum;
+			if(type==null || keyword==null)
+				{
+				type=0;
+				keyword="0";
+				}
+			var startDate=new String();
+			startDate=start;
+			
+			var endDate=new String();
+			endDate=end;
+		
+			$.ajax({
+				url:"reportPage.do",
+				type:"POST",
+				dataType:"json",
+				data:{
+					page:pagenum,
+					type:type,
+					keyword:keyword,
+					start:startDate,
+					end:endDate
+				
+				},
+				success:function(data){
+					console.log(data);
+					$('#reportPage tr:gt(0)').remove();
+					var str="<tr><td align=\"center\">";
+
+					if(data.start!=1)
+						{
+						str=str+
+						"<a href='#' onclick='reportList(1,"+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[처음]</a><a href='#' onclick='reportList("+
+								(data.start-1)+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[이전]</a>";
+						}
+						
+					for(var i=data.start;i<=(data.end<data.last?data.end:data.last);i++){
+						if(i==data.current)
+							{
+							str=str+"<b>["+i+"]</b>";
+							}
+						else
+							{
+							str=str+"<a href='#' onclick='reportList("+i+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>["+i+"]</a>";
+							}
+					}
+					if(data.end<data.last)
+						{
+						str=str+"<a href='#' onclick='reportList("+(data.end+1)+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[다음]</a>";
+						str=str+"<a href='#' onclick='reportList("+(data.last)+","+type+",\""+keyword+"\",\""+start+"\",\""+end+"\")'>[마지막]</a>";
+						}
+					str=str+"</td></tr>";
+					
+					$('#reportPage').append(str);
+
+
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
+			
+		}
+	
 	//공지 상세
 		$(document).on('click','.NoticeDetail',function(){
 			$.ajax({
@@ -354,7 +534,7 @@ function reportList(){
 			data:{no:$(this).attr('id')},
 			dataType:"json",
 			success:function(data){
-				qnaList();
+				qnaList(QnApage,QnAtype,QnAkeyword,QnAstart,QnAend);
 				$('#QnAtitleLabel').text(data.title);
 				$('#QnAwriterLabel').text(data.writer);
 				$('#QnAcontentLabel').text("질문 내용 : "+data.content);
@@ -372,7 +552,11 @@ function reportList(){
 				
 				if(data.state==0)
 					{
-					$("#AnswerInsertForm").attr("name","AnswerInsertForm")
+					$("#AnswerInsertForm").attr("name","AnswerInsertname")
+					
+					$("#AnswerInsertForm").attr('data-toggle',"modal");
+					$("#AnswerInsertForm").attr('data-target',"#AnswerInsertModal");
+					
 					$('#AnswerInsertForm').text("답변 등록");
 					}
 				else
@@ -399,8 +583,42 @@ function reportList(){
 		
 	});
 	
+	
+	//질문 등록
+	$(document).on('click','#qnainsert',function(){
+		
+		
+		$.ajax({
+			url:"insertQuestion.do",
+			type:"POST",
+			data:{
+				major:$('#qnaMajor').val(),
+				minor:$('#qnaMinor').val(),
+				title:$('#qnaTitle').val(),
+				content:$('#qnaContent').val(),
+				open:$(":input:radio[name=qnaopen]:checked").val()
+			},
+			success:function(){
+				
+				qnaList(QnApage,QnAtype,QnAkeyword,QnAstart,QnAend);
+				$('#QnAinsertModal').modal('hide');
+				$('#qnaMajor option:eq(0)').prop("selected", true);
+				$('#qnaMinor option:eq(0)').prop("selected", true);
+				$('#qnaTitle').val("");
+				$('#qnaContent').val("");
+				$(":input:radio[name=qnaopen]").removeAttr('checked');
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(textStatus);
+				console.log(errorThrown);
+				alert("실패");
+			}
+		});
+		
+	});
+	
 	//답변 폼
-	$(document).on('click','button[name=AnswerInsertForm]',function(){
+	$(document).on('click','button[name=AnswerInsertname]',function(){
 
 		
 
@@ -412,7 +630,7 @@ function reportList(){
 			},
 			dataType:"json",
 			success:function(data){
-				qnaList();
+				qnaList(QnApage,QnAtype,QnAkeyword,QnAstart,QnAend);
 				$('#QnAAnswertitleLabel').text(data.title);
 				$('#QnAAnswerwriterLabel').text(data.writer);
 				$('#QnAAnswercontentLabel').text("질문 내용 : "+data.content);
@@ -443,7 +661,7 @@ function reportList(){
 					},
 					success:function(){
 						
-						qnaList();
+						qnaList(QnApage,QnAtype,QnAkeyword,QnAstart,QnAend);
 						$('#AnswerInsertModal').modal('hide');
 					
 						$('#AnswerInsertContent').val("");
@@ -471,7 +689,7 @@ function reportList(){
 			},
 			dataType:"json",
 			success:function(data){
-				qnaList();
+				qnaList(QnApage,QnAtype,QnAkeyword,QnAstart,QnAend);
 				$('#AnswertitleLabel').text(data.title);
 				$('#AnswerwriterLabel').text(data.writer);
 				$('#AnswerUpdatecontentLabel').text("질문 내용 : "+data.content);
@@ -502,7 +720,7 @@ function reportList(){
 				
 					},
 					success:function(){
-						qnaList();
+						qnaList(QnApage,QnAtype,QnAkeyword,QnAstart,QnAend);
 						$("#AnswerUpdateContent").val("");
 						$('#AnswerUpdateModal').modal('hide');
 					},
@@ -525,8 +743,8 @@ function reportList(){
 				data:{no:$("#QnAUpdateForm").val()},
 				dataType:"json",
 				success:function(data){
-					qnaList();
-
+					qnaList(QnApage,QnAtype,QnAkeyword,QnAstart,QnAend);
+				
 					var cate=data.category_no;
 					var minor=cate%10;
 					var major=(cate-minor)/10;
@@ -564,7 +782,7 @@ function reportList(){
 				open:$(":input:radio[name=QnAUpdateopen]:checked").val()
 				},
 				success:function(){
-					qnaList();
+					qnaList(QnApage,QnAtype,QnAkeyword,QnAstart,QnAend);
 				
 					$('#QnAContentUpdateModal').modal('hide');
 				},
@@ -587,7 +805,7 @@ function reportList(){
 			
 			},
 			success:function(){
-				qnaList();
+				qnaList(QnApage,QnAtype,QnAkeyword,QnAstart,QnAend);
 			
 				$('#QnAContentModal').modal('hide');
 			},
@@ -612,10 +830,10 @@ function reportList(){
 	//질문 검색 초기화
 	$(document).on('click','#qnaResetBtn',function(){
 		
-		Noticetype=0
-		Noticekeyword=null;
-		Noticestart=null;
-		Noticeend=null;
+		QnAtype=0
+		QnAkeyword=null;
+		QnAstart=null;
+		QnAend=null;
 		$('#qnaSerch option:eq(0)').prop("selected", true);
 		$('#qnaSerchKeyword').val("");
 		$('#qnastartDate').val("");
@@ -634,8 +852,8 @@ function reportList(){
 			data:{no:$(this).attr('id')},
 			dataType:"json",
 			success:function(data){
-				reportList();
-// 				alert(data.state);
+				
+				reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 				$('#ReporttitleLabel').text(data.title);
 				$('#ReportwriterLabel').text(data.writer);
 				$('#ReportcontentLabel').text(data.content);
@@ -680,7 +898,7 @@ function reportList(){
 			data:{no:$("#ReportUpdateForm").val()},
 			dataType:"json",
 			success:function(data){
-				reportList();
+				reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 				
 				var cate=data.category_no;
 				var minor=cate%10;
@@ -715,7 +933,7 @@ function reportList(){
 					no:$("#ReportClearBtn").val(),
 					},
 					success:function(){
-						reportList();ㅏㅑㅗ
+						reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 						
 						$('#ReportContentModal').modal('hide');
 					},
@@ -728,7 +946,7 @@ function reportList(){
 	//신고 처리 완료 버튼 클릭
 		$(document).on('click','button[name=ReportClearEndBtn]',function(){
 
-				reportList();
+			reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 			
 				$('#ReportContentModal').modal('hide');
 
@@ -751,7 +969,7 @@ function reportList(){
 				content:$('#ReportcontentUpdate').val()
 				},
 				success:function(){
-					reportList();
+					reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 					
 					$('#ReportContentUpdateModal').modal('hide');
 				},
@@ -774,7 +992,7 @@ function reportList(){
 				
 				},
 				success:function(){
-					reportList();
+					reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 				
 					$('#ReportContentModal').modal('hide');
 				},
@@ -784,38 +1002,7 @@ function reportList(){
 			});
 			
 		});
-	//질문 등록
-	$(document).on('click','#qnainsert',function(){
-		
-		
-		$.ajax({
-			url:"insertQuestion.do",
-			type:"POST",
-			data:{
-				major:$('#qnaMajor').val(),
-				minor:$('#qnaMinor').val(),
-				title:$('#qnaTitle').val(),
-				content:$('#qnaContent').val(),
-				open:$(":input:radio[name=qnaopen]:checked").val()
-			},
-			success:function(){
-				
-				qnaList();
-				$('#QnAinsertModal').modal('hide');
-				$('#qnaMajor option:eq(0)').prop("selected", true);
-				$('#qnaMinor option:eq(0)').prop("selected", true);
-				$('#qnaTitle').val("");
-				$('#qnaContent').val("");
-				$(":input:radio[name=qnaopen]").removeAttr('checked');
-			},
-			error:function(jqXHR, textStatus, errorThrown){
-				console.log(textStatus);
-				console.log(errorThrown);
-				alert("실패");
-			}
-		});
-		
-	});
+	
 	//신고 등록
 $(document).on('click','#reportinsert',function(){
 		
@@ -832,7 +1019,7 @@ $(document).on('click','#reportinsert',function(){
 			},
 			success:function(){
 				
-				reportList();
+				reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 				$('#ReportinsertModal').modal('hide');
 				$('#reportMajor option:eq(0)').prop("selected", true);
 				$('#reportMinor option:eq(0)').prop("selected", true);
@@ -848,6 +1035,32 @@ $(document).on('click','#reportinsert',function(){
 		});
 		
 	});
+	
+	
+//신고 검색
+$(document).on('click','#reportSerchBtn',function(){
+	Reporttype=$('#reportSerch').val();
+	Reportkeyword=$('#reportSerchKeyword').val();
+	Reportstart=$('#reportstartDate').val();
+	Reportend=$('#reportendDate').val();
+	reportList(1,$('#reportSerch').val(),$('#reportSerchKeyword').val(),$('#reportstartDate').val(),$('#reportendDate').val());
+
+});
+
+//신고 검색 초기화
+$(document).on('click','#reportResetBtn',function(){
+	
+	Reporttype=0
+	Reportkeyword=null;
+	Reportstart=null;
+	Reportend=null;
+	$('#reportSerch option:eq(0)').prop("selected", true);
+	$('#reportSerchKeyword').val("");
+	$('#reportstartDate').val("");
+	$('#reportendDate').val("");
+	reportList(1,0,"0",null,null);
+
+});
 </script>
 <style type="text/css">
 #tabs tr, #tabs td, #tabs th {
@@ -873,38 +1086,40 @@ $(document).on('click','#reportinsert',function(){
 						<div class="fh5co-spacer fh5co-spacer-sm"></div>
 						<div id="tabs-1">
 						
-						<div align="center">
-						<input type="date" id="noticestartDate"> <input type="date"
-							id="noticeendDate">
-							<select name="noticeSerch" id="noticeSerch">
-								<option value="0">검색조건</option>
-								<option value="1">닉네임</option>
-								<option value="2">글제목</option>
-							</select> 
-							<input type="text" id="noticeSerchKeyword">
-							<button id="noticeSerchBtn">검색</button>
-							<button id="noticeResetBtn">검색초기화</button>
-						</div>
 						
+
 							<table id="noticeTable" style="width: 100%;">
 								<tr>
-									<th>등록일</th>
-									<th>글번호</th>
-									<th>분류</th>
-									<th>글제목</th>
-									<th>작성자</th>
-									<th>조회수</th>
-
+									<th width="15%">등록일</th>
+									<th width="10%">글번호</th>
+									<th width="10%">분류</th>
+									<th width="30%">글제목</th>
+									<th width="25%">작성자</th>
+									<th width="10%">조회수</th>
+							
 								</tr>
 
 
 							</table>
-							<table id="noticePage" style="width: 100%;">
+							<table id="noticePage" style="width: 100%; margin-left: auto; margin-right: auto;">
 								<tr>
-								<th>
-								</th>
+									<th></th>
 								</tr>
 							</table>
+							<br>
+							<div>
+								<input type="date" id="noticestartDate" > <input
+									type="date" id="noticeendDate">
+									 <select style="height:32px;"
+									name="noticeSerch" id="noticeSerch">
+									<option value="0">검색조건</option>
+									<option value="1">닉네임</option>
+									<option value="2">글제목</option>
+								</select> <input type="text" id="noticeSerchKeyword" style="width:130px;">
+								<button id="noticeSerchBtn">검색</button>
+								<button id="noticeResetBtn">검색초기화</button>
+							</div>
+							
 							<c:choose>
 
 								<c:when test="${member.admin==1}">
@@ -919,41 +1134,46 @@ $(document).on('click','#reportinsert',function(){
 							</c:choose>
 						</div>
 						<div id="tabs-2">
-						
-						<div align="center">
-						<input type="date" id="qnastartDate"> <input type="date"
-							id="qnaendDate">
-							<select name="qnaSerch" id="qnaSerch">
-								<option value="0">검색조건</option>
-								<option value="1">닉네임</option>
-								<option value="2">글제목</option>
-							</select> 
-							<input type="text" id="qnaSerchKeyword">
-							<button id="qnaSerchBtn">검색</button>
-							<button id="qnaResetBtn">검색초기화</button>
-						</div>
-						
+
+							
+
 							<table id="qnaTable" style="width: 100%;">
 								<tr>
-									<th>등록일</th>
-									<th>글번호</th>
-									<th>분류</th>
-									<th>글제목</th>
-									<th>작성자</th>
-									<th>답변상태</th>
-									<th>조회수</th>
+									<th width="15%">등록일</th>
+									<th width="10%">글번호</th>
+									<th width="5%">분류</th>
+									<th width="28%">글제목</th>
+									<th width="22%">작성자</th>
+									<th width="10%">답변상태</th>
+									<th width="10%">조회수</th>
 
 								</tr>
 
 
 							</table>
-
+							<table id="qnaPage" style="width: 100%;" align="center">
+								<tr>
+									<th></th>
+								</tr>
+							</table>
+							<br>
+							<div>
+								<input type="date" id="qnastartDate"> <input type="date"
+									id="qnaendDate"> <select style="height:32px;" name="qnaSerch" id="qnaSerch">
+									<option value="0">검색조건</option>
+									<option value="1">닉네임</option>
+									<option value="2">글제목</option>
+								</select> <input type="text" id="qnaSerchKeyword" style="width:130px;">
+								<button id="qnaSerchBtn">검색</button>
+								<button id="qnaResetBtn">검색초기화</button>
+							</div>
 							<br>
 							<div class="form-group" style="text-align: right;">
 								<button type="button" class="btn btn-info btn-lg"
 									data-toggle="modal" data-target="#QnAinsertModal">Q &
 									A 등록</button>
 							</div>
+							
 							<!-- Modal -->
 							<div class="modal fade" id="QnAinsertModal" role="dialog">
 								<div class="modal-dialog modal-lg">
@@ -1011,18 +1231,40 @@ $(document).on('click','#reportinsert',function(){
 							</div>
 						</div>
 						<div id="tabs-3">
+
+						
+
 							<table id="reportTable" style="width: 100%;">
 								<tr>
-									<th>등록일</th>
-									<th>글번호</th>
-									<th>분류</th>
-									<th>글제목</th>
-									<th>작성자</th>
-									<th>처리상태</th>
-									<th>조회수</th>
+									<th width="15%">등록일</th>
+									<th width="10%">글번호</th>
+									<th width="5%">분류</th>
+										<th width="28%">글제목</th>
+									<th width="22%">작성자</th>
+									<th width="10%">처리상태</th>
+									<th width="10%">조회수</th>
 								</tr>
 
 							</table>
+							<table id="reportPage" style="width: 100%;">
+								<tr>
+									<th></th>
+								</tr>
+							</table>
+
+							<br>
+								<div>
+								<input type="date" id="reportstartDate" size="40"> <input
+									type="date" id="reportendDate" width="15%"> <select
+									style="height:32px;"
+									name="reportSerch" id="reportSerch">
+									<option value="0">검색조건</option>
+									<option value="1">닉네임</option>
+									<option value="2">글제목</option>
+								</select> <input type="text" id="reportSerchKeyword" style="width:130px;">
+								<button id="reportSerchBtn">검색</button>
+								<button id="reportResetBtn">검색초기화</button>
+							</div>
 							<br>
 							<div class="form-group" style="text-align: right;">
 								<button type="button" class="btn btn-info btn-lg"
@@ -1117,21 +1359,17 @@ $(document).on('click','#reportinsert',function(){
 													cols="78" readonly="readonly"></textarea></td>
 										</tr>
 										<tr>
-											<td>
-												<br>
-											</td>
+											<td><br></td>
 										</tr>
 										<tr>
-											<td colspan="3"><textarea id="AnswercontentLabel" rows="5"
-													cols="78" readonly="readonly"></textarea></td>
+											<td colspan="3"><textarea id="AnswercontentLabel"
+													rows="5" cols="78" readonly="readonly"></textarea></td>
 										</tr>
-											<tr>
-											<td>
-												<br>
-											</td>
+										<tr>
+											<td><br></td>
 										</tr>
-										
-										
+
+
 										<tr>
 											<td><button type="button" class="btn btn-sm btn-danger"
 													id="QnAUpdateForm" data-toggle="modal"
@@ -1139,16 +1377,16 @@ $(document).on('click','#reportinsert',function(){
 												<button type="button" id="QnADelete"
 													class="btn btn-sm btn-danger">질문 삭제</button></td>
 										</tr>
-					
-										
+
+
 										<tr>
-										
-												<td><div class="form-group" style="text-align: right;">
-													<button type="button" class="btn btn-info btn-lg" id="AnswerInsertForm" name=""  data-toggle="modal"
-													data-target="#AnswerInsertModal">
-														</button>
+
+											<td><div class="form-group" style="text-align: right;">
+													<button type="button" class="btn btn-info btn-lg"
+														id="AnswerInsertForm" name="" data-toggle="modal"
+														data-target="#AnswerInsertModal"></button>
 												</div></td>
-										
+
 										</tr>
 									</table>
 								</div>
@@ -1157,7 +1395,7 @@ $(document).on('click','#reportinsert',function(){
 						</div>
 					</div>
 					<!-- qna상세 끝 -->
-					
+
 					<!--QnAContentModal AnswerForm상세-->
 					<div class="modal fade" id="AnswerInsertModal" role="dialog">
 						<div class="modal-dialog">
@@ -1182,30 +1420,26 @@ $(document).on('click','#reportinsert',function(){
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3"><textarea id="QnAAnswercontentLabel" rows="5"
-													cols="78" readonly="readonly"></textarea></td>
+											<td colspan="3"><textarea id="QnAAnswercontentLabel"
+													rows="5" cols="78" readonly="readonly"></textarea></td>
 										</tr>
 										<tr>
-											<td>
-												<br>
-											</td>
+											<td><br></td>
 										</tr>
 										<tr>
-											<td colspan="3"><textarea id="AnswerInsertContent" rows="5"
-													cols="78"  placeholder="답변을 입력하세요"></textarea></td>
+											<td colspan="3"><textarea id="AnswerInsertContent"
+													rows="5" cols="78" placeholder="답변을 입력하세요"></textarea></td>
 										</tr>
-											<tr>
-											<td>
-												<br>
-											</td>
+										<tr>
+											<td><br></td>
 										</tr>
 										<tr>
 											<td><button type="button" class="btn btn-sm btn-danger"
-													id="AnswerInsert" >답변 등록</button>
+													id="AnswerInsert">답변 등록</button>
 												<button type="button" id="Answercancel"
 													class="btn btn-sm btn-danger" data-dismiss="modal">취소</button></td>
 										</tr>
-									
+
 									</table>
 								</div>
 							</div>
@@ -1213,7 +1447,7 @@ $(document).on('click','#reportinsert',function(){
 						</div>
 					</div>
 					<!-- qna상세 끝 -->
-					
+
 					<!--QnAContentModal AnswerUpdateForm상세-->
 					<div class="modal fade" id="AnswerUpdateModal" role="dialog">
 						<div class="modal-dialog">
@@ -1238,30 +1472,26 @@ $(document).on('click','#reportinsert',function(){
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3"><textarea id="AnswerUpdatecontentLabel" rows="5"
-													cols="78" readonly="readonly"></textarea></td>
+											<td colspan="3"><textarea id="AnswerUpdatecontentLabel"
+													rows="5" cols="78" readonly="readonly"></textarea></td>
 										</tr>
 										<tr>
-											<td>
-												<br>
-											</td>
+											<td><br></td>
 										</tr>
 										<tr>
-											<td colspan="3"><textarea id="AnswerUpdateContent" rows="5"
-													cols="78">답변 입력 : </textarea></td>
+											<td colspan="3"><textarea id="AnswerUpdateContent"
+													rows="5" cols="78">답변 입력 : </textarea></td>
 										</tr>
-											<tr>
-											<td>
-												<br>
-											</td>
+										<tr>
+											<td><br></td>
 										</tr>
 										<tr>
 											<td><button type="button" class="btn btn-sm btn-danger"
-													id="AnswerUpdate" >답변 수정</button>
+													id="AnswerUpdate">답변 수정</button>
 												<button type="button" id="Answercancel"
 													class="btn btn-sm btn-danger" data-dismiss="modal">취소</button></td>
 										</tr>
-									
+
 									</table>
 								</div>
 							</div>
@@ -1269,8 +1499,8 @@ $(document).on('click','#reportinsert',function(){
 						</div>
 					</div>
 					<!-- qna상세 끝 -->
-					
-					
+
+
 					<!--QnAContentUpdateModal qna업데이트상세-->
 					<div class="modal fade" id="QnAContentUpdateModal" role="dialog">
 						<div class="modal-dialog">
@@ -1451,12 +1681,12 @@ $(document).on('click','#reportinsert',function(){
 													class="btn btn-sm btn-danger">신고 삭제</button></td>
 										</tr>
 										<tr>
-										
-												<td><div class="form-group" style="text-align: right;">
-													<button type="button" class="btn btn-info btn-lg" id="ReportClearBtn" name="">
-														</button>
+
+											<td><div class="form-group" style="text-align: right;">
+													<button type="button" class="btn btn-info btn-lg"
+														id="ReportClearBtn" name=""></button>
 												</div></td>
-										
+
 										</tr>
 									</table>
 								</div>

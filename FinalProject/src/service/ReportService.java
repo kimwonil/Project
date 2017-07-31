@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.ReportDao;
+import model.Notice;
 import model.QnA;
 import model.Report;
 
@@ -51,4 +52,56 @@ public class ReportService {
 	{
 		return reportDao.deleteReport(no);
 	}
+	
+	public List<Report> getReportListPage(HashMap<String, Object> params,int page) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+	
+		
+		params.put("skip", getSkip(page-1));
+		params.put("qty", 10);
+		System.out.println("서비스에서 파람 : "+params);
+		List<Report> pList= reportDao.selectReportPage(params);
+//		result.put("noticeList", noticeDao.selectNoticePage(params));
+	
+		return pList;
+	}
+	
+	public HashMap<String,Object> getReportPage(HashMap<String, Object> params,int page)
+	{
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		result.put("current", page);
+		result.put("start", getStartPage(page));
+		result.put("end", getEndPage(page));
+		result.put("last", getLastPage(params));
+		
+		return result;
+	}
+	
+	public int getStartPage(int num) {
+		// TODO Auto-generated method stub
+		
+		return (num-1)/5*5+1;
+	}
+
+	
+	public int getEndPage(int num) {
+		// TODO Auto-generated method stub
+		return ((num-1)/5+1)*5;	
+	}
+
+	
+	public int getLastPage(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		return (reportDao.getReportCount(params)-1)/10+1;
+	}
+
+	
+	public int getSkip(int num) {
+		// TODO Auto-generated method stub
+		return num * 10;
+	}
+	
 }
