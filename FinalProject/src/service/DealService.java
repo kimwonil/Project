@@ -17,8 +17,8 @@ public class DealService {
 	@Autowired
 	DealDao dealDao;
 	
-	public List<Board> selectAll(String id){
-		return dealDao.selectAll(id);
+	public List<Board> selectAll(HashMap<String, Object> map){
+		return dealDao.selectAll(map);
 	}
 	
 	public int purchaseCount(int no) {
@@ -79,6 +79,18 @@ public class DealService {
 
 	public boolean insertStar_point(HashMap<String, Object> map) {
 		return dealDao.insertStar_point(map);
+	}
+
+	public int totalPageSelling(String id) {
+		return dealDao.totalPageSelling(id);
+	}
+
+	public int totalPageCompletion(String id) {
+		return dealDao.totalPageCompletion(id);
+	}
+
+	public int totalPageOngoing(String id) {
+		return dealDao.totalPageOngoing(id);
 	}
 
 	

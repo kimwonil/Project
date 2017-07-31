@@ -37,13 +37,16 @@
 							'<tr><td colspan="5">내역이 없습니다.</td></tr>'		
 						);
 				}else{
-					$.each(data, function(index, value){
+					$.each(data.list, function(index, value){
 						$('#tabs-1 > table').append(
 							'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
 							value.count + ' / ' + value.quantity + '</td><td>'+(value.state==0?"대기중":value.state==1?"인원마감":"마감일 초과")+'</td><td>'+
 							'<button class="btn-sm btn-info continueBtn" value="'+value.no+'">진행</button> <button class="btn-sm btn-info stopBtn" value="'+value.no+'">중단</button></td></tr>'		
 						);
 					});
+					
+					$('.prev').val(data.page==0?0:data.page-8);
+					$('.next').val(data.totalPage-8>data.page?data.page+8:data.page);	
 				}
 							
 			},
@@ -54,10 +57,13 @@
 	}
 	
 	
-	function ongoingList(){
+	function ongoingList(page){
 		$.ajax({
 			url:"ongoing.do",
 			type:"POST",
+			data:{
+				page:page
+			},
 			dataType:"json",
 			success:function(data){
 //					alert("성공");
@@ -69,7 +75,7 @@
 							'<tr><td colspan="6">내역이 없습니다.</td></tr>'		
 						);
 				}else{
-					$.each(data, function(index, value){
+					$.each(data.list, function(index, value){
 						$.each(value, function(index2, value2){
 							
 							var total = 0;
@@ -85,6 +91,10 @@
 							);								
 						});
 					});
+					
+					$('.prev').val(data.page==0?0:data.page-8);
+					$('.next').val(data.totalPage-8>data.page?data.page+8:data.page);	
+					
 				}
 				
 				
@@ -97,10 +107,13 @@
 	}
 	
 	
-	function completionList(){
+	function completionList(page){
 		$.ajax({
 			url:"completion.do",
 			type:"POST",
+			data:{
+				page:page
+			},
 			dataType:"json",
 			success:function(data){
 //					alert("성공");
@@ -112,7 +125,7 @@
 							'<tr><td colspan="6">내역이 없습니다.</td></tr>'		
 					);
 				}else{
-					$.each(data, function(index, value){
+					$.each(data.list, function(index, value){
 						$.each(value, function(index2, value2){
 							
 							var total = 0;
@@ -129,6 +142,9 @@
 							);								
 						});
 					});
+					
+					$('.prev').val(data.page==0?0:data.page-8);
+					$('.next').val(data.totalPage-8>data.page?data.page+8:data.page);
 				}
 				
 				
@@ -225,7 +241,7 @@
 				success:function(data){
 					alert("성공");
 					$('#continueModal').modal('hide');
-					sellingList();
+					sellingList(0);
 				},
 				error:function(){
 					alert("실패");
@@ -246,11 +262,11 @@
 // 		탭 기능
 		
 		$('#registrationList').click(function(){
-			sellingList();
+			sellingList(0);
 		});
 		
 		$('#ongoing').click(function(){
-			ongoingList();
+			ongoingList(0);
 		});
 		
 		
@@ -265,7 +281,7 @@
 				},
 				success:function(){
 					alert("성공");
-					ongoingList();
+					ongoingList(0);
 				},
 				error:function(){
 					alert("실패");
@@ -282,7 +298,7 @@
 		
 		
 		$('#completion').click(function(){
-			completionList();
+			completionList(0);
 		});
 		
 		$('#canceled').click(function(){
@@ -391,13 +407,13 @@ table{
 	width: 100%;
 }
 
-	#tabs-1 div, #tabs-2 div{
+	#tabs-1 div, #tabs-2 div, #tabs-3 div, #tabs-4 div{
 		text-align:center;
 		position: absolute;
 		top: 90%;
 		left: 40%;
 	}
-	#tabs-1, #tabs-2{
+	#tabs-1, #tabs-2, #tabs-3, #tabs-4{
 		height: 400px;
 	}
 	.col-md-8{
@@ -448,17 +464,26 @@ table{
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>총액</th><th>상태</th><th>비고</th></tr>
 							</table>
+							<div>
+								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
+							</div>
 							
 						</div>
 						<div id="tabs-3">
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>총액</th><th>상태</th><th>비고</th></tr>
 							</table>
+							<div>
+								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
+							</div>
 						</div>
 						<div id="tabs-4">
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>총액</th><th>상태</th><th>비고</th></tr>
 							</table>
+							<div>
+								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
+							</div>
 						</div>
 					</div>
 				</div>

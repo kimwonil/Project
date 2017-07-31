@@ -8,7 +8,7 @@ import model.Purchase;
 import model.PurchaseOption;
 
 public interface DealDao {
-	public List<Board> selectAll(String id);
+	public List<Board> selectAll(HashMap<String, Object> map);
 	public int purchaseCount(int no);
 	public List<Purchase> purchaseList(int no);
 	public List<PurchaseOption> purchaseOption(int no);
@@ -35,5 +35,8 @@ public interface DealDao {
 	
 	//star_point
 	public boolean insertStar_point(HashMap<String, Object> map);
+	public int totalPageSelling(String id);
+	public int totalPageCompletion(String id);
+	public int totalPageOngoing(String id);
 
 }
