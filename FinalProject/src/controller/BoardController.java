@@ -656,7 +656,7 @@ public class BoardController{
 		
 		List<Board> boardSearchList = new ArrayList<>();
 		
-		//해당 id가 찜한 글번호들
+		//검색결과로 뽑은 애들 보내기 전에 thumbnail 넣어주기
 		for(Board searchBoard : boardService.selectSearchResult(searchMap)){
 			int no = searchBoard.getNo();
 			Board boardWithThumbnail = boardService.selectOneBoard(no);
@@ -664,10 +664,59 @@ public class BoardController{
 			boardSearchList.add(boardWithThumbnail);
 		}
 		
+		mav.addObject("categoryList", boardService.category());
 		mav.addObject("boardSearchList", boardSearchList);
+		mav.addObject("word", word);
 		mav.setViewName("board/searchResult");
 		return mav;
 	}
+	
+	
+	/**
+	 * 검색결과 카테고리별로
+	 * */
+	@RequestMapping("searchResultCategory.do")
+	public void searchResultCategory(HttpServletRequest req, HttpServletResponse resp){
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		System.out.println("searchResultCategory.do");
+		
+		System.out.println(req.getParameter("major"));
+		System.out.println(req.getParameter("word"));
+		
+		HashMap<String, Object> searchMap = new HashMap<>();
+		searchMap.put("title", req.getParameter("word"));
+		searchMap.put("content", req.getParameter("word"));
+		searchMap.put("major", Integer.parseInt(req.getParameter("major").toString()));
+		
+		List<Board> boardSearchList = new ArrayList<>();
+		//검색결과로 뽑은 애들 보내기 전에 thumbnail 넣어주기
+		List<Board> list =  boardService.searchCategory(searchMap);
+		for(Board searchBoard : list){
+			String path = req.getContextPath()+"/user/board/";
+			searchBoard.setFile_name1(boardService.selectThumbnail(searchBoard.getNo()));
+			path += searchBoard.getNo()+"/"+searchBoard.getFile_name1();
+			searchBoard.setPath(path);
+		}
+		
+		Gson gson  = new Gson();
+		String json = gson.toJson(list);
+		PrintWriter pw;
+		try {
+			pw = resp.getWriter();
+			pw.println(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+//	<img src="<c:url value="/user/board/'+value.no+'"/>/'+value.file_name1+'">
+	
+	
+	
+	
+	
 	
 
 

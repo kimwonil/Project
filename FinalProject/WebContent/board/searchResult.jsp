@@ -15,12 +15,46 @@
 	float: left;
 	
 }
-
 </style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(document).on('change', '#major', function(){
+		console.log($(this).val());
+		$.ajax({
+			url : "searchResultCategory.do",
+			type : "post",
+			data : {word:$('#word').val(), major:$(this).val()},
+			dataType : "json",
+			success : function(data){
+				console.log(data);
+					$('#fh5co-board[name="searchResult"]').empty();
+					$.each(data, function(index, value){
+						$('#fh5co-board[name="searchResult"]').append(
+					        	'<div class="item">'+
+					        		'<div class="animate-box">'+
+						        		'<a href="detailOneBoard.do?no='+value.no+'">'+
+						        		   '<img id="'+value.writer+value.no+'" src=""></a>'+
+					        		'</div>'+
+					        		'<div class="fh5co-desc">'+value.title+'</div>'+
+					        	'</div>'
+						);
+						$('#'+value.writer+value.no).attr('src', value.path);
+					});//each 끝
+					
+			},error : function(){
+				alert("실패");
+			}
+		});
+	});//카테고리 선택
+});
+</script>
+
 <body>
 <div id="fh5co-main">
 	<div class="container">
 	
+
 		<h4>판매자 검색결과</h4>
 		<div class="container">
 		<div class="row">
@@ -40,12 +74,19 @@
 			</div>
 		</div>
 		</div>
-	
-
-		<h4>제목 + 내용 검색결과</h4>
+		
+		
+		<h4 style="display: inline-block;">제목+내용 검색결과</h4>
+		<input type="hidden" value="${word}" id="word">
+		<select name="major" id="major">
+				<option>카테고리</option>
+			<c:forEach items="${categoryList}" var="high">
+				<option value="${high.no}">${high.category_name}</option>
+			</c:forEach>
+		</select>
 		<div class="container">
 		<div class="row">
-        	<div id="fh5co-board"  class="normal" data-columns>
+        	<div id="fh5co-board" name="searchResult"  class="normal" data-columns>
         	
         		<c:forEach items="${boardSearchList}" var="board">
 		        	<div class="item">
@@ -61,6 +102,7 @@
 			</div>
 		</div>
 		</div>
+		
 	</div>
 </div>
 </body>

@@ -60,6 +60,18 @@
  	order by no desc 
  </select>
  
+ <select id="searchCategory" parameterType="java.util.HashMap" resultType="Board">
+ 	select * from board
+ 	where 1=0
+ 	 	<if test="title != null">
+ 		or title like '%${title}%'
+ 	</if>
+ 	<if test="content != null">
+ 		or content like '%${content}%'
+ 	</if>
+ 	and category_major=#{major} order by no desc 
+ </select>
+ 
  
 <!--  table명 : map -->
  <insert id="insertMap" parameterType="java.util.HashMap">

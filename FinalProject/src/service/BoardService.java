@@ -62,6 +62,10 @@ public class BoardService {
 	public List<Board> selectSearchResult(HashMap<String, Object> searchMap) {
 		return boardDao.selectSearchResult(searchMap);
 	}
+	
+	public List<Board> searchCategory(HashMap<String, Object> searchMap) {
+		return boardDao.searchCategory(searchMap);//카테고리랑 키워드로 board 검색
+	}
 
 	
 	/**
@@ -165,6 +169,8 @@ public class BoardService {
 	public List<Category> categoryLow(int high_no) {
 		return boardDao.categoryLow(high_no);
 	}
+
+
 
 
 	
