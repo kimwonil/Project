@@ -184,7 +184,6 @@ public class BoardController{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	
@@ -541,7 +540,6 @@ public class BoardController{
 		
 		System.out.println("찜하기  interest.do");
 		int board_no = Integer.parseInt(req.getParameter("no").toString());
-//		Object member = session.getAttribute("member");
 		Member member = (Member)session.getAttribute("member");
 		try {
 			PrintWriter pw = resp.getWriter();
@@ -550,6 +548,7 @@ public class BoardController{
 			}else{
 				String id = member.getId();
 				HashMap<String, Object> params = new HashMap<>();
+				params.put("category_no", boardService.selectOneBoard(board_no).getCategory_major());
 				params.put("board_no", board_no);
 				params.put("id", id);
 				
@@ -572,7 +571,7 @@ public class BoardController{
 	 * 찜목록으로 가기
 	 * */
 	@RequestMapping("dipsList.do")
-	public ModelAndView selectMyDips(String id){
+	public ModelAndView selectMyDips(String id, HttpSession session){
 		System.out.println("dipsList.do");
 		System.out.println(id);
 		ModelAndView mav = new ModelAndView();
@@ -586,10 +585,42 @@ public class BoardController{
 			board.setFile_name1(boardService.selectThumbnail(no));
 			dipsList.add(board);
 		}
+		
+		mav.addObject("category", boardService.category());
 		mav.addObject("dipsList", dipsList);
+		mav.setViewName("board/dipsList");
+		return mav;
+	}
+	
+	
+	/**
+	 * 찜한글 카테고리로 다시 검색
+	 * */
+	@RequestMapping("dipsCategory.do")
+	public ModelAndView dipsCategory(HttpSession session, int category_no){
+		ModelAndView mav = new ModelAndView();
+		System.out.println("dipsCategory.do");
+		System.out.println(category_no);
+		Member member = (Member)session.getAttribute("member");
+		String id = member.getId();
+		System.out.println(id);
 		
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("category_no", category_no);
+		params.put("id", id);
 		
+		List<Board> dipsList = new ArrayList<>();
+		//해당 id가 찜한 글번호들
+		for(HashMap<String, Object> dips : boardService.dipsWithCategory(params)){
+		int no = Integer.parseInt(dips.get("board_no").toString());
+		Board board = boardService.selectOneBoard(no);
+		board.setFile_name1(boardService.selectThumbnail(no));
+		dipsList.add(board);
+	}
+		System.out.println(dipsList);
 		
+		mav.addObject("category", boardService.category());
+		mav.addObject("dipsList", dipsList);
 		mav.setViewName("board/dipsList");
 		return mav;
 	}

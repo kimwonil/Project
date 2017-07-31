@@ -154,6 +154,9 @@ public class BoardService {
 		return boardDao.selectAllDips(id);
 	}
 
+	public List<HashMap<String, Object>> dipsWithCategory(HashMap<String, Object> params) {
+		return boardDao.dipsWithCategory(params);
+	}
 	
 
 	/**
@@ -174,6 +177,7 @@ public class BoardService {
 	public List<Category> categoryLow(int high_no) {
 		return boardDao.categoryLow(high_no);
 	}
+
 
 	
 

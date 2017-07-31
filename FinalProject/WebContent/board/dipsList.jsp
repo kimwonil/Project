@@ -23,9 +23,11 @@
 	
 
 		<h4>찜목록을 보여주자</h4>
-		<table>
+		<table border="1">
 		<tr>
-		<td>카테고리1</td><td>카테고리2</td><td>카테고리3</td><td>어쩌구</td><td>저쩌구</td>
+		<c:forEach items="${category}" var="major">
+		<td height="50px"><a href="dipsCategory.do?category_no=${major.no}"><div style="line-height: 50px">${major.category_name}</div></a></td>
+		</c:forEach>
 		</tr>
 		</table>
 		<div class="container">
@@ -33,14 +35,14 @@
 
         	<div id="fh5co-board"  class="normal" data-columns>
         	
-        		<c:forEach items="${dipsList}" var="dips">
+        		<c:forEach items="${dipsList}" var="board">
 		        	<div class="item">
 		        		<div class="animate-box">
-			        		<a href="detailOneBoard.do?no=${dips.no}" 
+			        		<a href="detailOneBoard.do?no=${board.no}" 
 			        		   title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?">
-			        		   <img src='<c:url value="/user/board/${dips.no}"/>/${dips.file_name1}' alt="Free HTML5 Bootstrap template"></a>
+			        		   <img src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}' alt="Free HTML5 Bootstrap template"></a>
 		        		</div>
-		        		<div class="fh5co-desc">${dips.title}</div>
+		        		<div class="fh5co-desc">${board.title}</div>
 		        	</div>
 	        	</c:forEach>
 	        	

@@ -354,13 +354,14 @@ function totalPrice(){
 							<table>
 							<tr>
 								<td><div class="fh5co-desc">${board.title}</div></td>
-								<td>
-								<div class="star-ratings-css">
+								<td width="57%">
+								<div class="star-ratings-css" style="line-height: 20px">
 								  
 								  <div class="star-ratings-css-top" id="starPercent" style="width:${board.rating}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 								  <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 								</div>
 								</td>
+								<td>(${board.num_evaluator})</td>
 							</tr>
 							</table>
 							
