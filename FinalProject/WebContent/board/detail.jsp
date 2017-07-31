@@ -336,6 +336,7 @@ function totalPrice(){
 
 
 <body>
+
 	<div id="fh5co-main">
 		<div class="container">
 			<div class="row">

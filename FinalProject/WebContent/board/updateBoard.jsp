@@ -329,7 +329,28 @@ $(document).ready(function(){
    	});
 	
 	
-	
+   	$(document).on('change','#major', function(){
+   		$.ajax({
+   			url:"categoryLow.do",
+   			type:"POST",
+   			data:{high_no:$(this).val()},
+   			dataType:"json",
+   			success:function(data){
+   				console.log(data);
+   				$('#minor').empty();
+   				$.each(data, function(index, value){
+	   				$('#minor').append(
+	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+	   				);
+   				});
+   			},
+   			error:function(){
+   				alert("실패");
+   			}
+   		});
+   	});//카테고리 ajax 끝
+   	
+   	
 });//document.ready
 </script>
 
@@ -350,8 +371,14 @@ $(document).ready(function(){
 							<form id="detailInfo" action="updateBoard.do" method="post" enctype="multipart/form-data">
 								<table class="table">
 									<tr><th>카테고리 </th><th>
-									<select name="major"><option>대분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select> 
-									<select name="minor"><option>소분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option></select>
+									<select name="major" id="major">
+										<c:forEach items="${categoryList}" var="high">
+											<option value="${high.no}">${high.category_name}</option>
+										</c:forEach>
+									</select> 
+									<select name="minor" id="minor">
+										<option>소분류</option><option>대분류를 선택하세요</option>
+									</select>
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title" value="${board.title}"> </th></tr>
 									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" value="${board.end_date }"> </th></tr>

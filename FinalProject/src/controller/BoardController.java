@@ -386,6 +386,10 @@ public class BoardController{
 		//board 뽑아서 보내기
 		mav.addObject("board", boardService.selectOneBoard(no));
 		
+		//카테고리대분류 리스트 뽑기
+		List<Category> categoryList = boardService.category();
+		mav.addObject(categoryList);
+		
 		//map에서 주소 뽑아서 보내기
 		mav.addObject("mapinfo", boardService.selectOneMap(no));
 		

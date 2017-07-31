@@ -388,7 +388,7 @@ $(document).ready(function(){
 										</c:forEach>
 									</select> 
 									<select name="minor" id="minor">
-										<option>소분류</option><option value="1">카테고리1</option><option value="2">카테고리2</option><option value="3">카테고리3</option>
+										<option>소분류</option><option>대분류를 선택하세요</option>
 									</select>
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title"> </th></tr>
