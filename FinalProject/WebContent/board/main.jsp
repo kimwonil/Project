@@ -11,31 +11,84 @@
 <title>Insert title here</title>
 </head>
 <style>
-	.normal>.item{
-		width: 200px;
-		height: 300px;
-		position: relative;
-		float: left;
-		
-	}
-	.fh5co-desc {
-		color: #444;
-		padding-left: 8px;
-		padding-right: 8px;
-	}
-	.infoTable{
-		width: 100%;
-	}
-	.star-ratings-css{
-		font-size: 15px;
-	}
-	#fh5co-board .item .fh5co-desc{
+/* slide관련 */
+.sp-slideshow{
+	width: 100%;
+}
+/* slide관련 끝 */
+.normal>.item{
+	width: 200px;
+	height: 350px;
+	position: relative;
+	float: left;
+}
+/* .normal>.item{ */
+/* 	height: 200px; */
+/* } */
+.row{
+	margin: 0px auto;
+}
+.fh5co-desc {
+	color: #444;
+	padding-left: 8px;
+	padding-right: 8px;
+	width: 100%;
+}
+.infoTable{
+	width: 100%;
+}
+.star-ratings-css{
+	font-size: 15px;
+	text-align: right;
+}
+.star-ratings-css-bottom{
+	float: left;
+}
+#fh5co-board .item .fh5co-desc{
 	padding-left: 13px;
 	padding-right: 13px;
-	}
-	#paddingTop{
-	padding-bottom: 0px;
-	}
+}
+#fh5co-board .item .fh5co-desc {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.writer{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	width: 65px;
+	height: 20px;
+	display: block;
+}
+
+.price{
+	height: 45px;
+	font-size: 1.4em;
+	color: #ff0000;
+	font-weight: bolder;
+	text-align: left;
+}
+.read_count{
+	text-align : right;
+	padding-right : 3px;
+	font-size : 13px;
+}
+.titleHeight{
+	height: 60px;
+	text-align: left;
+}
+#fh5co-board .item{
+	margin: 14px;
+}
+img{
+	width: 200px;
+	height: 200px;
+}
+#fh5co-board .item img{
+	width: 200px;
+	height: 200px;
+	padding: 0px;
+}
 </style>
 
 <script type="text/javascript">
@@ -69,7 +122,7 @@ $(document).ready(function(){
 	<div>
 		<h3>여기부터 프리미엄</h3>
 		<div class="row">
-			<div id="fh5co-board" data-columns>
+			<div id="fh5co-board" class="premium" data-columns>
 			<div class="sp-slideshow">
 			<input id="button-1" type="radio" name="radio-set" class="sp-selector-1" checked="checked" />
 				<label for="button-1" class="button-label-1"></label>
@@ -104,21 +157,35 @@ $(document).ready(function(){
 							<div class="item">
 								<div class="animate-box">
 									<a href="detailOneBoard.do?no=${premium.no}" 
-										title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?">
-									<img src='<c:url value="/user/board/${premium.no}"/>/${premium.file_name1}' alt="Free HTML5 Bootstrap template"></a>
+										>
+									<c:if test="${premium.file_name1 eq null}">
+										<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+									</c:if>
+									<c:if test="${premium.file_name1 ne null}">
+									<img src='<c:url value="/user/board/${premium.no}"/>/${premium.file_name1}' >
+									</c:if>
+									</a>
 								</div>
-								<div class="fh5co-desc" id="paddingTop">${premium.title}</div>
 								<div class="fh5co-desc">
 									<table class="infoTable">
 										<tr>
-										<td >${premium.writer }</td>
-										<td>
-										<div class="star-ratings-css">
-										  <div class="star-ratings-css-top" id="starPercent" style="width:${premium.ratingForMain}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-										  <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-										</div>
-										</td>
-										<td>(${premium.num_evaluator })</td>
+											<td colspan="4" class="titleHeight">${premium.title}</td>
+										</tr>
+										
+										<tr>
+											<td colspan="3" width="90%" height="20%" class="price">${premium.price}</td>
+											<td width="10%" class="read_count">조회수${premium.read_count}회</td>
+										</tr>
+										
+										<tr>
+											<td id="writer" colspan="2" width="60%" class="writer">${premium.writer }</td>
+											<td colspan="3" width="40%">
+												<div class="star-ratings-css">
+												  <div class="star-ratings-css-top starPercent" style="width:${premium.ratingForMain}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+												  <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+												  <div>(${premium.num_evaluator})</div>
+												</div>
+											</td>
 										</tr>
 									</table>
 								</div>
@@ -143,22 +210,37 @@ $(document).ready(function(){
         		<c:forEach items="${normalList}" var="normal">
 		        	<div class="item">
 		        		<div class="animate-box">
-			        		<a href="detailOneBoard.do?no=${normal.no}" 
-			        		   title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?">
-			        		   <img src='<c:url value="/user/board/${normal.no}"/>/${normal.file_name1}' alt="Free HTML5 Bootstrap template"></a>
+			        		<a href="detailOneBoard.do?no=${normal.no}">
+			        		   <c:if test="${normal.file_name1 eq null}">
+									<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+								</c:if>
+								<c:if test="${normal.file_name1 ne null}">
+								<img src='<c:url value="/user/board/${normal.no}"/>/${normal.file_name1}' >
+								</c:if>
+		        		   
+			        		   </a>
+		        				
 		        		</div>
-		        		<div class="fh5co-desc" id="paddingTop">${normal.title}</div>
 		        		<div class="fh5co-desc">
 							<table class="infoTable">
-								<tr >
-								<td>${normal.writer }</td>
-								<td>
-								<div class="star-ratings-css">
-								  <div class="star-ratings-css-top" id="starPercent" style="width:${normal.ratingForMain}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-								  <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-								</div>
-								</td>
-								<td>(${normal.num_evaluator })</td>
+								<tr>
+									<td colspan="4" class="titleHeight">${normal.title}</td>
+								</tr>
+								
+								<tr>
+									<td colspan="3" width="90%" height="20%" class="price">${normal.price}</td>
+									<td width="10%" class="read_count">조회수${normal.read_count}회</td>
+								</tr>
+								
+								<tr>
+									<td class="writer" colspan="2" width="60%">${normal.writer }</td>
+									<td colspan="3" width="40%">
+										<div class="star-ratings-css">
+										  <div class="star-ratings-css-top starPercent" style="width:${normal.ratingForMain}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+										  <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+										  <div>(${normal.num_evaluator})</div>
+										</div>
+									</td>
 								</tr>
 							</table>
 						</div>

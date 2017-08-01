@@ -117,7 +117,6 @@ public class BoardController{
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=utf-8");
 		ModelAndView mav = new ModelAndView();
-		
 		//페이징 부분
 		Paging paging = new Paging(boardService.getCount(), currentPage);
 		paging.boardPaging();
@@ -144,7 +143,7 @@ public class BoardController{
 			board.setFile_name1(file_name1);
 			board.ratingForMain();//별점평균넣기
 			normalList.add(board);
-		}//selectAllPremiumBoard에 각각 file_name1 넣기 끝
+		}//selectAllNormalBoard에 각각 file_name1 넣기 끝
 		
 		mav.addObject("paging", paging);
 		mav.addObject("premiumList", premiumList);
