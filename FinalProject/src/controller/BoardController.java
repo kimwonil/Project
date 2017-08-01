@@ -114,6 +114,7 @@ public class BoardController{
 	public ModelAndView load(
 			HttpServletRequest req, HttpServletResponse resp, HttpSession session,
 			@RequestParam(defaultValue="1") int currentPage){
+		System.out.println("load.do");
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=utf-8");
 		ModelAndView mav = new ModelAndView();
@@ -145,6 +146,8 @@ public class BoardController{
 			normalList.add(board);
 		}//selectAllNormalBoard에 각각 file_name1 넣기 끝
 		
+		List<Category> categoryList = boardService.category();
+		mav.addObject(categoryList);
 		mav.addObject("paging", paging);
 		mav.addObject("premiumList", premiumList);
 		mav.addObject("normalList", normalList);
@@ -684,7 +687,7 @@ public class BoardController{
 	/**
 	 * 검색
 	 * */
-	@RequestMapping("search.do")
+	@RequestMapping("searchdd.do")
 	public ModelAndView search(String word, HttpServletRequest req, HttpServletResponse resp){
 		System.out.println("search.do");
 		System.out.println(req.getParameter("word"));
@@ -754,7 +757,20 @@ public class BoardController{
 		}
 	}
 	
-//	<img src="<c:url value="/user/board/'+value.no+'"/>/'+value.file_name1+'">
+	
+	/**
+	 * 검색
+	 * */
+	@RequestMapping("search.do")
+	public ModelAndView search(HttpServletRequest req, HttpServletResponse resp){
+		System.out.println("search.do");
+		ModelAndView mav = new ModelAndView();
+		
+		return mav;
+	}
+	
+	
+	
 	
 	
 	

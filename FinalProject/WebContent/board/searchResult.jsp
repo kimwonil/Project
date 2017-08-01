@@ -77,13 +77,6 @@ $(document).ready(function(){
 		
 		
 		<h4 style="display: inline-block;">제목+내용 검색결과</h4>
-		<input type="hidden" value="${word}" id="word">
-		<select name="major" id="major">
-				<option>카테고리</option>
-			<c:forEach items="${categoryList}" var="high">
-				<option value="${high.no}">${high.category_name}</option>
-			</c:forEach>
-		</select>
 		<div class="container">
 		<div class="row">
         	<div id="fh5co-board" name="searchResult"  class="normal" data-columns>
@@ -109,4 +102,3 @@ $(document).ready(function(){
 </html>
 
 
-http://localhost:8080/FinalProject/user/board/36/%EC%9D%8C%EC%95%85%EC%9D%98%20%EC%8B%A0.jpg

@@ -258,7 +258,13 @@ $(document).ready(function(){
 		<div class="container">
 		<div class="row">
 		<form action="search.do" method="post">
-		검색 <input type="text" id="searchInput" name="word"> 
+		<select name="major" id="categoryForSearch">
+			<option value="all">카테고리</option>
+			<c:forEach items="${categoryList}" var="high">
+				<option value="${high.no}">${high.category_name}</option>
+			</c:forEach>
+		</select>
+		<input type="text" id="searchInput" name="word"> 
 		</form>
 		<div id="linkGroup">
 			<a href='boardForm.do'>판매등록</a>
