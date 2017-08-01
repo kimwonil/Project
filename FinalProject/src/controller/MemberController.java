@@ -133,7 +133,7 @@ public class MemberController {
 //		MemeberService.memberInsert(member);
 	}
 	////////////////////////
-	
+	 
 	
 	/**
 	 * 프로필 조회
