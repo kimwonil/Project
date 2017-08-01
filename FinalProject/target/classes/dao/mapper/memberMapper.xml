@@ -142,6 +142,19 @@
  <select id="allTotalPageExchange" resultType="int">
  	select count(no) from exchange
  </select>
+ 
+ <select id="getMessageCount" parameterType="String" resultType="int">
+ 	select count(*) from message
+ 	where sender=#{id}
+ 	and state=1
+ </select>
+ 
+ <select id="getMessage" parameterType="String" resultType="Message">
+ 	select * from message
+ 	where sender=#{id}
+ 	and state=1
+ </select>
+ 
  </mapper>
  
  

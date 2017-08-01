@@ -43,4 +43,9 @@ public interface MemberDao {
 	public int allTotalPageExchange();
 	public int totalPageAuthority(String id);
 	public int allTotalPageAuthority();
+	
+	//알림에 띄울 확인 안한 메시지 수
+	public int getMessageCount(String id);
+	//알림에 띄울 확인 안한 메시지 
+	public List<Message> getMessage(String id);
 }

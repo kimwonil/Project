@@ -7,12 +7,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <title>Insert title here</title>
+
+
+
+
+
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script>
 	$(function() {
 		$("#tabs").tabs();
@@ -1066,6 +1074,99 @@ $(document).on('click','#reportResetBtn',function(){
 #tabs tr, #tabs td, #tabs th {
 	border: 1px solid black;
 }
+
+body {
+	line-height: 2em;
+	font-family: "맑은 고딕";
+}
+
+ul, li {
+	list-style: none;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
+
+#mainWrapper {
+	width: 800px;
+	margin: 0 auto; /*가운데 정렬*/
+}
+
+#mainWrapper>ul>li:first-child {
+	text-align: center;
+	font-size: 14pt;
+	height: 40px;
+	vertical-align: middle;
+	line-height: 30px;
+}
+
+#ulTable {
+	margin-top: 10px;
+}
+
+#ulTable>li:first-child>ul>li {
+	background-color: #c9c9c9;
+	font-weight: bold;
+	text-align: center;
+}
+
+#ulTable>li>ul {
+	clear: both;
+	padding: 0px auto;
+	position: relative;
+	min-width: 40px;
+}
+
+#ulTable>li>ul>li {
+	float: left;
+	font-size: 10pt;
+	border-bottom: 1px solid silver;
+	vertical-align: baseline;
+}
+
+#ulTable>li>ul>li:first-child {
+	width: 10%;
+} /*No 열 크기*/
+#ulTable>li>ul>li:first-child+li {
+	width: 45%;
+} /*제목 열 크기*/
+#ulTable>li>ul>li:first-child+li+li {
+	width: 20%;
+} /*작성일 열 크기*/
+#ulTable>li>ul>li:first-child+li+li+li {
+	width: 15%;
+} /*작성자 열 크기*/
+#ulTable>li>ul>li:first-child+li+li+li+li {
+	width: 10%;
+} /*조회수 열 크기*/
+#divPaging {
+	clear: both;
+	margin: 0 auto;
+	width: 220px;
+	height: 50px;
+}
+
+#divPaging>div {
+	float: left;
+	width: 30px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#liSearchOption {
+	clear: both;
+}
+
+#liSearchOption>div {
+	margin: 0 auto;
+	margin-top: 30px;
+	width: auto;
+	height: 100px;
+}
+
+.left {
+	text-align: left;
+}
 </style>
 </head>
 <body>
@@ -1073,7 +1174,8 @@ $(document).on('click','#reportResetBtn',function(){
 	<div id="fh5co-main">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-md-8 col-md-offset-2"
+					style="position: absoulete; left: 100px;">
 					<h2>고객센터</h2>
 					<div id="tabs">
 						<ul>
@@ -1082,44 +1184,46 @@ $(document).on('click','#reportResetBtn',function(){
 							<li><a href="#tabs-3" id="reportList">신 고</a></li>
 
 						</ul>
-						
+
 						<div class="fh5co-spacer fh5co-spacer-sm"></div>
 						<div id="tabs-1">
-						
-						
 
-							<table id="noticeTable" style="width: 100%;">
+						<table id="noticeTable" style="width: 100%;">
 								<tr>
 									<th width="15%">등록일</th>
 									<th width="10%">글번호</th>
-									<th width="10%">분류</th>
+									<th width="5%">분류</th>
 									<th width="30%">글제목</th>
-									<th width="25%">작성자</th>
+									<th width="20%">작성자</th>
+									
 									<th width="10%">조회수</th>
-							
+
 								</tr>
 
 
 							</table>
-							<table id="noticePage" style="width: 100%; margin-left: auto; margin-right: auto;">
+
+
+							<table id="noticePage"
+								style="width: 100%; margin-left: auto; margin-right: auto;">
 								<tr>
 									<th></th>
 								</tr>
 							</table>
 							<br>
 							<div>
-								<input type="date" id="noticestartDate" > <input
-									type="date" id="noticeendDate">
-									 <select style="height:32px;"
-									name="noticeSerch" id="noticeSerch">
+								<input type="date" id="noticestartDate"> <input
+									type="date" id="noticeendDate"> <select
+									style="height: 32px;" name="noticeSerch" id="noticeSerch">
 									<option value="0">검색조건</option>
 									<option value="1">닉네임</option>
 									<option value="2">글제목</option>
-								</select> <input type="text" id="noticeSerchKeyword" style="width:130px;">
+								</select> <input type="text" id="noticeSerchKeyword"
+									style="width: 130px;">
 								<button id="noticeSerchBtn">검색</button>
 								<button id="noticeResetBtn">검색초기화</button>
 							</div>
-							
+
 							<c:choose>
 
 								<c:when test="${member.admin==1}">
@@ -1132,10 +1236,12 @@ $(document).on('click','#reportResetBtn',function(){
 									</div>
 								</c:when>
 							</c:choose>
+
+
 						</div>
 						<div id="tabs-2">
 
-							
+
 
 							<table id="qnaTable" style="width: 100%;">
 								<tr>
@@ -1159,11 +1265,12 @@ $(document).on('click','#reportResetBtn',function(){
 							<br>
 							<div>
 								<input type="date" id="qnastartDate"> <input type="date"
-									id="qnaendDate"> <select style="height:32px;" name="qnaSerch" id="qnaSerch">
+									id="qnaendDate"> <select style="height: 32px;"
+									name="qnaSerch" id="qnaSerch">
 									<option value="0">검색조건</option>
 									<option value="1">닉네임</option>
 									<option value="2">글제목</option>
-								</select> <input type="text" id="qnaSerchKeyword" style="width:130px;">
+								</select> <input type="text" id="qnaSerchKeyword" style="width: 130px;">
 								<button id="qnaSerchBtn">검색</button>
 								<button id="qnaResetBtn">검색초기화</button>
 							</div>
@@ -1173,7 +1280,7 @@ $(document).on('click','#reportResetBtn',function(){
 									data-toggle="modal" data-target="#QnAinsertModal">Q &
 									A 등록</button>
 							</div>
-							
+
 							<!-- Modal -->
 							<div class="modal fade" id="QnAinsertModal" role="dialog">
 								<div class="modal-dialog modal-lg">
@@ -1232,14 +1339,14 @@ $(document).on('click','#reportResetBtn',function(){
 						</div>
 						<div id="tabs-3">
 
-						
+
 
 							<table id="reportTable" style="width: 100%;">
 								<tr>
 									<th width="15%">등록일</th>
 									<th width="10%">글번호</th>
 									<th width="5%">분류</th>
-										<th width="28%">글제목</th>
+									<th width="28%">글제목</th>
 									<th width="22%">작성자</th>
 									<th width="10%">처리상태</th>
 									<th width="10%">조회수</th>
@@ -1253,15 +1360,15 @@ $(document).on('click','#reportResetBtn',function(){
 							</table>
 
 							<br>
-								<div>
+							<div>
 								<input type="date" id="reportstartDate" size="40"> <input
 									type="date" id="reportendDate" width="15%"> <select
-									style="height:32px;"
-									name="reportSerch" id="reportSerch">
+									style="height: 32px;" name="reportSerch" id="reportSerch">
 									<option value="0">검색조건</option>
 									<option value="1">닉네임</option>
 									<option value="2">글제목</option>
-								</select> <input type="text" id="reportSerchKeyword" style="width:130px;">
+								</select> <input type="text" id="reportSerchKeyword"
+									style="width: 130px;">
 								<button id="reportSerchBtn">검색</button>
 								<button id="reportResetBtn">검색초기화</button>
 							</div>

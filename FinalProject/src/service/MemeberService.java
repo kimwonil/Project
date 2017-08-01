@@ -149,4 +149,15 @@ public class MemeberService {
 		return memberDao.allTotalPageAuthority();
 	}
 	
+	//알림에 띄울 확인 안한 메시지 수
+	public int getMessageCount(String id)
+	{
+		return memberDao.getMessageCount(id);
+	}
+	//알림에 띄울 확인 안한 메시지
+	public List<Message> getMessage(String id)
+	{
+		return memberDao.getMessage(id);
+	}
+	
 }
