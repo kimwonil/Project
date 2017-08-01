@@ -188,8 +188,10 @@ public class DealControll {
 			dealService.progressState(map);
 			
 			//star_point에 insert
+			Member member = (Member)session.getAttribute("member");
+			map.put("nickname", member.getNickName());
 			map.put("board_no", board_no);
-			map.put("purchase_no", purchase_no);
+			map.put("purchase", purchase_no);
 			map.put("content", content);
 			map.put("star", star);
 			dealService.insertStar_point(map);
