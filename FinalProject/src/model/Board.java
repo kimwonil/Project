@@ -20,23 +20,36 @@ public class Board {
 	private int premium;
 	private int total_star;
 	private int num_evaluator;
-	private float rating;
+	private float ratingForDetail;
+	private float ratingForMain;
 	private String file_name1;
 	private String path;
 	
 	
-	public void rating(){
+	public void ratingForDetail(){
 		if(total_star != 0 && num_evaluator != 0){
-			this.rating = (float)total_star / (float)num_evaluator *25;
+			this.ratingForDetail = (float)total_star / (float)num_evaluator *25;
 		}else{
-			this.rating = 0;
+			this.ratingForDetail = 0;
 		}
 	}
 	
 	
+	public void ratingForMain(){
+		if(total_star != 0 && num_evaluator != 0){
+			this.ratingForMain = (float)total_star / (float)num_evaluator *15;
+		}else{
+			this.ratingForMain = 0;
+		}
+	}
 	
-	public float getRating() {
-		return rating;
+	
+	public float getRatingForDetail() {
+		return ratingForDetail;
+	}
+	
+	public float getRatingForMain() {
+		return ratingForMain;
 	}
 
 
@@ -54,8 +67,12 @@ public class Board {
 
 
 
-	public void setRating(float rating) {
-		this.rating = rating;
+	public void setRatingForDetail(float ratingForDetail) {
+		this.ratingForDetail = ratingForDetail;
+	}
+	
+	public void setRatingForMain(float ratingForMain) {
+		this.ratingForMain = ratingForMain;
 	}
 
 

@@ -66,15 +66,15 @@ text-decoration: none;
 				  console.log(value.content);
 				  //사용자 리뷰 탭에 table만들어서 넣을거야
 				  $('#selectUserReview').append(
-						  '<table border="1" width="100%">'+
-					    	'<tr><td colspan="2">'+value.content+'</td></tr>'+
-					    	'<tr><td>'+value.date+'</td>'+
-					    	'<td>'+
+						  '<table border="1" width="80%">'+
+					    	'<tr><td>'+value.nickname+'</td><td>'+
 					    	'<div class="star-ratings-css">'+
 					    	  '<div class="star-ratings-css-top" style="width:'+value.star*25+'%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>'+
 					    	  '<div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>'+
 					    	'</div>'+
+					    	'<td>'+value.date+'</td>'+
 					    	'</td></tr>'+
+					    	'<tr><td colspan="3">'+value.content+'</td></tr>'+
 					    	'</table>'
 // '<h5>사용자 리뷰리뷰리뷰</h5>'
 				  );
@@ -355,9 +355,9 @@ function totalPrice(){
 							<tr>
 								<td><div class="fh5co-desc">${board.title}</div></td>
 								<td width="57%">
-								<div class="star-ratings-css" style="line-height: 20px">
+								<div class="star-ratings-css">
 								  
-								  <div class="star-ratings-css-top" id="starPercent" style="width:${board.rating}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+								  <div class="star-ratings-css-top" id="starPercent" style="width:${board.ratingForDetail}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 								  <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 								</div>
 								</td>

@@ -129,6 +129,7 @@ public class BoardController{
 			int no = board.getNo();//글번호
 			String file_name1 = boardService.selectThumbnail(no);
 			board.setFile_name1(file_name1);
+			board.ratingForMain();//별점평균넣기
 			premiumList.add(board);
 		}//selectAllPremiumBoard에 각각 file_name1 넣기 끝
 		
@@ -141,6 +142,7 @@ public class BoardController{
 			int no = board.getNo();//글번호
 			String file_name1 = boardService.selectThumbnail(no);
 			board.setFile_name1(file_name1);
+			board.ratingForMain();//별점평균넣기
 			normalList.add(board);
 		}//selectAllPremiumBoard에 각각 file_name1 넣기 끝
 		
@@ -304,7 +306,7 @@ public class BoardController{
 		Board board = boardService.selectOneBoard(no);
 		ModelAndView mav = new ModelAndView();
 		board.setCount(dealService.purchaseCount(no));
-		board.rating();
+		board.ratingForDetail();
 		
 		
 		mav.addObject("board", board);
