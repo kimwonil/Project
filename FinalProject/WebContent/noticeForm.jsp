@@ -34,7 +34,7 @@ border: 1px solid red;
 
 	
 	
-});//document.ready
+//document.ready
 </script>
 
 
