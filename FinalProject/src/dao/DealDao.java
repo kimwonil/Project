@@ -27,7 +27,9 @@ public interface DealDao {
 	public List<Purchase> canceledPurcharse(HashMap<String, Object> map);
 	public String selectOneBoard(int no);
 	
-	
+	public int calculate(HashMap<String, Object> map);
+	public int recordCashInfo(HashMap<String, Object> map);
+	public int recordCash(HashMap<String, Object> map);
 
 	//테이블명 : purchase
 	public void insertPurchase(Purchase purchase);
@@ -43,6 +45,9 @@ public interface DealDao {
 	
 	//star_point
 	public boolean insertStar_point(HashMap<String, Object> map);
+	
+	
+	
 	
 	
 

@@ -107,5 +107,17 @@ public class DealService {
 		return dealDao.totalPageCanceled(id);
 	}
 
+	public int calculate(HashMap<String, Object> map) {
+		return dealDao.calculate(map);
+	}
+
+	public int recordCash(HashMap<String, Object> map) {
+		return dealDao.recordCash(map);
+	}
+
+	public int recordCashInfo(HashMap<String, Object> map) {
+		return dealDao.recordCashInfo(map);
+	}
+
 	
 }

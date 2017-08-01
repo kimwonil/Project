@@ -44,7 +44,7 @@
 							'<button class="btn-sm btn-info continueBtn" value="'+value.no+'">진행</button> <button class="btn-sm btn-info stopBtn" value="'+value.no+'">중단</button></td></tr>'		
 						);
 					});
-					
+					$('#currentPage').val(data.page);
 					$('.prev').val(data.page==0?0:data.page-8);
 					$('.next').val(data.totalPage-8>data.page?data.page+8:data.page);	
 				}
@@ -89,7 +89,7 @@
 									'<button class="btn-sm btn-info completeBtn" value="'+value.purchase_no+'">완료</button> <button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">중단</button></td></tr>'		
 							);								
 					});
-					
+					$('#currentPage').val(data.page);
 					$('.prev').val(data.page==0?0:data.page-8);
 					$('.next').val(data.totalPage-8>data.page?data.page+8:data.page);	
 					
@@ -135,10 +135,11 @@
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
 									value.purchaser + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==11?"완료 대기":value.state==20?"정산 대기":"정산 완료")+'</td><td>'+
-									(value.state==11?"":value.state==20?'<button class="btn-sm btn-info calculateBtn" value="'+value.purchase_no+'">정산</button> ':"")+' <button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">중단</button></td></tr>'		
+									(value.state==11?"":value.state==20?'<button class="btn-sm btn-info calculateBtn" value="'+
+									value.purchase_no+'">정산</button><input type="hidden" value="'+total+'"> ':"")+'</td></tr>'		
 							);								
 					});
-					
+					$('#currentPage').val(data.page);
 					$('.prev').val(data.page==0?0:data.page-8);
 					$('.next').val(data.totalPage-8>data.page?data.page+8:data.page);
 				}
@@ -186,7 +187,7 @@
 									(value.state==40?'<button class="btn-sm btn-info" value="'+value.purchase_no+'">확인</button> ':"")		
 							);								
 					});
-					
+					$('#currentPage').val(data.page);
 					$('.prev').val(data.page==0?0:data.page-8);
 					$('.next').val(data.totalPage-8>data.page?data.page+8:data.page);
 				}
@@ -276,26 +277,44 @@
 				type:"POST",
 				data:{
 					no:$(this).val(),
-					state:41				
+					state:41
 				},
-				dataType:"json",
+// 				dataType:"json",
 				success:function(data){
-					console.log(data);
 					alert("성공");
-					$('#tabs-4').click();
-					
+					$('#continueModal').modal('hide');
+					ongoingList($('#currentPage').val());
 				},
 				error:function(){
 					alert("실패");
 				}
 			});
-			
-			
-			
-			
 		});
 		
 		
+		//정산 버튼
+		$(document).on('click','.calculateBtn', function(){
+// 			alert($(this).siblings('input').val());
+			
+			$.ajax({
+				url:"progress.do",
+				type:"POST",
+				data:{
+					no:$(this).val(),
+					state:30,
+					amount:$(this).siblings('input').val()
+				},
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					completionList($('#currentPage').val());
+					$('.balance').text(data.balanceResult);
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+		});
 		
 		
 		//modal 안에 있는 진행 버튼
@@ -318,7 +337,7 @@
 				success:function(data){
 					alert("성공");
 					$('#continueModal').modal('hide');
-					sellingList(0);
+					sellingList($('#currentPage').val());
 				},
 				error:function(){
 					alert("실패");
@@ -381,7 +400,7 @@
 				},
 				success:function(){
 					alert("성공");
-					ongoingList(0);
+					ongoingList($('#currentPage').val());
 				},
 				error:function(){
 					alert("실패");
@@ -502,6 +521,7 @@ table{
 </style>
 </head>
 <body>
+<input type="hidden" id="currentPage" value="">
 	<div class="popupLayer">
 	
 	</div>

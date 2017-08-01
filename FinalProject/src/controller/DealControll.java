@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,7 @@ import model.Purchase;
 import model.PurchaseOption;
 import service.BoardService;
 import service.DealService;
+import service.MemeberService;
 
 @Controller
 public class DealControll {
@@ -32,6 +34,9 @@ public class DealControll {
 	
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	MemeberService memberService;
 	
 	Gson gson = new Gson();
 	
@@ -159,23 +164,51 @@ public class DealControll {
 	public void progress(@RequestParam(value="list", required=false) List<String> paramArray,
 						 @RequestParam(value="purchase_no", required=false) Integer purchase_no, 
 						 int state,
-						 @RequestParam(value="board_no", required=false) int board_no,
-						 @RequestParam(value="star", required=false) int star,
+						 @RequestParam(value="no", required=false) Integer no,
+						 @RequestParam(value="amount", required=false) Integer amount,
+						 @RequestParam(value="board_no", required=false) Integer board_no,
+						 @RequestParam(value="star", required=false) Integer star,
 						 @RequestParam(value="content", required=false) String content,
 						 HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-//		System.out.println(paramArray+"1번");
-//		System.out.println(no+"2번");
-//		System.out.println(state);
-		
-		System.out.println("progress.do");
-		System.out.println(star);
-		System.out.println(content);
-		System.out.println(state);
-		System.out.println(purchase_no);
-		
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("state", state);
+		map.put("id", ((Member)session.getAttribute("member")).getId());
+		if(no != null) {
+			map.put("purchase_no", no);
+			dealService.progressState(map);
+		}
+		
+		if(amount != null) {
+			map.put("amount", amount);
+			map.put("purchase_no", no);
+			
+			dealService.progressState(map);
+			
+			dealService.calculate(map);
+			
+			map.put("title", dealService.selectOneBoard(dealService.recordCashInfo(map)));
+			Member member = memberService.selectOne(map.get("id").toString());
+			map.put("balance", member.getBalance());
+			map.put("state", 4);
+			dealService.recordCash(map);
+			
+			session.setAttribute("member", member);
+			
+			try {
+				DecimalFormat number = new DecimalFormat("#,###");
+				String balance = number.format(member.getBalance());
+				map.put("balanceResult", balance);
+				String json = gson.toJson(map);
+				response.getWriter().write(json);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
 		
 		if(paramArray != null) { //판매자
 			for(String purchase:paramArray) {
@@ -315,22 +348,4 @@ public class DealControll {
 		}
 		
 	}
-	
-	
-	
-//	/**
-//	 * 구매관리 완료된 거래 조회
-//	 * */
-//	@RequestMapping("completePurchase.do")
-//	public void completePurchase(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-//		response.setHeader("Content-Type", "application/xml");
-//		response.setContentType("text/xml;charset=UTF-8");
-//		
-//		
-//		
-//		
-//	}
-	
-	
-	
 }
