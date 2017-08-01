@@ -40,6 +40,10 @@
 		select * from board where no=#{no}
 	</select>
 	
+	<select id="recordCashInfo" parameterType="java.util.HashMap" resultType="int">
+		select no from purchase where purchase_no=#{purchase_no}
+	</select>
+	
 	<select id="ongoingPurcharse" parameterType="java.util.HashMap" resultType="Purchase">
 		select * from purchase where no in(select no from board where writer=#{id}) and state=10 order by no desc limit #{page}, 8
 	</select>
@@ -67,6 +71,14 @@
 	<select id="totalPageCanceled" parameterType="String" resultType="int">
 		select count(no) from purchase where no in(select no from board where writer=#{id}) and state in(40,41,42)
 	</select>
+	
+	<update id="calculate" parameterType="java.util.HashMap">
+		update profile set balance=balance+#{amount} where id=#{id}
+	</update>
+	
+	<insert id="recordCash" parameterType="java.util.HashMap">
+		insert into cash values(0, #{id}, sysdate(), #{amount}, #{balance}, #{title}, #{state})
+	</insert>
 	
 	
 <!-- 	연경 -->
