@@ -45,12 +45,12 @@ public class DealService {
 		return dealDao.boardInfo(no);
 	}
 
-	public List<Purchase> ongoingPurcharse(int no) {
-		return dealDao.ongoingPurcharse(no);
+	public List<Purchase> ongoingPurcharse(HashMap<String, Object> map) {
+		return dealDao.ongoingPurcharse(map);
 	}
 
-	public List<Purchase> completionPurcharse(int no) {
-		return dealDao.completionPurcharse(no);
+	public List<Purchase> completionPurcharse(HashMap<String, Object> map) {
+		return dealDao.completionPurcharse(map);
 	}
 
 	public List<Purchase> purchaseComplete(String id) {
@@ -91,6 +91,20 @@ public class DealService {
 
 	public int totalPageOngoing(String id) {
 		return dealDao.totalPageOngoing(id);
+	}
+
+	
+
+	public String selectOneBoard(int no) {
+		return dealDao.selectOneBoard(no);
+	}
+
+	public List<Purchase> canceledPurcharse(HashMap<String, Object> map) {
+		return dealDao.canceledPurcharse(map);
+	}
+
+	public int totalPageCanceled(String id) {
+		return dealDao.totalPageCanceled(id);
 	}
 
 	

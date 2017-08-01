@@ -16,9 +16,17 @@ public interface DealDao {
 	public List<Purchase> purchaseList(String id);
 	public List<Purchase> purchase(String id);
 	public Board boardInfo(int no);
-	public List<Purchase> ongoingPurcharse(int no);
-	public List<Purchase> completionPurcharse(int no);
 	public List<Purchase> purchaseComplete(String id);
+	public int totalPageSelling(String id);
+	public int totalPageOngoing(String id);
+	public int totalPageCompletion(String id);
+	public int totalPageCanceled(String id);
+	
+	public List<Purchase> ongoingPurcharse(HashMap<String, Object> map);
+	public List<Purchase> completionPurcharse(HashMap<String, Object> map);
+	public List<Purchase> canceledPurcharse(HashMap<String, Object> map);
+	public String selectOneBoard(int no);
+	
 	
 
 	//테이블명 : purchase
@@ -35,8 +43,7 @@ public interface DealDao {
 	
 	//star_point
 	public boolean insertStar_point(HashMap<String, Object> map);
-	public int totalPageSelling(String id);
-	public int totalPageCompletion(String id);
-	public int totalPageOngoing(String id);
+	
+	
 
 }

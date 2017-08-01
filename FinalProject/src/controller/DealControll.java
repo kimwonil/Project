@@ -157,7 +157,8 @@ public class DealControll {
 	 * */
 	@RequestMapping("progress.do")
 	public void progress(@RequestParam(value="list", required=false) List<String> paramArray,
-						 @RequestParam(value="purchase_no", required=false) Integer purchase_no, int state,
+						 @RequestParam(value="purchase_no", required=false) Integer purchase_no, 
+						 int state,
 						 @RequestParam(value="board_no", required=false) int board_no,
 						 @RequestParam(value="star", required=false) int star,
 						 @RequestParam(value="content", required=false) String content,
@@ -221,23 +222,14 @@ public class DealControll {
 		map.put("id", id);
 		map.put("page", page);
 		
-		List<Board> list = dealService.selectAll(map);
-		ArrayList<Object> array = new ArrayList<>();
-		System.out.println(list);
-		for(Board board : list) {
-			List<Purchase> purchaseList = dealService.ongoingPurcharse(board.getNo());
-			System.out.println(purchaseList);
-			for(Purchase purchase : purchaseList) {
-				purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
-				purchase.setBoardTitle(board.getTitle());
-			}
-			array.add(purchaseList);
-			
+		List<Purchase> purchaseList = dealService.ongoingPurcharse(map);
+		for(Purchase purchase : purchaseList) {
+			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
+			purchase.setBoardTitle(dealService.selectOneBoard(purchase.getNo()));
 		}
-//		System.out.println(array);
-//		System.out.println(array.get(0));
-//		System.out.println(array.get(1));
-		map.put("list", array);
+		
+		
+		map.put("list", purchaseList);
 		map.put("totalPage", dealService.totalPageOngoing(id));
 		
 		
@@ -266,27 +258,17 @@ public class DealControll {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("page", page);
-		List<Board> list = dealService.selectAll(map);
-		System.out.println(list);
-		ArrayList<Object> array = new ArrayList<>();
 		
-		for(Board board : list) {
-			List<Purchase> purchaseList = dealService.completionPurcharse(board.getNo());
-			System.out.println(purchaseList);
-			for(Purchase purchase : purchaseList) {
-				purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
-				purchase.setBoardTitle(board.getTitle());
-				System.out.println(purchase);
-			}
-			array.add(purchaseList);
-			
+		List<Purchase> purchaseList = dealService.completionPurcharse(map);
+		for(Purchase purchase : purchaseList) {
+			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
+			purchase.setBoardTitle(dealService.selectOneBoard(purchase.getNo()));
 		}
-//		System.out.println(array);
-//		System.out.println(array.get(0));
-//		System.out.println(array.get(1));
 		
-		map.put("list", array);
-		map.put("totalPage", dealService.totalPageCompletion(id));		
+		
+		map.put("list", purchaseList);
+		map.put("totalPage", dealService.totalPageCompletion(id));
+		
 		String json = gson.toJson(map);
 		
 		try {
@@ -312,27 +294,17 @@ public class DealControll {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("page", page);
-		List<Board> list = dealService.selectAll(map);
-		System.out.println(list);
-		ArrayList<Object> array = new ArrayList<>();
 		
-		for(Board board : list) {
-			List<Purchase> purchaseList = dealService.completionPurcharse(board.getNo());
-			System.out.println(purchaseList);
-			for(Purchase purchase : purchaseList) {
-				purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
-				purchase.setBoardTitle(board.getTitle());
-				System.out.println(purchase);
-			}
-			array.add(purchaseList);
-			
+		List<Purchase> purchaseList = dealService.canceledPurcharse(map);
+		for(Purchase purchase : purchaseList) {
+			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
+			purchase.setBoardTitle(dealService.selectOneBoard(purchase.getNo()));
 		}
-//		System.out.println(array);
-//		System.out.println(array.get(0));
-//		System.out.println(array.get(1));
 		
-		map.put("list", array);
-		map.put("totalPage", dealService.totalPageCompletion(id));		
+		
+		map.put("list", purchaseList);
+		map.put("totalPage", dealService.totalPageCanceled(id));
+		
 		String json = gson.toJson(map);
 		
 		try {

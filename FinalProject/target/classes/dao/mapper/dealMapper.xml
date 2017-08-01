@@ -8,6 +8,10 @@
 		select * from board where writer=#{id} order by no desc limit #{page}, 8
 	</select>
 	
+	<select id="selectOneBoard" parameterType="int" resultType="String">
+		select title from board where no=#{no}
+	</select>
+	
 	<select id="totalPageSelling" parameterType="String" resultType="int">
 		select count(no) from board where writer=#{id}
 	</select>
@@ -36,24 +40,32 @@
 		select * from board where no=#{no}
 	</select>
 	
-	<select id="ongoingPurcharse" parameterType="int" resultType="Purchase">
-		select * from purchase where no=#{no} and state=10 
+	<select id="ongoingPurcharse" parameterType="java.util.HashMap" resultType="Purchase">
+		select * from purchase where no in(select no from board where writer=#{id}) and state=10 order by no desc limit #{page}, 8
 	</select>
 	
 	<select id="totalPageOngoing" parameterType="String" resultType="int">
-		select count(no) from purchase where purchaser=#{id} and state=10
+		select count(no) from purchase where no in(select no from board where writer=#{id}) and state=10
 	</select>
 	
-	<select id="completionPurcharse" parameterType="int" resultType="Purchase">
-		select * from purchase where no=#{no} and state in(11, 20, 30) 
+	<select id="completionPurcharse" parameterType="java.util.HashMap" resultType="Purchase">
+		select * from purchase where no in(select no from board where writer=#{id}) and state in(11,20,30) order by no desc limit #{page}, 8 
 	</select>
 	
 	<select id="totalPageCompletion" parameterType="String" resultType="int">
-		select count(no) from purchase where purchaser=#{id} and state in(11, 20, 30)
+		select count(no) from purchase where no in(select no from board where writer=#{id}) and state in(11,20,30)
 	</select>
 	
 	<select id="purchaseComplete" parameterType="String" resultType="Purchase">
 		select * from purchase where purchaser=#{id} and state in(20, 30)
+	</select>
+	
+	<select id="canceledPurcharse" parameterType="java.util.HashMap" resultType="Purchase">
+		select * from purchase where no in(select no from board where writer=#{id}) and state in(40,41,42) order by no desc limit #{page}, 8 
+	</select>
+	
+	<select id="totalPageCanceled" parameterType="String" resultType="int">
+		select count(no) from purchase where no in(select no from board where writer=#{id}) and state in(40,41,42)
 	</select>
 	
 	
