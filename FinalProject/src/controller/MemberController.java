@@ -46,63 +46,28 @@ public class MemberController {
 	 * - 이하 추가 정보는 WebContent - loginprototype.jsp 참조
 	 * */
 	////////////////////////
-	
-//	@RequestMapping("loginsuccess.do")
-//	public void EmailAndNick(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
-//
-//		String id = ((Member) session.getAttribute("member")).getId();
-//		String nickname = ((Member) session.getAttribute("member")).getNickName() ;
-//		//
-//		//photo 초기값 : ??
-//		MultipartFile photo = file.getFile();
-//		//
-//		
-//		int balance = ((Member) session.getAttribute("member")).getBalance();		
-//		int admin = ((Member) session.getAttribute("member")).getAdmin();	
-//		String code = ((Member) session.getAttribute("member")).getCode();
-//		int amount = ((Member) session.getAttribute("member")).getAmount();
-//
-//		if(id==null && req.getParameter("EmailK")!=null){
-//			id = req.getParameter("EmailK");
-//			}
-//		else if(id==null && req.getParameter("EmailG")!=null){
-//			id = req.getParameter("EmailG");
-//			}
-//		else if(id==null && req.getParameter("EmailN")!=null){
-//			id = req.getParameter("EmailN");
-//		}
-//
-//		if(nickname==null)
-//			nickname = id;		
-//		
-//		HashMap<String, Object> params = new HashMap<String, Object>();
-//		
-//		params.put("id", id);
-//		params.put("nickname", nickname);
-//		//
-//		//photo 초기값 : ??
-//		params.put("photo", photo);
-//		//
-//		params.put("balance", balance);
-//		params.put("admin", admin);
-//		params.put("code",code);
-//		params.put("amount",amount);
-		
-//		Memeberservice.memberInsert(member);
+
 	@RequestMapping("loginsuccess.do")
 	public void EmailAndNick(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 
-		String id = ((Member) session.getAttribute("member")).getId();
-		String nickname = ((Member) session.getAttribute("member")).getNickName() ;
+		String id = null;
+		String nickname = null;
+//		String id = ((Member) session.getAttribute("member")).getId();
+//		String nickname = ((Member) session.getAttribute("member")).getNickName() ;
 		//
 		//photo 초기값 : ??
 //		MultipartFile photo = file.getFile();
-		//
+		String photo = null;
+				//((Member) session.getAttribute("member")).getPhoto();	
 		
-		int balance = ((Member) session.getAttribute("member")).getBalance();		
-		int admin = ((Member) session.getAttribute("member")).getAdmin();	
-		String code = ((Member) session.getAttribute("member")).getCode();
-		int amount = ((Member) session.getAttribute("member")).getAmount();
+		int balance = 0;
+				//((Member) session.getAttribute("member")).getBalance();		
+		int admin = 0;
+				//((Member) session.getAttribute("member")).getAdmin();	
+		String code = "code초기값";
+				//((Member) session.getAttribute("member")).getCode();
+		int amount = 0;
+				//((Member) session.getAttribute("member")).getAmount();
 
 		if(id==null && req.getParameter("EmailK")!=null){
 			id = req.getParameter("EmailK");
@@ -117,20 +82,31 @@ public class MemberController {
 		if(nickname==null)
 			nickname = id;		
 		
-		HashMap<String, Object> params = new HashMap<String, Object>();
+			
+		Member member = (Member)session.getAttribute("member");
+
+		member.setId(id);		
+		member.setNickName(nickname);
+		member.setPhoto(photo);
+		member.setBalance(balance);
+		member.setAdmin(admin);
+		member.setCode(code);
+		member.setAmount(amount);
 		
-		params.put("id", id);
-		params.put("nickname", nickname);
-		//
-		//photo 초기값 : ??
+//		HashMap<String, Object> params = new HashMap<String, Object>();
+//		
+//		params.put("id", id);
+//		params.put("nickname", nickname);
+//		//
+//		//photo 초기값 : ??
 //		params.put("photo", photo);
-		//
-		params.put("balance", balance);
-		params.put("admin", admin);
-		params.put("code",code);
-		params.put("amount",amount);
+//		//
+//		params.put("balance", balance);
+//		params.put("admin", admin);
+//		params.put("code",code);
+//		params.put("amount",amount);
 		
-//		MemeberService.memberInsert(member);
+		memberService.memberInsert(member);
 	}
 	////////////////////////
 	 
