@@ -47,7 +47,6 @@ public class MemberController {
 	 * */
 	////////////////////////
 	
-<<<<<<< HEAD
 //	@RequestMapping("loginsuccess.do")
 //	public void EmailAndNick(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 //
@@ -90,7 +89,6 @@ public class MemberController {
 //		params.put("amount",amount);
 		
 //		Memeberservice.memberInsert(member);
-=======
 	@RequestMapping("loginsuccess.do")
 	public void EmailAndNick(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
 
@@ -98,7 +96,7 @@ public class MemberController {
 		String nickname = ((Member) session.getAttribute("member")).getNickName() ;
 		//
 		//photo 초기값 : ??
-		MultipartFile photo = file.getFile();
+//		MultipartFile photo = file.getFile();
 		//
 		
 		int balance = ((Member) session.getAttribute("member")).getBalance();		
@@ -125,16 +123,15 @@ public class MemberController {
 		params.put("nickname", nickname);
 		//
 		//photo 초기값 : ??
-		params.put("photo", photo);
+//		params.put("photo", photo);
 		//
 		params.put("balance", balance);
 		params.put("admin", admin);
 		params.put("code",code);
 		params.put("amount",amount);
 		
-		MemeberService.memberInsert(member);
->>>>>>> yuna
-	
+//		MemeberService.memberInsert(member);
+	}
 	////////////////////////
 	
 	
