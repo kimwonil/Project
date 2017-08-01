@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
  <link rel="stylesheet" type="text/css" href="css/slideStyle.css" />
 		<script type="text/javascript" src="js/modernizr.custom.04022.js"></script>
+<link rel="stylesheet" href="css/starStyle.css">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,13 +13,28 @@
 <style>
 	.normal>.item{
 		width: 200px;
-		height: 400px;
+		height: 300px;
 		position: relative;
 		float: left;
 		
 	}
 	.fh5co-desc {
-	color: #444;
+		color: #444;
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+	.infoTable{
+		width: 100%;
+	}
+	.star-ratings-css{
+		font-size: 15px;
+	}
+	#fh5co-board .item .fh5co-desc{
+	padding-left: 13px;
+	padding-right: 13px;
+	}
+	#paddingTop{
+	padding-bottom: 0px;
 	}
 </style>
 
@@ -91,8 +107,21 @@ $(document).ready(function(){
 										title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?">
 									<img src='<c:url value="/user/board/${premium.no}"/>/${premium.file_name1}' alt="Free HTML5 Bootstrap template"></a>
 								</div>
-								<div class="fh5co-desc">${premium.title}</div>
-								<div class="fh5co-desc">별점이랑 평가자수 넣어</div>
+								<div class="fh5co-desc" id="paddingTop">${premium.title}</div>
+								<div class="fh5co-desc">
+									<table class="infoTable">
+										<tr>
+										<td >${premium.writer }</td>
+										<td>
+										<div class="star-ratings-css">
+										  <div class="star-ratings-css-top" id="starPercent" style="width:${premium.ratingForMain}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+										  <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+										</div>
+										</td>
+										<td>(${premium.num_evaluator })</td>
+										</tr>
+									</table>
+								</div>
 							</div>
 						</div>
 						<c:if test="${status.count%4 eq 0}">
@@ -118,7 +147,21 @@ $(document).ready(function(){
 			        		   title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eos?">
 			        		   <img src='<c:url value="/user/board/${normal.no}"/>/${normal.file_name1}' alt="Free HTML5 Bootstrap template"></a>
 		        		</div>
-		        		<div class="fh5co-desc">${normal.title}</div>
+		        		<div class="fh5co-desc" id="paddingTop">${normal.title}</div>
+		        		<div class="fh5co-desc">
+							<table class="infoTable">
+								<tr >
+								<td>${normal.writer }</td>
+								<td>
+								<div class="star-ratings-css">
+								  <div class="star-ratings-css-top" id="starPercent" style="width:${normal.ratingForMain}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+								  <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+								</div>
+								</td>
+								<td>(${normal.num_evaluator })</td>
+								</tr>
+							</table>
+						</div>
 		        	</div>
 	        	</c:forEach>
 	        	

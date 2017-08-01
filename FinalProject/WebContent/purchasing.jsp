@@ -204,6 +204,7 @@ text-align: center;
 				success:function(){
 					alert("성공");
 					purchase();
+					$('#rating-3').attr('ckecked','checked');
 					$('#myModal').modal('hide');
 					$('#review').val("");
 				},
