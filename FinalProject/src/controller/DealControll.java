@@ -73,6 +73,40 @@ public class DealControll {
 	}
 	
 	/**
+	 * 판매 현황 조회(관리자)
+	 * */
+	@RequestMapping("sellingListManager.do")
+	public void sellingListManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		String id = ((Member)session.getAttribute("member")).getId();
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("page", page);
+		
+		List<Board> list = dealService.selectAllManager(map);
+		for(Board board : list) {
+			board.setCount(dealService.purchaseCount(board.getNo()));
+		}
+		map.put("list", list);
+		map.put("totalPage", dealService.totalPageSellingManager());
+		
+		String json = gson.toJson(map);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	
+	/**
 	 * 판매글에 등록된 구매자 현황 조회
 	 * */
 	@RequestMapping("purchaseList.do")

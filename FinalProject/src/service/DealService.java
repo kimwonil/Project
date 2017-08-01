@@ -119,5 +119,13 @@ public class DealService {
 		return dealDao.recordCashInfo(map);
 	}
 
+	public List<Board> selectAllManager(HashMap<String, Object> map) {
+		return dealDao.selectAllManager(map);
+	}
+
+	public int totalPageSellingManager() {
+		return dealDao.totalPageSellingManager();
+	}
+
 	
 }

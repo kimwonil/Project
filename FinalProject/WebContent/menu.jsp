@@ -395,7 +395,6 @@
 	<header id="fh5co-header" role="banner">
 	<div class="container">
 		<div class="row">
-<<<<<<< HEAD
 		<form action="search.do" method="post">
 		<select name="major" id="categoryForSearch">
 			<option value="all">카테고리</option>
@@ -403,15 +402,7 @@
 				<option value="${high.no}">${high.category_name}</option>
 			</c:forEach>
 		</select>
-		<input type="text" id="searchInput" name="word"> 
 		</form>
-		<div id="linkGroup">
-			<a href='boardForm.do'>판매등록</a>
-			<a href='loginprototype.jsp'>로그인</a>
-			<a href='#' id="toggler">알림</a>
-			<a href='#'>마이페이지</a>
-		</div>
-=======
 			<form action="search.do" method="post">
 				검색 <input type="text" id="searchInput" name="word">
 			</form>
@@ -420,7 +411,6 @@
 				<a href='#' id="toggler">알림 <span class="badge" id="togglerNum"></span>
 				</a> <a href='#'>마이페이지</a>
 			</div>
->>>>>>> Inhan
 		</div>
 		<div class="row">
 			<div class="col-md-12">

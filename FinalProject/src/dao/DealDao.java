@@ -31,6 +31,12 @@ public interface DealDao {
 	public int recordCashInfo(HashMap<String, Object> map);
 	public int recordCash(HashMap<String, Object> map);
 
+	
+	public List<Board> selectAllManager(HashMap<String, Object> map);
+	public int totalPageSellingManager();
+	
+	
+	
 	//테이블명 : purchase
 	public void insertPurchase(Purchase purchase);
 	
