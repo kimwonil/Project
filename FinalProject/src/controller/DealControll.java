@@ -49,7 +49,7 @@ public class DealControll {
 		map.put("page", page);
 		
 		List<Board> list = dealService.selectAll(map);
-		
+		System.out.println(list);
 		for(Board board : list) {
 			board.setCount(dealService.purchaseCount(board.getNo()));
 		}
@@ -223,9 +223,10 @@ public class DealControll {
 		
 		List<Board> list = dealService.selectAll(map);
 		ArrayList<Object> array = new ArrayList<>();
-		
+		System.out.println(list);
 		for(Board board : list) {
 			List<Purchase> purchaseList = dealService.ongoingPurcharse(board.getNo());
+			System.out.println(purchaseList);
 			for(Purchase purchase : purchaseList) {
 				purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
 				purchase.setBoardTitle(board.getTitle());
@@ -296,6 +297,53 @@ public class DealControll {
 		}
 		
 	}
+	
+	
+	/**
+	 * 판매관리의  취소된 거래 조회
+	 * */
+	@RequestMapping("canceledList.do")
+	public void canceledList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+		String id = ((Member)session.getAttribute("member")).getId();
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("page", page);
+		List<Board> list = dealService.selectAll(map);
+		System.out.println(list);
+		ArrayList<Object> array = new ArrayList<>();
+		
+		for(Board board : list) {
+			List<Purchase> purchaseList = dealService.completionPurcharse(board.getNo());
+			System.out.println(purchaseList);
+			for(Purchase purchase : purchaseList) {
+				purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
+				purchase.setBoardTitle(board.getTitle());
+				System.out.println(purchase);
+			}
+			array.add(purchaseList);
+			
+		}
+//		System.out.println(array);
+//		System.out.println(array.get(0));
+//		System.out.println(array.get(1));
+		
+		map.put("list", array);
+		map.put("totalPage", dealService.totalPageCompletion(id));		
+		String json = gson.toJson(map);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	
 //	/**

@@ -5,7 +5,7 @@
  
  <mapper namespace="dao.DealDao">
 	<select id="selectAll" parameterType="java.util.HashMap" resultType="Board">
-		select * from board where writer=#{id} and state in(0,1,2) order by no desc limit #{page}, 8
+		select * from board where writer=#{id} order by no desc limit #{page}, 8
 	</select>
 	
 	<select id="totalPageSelling" parameterType="String" resultType="int">
@@ -75,7 +75,7 @@
 	</update>
 	
 	<insert id="insertStar_point" parameterType="java.util.HashMap">
-		insert into star_point values(0, #{board_no}, #{purchase}, #{content}, #{star}, sysdate())
+		insert into star_point values(0, #{board_no}, #{purchase}, #{content}, #{star}, sysdate(), #{nickname})
 	</insert>
  </mapper>
  
