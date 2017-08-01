@@ -687,85 +687,55 @@ public class BoardController{
 	/**
 	 * 검색
 	 * */
-	@RequestMapping("searchdd.do")
-	public ModelAndView search(String word, HttpServletRequest req, HttpServletResponse resp){
-		System.out.println("search.do");
-		System.out.println(req.getParameter("word"));
-		ModelAndView mav = new ModelAndView();
-		
-		//판매자 검색
-		
-		//글검색(제목 + 내용으로 쿼리만들고  최신순, 카테고리 버튼 만들기)
-		HashMap<String, Object> searchMap = new HashMap<>();
-		searchMap.put("title", word);
-		searchMap.put("content", word);
-		
-		List<Board> boardSearchList = new ArrayList<>();
-		
-		//검색결과로 뽑은 애들 보내기 전에 thumbnail 넣어주기
-		for(Board searchBoard : boardService.selectSearchResult(searchMap)){
-			int no = searchBoard.getNo();
-			Board boardWithThumbnail = boardService.selectOneBoard(no);
-			boardWithThumbnail.setFile_name1(boardService.selectThumbnail(no));
-			boardSearchList.add(boardWithThumbnail);
-		}
-		
-		mav.addObject("categoryList", boardService.category());
-		mav.addObject("boardSearchList", boardSearchList);
-		mav.addObject("word", word);
-		mav.setViewName("board/searchResult");
-		return mav;
-	}
-	
-	
-	/**
-	 * 검색결과 카테고리별로
-	 * */
-	@RequestMapping("searchResultCategory.do")
-	public void searchResultCategory(HttpServletRequest req, HttpServletResponse resp){
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html; charset=UTF-8");
-		System.out.println("searchResultCategory.do");
-		
-		System.out.println(req.getParameter("major"));
-		System.out.println(req.getParameter("word"));
-		
-		HashMap<String, Object> searchMap = new HashMap<>();
-		searchMap.put("title", req.getParameter("word"));
-		searchMap.put("content", req.getParameter("word"));
-		searchMap.put("major", Integer.parseInt(req.getParameter("major").toString()));
-		
-		List<Board> boardSearchList = new ArrayList<>();
-		//검색결과로 뽑은 애들 보내기 전에 thumbnail 넣어주기
-		List<Board> list =  boardService.searchCategory(searchMap);
-		for(Board searchBoard : list){
-			String path = req.getContextPath()+"/user/board/";
-			searchBoard.setFile_name1(boardService.selectThumbnail(searchBoard.getNo()));
-			path += searchBoard.getNo()+"/"+searchBoard.getFile_name1();
-			searchBoard.setPath(path);
-		}
-		
-		Gson gson  = new Gson();
-		String json = gson.toJson(list);
-		PrintWriter pw;
-		try {
-			pw = resp.getWriter();
-			pw.println(json);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
-	/**
-	 * 검색
-	 * */
 	@RequestMapping("search.do")
 	public ModelAndView search(HttpServletRequest req, HttpServletResponse resp){
 		System.out.println("search.do");
 		ModelAndView mav = new ModelAndView();
+		System.out.println(req.getParameter("major"));
+		System.out.println(req.getParameter("word"));
 		
+		if(req.getParameter("major").equals("all")){
+			System.out.println("전체검색");
+			
+			HashMap<String, Object> searchMap = new HashMap<>();
+			searchMap.put("title", req.getParameter("word"));
+			searchMap.put("content", req.getParameter("word"));
+			
+			List<Board> boardSearchList = new ArrayList<>();
+			
+			//검색결과로 뽑은 애들 보내기 전에 thumbnail 넣어주기
+			for(Board searchBoard : boardService.selectSearchResult(searchMap)){
+				int no = searchBoard.getNo();
+				Board boardWithThumbnail = boardService.selectOneBoard(no);
+				boardWithThumbnail.setFile_name1(boardService.selectThumbnail(no));
+				boardWithThumbnail.ratingForMain();
+				boardSearchList.add(boardWithThumbnail);
+			}
+			mav.addObject("categoryList", boardService.category());
+			mav.addObject("boardSearchList", boardSearchList);
+		
+		}else{
+			System.out.println("카테고리검색");
+			
+			HashMap<String, Object> searchMap = new HashMap<>();
+			searchMap.put("title", req.getParameter("word"));
+			searchMap.put("content", req.getParameter("word"));
+			searchMap.put("major", Integer.parseInt(req.getParameter("major").toString()));
+			
+			List<Board> boardSearchList = new ArrayList<>();
+			//검색결과로 뽑은 애들 보내기 전에 thumbnail 넣어주기
+			for(Board searchBoard : boardService.searchCategory(searchMap)){
+				int no = searchBoard.getNo();
+				Board boardWithThumbnail = boardService.selectOneBoard(no);
+				boardWithThumbnail.setFile_name1(boardService.selectThumbnail(no));
+				boardWithThumbnail.ratingForMain();
+				boardSearchList.add(boardWithThumbnail);
+			}
+			mav.addObject("categoryList", boardService.category());
+			mav.addObject("boardSearchList", boardSearchList);
+		}
+
+		mav.setViewName("board/searchResult");
 		return mav;
 	}
 	
