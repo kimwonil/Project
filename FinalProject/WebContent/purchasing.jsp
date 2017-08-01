@@ -12,6 +12,11 @@
 <link rel="stylesheet" href="css/starStyle.css">
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style type="text/css">
+#starCenter>h5{
+text-align: center;
+}
+</style>
 <script>
 	$(function() {
 		$("#tabs").tabs();
@@ -261,6 +266,13 @@
 .popupLayer>table{
 	width: 100%;
 }
+.star-cb-group{
+	margin-left: 185px;
+	
+}
+.star-cb-group *{
+ font-size: 3rem;
+}
 </style>
 </head>
 <body>
@@ -324,9 +336,10 @@
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
-
+		<div id="starCenter">
 		<h5>별점평가</h5>
 		<form>
+		<div>
 		  <fieldset>
 		    <span class="star-cb-group">
 		      <input type="radio" id="rating-5" name="rating" value="5"/><label for="rating-5">5</label>
@@ -337,7 +350,9 @@
 		      <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
 		    </span>
 		  </fieldset>
+		  </div>
 		</form>
+		</div>
 		
 		<div>리뷰작성</div>
 		<textarea id="review" rows="3" cols="78"></textarea>
