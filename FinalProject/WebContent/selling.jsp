@@ -76,20 +76,18 @@
 						);
 				}else{
 					$.each(data.list, function(index, value){
-						$.each(value, function(index2, value2){
 							
 							var total = 0;
 							
-							$.each(value2.optionList, function(index3, option){
+							$.each(value.optionList, function(index2, option){
 								total += option.price * option.amount;
 							});
 							
 							$('#tabs-2 > table').append(
-									'<tr><td>' + value2.date + '</td><td>' + value2.boardTitle + '</td><td>' +
-									value2.purchaser + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value2.purchase_no+'"></td><td>진행중</td><td>'+
-									'<button class="btn-sm btn-info completeBtn" value="'+value2.purchase_no+'">완료</button> <button class="btn-sm btn-info stopBtn" value="'+value2.purchase_no+'">중단</button></td></tr>'		
+									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									value.purchaser + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>진행중</td><td>'+
+									'<button class="btn-sm btn-info completeBtn" value="'+value.purchase_no+'">완료</button> <button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">중단</button></td></tr>'		
 							);								
-						});
 					});
 					
 					$('.prev').val(data.page==0?0:data.page-8);
@@ -126,21 +124,19 @@
 					);
 				}else{
 					$.each(data.list, function(index, value){
-						$.each(value, function(index2, value2){
 							
 							var total = 0;
 							
-							$.each(value2.optionList, function(index3, option){
+							$.each(value.optionList, function(index2, option){
 								total += option.price * option.amount;
 							});
 							
 							$('#tabs-3 > table').append(
-									'<tr><td>' + value2.date + '</td><td>' + value2.boardTitle + '</td><td>' +
-									value2.purchaser + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value2.purchase_no+'"></td><td>'+
-									(value2.state==11?"완료 대기":value2.state==20?"정산 대기":"정산 완료")+'</td><td>'+
-									(value2.state==11?"":value2.state==20?'<button class="btn-sm btn-info calculateBtn" value="'+value2.purchase_no+'">정산</button> ':"")+' <button class="btn-sm btn-info stopBtn" value="'+value2.purchase_no+'">중단</button></td></tr>'		
+									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									value.purchaser + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									(value.state==11?"완료 대기":value.state==20?"정산 대기":"정산 완료")+'</td><td>'+
+									(value.state==11?"":value.state==20?'<button class="btn-sm btn-info calculateBtn" value="'+value.purchase_no+'">정산</button> ':"")+' <button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">중단</button></td></tr>'		
 							);								
-						});
 					});
 					
 					$('.prev').val(data.page==0?0:data.page-8);
@@ -176,21 +172,19 @@
 					);
 				}else{
 					$.each(data.list, function(index, value){
-						$.each(value, function(index2, value2){
 							
 							var total = 0;
 							
-							$.each(value2.optionList, function(index3, option){
+							$.each(value.optionList, function(index3, option){
 								total += option.price * option.amount;
 							});
 							
 							$('#tabs-4 > table').append(
-									'<tr><td>' + value2.date + '</td><td>' + value2.boardTitle + '</td><td>' +
-									value2.purchaser + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value2.purchase_no+'"></td><td>'+
-									(value2.state==11?"완료 대기":value2.state==20?"정산 대기":"정산 완료")+'</td><td>'+
-									(value2.state==11?"":value2.state==20?'<button class="btn-sm btn-info calculateBtn" value="'+value2.purchase_no+'">정산</button> ':"")+' <button class="btn-sm btn-info stopBtn" value="'+value2.purchase_no+'">중단</button></td></tr>'		
+									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									value.purchaser + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									(value.state==40?"구매자 취소":value.state==41?"취소 대기":"취소 완료")+'</td><td>'+
+									(value.state==40?'<button class="btn-sm btn-info" value="'+value.purchase_no+'">확인</button> ':"")		
 							);								
-						});
 					});
 					
 					$('.prev').val(data.page==0?0:data.page-8);
@@ -277,6 +271,27 @@
 		//중단 버튼
 		$(document).on('click','.stopBtn', function(){
 			alert($(this).val());
+			$.ajax({
+				url:"progress.do",
+				type:"POST",
+				data:{
+					no:$(this).val(),
+					state:41				
+				},
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					alert("성공");
+					$('#tabs-4').click();
+					
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+			
+			
+			
 			
 		});
 		
@@ -372,19 +387,7 @@
 					alert("실패");
 				}
 			});
-			
-			
 		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		//옵션 창 띄우기
@@ -435,14 +438,11 @@
 					mouseY -= popHeight;
 				}
 				
-				
 	 			$('.popupLayer').css({
 	 				"top": mouseY,
 	 				"left": mouseX,
 	 				"visibility":"visible"
 	 			});
-				
-				
 				
 			},
 			mouseout : function(event){
