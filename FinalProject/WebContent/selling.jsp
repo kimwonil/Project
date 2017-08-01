@@ -19,7 +19,7 @@
 
 
 	
-	
+	//등록한 재능 글 조회
 	function sellingList(page){
 		$.ajax({
 			url:"sellingList.do",
@@ -56,7 +56,7 @@
 		})
 	}
 	
-	
+	//진행중 거래 조회
 	function ongoingList(page){
 		$.ajax({
 			url:"ongoing.do",
@@ -87,7 +87,7 @@
 							$('#tabs-2 > table').append(
 									'<tr><td>' + value2.date + '</td><td>' + value2.boardTitle + '</td><td>' +
 									value2.purchaser + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value2.purchase_no+'"></td><td>진행중</td><td>'+
-									'<button class="btn-sm btn-info completeBtn" value="'+value2.purchase_no+'">완료</button> <button class="btn-sm btn-info stopBtn" value="'+value.no+'">중단</button></td></tr>'		
+									'<button class="btn-sm btn-info completeBtn" value="'+value2.purchase_no+'">완료</button> <button class="btn-sm btn-info stopBtn" value="'+value2.purchase_no+'">중단</button></td></tr>'		
 							);								
 						});
 					});
@@ -106,7 +106,7 @@
 		
 	}
 	
-	
+	//완료된 거래 조회
 	function completionList(page){
 		$.ajax({
 			url:"completion.do",
@@ -138,7 +138,57 @@
 									'<tr><td>' + value2.date + '</td><td>' + value2.boardTitle + '</td><td>' +
 									value2.purchaser + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value2.purchase_no+'"></td><td>'+
 									(value2.state==11?"완료 대기":value2.state==20?"정산 대기":"정산 완료")+'</td><td>'+
-									(value2.state==11?"":value2.state==20?'<button class="btn-sm btn-info calculateBtn" value="'+value2.purchase_no+'">정산</button> ':"")+' <button class="btn-sm btn-info stopBtn" value="'+value.no+'">중단</button></td></tr>'		
+									(value2.state==11?"":value2.state==20?'<button class="btn-sm btn-info calculateBtn" value="'+value2.purchase_no+'">정산</button> ':"")+' <button class="btn-sm btn-info stopBtn" value="'+value2.purchase_no+'">중단</button></td></tr>'		
+							);								
+						});
+					});
+					
+					$('.prev').val(data.page==0?0:data.page-8);
+					$('.next').val(data.totalPage-8>data.page?data.page+8:data.page);
+				}
+				
+				
+			},
+			error:function(){
+				alert("실패");
+			}
+		});
+		
+	}
+	
+	
+	//취소된 거래 조회
+	function canceledList(page){
+		$.ajax({
+			url:"canceledList.do",
+			type:"POST",
+			data:{
+				page:page
+			},
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				
+				$('#tabs-4 > table tr:gt(0)').remove();
+				if(data == ""){
+					$('#tabs-4 > table').append(
+							'<tr><td colspan="6">내역이 없습니다.</td></tr>'		
+					);
+				}else{
+					$.each(data.list, function(index, value){
+						$.each(value, function(index2, value2){
+							
+							var total = 0;
+							
+							$.each(value2.optionList, function(index3, option){
+								total += option.price * option.amount;
+							});
+							
+							$('#tabs-4 > table').append(
+									'<tr><td>' + value2.date + '</td><td>' + value2.boardTitle + '</td><td>' +
+									value2.purchaser + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value2.purchase_no+'"></td><td>'+
+									(value2.state==11?"완료 대기":value2.state==20?"정산 대기":"정산 완료")+'</td><td>'+
+									(value2.state==11?"":value2.state==20?'<button class="btn-sm btn-info calculateBtn" value="'+value2.purchase_no+'">정산</button> ':"")+' <button class="btn-sm btn-info stopBtn" value="'+value2.purchase_no+'">중단</button></td></tr>'		
 							);								
 						});
 					});
@@ -158,10 +208,15 @@
 	
 	
 	
+	
+	
 	$(document).ready(function(){
+		
+		//최초 화면 리스트 조회
 		sellingList(0);
 		
 		
+		//등록한 재능글에서 진행 버튼 -> modal
 		$(document).on('click','.continueBtn', function(){
 			$.ajax({
 				url:"purchaseList.do",
@@ -218,10 +273,17 @@
 			
 		});
 		
+		
+		//중단 버튼
 		$(document).on('click','.stopBtn', function(){
 			alert($(this).val());
+			
 		});
 		
+		
+		
+		
+		//modal 안에 있는 진행 버튼
 		$(document).on('click', '#submitBtn', function(){
 			var Arr = new Array();
 			$($('input[name=purchaseCheck]:checked')).each(function(){
@@ -250,12 +312,26 @@
 			
 		})
 		
+		
+		//modal 닫기 버튼
 		$(document).on('click', '#closeBtn', function(){
-			alert("닫기")
 			$('#continueModal').modal('hide');
 		});
 		
 		
+		//각각 이전, 다음 버튼
+		$('#tabs-1 button').click(function(){
+			sellingList($(this).val());
+		});
+		$('#tabs-2 button').click(function(){
+			ongoingList($(this).val());
+		});
+		$('#tabs-3 button').click(function(){
+			completionList($(this).val());
+		});
+		$('#tabs-4 button').click(function(){
+			canceledList($(this).val());
+		});
 		
 		
 		
@@ -269,7 +345,16 @@
 			ongoingList(0);
 		});
 		
+		$('#completion').click(function(){
+			completionList(0);
+		});
 		
+		$('#canceled').click(function(){
+			canceledList(0);
+		});
+
+
+		//진행중 거래에서 완료 버튼 
 		$(document).on('click', '.completeBtn', function(){
 // 			alert("완료");
 			$.ajax({
@@ -297,18 +382,12 @@
 		
 		
 		
-		$('#completion').click(function(){
-			completionList(0);
-		});
-		
-		$('#canceled').click(function(){
-			alert("취소된");
-		});
 		
 		
 		
 		
 		
+		//옵션 창 띄우기
 		$(document).on({
 			mouseover : function(event){
 				
@@ -373,9 +452,7 @@
 			}
 		}, '.optionList');
 		
-		
-		
-	});
+	});//document ready
 	
 </script>
 <style type="text/css">
