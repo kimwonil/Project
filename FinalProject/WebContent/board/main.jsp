@@ -114,80 +114,6 @@ $(document).ready(function(){
 			$('#searchInput').parent().submit();
 		};//keyCode == 13일때
 	});
-	
-	
-// 	//판매순
-// 	$('#panmaesun').on('click', function(){
-// 		$.ajax({
-// 			url : "panmaesun.do",
-// 			type : "post",
-// 			dataType : "json",
-// 			success : function(){
-// 				alert("성공");
-// 				$('.normal').empty();
-// 			},error : function(){
-// 				alert("실패");
-// 			}
-// 		})
-// 	});//판매순 ajax 끝
-		
-		
-// 	//가격순
-// 	$('#gageocksun').on('click', function(){
-// 		$.ajax({
-// 			url : "gageocksun.do",
-// 			type : "post",
-// 			dataType : "json",
-// 			success : function(data){
-// 				console.log(data)
-// 				$('.normal').empty();
-// 				$.each(data.list, function(index, value){
-// 					var imgFileName = "";
-// 					var fileNo = "" ;
-// 					if(value.file_name1 == null){
-// 						imgFileName = noimage.jpg;
-// 						fileNo = nothumbnail;
-// 					}else{
-// 						imgFileName = value.file_name1;
-// 						fileNo = value.no;
-// 					}
-					
-// 					$('.normal').append(
-						
-// 					        	'<div class="item">'+
-// 					        		'<div class="animate-box">'+
-// 						        		'<a href="detailOneBoard.do?no='+value.no+'">'+
-// 											'<img src="'+data.path+fileNo+'\\'+imgFileName+'"></a>'+
-// 					        		'</div>'+
-// 					        		'<div class="fh5co-desc">'+
-// 										'<table class="infoTable">'+
-// 											'<tr>'+
-// 												'<td colspan="4" class="titleHeight">'+value.title+'</td>'+
-// 											'</tr><tr>'+
-// 												'<td colspan="3" width="90%" height="20%" class="price">'+value.price+'</td>'+
-// 												'<td width="10%" class="read_count">조회수'+value.read_count+'회</td>'+
-// 											'</tr><tr>'+
-// 												'<td class="writer" colspan="2" width="60%">'+value.writer+'</td>'+
-// 												'<td colspan="3" width="40%">'+
-// 													'<div class="star-ratings-css">'+
-// 													  '<div class="star-ratings-css-top starPercent" style="width:'+value.ratingForMain+'%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>'+
-// 													  '<div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>'+
-// 													  '<div>('+value.num_evaluator+')</div>'+
-// 													'</div></td></tr>'+
-// 										'</table></div></div>'
-					
-					
-// 					)
-// 				});//each끝
-// 			},error : function(){
-// 				alert("실패");
-// 			}
-// 		})
-// 	});//가격순 ajax 끝
-		
-		
-		
-	
 });
 </script>
 
@@ -282,7 +208,11 @@ $(document).ready(function(){
 		<h3>일반글</h3>
 		<span>
 			<table id="orderTable">
-			<tr><td><a href="#"><div>최신순</div></a></td><td><a href="panmaesun.do"><div>판매순</div></a></td><td><a href="gageocksun.do"><div>가격낮은순</div></a></td></tr>
+			<tr>
+			<td><button onclick="location.href='latest.do'" class="btn-sm">최신순</button></td>
+			<td><button onclick="location.href='panmaesun.do'" class="btn-sm">판매순</button></td>
+			<td><button onclick="location.href='gageocksun.do'" class="btn-sm">낮은가격순</button></td>
+			</tr>
 			</table>
 		</span>
 		<div class="row rowClear">

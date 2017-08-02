@@ -16,7 +16,7 @@
  <!-- 추가한부분 -->
  
   <insert id="memberInsert" parameterType="Member">
- 	insert into member values(#{id},#{nickName},#{photo},#{balance},#{admin},#{code},#{amount})
+ 	insert into member values(#{id},#{nickName},#{photo},#{balance},#{admin})
  	 </insert>
  
  

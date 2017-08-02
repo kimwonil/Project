@@ -29,12 +29,16 @@ naver_id_login.get_naver_userprofile("naverSignInCallback()");
 		$('#EmailN').append('<br/>Email: ');
 		//이메일 값 출력
 		$('#EmailN').append(naverEmail);
+		
+		//test 0002 : 프로필페이지(id=메일)로 이동시도 
+	//	 location.replace("http://localhost:8080/FianlProject/profile.do?id="+naverEmail);
 
 		}
 	
+	
 
 	</script>
-
+	
 
 </body>
 </html>

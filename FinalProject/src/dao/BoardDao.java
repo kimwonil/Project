@@ -64,6 +64,8 @@ public interface BoardDao {
 	//테이블명 : category_high
 	public List<Category> category();
 	public List<Category> categoryLow(int high_no);
+	public List<Board> latest(HashMap<String, Object> pagingParam);
+
 	
 	
 	

@@ -79,34 +79,26 @@
  	select count(no) from board where premium=1
  </select>
  
- <select id="gageocksun" parameterType="int" resultType="Board">
+ <select id="latest" parameterType="java.util.HashMap" resultType="Board">
+ 	SELECT A.* FROM ( 
+	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board 
+	, (SELECT @searchnum:= 0) R 
+	where premium=1 order by no desc ) A WHERE A.searchnum between #{start} and #{end}
+ </select>
+ 
+ <select id="gageocksun" parameterType="java.util.HashMap" resultType="Board">
  	SELECT A.* FROM ( 
 	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board 
 	, (SELECT @searchnum:= 0) R 
 	where premium=1 order by price ) A WHERE A.searchnum between #{start} and #{end}
  </select>
  
- <select id="panmaesun" resultType="Board">
- 	 select DISTINCT board.no, board.title, 
+ <select id="panmaesun" parameterType="java.util.HashMap" resultType="Board">
+    select DISTINCT board.no, board.title, board.price, board.read_count, board.writer, board.num_evaluator,
  	(select count(no) from purchase where no = board.no and state in(20,30))
-	 as salesvolume from board left join purchase on board.no=purchase.no where premium=1
+	 as salesvolume from board left join purchase on board.no=purchase.no where premium=1 order by salesvolume desc limit #{start}, 5
  </select>
- 
-<!--  	SELECT A.* FROM (  -->
-<!-- 	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board  -->
-<!-- 	, (SELECT @searchnum:= 0) R  -->
-<!-- 	where premium = 1 ) A WHERE A.searchnum between #{start} and #{end} -->
 
-
-
-
-<!-- 	SELECT A.* FROM (  -->
-<!-- 	SELECT @searchnum := @searchnum+ 1 AS searchnum,  -->
-<!-- 	(select DISTINCT board.no, board.title,  -->
-<!--  	(select count(no) from purchase where no = board.no and state in(20,30)) -->
-<!-- 	 as salesvolume from board left join purchase on board.no=purchase.no where premium=1 ).* -->
-<!-- 	FROM board  -->
-<!-- 	, (SELECT @searchnum:= 0) R ) A WHERE A.searchnum  -->
 
 
  
@@ -184,7 +176,7 @@
  </select>
  
  <select id="selectAllDips" parameterType="String" resultType="java.util.HashMap">
- 	select * from interest where id=#{id}
+ 	select * from interest where id=#{id} order by no desc
  </select>
  
   <select id="dipsWithCategory" parameterType="java.util.HashMap" resultType="java.util.HashMap">
