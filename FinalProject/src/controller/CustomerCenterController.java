@@ -21,12 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import model.Answer;
+import model.Category;
 import model.Member;
 import model.Message;
 import model.Notice;
 import model.QnA;
 import model.Report;
 import service.AnswerService;
+import service.BoardService;
 import service.MemeberService;
 import service.NoticeService;
 import service.QnAService;
@@ -50,6 +52,10 @@ public class CustomerCenterController {
 
 	@Autowired
 	private MemeberService memberService;
+	
+	@Autowired
+	private BoardService BoardService;
+	
 	
 	@RequestMapping("getMessageCount.do")
 	public void getMessageCount(HttpServletRequest request, HttpServletResponse response, HttpSession session)
@@ -486,23 +492,64 @@ public class CustomerCenterController {
 		noticeService.updateNoticeCount(params);
 
 	}
-
-	// 공지사항 등록
-	@RequestMapping("insertNotice.do")
-	public String insertNotice(@RequestParam HashMap<String, Object> params, HttpServletRequest req,
-			HttpServletResponse resp, HttpSession session) {
-
-		String id = ((Member) session.getAttribute("member")).getId();
-		params.put("writer", id);
-		int category_no = Integer.parseInt(((String) params.get("major")) + ((String) params.get("minor")));
-		params.remove("major");
-		params.remove("minor");
-		params.put("category_no", category_no);
-
-		noticeService.insertNotice(params);
-
-		return "redirect:customerCenterCall.do";
+	//카테고리 하이 불러오기
+	@RequestMapping("high.do")
+	public void categoryLow(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		
+		List<Category> highlist = BoardService.category();
+		Gson gson = new Gson();
+		String json = gson.toJson(highlist);
+		try {
+			resp.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	//카테고리 로우 불러오기
+	@RequestMapping("Low.do")
+	public void categoryLow(int high_no, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		
+		List<Category> lowlist = BoardService.categoryLow(high_no);
+		Gson gson = new Gson();
+		String json = gson.toJson(lowlist);
+		try {
+			resp.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	// 공지사항 등록
+		@RequestMapping("insertNotice.do")
+		public void insertNotice(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+			String id = ((Member) session.getAttribute("member")).getId();
+			int category_no = Integer.parseInt((request.getParameter("major") + request.getParameter("minor")));
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+		
+			HashMap<String, Object> params = new HashMap<String, Object>();
+			params.put("writer", id);
+			params.put("category_no", category_no);
+			params.put("title", title);
+			params.put("content", content);
+		
+
+			System.out.println("공지 인설트");
+			System.out.println(params);
+			
+			noticeService.insertNotice(params);
+		
+
+		}
+	
+	
 
 	// 공지사항 삭제
 	@RequestMapping("deleteNotice.do")

@@ -27,6 +27,8 @@
 	 	noticeList(1,0,"0");
 	 	qnaList(1,0,"0");
 	 	reportList(1,0,"0");
+	 	high();
+	 	
 	});
 	
 	var member_id = "<%=session.getAttribute("member")%>"
@@ -53,7 +55,222 @@
 	var Reportkeyword;
 	var Reportstart;
 	var Reportend;
+	//카테고리 하이 불러오기
+	function high(){
 	
+		$.ajax({
+			url:"high.do",
+			type:"POST",
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+
+   				$.each(data, function(index, value){
+	   				$('#noticeMajor').append(
+	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+	   				);
+	   				$('#NoticeMajorUpdate').append(
+	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+	   				);
+	   				$('#SearchnoticeMajor').append(
+	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+	   				);
+	   				
+	   				$('#qnaMajor').append(
+	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+	   						);
+	   				$('#QnAMajorUpdate').append(
+	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+	   						);
+	   				
+	   				$('#reportMajor').append(
+	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+	   				);
+	   				$('#ReportMajorUpdate').append(
+	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+	   				);
+	   				
+   				});
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+		
+	}
+
+	//공지 카테고리 로우 불러오기
+		$(document).on('change','#noticeMajor', function(){
+	   		$.ajax({
+	   			url:"Low.do",
+	   			type:"POST",
+	   			data:{high_no:$(this).val()},
+	   			dataType:"json",
+	   			success:function(data){
+	   				console.log(data);
+	   				$('#noticeMinor').empty();
+	   				$.each(data, function(index, value){
+		   				$('#noticeMinor').append(
+		   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+		   				);
+	   				});
+
+	   			},
+	   			error:function(){
+	   				alert("실패");
+	   			}
+	   			
+	   		});
+		});
+	
+		//qna 업데이트 카테고리 로우 불러오기
+		$(document).on('change','#NoticeMajorUpdate', function(){
+	   		$.ajax({
+	   			url:"Low.do",
+	   			type:"POST",
+	   			data:{high_no:$(this).val()},
+	   			dataType:"json",
+	   			success:function(data){
+	   				console.log(data);
+	   				$('#NoticeMinorUpdate').empty();
+	   				$.each(data, function(index, value){
+		   				$('#NoticeMinorUpdate').append(
+		   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+		   				);
+	   				});
+
+	   			},
+	   			error:function(){
+	   				alert("실패");
+	   			}
+	   			
+	   		});
+		});
+	
+		//공지 검색 카테고리 로우 불러오기
+				$(document).on('change','#SearchnoticeMajor', function(){
+			   		$.ajax({
+			   			url:"Low.do",
+			   			type:"POST",
+			   			data:{high_no:$(this).val()},
+			   			dataType:"json",
+			   			success:function(data){
+			   				console.log(data);
+			   				$('#SearchnoticeMinor').empty();
+			   				$.each(data, function(index, value){
+				   				$('#SearchnoticeMinor').append(
+				   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+				   				);
+			   				});
+
+			   			},
+			   			error:function(){
+			   				alert("실패");
+			   			}
+			   			
+			   		});
+				});
+				//공지 분류 검색
+				$(document).on('click','#noticeCategorySerchBtn', function(){
+					alert($('#SearchnoticeMajor').val());
+					alert($('#SearchnoticeMinor').val());
+			
+				});
+				
+		
+		//qna 카테고리 로우 불러오기
+				$(document).on('change','#qnaMajor', function(){
+			   		$.ajax({
+			   			url:"Low.do",
+			   			type:"POST",
+			   			data:{high_no:$(this).val()},
+			   			dataType:"json",
+			   			success:function(data){
+			   				console.log(data);
+			   				$('#qnaMinor').empty();
+			   				$.each(data, function(index, value){
+				   				$('#qnaMinor').append(
+				   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+				   				);
+			   				});
+
+			   			},
+			   			error:function(){
+			   				alert("실패");
+			   			}
+			   			
+			   		});
+				});
+				//qna 업데이트 카테고리 로우 불러오기
+				$(document).on('change','#QnAMajorUpdate', function(){
+			   		$.ajax({
+			   			url:"Low.do",
+			   			type:"POST",
+			   			data:{high_no:$(this).val()},
+			   			dataType:"json",
+			   			success:function(data){
+			   				console.log(data);
+			   				$('#QnAMinorUpdate').empty();
+			   				$.each(data, function(index, value){
+				   				$('#QnAMinorUpdate').append(
+				   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+				   				);
+			   				});
+
+			   			},
+			   			error:function(){
+			   				alert("실패");
+			   			}
+			   			
+			   		});
+				});
+				//report 카테고리 로우 불러오기
+				$(document).on('change','#reportMajor', function(){
+			   		$.ajax({
+			   			url:"Low.do",
+			   			type:"POST",
+			   			data:{high_no:$(this).val()},
+			   			dataType:"json",
+			   			success:function(data){
+			   				console.log(data);
+			   				$('#reportMinor').empty();
+			   				$.each(data, function(index, value){
+				   				$('#reportMinor').append(
+				   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+				   				);
+			   				});
+
+			   			},
+			   			error:function(){
+			   				alert("실패");
+			   			}
+			   			
+			   		});
+				});
+				//report 업데이트 카테고리 로우 불러오기
+				$(document).on('change','#ReportMajorUpdate', function(){
+			   		$.ajax({
+			   			url:"Low.do",
+			   			type:"POST",
+			   			data:{high_no:$(this).val()},
+			   			dataType:"json",
+			   			success:function(data){
+			   				console.log(data);
+			   				$('#ReportMinorUpdate').empty();
+			   				$.each(data, function(index, value){
+				   				$('#ReportMinorUpdate').append(
+				   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+				   				);
+			   				});
+
+			   			},
+			   			error:function(){
+			   				alert("실패");
+			   			}
+			   			
+			   		});
+				});
 	//공지 리스트
 function noticeList(page,type,keyword,start,end){
 
@@ -400,6 +617,55 @@ function reportList(page,type,keyword,start,end){
 			});
 			
 		}
+		$(document).on('click','#NoticeinsertBtn',function(){
+			$('#noticeMajor option:eq(0)').prop("selected", true);
+			$('#noticeMinor').empty();
+			$('#noticeMinor').append('<option>소분류</option><option>대분류를 선택하세요</option>');
+			$('#noticeMinor option:eq(0)').prop("selected", true);
+		});
+		$(document).on('click','#QnAinsertBtn',function(){
+			$('#qnaMajor option:eq(0)').prop("selected", true);
+			$('#qnaMinor').empty();
+			$('#qnaMinor').append('<option>소분류</option><option>대분류를 선택하세요</option>');
+			$('#qnaMinor option:eq(0)').prop("selected", true);
+		});
+		$(document).on('click','#ReportinsertBtn',function(){
+			$('#reportMajor option:eq(0)').prop("selected", true);
+			$('#reportMinor').empty();
+			$('#reportMinor').append('<option>소분류</option><option>대분류를 선택하세요</option>');
+			$('#reportMinor option:eq(0)').prop("selected", true);
+		});
+		//공지 등록
+		$(document).on('click','#noticeinsert',function(){
+			
+			
+			$.ajax({
+				url:"insertNotice.do",
+				type:"POST",
+				data:{
+					major:$('#noticeMajor').val(),
+					minor:$('#noticeMinor').val(),
+					title:$('#noticeTitle').val(),
+					content:$('#noticeContent').val(),
+				},
+				success:function(){
+					
+					noticeList(Noticepage,Noticetype,Noticekeyword,Noticestart,Noticeend);
+					$('#NoticeinsertModal').modal('hide');
+					$('#noticeMajor option:eq(0)').prop("selected", true);
+					$('#noticeMinor option:eq(0)').prop("selected", true);
+					$('#noticeTitle').val("");
+					$('#noticeContent').val("");
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+					console.log(textStatus);
+					console.log(errorThrown);
+					alert("실패");
+				}
+			});
+			
+		});
+	
 	
 	//공지 상세
 		$(document).on('click','.NoticeDetail',function(){
@@ -439,16 +705,45 @@ function reportList(page,type,keyword,start,end){
 				dataType:"json",
 				success:function(data){
 					noticeList(Noticepage,Noticetype,Noticekeyword,Noticestart,Noticeend);
-//	 				alert(data.category_no);
-//	 				alert(data.content);
-					var cate=data.category_no;
-					var minor=cate%10;
-					var major=(cate-minor)/10;
-				
+
+					var cate=data.category_no+"";
+			
+					var major=cate.substr(0, 3);
+					var minor=cate.substring(3, cate.lengh);
+					
+					major/=100;
+					minor*=1;
 					
 					$('#NoticeContentModal').modal('hide');
 					$('#NoticeMajorUpdate option:eq('+major+')').prop("selected", true);
-					$('#NoticeMinorUpdate option:eq('+minor+')').prop("selected", true);
+					
+					$.ajax({
+			   			url:"Low.do",
+			   			type:"POST",
+			   			data:{high_no:$('#NoticeMajorUpdate').val()},
+			   			dataType:"json",
+			   			success:function(data){
+			   				console.log(data);
+			   				$('#NoticeMinorUpdate').empty();
+			   				$.each(data, function(index, value){
+				   				$('#NoticeMinorUpdate').append(
+				   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+				   				);
+				   				
+				   				$('#NoticeMinorUpdate option:eq('+(minor-1)+')').prop("selected", true);
+			   				});
+
+			   			},
+			   			error:function(jqXHR, textStatus, errorThrown){
+							alert("실패");
+							console.log(textStatus);
+							console.log(errorThrown);
+						}
+			   			
+			   		});
+					
+					
+					
 					$('#NoticetitleUpdate').val(data.title);
 					$('#NoticecontentUpdate').val(data.content);
 					$('#NoticeUpdateBtn').val(data.no);
@@ -753,13 +1048,38 @@ function reportList(page,type,keyword,start,end){
 				success:function(data){
 					qnaList(QnApage,QnAtype,QnAkeyword,QnAstart,QnAend);
 				
-					var cate=data.category_no;
-					var minor=cate%10;
-					var major=(cate-minor)/10;
+					var cate=data.category_no+"";
+					
+					var major=cate.substr(0, 3);
+					var minor=cate.substring(3, cate.lengh);
+					
+					major/=100;
+					minor*=1;
 		
 					$('#QnAContentModal').modal('hide');
 					$('#QnAMajorUpdate option:eq('+major+')').prop("selected", true);
-					$('#QnAMinorUpdate option:eq('+minor+')').prop("selected", true);
+					$.ajax({
+			   			url:"Low.do",
+			   			type:"POST",
+			   			data:{high_no:$('#QnAMajorUpdate').val()},
+			   			dataType:"json",
+			   			success:function(data){
+			   				console.log(data);
+			   				$('#QnAMinorUpdate').empty();
+			   				$.each(data, function(index, value){
+				   				$('#QnAMinorUpdate').append(
+				   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+				   				);
+				   				
+				   				$('#QnAMinorUpdate option:eq('+(minor-1)+')').prop("selected", true);
+			   				});
+
+			   			},
+			   			error:function(){
+			   				alert("실패");
+			   			}
+			   			
+			   		});
 					$('#QnAtitleUpdate').val(data.title);
 					$('#QnAcontentUpdate').val(data.content);
 					$('#QnAUpdateBtn').val(data.no);
@@ -908,13 +1228,38 @@ function reportList(page,type,keyword,start,end){
 			success:function(data){
 				reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 				
-				var cate=data.category_no;
-				var minor=cate%10;
-				var major=(cate-minor)/10;
+				var cate=data.category_no+"";
+				
+				var major=cate.substr(0, 3);
+				var minor=cate.substring(3, cate.lengh);
+				
+				major/=100;
+				minor*=1;
 	
 				$('#ReportContentModal').modal('hide');
 				$('#ReportMajorUpdate option:eq('+major+')').prop("selected", true);
-				$('#ReportMinorUpdate option:eq('+minor+')').prop("selected", true);
+				$.ajax({
+		   			url:"Low.do",
+		   			type:"POST",
+		   			data:{high_no:$('#ReportMajorUpdate').val()},
+		   			dataType:"json",
+		   			success:function(data){
+		   				console.log(data);
+		   				$('#ReportMinorUpdate').empty();
+		   				$.each(data, function(index, value){
+			   				$('#ReportMinorUpdate').append(
+			   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
+			   				);
+			   				
+			   				$('#ReportMinorUpdate option:eq('+(minor-1)+')').prop("selected", true);
+		   				});
+
+		   			},
+		   			error:function(){
+		   				alert("실패");
+		   			}
+		   			
+		   		});
 				$('#ReporttitleUpdate').val(data.title);
 				$('#ReportcontentUpdate').val(data.content);
 				$('#ReportUpdateBtn').val(data.no);
@@ -1187,15 +1532,27 @@ ul, li {
 
 						<div class="fh5co-spacer fh5co-spacer-sm"></div>
 						<div id="tabs-1">
-
-						<table id="noticeTable" style="width: 100%;">
+<!-- 							<div> -->
+<!-- 								<tr> -->
+<!-- 									<th>카테고리</th> -->
+<!-- 									<th><select name="major" id="SearchnoticeMajor" style="font-size:11pt"> -->
+<!-- 											<option selected>대분류</option> -->
+<!-- 									</select> <select name="minor" id="SearchnoticeMinor" style="font-size:11pt"> -->
+<!-- 											<option selected>소분류</option> -->
+<!-- 											<option>대분류를 선택하세요</option> -->
+<!-- 									</select> -->
+<!-- 									<button id="noticeCategorySerchBtn">분류</button> -->
+<!-- 									<button id="noticeCategoryResetBtn">분류초기화</button> -->
+<!-- 									</th> -->
+<!-- 								</tr> -->
+<!-- 							</div> -->
+							<table id="noticeTable" style="width: 100%;">
 								<tr>
 									<th width="15%">등록일</th>
 									<th width="10%">글번호</th>
 									<th width="5%">분류</th>
 									<th width="30%">글제목</th>
 									<th width="20%">작성자</th>
-									
 									<th width="10%">조회수</th>
 
 								</tr>
@@ -1224,18 +1581,66 @@ ul, li {
 								<button id="noticeResetBtn">검색초기화</button>
 							</div>
 
-							<c:choose>
+							<br>
 
+							<c:choose>
 								<c:when test="${member.admin==1}">
-									<br>
 									<div class="form-group" style="text-align: right;">
-										<form action="noticeForm.jsp">
-											<input type="submit" class="btn btn-primary btn-sm"
-												value="공지사항등록" style="width: 145px; height: 40px;">
-										</form>
+										<button type="button" class="btn btn-info btn-lg"
+											data-toggle="modal" data-target="#NoticeinsertModal"
+											id="NoticeinsertBtn">공지 등록</button>
 									</div>
 								</c:when>
 							</c:choose>
+
+
+							<!-- Modal -->
+							<div class="modal fade" id="NoticeinsertModal" role="dialog">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">공지 등록</h4>
+										</div>
+										<div class="modal-body">
+
+
+
+
+											<table class="table">
+												<tr>
+													<th>카테고리</th>
+													<th><select name="major" id="noticeMajor">
+															<option selected>대분류</option>
+													</select> <select name="minor" id="noticeMinor">
+															<option selected>소분류</option>
+															<option>대분류를 선택하세요</option>
+													</select></th>
+												</tr>
+												<tr>
+													<th>공지 제목</th>
+													<th><input type="text" name="title" id="noticeTitle"></th>
+												</tr>
+												<tr>
+													<th>공지 내용</th>
+													<th><textarea rows="10" cols="50" name="content"
+															id="noticeContent"></textarea></th>
+												</tr>
+
+											</table>
+											<div class="fh5co-spacer fh5co-spacer-sm"></div>
+											<input type="button" class="btn btn-sm btn-primary"
+												id="noticeinsert" value="공지 등록">
+											<button type="button" class="btn btn-primary btn-sm"
+												data-dismiss="modal">취소하기</button>
+
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+
 
 
 						</div>
@@ -1277,8 +1682,8 @@ ul, li {
 							<br>
 							<div class="form-group" style="text-align: right;">
 								<button type="button" class="btn btn-info btn-lg"
-									data-toggle="modal" data-target="#QnAinsertModal">Q &
-									A 등록</button>
+									data-toggle="modal" data-target="#QnAinsertModal"
+									id="QnAinsertBtn">Q & A 등록</button>
 							</div>
 
 							<!-- Modal -->
@@ -1298,15 +1703,11 @@ ul, li {
 												<tr>
 													<th>카테고리</th>
 													<th><select name="major" id="qnaMajor">
-															<option>대분류</option>
-															<option value="1">카테고리1</option>
-															<option value="2">카테고리2</option>
-															<option value="3">카테고리3</option>
+															<option selected>대분류</option>
+
 													</select> <select name="minor" id="qnaMinor">
-															<option>소분류</option>
-															<option value="1">카테고리1</option>
-															<option value="2">카테고리2</option>
-															<option value="3">카테고리3</option>
+															<option selected>소분류</option>
+															<option>대분류를 선택하세요</option>
 													</select></th>
 												</tr>
 												<tr>
@@ -1375,8 +1776,8 @@ ul, li {
 							<br>
 							<div class="form-group" style="text-align: right;">
 								<button type="button" class="btn btn-info btn-lg"
-									data-toggle="modal" data-target="#ReportinsertModal">신고
-									등록</button>
+									data-toggle="modal" data-target="#ReportinsertModal"
+									id="ReportinsertBtn">신고 등록</button>
 							</div>
 							<!-- Modal -->
 							<div class="modal fade" id="ReportinsertModal" role="dialog">
@@ -1395,15 +1796,11 @@ ul, li {
 												<tr>
 													<th>카테고리</th>
 													<th><select name="major" id="reportMajor">
-															<option>대분류</option>
-															<option value="1">카테고리1</option>
-															<option value="2">카테고리2</option>
-															<option value="3">카테고리3</option>
+															<option selected>대분류</option>
+
 													</select> <select name="minor" id="reportMinor">
-															<option>소분류</option>
-															<option value="1">카테고리1</option>
-															<option value="2">카테고리2</option>
-															<option value="3">카테고리3</option>
+															<option selected>소분류</option>
+															<option>대분류를 선택하세요</option>
 													</select></th>
 												</tr>
 												<tr>
@@ -1610,7 +2007,7 @@ ul, li {
 
 					<!--QnAContentUpdateModal qna업데이트상세-->
 					<div class="modal fade" id="QnAContentUpdateModal" role="dialog">
-						<div class="modal-dialog">
+						<div class="modal-dialog modal-lg">
 
 							<!-- Modal content-->
 							<div class="modal-content">
@@ -1619,14 +2016,12 @@ ul, li {
 									<h4 class="modal-title">질문 수정 폼</h4>
 								</div>
 								<div class="modal-body">
-									<table id="qnaDetail">
+									<table id="qnaDetail" class="table">
 										<tr>
 											<th>카테고리</th>
 											<th><select id="QnAMajorUpdate" name="major">
 													<option>대분류</option>
-													<option value="1">카테고리1</option>
-													<option value="2">카테고리2</option>
-													<option value="3">카테고리3</option>
+
 											</select> <select id="QnAMinorUpdate" name="minor">
 													<option>소분류</option>
 													<option value="1">카테고리1</option>
@@ -1688,7 +2083,9 @@ ul, li {
 											<td colspan="3"><textarea id="NoticecontentLabel"
 													rows="10" cols="78" readonly="readonly"></textarea></td>
 										</tr>
-
+										<tr>
+											<td><br></td>
+										</tr>
 										<tr>
 											<td><button type="button" class="btn btn-sm btn-danger"
 													id="NoticeUpdateForm" data-toggle="modal"
@@ -1706,7 +2103,7 @@ ul, li {
 
 					<!--NoticeContentUpdateModal Notice업데이트상세-->
 					<div class="modal fade" id="NoticeContentUpdateModal" role="dialog">
-						<div class="modal-dialog">
+						<div class="modal-dialog modal-lg">
 
 							<!-- Modal content-->
 							<div class="modal-content">
@@ -1715,19 +2112,15 @@ ul, li {
 									<h4 class="modal-title">공지 수정 폼</h4>
 								</div>
 								<div class="modal-body">
-									<table id="NoticeDetail">
+									<table id="NoticeDetail" class="table">
 										<tr>
 											<th>카테고리</th>
 											<th><select id="NoticeMajorUpdate" name="major">
 													<option>대분류</option>
-													<option value="1">카테고리1</option>
-													<option value="2">카테고리2</option>
-													<option value="3">카테고리3</option>
+
 											</select> <select id="NoticeMinorUpdate" name="minor">
 													<option>소분류</option>
-													<option value="1">카테고리1</option>
-													<option value="2">카테고리2</option>
-													<option value="3">카테고리3</option>
+
 											</select></th>
 										</tr>
 										<tr>
@@ -1740,7 +2133,9 @@ ul, li {
 											<td><input type="text" size="48"
 												id="NoticecontentUpdate" style="height: 200px;"></td>
 										</tr>
+
 										<tr>
+											<br>
 											<td><button type="button" class="btn btn-sm btn-danger"
 													id="NoticeUpdateBtn">공지 수정</button></td>
 										</tr>
@@ -1779,7 +2174,9 @@ ul, li {
 											<td colspan="3"><textarea id="ReportcontentLabel"
 													rows="10" cols="78" readonly="readonly"></textarea></td>
 										</tr>
-
+										<tr>
+											<td><br></td>
+										</tr>
 										<tr>
 											<td><button type="button" class="btn btn-sm btn-danger"
 													id="ReportUpdateForm" data-toggle="modal"
@@ -1787,6 +2184,7 @@ ul, li {
 												<button type="button" id="ReportDelete"
 													class="btn btn-sm btn-danger">신고 삭제</button></td>
 										</tr>
+
 										<tr>
 
 											<td><div class="form-group" style="text-align: right;">
@@ -1805,7 +2203,7 @@ ul, li {
 
 					<!--ReportContentUpdateModal Report업데이트상세-->
 					<div class="modal fade" id="ReportContentUpdateModal" role="dialog">
-						<div class="modal-dialog">
+						<div class="modal-dialog modal-lg">
 
 							<!-- Modal content-->
 							<div class="modal-content">
@@ -1814,19 +2212,15 @@ ul, li {
 									<h4 class="modal-title">신고 수정 폼</h4>
 								</div>
 								<div class="modal-body">
-									<table id="ReportDetail">
+									<table id="ReportDetail" class="table">
 										<tr>
 											<th>카테고리</th>
 											<th><select id="ReportMajorUpdate" name="major">
 													<option>대분류</option>
-													<option value="1">카테고리1</option>
-													<option value="2">카테고리2</option>
-													<option value="3">카테고리3</option>
+
 											</select> <select id="ReportMinorUpdate" name="minor">
 													<option>소분류</option>
-													<option value="1">카테고리1</option>
-													<option value="2">카테고리2</option>
-													<option value="3">카테고리3</option>
+
 											</select></th>
 										</tr>
 										<tr>
