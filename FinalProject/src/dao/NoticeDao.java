@@ -17,5 +17,7 @@ public interface NoticeDao {
 	public List<Notice> selectNoticePage(HashMap<String, Object> params);
 	public int getNoticeCount(HashMap<String, Object> params);
 
+	public String getHighName(HashMap<String , Object> params);
+	public String getLowName(HashMap<String , Object> params);
 
 }

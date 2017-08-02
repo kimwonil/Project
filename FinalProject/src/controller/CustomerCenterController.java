@@ -21,12 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import model.Answer;
+import model.Category;
 import model.Member;
 import model.Message;
 import model.Notice;
 import model.QnA;
 import model.Report;
 import service.AnswerService;
+import service.BoardService;
 import service.MemeberService;
 import service.NoticeService;
 import service.QnAService;
@@ -50,6 +52,10 @@ public class CustomerCenterController {
 
 	@Autowired
 	private MemeberService memberService;
+	
+	@Autowired
+	private BoardService BoardService;
+	
 	
 	@RequestMapping("getMessageCount.do")
 	public void getMessageCount(HttpServletRequest request, HttpServletResponse response, HttpSession session)
@@ -126,6 +132,8 @@ public class CustomerCenterController {
 		response.setContentType("text/xml;charset=UTF-8");
 		System.out.println("공지 리스트 들어옴");
 		int page = Integer.parseInt(request.getParameter("page"));
+	
+		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		System.out.println(request.getParameter("start"));
 		System.out.println(request.getParameter("page"));
@@ -136,6 +144,7 @@ public class CustomerCenterController {
 			params.put("enddate", request.getParameter("end"));
 
 		}
+		
 		System.out.println("현재 페이지 : " + page);
 		params.put("type", type);
 		params.put("keyword", keyword);
@@ -434,13 +443,30 @@ public class CustomerCenterController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		Notice notice = noticeService.selectOneNotice(no);
+		String str=notice.getCategory_no()+"";
+		int major=Integer.parseInt(str.substring(0, 3));
+		int minor=Integer.parseInt(str.substring(3, str.length()));
+		HashMap<String, Object> pa = new HashMap<String, Object>();
+		pa.put("major", major);
+		pa.put("minor", minor);
+		String HighName=noticeService.getHighName(pa);
+		String LowName=noticeService.getLowName(pa);
+		System.out.println(HighName+"  "+LowName);
 		int read_count = notice.getRead_count();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("no", no);
 		params.put("read_count", read_count + 1);
 		noticeService.updateNoticeCount(params);
-		System.out.println(notice);
-		String json = gson.toJson(notice);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("no", notice.getNo());
+		result.put("title", notice.getTitle());
+		result.put("writer", notice.getWriter());
+		result.put("HighName", HighName);
+		result.put("LowName", LowName);
+		result.put("content", notice.getContent());
+		
+		System.out.println(result);
+		String json = gson.toJson(result);
 		System.out.println(json);
 		try {
 			response.getWriter().write(json);
@@ -486,23 +512,64 @@ public class CustomerCenterController {
 		noticeService.updateNoticeCount(params);
 
 	}
-
-	// 공지사항 등록
-	@RequestMapping("insertNotice.do")
-	public String insertNotice(@RequestParam HashMap<String, Object> params, HttpServletRequest req,
-			HttpServletResponse resp, HttpSession session) {
-
-		String id = ((Member) session.getAttribute("member")).getId();
-		params.put("writer", id);
-		int category_no = Integer.parseInt(((String) params.get("major")) + ((String) params.get("minor")));
-		params.remove("major");
-		params.remove("minor");
-		params.put("category_no", category_no);
-
-		noticeService.insertNotice(params);
-
-		return "redirect:customerCenterCall.do";
+	//카테고리 하이 불러오기
+	@RequestMapping("high.do")
+	public void categoryLow(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		
+		List<Category> highlist = BoardService.category();
+		Gson gson = new Gson();
+		String json = gson.toJson(highlist);
+		try {
+			resp.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	//카테고리 로우 불러오기
+	@RequestMapping("Low.do")
+	public void categoryLow(int high_no, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		
+		List<Category> lowlist = BoardService.categoryLow(high_no);
+		Gson gson = new Gson();
+		String json = gson.toJson(lowlist);
+		try {
+			resp.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	// 공지사항 등록
+		@RequestMapping("insertNotice.do")
+		public void insertNotice(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+			String id = ((Member) session.getAttribute("member")).getId();
+			int category_no = Integer.parseInt((request.getParameter("major") + request.getParameter("minor")));
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+		
+			HashMap<String, Object> params = new HashMap<String, Object>();
+			params.put("writer", id);
+			params.put("category_no", category_no);
+			params.put("title", title);
+			params.put("content", content);
+		
+
+			System.out.println("공지 인설트");
+			System.out.println(params);
+			
+			noticeService.insertNotice(params);
+		
+
+		}
+	
+	
 
 	// 공지사항 삭제
 	@RequestMapping("deleteNotice.do")
@@ -575,6 +642,17 @@ public class CustomerCenterController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		QnA qna = qnaService.selectOneQnA(no);
+		String str=qna.getCategory_no()+"";
+		int major=Integer.parseInt(str.substring(0, 3));
+		int minor=Integer.parseInt(str.substring(3, str.length()));
+		HashMap<String, Object> pa = new HashMap<String, Object>();
+		pa.put("major", major);
+		pa.put("minor", minor);
+		String HighName=noticeService.getHighName(pa);
+		String LowName=noticeService.getLowName(pa);
+		
+		
+		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		int read_count = qna.getRead_count();
 		System.out.println("디비에 작성자" + qna.getWriter());
@@ -592,6 +670,8 @@ public class CustomerCenterController {
 			params.put("title", qna.getTitle());
 			params.put("writer", qna.getWriter());
 			params.put("content", qna.getContent());
+			params.put("HighName", HighName);
+			params.put("LowName", LowName);
 			params.put("state", qna.getState());
 			params.put("category_no", qna.getCategory_no());
 			params.put("open", qna.getOpen());
@@ -611,6 +691,8 @@ public class CustomerCenterController {
 			params.put("title", "비공개");
 			params.put("writer", "비공개");
 			params.put("content", "비공개");
+			params.put("HighName", "비공개");
+			params.put("LowName", "비공개");
 			params.put("state", qna.getState());
 			params.put("category_no", qna.getCategory_no());
 			params.put("open", qna.getOpen());
@@ -716,13 +798,32 @@ public class CustomerCenterController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		Report report = reportService.selectOneReport(no);
+		String str=report.getCategory_no()+"";
+		int major=Integer.parseInt(str.substring(0, 3));
+		int minor=Integer.parseInt(str.substring(3, str.length()));
+		HashMap<String, Object> pa = new HashMap<String, Object>();
+		pa.put("major", major);
+		pa.put("minor", minor);
+		String HighName=noticeService.getHighName(pa);
+		String LowName=noticeService.getLowName(pa);
+		
+		
+		
 		int read_count = report.getRead_count();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("no", no);
 		params.put("read_count", read_count + 1);
 		reportService.updateReportCount(params);
-		System.out.println(report);
-		String json = gson.toJson(report);
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("no", report.getNo());
+		result.put("title", report.getTitle());
+		result.put("writer", report.getWriter());
+		result.put("HighName", HighName);
+		result.put("LowName", LowName);
+		result.put("content", report.getContent());
+		System.out.println(result);
+		String json = gson.toJson(result);
 		System.out.println(json);
 		try {
 			response.getWriter().write(json);
