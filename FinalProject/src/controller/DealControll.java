@@ -64,7 +64,7 @@ public class DealControll {
 		if(admin == 1) {
 			return "purchasingManager";
 		}else {
-			return "selling";
+			return "purchasing";
 		}
 	}
 	
@@ -170,12 +170,21 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		String id = ((Member)session.getAttribute("member")).getId();
+		int page = Integer.parseInt(request.getParameter("page"));
 		int state = Integer.parseInt(request.getParameter("state"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("page", page);
 		List<Purchase> list = null;
 		if(state == 20) {
-			list = dealService.purchaseComplete(id);
+			list = dealService.purchaseComplete(map);
+			map.put("totalPage", dealService.totalPagePurchaseComplete(id));
+		}else if(state == 40) {
+			list = dealService.purchaseCanceled(map);
+			map.put("totalPage", dealService.totalPagePurchaseCanceled(id));
 		}else {
-			list = dealService.purchase(id);
+			list = dealService.purchase(map);
+			map.put("totalPage", dealService.totalPagePurchase(id));
 		}
 		
 		for(Purchase purchase : list) {
@@ -184,8 +193,54 @@ public class DealControll {
 			purchase.setSeller(board.getWriter());
 			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
 		}
+		map.put("list", list);
 		
-		String json = gson.toJson(list);
+		String json = gson.toJson(map);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	/**
+	 * 구매 현황 조회
+	 * */
+	@RequestMapping("purchaseManager.do")
+	public void purchaseManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+//		String id = ((Member)session.getAttribute("member")).getId();
+		int page = Integer.parseInt(request.getParameter("page"));
+		int state = Integer.parseInt(request.getParameter("state"));
+		HashMap<String, Object> map = new HashMap<>();
+//		map.put("id", id);
+		map.put("page", page);
+		List<Purchase> list = null;
+		if(state == 20) {
+			list = dealService.purchaseCompleteManager(map);
+			map.put("totalPage", dealService.totalPagePurchaseCompleteManager());
+		}else if(state == 40) {
+			list = dealService.purchaseCanceledManager(map);
+			map.put("totalPage", dealService.totalPagePurchaseCanceledManager());
+		}else {
+			list = dealService.purchaseManager(map);
+			map.put("totalPage", dealService.totalPagePurchaseManager());
+		}
+		
+		for(Purchase purchase : list) {
+			Board board = dealService.boardInfo(purchase.getNo());
+			purchase.setBoardTitle(board.getTitle());
+			purchase.setSeller(board.getWriter());
+			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
+		}
+		map.put("list", list);
+		
+		String json = gson.toJson(map);
 		
 		try {
 			response.getWriter().write(json);

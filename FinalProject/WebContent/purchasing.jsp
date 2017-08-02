@@ -22,11 +22,14 @@ text-align: center;
 		$("#tabs").tabs();
 	});
 	
-	function purchase(){
+	function purchase(page){
 		$.ajax({
 			url:"purchase.do",
 			type:"POST",
-			data:{state:0},
+			data:{
+				state:0,
+				page:page
+			},
 			dataType:"json",
 			success:function(data){
 				console.log(data);
@@ -34,26 +37,30 @@ text-align: center;
 				$('#tabs-1 > table tr:gt(0)').remove();
 				if(data == ""){
 					$('#tabs-1 > table').append(
-							'<tr><td colspan="8">내역이 없습니다.</td></tr>'		
+							'<tr><td colspan="6">내역이 없습니다.</td></tr>'		
 					);
 				}else{
-					$.each(data, function(index, value){
-						var total = 0;
-						
-						$.each(value.optionList, function(index, option){
-							total += option.price * option.amount;
-						});
-						
-						
-						$('#tabs-1 > table').append(
-							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-							value.seller + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="'+value.purchase_no+'"></td><td>' + 
-							(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료") + 
-							'</td><td><button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
-						);
-					});
-				}
+					$.each(data.list, function(index, value){
 							
+							var total = 0;
+							
+							$.each(value.optionList, function(index2, option){
+								total += option.price * option.amount;
+							});
+							
+							$('#tabs-1 > table').append(
+									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+'</td><td>'+
+									'<button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
+							);								
+					});
+					$('#currentPage').val(data.page);
+					$('.prev').val(data.page==0?0:data.page-8);
+					$('.next').val(data.totalPage-8>data.page?data.page+8:data.page);
+				}
+				
+				
 			},
 			error:function(jqXHR, textStatus, errorThrown){
 				console.log(textStatus);
@@ -62,11 +69,14 @@ text-align: center;
 		})
 	}
 	
-	function completePurchase(){
+	function completePurchase(page){
 		$.ajax({
 			url:"purchase.do",
 			type:"POST",
-			data:{state:20},
+			data:{
+				state:20,
+				page:page
+			},
 			dataType:"json",
 			success:function(data){
 				console.log(data);
@@ -77,22 +87,74 @@ text-align: center;
 							'<tr><td colspan="5">내역이 없습니다.</td></tr>'		
 					);
 				}else{
-					$.each(data, function(index, value){
-						var total = 0;
-						
-						$.each(value.optionList, function(index, option){
-							total += option.price * option.amount;
-						});
-						
-						
-						$('#tabs-2 > table').append(
-							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-							value.seller + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="'+value.purchase_no+'"></td><td>' + 
-							'완료</td></tr>'		
-						);
-					});
-				}
+					$.each(data.list, function(index, value){
 							
+							var total = 0;
+							
+							$.each(value.optionList, function(index2, option){
+								total += option.price * option.amount;
+							});
+							
+							$('#tabs-2 > table').append(
+									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+
+									'</td></tr>'		
+							);								
+					});
+					$('#currentPage').val(data.page);
+					$('.prev').val(data.page==0?0:data.page-8);
+					$('.next').val(data.totalPage-8>data.page?data.page+8:data.page);
+				}
+				
+				
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		})
+	}
+	
+	
+	function canceledPurchase(page){
+		$.ajax({
+			url:"purchase.do",
+			type:"POST",
+			data:{
+				state:40,
+				page:page
+			},
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				
+				$('#tabs-3 > table tr:gt(0)').remove();
+				if(data == ""){
+					$('#tabs-3 > table').append(
+							'<tr><td colspan="4">내역이 없습니다.</td></tr>'		
+					);
+				}else{
+					$.each(data.list, function(index, value){
+							
+							var total = 0;
+							
+							$.each(value.optionList, function(index2, option){
+								total += option.price * option.amount;
+							});
+							
+							$('#tabs-3 > table').append(
+									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+
+									'"></td></tr>'		
+							);								
+					});
+					$('#currentPage').val(data.page);
+					$('.prev').val(data.page==0?0:data.page-8);
+					$('.next').val(data.totalPage-8>data.page?data.page+8:data.page);
+				}
+				
+				
 			},
 			error:function(jqXHR, textStatus, errorThrown){
 				console.log(textStatus);
@@ -109,9 +171,8 @@ text-align: center;
 	
 	
 	
-	
 	$(document).ready(function(){
-		purchase();
+		purchase(0);
 		
 		
 		$(document).on({
@@ -203,7 +264,7 @@ text-align: center;
 				},
 				success:function(){
 					alert("성공");
-					purchase();
+					purchase(0);
 					$('#rating-3').attr('ckecked','checked');
 					$('#myModal').modal('hide');
 					$('#review').val("");
@@ -222,19 +283,28 @@ text-align: center;
 		});
 		
 		$('#ongoing').click(function(){
-			purchase();
+			purchase(0);
 		});
 		
 		$('#completion').click(function(){
-			completePurchase();
+			completePurchase(0);
 		});
 		
 		$('#canceled').click(function(){
-			alert("취소된");
+// 			alert("취소된");
+			canceledPurchase(0);
 		});
 		
 		
-		
+		$('#tabs-1 button').click(function(){
+			purchase($(this).val());
+		});
+		$('#tabs-2 button').click(function(){
+			completePurchase($(this).val());
+		});
+		$('#tabs-3 button').click(function(){
+			canceledPurchase($(this).val());
+		});
 		
 
 	});
@@ -274,9 +344,24 @@ text-align: center;
 .star-cb-group *{
  font-size: 3rem;
 }
+
+#tabs-1 div, #tabs-2 div, #tabs-3 div{
+	text-align:center;
+	position: absolute;
+	top: 90%;
+	left: 40%;
+}
+#tabs-1, #tabs-2, #tabs-3{
+	height: 400px;
+}
+.col-md-8{
+	position: relative;
+	left: 10%;
+}
 </style>
 </head>
 <body>
+<input type="hidden" id="currentPage" value="">
 	<div class="popupLayer">
 	
 	</div>
@@ -307,17 +392,25 @@ text-align: center;
 							<table>
 								<tr><th width="15%">등록일</th><th width="40%">글제목</th><th width="15%">판매자</th><th width="10%">총액</th><th width="10%">상태</th><th width="10%">비고</th></tr>
 							</table>
+							<div>
+								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
+							</div>
 						</div>
 						<div id="tabs-2">
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>총액</th><th>상태</th></tr>
 							</table>
+							<div>
+								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
+							</div>
 						</div>
 						<div id="tabs-3">
 							<table>
-								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th></tr>
-								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td></tr>
+								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>총액</th></tr>
 							</table>
+							<div>
+								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
+							</div>
 						</div>
 					
 					</div>
