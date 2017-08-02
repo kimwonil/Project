@@ -79,6 +79,10 @@ public class BoardService {
 		return boardDao.panmaesun(pagingParam);
 	}
 	
+	public List<Board> latest(HashMap<String, Object> pagingParam) {
+		return boardDao.latest(pagingParam);
+	}
+	
 
 	
 	/**
@@ -187,11 +191,6 @@ public class BoardService {
 	}
 
 
-
-
-
-
-	
 
 
 

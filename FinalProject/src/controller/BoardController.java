@@ -156,6 +156,50 @@ public class BoardController{
 		return mav;
 	}
 	
+	
+	/**
+	 * 최신순
+	 * */
+	@RequestMapping("latest.do")
+	public ModelAndView latest(HttpServletRequest req, HttpServletResponse resp, HttpSession session,
+			@RequestParam(defaultValue="1") int currentPage){
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		System.out.println("latest.do");
+		ModelAndView mav = new ModelAndView();
+		
+		//페이징 부분
+		Paging paging = new Paging(boardService.getCount(), currentPage);
+		paging.boardPaging();
+		System.out.println(paging);
+		
+		//프리미엄 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
+		List<Board> premiumList = new ArrayList<>();
+		for(Board board : boardService.selectAllPremiumBoard()){
+			int no = board.getNo();//글번호
+			String file_name1 = boardService.selectThumbnail(no);
+			board.setFile_name1(file_name1);
+			board.ratingForMain();//별점평균넣기
+			premiumList.add(board);
+		}//selectAllPremiumBoard에 각각 file_name1 넣기 끝
+		
+		HashMap<String, Object> pagingParam = new HashMap<>();//검색에 필요한 페이징 정보를 맵에 담아서
+		pagingParam.put("start", paging.getStart());
+		pagingParam.put("end", paging.getEnd());
+		
+		mav.addObject("normalList", boardPlusThumbnail(boardService.latest(pagingParam)));
+		List<Category> categoryList = boardService.category();
+		mav.addObject(categoryList);
+		mav.addObject("paging", paging);
+		mav.addObject("pageName", "latest.do");
+		mav.addObject("premiumList", premiumList);
+		mav.setViewName("board/main");
+		
+		return mav;
+	}
+	
+	
+	
 	/**
 	 * 판매순
 	 * */
@@ -183,8 +227,7 @@ public class BoardController{
 		}//selectAllPremiumBoard에 각각 file_name1 넣기 끝
 		
 		HashMap<String, Object> pagingParam = new HashMap<>();//검색에 필요한 페이징 정보를 맵에 담아서
-		pagingParam.put("start", paging.getStart());
-		pagingParam.put("end", paging.getEnd());
+		pagingParam.put("start", paging.getStart()-1);
 		
 		mav.addObject("normalList", boardPlusThumbnail(boardService.panmaesun(pagingParam)));
 		List<Category> categoryList = boardService.category();
@@ -194,8 +237,6 @@ public class BoardController{
 		mav.addObject("premiumList", premiumList);
 		mav.setViewName("board/main");
 		return mav;
-		
-		
 	}
 	
 	
