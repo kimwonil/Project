@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="dao.QnADao">
+ 
+ <insert id="insertQnA" parameterType="java.util.HashMap">
+ 	insert into qna values(0,sysdate(),#{category_no},#{title},0,0,#{content},#{writer},#{open})
+ </insert>
+ 
+  <select id="selectAllQnA" resultType="QnA">
+ 	select * from qna
+ </select>
+ 
+ <select id="selectOneQnA" resultType="QnA" parameterType="int">
+ 	select * from qna where no=#{no}
+ </select>
+ 
+ 	<update id="updateQnA" parameterType="java.util.HashMap">
+ 	update qna set title=#{title},content=#{content},category_no=#{category_no},open=#{open} where no= #{no}
+ </update>
+ 
+  <update id="updateQnACount" parameterType="java.util.HashMap">
+ 	update qna set read_count=#{read_count} where no= #{no}
+ </update>
+ 
+ 
+  <update id="updateQnAAnswer" parameterType="java.util.HashMap">
+ 	update qna set state=#{state} where no= #{no}
+ </update>
+ 
+  <delete id="deleteQnA" parameterType="int">
+ 	delete from qna where no= #{no}
+ </delete>
+ 
+ 
+   <select id="selectQnAPage" parameterType="java.util.HashMap" 
+        resultType="QnA">
+        select * from qna
+        where 1 = 0
+		<if test="title != null">
+		    or title like '%${title}%'
+		</if>
+		<if test="writer != null">
+        		or writer like #{writer}
+		</if>
+		<if test="type == 0">
+		    or 1=1
+		</if>
+		<if test="startdate != null">
+		   and date between #{startdate} and #{enddate}
+		</if>
+         order by no desc limit #{skip},#{qty}
+    </select>
+ 
+     <select id="getQnACount" resultType="int" parameterType="java.util.HashMap">
+        select count(*) from qna
+              where 1 = 0
+		<if test="title != null">
+		    or title like '%${title}%'
+		</if>
+		<if test="writer != null">
+        		or writer like #{writer}
+		</if>
+		<if test="type == 0">
+		    or 1=1
+		</if>
+		<if test="startdate != null">
+		    and date between #{startdate} and #{enddate}
+		</if>
+    </select>
+ 
+ 
+ 
+ </mapper>

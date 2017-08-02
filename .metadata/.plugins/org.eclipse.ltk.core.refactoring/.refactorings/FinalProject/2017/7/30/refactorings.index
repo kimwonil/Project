@@ -1,0 +1,22 @@
+1500943621332	Delete element
+1500943659792	Move 'profile.jsp' to 'js'
+1500943663091	Move 'profile.jsp' to 'member'
+1500943715793	Move 'cash.jsp' to 'member'
+1500943794940	Move 'cashManager.jsp' to 'js'
+1500943798504	Move 'cashManager.jsp' to 'member'
+1500943843267	Move 'message.jsp' to 'member'
+1500943849266	Move 'memberList.jsp' to 'member'
+1500943878911	Move 'authority.jsp' to 'member'
+1500943900557	Move 'authorityManager.jsp' to 'member'
+1500946338325	Copy file
+1500946353959	Copy file
+1500946453846	Copy file
+1500954585280	Copy file
+1500954610298	Rename type 'dealDao'
+1500954624025	Rename compilation unit 'dealControll.java'
+1500954634429	Rename type 'dealService'
+1500971359597	Rename type 'purchaseOption'
+1500972017211	Delete element
+1501213063722	Delete element
+1501213458948	Delete element
+1501228995832	Rename type 'category'
