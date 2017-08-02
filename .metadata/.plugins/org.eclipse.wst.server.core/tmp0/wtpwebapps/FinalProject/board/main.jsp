@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script>"undefined"==typeof CODE_LIVE&&(!function(e){var t={nonSecure:"50873",secure:"50882"},c={nonSecure:"http://",secure:"https://"},r={nonSecure:"127.0.0.1",secure:"gapdebug.local.genuitec.com"},n="https:"===window.location.protocol?"secure":"nonSecure";script=e.createElement("script"),script.type="text/javascript",script.async=!0,script.src=c[n]+r[n]+":"+t[n]+"/codelive-assets/bundle.js",e.getElementsByTagName("head")[0].appendChild(script)}(document),CODE_LIVE=!0);</script></head>
+<script>"undefined"==typeof CODE_LIVE&&(!function(e){var t={nonSecure:"64087",secure:"64096"},c={nonSecure:"http://",secure:"https://"},r={nonSecure:"127.0.0.1",secure:"gapdebug.local.genuitec.com"},n="https:"===window.location.protocol?"secure":"nonSecure";script=e.createElement("script"),script.type="text/javascript",script.async=!0,script.src=c[n]+r[n]+":"+t[n]+"/codelive-assets/bundle.js",e.getElementsByTagName("head")[0].appendChild(script)}(document),CODE_LIVE=!0);</script></head>
 <style>
 /* slide관련 */
 .sp-slideshow{
@@ -89,26 +89,104 @@ img{
 	height: 200px;
 	padding: 0px;
 }
+#orderTable{
+	height: 40px;
+	float: right;
+	
+}
+#orderTable div{
+	background-color: white;
+	line-height: 40px;
+	height: 40px;
+}
+h3{
+display: inline;
+}
+.rowClear{
+	clear: both;
+}
 </style>
 
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#searchInput').on('keydown', function(key){
 		if(key.keyCode == 13){
-// 			$.ajax({
-// 				url : "search.do",
-// 				type : "post",
-// 				data : {word : $('#searchInput').val(), categoryNo : $('#major').val()},
-// 				success : function(){
-// 					alert("성공");
-// 				},error : function(){
-// 					alert("실패");
-// 				}
-// 			});//ajax 끝
-			
 			$('#searchInput').parent().submit();
 		};//keyCode == 13일때
 	});
+	
+	
+// 	//판매순
+// 	$('#panmaesun').on('click', function(){
+// 		$.ajax({
+// 			url : "panmaesun.do",
+// 			type : "post",
+// 			dataType : "json",
+// 			success : function(){
+// 				alert("성공");
+// 				$('.normal').empty();
+// 			},error : function(){
+// 				alert("실패");
+// 			}
+// 		})
+// 	});//판매순 ajax 끝
+		
+		
+// 	//가격순
+// 	$('#gageocksun').on('click', function(){
+// 		$.ajax({
+// 			url : "gageocksun.do",
+// 			type : "post",
+// 			dataType : "json",
+// 			success : function(data){
+// 				console.log(data)
+// 				$('.normal').empty();
+// 				$.each(data.list, function(index, value){
+// 					var imgFileName = "";
+// 					var fileNo = "" ;
+// 					if(value.file_name1 == null){
+// 						imgFileName = noimage.jpg;
+// 						fileNo = nothumbnail;
+// 					}else{
+// 						imgFileName = value.file_name1;
+// 						fileNo = value.no;
+// 					}
+					
+// 					$('.normal').append(
+						
+// 					        	'<div class="item">'+
+// 					        		'<div class="animate-box">'+
+// 						        		'<a href="detailOneBoard.do?no='+value.no+'">'+
+// 											'<img src="'+data.path+fileNo+'\\'+imgFileName+'"></a>'+
+// 					        		'</div>'+
+// 					        		'<div class="fh5co-desc">'+
+// 										'<table class="infoTable">'+
+// 											'<tr>'+
+// 												'<td colspan="4" class="titleHeight">'+value.title+'</td>'+
+// 											'</tr><tr>'+
+// 												'<td colspan="3" width="90%" height="20%" class="price">'+value.price+'</td>'+
+// 												'<td width="10%" class="read_count">조회수'+value.read_count+'회</td>'+
+// 											'</tr><tr>'+
+// 												'<td class="writer" colspan="2" width="60%">'+value.writer+'</td>'+
+// 												'<td colspan="3" width="40%">'+
+// 													'<div class="star-ratings-css">'+
+// 													  '<div class="star-ratings-css-top starPercent" style="width:'+value.ratingForMain+'%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>'+
+// 													  '<div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>'+
+// 													  '<div>('+value.num_evaluator+')</div>'+
+// 													'</div></td></tr>'+
+// 										'</table></div></div>'
+					
+					
+// 					)
+// 				});//each끝
+// 			},error : function(){
+// 				alert("실패");
+// 			}
+// 		})
+// 	});//가격순 ajax 끝
+		
+		
+		
 	
 });
 </script>
@@ -117,7 +195,7 @@ $(document).ready(function(){
 <div id="fh5co-main" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-5" data-genuitec-path="/FinalProject/WebContent/board/main.jsp">
 	<div class="container">
 	<div>
-		<h3>여기부터 프리미엄</h3>
+		<h3>프리미엄</h3>
 		<div class="row">
 			<div id="fh5co-board" class="premium" data-columns>
 			<div class="sp-slideshow">
@@ -199,8 +277,15 @@ $(document).ready(function(){
 			</div>
 		</div>
 			
-		<h3>이 아래로 일반글</h3>
-		<div class="row">
+		<div class="fh5co-spacer fh5co-spacer-sm"></div>
+			
+		<h3>일반글</h3>
+		<span>
+			<table id="orderTable">
+			<tr><td><a href="#"><div>최신순</div></a></td><td><a href="panmaesun.do"><div>판매순</div></a></td><td><a href="gageocksun.do"><div>가격낮은순</div></a></td></tr>
+			</table>
+		</span>
+		<div class="row rowClear">
 
         	<div id="fh5co-board"  class="normal" data-columns>
         	
@@ -253,8 +338,8 @@ $(document).ready(function(){
 				<div>
 				<center>
 					<c:if test="${paging.currentPage > 1}">
-						<a href="load.do?currentPage=1">[처음]</a>
-						<a href="load.do?currentPage=${paging.currentPage-1}">[이전]</a>
+						<a href="${pageName}?currentPage=1">[처음]</a>
+						<a href="${pageName}?currentPage=${paging.currentPage-1}">[이전]</a>
 					</c:if>
 					
 					<c:forEach begin="${paging.startPage }" end="${paging.endPage>paging.lastPage? paging.lastPage:paging.endPage }" var="i">
@@ -262,13 +347,13 @@ $(document).ready(function(){
 							<b>${i }</b>
 						</c:if>
 						<c:if test="${i ne paging.currentPage }">
-							<a href="load.do?currentPage=${i}">[${i}]</a>
+							<a href="${pageName}?currentPage=${i}">[${i}]</a>
 						</c:if>
 					</c:forEach>
 					
 					<c:if test="${paging.currentPage != paging.lastPage && paging.endPage ne 0}">
-						<a href="load.do?currentPage=${paging.currentPage+1 }">[다음]</a>
-						<a href="load.do?currentPage=${paging.lastPage }">[마지막]</a>
+						<a href="${pageName}?currentPage=${paging.currentPage+1 }">[다음]</a>
+						<a href="${pageName}?currentPage=${paging.lastPage }">[마지막]</a>
 					</c:if>
 				</center>
 				</div>

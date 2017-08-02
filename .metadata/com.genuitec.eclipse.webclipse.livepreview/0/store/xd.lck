@@ -1,4 +1,4 @@
-Private property of Exodus: 5024@LAPTOP-JIQ4T8AL
+Private property of Exodus: 13648@LAPTOP-JIQ4T8AL
 
 jetbrains.exodus.io.LockingManager.lock(LockingManager.java:100)
 jetbrains.exodus.io.LockingManager.lock(LockingManager.java:53)
@@ -16,9 +16,5 @@ com.genuitec.eclipse.webclipse.livepreview.common.LPMappingService.getDBFor(LPMa
 com.genuitec.eclipse.webclipse.livepreview.common.LPMappingService.loadAllDeployments(LPMappingService.java:175)
 com.genuitec.eclipse.webclipse.livepreview.common.LPMappingService.<init>(LPMappingService.java:56)
 com.genuitec.eclipse.webclipse.livepreview.common.LPMappingService.<clinit>(LPMappingService.java:46)
-com.genuitec.eclipse.webclipse.livepreview.deploy.ServerPublishListener.checkServerActive(ServerPublishListener.java:160)
-com.genuitec.eclipse.webclipse.livepreview.deploy.ServerPublishListener.publishStarted(ServerPublishListener.java:77)
-org.eclipse.wst.server.core.internal.Server.firePublishStarted(Server.java:1118)
-org.eclipse.wst.server.core.internal.Server.publishImpl(Server.java:3167)
-org.eclipse.wst.server.core.internal.Server$PublishJob.run(Server.java:345)
+com.genuitec.eclipse.webclipse.livepreview.deploy.DisableLivePreviewJob.run(DisableLivePreviewJob.java:30)
 org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
