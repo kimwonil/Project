@@ -395,17 +395,7 @@
 	<header id="fh5co-header" role="banner">
 	<div class="container">
 		<div class="row">
-<<<<<<< HEAD
-		<form action="search.do" method="post">
-		<select name="major" id="categoryForSearch">
-			<option value="all">카테고리</option>
-			<c:forEach items="${categoryList}" var="high">
-				<option value="${high.no}">${high.category_name}</option>
-			</c:forEach>
-		</select>
-		</form>
-=======
->>>>>>> master
+
 			<form action="search.do" method="post">
 				<select name="major" id="categoryForSearch">
 					<option value="all">카테고리</option>
