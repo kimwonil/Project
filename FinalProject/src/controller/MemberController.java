@@ -59,9 +59,9 @@ public class MemberController {
 //		String photo = null;
 //				//((Member) session.getAttribute("member")).getPhoto();	
 //		
-//		int balance = 0;
+//		int balance;
 //				//((Member) session.getAttribute("member")).getBalance();		
-//		int admin = 0;
+//		int admin;
 //				//((Member) session.getAttribute("member")).getAdmin();	
 //		String code = "code초기값";
 //				//((Member) session.getAttribute("member")).getCode();
@@ -69,10 +69,10 @@ public class MemberController {
 //				//((Member) session.getAttribute("member")).getAmount();
 //		//
 //		
-//		int balance = ((Member) session.getAttribute("member")).getBalance();		
-//		int admin = ((Member) session.getAttribute("member")).getAdmin();	
-//		String code = ((Member) session.getAttribute("member")).getCode();
-//		int amount = ((Member) session.getAttribute("member")).getAmount();
+//		balance = ((Member) session.getAttribute("member")).getBalance();		
+//		admin = ((Member) session.getAttribute("member")).getAdmin();	
+//		code = ((Member) session.getAttribute("member")).getCode();
+//		amount = ((Member) session.getAttribute("member")).getAmount();
 //
 //		if(id==null && req.getParameter("EmailK")!=null){
 //			id = req.getParameter("EmailK");
@@ -111,11 +111,29 @@ public class MemberController {
 //		params.put("code",code);
 //		params.put("amount",amount);
 //		
-//		MemeberService.memberInsert(Member);
+//		memberService.memberInsert(member);
 //
 //	}
-	////////////////////////
+//	////////////////////////
 	 
+	@RequestMapping("loginsuccess.do")
+	public String emailjoin (String id){
+		System.out.println(id);
+		Member member = new Member();
+		
+		if(memberService.selectOne(id)==null){
+			member.setId(id);
+			member.setNickName(id);
+			memberService.memberInsert(member);
+			return "redirect:profile.do";
+
+		}
+
+		else{
+			return "redirect:profile.do";
+		}
+
+	}
 	
 	/**
 	 * 프로필 조회
@@ -149,10 +167,15 @@ public class MemberController {
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}		
 		
 		Member member = (Member)session.getAttribute("member");
+		
+//닉네임 수정(예정) 
+//		String nickName = ((Member)session.getAttribute("member")).getNickName();
+//		member.setNickName(nickName);
+//닉네임 수정(예정) 
+		
 		member.setPhoto(fileName);
 		
 		memberService.memberUpdate(member);
