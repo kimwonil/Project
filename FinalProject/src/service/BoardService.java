@@ -71,6 +71,14 @@ public class BoardService {
 		return boardDao.getCount();
 	}
 	
+	public List<Board> gageocksun(HashMap<String, Object>pagingParam) {
+		return boardDao.gageocksun(pagingParam);
+	}
+	
+	public List<Board> panmaesun(HashMap<String, Object>pagingParam) {
+		return boardDao.panmaesun(pagingParam);
+	}
+	
 
 	
 	/**
@@ -177,6 +185,10 @@ public class BoardService {
 	public List<Category> categoryLow(int high_no) {
 		return boardDao.categoryLow(high_no);
 	}
+
+
+
+
 
 
 	

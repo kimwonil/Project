@@ -24,6 +24,8 @@ public interface BoardDao {
 	public List<Board> selectSearchResult(HashMap<String, Object> searchMap);
 	public List<Board> searchCategory(HashMap<String, Object> searchMap);
 	public int getCount();
+	public List<Board> gageocksun(HashMap<String, Object> pagingParam);
+	public List<Board> panmaesun(HashMap<String, Object> pagingParam);
 	
 	
 	//테이블명 : map

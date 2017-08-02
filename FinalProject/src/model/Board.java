@@ -24,6 +24,7 @@ public class Board {
 	private float ratingForMain;
 	private String file_name1;
 	private String path;
+	private int salesvolume;
 	
 	
 	public void ratingForDetail(){
@@ -52,7 +53,17 @@ public class Board {
 		return ratingForMain;
 	}
 
+	
 
+
+	public int getSalesvolume() {
+		return salesvolume;
+	}
+
+
+	public void setSalesvolume(int salesvolume) {
+		this.salesvolume = salesvolume;
+	}
 
 
 	public String getPath() {
@@ -115,7 +126,7 @@ public class Board {
 
 	public Board(int no, int category_major, int category_minor, String title, String writer, String content, String date,
 			String end_date, int quantity, int state, int price, int optionprice, int read_count, int premium,
-			int total_star, int num_evaluator) {
+			int total_star, int num_evaluator, int salesvolume) {
 		super();
 		this.no = no;
 		this.category_major = category_major;
@@ -133,6 +144,7 @@ public class Board {
 		this.premium = premium;
 		this.total_star = total_star;
 		this.num_evaluator = num_evaluator;
+		this.salesvolume = salesvolume;
 	}
 
 
