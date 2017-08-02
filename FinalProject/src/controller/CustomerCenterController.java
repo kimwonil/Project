@@ -132,6 +132,8 @@ public class CustomerCenterController {
 		response.setContentType("text/xml;charset=UTF-8");
 		System.out.println("공지 리스트 들어옴");
 		int page = Integer.parseInt(request.getParameter("page"));
+	
+		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		System.out.println(request.getParameter("start"));
 		System.out.println(request.getParameter("page"));
@@ -142,6 +144,7 @@ public class CustomerCenterController {
 			params.put("enddate", request.getParameter("end"));
 
 		}
+		
 		System.out.println("현재 페이지 : " + page);
 		params.put("type", type);
 		params.put("keyword", keyword);
@@ -440,13 +443,30 @@ public class CustomerCenterController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		Notice notice = noticeService.selectOneNotice(no);
+		String str=notice.getCategory_no()+"";
+		int major=Integer.parseInt(str.substring(0, 3));
+		int minor=Integer.parseInt(str.substring(3, str.length()));
+		HashMap<String, Object> pa = new HashMap<String, Object>();
+		pa.put("major", major);
+		pa.put("minor", minor);
+		String HighName=noticeService.getHighName(pa);
+		String LowName=noticeService.getLowName(pa);
+		System.out.println(HighName+"  "+LowName);
 		int read_count = notice.getRead_count();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("no", no);
 		params.put("read_count", read_count + 1);
 		noticeService.updateNoticeCount(params);
-		System.out.println(notice);
-		String json = gson.toJson(notice);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("no", notice.getNo());
+		result.put("title", notice.getTitle());
+		result.put("writer", notice.getWriter());
+		result.put("HighName", HighName);
+		result.put("LowName", LowName);
+		result.put("content", notice.getContent());
+		
+		System.out.println(result);
+		String json = gson.toJson(result);
 		System.out.println(json);
 		try {
 			response.getWriter().write(json);
@@ -622,6 +642,17 @@ public class CustomerCenterController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		QnA qna = qnaService.selectOneQnA(no);
+		String str=qna.getCategory_no()+"";
+		int major=Integer.parseInt(str.substring(0, 3));
+		int minor=Integer.parseInt(str.substring(3, str.length()));
+		HashMap<String, Object> pa = new HashMap<String, Object>();
+		pa.put("major", major);
+		pa.put("minor", minor);
+		String HighName=noticeService.getHighName(pa);
+		String LowName=noticeService.getLowName(pa);
+		
+		
+		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		int read_count = qna.getRead_count();
 		System.out.println("디비에 작성자" + qna.getWriter());
@@ -639,6 +670,8 @@ public class CustomerCenterController {
 			params.put("title", qna.getTitle());
 			params.put("writer", qna.getWriter());
 			params.put("content", qna.getContent());
+			params.put("HighName", HighName);
+			params.put("LowName", LowName);
 			params.put("state", qna.getState());
 			params.put("category_no", qna.getCategory_no());
 			params.put("open", qna.getOpen());
@@ -658,6 +691,8 @@ public class CustomerCenterController {
 			params.put("title", "비공개");
 			params.put("writer", "비공개");
 			params.put("content", "비공개");
+			params.put("HighName", "비공개");
+			params.put("LowName", "비공개");
 			params.put("state", qna.getState());
 			params.put("category_no", qna.getCategory_no());
 			params.put("open", qna.getOpen());
@@ -763,13 +798,32 @@ public class CustomerCenterController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		Report report = reportService.selectOneReport(no);
+		String str=report.getCategory_no()+"";
+		int major=Integer.parseInt(str.substring(0, 3));
+		int minor=Integer.parseInt(str.substring(3, str.length()));
+		HashMap<String, Object> pa = new HashMap<String, Object>();
+		pa.put("major", major);
+		pa.put("minor", minor);
+		String HighName=noticeService.getHighName(pa);
+		String LowName=noticeService.getLowName(pa);
+		
+		
+		
 		int read_count = report.getRead_count();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("no", no);
 		params.put("read_count", read_count + 1);
 		reportService.updateReportCount(params);
-		System.out.println(report);
-		String json = gson.toJson(report);
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("no", report.getNo());
+		result.put("title", report.getTitle());
+		result.put("writer", report.getWriter());
+		result.put("HighName", HighName);
+		result.put("LowName", LowName);
+		result.put("content", report.getContent());
+		System.out.println(result);
+		String json = gson.toJson(result);
 		System.out.println(json);
 		try {
 			response.getWriter().write(json);

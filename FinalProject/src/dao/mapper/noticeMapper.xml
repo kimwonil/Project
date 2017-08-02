@@ -45,6 +45,9 @@
 		<if test="startdate != null">
 		   and date between #{startdate} and #{enddate}
 		</if>
+		<if test="category_no != null">
+			and category_no=#{category_no}
+		</if>
          order by no desc limit #{skip},#{qty}
     </select>
  
@@ -63,6 +66,19 @@
 		<if test="startdate != null">
 		    and date between #{startdate} and #{enddate}
 		</if>
+		<if test="category_no != null">
+			and category_no=#{category_no}
+		</if>
     </select>
  
+ 
+ 	<select id="getHighName" resultType="String" parameterType="java.util.HashMap">
+ 		select category_name from category_high
+ 		where no=#{major}
+ 	</select>
+ 	
+ 	<select id="getLowName" resultType="String" parameterType="java.util.HashMap">
+ 		select category_name from category_low
+ 		where no=#{minor} and high_no=#{major}
+ 	</select>
  </mapper>

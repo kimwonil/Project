@@ -97,4 +97,13 @@ public class NoticeService {
 		// TODO Auto-generated method stub
 		return num * 10;
 	}
+	
+	public String getHighName(HashMap<String, Object> params)
+	{
+		return noticeDao.getHighName(params);
+	}
+	public String getLowName(HashMap<String, Object> params)
+	{
+		return noticeDao.getLowName(params);
+	}
 }

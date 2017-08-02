@@ -171,12 +171,7 @@
 			   			
 			   		});
 				});
-				//공지 분류 검색
-				$(document).on('click','#noticeCategorySerchBtn', function(){
-					alert($('#SearchnoticeMajor').val());
-					alert($('#SearchnoticeMinor').val());
-			
-				});
+				
 				
 		
 		//qna 카테고리 로우 불러오기
@@ -305,7 +300,7 @@ function noticeList(page,type,keyword,start,end){
 				for(var i=0;i<data.length;i++){
 				$('#noticeTable').append("<tr><td>"+data[i].date+"</td><td>"
 												+data[i].no+"</td><td>"
-												+data[i].category_no+"</td><td><a id='"+data[i].no+"'class='NoticeDetail' data-toggle='modal' data-target='#NoticeContentModal'>"
+												+"<a id='"+data[i].no+"'class='NoticeDetail' data-toggle='modal' data-target='#NoticeContentModal'>"
 												+data[i].title+"</a></td><td>"
 												+data[i].writer+"</td><td>"
 												+data[i].read_count+"</td></tr>");
@@ -420,7 +415,7 @@ function qnaList(page,type,keyword,start,end){
 				for(var i=0;i<data.length;i++){
 					$('#qnaTable').append("<tr><td>"+data[i].date+"</td><td>"
 							+data[i].no+"</td><td>"
-							+data[i].category_no+"</td><td><a id='"+data[i].no+"'class='QnADetail' data-toggle='modal' data-target='#QnAContentModal'>"
+							+"<a id='"+data[i].no+"'class='QnADetail' data-toggle='modal' data-target='#QnAContentModal'>"
 							+(data[i].open==0?data[i].title:"비공개")+"</a></td><td>"
 							+(data[i].open==0?data[i].writer:"비공개")+"</td><td>"
 							+(data[i].state==0?"미답변":"답변완료")+"</td><td>"
@@ -536,7 +531,7 @@ function reportList(page,type,keyword,start,end){
 				for(var i=0;i<data.length;i++){
 				$('#reportTable').append("<tr><td>"+data[i].date+"</td><td>"
 												+data[i].no+"</td><td>"
-												+data[i].category_no+"</td><td><a id='"+data[i].no+"'class='ReportDetail' data-toggle='modal' data-target='#ReportContentModal'>"
+												+"<a id='"+data[i].no+"'class='ReportDetail' data-toggle='modal' data-target='#ReportContentModal'>"
 												+data[i].title+"</a></td><td>"
 												+data[i].writer+"</td><td>"
 												+(data[i].state==0?"미처리":"처리완료")+"</td><td>"
@@ -678,6 +673,8 @@ function reportList(page,type,keyword,start,end){
 					noticeList(Noticepage,Noticetype,Noticekeyword,Noticestart,Noticeend);
 					$('#NoticetitleLabel').text(data.title);
 					$('#NoticewriterLabel').text(data.writer);
+					$('#NoticeMajorLabel').text(data.HighName);
+					$('#NoticeMinorLabel').text(data.LowName);
 					$('#NoticecontentLabel').text(data.content);
 					$('#NoticeUpdateForm').val(data.no);
 					$('#NoticeDelete').val(data.no);
@@ -840,6 +837,8 @@ function reportList(page,type,keyword,start,end){
 				qnaList(QnApage,QnAtype,QnAkeyword,QnAstart,QnAend);
 				$('#QnAtitleLabel').text(data.title);
 				$('#QnAwriterLabel').text(data.writer);
+				$('#QnAMajorLabel').text(data.HighName);
+				$('#QnAMinorLabel').text(data.LowName);
 				$('#QnAcontentLabel').text("질문 내용 : "+data.content);
 				$('#AnswercontentLabel').text("답변 내용 : "+(data.answercontent==null?"":data.answercontent));
 				
@@ -1184,6 +1183,8 @@ function reportList(page,type,keyword,start,end){
 				reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 				$('#ReporttitleLabel').text(data.title);
 				$('#ReportwriterLabel').text(data.writer);
+				$('#ReportMajorLabel').text(data.HighName);
+				$('#ReportMinorLabel').text(data.LowName);
 				$('#ReportcontentLabel').text(data.content);
 				$('#ReportUpdateForm').val(data.no);
 				$('#ReportDelete').val(data.no);
@@ -1550,7 +1551,6 @@ ul, li {
 								<tr>
 									<th width="15%">등록일</th>
 									<th width="10%">글번호</th>
-									<th width="5%">분류</th>
 									<th width="30%">글제목</th>
 									<th width="20%">작성자</th>
 									<th width="10%">조회수</th>
@@ -1652,7 +1652,6 @@ ul, li {
 								<tr>
 									<th width="15%">등록일</th>
 									<th width="10%">글번호</th>
-									<th width="5%">분류</th>
 									<th width="28%">글제목</th>
 									<th width="22%">작성자</th>
 									<th width="10%">답변상태</th>
@@ -1746,7 +1745,6 @@ ul, li {
 								<tr>
 									<th width="15%">등록일</th>
 									<th width="10%">글번호</th>
-									<th width="5%">분류</th>
 									<th width="28%">글제목</th>
 									<th width="22%">작성자</th>
 									<th width="10%">처리상태</th>
@@ -1856,6 +1854,12 @@ ul, li {
 										<tr>
 
 											<td width="80%">작성자 : <label id="QnAwriterLabel"></label>
+											</td>
+										</tr>
+										<tr>
+											<td >대분류 : <label id="QnAMajorLabel"></label>
+											 &nbsp;&nbsp;&nbsp;
+											 	소분류 : <label id="QnAMinorLabel"></label>
 											</td>
 										</tr>
 										<tr>
@@ -2080,6 +2084,12 @@ ul, li {
 											</td>
 										</tr>
 										<tr>
+											<td >대분류 : <label id="NoticeMajorLabel"></label>
+											 &nbsp;&nbsp;&nbsp;
+											 	소분류 : <label id="NoticeMinorLabel"></label>
+											</td>
+										</tr>
+										<tr>
 											<td colspan="3"><textarea id="NoticecontentLabel"
 													rows="10" cols="78" readonly="readonly"></textarea></td>
 										</tr>
@@ -2168,6 +2178,12 @@ ul, li {
 										<tr>
 
 											<td width="80%">작성자 : <label id="ReportwriterLabel"></label>
+											</td>
+										</tr>
+										<tr>
+											<td >대분류 : <label id="ReportMajorLabel"></label>
+											 &nbsp;&nbsp;&nbsp;
+											 	소분류 : <label id="ReportMinorLabel"></label>
 											</td>
 										</tr>
 										<tr>
