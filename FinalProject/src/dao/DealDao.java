@@ -34,6 +34,7 @@ public interface DealDao {
 	
 	public List<Board> selectAllManager(HashMap<String, Object> map);
 	public int totalPageSellingManager();
+	public List<Purchase> ongoingPurcharseManager(HashMap<String, Object> map);
 	
 	
 	

@@ -56,6 +56,10 @@
 		select * from purchase where no in(select no from board where writer=#{id}) and state=10 order by no desc limit #{page}, 8
 	</select>
 	
+	<select id="ongoingPurcharseManager" parameterType="java.util.HashMap" resultType="Purchase">
+		select * from purchase where state=10 order by no desc limit #{page}, 8
+	</select>
+	
 	<select id="totalPageOngoing" parameterType="String" resultType="int">
 		select count(no) from purchase where no in(select no from board where writer=#{id}) and state=10
 	</select>

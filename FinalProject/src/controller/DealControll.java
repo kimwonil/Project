@@ -339,7 +339,7 @@ public class DealControll {
 		map.put("id", id);
 		map.put("page", page);
 		
-		List<Purchase> purchaseList = dealService.ongoingPurcharse(map);
+		List<Purchase> purchaseList = dealService.ongoingPurcharseManager(map);
 		for(Purchase purchase : purchaseList) {
 			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
 			purchase.setBoardTitle(dealService.selectOneBoard(purchase.getNo()));
