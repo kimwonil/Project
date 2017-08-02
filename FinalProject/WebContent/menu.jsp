@@ -343,7 +343,7 @@
 			<li><a href="detailOneBoard2.do?no=1">글상세</a></li>
 			<li><a href="authority.do">권한 신청</a></li>
 			<li><a href="authorityManagerPage.do">권한 신청 매니저</a></li>
-			<li><a href="selling.jsp">판매관리</a></li>
+			<li><a href="selling.do">판매관리</a></li>
 			<li><a href="purchasing.jsp">구매관리</a></li>
 			<li><a href="cashPage.do">캐시관리</a></li>
 			<li><a href="cashManager.do">캐시 매니저</a></li>

@@ -41,6 +41,20 @@ public class DealControll {
 	Gson gson = new Gson();
 	
 	/**
+	 * 판매관리 페이지 이동
+	 * */
+	@RequestMapping("selling.do")
+	public String selling(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		int admin = ((Member)session.getAttribute("member")).getAdmin();
+		
+		if(admin == 1) {
+			return "sellingManager";
+		}else {
+			return "selling";
+		}
+	}
+	
+	/**
 	 * 판매 현황 조회
 	 * */
 	@RequestMapping("sellingList.do")
@@ -311,6 +325,41 @@ public class DealControll {
 		
 	}
 	
+	/**
+	 * 판매관리의 진행중 거래 조회
+	 * */
+	@RequestMapping("ongoingManager.do")
+	public void ongoingManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+		String id = ((Member)session.getAttribute("member")).getId();
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("page", page);
+		
+		List<Purchase> purchaseList = dealService.ongoingPurcharse(map);
+		for(Purchase purchase : purchaseList) {
+			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
+			purchase.setBoardTitle(dealService.selectOneBoard(purchase.getNo()));
+		}
+		
+		
+		map.put("list", purchaseList);
+		map.put("totalPage", dealService.totalPageOngoing(id));
+		
+		
+		String json = gson.toJson(map);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	/**
 	 * 판매관리의  완료 거래 조회

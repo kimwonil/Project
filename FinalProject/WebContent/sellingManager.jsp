@@ -59,7 +59,7 @@
 	//진행중 거래 조회
 	function ongoingList(page){
 		$.ajax({
-			url:"ongoing.do",
+			url:"ongoingManager.do",
 			type:"POST",
 			data:{
 				page:page
