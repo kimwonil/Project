@@ -1563,3 +1563,6 @@ java.io.FileNotFoundException: C:\Users\kwi12\OneDrive\문서\GitHub\Project\.me
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-02 17:49:10.662
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 >>>>>>> master
+
+!ENTRY org.eclipse.wst.server.discovery 1 0 2017-08-02 17:50:17.135
+!MESSAGE cacheFile=file:/C:/Users/kwi12/Desktop/workspace/files/eclipse/eclipse/configuration/org.eclipse.wst.server.discovery/serverAdapterSitesDetails.xml
