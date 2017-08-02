@@ -103,6 +103,11 @@
 				<div class="modal-body">
 					<form action="profileUpdate.do" method="post" enctype="multipart/form-data">
 					<table id="profileTable">
+	<!-- 닉네임수정(예정)
+						<tr>
+							<td> 닉네임 : </td> <td><input type="text" name=""></td>							
+						</tr>
+	 -->
 						<tr>
 							<td>사진 : </td><td><input type="file" name="file"></td>
 						</tr>

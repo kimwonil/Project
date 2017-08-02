@@ -109,6 +109,13 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
           success: function(res) {
             // 호출된 개인정보 중 이메일주소만 EmailK에 출력 
     		$('#EmailK').append(JSON.stringify(res.kaccount_email));
+            
+
+         //   var emailK = JSON.stringify(res.kaccount_email);
+  
+    		//test 0002 : 프로필페이지(id=메일)로 이동시도 
+    //		location.replace("http://localhost:8080/FianlProject/profile.do?id="+JSON.stringify(res.kaccount_email));
+
           },
           fail: function(error) {
             alert(JSON.stringify(error));
@@ -175,6 +182,9 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
     }
 	$('#EmailG').append(primaryEmail);
+	//test 0002 : 프로필페이지(id=메일)로 이동시도 
+	//location.replace("http://localhost:8080/FianlProject/profile.do?id="+primaryEmail);
+
 	 
  }
   

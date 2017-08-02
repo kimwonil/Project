@@ -433,7 +433,7 @@
 						<li><a href="#109" class="documents">도면/CAD/인테리어/3D</a></li>
 						<li><a href="#110" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="#">바이럴/마케팅/광고</a>
+				<li><a href="profile.do?id=${member.id}@naver.com">바이럴/마케팅/광고</a>
 					<ul>
 						<li><a href="#201" class="documents">블로그/카페/체험단</a></li>
 						<li><a href="#202" class="documents">인스타그램/페이스북/카카오/트위터</a></li>
@@ -443,7 +443,7 @@
 						<li><a href="#205" class="documents">언론/기사/보도자료</a></li>
 						<li><a href="#206" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="#">문서/서식/레포트</a>
+				<li><a href="profile.do?id=c@naver.com">문서/서식/레포트</a>
 					<ul>
 						<li><a href="#301" class="documents">워드/타이핑/엑셀/통계</a></li>
 						<li><a href="#302" class="documents">창작/대본/시나리오/카피라이팅</a></li>
