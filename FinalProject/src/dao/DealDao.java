@@ -35,7 +35,11 @@ public interface DealDao {
 	public List<Board> selectAllManager(HashMap<String, Object> map);
 	public int totalPageSellingManager();
 	public List<Purchase> ongoingPurcharseManager(HashMap<String, Object> map);
-	
+	public int totalPageOngoingManager();
+	public List<Purchase> completionPurcharseManager(HashMap<String, Object> map);
+	public int totalPageCompletionManager();
+	public List<Purchase> canceledPurcharseManager(HashMap<String, Object> map);
+	public int totalPageCanceledManager();
 	
 	
 	//테이블명 : purchase

@@ -64,12 +64,24 @@
 		select count(no) from purchase where no in(select no from board where writer=#{id}) and state=10
 	</select>
 	
+	<select id="totalPageOngoingManager" resultType="int">
+		select count(no) from purchase where state=10
+	</select>
+	
 	<select id="completionPurcharse" parameterType="java.util.HashMap" resultType="Purchase">
 		select * from purchase where no in(select no from board where writer=#{id}) and state in(11,20,30) order by no desc limit #{page}, 8 
 	</select>
 	
+	<select id="completionPurcharseManager" parameterType="java.util.HashMap" resultType="Purchase">
+		select * from purchase where state in(11,20,30) order by no desc limit #{page}, 8 
+	</select>
+	
 	<select id="totalPageCompletion" parameterType="String" resultType="int">
 		select count(no) from purchase where no in(select no from board where writer=#{id}) and state in(11,20,30)
+	</select>
+	
+	<select id="totalPageCompletionManager" resultType="int">
+		select count(no) from purchase where state in(11,20,30)
 	</select>
 	
 	<select id="purchaseComplete" parameterType="String" resultType="Purchase">
@@ -80,8 +92,16 @@
 		select * from purchase where no in(select no from board where writer=#{id}) and state in(40,41,42) order by no desc limit #{page}, 8 
 	</select>
 	
+	<select id="canceledPurcharseManager" parameterType="java.util.HashMap" resultType="Purchase">
+		select * from purchase where state in(40,41,42) order by no desc limit #{page}, 8 
+	</select>
+	
 	<select id="totalPageCanceled" parameterType="String" resultType="int">
 		select count(no) from purchase where no in(select no from board where writer=#{id}) and state in(40,41,42)
+	</select>
+	
+	<select id="totalPageCanceledManager" parameterType="String" resultType="int">
+		select count(no) from purchase where state in(40,41,42)
 	</select>
 	
 	<update id="calculate" parameterType="java.util.HashMap">

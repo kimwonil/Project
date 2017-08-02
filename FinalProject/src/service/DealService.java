@@ -131,5 +131,23 @@ public class DealService {
 		return dealDao.totalPageSellingManager();
 	}
 
+	public int totalPageOngoingManager() {
+		return dealDao.totalPageOngoingManager();
+	}
+
+	public List<Purchase> completionPurcharseManager(HashMap<String, Object> map) {
+		return dealDao.completionPurcharseManager(map);
+	}
+
+	public int totalPageCompletionManager() {
+		return dealDao.totalPageOngoingManager();
+	}
+
+	public List<Purchase> canceledPurcharseManager(HashMap<String, Object> map) {
+		return dealDao.canceledPurcharseManager(map);
+	}
 	
+	public int totalPageCanceledManager() {
+		return dealDao.totalPageCanceledManager();
+	}
 }
