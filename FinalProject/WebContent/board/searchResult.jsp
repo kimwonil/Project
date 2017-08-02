@@ -138,6 +138,36 @@ img{
 				</div>
 			</div>
 		</div>
+		
+		<div>
+				<div class="fh5co-spacer fh5co-spacer-sm"></div>
+<!-- 				페이징 -->
+				<div>
+				<center>
+					<c:if test="${paging.currentPage > 1}">
+						<a href="${pageName}?currentPage=1&word=${word}&major=${major}">[처음]</a>
+						<a href="${pageName}?currentPage=${paging.currentPage-1}&word=${word}&major=${major}">[이전]</a>
+					</c:if>
+					
+					<c:forEach begin="${paging.startPage }" end="${paging.endPage>paging.lastPage? paging.lastPage:paging.endPage }" var="i">
+						<c:if test="${i eq paging.currentPage}">
+							<b>${i }</b>
+						</c:if>
+						<c:if test="${i ne paging.currentPage }">
+							<a href="${pageName}?currentPage=${i}&word=${word}&major=${major}">[${i}]</a>
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${paging.currentPage != paging.lastPage && paging.endPage ne 0}">
+						<a href="${pageName}?currentPage=${paging.currentPage+1}&word=${word}&major=${major}">[다음]</a>
+						<a href="${pageName}?currentPage=${paging.lastPage }&word=${word}&major=${major}">[마지막]</a>
+					</c:if>
+				</center>
+				</div>
+<!-- 				페이징 끝 -->
+					
+				<div class="fh5co-spacer fh5co-spacer-sm"></div>
+			</div>
 	</div>
 </div>
 </body>
