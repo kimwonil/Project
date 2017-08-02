@@ -343,7 +343,7 @@
 			<li><a href="detailOneBoard2.do?no=1">글상세</a></li>
 			<li><a href="authority.do">권한 신청</a></li>
 			<li><a href="authorityManagerPage.do">권한 신청 매니저</a></li>
-			<li><a href="selling.jsp">판매관리</a></li>
+			<li><a href="selling.do">판매관리</a></li>
 			<li><a href="purchasing.jsp">구매관리</a></li>
 			<li><a href="cashPage.do">캐시관리</a></li>
 			<li><a href="cashManager.do">캐시 매니저</a></li>
@@ -395,6 +395,17 @@
 	<header id="fh5co-header" role="banner">
 	<div class="container">
 		<div class="row">
+<<<<<<< HEAD
+		<form action="search.do" method="post">
+		<select name="major" id="categoryForSearch">
+			<option value="all">카테고리</option>
+			<c:forEach items="${categoryList}" var="high">
+				<option value="${high.no}">${high.category_name}</option>
+			</c:forEach>
+		</select>
+		</form>
+=======
+>>>>>>> master
 			<form action="search.do" method="post">
 				<select name="major" id="categoryForSearch">
 					<option value="all">카테고리</option>

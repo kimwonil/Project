@@ -48,6 +48,10 @@ public class DealService {
 	public List<Purchase> ongoingPurcharse(HashMap<String, Object> map) {
 		return dealDao.ongoingPurcharse(map);
 	}
+	
+	public List<Purchase> ongoingPurcharseManager(HashMap<String, Object> map) {
+		return dealDao.ongoingPurcharseManager(map);
+	}
 
 	public List<Purchase> completionPurcharse(HashMap<String, Object> map) {
 		return dealDao.completionPurcharse(map);
@@ -117,6 +121,14 @@ public class DealService {
 
 	public int recordCashInfo(HashMap<String, Object> map) {
 		return dealDao.recordCashInfo(map);
+	}
+
+	public List<Board> selectAllManager(HashMap<String, Object> map) {
+		return dealDao.selectAllManager(map);
+	}
+
+	public int totalPageSellingManager() {
+		return dealDao.totalPageSellingManager();
 	}
 
 	

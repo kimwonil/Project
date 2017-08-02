@@ -3,5 +3,13 @@
 >>>>>>>=wonil
 eclipse.preferences.version=1
 encoding=UTF-8
+<<<<<<< HEAD
 org.eclipse.jdt.core.interfaceFormat=ZC244|GC72504|FGNEG756252|CEB6|QC17|Q7|PQ7
+=======
+<<<<<<< HEAD
+org.eclipse.jdt.core.interfaceFormat=ZC227|GC72587|FGNEG756252|CEB6|QC80|Q7|PQ7
+=======
+org.eclipse.jdt.core.interfaceFormat=ZC246|GC72506|FGNEG756252|CEB6|QC09|Q7|PQ7
+>>>>>>> master
+>>>>>>> wonil
 version=1

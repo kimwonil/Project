@@ -8,12 +8,20 @@
 		select * from board where writer=#{id} order by no desc limit #{page}, 8
 	</select>
 	
+	<select id="selectAllManager" parameterType="java.util.HashMap" resultType="Board">
+		select * from board order by no desc limit #{page}, 8
+	</select>
+	
 	<select id="selectOneBoard" parameterType="int" resultType="String">
 		select title from board where no=#{no}
 	</select>
 	
 	<select id="totalPageSelling" parameterType="String" resultType="int">
 		select count(no) from board where writer=#{id}
+	</select>
+	
+	<select id="totalPageSellingManager" resultType="int">
+		select count(no) from board
 	</select>
 	
 	<select id="purchaseCount" parameterType="int" resultType="int">
@@ -46,6 +54,10 @@
 	
 	<select id="ongoingPurcharse" parameterType="java.util.HashMap" resultType="Purchase">
 		select * from purchase where no in(select no from board where writer=#{id}) and state=10 order by no desc limit #{page}, 8
+	</select>
+	
+	<select id="ongoingPurcharseManager" parameterType="java.util.HashMap" resultType="Purchase">
+		select * from purchase where state=10 order by no desc limit #{page}, 8
 	</select>
 	
 	<select id="totalPageOngoing" parameterType="String" resultType="int">
