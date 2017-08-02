@@ -107,7 +107,7 @@
 	//완료된 거래 조회
 	function completionList(page){
 		$.ajax({
-			url:"completion.do",
+			url:"completionManager.do",
 			type:"POST",
 			data:{
 				page:page
@@ -157,7 +157,7 @@
 	//취소된 거래 조회
 	function canceledList(page){
 		$.ajax({
-			url:"canceledList.do",
+			url:"canceledListManager.do",
 			type:"POST",
 			data:{
 				page:page

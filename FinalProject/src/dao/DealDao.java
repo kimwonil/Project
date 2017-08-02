@@ -14,9 +14,24 @@ public interface DealDao {
 	public List<PurchaseOption> purchaseOption(int no);
 	public int progressState(HashMap<String, Object> map);
 	public List<Purchase> purchaseList(String id);
-	public List<Purchase> purchase(String id);
+	
+	public List<Purchase> purchase(HashMap<String, Object> map);
+	public int totalPagePurchase(String id);
+
+	public List<Purchase> purchaseManager(HashMap<String, Object> map);
+	public int totalPagePurchaseManager();
+	
 	public Board boardInfo(int no);
-	public List<Purchase> purchaseComplete(String id);
+	public List<Purchase> purchaseComplete(HashMap<String, Object> map);
+	public int totalPagePurchaseComplete(String id);
+	public List<Purchase> purchaseCompleteManager(HashMap<String, Object> map);
+	public int totalPagePurchaseCompleteManager();
+	public List<Purchase> purchaseCanceledManager(HashMap<String, Object> map);
+	public int totalPagePurchaseCanceledManager();
+	
+	public List<Purchase> purchaseCanceled(HashMap<String, Object> map);
+	public int totalPagePurchaseCanceled(String id);
+	
 	public int totalPageSelling(String id);
 	public int totalPageOngoing(String id);
 	public int totalPageCompletion(String id);
@@ -35,7 +50,11 @@ public interface DealDao {
 	public List<Board> selectAllManager(HashMap<String, Object> map);
 	public int totalPageSellingManager();
 	public List<Purchase> ongoingPurcharseManager(HashMap<String, Object> map);
-	
+	public int totalPageOngoingManager();
+	public List<Purchase> completionPurcharseManager(HashMap<String, Object> map);
+	public int totalPageCompletionManager();
+	public List<Purchase> canceledPurcharseManager(HashMap<String, Object> map);
+	public int totalPageCanceledManager();
 	
 	
 	//테이블명 : purchase
@@ -52,6 +71,7 @@ public interface DealDao {
 	
 	//star_point
 	public boolean insertStar_point(HashMap<String, Object> map);
+	
 	
 	
 	

@@ -340,11 +340,10 @@
 		<ul>
 			<li class="active"><a href="index.jsp">Home</a></li>
 			<li><a href="profile.do?id=kwi1222@naver.com">프로필</a></li>
-			<li><a href="detailOneBoard2.do?no=1">글상세</a></li>
 			<li><a href="authority.do">권한 신청</a></li>
 			<li><a href="authorityManagerPage.do">권한 신청 매니저</a></li>
 			<li><a href="selling.do">판매관리</a></li>
-			<li><a href="purchasing.jsp">구매관리</a></li>
+			<li><a href="purchasing.do">구매관리</a></li>
 			<li><a href="cashPage.do">캐시관리</a></li>
 			<li><a href="cashManager.do">캐시 매니저</a></li>
 			<li><a href="message.do">쪽지관리</a></li>

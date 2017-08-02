@@ -55,6 +55,20 @@ public class DealControll {
 	}
 	
 	/**
+	 * 구매관리 페이지 이동
+	 * */
+	@RequestMapping("purchasing.do")
+	public String purchasing(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		int admin = ((Member)session.getAttribute("member")).getAdmin();
+		
+		if(admin == 1) {
+			return "purchasingManager";
+		}else {
+			return "purchasing";
+		}
+	}
+	
+	/**
 	 * 판매 현황 조회
 	 * */
 	@RequestMapping("sellingList.do")
@@ -156,12 +170,21 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		String id = ((Member)session.getAttribute("member")).getId();
+		int page = Integer.parseInt(request.getParameter("page"));
 		int state = Integer.parseInt(request.getParameter("state"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("page", page);
 		List<Purchase> list = null;
 		if(state == 20) {
-			list = dealService.purchaseComplete(id);
+			list = dealService.purchaseComplete(map);
+			map.put("totalPage", dealService.totalPagePurchaseComplete(id));
+		}else if(state == 40) {
+			list = dealService.purchaseCanceled(map);
+			map.put("totalPage", dealService.totalPagePurchaseCanceled(id));
 		}else {
-			list = dealService.purchase(id);
+			list = dealService.purchase(map);
+			map.put("totalPage", dealService.totalPagePurchase(id));
 		}
 		
 		for(Purchase purchase : list) {
@@ -170,8 +193,54 @@ public class DealControll {
 			purchase.setSeller(board.getWriter());
 			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
 		}
+		map.put("list", list);
 		
-		String json = gson.toJson(list);
+		String json = gson.toJson(map);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	/**
+	 * 구매 현황 조회
+	 * */
+	@RequestMapping("purchaseManager.do")
+	public void purchaseManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+//		String id = ((Member)session.getAttribute("member")).getId();
+		int page = Integer.parseInt(request.getParameter("page"));
+		int state = Integer.parseInt(request.getParameter("state"));
+		HashMap<String, Object> map = new HashMap<>();
+//		map.put("id", id);
+		map.put("page", page);
+		List<Purchase> list = null;
+		if(state == 20) {
+			list = dealService.purchaseCompleteManager(map);
+			map.put("totalPage", dealService.totalPagePurchaseCompleteManager());
+		}else if(state == 40) {
+			list = dealService.purchaseCanceledManager(map);
+			map.put("totalPage", dealService.totalPagePurchaseCanceledManager());
+		}else {
+			list = dealService.purchaseManager(map);
+			map.put("totalPage", dealService.totalPagePurchaseManager());
+		}
+		
+		for(Purchase purchase : list) {
+			Board board = dealService.boardInfo(purchase.getNo());
+			purchase.setBoardTitle(board.getTitle());
+			purchase.setSeller(board.getWriter());
+			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
+		}
+		map.put("list", list);
+		
+		String json = gson.toJson(map);
 		
 		try {
 			response.getWriter().write(json);
@@ -326,17 +395,17 @@ public class DealControll {
 	}
 	
 	/**
-	 * 판매관리의 진행중 거래 조회
+	 * 판매관리의 진행중 거래 조회(관리자)
 	 * */
 	@RequestMapping("ongoingManager.do")
 	public void ongoingManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-		String id = ((Member)session.getAttribute("member")).getId();
+//		String id = ((Member)session.getAttribute("member")).getId();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
+//		map.put("id", id);
 		map.put("page", page);
 		
 		List<Purchase> purchaseList = dealService.ongoingPurcharseManager(map);
@@ -347,7 +416,7 @@ public class DealControll {
 		
 		
 		map.put("list", purchaseList);
-		map.put("totalPage", dealService.totalPageOngoing(id));
+		map.put("totalPage", dealService.totalPageOngoingManager());
 		
 		
 		String json = gson.toJson(map);
@@ -398,6 +467,42 @@ public class DealControll {
 	
 	
 	/**
+	 * 판매관리의  완료 거래 조회(관리자)
+	 * */
+	@RequestMapping("completionManager.do")
+	public void completionManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+//		String id = ((Member)session.getAttribute("member")).getId();
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> map = new HashMap<>();
+//		map.put("id", id);
+		map.put("page", page);
+		
+		List<Purchase> purchaseList = dealService.completionPurcharseManager(map);
+		for(Purchase purchase : purchaseList) {
+			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
+			purchase.setBoardTitle(dealService.selectOneBoard(purchase.getNo()));
+		}
+		
+		
+		map.put("list", purchaseList);
+		map.put("totalPage", dealService.totalPageCompletionManager());
+		
+		String json = gson.toJson(map);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	/**
 	 * 판매관리의  취소된 거래 조회
 	 * */
 	@RequestMapping("canceledList.do")
@@ -420,6 +525,42 @@ public class DealControll {
 		
 		map.put("list", purchaseList);
 		map.put("totalPage", dealService.totalPageCanceled(id));
+		
+		String json = gson.toJson(map);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	/**
+	 * 판매관리의  취소된 거래 조회(관리자)
+	 * */
+	@RequestMapping("canceledListManager.do")
+	public void canceledListManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+//		String id = ((Member)session.getAttribute("member")).getId();
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> map = new HashMap<>();
+//		map.put("id", id);
+		map.put("page", page);
+		
+		List<Purchase> purchaseList = dealService.canceledPurcharseManager(map);
+		for(Purchase purchase : purchaseList) {
+			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
+			purchase.setBoardTitle(dealService.selectOneBoard(purchase.getNo()));
+		}
+		
+		
+		map.put("list", purchaseList);
+		map.put("totalPage", dealService.totalPageCanceledManager());
 		
 		String json = gson.toJson(map);
 		

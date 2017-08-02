@@ -37,8 +37,12 @@ public class DealService {
 		return dealDao.progressState(map);
 	}
 
-	public List<Purchase> purchase(String id) {
-		return dealDao.purchase(id);
+	public List<Purchase> purchase(HashMap<String, Object> map) {
+		return dealDao.purchase(map);
+	}
+	
+	public List<Purchase> purchaseManager(HashMap<String, Object> map) {
+		return dealDao.purchaseManager(map);
 	}
 
 	public Board boardInfo(int no) {
@@ -57,8 +61,8 @@ public class DealService {
 		return dealDao.completionPurcharse(map);
 	}
 
-	public List<Purchase> purchaseComplete(String id) {
-		return dealDao.purchaseComplete(id);
+	public List<Purchase> purchaseComplete(HashMap<String, Object> map) {
+		return dealDao.purchaseComplete(map);
 	}
 	
 	
@@ -130,6 +134,70 @@ public class DealService {
 	public int totalPageSellingManager() {
 		return dealDao.totalPageSellingManager();
 	}
+
+	public int totalPageOngoingManager() {
+		return dealDao.totalPageOngoingManager();
+	}
+
+	public List<Purchase> completionPurcharseManager(HashMap<String, Object> map) {
+		return dealDao.completionPurcharseManager(map);
+	}
+
+	public int totalPageCompletionManager() {
+		return dealDao.totalPageOngoingManager();
+	}
+
+	public List<Purchase> canceledPurcharseManager(HashMap<String, Object> map) {
+		return dealDao.canceledPurcharseManager(map);
+	}
+	
+	public int totalPageCanceledManager() {
+		return dealDao.totalPageCanceledManager();
+	}
+
+	public int totalPagePurchase(String id) {
+		return dealDao.totalPagePurchase(id);
+	}
+
+	public int totalPagePurchaseComplete(String id) {
+		return dealDao.totalPagePurchaseComplete(id);
+	}
+
+	public int totalPagePurchaseCompleteManager() {
+		return dealDao.totalPagePurchaseCompleteManager();
+	}
+
+	public int totalPagePurchaseManager() {
+		return dealDao.totalPagePurchaseManager();
+	}
+
+	public List<Purchase> purchaseCompleteManager(HashMap<String, Object> map) {
+		return dealDao.purchaseCompleteManager(map);
+	}
+
+	
+	
+	
+	public List<Purchase> purchaseCanceled(HashMap<String, Object> map) {
+		return dealDao.purchaseCanceled(map);
+	}
+	
+	public int totalPagePurchaseCanceled(String id) {
+		return dealDao.totalPagePurchaseCanceled(id);
+	}
+	
+	
+	
+	
+	public List<Purchase> purchaseCanceledManager(HashMap<String, Object> map) {
+		return dealDao.purchaseCanceledManager(map);
+	}
+
+	public int totalPagePurchaseCanceledManager() {
+		return dealDao.totalPagePurchaseCanceledManager();
+	}
+
+
 
 	
 }

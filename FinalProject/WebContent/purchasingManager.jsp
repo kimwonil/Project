@@ -24,7 +24,7 @@ text-align: center;
 	
 	function purchase(page){
 		$.ajax({
-			url:"purchase.do",
+			url:"purchaseManager.do",
 			type:"POST",
 			data:{
 				state:0,
@@ -71,7 +71,7 @@ text-align: center;
 	
 	function completePurchase(page){
 		$.ajax({
-			url:"purchase.do",
+			url:"purchaseManager.do",
 			type:"POST",
 			data:{
 				state:20,
@@ -119,7 +119,7 @@ text-align: center;
 	
 	function canceledPurchase(page){
 		$.ajax({
-			url:"purchase.do",
+			url:"purchaseManager.do",
 			type:"POST",
 			data:{
 				state:40,
