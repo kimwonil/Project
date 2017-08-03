@@ -247,9 +247,14 @@
  	select count(no) from board where premium=0
  </select>
  <!-- 프리미엄 대기 -->
- <insert id="premiumWaitting">
- 	insert into premium_waitting values(0, #{no}, #{time}, #{price}, #{nickname}, sysdate())
+ <insert id="premiumWaitting" parameterType="java.util.HashMap">
+ 	insert into premium_waitting values(0, #{no}, #{time}, #{price}, #{nickname}, #{state}, sysdate())
  </insert>
+ 
+ <!-- 프리미엄 목록 조회 -->
+ <select id="premiumList" parameterType="java.util.HashMap" resultType="Premium">
+	select * from premium_waitting where nickname=#{nickname} order by no desc limit #{page}, 8
+ </select>
  </mapper>
  
  
