@@ -621,15 +621,20 @@ public class DealControll {
 		map.put("time", time);
 		map.put("price", price);
 		
-		if(boardService.premiumCount()>=20) {
-			boardService.premiumWaitting(map);
-		}else {
-			boardService.premium(map);
+		
+		try {
+			if(boardService.premiumCount()>=20) {
+				boardService.premiumWaitting(map);
+				response.getWriter().write("프리미엄 대기에 등록 되었습니다.");
+			}else {
+				boardService.premium(map);
+				response.getWriter().write("프리미엄이 등록 되었습니다.");
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		
-		
-		
 		
 	}
 	

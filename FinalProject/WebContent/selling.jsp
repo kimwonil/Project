@@ -532,9 +532,9 @@
 					time:$('#premiumTime').val(),
 					premium:0
 				},
-				dataType:"json",
+				dataType:"text",
 				success:function(data){
-					alert("성공");
+					alert(data);
 				},
 				error:function(){
 					alert("실패");
