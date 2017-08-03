@@ -35,7 +35,7 @@ text-align: center;
 				console.log(data);
 				
 				$('#tabs-1 > table tr:gt(0)').remove();
-				if(data == ""){
+				if(data.list == ""){
 					$('#tabs-1 > table').append(
 							'<tr><td colspan="6">내역이 없습니다.</td></tr>'		
 					);
@@ -82,7 +82,7 @@ text-align: center;
 				console.log(data);
 				
 				$('#tabs-2 > table tr:gt(0)').remove();
-				if(data == ""){
+				if(data.list == ""){
 					$('#tabs-2 > table').append(
 							'<tr><td colspan="5">내역이 없습니다.</td></tr>'		
 					);
@@ -130,7 +130,7 @@ text-align: center;
 				console.log(data);
 				
 				$('#tabs-3 > table tr:gt(0)').remove();
-				if(data == ""){
+				if(data.list == ""){
 					$('#tabs-3 > table').append(
 							'<tr><td colspan="4">내역이 없습니다.</td></tr>'		
 					);
@@ -315,6 +315,7 @@ text-align: center;
 #tabs tr,#tabs td,#tabs th{
 	border: 1px solid black;
 	text-align: center;
+	height: 37px;
 }
 #tabs table{
 	width: 100%;

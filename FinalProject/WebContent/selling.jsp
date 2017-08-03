@@ -223,12 +223,12 @@
 							$('#tabs-5 > table').append(
 								'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
 								value.time + '</td><td>' + value.formatPrice + '</td><td>' +
-								(value.state==1?"대기중":value.state==2?"진행중":"종료") + '</td><td>비고</td></tr>'
+								(value.state==1?"대기중<br>"+value.start_date+"부터":value.state==2?"진행중<br>"+value.end_date+"까지":"종료") + '</td><td>비고</td></tr>'
 							);
 						});
 						$('#currentPage').val(data.page);
-						$('.prev').val(data.page == 0 ? 0 : data.page - 8);
-						$('.next').val(data.totalPage - 8 > data.page ? data.page + 8 : data.page);
+						$('.prev').val(data.page == 0 ? 0 : data.page - 5);
+						$('.next').val(data.totalPage - 5 > data.page ? data.page + 5 : data.page);
 					}
 
 				},
@@ -600,6 +600,7 @@
 #tabs tr, #tabs td, #tabs th, #purchaseTable td {
 	border: 1px solid black;
 	text-align: center;
+	height: 37px;
 }
 
 table {

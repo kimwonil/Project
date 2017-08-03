@@ -674,34 +674,43 @@ public class DealControll {
 		map.put("time", time);
 		map.put("price", price);
 		
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(boardService.premiumEndDate());
-		cal.add(cal.DATE, time);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(format.format(cal.getTime()));
 		
-//		try {
-//			if(boardService.premiumCount()>=20) {
-//				map.put("state", 1);
+		
+		
+		
+		
+		try {
+			if(boardService.premiumCount()>=20) {
+				map.put("state", 1);
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(boardService.premiumEndDate());
+				cal.add(cal.DATE, 1);
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				System.out.println(format.format(cal.getTime()) + "// 시작 날짜");
+				map.put("start", format.format(cal.getTime()));
+				cal.add(cal.DATE, time);
+				System.out.println(format.format(cal.getTime()) + "// 끝 날짜");
+				
+				map.put("end", format.format(cal.getTime()));
+				boardService.premiumWaitting(map);
+				response.getWriter().write("프리미엄 대기에 등록 되었습니다.");
+			}else {
+				Calendar cal = Calendar.getInstance();
+				map.put("state", 2);
+				map.put("start", cal.getTime());
+				cal.add(cal.DATE, time);
+				map.put("end", cal.getTime());
 				
 				
-//				Date formatDate = boardService.premiumEndDate();
-//				SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-//				System.out.println(format.format(formatDate));
-				
-//				boardService.premiumWaitting(map);
-//				response.getWriter().write("프리미엄 대기에 등록 되었습니다.");
-//			}else {
-//				map.put("state", 2);
-//				boardService.premiumWaitting(map);
-//				boardService.premium(map);
-//				response.getWriter().write("프리미엄이 등록 되었습니다.");
-//			}
+				boardService.premiumWaitting(map);
+				boardService.premium(map);
+				response.getWriter().write("프리미엄이 등록 되었습니다.");
+			}
 			
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

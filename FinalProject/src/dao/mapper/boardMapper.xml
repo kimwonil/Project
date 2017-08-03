@@ -253,7 +253,7 @@
  
  <!-- 프리미엄 목록 조회 -->
  <select id="premiumList" parameterType="java.util.HashMap" resultType="Premium">
-	select * from premium_waitting where nickname=#{nickname} order by no desc limit #{page}, 8
+	select * from premium_waitting where nickname=#{nickname} order by no desc limit #{page}, 5
  </select>
  <!-- 프리미엄 목록 페이징 -->
  <select id="totalPagePremium" parameterType="String" resultType="int">
