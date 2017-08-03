@@ -9,9 +9,8 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-<form action="loginsuccess.do" method="post">
+
 <div id="EmailN"></div>
-</form>
 
 <script type="text/javascript">
  

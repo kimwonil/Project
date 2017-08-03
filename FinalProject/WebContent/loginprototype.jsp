@@ -109,13 +109,10 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
           success: function(res) {
             // 호출된 개인정보 중 이메일주소만 EmailK에 출력 
     		$('#EmailK').append(JSON.stringify(res.kaccount_email));
-     
             
-            //test0003 : loginsuccess.do로 이동 -> loginsuccess.do에서 DB에 정보 추가하는게 목적
-            //테스트페이지 menu.jsp -> <a href="profile.do?id=${member.id}">바이럴/마케팅/광고</a>
 
-    	//	location.replace("http://localhost:8080/FinalProject/loginsuccess.do");
-
+         //   var emailK = JSON.stringify(res.kaccount_email);
+  
     		//test 0002 : 프로필페이지(id=메일)로 이동시도 
     //		location.replace("http://localhost:8080/FianlProject/profile.do?id="+JSON.stringify(res.kaccount_email));
 
@@ -131,9 +128,9 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
     });
     
 </script>
-<form action="loginsuccess.do" method="post">
-카카오 이메일 : <div id=EmailK name="id"></div><br>
-</form>
+
+카카오 이메일 : <div id=EmailK></div><br>
+
 
 <!--                        Login - Kakao                         -->
 

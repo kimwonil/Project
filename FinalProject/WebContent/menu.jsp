@@ -313,38 +313,6 @@
 			MessageList();
 
 		});
-		
-		//검색부분 카테고리 가져오기
-		$.ajax({
-			url : "bringCategory.do",
-			type : "post",
-			dataType : "json",
-			success : function(data){
-				$('#categoryForSearch').empty();
-				$('#categoryForSearch').append('<option value="0">카테고리</option>');
-				$.each(data, function(index, value){
-					$('#categoryForSearch').append(
-							(value.no == $('#hiddenMajor').val() ? '<option value="'+value.no+'" selected>'+value.category_name+'</option>' : '<option value="'+value.no+'">'+value.category_name+'</option>')
-					);//append 끝
-				});//each 끝
-			},error:function(jqXHR, textStatus, errorThrown){
-    			alert(textStatus);     //응답상태
-    			alert(errorThrown);     //응답에 대한 메세지
-    		}
-		});//카테고리 가져오는 ajax 끝
-		
-		//검색시작!
-		$(document).on('keydown', '#searchInput', function(key){
-			if(key.keyCode == 13){ //엔터눌렀을때
-				console.log($('#searchInput').val()+"11111111111");
-				if($('#searchInput').val() == ''){
-					alert("검색어를 입력하세요");
-					return false;
-				}else{
-					$('#searchInput').parent().submit();
-				}				
-			};
-		});//검색 끝
 
 	});
 </script>
@@ -426,10 +394,14 @@
 	<header id="fh5co-header" role="banner">
 	<div class="container">
 		<div class="row">
+
 			<form action="search.do" method="post">
 				<select name="major" id="categoryForSearch">
-				</select> 
-				<input type="text" id="searchInput" name="word" value="${word}">
+					<option value="all">카테고리</option>
+					<c:forEach items="${categoryList}" var="high">
+						<option value="${high.no}">${high.category_name}</option>
+					</c:forEach>
+				</select> <input type="text" id="searchInput" name="word">
 			</form>
 			<div id="linkGroup">
 				<a href='boardForm.do'>판매등록</a> <a href='loginprototype.jsp'>로그인</a>
@@ -461,7 +433,7 @@
 						<li><a href="#109" class="documents">도면/CAD/인테리어/3D</a></li>
 						<li><a href="#110" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="profile.do?id=${member.id}">바이럴/마케팅/광고</a>
+				<li><a href="profile.do?id=${member.id}@naver.com">바이럴/마케팅/광고</a>
 					<ul>
 						<li><a href="#201" class="documents">블로그/카페/체험단</a></li>
 						<li><a href="#202" class="documents">인스타그램/페이스북/카카오/트위터</a></li>

@@ -6,7 +6,6 @@ public class Premium {
 	private String title;
 	private int time;
 	private int price;
-	private String formatPrice;
 	private String nickname;
 	private int state;
 	private String date;
@@ -15,12 +14,6 @@ public class Premium {
 	
 	
 	
-	public String getFormatPrice() {
-		return formatPrice;
-	}
-	public void setFormatPrice(String formatPrice) {
-		this.formatPrice = formatPrice;
-	}
 	@Override
 	public String toString() {
 		return "Premium [no=" + no + ", board_no=" + board_no + ", title=" + title + ", time=" + time + ", price="

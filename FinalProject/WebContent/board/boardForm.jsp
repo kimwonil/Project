@@ -318,105 +318,53 @@ $(document).ready(function(){
    		);
    	});
 
-    
-   	//옵션삭제
+   	
    	$(document).on('click', '.delete', function(){
    		$(this).parent().parent().remove();	
    	});
-
+   	
+   	$('#go').click(function(){
+   		$('#detailInfo').submit(function(){
+   		});
+   	});
     	
-	//대분류 선택하면 소분류 나와
-   	$(document).on('change', '#major', function(){
+	
+   	$(document).on('change','#major', function(){
    		$.ajax({
    			url:"categoryLow.do",
    			type:"POST",
-   			data:{high_no:$('#major').val()},
+   			data:{high_no:$(this).val()},
    			dataType:"json",
    			success:function(data){
+   				console.log(data);
    				$('#minor').empty();
    				$.each(data, function(index, value){
 	   				$('#minor').append(
 	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
 	   				);
    				});
+   				
+   				
+   				
    			},
    			error:function(){
    				alert("실패");
    			}
+   			
    		});
+   		
+   		
+   		
    	});
 	
    	
-	
-	//옵션 추가 라디오 선택
-	$("#tableOption").hide();//옵션추가 테이블 일단 숨겨놓고 시작!
-    $('input[type=radio]').on('click',function(){
-//     	$(this).toggle('ckeck');
-        $("#tableOption").toggle();
-    });
-		
-		
-	
    	
-   	//글등록
-   	$('#go').click(function(){
-		if($('#major option:selected').val() == '대분류'){//카테고리
-			console.log('카테고리를 선택하세요');
-			return false;
-		}else if($('input[name=title]').val()==''){
-			console.log('제목을 쓰세요');
-			return false;
-		}else if($('input[name=quantity]').val()==''){
-			console.log('인원 또는 건수를 쓰세요');
-			return false;
-		}else if(!$.isNumeric($('input[name=quantity]').val())){
-			console.log('인원 또는 건수에는 숫자를 입력하세요');
-			return false;
-		}else if($('input[name=price]').val()==''){
-			console.log('가격을 쓰세요');
-			return false;
-		}else if(!$.isNumeric($('input[name=price]').val())){
-			console.log('가격에는 숫자를 입력하세요');
-			return false;
-		}else{
-			return true;
-		}
-   	});
    	
    	
    	
 });//document.ready
 </script>
-<script type="text/javascript">
-//function 모아둘거야
 
-function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
-  num = String(num).replace(/^\s+|\s+$/g, "");
- 
-  if(typeof opt == "undefined" || opt == "1"){
-    // 모든 10진수 (부호 선택, 자릿수구분기호 선택, 소수점 선택)
-    var regex = /^[+\-]?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+){1}(\.[0-9]+)?$/g;
-  }else if(opt == "2"){
-    // 부호 미사용, 자릿수구분기호 선택, 소수점 선택
-    var regex = /^(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+){1}(\.[0-9]+)?$/g;
-  }else if(opt == "3"){
-    // 부호 미사용, 자릿수구분기호 미사용, 소수점 선택
-    var regex = /^[0-9]+(\.[0-9]+)?$/g;
-  }else{
-    // only 숫자만(부호 미사용, 자릿수구분기호 미사용, 소수점 미사용)
-    var regex = /^[0-9]$/g;
-  }
- 
-  if( regex.test(num) ){
-    num = num.replace(/,/g, "");
-    return isNaN(num) ? false : true;
-  }else{ return false;  }
-}
-
-
-
-
-</script>
 
 
 <body>
@@ -435,7 +383,6 @@ function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select name="major" id="major">
-										<option>대분류</option>
 										<c:forEach items="${categoryList}" var="high">
 											<option value="${high.no}">${high.category_name}</option>
 										</c:forEach>
@@ -461,17 +408,16 @@ function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션사항</th><th> 
-										<input type="radio" id="optionRadio"> 판매옵션 있음
 										<table id="tableOption">
-			                                 <tr>
-			                                 <th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th>
-			                                 </tr>
-			                                 <tr>
-			                                    <td><input type="text" name="option[]" value="${board_option.kind}"></td>
-			                                    <td><input type="text" name="optionPrice[]" value="${board_option.price}"></td>
-			                                    <td><button class="delete">삭제</button></td>
-			                                 </tr>
-			                              </table>
+											<tr>
+											<th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th>
+											</tr>
+											<tr>
+												<td><input type="text" name="option[]" value="${board_option.kind}"></td>
+												<td><input type="text" name="optionPrice[]" value="${board_option.price}"></td>
+												<td><button class="delete">삭제</button></td>
+											</tr>
+										</table> 
 									</th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>

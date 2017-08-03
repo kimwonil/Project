@@ -47,10 +47,7 @@ height: 26px;
 .quantityBox a {
 text-decoration: none;
 }
-.thumbnail{
-width : 573px;
-height : 500px;
-}
+
 </style>
 
 <script>
@@ -350,18 +347,8 @@ function totalPrice(){
 						<div class="item deal-position">
 							<div class="animate-box">
 								<a href="images/img_1.jpg" class="image-popup fh5co-board-img">
-									<c:choose>
-										<c:when test="${board.file_name1 eq ''}">
-											<img class="thumbnail" src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-										</c:when>
-										<c:when test="${board.file_name1 eq null}">
-											<img class="thumbnail" src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-										</c:when>
-										<c:otherwise >
-											<img class="thumbnail" src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}' >
-										</c:otherwise>
-									</c:choose>
-								</a>
+									<img src="<c:url value="/user/board/${board.no}"/>/${files.file_name1}" alt="Free HTML5 Bootstrap template"	style="width: 573px; height: 500px;">
+									</a>
 							</div>
 							
 							<table>
@@ -382,17 +369,9 @@ function totalPrice(){
 
 						<div class="item deal-info">
 							
-							판매자 닉네임 : <a href="profile.do?nickname=${board.writer}" id="writer" style="display: inline-block;">${board.writer}</a><br>
+							판매자 닉네임 : <a href="profile.do?nickname=${board.writer}" id="writer" style="display: inline-block;">${board.writer}</a>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
-<%-- 							<c:choose> --%>
-<%-- 								<c:when test="${member.admin eq 1}"> --%>
-<%-- 									<button id="modify" value="${board.state}">글수정</button> --%>
-<%-- 									<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button><br> --%>
-<%-- 								</c:when> --%>
-<%-- 								<c:when test="${member.nickname eq board.writer}"> --%>
-									<button id="modify" value="${board.state}">글수정</button>
-<%-- 								</c:when> --%>
-<%-- 							</c:choose> --%>
+							<button id="modify" value="${board.state}">글수정</button><br>
 							등록일 : ${board.date}<br>
 							마감일 : ${board.end_date}<br>
 							조회수 : ${board.read_count} <br>
@@ -400,7 +379,7 @@ function totalPrice(){
 
 							<table>
 								<tr>
-									<th>기본항목</th><td><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</td>
+									<th>기본항목</th><td>${board.price}</td>
 								</tr>
 								<c:if test="${board_option ne null}">
 									<tr>
@@ -420,7 +399,7 @@ function totalPrice(){
 								<table id="purchaseList">
 								<tr>
 								<td name="kind[]" class="kind">기본항목</td>
-								<td name="price[]" class="price"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</td>
+								<td name="price[]" class="price">${board.price}</td>
 								<td>
 									<table class="quantityBox" border="1" cellspacing="0">
 										<tr>
@@ -432,7 +411,7 @@ function totalPrice(){
 										</tr>
 									</table>
 								</td>
-								<td><div class="optionResult"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div></td>
+								<td><div class="optionResult">${board.price}</div></td>
 								<td>
 								</td>
 								</tr>

@@ -329,18 +329,18 @@ $(document).ready(function(){
    	});
 	
 	
-   	$.when($.ready).then(function(){
+   	$(document).on('change','#major', function(){
    		$.ajax({
    			url:"categoryLow.do",
    			type:"POST",
-   			data:{high_no:$('#major').val()},
+   			data:{high_no:$(this).val()},
    			dataType:"json",
    			success:function(data){
    				console.log(data);
    				$('#minor').empty();
    				$.each(data, function(index, value){
 	   				$('#minor').append(
-	   						(value.no == $('#minorSelected').val() ? '<option value="'+value.no+'" selected>'+value.category_name+'</option>' : '<option value="'+value.no+'">'+value.category_name+'</option>')
+	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
 	   				);
    				});
    			},
@@ -368,15 +368,11 @@ $(document).ready(function(){
 						
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
-							<input type="hidden" id="minorSelected" value="${board.category_minor}">
 							<form id="detailInfo" action="updateBoard.do" method="post" enctype="multipart/form-data">
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select name="major" id="major">
 										<c:forEach items="${categoryList}" var="high">
-											<c:if test="${high.no eq board.category_major}">
-												<option value="${high.no}" selected>${high.category_name}</option>
-											</c:if>											
 											<option value="${high.no}">${high.category_name}</option>
 										</c:forEach>
 									</select> 

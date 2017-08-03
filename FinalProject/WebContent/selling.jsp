@@ -222,8 +222,8 @@
 						$.each(data.list, function(index, value) {
 							$('#tabs-5 > table').append(
 								'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
-								value.time + '</td><td>' + value.formatPrice + '</td><td>' +
-								(value.state==1?"대기중":value.state==2?"진행중":"종료") + '</td><td>비고</td></tr>'
+								value.time + '</td><td>' + value.price + '</td><td>' +
+								value.state + '</td><td>비고</td></tr>'
 							);
 						});
 						$('#currentPage').val(data.page);
@@ -413,26 +413,21 @@
 
 		$('#registrationList').click(function() {
 			sellingList(0);
-			$('#premiumBtn').css("display","inline");
 		});
 
 		$('#ongoing').click(function() {
 			ongoingList(0);
-			$('#premiumBtn').css("display","none");
 		});
 
 		$('#completion').click(function() {
 			completionList(0);
-			$('#premiumBtn').css("display","none");
 		});
 
 		$('#canceled').click(function() {
 			canceledList(0);
-			$('#premiumBtn').css("display","none");
 		});
 		$('#premiumTab').click(function() {
 			premiumList(0);
-			$('#premiumBtn').css("display","none");
 		});
 
 		//진행중 거래에서 완료 버튼 
@@ -521,10 +516,9 @@
 		}, '.optionList');
 
 
-		//프리미엄 신청
 		$('#premiumBtn').click(function() {
 			// 			alert("프리미엄 등록");
-						alert($('#tabs-1 input:radio:checked').val());
+			// 			alert($('#tabs-1 input:radio:checked').val());
 			var no = $('#tabs-1 input:radio:checked').val();
 			$('#boardNo').val(no);
 			$.ajax({
@@ -533,16 +527,12 @@
 				data : {
 					no : no
 				},
-				dataType : "json",
+				dataType : "text",
 				success : function(data) {
-					console.log(data);
-					if(data.result){
-						$('#boardTitle').empty();
-						$('#boardTitle').text(data.title);
-						$('#premiumModal').modal('show');
-					}else{
-						alert("이미 프리미엄 게시중 입니다.");
-					}
+					
+					$('#boardTitle').empty();
+					$('#boardTitle').text(data);
+					$('#premiumModal').modal('show');
 				},
 				error : function() {
 					alert("실패");
@@ -571,7 +561,7 @@
 		
 		$('#premiumSubmit').click(function(){
 // 			alert($('#premiumTime').val());
-			alert($(this).siblings('input').val());
+// 			alert($(this).siblings('input').val());
 			
 			$.ajax({
 				url:"premiumUpdate.do",
