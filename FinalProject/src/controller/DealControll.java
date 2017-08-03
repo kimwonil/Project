@@ -676,7 +676,7 @@ public class DealControll {
 		
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(boardService.premiumEndDate());
-		cal.add(cal.DATE, time);
+		cal.add(cal.DATE, time+1);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println(format.format(cal.getTime()));
 		
