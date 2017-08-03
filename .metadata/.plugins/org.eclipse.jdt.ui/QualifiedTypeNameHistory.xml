@@ -42,7 +42,7 @@
 <fullyQualifiedTypeName name="model.Board"/>
 <fullyQualifiedTypeName name="javax.swing.text.DateFormatter"/>
 <fullyQualifiedTypeName name="java.text.DateFormat"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
 </qualifiedTypeNameHistroy>
