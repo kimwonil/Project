@@ -68,8 +68,10 @@
  </select>
  
  <select id="searchCategory" parameterType="java.util.HashMap" resultType="Board">
- 	select * from board
- 	where 1=0
+ 	SELECT A.* FROM ( 
+	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board 
+	, (SELECT @searchnum:= 0) R 
+	where 1=0
  	<if test="title != null">
  		or title like '%${title}%'
  	</if>
@@ -77,6 +79,7 @@
  		or content like '%${content}%'
  	</if>
  	and category_major=#{major} order by no desc 
+ 	) A WHERE A.searchnum between #{start} and #{end}
  </select>
  
  <select id="getCount" resultType="int">
