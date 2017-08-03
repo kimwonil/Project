@@ -39,98 +39,23 @@ public class MemberController {
 	
 	/**
 	 * 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)
-	 * - 이메일주소 관련 변수 -
-	 * emailK : Kakao 로그인 성공시 사용
-	 * emailG : Google 로그인 성공시 사용
-	 * emailN : Naver 로그인 성공시 사용
-	 * - 이하 추가 정보는 WebContent - loginprototype.jsp 참조
 	 * */
-	
 
-//	@RequestMapping("loginsuccess.do")
-//	public void EmailAndNick(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
-//
-//		String id = null;
-//		String nickname = null;
-////		String id = ((Member) session.getAttribute("member")).getId();
-////		String nickname = ((Member) session.getAttribute("member")).getNickName() ;
-//		
-////		MultipartFile photo = file.getFile();
-//		String photo = null;
-//				//((Member) session.getAttribute("member")).getPhoto();	
-//		
-//		int balance;
-//				//((Member) session.getAttribute("member")).getBalance();		
-//		int admin;
-//				//((Member) session.getAttribute("member")).getAdmin();	
-//		String code = "code초기값";
-//				//((Member) session.getAttribute("member")).getCode();
-//		int amount = 0;
-//				//((Member) session.getAttribute("member")).getAmount();
-//		//
-//		
-//		balance = ((Member) session.getAttribute("member")).getBalance();		
-//		admin = ((Member) session.getAttribute("member")).getAdmin();	
-//		code = ((Member) session.getAttribute("member")).getCode();
-//		amount = ((Member) session.getAttribute("member")).getAmount();
-//
-//		if(id==null && req.getParameter("EmailK")!=null){
-//			id = req.getParameter("EmailK");
-//			}
-//		else if(id==null && req.getParameter("EmailG")!=null){
-//			id = req.getParameter("EmailG");
-//			}
-//		else if(id==null && req.getParameter("EmailN")!=null){
-//			id = req.getParameter("EmailN");
-//		}
-//
-//		if(nickname==null)
-//			nickname = id;		
-//		
-//			
-//		Member member = (Member)session.getAttribute("member");
-//
-//		member.setId(id);		
-//		member.setNickName(nickname);
-//		member.setPhoto(photo);
-//		member.setBalance(balance);
-//		member.setAdmin(admin);
-//		member.setCode(code);
-//		member.setAmount(amount);
-//		
-//		HashMap<String, Object> params = new HashMap<String, Object>();
-//		
-//		params.put("id", id);
-//		params.put("nickname", nickname);
-//		
-////		photo 초기값 : ??
-//		params.put("photo", photo);
-//		
-//		params.put("balance", balance);
-//		params.put("admin", admin);
-//		params.put("code",code);
-//		params.put("amount",amount);
-//		
-//		memberService.memberInsert(member);
-//
-//	}
-//	////////////////////////
-	 
 	@RequestMapping("loginsuccess.do")
-	public String emailjoin (String id){
+	public String emailjoin (String id, HttpSession session){
 		System.out.println(id);
-		Member member = new Member();
 		
 		if(memberService.selectOne(id)==null){
+			Member member = new Member();
 			member.setId(id);
 			member.setNickName(id);
 			memberService.memberInsert(member);
-			return "redirect:profile.do";
-
+			return "redirect:profile.do?id="+id;
 		}
-
 		else{
-			return "redirect:profile.do";
+			Member member = (Member)session.getAttribute("member");
+			memberService.selectOne(id);
+			return "redirect:profile.do?id="+id;
 		}
 
 	}
