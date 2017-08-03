@@ -673,6 +673,7 @@ public class DealControll {
 		try {
 			if(boardService.premiumCount()>=20) {
 				map.put("state", 1);
+				String date = boardService.premiumEndDate();
 				boardService.premiumWaitting(map);
 				response.getWriter().write("프리미엄 대기에 등록 되었습니다.");
 			}else {
