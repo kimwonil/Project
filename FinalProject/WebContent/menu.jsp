@@ -327,9 +327,10 @@
 							(value.no == $('#hiddenMajor').val() ? '<option value="'+value.no+'" selected>'+value.category_name+'</option>' : '<option value="'+value.no+'">'+value.category_name+'</option>')
 					);//append 끝
 				});//each 끝
-			},error : function(){
-				alert("실패");
-			}
+			},error:function(jqXHR, textStatus, errorThrown){
+    			alert(textStatus);     //응답상태
+    			alert(errorThrown);     //응답에 대한 메세지
+    		}
 		});//카테고리 가져오는 ajax 끝
 		
 		//검색시작!
