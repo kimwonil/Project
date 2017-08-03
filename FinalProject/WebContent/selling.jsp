@@ -201,7 +201,42 @@
 
 	}
 
+	//프리미엄 목록 조회
+		function premiumList(page) {
+			$.ajax({
+				url : "premiumList.do",
+				type : "POST",
+				data : {
+					page : page
+				},
+				dataType : "json",
+				success : function(data) {
+					console.log(data);
+					$('#tabs-5 > table tr:gt(0)').remove();
+					if (data.list == "") {
+						$('#tabs-5 > table').append(
+							'<tr><td colspan="6">내역이 없습니다.</td></tr>'
+						);
+					} else {
+						console.log(data);
+						$.each(data.list, function(index, value) {
+							$('#tabs-5 > table').append(
+								'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
+								value.time + '</td><td>' + value.price + '</td><td>' +
+								value.state + '</td><td>비고</td></tr>'
+							);
+						});
+						$('#currentPage').val(data.page);
+						$('.prev').val(data.page == 0 ? 0 : data.page - 8);
+						$('.next').val(data.totalPage - 8 > data.page ? data.page + 8 : data.page);
+					}
 
+				},
+				error : function() {
+					alert("실패");
+				}
+			})
+		}
 
 
 
@@ -369,7 +404,9 @@
 		$('#tabs-4 button').click(function() {
 			canceledList($(this).val());
 		});
-
+		$('#tabs-5 button').click(function() {
+			premiumList($(this).val());
+		});
 
 
 		// 		탭 기능
@@ -389,7 +426,9 @@
 		$('#canceled').click(function() {
 			canceledList(0);
 		});
-
+		$('#premiumTab').click(function() {
+			premiumList(0);
+		});
 
 		//진행중 거래에서 완료 버튼 
 		$(document).on('click', '.completeBtn', function() {
@@ -521,8 +560,8 @@
 		});
 		
 		$('#premiumSubmit').click(function(){
-			alert($('#premiumTime').val());
-			alert($(this).siblings('input').val());
+// 			alert($('#premiumTime').val());
+// 			alert($(this).siblings('input').val());
 			
 			$.ajax({
 				url:"premiumUpdate.do",
@@ -532,9 +571,10 @@
 					time:$('#premiumTime').val(),
 					premium:0
 				},
-				dataType:"json",
+				dataType:"text",
 				success:function(data){
-					alert("성공");
+					alert(data);
+					$('#premiumModal').modal('hide');
 				},
 				error:function(){
 					alert("실패");
@@ -695,8 +735,8 @@ table {
 								<tr>
 									<th>등록일</th>
 									<th>글제목</th>
-									<th>구매자</th>
-									<th>총액</th>
+									<th>기간</th>
+									<th>비용</th>
 									<th>상태</th>
 									<th>비고</th>
 								</tr>

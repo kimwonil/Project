@@ -1,0 +1,85 @@
+package model;
+
+public class Premium {
+	private int no;
+	private int board_no;
+	private String title;
+	private int time;
+	private int price;
+	private String nickname;
+	private int state;
+	private String date;
+	
+	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Premium [no=" + no + ", board_no=" + board_no + ", title=" + title + ", time=" + time + ", price="
+				+ price + ", nickname=" + nickname + ", state=" + state + ", date=" + date + "]";
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public Premium() {
+		super();
+	}
+	public Premium(int no, int board_no, int time, int price, String nickname, int state, String date) {
+		super();
+		this.no = no;
+		this.board_no = board_no;
+		this.time = time;
+		this.price = price;
+		this.nickname = nickname;
+		this.state = state;
+		this.date = date;
+	}
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
+	public int getBoard_no() {
+		return board_no;
+	}
+	public void setBoard_no(int board_no) {
+		this.board_no = board_no;
+	}
+	public int getTime() {
+		return time;
+	}
+	public void setTime(int time) {
+		this.time = time;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	
+}

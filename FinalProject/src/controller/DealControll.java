@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 
 import model.Board;
 import model.Member;
+import model.Premium;
 import model.Purchase;
 import model.PurchaseOption;
 import service.BoardService;
@@ -575,6 +576,38 @@ public class DealControll {
 	
 	
 	/**
+	 * 프리미엄 내역 조회
+	 * */
+	@RequestMapping("premiumList.do")
+	public void premiumList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		String nickname = ((Member)session.getAttribute("member")).getNickName();
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("nickname", nickname);
+		map.put("page", page);
+		List<Premium> list = boardService.premiumList(map);
+		
+		for(Premium premium : list) {
+			premium.setTitle(boardService.selectOneBoard(premium.getBoard_no()).getTitle());
+		}
+		
+		map.put("list", list);
+		map.put("totalPage", boardService.totalPagePremium(nickname));
+		String json = gson.toJson(map);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	/**
 	 * 프리미엄 신청
 	 * */
 	@RequestMapping("premiumSelect.do")
@@ -598,6 +631,8 @@ public class DealControll {
 	 * */
 	@RequestMapping("premiumUpdate.do")
 	public void premiumUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
 		
 		HashMap<String, Object> map = new HashMap<>();
 		String nickname = ((Member)session.getAttribute("member")).getNickName();
@@ -621,15 +656,23 @@ public class DealControll {
 		map.put("time", time);
 		map.put("price", price);
 		
-		if(boardService.premiumCount()>=20) {
-			boardService.premiumWaitting(map);
-		}else {
-			boardService.premium(map);
+		
+		try {
+			if(boardService.premiumCount()>=20) {
+				map.put("state", 1);
+				boardService.premiumWaitting(map);
+				response.getWriter().write("프리미엄 대기에 등록 되었습니다.");
+			}else {
+				map.put("state", 2);
+				boardService.premiumWaitting(map);
+				boardService.premium(map);
+				response.getWriter().write("프리미엄이 등록 되었습니다.");
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		
-		
-		
 		
 	}
 	
