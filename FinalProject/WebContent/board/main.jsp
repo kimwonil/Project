@@ -147,14 +147,18 @@ display: inline;
 						<div class="column size-1of4">
 							<div class="item">
 								<div class="animate-box">
-									<a href="detailOneBoard.do?no=${premium.no}" 
-										>
-									<c:if test="${premium.file_name1 eq null}">
-										<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-									</c:if>
-									<c:if test="${premium.file_name1 ne null}">
-									<img src='<c:url value="/user/board/${premium.no}"/>/${premium.file_name1}' >
-									</c:if>
+									<a href="detailOneBoard.do?no=${premium.no}">
+									<c:choose>
+										<c:when test="${premium.file_name1 eq ''}">
+											<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+										</c:when>
+										<c:when test="${premium.file_name1 eq null}">
+											<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+										</c:when>
+										<c:otherwise >
+											<img src='<c:url value="/user/board/${premium.no}"/>/${premium.file_name1}' >
+										</c:otherwise>
+									</c:choose>
 									</a>
 								</div>
 								<div class="fh5co-desc">

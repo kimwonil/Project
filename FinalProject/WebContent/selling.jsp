@@ -201,7 +201,42 @@
 
 	}
 
+	//프리미엄 목록 조회
+		function premiumList(page) {
+			$.ajax({
+				url : "premiumList.do",
+				type : "POST",
+				data : {
+					page : page
+				},
+				dataType : "json",
+				success : function(data) {
+					console.log(data);
+					$('#tabs-5 > table tr:gt(0)').remove();
+					if (data.list == "") {
+						$('#tabs-5 > table').append(
+							'<tr><td colspan="6">내역이 없습니다.</td></tr>'
+						);
+					} else {
+						console.log(data);
+						$.each(data.list, function(index, value) {
+							$('#tabs-5 > table').append(
+								'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
+								value.time + '</td><td>' + value.formatPrice + '</td><td>' +
+								(value.state==1?"대기중":value.state==2?"진행중":"종료") + '</td><td>비고</td></tr>'
+							);
+						});
+						$('#currentPage').val(data.page);
+						$('.prev').val(data.page == 0 ? 0 : data.page - 8);
+						$('.next').val(data.totalPage - 8 > data.page ? data.page + 8 : data.page);
+					}
 
+				},
+				error : function() {
+					alert("실패");
+				}
+			})
+		}
 
 
 
@@ -369,27 +404,36 @@
 		$('#tabs-4 button').click(function() {
 			canceledList($(this).val());
 		});
-
+		$('#tabs-5 button').click(function() {
+			premiumList($(this).val());
+		});
 
 
 		// 		탭 기능
 
 		$('#registrationList').click(function() {
 			sellingList(0);
+			$('#premiumBtn').css("display","inline");
 		});
 
 		$('#ongoing').click(function() {
 			ongoingList(0);
+			$('#premiumBtn').css("display","none");
 		});
 
 		$('#completion').click(function() {
 			completionList(0);
+			$('#premiumBtn').css("display","none");
 		});
 
 		$('#canceled').click(function() {
 			canceledList(0);
+			$('#premiumBtn').css("display","none");
 		});
-
+		$('#premiumTab').click(function() {
+			premiumList(0);
+			$('#premiumBtn').css("display","none");
+		});
 
 		//진행중 거래에서 완료 버튼 
 		$(document).on('click', '.completeBtn', function() {
@@ -477,9 +521,10 @@
 		}, '.optionList');
 
 
+		//프리미엄 신청
 		$('#premiumBtn').click(function() {
 			// 			alert("프리미엄 등록");
-			// 			alert($('#tabs-1 input:radio:checked').val());
+						alert($('#tabs-1 input:radio:checked').val());
 			var no = $('#tabs-1 input:radio:checked').val();
 			$('#boardNo').val(no);
 			$.ajax({
@@ -488,12 +533,16 @@
 				data : {
 					no : no
 				},
-				dataType : "text",
+				dataType : "json",
 				success : function(data) {
-					
-					$('#boardTitle').empty();
-					$('#boardTitle').text(data);
-					$('#premiumModal').modal('show');
+					console.log(data);
+					if(data.result){
+						$('#boardTitle').empty();
+						$('#boardTitle').text(data.title);
+						$('#premiumModal').modal('show');
+					}else{
+						alert("이미 프리미엄 게시중 입니다.");
+					}
 				},
 				error : function() {
 					alert("실패");
@@ -521,7 +570,7 @@
 		});
 		
 		$('#premiumSubmit').click(function(){
-			alert($('#premiumTime').val());
+// 			alert($('#premiumTime').val());
 			alert($(this).siblings('input').val());
 			
 			$.ajax({
@@ -532,9 +581,10 @@
 					time:$('#premiumTime').val(),
 					premium:0
 				},
-				dataType:"json",
+				dataType:"text",
 				success:function(data){
-					alert("성공");
+					alert(data);
+					$('#premiumModal').modal('hide');
 				},
 				error:function(){
 					alert("실패");
@@ -695,8 +745,8 @@ table {
 								<tr>
 									<th>등록일</th>
 									<th>글제목</th>
-									<th>구매자</th>
-									<th>총액</th>
+									<th>기간</th>
+									<th>비용</th>
 									<th>상태</th>
 									<th>비고</th>
 								</tr>

@@ -1,8 +1,12 @@
 package controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,6 +14,7 @@ import javax.rmi.ssl.SslRMIClientSocketFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.DateFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +25,7 @@ import com.google.gson.Gson;
 
 import model.Board;
 import model.Member;
+import model.Premium;
 import model.Purchase;
 import model.PurchaseOption;
 import service.BoardService;
@@ -575,6 +581,41 @@ public class DealControll {
 	
 	
 	/**
+	 * 프리미엄 내역 조회
+	 * */
+	@RequestMapping("premiumList.do")
+	public void premiumList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		String nickname = ((Member)session.getAttribute("member")).getNickName();
+		int page = Integer.parseInt(request.getParameter("page"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("nickname", nickname);
+		map.put("page", page);
+		List<Premium> list = boardService.premiumList(map);
+		
+		for(Premium premium : list) {
+			premium.setTitle(boardService.selectOneBoard(premium.getBoard_no()).getTitle());
+			DecimalFormat number = new DecimalFormat("#,###");
+			String formatPrice = number.format(premium.getPrice());
+			premium.setFormatPrice(formatPrice);
+		}
+		
+		map.put("list", list);
+		map.put("totalPage", boardService.totalPagePremium(nickname));
+		String json = gson.toJson(map);
+		
+		try {
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	/**
 	 * 프리미엄 신청
 	 * */
 	@RequestMapping("premiumSelect.do")
@@ -583,10 +624,20 @@ public class DealControll {
 		response.setContentType("text/xml;charset=UTF-8");
 		
 		int no = Integer.parseInt(request.getParameter("no"));
-		String title = boardService.selectOneBoard(no).getTitle();
+		Board board = boardService.selectOneBoard(no);
+		
+		String msg="";
+		System.out.println(board.getPremium());
+		if(board.getPremium() == 0) {
+			msg = "{\"result\":false}";
+		}else {
+			msg = "{\"result\":true, \"title\":\""+board.getTitle()+"\"}";
+		}
+		
+		System.out.println(msg);
 		
 		try {
-			response.getWriter().write(title);
+			response.getWriter().write(msg);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -598,6 +649,8 @@ public class DealControll {
 	 * */
 	@RequestMapping("premiumUpdate.do")
 	public void premiumUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
 		
 		HashMap<String, Object> map = new HashMap<>();
 		String nickname = ((Member)session.getAttribute("member")).getNickName();
@@ -621,15 +674,34 @@ public class DealControll {
 		map.put("time", time);
 		map.put("price", price);
 		
-		if(boardService.premiumCount()>=20) {
-			boardService.premiumWaitting(map);
-		}else {
-			boardService.premium(map);
-		}
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(boardService.premiumEndDate());
+		cal.add(cal.DATE, time);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(format.format(cal.getTime()));
 		
-		
-		
-		
+//		try {
+//			if(boardService.premiumCount()>=20) {
+//				map.put("state", 1);
+				
+				
+//				Date formatDate = boardService.premiumEndDate();
+//				SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+//				System.out.println(format.format(formatDate));
+				
+//				boardService.premiumWaitting(map);
+//				response.getWriter().write("프리미엄 대기에 등록 되었습니다.");
+//			}else {
+//				map.put("state", 2);
+//				boardService.premiumWaitting(map);
+//				boardService.premium(map);
+//				response.getWriter().write("프리미엄이 등록 되었습니다.");
+//			}
+			
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 	}
 	

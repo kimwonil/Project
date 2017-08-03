@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import model.Category;
 import model.File;
 import model.FileUpload;
 import model.MapInfo;
+import model.Premium;
 import model.Purchase;
 
 public interface BoardDao {
@@ -77,6 +79,12 @@ public interface BoardDao {
 	public int premiumCount();
 	//프리미엄 대기
 	public int premiumWaitting(HashMap<String, Object> map);
+	//프리미엄 목록 조회
+	public List<Premium> premiumList(HashMap<String, Object> map);
+	//프리미엄 페이징
+	public int totalPagePremium(String nickname);
+	
+	public Date premiumEndDate();
 
 	
 	

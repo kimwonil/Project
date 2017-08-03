@@ -131,9 +131,9 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
     });
     
 </script>
-
-카카오 이메일 : <div id=EmailK></div><br>
-
+<form action="loginsuccess.do" method="post">
+카카오 이메일 : <div id=EmailK name="id"></div><br>
+</form>
 
 <!--                        Login - Kakao                         -->
 

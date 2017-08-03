@@ -1,6 +1,7 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import model.Category;
 import model.File;
 import model.FileUpload;
 import model.MapInfo;
+import model.Premium;
 import model.Purchase;
 
 @Service
@@ -227,6 +229,22 @@ public class BoardService {
 	 * */
 	public int premiumWaitting(HashMap<String, Object> map) {
 		return boardDao.premiumWaitting(map);
+	}
+	
+	/**
+	 * 프리미엄 목록 조회
+	 * */
+	public List<Premium> premiumList(HashMap<String, Object> map) {
+		return boardDao.premiumList(map);
+	}
+
+	public int totalPagePremium(String nickname) {
+		return boardDao.totalPagePremium(nickname);
+	}
+	
+	
+	public Date premiumEndDate() {
+		return boardDao.premiumEndDate();
 	}
 
 	

@@ -42,23 +42,42 @@ public class MemberController {
 	 * */
 
 	@RequestMapping("loginsuccess.do")
-	public String emailjoin (String id, HttpSession session){
-		System.out.println(id);
-		
+	public ModelAndView emailjoin(String id, HttpServletRequest request, HttpSession session) {
+		ModelAndView mv = new ModelAndView("member/profile");
 		if(memberService.selectOne(id)==null){
-			Member member = new Member();
-			member.setId(id);
-			member.setNickName(id);
-			memberService.memberInsert(member);
-			return "redirect:profile.do?id="+id;
-		}
-		else{
-			Member member = (Member)session.getAttribute("member");
-			memberService.selectOne(id);
-			return "redirect:profile.do?id="+id;
+		Member member = new Member();
+		member.setId(id);
+		member.setNickName(id);
+		memberService.memberInsert(member);
+		  // 결과를 보여줄 파일명
+		mv.setViewName("profile.do?id="+id);
+		return mv;
+	}
+	else{
+		Member member = (Member)session.getAttribute("member");
+		memberService.selectOne(id);
+		return mv;
+	}
 		}
 
-	}
+	
+//	public String emailjoin (String id, HttpSession session){
+//		System.out.println(id);
+//		
+//		if(memberService.selectOne(id)==null){
+//			Member member = new Member();
+//			member.setId(id);
+//			member.setNickName(id);
+//			memberService.memberInsert(member);
+//			return "redirect:profile.do?id="+id;
+//		}
+//		else{
+//			Member member = (Member)session.getAttribute("member");
+//			memberService.selectOne(id);
+//			return "redirect:profile.do?id="+id;
+//		}
+//
+//	}
 	
 	/**
 	 * 프로필 조회

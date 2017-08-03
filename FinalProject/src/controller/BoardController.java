@@ -570,6 +570,7 @@ public class BoardController{
 		//board_option 뽑아서 보내기
 		mav.addObject("board_optionList", boardService.selectBoard_option(no));
 		
+		//사진파일보내기
 		mav.addObject("files", boardService.selectOneFromFile(no));
 		return mav;
 	}
@@ -863,15 +864,15 @@ public class BoardController{
 	@RequestMapping("search.do")
 	public ModelAndView search(HttpServletRequest req, HttpServletResponse resp, HttpSession session,
 			@RequestParam(defaultValue="1") int currentPage,
-			@RequestParam(required=false) String word){
+			@RequestParam(required=false) String word,
+			@RequestParam(required=false) int major){
 		System.out.println("search.do");
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("title", word);
 		searchMap.put("content", word);
-		String msgForH4 = "";
 		
-		if(req.getParameter("major").equals("all")){
+		if(major == 0){
 			System.out.println("전체검색");
 			
 			//페이징 부분
@@ -903,6 +904,7 @@ public class BoardController{
 		
 		mav.addObject("categoryList", boardService.category());
 		mav.addObject("word", word);
+		mav.addObject("major", major);
 		mav.addObject("major", req.getParameter("major"));
 		mav.addObject("pageName", "search.do");
 		mav.setViewName("board/searchResult");
