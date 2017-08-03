@@ -30,9 +30,8 @@
 			dataType:"json",
 			success:function(data){
 				console.log(data);
-				
 				$('#tabs-1 > table tr:gt(0)').remove();
-				if(data == ""){
+				if(data.list == ""){
 					$('#tabs-1 > table').append(
 							'<tr><td colspan="5">내역이 없습니다.</td></tr>'		
 						);
@@ -70,7 +69,7 @@
 				console.log(data);
 				
 				$('#tabs-2 > table tr:gt(0)').remove();
-				if(data == ""){
+				if(data.list == ""){
 					$('#tabs-2 > table').append(
 							'<tr><td colspan="6">내역이 없습니다.</td></tr>'		
 						);
@@ -118,7 +117,7 @@
 				console.log(data);
 				
 				$('#tabs-3 > table tr:gt(0)').remove();
-				if(data == ""){
+				if(data.list == ""){
 					$('#tabs-3 > table').append(
 							'<tr><td colspan="6">내역이 없습니다.</td></tr>'		
 					);
@@ -167,7 +166,7 @@
 				console.log(data);
 				
 				$('#tabs-4 > table tr:gt(0)').remove();
-				if(data == ""){
+				if(data.list == ""){
 					$('#tabs-4 > table').append(
 							'<tr><td colspan="6">내역이 없습니다.</td></tr>'		
 					);
@@ -537,6 +536,7 @@ table{
 							<li><a href="#tabs-2" id="ongoing">진행중 거래</a></li>
 							<li><a href="#tabs-3" id="completion">완료된 거래</a></li>
 							<li><a href="#tabs-4" id="canceled">취소된 거래</a></li>
+							<li><a href="#tabs-5" id="premiumTab">프리미엄</a></li>
 						</ul>
 						<div align="center">
 							<select>
@@ -575,6 +575,14 @@ table{
 							</div>
 						</div>
 						<div id="tabs-4">
+							<table>
+								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>총액</th><th>상태</th><th>비고</th></tr>
+							</table>
+							<div>
+								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
+							</div>
+						</div>
+						<div id="tabs-5">
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>총액</th><th>상태</th><th>비고</th></tr>
 							</table>
