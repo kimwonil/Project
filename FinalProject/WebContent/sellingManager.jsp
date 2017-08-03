@@ -538,16 +538,6 @@ table{
 							<li><a href="#tabs-3" id="completion">완료된 거래</a></li>
 							<li><a href="#tabs-4" id="canceled">취소된 거래</a></li>
 						</ul>
-						<div align="center">
-							<select>
-								<option>검색조건</option>
-								<option>닉네임</option>
-								<option>글제목</option>
-								<option>날짜</option>
-							</select>
-							<input type="text">
-							<button>검색</button>
-						</div>
 						
 						<div id="tabs-1" >
 							<table>
