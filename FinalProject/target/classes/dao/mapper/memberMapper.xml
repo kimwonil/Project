@@ -5,11 +5,11 @@
  
  <mapper namespace="dao.MemberDao">
  
- <select id="selectOne" resultType="Member">
+ <select id="selectOne" parameterType="String" resultType="Member">
  	select * from profile where id=#{id}
  </select>
  
- <select id="selectAll" resultType="Member">
+ <select id="selectAll"  resultType="Member">
  	select * from profile
  </select>
  
