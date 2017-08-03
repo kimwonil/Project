@@ -1,5 +1,6 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -71,6 +72,14 @@ public class BoardService {
 		return boardDao.getCount();
 	}
 	
+	public int getCountForSearch(HashMap<String, Object> countParam){
+		return boardDao.getCountForSearch(countParam);
+	}
+	
+	public int getCountForCategorySearch(HashMap<String, Object> searchMap) {
+		return boardDao.getCountForCategorySearch(searchMap);
+	}
+
 	public List<Board> gageocksun(HashMap<String, Object>pagingParam) {
 		return boardDao.gageocksun(pagingParam);
 	}
@@ -162,12 +171,16 @@ public class BoardService {
 		return boardDao.selectOneInterest(params);
 	}
 
-	public List<HashMap<String, Object>> selectAllDips(String id) {
-		return boardDao.selectAllDips(id);
+	public List<HashMap<String, Object>> selectAllDips(HashMap<String, Object> param) {
+		return boardDao.selectAllDips(param);
 	}
 
 	public List<HashMap<String, Object>> dipsWithCategory(HashMap<String, Object> params) {
 		return boardDao.dipsWithCategory(params);
+	}
+	
+	public int getCountDips(String id) {
+		return boardDao.getCountDips(id);
 	}
 	
 
@@ -189,6 +202,9 @@ public class BoardService {
 	public List<Category> categoryLow(int high_no) {
 		return boardDao.categoryLow(high_no);
 	}
+
+	
+
 
 
 
