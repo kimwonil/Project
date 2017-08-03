@@ -591,6 +591,9 @@ public class DealControll {
 		
 		for(Premium premium : list) {
 			premium.setTitle(boardService.selectOneBoard(premium.getBoard_no()).getTitle());
+			DecimalFormat number = new DecimalFormat("#,###");
+			String formatPrice = number.format(premium.getPrice());
+			premium.setFormatPrice(formatPrice);
 		}
 		
 		map.put("list", list);
