@@ -616,10 +616,20 @@ public class DealControll {
 		response.setContentType("text/xml;charset=UTF-8");
 		
 		int no = Integer.parseInt(request.getParameter("no"));
-		String title = boardService.selectOneBoard(no).getTitle();
+		Board board = boardService.selectOneBoard(no);
+		
+		String msg="";
+		System.out.println(board.getPremium());
+		if(board.getPremium() == 0) {
+			msg = "{\"result\":false}";
+		}else {
+			msg = "{\"result\":true, \"title\":\""+board.getTitle()+"\"}";
+		}
+		
+		System.out.println(msg);
 		
 		try {
-			response.getWriter().write(title);
+			response.getWriter().write(msg);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -413,21 +413,26 @@
 
 		$('#registrationList').click(function() {
 			sellingList(0);
+			$('#premiumBtn').css("display","inline");
 		});
 
 		$('#ongoing').click(function() {
 			ongoingList(0);
+			$('#premiumBtn').css("display","none");
 		});
 
 		$('#completion').click(function() {
 			completionList(0);
+			$('#premiumBtn').css("display","none");
 		});
 
 		$('#canceled').click(function() {
 			canceledList(0);
+			$('#premiumBtn').css("display","none");
 		});
 		$('#premiumTab').click(function() {
 			premiumList(0);
+			$('#premiumBtn').css("display","none");
 		});
 
 		//진행중 거래에서 완료 버튼 
@@ -527,12 +532,16 @@
 				data : {
 					no : no
 				},
-				dataType : "text",
+				dataType : "json",
 				success : function(data) {
-					
-					$('#boardTitle').empty();
-					$('#boardTitle').text(data);
-					$('#premiumModal').modal('show');
+					console.log(data);
+					if(data.result){
+						$('#boardTitle').empty();
+						$('#boardTitle').text(data.title);
+						$('#premiumModal').modal('show');
+					}else{
+						alert("이미 프리미엄 게시중 입니다.");
+					}
 				},
 				error : function() {
 					alert("실패");
