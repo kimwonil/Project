@@ -329,11 +329,11 @@ $(document).ready(function(){
    	});
     	
 	
-   	$(document).on('change', '#major', function(){
+   	$(document).on('change','#major', function(){
    		$.ajax({
    			url:"categoryLow.do",
    			type:"POST",
-   			data:{high_no:$('#major').val()},
+   			data:{high_no:$(this).val()},
    			dataType:"json",
    			success:function(data){
    				console.log(data);
@@ -343,6 +343,9 @@ $(document).ready(function(){
 	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
 	   				);
    				});
+   				
+   				
+   				
    			},
    			error:function(){
    				alert("실패");
@@ -380,7 +383,6 @@ $(document).ready(function(){
 								<table class="table">
 									<tr><th>카테고리 </th><th>
 									<select name="major" id="major">
-										<option>대분류</option>
 										<c:forEach items="${categoryList}" var="high">
 											<option value="${high.no}">${high.category_name}</option>
 										</c:forEach>

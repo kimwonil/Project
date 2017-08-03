@@ -107,6 +107,16 @@ display: inline;
 }
 </style>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#searchInput').on('keydown', function(key){
+		if(key.keyCode == 13){
+			$('#searchInput').parent().submit();
+		};//keyCode == 13일때
+	});
+});
+</script>
+
 <body>
 <div id="fh5co-main">
 	<div class="container">
@@ -147,18 +157,14 @@ display: inline;
 						<div class="column size-1of4">
 							<div class="item">
 								<div class="animate-box">
-									<a href="detailOneBoard.do?no=${premium.no}">
-									<c:choose>
-										<c:when test="${premium.file_name1 eq ''}">
-											<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-										</c:when>
-										<c:when test="${premium.file_name1 eq null}">
-											<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-										</c:when>
-										<c:otherwise >
-											<img src='<c:url value="/user/board/${premium.no}"/>/${premium.file_name1}' >
-										</c:otherwise>
-									</c:choose>
+									<a href="detailOneBoard.do?no=${premium.no}" 
+										>
+									<c:if test="${premium.file_name1 eq null}">
+										<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+									</c:if>
+									<c:if test="${premium.file_name1 ne null}">
+									<img src='<c:url value="/user/board/${premium.no}"/>/${premium.file_name1}' >
+									</c:if>
 									</a>
 								</div>
 								<div class="fh5co-desc">
@@ -217,18 +223,12 @@ display: inline;
 		        	<div class="item">
 		        		<div class="animate-box">
 			        		<a href="detailOneBoard.do?no=${normal.no}">
-									
-								<c:choose>
-								<c:when test="${normal.file_name1 eq ''}">
+			        		   <c:if test="${normal.file_name1 eq null}">
 									<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-								</c:when>
-								<c:when test="${normal.file_name1 eq null}">
-									<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-								</c:when>
-								<c:otherwise >
-									<img src='<c:url value="/user/board/${normal.no}"/>/${normal.file_name1}' >
-								</c:otherwise>
-								</c:choose>
+								</c:if>
+								<c:if test="${normal.file_name1 ne null}">
+								<img src='<c:url value="/user/board/${normal.no}"/>/${normal.file_name1}' >
+								</c:if>
 		        		   
 			        		   </a>
 		        				

@@ -47,10 +47,7 @@ height: 26px;
 .quantityBox a {
 text-decoration: none;
 }
-.thumbnail{
-width : 573px;
-height : 500px;
-}
+
 </style>
 
 <script>
@@ -350,18 +347,8 @@ function totalPrice(){
 						<div class="item deal-position">
 							<div class="animate-box">
 								<a href="images/img_1.jpg" class="image-popup fh5co-board-img">
-									<c:choose>
-										<c:when test="${board.file_name1 eq ''}">
-											<img class="thumbnail" src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-										</c:when>
-										<c:when test="${board.file_name1 eq null}">
-											<img class="thumbnail" src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-										</c:when>
-										<c:otherwise >
-											<img class="thumbnail" src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}' >
-										</c:otherwise>
-									</c:choose>
-								</a>
+									<img src="<c:url value="/user/board/${board.no}"/>/${files.file_name1}" alt="Free HTML5 Bootstrap template"	style="width: 573px; height: 500px;">
+									</a>
 							</div>
 							
 							<table>

@@ -87,9 +87,6 @@ img{
 	height: 200px;
 	padding: 0px;
 }
-h3{
-	text-align: center;
-}
 </style>
 <body>
 <div id="fh5co-main">
@@ -104,35 +101,25 @@ h3{
 		</c:forEach>
 		</tr>
 		</table>
-				
-				
-		<div class="fh5co-spacer fh5co-spacer-sm"></div>
+				<div class="fh5co-spacer fh5co-spacer-sm"></div>
 			
 
 		<div class="row rowClear">
 
         	<div id="fh5co-board"  class="normal" data-columns>
         	
-        		<c:if test="${dipsList eq '[]'}">
-	        	<h3>찜한글이 없습니다</h3>
-	        	</c:if>
-        	
         		<c:forEach items="${dipsList}" var="board">
 		        	<div class="item">
 		        		<div class="animate-box">
 			        		<a href="detailOneBoard.do?no=${board.no}">
-			        			<c:choose>
-									<c:when test="${board.file_name1 eq ''}">
-										<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-									</c:when>
-									<c:when test="${board.file_name1 eq null}">
-										<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-									</c:when>
-									<c:otherwise >
-										<img src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}' >
-									</c:otherwise>
-								</c:choose>
-			        		</a>
+			        		   <c:if test="${board.file_name1 eq null}">
+									<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+								</c:if>
+								<c:if test="${board.file_name1 ne null}">
+								<img src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}' >
+								</c:if>
+		        		   
+			        		   </a>
 		        				
 		        		</div>
 		        		<div class="fh5co-desc">
