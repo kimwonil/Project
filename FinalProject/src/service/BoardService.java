@@ -240,6 +240,11 @@ public class BoardService {
 	public int totalPagePremium(String nickname) {
 		return boardDao.totalPagePremium(nickname);
 	}
+	
+	
+	public String premiumEndDate() {
+		return boardDao.premiumEndDate();
+	}
 
 	
 
