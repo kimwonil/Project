@@ -382,9 +382,17 @@ function totalPrice(){
 
 						<div class="item deal-info">
 							
-							판매자 닉네임 : <a href="profile.do?nickname=${board.writer}" id="writer" style="display: inline-block;">${board.writer}</a>
+							판매자 닉네임 : <a href="profile.do?nickname=${board.writer}" id="writer" style="display: inline-block;">${board.writer}</a><br>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
-							<button id="modify" value="${board.state}">글수정</button><br>
+<%-- 							<c:choose> --%>
+<%-- 								<c:when test="${member.admin eq 1}"> --%>
+<%-- 									<button id="modify" value="${board.state}">글수정</button> --%>
+<%-- 									<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button><br> --%>
+<%-- 								</c:when> --%>
+<%-- 								<c:when test="${member.nickname eq board.writer}"> --%>
+									<button id="modify" value="${board.state}">글수정</button>
+<%-- 								</c:when> --%>
+<%-- 							</c:choose> --%>
 							등록일 : ${board.date}<br>
 							마감일 : ${board.end_date}<br>
 							조회수 : ${board.read_count} <br>
@@ -392,7 +400,7 @@ function totalPrice(){
 
 							<table>
 								<tr>
-									<th>기본항목</th><td>${board.price}</td>
+									<th>기본항목</th><td><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</td>
 								</tr>
 								<c:if test="${board_option ne null}">
 									<tr>
@@ -412,7 +420,7 @@ function totalPrice(){
 								<table id="purchaseList">
 								<tr>
 								<td name="kind[]" class="kind">기본항목</td>
-								<td name="price[]" class="price">${board.price}</td>
+								<td name="price[]" class="price"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</td>
 								<td>
 									<table class="quantityBox" border="1" cellspacing="0">
 										<tr>
@@ -424,7 +432,7 @@ function totalPrice(){
 										</tr>
 									</table>
 								</td>
-								<td><div class="optionResult">${board.price}</div></td>
+								<td><div class="optionResult"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div></td>
 								<td>
 								</td>
 								</tr>

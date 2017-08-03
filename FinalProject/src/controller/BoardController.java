@@ -469,22 +469,21 @@ public class BoardController{
 		ModelAndView mav = new ModelAndView();
 		board.setCount(dealService.purchaseCount(no));
 		board.ratingForDetail();
-		
+		board.setFile_name1(boardService.selectThumbnail(no));
 		
 		mav.addObject("board", board);
 		
-		mav.setViewName("board/detail");
-		
-		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
-			mav.addObject("files", boardService.selectOneFromFile(no));
-		}
+//		if(boardService.selectOneFromFile(no) != null ){//file뽑아서 가져오고
+//			mav.addObject("files", boardService.selectOneFromFile(no));
+//		}
+		mav.addObject("files", boardService.selectOneFromFile(no)); //files가 존재하거나 null이거나 빈칸이거나 
 		if(boardService.selectBoard_option(no) != null){
 			System.out.println("컨트롤러에 selectOneBoard_option하러왔엉");
 			System.out.println(boardService.selectBoard_option(no));
 			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
 		
-		
+		mav.setViewName("board/detail");
 		return mav;
 	}
 
@@ -909,6 +908,20 @@ public class BoardController{
 		mav.addObject("pageName", "search.do");
 		mav.setViewName("board/searchResult");
 		return mav;
+	}
+	
+	
+	/**
+	 * 글삭
+	 * */
+	@RequestMapping("deleteBoard.do")
+	public String deleteBoard(int no){
+		System.out.println("deleteBoard.do");
+		System.out.println("삭제할 글번호 : "+no);
+		ModelAndView mav = new ModelAndView();
+		boardService.deleteBoard(no);
+		
+		return "redirect:load.do";
 	}
 	
 	
