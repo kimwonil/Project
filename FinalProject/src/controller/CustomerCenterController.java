@@ -461,6 +461,7 @@ public class CustomerCenterController {
 		result.put("no", notice.getNo());
 		result.put("title", notice.getTitle());
 		result.put("writer", notice.getWriter());
+		result.put("category_no", notice.getCategory_no());
 		result.put("HighName", HighName);
 		result.put("LowName", LowName);
 		result.put("content", notice.getContent());
@@ -819,9 +820,11 @@ public class CustomerCenterController {
 		result.put("no", report.getNo());
 		result.put("title", report.getTitle());
 		result.put("writer", report.getWriter());
+		result.put("category_no", report.getCategory_no());
 		result.put("HighName", HighName);
 		result.put("LowName", LowName);
 		result.put("content", report.getContent());
+		result.put("state", report.getState());
 		System.out.println(result);
 		String json = gson.toJson(result);
 		System.out.println(json);

@@ -23,7 +23,9 @@ public interface BoardDao {
 	public void udpateBoardRead_count(int no);
 	public List<Board> selectSearchResult(HashMap<String, Object> searchMap);
 	public List<Board> searchCategory(HashMap<String, Object> searchMap);
-	public int getCount();
+	public int getCount(); //일반글 수 
+	public int getCountForSearch(HashMap<String, Object> countParam); //전체 검색 record 수
+	public int getCountForCategorySearch(HashMap<String, Object> searchMap); //카테고리 검색 record 수
 	public List<Board> gageocksun(HashMap<String, Object> pagingParam);
 	public List<Board> panmaesun(HashMap<String, Object> pagingParam);
 	
@@ -53,8 +55,9 @@ public interface BoardDao {
 	//테이블명 : interest
 	public boolean insertInterest(HashMap<String, Object> params);
 	public HashMap<String, Object> selectOneInterest(HashMap<String, Object> params);
-	public List<HashMap<String, Object>> selectAllDips(String id);
+	public List<HashMap<String, Object>> selectAllDips(HashMap<String, Object> param);
 	public List<HashMap<String, Object>> dipsWithCategory(HashMap<String, Object> params);
+	public int getCountDips(String id);
 	
 	
 	//테이블명 : star_point
@@ -65,6 +68,15 @@ public interface BoardDao {
 	public List<Category> category();
 	public List<Category> categoryLow(int high_no);
 	public List<Board> latest(HashMap<String, Object> pagingParam);
+	
+	
+	
+	//프리미엄 등록
+	public int premium(HashMap<String, Object> map);
+	//프리미엄 갯수 조회
+	public int premiumCount();
+	//프리미엄 대기
+	public int premiumWaitting(HashMap<String, Object> map);
 
 	
 	

@@ -141,7 +141,12 @@ public class BoardController{
 		for(Board board : boardService.selectAllNormalBoard(pagingParam)){
 			int no = board.getNo();//글번호
 			String file_name1 = boardService.selectThumbnail(no);
-			board.setFile_name1(file_name1);
+//			if(file_name1 == null){
+//				board.setFile_name1("noimage.jpg");
+//			}else{
+				board.setFile_name1(file_name1);
+//			}
+	
 			board.ratingForMain();//별점평균넣기
 			normalList.add(board);
 		}//selectAllNormalBoard에 각각 file_name1 넣기 끝
@@ -320,6 +325,32 @@ public class BoardController{
 	
 	
 	/**
+	 * 메뉴 검색부분 카테고리 뿌리기
+	 * */
+	@RequestMapping("bringCategory.do")
+	public void bringCategory(HttpServletRequest req, HttpServletResponse resp){
+		System.out.println("bringCategory.do");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		List<Category> list = boardService.category();
+		System.out.println(list);
+		Gson gson = new Gson();
+		String json = gson.toJson(list);
+		
+		PrintWriter pw;
+		try {
+			pw = resp.getWriter();
+			pw.println(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	/**
 	 * 글쓰기(판매등록)
 	 * */
 	@RequestMapping("insertBoard.do")
@@ -328,6 +359,7 @@ public class BoardController{
 			@RequestParam(value="optionPrice[]") List<String> paramArray2, FileUpload files, 
 			HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		System.out.println("글넣기");
+		System.out.println(files);
 		
 		//세션에서 id가져와성 params에 넣자
 		String nickname = ((Member)session.getAttribute("member")).getNickName();
@@ -703,21 +735,34 @@ public class BoardController{
 	 * 찜목록으로 가기
 	 * */
 	@RequestMapping("dipsList.do")
-	public ModelAndView selectMyDips(String id, HttpSession session){
+	public ModelAndView selectMyDips(String id,
+			@RequestParam(defaultValue="1") int currentPage){
 		System.out.println("dipsList.do");
 		System.out.println(id);
 		ModelAndView mav = new ModelAndView();
 		
+		//페이징
+		Paging paging = new Paging(boardService.getCountDips(id), currentPage);
+		paging.boardPaging();
+		
+		HashMap<String, Object> param = new HashMap<>();
+		param.put("start", paging.getStart());
+		param.put("end", paging.getEnd());
+		param.put("id", id);
+		
 		List<Board> dipsList = new ArrayList<>();
 		
 		//해당 id가 찜한 글번호들
-		for(HashMap<String, Object> dips : boardService.selectAllDips(id)){
+		for(HashMap<String, Object> dips : boardService.selectAllDips(param)){
 			int no = Integer.parseInt(dips.get("board_no").toString());
 			Board board = boardService.selectOneBoard(no);
 			board.setFile_name1(boardService.selectThumbnail(no));
 			dipsList.add(board);
 		}
 		
+		mav.addObject("id", id);
+		mav.addObject("paging", paging);
+		mav.addObject("pageName", "dipsList.do");
 		mav.addObject("category", boardService.category());
 		mav.addObject("dipsList", dipsList);
 		mav.setViewName("board/dipsList");
@@ -816,58 +861,57 @@ public class BoardController{
 	 * 검색
 	 * */
 	@RequestMapping("search.do")
-	public ModelAndView search(HttpServletRequest req, HttpServletResponse resp){
+	public ModelAndView search(HttpServletRequest req, HttpServletResponse resp, HttpSession session,
+			@RequestParam(defaultValue="1") int currentPage,
+			@RequestParam(required=false) String word){
 		System.out.println("search.do");
 		ModelAndView mav = new ModelAndView();
-		System.out.println(req.getParameter("major"));
-		System.out.println(req.getParameter("word"));
+		HashMap<String, Object> searchMap = new HashMap<>();
+		searchMap.put("title", word);
+		searchMap.put("content", word);
+		String msgForH4 = "";
 		
 		if(req.getParameter("major").equals("all")){
 			System.out.println("전체검색");
 			
-			HashMap<String, Object> searchMap = new HashMap<>();
-			searchMap.put("title", req.getParameter("word"));
-			searchMap.put("content", req.getParameter("word"));
-			
-			List<Board> boardSearchList = new ArrayList<>();
-			
-			//검색결과로 뽑은 애들 보내기 전에 thumbnail 넣어주기
-			for(Board searchBoard : boardService.selectSearchResult(searchMap)){
-				int no = searchBoard.getNo();
-				Board boardWithThumbnail = boardService.selectOneBoard(no);
-				boardWithThumbnail.setFile_name1(boardService.selectThumbnail(no));
-				boardWithThumbnail.ratingForMain();
-				boardSearchList.add(boardWithThumbnail);
-			}
-			mav.addObject("categoryList", boardService.category());
+			//페이징 부분
+			Paging paging = new Paging(boardService.getCountForSearch(searchMap), currentPage);
+			paging.boardPaging();
+			System.out.println(paging);
+			searchMap.put("start", paging.getStart());
+			searchMap.put("end", paging.getEnd());
+			mav.addObject("paging", paging);
+			List<Board> boardSearchList = boardPlusThumbnail(boardService.selectSearchResult(searchMap));
 			mav.addObject("boardSearchList", boardSearchList);
-		
+			System.out.println(boardSearchList);
+
 		}else{
 			System.out.println("카테고리검색");
-			
-			HashMap<String, Object> searchMap = new HashMap<>();
-			searchMap.put("title", req.getParameter("word"));
-			searchMap.put("content", req.getParameter("word"));
+
+			//페이징 부분
 			searchMap.put("major", Integer.parseInt(req.getParameter("major").toString()));
+			Paging paging = new Paging(boardService.getCountForCategorySearch(searchMap), currentPage);
+			paging.boardPaging();
+			System.out.println(paging);
+			searchMap.put("start", paging.getStart());
+			searchMap.put("end", paging.getEnd());
+			mav.addObject("paging", paging);
 			
-			List<Board> boardSearchList = new ArrayList<>();
-			//검색결과로 뽑은 애들 보내기 전에 thumbnail 넣어주기
-			for(Board searchBoard : boardService.searchCategory(searchMap)){
-				int no = searchBoard.getNo();
-				Board boardWithThumbnail = boardService.selectOneBoard(no);
-				boardWithThumbnail.setFile_name1(boardService.selectThumbnail(no));
-				boardWithThumbnail.ratingForMain();
-				boardSearchList.add(boardWithThumbnail);
-			}
-			mav.addObject("categoryList", boardService.category());
+			List<Board> boardSearchList = boardPlusThumbnail(boardService.searchCategory(searchMap));
 			mav.addObject("boardSearchList", boardSearchList);
 		}
-
+		
+		mav.addObject("categoryList", boardService.category());
+		mav.addObject("word", word);
+		mav.addObject("major", req.getParameter("major"));
+		mav.addObject("pageName", "search.do");
 		mav.setViewName("board/searchResult");
 		return mav;
 	}
 	
 	
+	
+
 	
 	//글 뿌리러 가기 전에 List<Board>에 file_name1을 하나씩 끼워주는 애야
 	public List<Board> boardPlusThumbnail(List<Board> boardList){

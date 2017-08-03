@@ -14,8 +14,6 @@
 
 
 
-
-
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -343,8 +341,11 @@ function noticeList(page,type,keyword,start,end){
 			success:function(data){
 				console.log(data);
 				$('#noticePage tr:gt(0)').remove();
+// 				$('#noticePage').closest('li').remove(); 
 				var str="<tr><td align=\"center\">";
-
+				
+// 				var str="<li>";
+				
 				if(data.start!=1)
 					{
 					str=str+
@@ -1277,8 +1278,8 @@ function reportList(page,type,keyword,start,end){
 	
 	//신고 완료 메세지 전송
 			$(document).on('click','button[name=ReportClearBtn]',function(){
-
-				
+// 				alert($("#ReportClearBtn").val());
+// 				alert("aa");
 
 				$.ajax({
 					url:"ReportClear.do",
@@ -1417,102 +1418,102 @@ $(document).on('click','#reportResetBtn',function(){
 });
 </script>
 <style type="text/css">
-#tabs tr, #tabs td, #tabs th {
-	border: 1px solid black;
-}
+/* #tabs tr, #tabs td, #tabs th { */
+/* 	border: 1px solid black; */
+/* } */
 
-body {
-	line-height: 2em;
-	font-family: "맑은 고딕";
-}
+/* body { */
+/* 	line-height: 2em; */
+/* 	font-family: "맑은 고딕"; */
+/* } */
 
-ul, li {
-	list-style: none;
-	text-align: center;
-	padding: 0;
-	margin: 0;
-}
+/* ul, li { */
+/* 	list-style: none; */
+/* 	text-align: center; */
+/* 	padding: 0; */
+/* 	margin: 0; */
+/* } */
 
-#mainWrapper {
-	width: 800px;
-	margin: 0 auto; /*가운데 정렬*/
-}
+/* #mainWrapper { */
+/* 	width: 800px; */
+/* 	margin: 0 auto; /*가운데 정렬*/ */
+/* } */
 
-#mainWrapper>ul>li:first-child {
-	text-align: center;
-	font-size: 14pt;
-	height: 40px;
-	vertical-align: middle;
-	line-height: 30px;
-}
+/* #mainWrapper>ul>li:first-child { */
+/* 	text-align: center; */
+/* 	font-size: 14pt; */
+/* 	height: 40px; */
+/* 	vertical-align: middle; */
+/* 	line-height: 30px; */
+/* } */
 
-#ulTable {
-	margin-top: 10px;
-}
+/* #ulTable { */
+/* 	margin-top: 10px; */
+/* } */
 
-#ulTable>li:first-child>ul>li {
-	background-color: #c9c9c9;
-	font-weight: bold;
-	text-align: center;
-}
+/* #ulTable>li:first-child>ul>li { */
+/* 	background-color: #c9c9c9; */
+/* 	font-weight: bold; */
+/* 	text-align: center; */
+/* } */
 
-#ulTable>li>ul {
-	clear: both;
-	padding: 0px auto;
-	position: relative;
-	min-width: 40px;
-}
+/* #ulTable>li>ul { */
+/* 	clear: both; */
+/* 	padding: 0px auto; */
+/* 	position: relative; */
+/* 	min-width: 40px; */
+/* } */
 
-#ulTable>li>ul>li {
-	float: left;
-	font-size: 10pt;
-	border-bottom: 1px solid silver;
-	vertical-align: baseline;
-}
+/* #ulTable>li>ul>li { */
+/* 	float: left; */
+/* 	font-size: 10pt; */
+/* 	border-bottom: 1px solid silver; */
+/* 	vertical-align: baseline; */
+/* } */
 
-#ulTable>li>ul>li:first-child {
-	width: 10%;
-} /*No 열 크기*/
-#ulTable>li>ul>li:first-child+li {
-	width: 45%;
-} /*제목 열 크기*/
-#ulTable>li>ul>li:first-child+li+li {
-	width: 20%;
-} /*작성일 열 크기*/
-#ulTable>li>ul>li:first-child+li+li+li {
-	width: 15%;
-} /*작성자 열 크기*/
-#ulTable>li>ul>li:first-child+li+li+li+li {
-	width: 10%;
-} /*조회수 열 크기*/
-#divPaging {
-	clear: both;
-	margin: 0 auto;
-	width: 220px;
-	height: 50px;
-}
+/* #ulTable>li>ul>li:first-child { */
+/* 	width: 10%; */
+/* } /*No 열 크기*/ */
+/* #ulTable>li>ul>li:first-child+li { */
+/* 	width: 45%; */
+/* } /*제목 열 크기*/ */
+/* #ulTable>li>ul>li:first-child+li+li { */
+/* 	width: 20%; */
+/* } /*작성일 열 크기*/ */
+/* #ulTable>li>ul>li:first-child+li+li+li { */
+/* 	width: 15%; */
+/* } /*작성자 열 크기*/ */
+/* #ulTable>li>ul>li:first-child+li+li+li+li { */
+/* 	width: 10%; */
+/* } /*조회수 열 크기*/ */
+/* #divPaging { */
+/* 	clear: both; */
+/* 	margin: 0 auto; */
+/* 	width: 220px; */
+/* 	height: 50px; */
+/* } */
 
-#divPaging>div {
-	float: left;
-	width: 30px;
-	margin: 0 auto;
-	text-align: center;
-}
+/* #divPaging>div { */
+/* 	float: left; */
+/* 	width: 30px; */
+/* 	margin: 0 auto; */
+/* 	text-align: center; */
+/* } */
 
-#liSearchOption {
-	clear: both;
-}
+/* #liSearchOption { */
+/* 	clear: both; */
+/* } */
 
-#liSearchOption>div {
-	margin: 0 auto;
-	margin-top: 30px;
-	width: auto;
-	height: 100px;
-}
+/* #liSearchOption>div { */
+/* 	margin: 0 auto; */
+/* 	margin-top: 30px; */
+/* 	width: auto; */
+/* 	height: 100px; */
+/* } */
 
-.left {
-	text-align: left;
-}
+/* .left { */
+/* 	text-align: left; */
+/* } */
 </style>
 </head>
 <body>
@@ -1533,34 +1534,25 @@ ul, li {
 
 						<div class="fh5co-spacer fh5co-spacer-sm"></div>
 						<div id="tabs-1">
-<!-- 							<div> -->
-<!-- 								<tr> -->
-<!-- 									<th>카테고리</th> -->
-<!-- 									<th><select name="major" id="SearchnoticeMajor" style="font-size:11pt"> -->
-<!-- 											<option selected>대분류</option> -->
-<!-- 									</select> <select name="minor" id="SearchnoticeMinor" style="font-size:11pt"> -->
-<!-- 											<option selected>소분류</option> -->
-<!-- 											<option>대분류를 선택하세요</option> -->
-<!-- 									</select> -->
-<!-- 									<button id="noticeCategorySerchBtn">분류</button> -->
-<!-- 									<button id="noticeCategoryResetBtn">분류초기화</button> -->
-<!-- 									</th> -->
-<!-- 								</tr> -->
-<!-- 							</div> -->
-							<table id="noticeTable" style="width: 100%;">
+							<table id="noticeTable" class="table table-hover" style="width: 100%;">
+								<thead>
 								<tr>
 									<th width="15%">등록일</th>
 									<th width="10%">글번호</th>
 									<th width="30%">글제목</th>
 									<th width="20%">작성자</th>
 									<th width="10%">조회수</th>
-
 								</tr>
-
+								</thead>
 
 							</table>
 
-
+<!-- 							<div class="text-center"> -->
+<!-- 								<ul class="pagination" id="noticePage"> -->
+								
+								
+<!-- 								</ul> -->
+<!-- 							</div> -->
 							<table id="noticePage"
 								style="width: 100%; margin-left: auto; margin-right: auto;">
 								<tr>
@@ -1606,7 +1598,7 @@ ul, li {
 
 
 
-
+											
 											<table class="table">
 												<tr>
 													<th>카테고리</th>
@@ -1648,13 +1640,13 @@ ul, li {
 
 
 
-							<table id="qnaTable" style="width: 100%;">
+							<table id="qnaTable" class="table table-hover" style="width: 100%;">
 								<tr>
 									<th width="15%">등록일</th>
 									<th width="10%">글번호</th>
 									<th width="28%">글제목</th>
 									<th width="22%">작성자</th>
-									<th width="10%">답변상태</th>
+									<th width="15%">답변상태</th>
 									<th width="10%">조회수</th>
 
 								</tr>
@@ -1741,13 +1733,13 @@ ul, li {
 
 
 
-							<table id="reportTable" style="width: 100%;">
+							<table id="reportTable" class="table table-hover" style="width: 100%;">
 								<tr>
 									<th width="15%">등록일</th>
 									<th width="10%">글번호</th>
 									<th width="28%">글제목</th>
 									<th width="22%">작성자</th>
-									<th width="10%">처리상태</th>
+									<th width="15%">처리상태</th>
 									<th width="10%">조회수</th>
 								</tr>
 

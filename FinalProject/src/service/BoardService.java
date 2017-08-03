@@ -1,5 +1,6 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -71,6 +72,14 @@ public class BoardService {
 		return boardDao.getCount();
 	}
 	
+	public int getCountForSearch(HashMap<String, Object> countParam){
+		return boardDao.getCountForSearch(countParam);
+	}
+	
+	public int getCountForCategorySearch(HashMap<String, Object> searchMap) {
+		return boardDao.getCountForCategorySearch(searchMap);
+	}
+
 	public List<Board> gageocksun(HashMap<String, Object>pagingParam) {
 		return boardDao.gageocksun(pagingParam);
 	}
@@ -162,12 +171,16 @@ public class BoardService {
 		return boardDao.selectOneInterest(params);
 	}
 
-	public List<HashMap<String, Object>> selectAllDips(String id) {
-		return boardDao.selectAllDips(id);
+	public List<HashMap<String, Object>> selectAllDips(HashMap<String, Object> param) {
+		return boardDao.selectAllDips(param);
 	}
 
 	public List<HashMap<String, Object>> dipsWithCategory(HashMap<String, Object> params) {
 		return boardDao.dipsWithCategory(params);
+	}
+	
+	public int getCountDips(String id) {
+		return boardDao.getCountDips(id);
 	}
 	
 
@@ -190,12 +203,31 @@ public class BoardService {
 		return boardDao.categoryLow(high_no);
 	}
 
-
-
-
-
-
 	
+
+
+
+
+	/**
+	 * 프리미엄 등록
+	 * */
+	public int premium(HashMap<String, Object> map) {
+		return boardDao.premium(map);
+	}
+	
+	/**
+	 * 프리미엄 현재 갯수 조회
+	 * */
+	public int premiumCount() {
+		return boardDao.premiumCount();
+	}
+	
+	/**
+	 * 프리미엄 대기
+	 * */
+	public int premiumWaitting(HashMap<String, Object> map) {
+		return boardDao.premiumWaitting(map);
+	}
 
 	
 
