@@ -260,9 +260,9 @@
 	select count(no) from premium_waitting where nickname=#{nickname}
  </select>
  
-<!--  <select id="premiumEndDate" resultType="int"> -->
- 	
-<!--  </select> -->
+ <select id="premiumEndDate" resultType="java.util.Date">
+ 	select min(end_date) from premium_waitting where state=2
+ </select>
  
  </mapper>
  
