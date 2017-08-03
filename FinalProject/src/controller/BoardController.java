@@ -325,6 +325,32 @@ public class BoardController{
 	
 	
 	/**
+	 * 메뉴 검색부분 카테고리 뿌리기
+	 * */
+	@RequestMapping("bringCategory.do")
+	public void bringCategory(HttpServletRequest req, HttpServletResponse resp){
+		System.out.println("bringCategory.do");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		List<Category> list = boardService.category();
+		System.out.println(list);
+		Gson gson = new Gson();
+		String json = gson.toJson(list);
+		
+		PrintWriter pw;
+		try {
+			pw = resp.getWriter();
+			pw.println(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	/**
 	 * 글쓰기(판매등록)
 	 * */
 	@RequestMapping("insertBoard.do")
@@ -836,15 +862,14 @@ public class BoardController{
 	 * */
 	@RequestMapping("search.do")
 	public ModelAndView search(HttpServletRequest req, HttpServletResponse resp, HttpSession session,
-			@RequestParam(defaultValue="1") int currentPage){
+			@RequestParam(defaultValue="1") int currentPage,
+			@RequestParam(required=false) String word){
 		System.out.println("search.do");
 		ModelAndView mav = new ModelAndView();
-		System.out.println(req.getParameter("major"));
-		System.out.println(req.getParameter("word"));
 		HashMap<String, Object> searchMap = new HashMap<>();
-		searchMap.put("title", req.getParameter("word"));
-		searchMap.put("content", req.getParameter("word"));
-		
+		searchMap.put("title", word);
+		searchMap.put("content", word);
+		String msgForH4 = "";
 		
 		if(req.getParameter("major").equals("all")){
 			System.out.println("전체검색");
@@ -856,11 +881,10 @@ public class BoardController{
 			searchMap.put("start", paging.getStart());
 			searchMap.put("end", paging.getEnd());
 			mav.addObject("paging", paging);
-			
 			List<Board> boardSearchList = boardPlusThumbnail(boardService.selectSearchResult(searchMap));
-			
 			mav.addObject("boardSearchList", boardSearchList);
-		
+			System.out.println(boardSearchList);
+
 		}else{
 			System.out.println("카테고리검색");
 
@@ -874,12 +898,11 @@ public class BoardController{
 			mav.addObject("paging", paging);
 			
 			List<Board> boardSearchList = boardPlusThumbnail(boardService.searchCategory(searchMap));
-			
 			mav.addObject("boardSearchList", boardSearchList);
 		}
 		
 		mav.addObject("categoryList", boardService.category());
-		mav.addObject("word", req.getParameter("word"));
+		mav.addObject("word", word);
 		mav.addObject("major", req.getParameter("major"));
 		mav.addObject("pageName", "search.do");
 		mav.setViewName("board/searchResult");
