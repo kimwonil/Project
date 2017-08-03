@@ -68,6 +68,15 @@ public interface BoardDao {
 	public List<Category> category();
 	public List<Category> categoryLow(int high_no);
 	public List<Board> latest(HashMap<String, Object> pagingParam);
+	
+	
+	
+	//프리미엄 등록
+	public int premium(HashMap<String, Object> map);
+	//프리미엄 갯수 조회
+	public int premiumCount();
+	//프리미엄 대기
+	public int premiumWaitting(HashMap<String, Object> map);
 
 	
 	

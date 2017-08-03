@@ -208,10 +208,26 @@ public class BoardService {
 
 
 
-
-
-
+	/**
+	 * 프리미엄 등록
+	 * */
+	public int premium(HashMap<String, Object> map) {
+		return boardDao.premium(map);
+	}
 	
+	/**
+	 * 프리미엄 현재 갯수 조회
+	 * */
+	public int premiumCount() {
+		return boardDao.premiumCount();
+	}
+	
+	/**
+	 * 프리미엄 대기
+	 * */
+	public int premiumWaitting(HashMap<String, Object> map) {
+		return boardDao.premiumWaitting(map);
+	}
 
 	
 

@@ -35,7 +35,7 @@ text-align: center;
 				console.log(data);
 				
 				$('#tabs-1 > table tr:gt(0)').remove();
-				if(data == ""){
+				if(data.list == ""){
 					$('#tabs-1 > table').append(
 							'<tr><td colspan="6">내역이 없습니다.</td></tr>'		
 					);
@@ -82,7 +82,7 @@ text-align: center;
 				console.log(data);
 				
 				$('#tabs-2 > table tr:gt(0)').remove();
-				if(data == ""){
+				if(data.list == ""){
 					$('#tabs-2 > table').append(
 							'<tr><td colspan="5">내역이 없습니다.</td></tr>'		
 					);
@@ -130,7 +130,7 @@ text-align: center;
 				console.log(data);
 				
 				$('#tabs-3 > table tr:gt(0)').remove();
-				if(data == ""){
+				if(data.list == ""){
 					$('#tabs-3 > table').append(
 							'<tr><td colspan="4">내역이 없습니다.</td></tr>'		
 					);
@@ -378,16 +378,6 @@ text-align: center;
 							<li><a href="#tabs-2" id="completion">완료된 거래</a></li>
 							<li><a href="#tabs-3" id="canceled">취소된 거래</a></li>
 						</ul>
-						<div align="center">
-							<select>
-								<option>검색조건</option>
-								<option>닉네임</option>
-								<option>글제목</option>
-								<option>날짜</option>
-							</select>
-							<input type="text">
-							<button>검색</button>
-						</div>
 						<div id="tabs-1" >
 							<table>
 								<tr><th width="15%">등록일</th><th width="40%">글제목</th><th width="15%">판매자</th><th width="10%">총액</th><th width="10%">상태</th><th width="10%">비고</th></tr>

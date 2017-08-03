@@ -75,7 +75,7 @@ public class DealControll {
 	public void sellingList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id = ((Member)session.getAttribute("member")).getId();
+		String id = ((Member)session.getAttribute("member")).getNickName();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -107,7 +107,7 @@ public class DealControll {
 	public void sellingListManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id = ((Member)session.getAttribute("member")).getId();
+		String id = ((Member)session.getAttribute("member")).getNickName();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -169,7 +169,7 @@ public class DealControll {
 	public void purchase(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id = ((Member)session.getAttribute("member")).getId();
+		String id = ((Member)session.getAttribute("member")).getNickName();
 		int page = Integer.parseInt(request.getParameter("page"));
 		int state = Integer.parseInt(request.getParameter("state"));
 		HashMap<String, Object> map = new HashMap<>();
@@ -214,7 +214,7 @@ public class DealControll {
 	public void purchaseManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-//		String id = ((Member)session.getAttribute("member")).getId();
+//		String id = ((Member)session.getAttribute("member")).getNickName();
 		int page = Integer.parseInt(request.getParameter("page"));
 		int state = Integer.parseInt(request.getParameter("state"));
 		HashMap<String, Object> map = new HashMap<>();
@@ -290,7 +290,7 @@ public class DealControll {
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("state", state);
-		map.put("id", ((Member)session.getAttribute("member")).getId());
+		map.put("id", ((Member)session.getAttribute("member")).getNickName());
 		if(no != null) {
 			map.put("purchase_no", no);
 			dealService.progressState(map);
@@ -366,7 +366,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-		String id = ((Member)session.getAttribute("member")).getId();
+		String id = ((Member)session.getAttribute("member")).getNickName();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -402,7 +402,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-//		String id = ((Member)session.getAttribute("member")).getId();
+//		String id = ((Member)session.getAttribute("member")).getNickName();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 //		map.put("id", id);
@@ -438,7 +438,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-		String id = ((Member)session.getAttribute("member")).getId();
+		String id = ((Member)session.getAttribute("member")).getNickName();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -474,7 +474,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-//		String id = ((Member)session.getAttribute("member")).getId();
+//		String id = ((Member)session.getAttribute("member")).getNickName();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 //		map.put("id", id);
@@ -510,7 +510,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-		String id = ((Member)session.getAttribute("member")).getId();
+		String id = ((Member)session.getAttribute("member")).getNickName();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -546,7 +546,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-//		String id = ((Member)session.getAttribute("member")).getId();
+//		String id = ((Member)session.getAttribute("member")).getNickName();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 //		map.put("id", id);
@@ -572,4 +572,65 @@ public class DealControll {
 		}
 		
 	}
+	
+	
+	/**
+	 * 프리미엄 신청
+	 * */
+	@RequestMapping("premiumSelect.do")
+	public void premiumSelect(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+		int no = Integer.parseInt(request.getParameter("no"));
+		String title = boardService.selectOneBoard(no).getTitle();
+		
+		try {
+			response.getWriter().write(title);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 프리미엄 등록
+	 * */
+	@RequestMapping("premiumUpdate.do")
+	public void premiumUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		
+		HashMap<String, Object> map = new HashMap<>();
+		String nickname = ((Member)session.getAttribute("member")).getNickName();
+		int premium = Integer.parseInt(request.getParameter("premium"));
+		int no = Integer.parseInt(request.getParameter("no"));
+		int time = Integer.parseInt(request.getParameter("time"));
+		int price = 0;
+		
+		if(time == 7) {
+			price = 10000;
+		}else if(time == 14) {
+			price = 20000;
+		}else if(time == 30) {
+			price = 40000;
+		}else {
+			price = 60000;
+		}
+		map.put("nickname", nickname);
+		map.put("premium", premium);
+		map.put("no", no);
+		map.put("time", time);
+		map.put("price", price);
+		
+		if(boardService.premiumCount()>=20) {
+			boardService.premiumWaitting(map);
+		}else {
+			boardService.premium(map);
+		}
+		
+		
+		
+		
+		
+	}
+	
 }

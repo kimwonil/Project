@@ -234,6 +234,7 @@
  <select id="categoryLow" parameterType="int" resultType="Category">
  	select * from category_low where high_no=#{high_no}
  </select>
+<<<<<<< HEAD
  
  
  
@@ -241,8 +242,23 @@
  
  
  
+=======
+>>>>>>> wonil
  
  
+ <!-- 프리미엄 변환 -->
+ <update id="premium" parameterType="java.util.HashMap">
+ 	update board set premium = #{premium} where no=#{no}
+ </update> 
+ <!-- 프리미엄 갯수 조회 -->
+ <select id="premiumCount">
+ 	select count(no) from board where premium=0
+ </select>
+ <!-- 프리미엄 대기 -->
+ <insert id="premiumWaitting">
+ 	insert into premium_waitting values(0, #{no}, #{time}, #{price}, #{nickname}, sysdate())
+ </insert>
+ </mapper>
  
  
  
