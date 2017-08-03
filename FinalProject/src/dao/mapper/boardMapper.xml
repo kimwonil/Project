@@ -234,18 +234,7 @@
  <select id="categoryLow" parameterType="int" resultType="Category">
  	select * from category_low where high_no=#{high_no}
  </select>
-<<<<<<< HEAD
- 
- 
- 
- </mapper>
- 
- 
- 
-=======
->>>>>>> wonil
- 
- 
+
  <!-- 프리미엄 변환 -->
  <update id="premium" parameterType="java.util.HashMap">
  	update board set premium = #{premium} where no=#{no}
