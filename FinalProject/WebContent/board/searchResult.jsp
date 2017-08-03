@@ -92,10 +92,10 @@ text-align: center;
 }
 </style>
 <body>
+<input type="hidden" id="hiddenMajor" value="${major}">
 <div id="fh5co-main">
 	<div class="container">
 		<h4>검색결과</h4>
-		<div class="container">
 			<div class="row">
 	        	<div id="fh5co-board"  class="normal" data-columns>
 	        	
@@ -154,7 +154,6 @@ text-align: center;
 		        	
 				</div>
 			</div>
-		</div>
 		
 		<div>
 				<div class="fh5co-spacer fh5co-spacer-sm"></div>
