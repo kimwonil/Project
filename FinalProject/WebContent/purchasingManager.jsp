@@ -315,6 +315,7 @@ text-align: center;
 #tabs tr,#tabs td,#tabs th{
 	border: 1px solid black;
 	text-align: center;
+	height: 37px;
 }
 #tabs table{
 	width: 100%;

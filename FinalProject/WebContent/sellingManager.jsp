@@ -479,6 +479,7 @@
 #tabs tr,#tabs td,#tabs th,#purchaseTable td{
 	border: 1px solid black;
 	text-align: center;
+	height: 37px;
 }
 table{
 	width: 100%;
