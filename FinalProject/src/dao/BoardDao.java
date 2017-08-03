@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -82,6 +83,8 @@ public interface BoardDao {
 	public List<Premium> premiumList(HashMap<String, Object> map);
 	//프리미엄 페이징
 	public int totalPagePremium(String nickname);
+	
+	public Date premiumEndDate();
 
 	
 	

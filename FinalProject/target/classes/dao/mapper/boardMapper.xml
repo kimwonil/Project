@@ -248,7 +248,7 @@
  </select>
  <!-- 프리미엄 대기 -->
  <insert id="premiumWaitting" parameterType="java.util.HashMap">
- 	insert into premium_waitting values(0, #{no}, #{time}, #{price}, #{nickname}, #{state}, sysdate())
+ 	insert into premium_waitting values(0, #{no}, #{time}, #{price}, #{nickname}, #{state}, sysdate(), #{start}, #{end})
  </insert>
  
  <!-- 프리미엄 목록 조회 -->
@@ -259,6 +259,11 @@
  <select id="totalPagePremium" parameterType="String" resultType="int">
 	select count(no) from premium_waitting where nickname=#{nickname}
  </select>
+ 
+ <select id="premiumEndDate" resultType="java.util.Date">
+ 	select min(end_date) from premium_waitting where state=2
+ </select>
+ 
  </mapper>
  
  
