@@ -237,6 +237,10 @@ public class BoardService {
 		return boardDao.premiumList(map);
 	}
 
+	public int totalPagePremium(String nickname) {
+		return boardDao.totalPagePremium(nickname);
+	}
+
 	
 
 

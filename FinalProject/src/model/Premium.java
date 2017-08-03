@@ -3,6 +3,7 @@ package model;
 public class Premium {
 	private int no;
 	private int board_no;
+	private String title;
 	private int time;
 	private int price;
 	private String nickname;
@@ -15,8 +16,14 @@ public class Premium {
 	
 	@Override
 	public String toString() {
-		return "premium [no=" + no + ", board_no=" + board_no + ", time=" + time + ", price=" + price + ", nickname="
-				+ nickname + ", state=" + state + ", date=" + date + "]";
+		return "Premium [no=" + no + ", board_no=" + board_no + ", title=" + title + ", time=" + time + ", price="
+				+ price + ", nickname=" + nickname + ", state=" + state + ", date=" + date + "]";
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public Premium() {
 		super();

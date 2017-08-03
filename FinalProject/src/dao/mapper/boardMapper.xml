@@ -255,6 +255,10 @@
  <select id="premiumList" parameterType="java.util.HashMap" resultType="Premium">
 	select * from premium_waitting where nickname=#{nickname} order by no desc limit #{page}, 8
  </select>
+ <!-- 프리미엄 목록 페이징 -->
+ <select id="totalPagePremium" parameterType="String" resultType="int">
+	select count(no) from premium_waitting where nickname=#{nickname}
+ </select>
  </mapper>
  
  

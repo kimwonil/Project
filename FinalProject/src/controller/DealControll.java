@@ -587,8 +587,14 @@ public class DealControll {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("nickname", nickname);
 		map.put("page", page);
-		map.put("list", boardService.premiumList(map));
-		map.put("totalPage", 0);
+		List<Premium> list = boardService.premiumList(map);
+		
+		for(Premium premium : list) {
+			premium.setTitle(boardService.selectOneBoard(premium.getBoard_no()).getTitle());
+		}
+		
+		map.put("list", list);
+		map.put("totalPage", boardService.totalPagePremium(nickname));
 		String json = gson.toJson(map);
 		
 		try {

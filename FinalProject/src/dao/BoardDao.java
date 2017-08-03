@@ -80,6 +80,8 @@ public interface BoardDao {
 	public int premiumWaitting(HashMap<String, Object> map);
 	//프리미엄 목록 조회
 	public List<Premium> premiumList(HashMap<String, Object> map);
+	//프리미엄 페이징
+	public int totalPagePremium(String nickname);
 
 	
 	

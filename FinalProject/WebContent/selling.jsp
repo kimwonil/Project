@@ -219,13 +219,13 @@
 						);
 					} else {
 						console.log(data);
-// 						$.each(data.list, function(index, value) {
-// 							$('#tabs-5 > table').append(
-// 								'<tr><td><input type="radio" value="' + value.no + '" name="premiumRadio"></td><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
-// 								value.count + ' / ' + value.quantity + '</td><td>' + (value.state == 0 ? "대기중" : value.state == 1 ? "인원마감" : "마감일 초과") + '</td><td>' +
-// 								'<button class="btn-sm btn-info continueBtn" value="' + value.no + '">진행</button> <button class="btn-sm btn-info stopBtn" value="' + value.no + '">중단</button></td></tr>'
-// 							);
-// 						});
+						$.each(data.list, function(index, value) {
+							$('#tabs-5 > table').append(
+								'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
+								value.time + '</td><td>' + value.price + '</td><td>' +
+								value.state + '</td><td>비고</td></tr>'
+							);
+						});
 						$('#currentPage').val(data.page);
 						$('.prev').val(data.page == 0 ? 0 : data.page - 8);
 						$('.next').val(data.totalPage - 8 > data.page ? data.page + 8 : data.page);
