@@ -8133,3 +8133,9 @@ java.io.FileNotFoundException: C:\Users\kwi12\OneDrive\문서\GitHub\Project\.me
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-04 16:26:38.613
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-04 16:58:15.134
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-04 16:58:15.138
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
