@@ -516,7 +516,7 @@ $(document).ready(function(){
 										<input type="hidden" id="hidn3" name="info_title">
 										<input type="hidden" id="hidn4" name="lat">
 										<input type="hidden" id="hidn5" name="lng">
-										<input type="hidden" id="checkResult" name="checkResult">
+										<input type="hidden" id="optionResult" name="optionResult">
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션사항</th><th> 
