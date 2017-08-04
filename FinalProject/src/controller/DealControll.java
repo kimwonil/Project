@@ -81,7 +81,7 @@ public class DealControll {
 	public void sellingList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id = ((Member)session.getAttribute("member")).getNickName();
+		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -113,7 +113,7 @@ public class DealControll {
 	public void sellingListManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id = ((Member)session.getAttribute("member")).getNickName();
+		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -175,7 +175,7 @@ public class DealControll {
 	public void purchase(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id = ((Member)session.getAttribute("member")).getNickName();
+		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		int state = Integer.parseInt(request.getParameter("state"));
 		HashMap<String, Object> map = new HashMap<>();
@@ -220,7 +220,7 @@ public class DealControll {
 	public void purchaseManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-//		String id = ((Member)session.getAttribute("member")).getNickName();
+//		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		int state = Integer.parseInt(request.getParameter("state"));
 		HashMap<String, Object> map = new HashMap<>();
@@ -296,7 +296,7 @@ public class DealControll {
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("state", state);
-		map.put("id", ((Member)session.getAttribute("member")).getNickName());
+		map.put("id", ((Member)session.getAttribute("member")).getNickname());
 		if(no != null) {
 			map.put("purchase_no", no);
 			dealService.progressState(map);
@@ -346,7 +346,7 @@ public class DealControll {
 			
 			//star_point에 insert
 			Member member = (Member)session.getAttribute("member");
-			map.put("nickname", member.getNickName());
+			map.put("nickname", member.getNickname());
 			map.put("board_no", board_no);
 			map.put("purchase", purchase_no);
 			map.put("content", content);
@@ -372,7 +372,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-		String id = ((Member)session.getAttribute("member")).getNickName();
+		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -408,7 +408,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-//		String id = ((Member)session.getAttribute("member")).getNickName();
+//		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 //		map.put("id", id);
@@ -444,7 +444,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-		String id = ((Member)session.getAttribute("member")).getNickName();
+		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -480,7 +480,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-//		String id = ((Member)session.getAttribute("member")).getNickName();
+//		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 //		map.put("id", id);
@@ -516,7 +516,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-		String id = ((Member)session.getAttribute("member")).getNickName();
+		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -552,7 +552,7 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-//		String id = ((Member)session.getAttribute("member")).getNickName();
+//		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 //		map.put("id", id);
@@ -587,7 +587,7 @@ public class DealControll {
 	public void premiumList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String nickname = ((Member)session.getAttribute("member")).getNickName();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("nickname", nickname);
@@ -654,7 +654,7 @@ public class DealControll {
 		response.setContentType("text/xml;charset=UTF-8");
 		
 		HashMap<String, Object> map = new HashMap<>();
-		String nickname = ((Member)session.getAttribute("member")).getNickName();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		int premium = Integer.parseInt(request.getParameter("premium"));
 		int no = Integer.parseInt(request.getParameter("no"));
 		int time = Integer.parseInt(request.getParameter("time"));

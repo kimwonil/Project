@@ -47,7 +47,7 @@ public class MemberController {
 		if(memberService.selectOne(id)==null){
 		Member member = new Member();
 		member.setId(id);
-		member.setNickName(id);
+		member.setNickname(id);
 		memberService.memberInsert(member);
 		  // 결과를 보여줄 파일명
 		mv.setViewName("profile.do?id="+id);
