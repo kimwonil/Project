@@ -9,8 +9,11 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-<form action="loginsuccess.do" method="get">
+
+<form action="loginsuccess.do" method="get" name="id">
 <div id="EmailN" ></div>
+엉엉엉 : <input name="id"> <br>
+
 </form>
 
 <script type="text/javascript">
@@ -32,7 +35,7 @@ naver_id_login.get_naver_userprofile("naverSignInCallback()");
 		$('#EmailN').append(naverEmail);
 		
 		//test 0002 : 프로필페이지(id=메일)로 이동시도 
-	//	 location.replace("http://localhost:8080/FianlProject/profile.do?id="+naverEmail);
+		// location.replace("http://localhost:8080/FianlProject/profile.do?id="+naverEmail);
 
 		}
 	

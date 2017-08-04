@@ -28,8 +28,13 @@ public class MemeberService {
 	}
 	
 	//추가된 부분
-	public int memberInsert(Member member){
-		return memberDao.memberInsert(member);
+	public int memberInsert(HashMap<String, Object> params){
+		return memberDao.memberInsert(params);
+	}
+
+	public Member selectmember(String id) {
+		// TODO Auto-generated method stub
+		return memberDao.selectmember(id);
 	}
 	//추가된 부분
 	
@@ -159,5 +164,6 @@ public class MemeberService {
 	{
 		return memberDao.getMessage(id);
 	}
+
 	
 }

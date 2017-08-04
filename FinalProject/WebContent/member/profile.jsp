@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="../menu.jsp" %>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -34,10 +35,14 @@
 					<img src="<c:url value="/user/profile/${member.id}"/>/${member.photo}" alt="Free HTML5 template by FREEHTML5.co" class="img-rounded img-responsive photo">
 					<table id="mainTable" class="table">
 						<tr>
-							<td>아이디 : ${member.id}</td>
+							<td>아이디 : ${member.id } / ${id } </td>
 						</tr>
 						<tr>
+<<<<<<< HEAD
 							<td>닉네임 : ${member.nickname}</td>
+=======
+							<td>닉네임 : ${member.nickName} /  ${nickName } </td>
+>>>>>>> yuna
 						</tr>
 						<tr>
 							<td>사진 : ${member.photo==null?"사진 없음":member.photo}</td>
