@@ -38,34 +38,105 @@ public class MemberController {
 	Gson gson = new Gson();
 	
 	/**
-	 * 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)
+	 * 첫 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)
 	 * */
 
 	@RequestMapping("loginsuccess.do")
-	public ModelAndView emailjoin(String id, HttpServletRequest request, HttpSession session) {
-		ModelAndView mv = new ModelAndView("member/profile");
+	public String emailjoin(@RequestParam HashMap<String, Object> params, HttpSession session, HttpServletRequest request, String id){
+		System.out.println("간다 params.toString() 출력 : " + params.toString());
+		System.out.println("간다 params.get(따옴표id따옴표).tostring() 출력 : "+params.get("id").toString());
 		
-		//로그인 성공 -> 첫 로그인(id값이 db에 없어 저장해야 할때)
-		if(memberService.selectOne(id)==null){
+		System.out.println("형왜그래요"+memberService.selectmember(id));
+		id = request.getParameter("id");
+		System.out.println("왜그래"+memberService.selectmember(id));
+
+		if(memberService.selectmember(id)!=null){
+			
+			System.out.println("아따 험난하다 1  memberService.selectmember(id).toString() 출력 : "+ memberService.selectmember(id).toString());
+			
+			memberService.selectmember(id);
+			
+			Member member = (Member)session.getAttribute("member");
+			System.out.println("session으로 id값을 가져오는지 ? (첫 로그인 아님) : "+id);
+			
+			//		session.setAttribute("id", member.getId());
+			//		session.setAttribute(id, member.getId());
+			session.setAttribute("id", id);
+			session.setAttribute("nickName", member.getNickName());
+
+		}
+		
+		else if(memberService.selectmember(id)==null){
+		memberService.memberInsert(params);
+		//String id = request.getParameter("id");
+		
+		System.out.println("아따 험난하다 1  memberService.selectmember(id).toString() 출력 : "+ memberService.selectmember(id).toString());
+		
+		System.out.println("야이거 나오긴하냐1 = "+id);
+	
 		Member member = new Member();
 		member.setId(id);
-		member.setNickName(id);
-		memberService.memberInsert(member);
-		session.setAttribute("member", memberService.selectOne(id));
-
-		// 결과를 보여줄 파일명
-		//mv.setViewName("profile.do?id="+id);
-		return mv;
-	}
-		//로그인 성공 -> 첫 로그인이 아님(이미 id값이 db에 저장되어 있음)
-	else{
-		Member member = (Member)session.getAttribute("member");
-//		memberService.selectOne(id);
-		session.setAttribute("member", memberService.selectOne(id));
-
-		return mv;
-	}
+		if(member.getNickName()==null){
+		//닉네임 초기값을 이메일주소로 설정
+		member.setNickName(id);	
 		}
+		
+		System.out.println("member.getId() = "+member.getId());
+		
+	//	session.setAttribute("id", id);
+		session.setAttribute("id", member.getId());
+		//닉네임 초기값을 이메일주소로 설정
+		session.setAttribute("nickName", member.getNickName());
+		
+		session.setAttribute(id, member.getId());
+		System.out.println("세션 간다 가! : " + session.getAttribute(id));
+		}
+		
+		
+		return "redirect:profile.do?id="+session.getAttribute(id);
+	}
+	
+//	@RequestMapping("loginsuccess.do")
+//	public ModelAndView emailjoin(@RequestParam("id")String id, HttpServletRequest request, HttpSession session) {
+//		ModelAndView mv = new ModelAndView("member/profile");
+//		
+//		
+//		//로그인 성공 -> 첫 로그인(id값이 db에 없어 저장해야 할때)
+//		if(memberService.selectOne(id)==null){
+//		Member member = new Member();
+//		System.out.println("첫단계야 일단 오긴하니?");
+//		session.setAttribute("id", id);
+//		System.out.println("1.25단계야 id값이 일단 설정은 되니? " + id);
+//		member.setId(id);	
+//		System.out.println("1.5단계야 setid의 id값이 뭐니? : "+id);
+//		
+//		id = ((Member)session.getAttribute("member")).getId();
+//		System.out.println("session으로 id값을 가져오는지 ? (첫 로그인임) : "+id);
+//	
+//
+//
+//		System.out.println("member에서 setid할때 id값을 가져온건지 ? : "+member.getId());
+//		
+//		member.setNickName(id);
+//		memberService.memberInsert(member);
+//		session.setAttribute("member", memberService.selectOne(id));
+//
+//		// 결과를 보여줄 파일명
+//		//mv.setViewName("profile.do?id="+id);
+//		return mv;
+//	}
+//		//로그인 성공 -> 첫 로그인이 아님(이미 id값이 db에 저장되어 있음)
+//	else{
+//		Member member = (Member)session.getAttribute("member");
+//		id = ((Member)session.getAttribute("member")).getId();
+//		System.out.println("session으로 id값을 가져오는지 ? (첫 로그인 아님) : "+id);
+//
+////		memberService.selectOne(id);
+//		session.setAttribute("member", memberService.selectOne(id));
+//
+//		return mv;
+//	}
+//		}
 
 	
 //	public String emailjoin (String id, HttpSession session){

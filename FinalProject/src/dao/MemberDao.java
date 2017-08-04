@@ -13,7 +13,8 @@ public interface MemberDao {
 	public Member selectOne(String id);
 	public List<Member> selectAll();
 	//추가
-	public int memberInsert(Member member);
+	public int memberInsert(HashMap<String, Object> params);
+	public Member selectmember(String string);
 	//추가
 	public int memberUpdate(Member member);
 	public int memberDelete(String id);
@@ -48,4 +49,5 @@ public interface MemberDao {
 	public int getMessageCount(String id);
 	//알림에 띄울 확인 안한 메시지 
 	public List<Message> getMessage(String id);
+
 }

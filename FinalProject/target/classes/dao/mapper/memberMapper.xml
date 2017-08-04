@@ -16,9 +16,13 @@
  <!-- 추가한부분 -->
  
   <insert id="memberInsert" parameterType="Member">
- 	insert into member values(#{id},#{nickName},#{photo},#{balance},#{admin})
+ 	insert into member values(#{id} ,#{nickName})
+ 	<!--,#{photo},#{balance},#{admin} -->
  	 </insert>
- 
+ 	 
+  <select id="selectmember" parameterType="String" resultType="Member">
+ 	select * from member where id=#{id}
+ </select>
  
  <!-- 추가한부분 -->
  
