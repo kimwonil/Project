@@ -27,13 +27,19 @@
 			success:function(data){
 					console.log(data);
 				$('#tradeTable tr:gt(0)').remove();
-				$.each(data.list, function(index, value){
-					$('#tradeTable').append("<tr><td>"+value.date+"</td><td>"
-							+value.amount+"</td><td>"
-							+value.balance+"</td><td>"
-							+value.code+"</td><td>"
-							+(value.state==1?"충전":value.state==2?"구매":value.state==3?"환불":value.state==4?"정산대기":"정산완료")+"</td></tr>");	
-				});
+				
+				if(data.list == ""){
+					$('#tradeTable').append('<tr><td colspan="5">내역이 없습니다.</td></tr>');
+				}else{
+					$.each(data.list, function(index, value){
+						$('#tradeTable').append("<tr><td>"+value.date+"</td><td>"
+								+value.amount+"</td><td>"
+								+value.balance+"</td><td>"
+								+value.code+"</td><td>"
+								+(value.state==1?"충전":value.state==2?"구매":value.state==3?"환불":value.state==4?"정산대기":"정산완료")+"</td></tr>");	
+					});
+				}
+				
 				$('#currentPage').val(data.page);
 				$('#tabs-1 label').text(data.totalPage);
 				$('.prev').val(data.page==0?0:data.page-10);
@@ -58,14 +64,20 @@
 			success:function(data){
 //					console.log(data);
 				$('#exchangeTable tr:gt(0)').remove();
-				$.each(data.list, function(index, value){
-					$('#exchangeTable').append("<tr><td>"+value.date+"</td><td>"
-							+value.id+"</td><td>"
-							+value.request+"</td><td>"
-							+value.balance+"</td><td>"
-							+(value.state==1?"<button class='approvalBtn btn btn-info' value='"+value.no+"'>승인</button><button class='cancelBtn btn btn-info' value='"+value.no+"'>취소</button>":value.state==2?"환전완료":"환전취소")+"</td></tr>");					
-					
-				});		
+				
+				if(data.list == ""){
+					$('#exchangeTable').append('<tr><td colspan="5">내역이 없습니다.</td></tr>');
+				}else{
+					$.each(data.list, function(index, value){
+						$('#exchangeTable').append("<tr><td>"+value.date+"</td><td>"
+								+value.id+"</td><td>"
+								+value.request+"</td><td>"
+								+value.balance+"</td><td>"
+								+(value.state==1?"<button class='approvalBtn btn btn-info' value='"+value.no+"'>승인</button><button class='cancelBtn btn btn-info' value='"+value.no+"'>취소</button>":value.state==2?"환전완료":"환전취소")+"</td></tr>");					
+						
+					});
+				}
+				
 				$('#currentPage').val(data.page);
 				$('#tabs-2 label').text(data.totalPage);
 				$('.prev').val(data.page==0?0:data.page-6);
