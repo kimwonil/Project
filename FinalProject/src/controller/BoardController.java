@@ -395,8 +395,10 @@ public class BoardController{
 	 * */
 	@RequestMapping("insertBoard.do")
 	public ModelAndView board(
-			@RequestParam HashMap<String, Object> params, @RequestParam(value="option[]") List<String> paramArray1, 
-			@RequestParam(value="optionPrice[]") List<String> paramArray2, FileUpload files, 
+			@RequestParam HashMap<String, Object> params, 
+			@RequestParam(value="option[]", required=false) List<String> paramArray1, 
+			@RequestParam(value="optionPrice[]", required=false) List<String> paramArray2, 
+			FileUpload files, int optionResult,
 			HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		System.out.println("글넣기");
 		System.out.println(files);
@@ -415,16 +417,15 @@ public class BoardController{
 		}
 		//table:board에 넣기
 		boardService.insertBoard(params);
-		System.out.println(params.get("no"));
 		int no = Integer.parseInt(params.get("no").toString());
 		
-		//info_address가 있으면 table:map에 넣기
-		if(params.get("info_address") != null){
+		//위도가 있으면 table:map에 넣기
+		if(!params.get("lat").equals("")){
 			boardService.insertMap(params);
 		}
 
 		//files가 있으면 table:file에 넣기
-		if(files != null){
+		if(files.getFiles() != null){
 			boardService.insertFile(params);
 		}
 		
@@ -477,8 +478,10 @@ public class BoardController{
 		
 		//다시 뽑아서 글상세에서 보여주깅
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("board/detail");
-		mav.addObject("board", boardService.selectOneBoard(no));//board 뽑아서 가져오고
+		Board board = boardService.selectOneBoard(no);//방금 입력한 board 뽑아서 가져오고
+		board.setFile_name1(boardService.selectThumbnail(no));// 썸네일 넣어주고
+		mav.addObject("board", board);//실어주고
+		
 		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
 			mav.addObject("mapinfo", boardService.selectOneMap(no));
 		}
@@ -489,6 +492,7 @@ public class BoardController{
 			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
 		
+		mav.setViewName("board/detail");
 		return mav;
 	}
 	
