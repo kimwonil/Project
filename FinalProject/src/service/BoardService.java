@@ -251,6 +251,14 @@ public class BoardService {
 		return boardDao.currentPremium();
 	}
 
+	public Premium convertPremium() {
+		return boardDao.convertPremium();	
+	}
+
+	public int premiumWaittingUpdate(HashMap<String, Object> map) {
+		return boardDao.premiumWaittingUpdate(map);
+	}
+
 	
 
 

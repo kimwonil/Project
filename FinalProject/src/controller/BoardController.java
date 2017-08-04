@@ -128,12 +128,28 @@ public class BoardController{
 //		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		
 		
-//		Calendar cal = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance();
 		
 		for(Premium premium : boardService.currentPremium()) {
 			System.out.println(premium.getEnd_date() + "// 종료 날짜");
 			System.out.println(new Date() + "// 오늘 날짜");
-//			premium.getBoard_no()
+			
+			if(premium.getEnd_date().getTime() < new Date().getTime() ) {
+				HashMap<String, Object> map = new HashMap<>();
+				map.put("premium", 1);
+				map.put("no", premium.getBoard_no());
+				boardService.premium(map);
+				
+				map.put("no", boardService.convertPremium().getBoard_no());
+				map.put("premium", 0);
+				boardService.premium(map);
+				
+				map.put("state", 2);
+				boardService.premiumWaittingUpdate(map);
+				
+			}else {
+				System.out.println("안 지남");
+			}
 			
 		}
 		
