@@ -326,6 +326,7 @@ $(document).ready(function(){
 
     	
 	//대분류 선택하면 소분류 나와
+// 	$.when($.ready).then(function(){
    	$(document).on('change', '#major', function(){
    		$.ajax({
    			url:"categoryLow.do",
@@ -346,6 +347,8 @@ $(document).ready(function(){
    		});
    	});
 	
+   	
+   	
 	
    	//등록 마감일 당일기준으로 설정
 	document.getElementById('datePicker').valueAsDate = new Date();
@@ -360,7 +363,7 @@ $(document).ready(function(){
    		date = '0'+date; 
    	}
    	var dateVal = year+'-'+month+'-'+date;
-   	$('#dateForm').attr('min', dateVal);
+   	$('#datePicker').attr('min', dateVal);
 
 
 	
@@ -443,28 +446,28 @@ $(document).ready(function(){
 <script type="text/javascript">
 //function 모아둘거야
 
-function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
-  num = String(num).replace(/^\s+|\s+$/g, "");
+// function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
+//   num = String(num).replace(/^\s+|\s+$/g, "");
  
-  if(typeof opt == "undefined" || opt == "1"){
-    // 모든 10진수 (부호 선택, 자릿수구분기호 선택, 소수점 선택)
-    var regex = /^[+\-]?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+){1}(\.[0-9]+)?$/g;
-  }else if(opt == "2"){
-    // 부호 미사용, 자릿수구분기호 선택, 소수점 선택
-    var regex = /^(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+){1}(\.[0-9]+)?$/g;
-  }else if(opt == "3"){
-    // 부호 미사용, 자릿수구분기호 미사용, 소수점 선택
-    var regex = /^[0-9]+(\.[0-9]+)?$/g;
-  }else{
-    // only 숫자만(부호 미사용, 자릿수구분기호 미사용, 소수점 미사용)
-    var regex = /^[0-9]$/g;
-  }
+//   if(typeof opt == "undefined" || opt == "1"){
+//     // 모든 10진수 (부호 선택, 자릿수구분기호 선택, 소수점 선택)
+//     var regex = /^[+\-]?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+){1}(\.[0-9]+)?$/g;
+//   }else if(opt == "2"){
+//     // 부호 미사용, 자릿수구분기호 선택, 소수점 선택
+//     var regex = /^(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+){1}(\.[0-9]+)?$/g;
+//   }else if(opt == "3"){
+//     // 부호 미사용, 자릿수구분기호 미사용, 소수점 선택
+//     var regex = /^[0-9]+(\.[0-9]+)?$/g;
+//   }else{
+//     // only 숫자만(부호 미사용, 자릿수구분기호 미사용, 소수점 미사용)
+//     var regex = /^[0-9]$/g;
+//   }
  
-  if( regex.test(num) ){
-    num = num.replace(/,/g, "");
-    return isNaN(num) ? false : true;
-  }else{ return false;  }
-}
+//   if( regex.test(num) ){
+//     num = num.replace(/,/g, "");
+//     return isNaN(num) ? false : true;
+//   }else{ return false;  }
+// }
 
 
 
@@ -500,7 +503,7 @@ function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
 									</select>
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title"> </th></tr>
-									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" min="2017-08-06"> </th></tr>
+									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" > </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text" name="quantity"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
