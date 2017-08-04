@@ -46,7 +46,6 @@ public class MemberController {
 		System.out.println("간다 params.toString() 출력 : " + params.toString());
 		System.out.println("간다 params.get(따옴표id따옴표).tostring() 출력 : "+params.get("id").toString());
 		
-<<<<<<< HEAD
 		//로그인 성공 -> 첫 로그인(id값이 db에 없어 저장해야 할때)
 		if(memberService.selectOne(id)==null){
 		Member member = new Member();
@@ -54,11 +53,9 @@ public class MemberController {
 		member.setNickname(id);
 		memberService.memberInsert(member);
 		session.setAttribute("member", memberService.selectOne(id));
-=======
 		System.out.println("형왜그래요"+memberService.selectmember(id));
 		id = request.getParameter("id");
 		System.out.println("왜그래"+memberService.selectmember(id));
->>>>>>> yuna
 
 		if(memberService.selectmember(id)!=null){
 			
