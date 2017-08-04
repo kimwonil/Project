@@ -60,25 +60,25 @@ public class CustomerCenterController {
 	@RequestMapping("getMessageCount.do")
 	public void getMessageCount(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 	{
-//		response.setHeader("Content-Type", "application/xml");
-//		response.setContentType("text/xml;charset=UTF-8");
-//		String id="";
-//		System.out.println("메세지 카운터들어옴");
-//		if(((Member) session.getAttribute("member")).getId()!=null)
-//		{
-//		id = ((Member) session.getAttribute("member")).getId();
-//		int num=memberService.getMessageCount(id);
-//		try {
-//			
-//				String json = gson.toJson(num);
-//				System.out.println(json);
-//				response.getWriter().write(json);
-//			
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		}
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		String id="";
+		System.out.println("메세지 카운터들어옴");
+		if(((Member) session.getAttribute("member")).getId()!=null)
+		{
+		id = ((Member) session.getAttribute("member")).getId();
+		int num=memberService.getMessageCount(id);
+		try {
+			
+				String json = gson.toJson(num);
+				System.out.println(json);
+				response.getWriter().write(json);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
 	}
 	
 	@RequestMapping("getMessage.do")

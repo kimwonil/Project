@@ -222,7 +222,7 @@
 						$.each(data.list, function(index, value) {
 							$('#tabs-5 > table').append(
 								'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
-								value.time + '</td><td>' + value.formatPrice + '</td><td>' +
+								value.time + '일 </td><td>' + value.formatPrice + '</td><td>' +
 								(value.state==1?"대기중<br>"+value.start_date+"부터":value.state==2?"진행중<br>"+value.end_date+"까지":"종료") + '</td><td>비고</td></tr>'
 							);
 						});
@@ -744,12 +744,12 @@ table {
 						<div id="tabs-5">
 							<table>
 								<tr>
-									<th>등록일</th>
-									<th>글제목</th>
-									<th>기간</th>
-									<th>비용</th>
-									<th>상태</th>
-									<th>비고</th>
+									<th width="10%">등록일</th>
+									<th width="25%">글제목</th>
+									<th width="5%">기간</th>
+									<th width="5%">비용</th>
+									<th width="10%">상태</th>
+									<th width="5%">비고</th>
 								</tr>
 							</table>
 							<div>
