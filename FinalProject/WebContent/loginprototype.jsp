@@ -131,9 +131,6 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
     });
     
 </script>
-<form action="loginsuccess.do" method="post">
-카카오 이메일 : <div id=EmailK name="id"></div><br>
-</form>
 
 <!--                        Login - Kakao                         -->
 
@@ -193,9 +190,11 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
   
   </script>
 
-Google 이메일 : <div id="EmailG"> </div>
 
 <!--                        Login - Google                         -->
-
+<form action="loginsuccess.do" method="get">
+카카오 이메일 : <div id="EmailK"></div><br>
+Google 이메일 : <div id="EmailG"> </div>
+</form>
 </body>
 </html>

@@ -44,18 +44,25 @@ public class MemberController {
 	@RequestMapping("loginsuccess.do")
 	public ModelAndView emailjoin(String id, HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("member/profile");
+		
+		//로그인 성공 -> 첫 로그인(id값이 db에 없어 저장해야 할때)
 		if(memberService.selectOne(id)==null){
 		Member member = new Member();
 		member.setId(id);
 		member.setNickname(id);
 		memberService.memberInsert(member);
-		  // 결과를 보여줄 파일명
-		mv.setViewName("profile.do?id="+id);
+		session.setAttribute("member", memberService.selectOne(id));
+
+		// 결과를 보여줄 파일명
+		//mv.setViewName("profile.do?id="+id);
 		return mv;
 	}
+		//로그인 성공 -> 첫 로그인이 아님(이미 id값이 db에 저장되어 있음)
 	else{
 		Member member = (Member)session.getAttribute("member");
-		memberService.selectOne(id);
+//		memberService.selectOne(id);
+		session.setAttribute("member", memberService.selectOne(id));
+
 		return mv;
 	}
 		}
