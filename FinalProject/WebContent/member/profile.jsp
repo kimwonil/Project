@@ -59,10 +59,10 @@
 					<br><br>
 					<table>
 						<tr>
-							<td>판매완료 : 00건</td>
+							<td>판매완료 : <a id="sellingTag" href="#">0건</a></td>
 						</tr>
 						<tr>
-							<td>구매완료 : 00건</td>
+							<td>구매완료 : <a id="purchaseTag" href="#">0건</a></td>
 						</tr>
 						<tr>
 							<td>판매평점 : 00점</td>

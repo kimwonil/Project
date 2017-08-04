@@ -97,13 +97,19 @@
 				success:function(data){
 // 					console.log(data);
 					$('#tradeTable tr:gt(0)').remove();
-					$.each(data.list,function(index, value){
-						$('#tradeTable').append("<tr><td>"+value.date+"</td><td>"
-														+value.amount+"</td><td>"
-														+value.balance+"</td><td>"
-														+value.code+"</td><td>"
-														+(value.state==1?"충전":value.state==2?"구매":value.state==3?"환불":value.state==4?"정산대기":"정산완료")+"</td></tr>");
-					});
+					
+					if(data.list == ""){
+						$('#tradeTable').append('<tr><td colspan="5">내역이 없습니다.</td></tr>');
+					}else{
+						$.each(data.list,function(index, value){
+							$('#tradeTable').append("<tr><td>"+value.date+"</td><td>"
+															+value.amount+"</td><td>"
+															+value.balance+"</td><td>"
+															+value.code+"</td><td>"
+															+(value.state==1?"충전":value.state==2?"구매":value.state==3?"환불":value.state==4?"정산대기":"정산완료")+"</td></tr>");
+						});
+					}
+					
 					$('.prev').val(data.page==0?0:data.page-10);
 					$('.next').val(data.totalPage-10>data.page?data.page+10:data.page);					
 
@@ -180,12 +186,16 @@
 					console.log(data);
 					$('#exchangeTable tr:gt(0)').remove();
 
-					$.each(data.list, function(index, value){
-						$('#exchangeTable').append("<tr><td>"+value.date+"</td><td>"
-								+value.request+"</td><td>"
-								+value.balance+"</td><td>"
-								+(value.state==1?"환전대기":value.state==2?"환전완료":"환전취소")+"</td></tr>");	
-					});
+					if(data.list == ""){
+						$('#exchangeTable').append('<tr><td colspan="4">내역이 없습니다.</td></tr>');
+					}else{
+						$.each(data.list, function(index, value){
+							$('#exchangeTable').append("<tr><td>"+value.date+"</td><td>"
+									+value.request+"</td><td>"
+									+value.balance+"</td><td>"
+									+(value.state==1?"환전대기":value.state==2?"환전완료":"환전취소")+"</td></tr>");	
+						});
+					}
 					
 					$('.prev').val(data.page==0?0:data.page-10);
 					$('.next').val(data.totalPage-10>data.page?data.page+10:data.page);	
@@ -210,51 +220,51 @@
 	
 </script>
 <style type="text/css">
-	#cashTable{
-		width: 700px;
-		height: 100px;
-		text-align: center;
-	}
-	#refillCash{
-		margin-top: 20px;
-	}
-	#balanceTD{
-		border:1px solid black;
-		border-radius:20px;
-		height: 80px;
-		width: 200px;
-		line-height: 80px;
-		margin-left: 70px;
-	}
-	#refillTable{
-		border:1px solid black;
-		width:500px;
-		text-align:center;
-		margin: 0 auto;
-	}
-	#tradeTable, #exchangeTable{
-		width:700px;
-		text-align: center;
-		margin: 0 auto;
-	}
-	#tradeTable td, #exchangeTable td{
-		
-		border:1px solid black;
-	}
+#cashTable{
+	width: 700px;
+	height: 100px;
+	text-align: center;
+}
+#refillCash{
+	margin-top: 20px;
+}
+#balanceTD{
+	border:1px solid black;
+	border-radius:20px;
+	height: 80px;
+	width: 200px;
+	line-height: 80px;
+	margin-left: 70px;
+}
+#refillTable{
+	border:1px solid black;
+	width:500px;
+	text-align:center;
+	margin: 0 auto;
+}
+#tradeTable, #exchangeTable{
+	width:700px;
+	text-align: center;
+	margin: 0 auto;
+}
+#tradeTable td, #exchangeTable td{
 	
-	#tabs-2 div, #tabs-4 div{
-		text-align:center;
-		position: absolute;
-		top: 90%;
-		left: 40%;
-	}
-	#tabs-2, #tabs-4{
-		height: 370px;
-	}
-	.col-md-8{
-		position: relative;
-		left: 10%;
-	}
+	border:1px solid black;
+}
+
+#tabs-2 div, #tabs-4 div{
+	text-align:center;
+	position: absolute;
+	top: 90%;
+	left: 40%;
+}
+#tabs-2, #tabs-4{
+	height: 370px;
+}
+.col-md-8{
+	position: relative;
+	left: 10%;
+}
 
 </style>
 </head>

@@ -26,16 +26,21 @@ $(document).ready(function(){
 			success:function(data){
 				console.log(data);
 				$('#talentList tr:gt(1)').remove();
-				$.each(data.list, function(index, value){
-					$('#talentList').append(
-						"<tr><td>"+value.no+"</td><td>"+
-						value.id+"</td><td>"+
-						value.category_no+"</td><td>"+
-						value.date+"</td><td>"+
-						"<button value='"+value.no+"' class='btn-sm btn-info detailBtn'>상세보기</button></td><td>"+
-						"<button type='button' value='"+value.no+"' class='btn btn-sm btn-info approvalBtn' >승인</button> / <button type='button' value='"+value.no+"' class='btn btn-sm btn-danger cancelBtn' >취소</button></td></tr>"
-					);
-				});	
+				if(data.list == ""){
+					$('#talentList').append('<tr><td colspan="6">내역이 없습니다.</td></tr>');
+				}else{
+					$.each(data.list, function(index, value){
+						$('#talentList').append(
+							"<tr><td>"+value.no+"</td><td>"+
+							value.id+"</td><td>"+
+							value.category_no+"</td><td>"+
+							value.date+"</td><td>"+
+							"<button value='"+value.no+"' class='btn-sm btn-info detailBtn'>상세보기</button></td><td>"+
+							"<button type='button' value='"+value.no+"' class='btn btn-sm btn-info approvalBtn' >승인</button> / <button type='button' value='"+value.no+"' class='btn btn-sm btn-danger cancelBtn' >취소</button></td></tr>"
+						);
+					});	
+				}
+				
 				$('#currentPage').val(data.page);
 				$('.prev').val(data.page==0?0:data.page-10);
 				$('.next').val(data.totalPage-10>data.page?data.page+10:data.page);

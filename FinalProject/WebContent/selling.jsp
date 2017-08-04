@@ -593,14 +593,18 @@
 			
 			
 		});
-
+		
 	}); //document ready
+	
+	
+	
+	
+	
 </script>
 <style type="text/css">
 #tabs tr, #tabs td, #tabs th, #purchaseTable td {
-	border: 1px solid black;
 	text-align: center;
-	height: 37px;
+	height: 37px; 
 }
 
 table {
@@ -649,6 +653,13 @@ table {
 	left: 81%;
 	top: 2%;
 }
+#tabs table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+#tabs table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
+}
 </style>
 </head>
 <body>
@@ -673,7 +684,7 @@ table {
 						<input type="button" value="프리미엄 신청" id="premiumBtn"
 							class="btn-sm btn-info">
 						<div id="tabs-1">
-							<table>
+							<table id="tab1table">
 								<tr>
 									<th width="5%">선택</th>
 									<th width="15%">등록일</th>
