@@ -63,13 +63,13 @@ public class MemberController {
 			
 			memberService.selectmember(id);
 			
-			Member member = (Member)session.getAttribute("member");
+			member = (Member)session.getAttribute("member");
 			System.out.println("session으로 id값을 가져오는지 ? (첫 로그인 아님) : "+id);
 			
 			//		session.setAttribute("id", member.getId());
 			//		session.setAttribute(id, member.getId());
 			session.setAttribute("id", id);
-			session.setAttribute("nickName", member.getNickName());
+			session.setAttribute("nickName", member.getNickname());
 
 		}
 		
@@ -83,9 +83,9 @@ public class MemberController {
 	
 		Member member = new Member();
 		member.setId(id);
-		if(member.getNickName()==null){
+		if(member.getNickname()==null){
 		//닉네임 초기값을 이메일주소로 설정
-		member.setNickName(id);	
+		member.setNickname(id);	
 		}
 		
 		System.out.println("member.getId() = "+member.getId());
@@ -93,7 +93,7 @@ public class MemberController {
 	//	session.setAttribute("id", id);
 		session.setAttribute("id", member.getId());
 		//닉네임 초기값을 이메일주소로 설정
-		session.setAttribute("nickName", member.getNickName());
+		session.setAttribute("nickName", member.getNickname());
 		
 		session.setAttribute(id, member.getId());
 		System.out.println("세션 간다 가! : " + session.getAttribute(id));
