@@ -176,58 +176,61 @@
 	
 </script>
 <style type="text/css">
-	#cashTable{
-		width: 700px;
-		height: 100px;
-		text-align: center;
-	}
-	#refillCash{
-		margin-top: 20px;
-	}
-	#balanceTD{
-		border:1px solid black;
-		border-radius:20px;
-		height: 80px;
-		width: 200px;
-		line-height: 80px;
-		margin-left: 70px;
-	}
-	#refillTable{
-		border:1px solid black;
-		width:500px;
-		text-align:center;
-		margin: 0 auto;
-	}
-	#tradeTable, #exchangeTable{
-		width:700px;
-		text-align: center;
-		margin: 0 auto;
-	}
-	#tradeTable td, #exchangeTable td{
-		
-		border:1px solid black;
-	}
-	.btn{
-		line-height:15px;
-		margin: 10px 10px;
-		padding: 3px;
-	}
-	#tabs-2 div, #tabs-1 div{
-		text-align:center;
-		position: absolute;
-		top: 90%;
-		left: 40%;
-	}
-	#tabs-2, #tabs-1{
-		height: 420px;
-	}
-	.col-md-8{
-		position: relative;
-		left: 10%;
-	}
-	#tabs-2 tr{
-		height: 45px;
-	}
+#cashTable{
+	width: 700px;
+	height: 100px;
+	text-align: center;
+}
+#refillCash{
+	margin-top: 20px;
+}
+#balanceTD{
+	border:1px solid black;
+	border-radius:20px;
+	height: 80px;
+	width: 200px;
+	line-height: 80px;
+	margin-left: 70px;
+}
+#refillTable{
+	border:1px solid black;
+	width:500px;
+	text-align:center;
+	margin: 0 auto;
+}
+#tradeTable, #exchangeTable{
+	width:700px;
+	text-align: center;
+	margin: 0 auto;
+}
+.btn{
+	line-height:15px;
+	margin: 10px 10px;
+	padding: 3px;
+}
+#tabs-2 div, #tabs-1 div{
+	text-align:center;
+	position: absolute;
+	top: 90%;
+	left: 40%;
+}
+#tabs-2, #tabs-1{
+	height: 420px;
+}
+.col-md-8{
+	position: relative;
+	left: 10%;
+}
+#tabs-2 tr{
+	height: 45px;
+}
+#tabs table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+#tabs table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
+}
 
 </style>
 </head>

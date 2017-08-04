@@ -313,7 +313,6 @@ text-align: center;
 <style type="text/css">
 
 #tabs tr,#tabs td,#tabs th{
-	border: 1px solid black;
 	text-align: center;
 	height: 37px;
 }
@@ -358,6 +357,13 @@ text-align: center;
 .col-md-8{
 	position: relative;
 	left: 10%;
+}
+#tabs table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+#tabs table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
 }
 </style>
 </head>

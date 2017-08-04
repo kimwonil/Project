@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 
+
+
+
+
 </script>
 <style type="text/css">
 	#miniProfile{
@@ -50,19 +54,19 @@
 		<td><input type="button" value="충전" class="btn btn-sm btn-info"></td>
 	</tr>
 	<tr>
-		<td>나의 재능 : 0건</td>
+		<td>나의 재능 : <a id="authorityTag" href="#">0건</a></td>
 	</tr>
 	<tr>
-		<td>판매중인 재능 : 0건</td>
+		<td>판매중인 재능 : <a id="sellingTag" href="#">0건</a></td>
 	</tr>
 	<tr>
-		<td>거래중인 재능 : 0건</td>
+		<td>거래중인 재능 : <a id="purchasingTag" href="#">0건</a></td>
 	</tr>
 	<tr>
-		<td>관심 재능 : 0건</td>
+		<td>관심 재능 : <a id="interestTag" href="#">0건</a></td>
 	</tr>
 	<tr>
-		<td>쪽지 : 0건</td>
+		<td>쪽지 : <a id="messageTag" href="#">0건</a></td>
 	</tr>
 </table>
 </div>

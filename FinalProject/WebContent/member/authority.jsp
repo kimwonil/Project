@@ -39,8 +39,8 @@ $(document).ready(function(){
 								value.date+"</td><td>"+
 								(value.state==1?"승인 대기 / <button value='"+value.no+"' type='button' class='btn btn-sm btn-danger authorityDelete' data-toggle='modal' data-target='#deleteModal' >삭제</button>":value.state==2?"승인":"취소")+"</td></tr>"
 						);
-						$('.prev').val(data.page==0?0:data.page-10);
-						$('.next').val(data.totalPage-10>data.page?data.page+10:data.page);	
+						$('.prev').val(data.page==0?0:data.page-7);
+						$('.next').val(data.totalPage-7>data.page?data.page+7:data.page);	
 					});
 				}
 			},

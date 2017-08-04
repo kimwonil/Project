@@ -477,7 +477,6 @@
 <style type="text/css">
 
 #tabs tr,#tabs td,#tabs th,#purchaseTable td{
-	border: 1px solid black;
 	text-align: center;
 	height: 37px;
 }
@@ -504,19 +503,26 @@ table{
 	width: 100%;
 }
 
-	#tabs-1 div, #tabs-2 div, #tabs-3 div, #tabs-4 div{
-		text-align:center;
-		position: absolute;
-		top: 90%;
-		left: 40%;
-	}
-	#tabs-1, #tabs-2, #tabs-3, #tabs-4{
-		height: 400px;
-	}
-	.col-md-8{
-		position: relative;
-		left: 10%;
-	}
+#tabs-1 div, #tabs-2 div, #tabs-3 div, #tabs-4 div{
+	text-align:center;
+	position: absolute;
+	top: 90%;
+	left: 40%;
+}
+#tabs-1, #tabs-2, #tabs-3, #tabs-4{
+	height: 400px;
+}
+.col-md-8{
+	position: relative;
+	left: 10%;
+}
+#tabs table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+#tabs table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
+}
 
 
 </style>
