@@ -1684,229 +1684,17 @@ $(document).on('click','#reportResetBtn',function(){
 });
 </script>
 <style type="text/css">
-/* #tabs tr, #tabs td, #tabs th { */
-/* 	border: 1px solid black; */
-/* } */
+#tabs table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+#tabs table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
+}
+#tabs table{
+	text-align: center;
+}
 
-/* body { */
-/* 	line-height: 2em; */
-/* 	font-family: "맑은 고딕"; */
-/* } */
-
-/* ul, li { */
-/* 	list-style: none; */
-/* 	text-align: center; */
-/* 	padding: 0; */
-/* 	margin: 0; */
-/* } */
-
-/* #mainWrapper { */
-/* 	width: 800px; */
-/* 	margin: 0 auto; /*가운데 정렬*/
-*
-/
-/* } */
-
-/* #mainWrapper>ul>li:first-child { */
-/* 	text-align: center; */
-/* 	font-size: 14pt; */
-/* 	height: 40px; */
-/* 	vertical-align: middle; */
-/* 	line-height: 30px; */
-/* } */
-
-/* #ulTable { */
-/* 	margin-top: 10px; */
-/* } */
-
-/* #ulTable>li:first-child>ul>li { */
-/* 	background-color: #c9c9c9; */
-/* 	font-weight: bold; */
-/* 	text-align: center; */
-/* } */
-
-/* #ulTable>li>ul { */
-/* 	clear: both; */
-/* 	padding: 0px auto; */
-/* 	position: relative; */
-/* 	min-width: 40px; */
-/* } */
-
-/* #ulTable>li>ul>li { */
-/* 	float: left; */
-/* 	font-size: 10pt; */
-/* 	border-bottom: 1px solid silver; */
-/* 	vertical-align: baseline; */
-/* } */
-
-/* #ulTable>li>ul>li:first-child { */
-/* 	width: 10%; */
-/* } /*No 열 크기*/
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-*
-/
-/* #ulTable>li>ul>li:first-child+li { */
-/* 	width: 45%; */
-/* } /*제목 열 크기*/
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-*
-/
-/* #ulTable>li>ul>li:first-child+li+li { */
-/* 	width: 20%; */
-/* } /*작성일 열 크기*/
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-*
-/
-/* #ulTable>li>ul>li:first-child+li+li+li { */
-/* 	width: 15%; */
-/* } /*작성자 열 크기*/
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-*
-/
-/* #ulTable>li>ul>li:first-child+li+li+li+li { */
-/* 	width: 10%; */
-/* } /*조회수 열 크기*/
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-*
-/
-/* #divPaging { */
-/* 	clear: both; */
-/* 	margin: 0 auto; */
-/* 	width: 220px; */
-/* 	height: 50px; */
-/* } */
-
-/* #divPaging>div { */
-/* 	float: left; */
-/* 	width: 30px; */
-/* 	margin: 0 auto; */
-/* 	text-align: center; */
-/* } */
-
-/* #liSearchOption { */
-/* 	clear: both; */
-/* } */
-
-/* #liSearchOption>div { */
-/* 	margin: 0 auto; */
-/* 	margin-top: 30px; */
-/* 	width: auto; */
-/* 	height: 100px; */
-/* } */
-
-/* .left { */
-/* 	text-align: left; */
-/* } */
 </style>
 </head>
 <body>
@@ -1927,9 +1715,8 @@ $(document).on('click','#reportResetBtn',function(){
 
 						<div class="fh5co-spacer fh5co-spacer-sm"></div>
 						<div id="tabs-1">
-							<table id="noticeTable" class="table table-hover"
+							<table id="noticeTable" 
 								style="width: 100%;">
-								<thead>
 									<tr>
 										<th width="15%">등록일</th>
 										<th width="10%">글번호</th>
@@ -1937,7 +1724,6 @@ $(document).on('click','#reportResetBtn',function(){
 										<th width="20%">작성자</th>
 										<th width="10%">조회수</th>
 									</tr>
-								</thead>
 
 							</table>
 
@@ -2034,7 +1820,7 @@ $(document).on('click','#reportResetBtn',function(){
 
 
 
-							<table id="qnaTable" class="table table-hover"
+							<table id="qnaTable" 
 								style="width: 100%;">
 								<tr>
 									<th width="15%">등록일</th>
@@ -2132,7 +1918,7 @@ $(document).on('click','#reportResetBtn',function(){
 
 
 
-							<table id="reportTable" class="table table-hover"
+							<table id="reportTable" 
 								style="width: 100%;">
 								<tr>
 									<th width="15%">등록일</th>

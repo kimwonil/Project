@@ -38,7 +38,11 @@
 							<td>아이디 : ${member.id } / ${id } </td>
 						</tr>
 						<tr>
+<<<<<<< HEAD
+							<td>닉네임 : ${member.nickname}</td>
+=======
 							<td>닉네임 : ${member.nickName} /  ${nickName } </td>
+>>>>>>> yuna
 						</tr>
 						<tr>
 							<td>사진 : ${member.photo==null?"사진 없음":member.photo}</td>
@@ -60,10 +64,10 @@
 					<br><br>
 					<table>
 						<tr>
-							<td>판매완료 : 00건</td>
+							<td>판매완료 : <a id="sellingTag" href="#">0건</a></td>
 						</tr>
 						<tr>
-							<td>구매완료 : 00건</td>
+							<td>구매완료 : <a id="purchaseTag" href="#">0건</a></td>
 						</tr>
 						<tr>
 							<td>판매평점 : 00점</td>

@@ -25,11 +25,15 @@
 			success:function(data){
 				console.log(data);
 				$('#messageTable tr:gt(0)').remove();
-				for(var i=0;i<data.length;i++){
-				$('#messageTable').append("<tr><td>"+data[i].date+"</td><td><a id='"+data[i].no+"'class='messageDetail' data-toggle='modal' data-target='#messageModal'>"
-												+data[i].title+"</a></td><td>"
-												+data[i].sender+"</td><td>"
-												+(data[i].state==1?"읽지 않음":"읽음")+"</td></tr>");
+				if(data == ""){
+					$('#messageTable').append('<tr><td colspan="4">내역이 없습니다.</td></tr>');
+				}else{
+					for(var i=0;i<data.length;i++){
+						$('#messageTable').append("<tr><td>"+data[i].date+"</td><td><a id='"+data[i].no+"'class='messageDetail' data-toggle='modal' data-target='#messageModal'>"
+													+data[i].title+"</a></td><td>"
+													+data[i].sender+"</td><td>"
+													+(data[i].state==1?"읽지 않음":"읽음")+"</td></tr>");
+					}
 				}
 			},
 			error:function(jqXHR, textStatus, errorThrown){
@@ -95,35 +99,54 @@
 	
 </script>
 <style type="text/css">
-	#messageTable{
-		text-align: center;
-	}
-	#messageTable, #messageWrite{
-		width:700px;
-		margin: 0 auto;
-		
-	}
-	#messageDetail{
-		width: 548px;
-		margin: 0 auto;
-	}
-	#messageDetail > button{
-		margin: 0 auto;
-	}
-	#messageTable td{
-		
-		border:1px solid black;
-	}
-	textarea{
-		resize:none;
-		overflow: hidden;
-	}
-	.messageInput{
-		width: 300px;
-	}
-	#messageBtn{
-		margin:0 auto;
-	}
+#messageTable{
+	text-align: center;
+}
+#messageTable, #messageWrite{
+	width:700px;
+	margin: 0 auto;
+	
+}
+#messageDetail{
+	width: 548px;
+	margin: 0 auto;
+}
+#messageDetail > button{
+	margin: 0 auto;
+}
+textarea{
+	resize:none;
+	overflow: hidden;
+}
+.messageInput{
+	width: 300px;
+}
+#messageBtn{
+	margin:0 auto;
+}
+#tabs-2 div, #tabs-1 div{
+	text-align:center;
+	position: absolute;
+	top: 90%;
+	left: 40%;
+}
+#tabs-2, #tabs-1{
+	height: 370px;
+}
+.col-md-8{
+	position: relative;
+	left: 10%;
+}
+#tabs-2 tr{
+	height: 45px;
+}
+#tabs-1 table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+#tabs-1 table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
+}
 
 </style>
 </head>

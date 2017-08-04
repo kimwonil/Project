@@ -512,6 +512,21 @@ $(document).ready(function(){
 			};
 		});//검색 끝
 
+	
+	
+		//판매등록 누르면 로그인 검사하고 보내기
+// 		$(document).on('click', '#boardForm', function(){
+// 			if(${member.nickname} == null || ${member.nickname} == ''){
+// 				alert('로그인 후에 이용하실 수 있습니다');
+// 			}else{
+// 				locaiton.href = "boardForm.do";
+// 			}
+// 		});
+		
+	
+	
+	
+	
 	});
 </script>
 
@@ -598,7 +613,7 @@ $(document).ready(function(){
 				<input type="text" id="searchInput" name="word" value="${word}">
 			</form>
 			<div id="linkGroup">
-				<a href='boardForm.do'>판매등록</a> <a href='loginprototype.jsp'>로그인</a>
+				<a href='boardForm.do' id="boardForm">판매등록</a> <a href='loginprototype.jsp'>로그인</a>
 				<a href='#' id="toggler">알림 <span class="badge" id="togglerNum"></span>
 					<a href='#'>마이페이지</a>
 			</div>

@@ -322,6 +322,7 @@ text-align: center;
 
 #tabs tr,#tabs td,#tabs th{
 <<<<<<< HEAD
+<<<<<<< HEAD
 border: 1px solid black;
 }
 
@@ -330,6 +331,8 @@ border: 1px solid black;
 <body>
 =======
 	border: 1px solid black;
+=======
+>>>>>>> master
 	text-align: center;
 	height: 37px;
 }
@@ -374,6 +377,13 @@ border: 1px solid black;
 .col-md-8{
 	position: relative;
 	left: 10%;
+}
+#tabs table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+#tabs table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
 }
 </style>
 </head>

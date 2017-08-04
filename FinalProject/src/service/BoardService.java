@@ -272,6 +272,26 @@ public class BoardService {
 		return boardDao.premiumEndDate();
 	}
 
+	public List<Premium> currentPremium() {
+		return boardDao.currentPremium();
+	}
+
+	public Premium convertPremium() {
+		return boardDao.convertPremium();	
+	}
+
+	public int premiumWaittingUpdate(HashMap<String, Object> map) {
+		return boardDao.premiumWaittingUpdate(map);
+	}
+
+	public Premium newPremium(int no) {
+		return boardDao.newPremium(no);
+	}
+
+	public int premiumUpdate(HashMap<String, Object> map) {
+		return boardDao.premiumUpdate(map);
+	}
+
 	
 
 >>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a

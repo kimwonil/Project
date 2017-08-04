@@ -9,6 +9,10 @@
 =======
 <script type="text/javascript">
 
+
+
+
+
 </script>
 >>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 <style type="text/css">
@@ -48,7 +52,7 @@
 	</tr>
 
 	<tr>
-		<td>${member.nickName }</td>
+		<td>${member.nickname }</td>
 	</tr>
 	<tr>
 		<td><label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/></label>원</td>
@@ -57,19 +61,19 @@
 		<td><input type="button" value="충전" class="btn btn-sm btn-info"></td>
 	</tr>
 	<tr>
-		<td>나의 재능 : 0건</td>
+		<td>나의 재능 : <a id="authorityTag" href="#">0건</a></td>
 	</tr>
 	<tr>
-		<td>판매중인 재능 : 0건</td>
+		<td>판매중인 재능 : <a id="sellingTag" href="#">0건</a></td>
 	</tr>
 	<tr>
-		<td>거래중인 재능 : 0건</td>
+		<td>거래중인 재능 : <a id="purchasingTag" href="#">0건</a></td>
 	</tr>
 	<tr>
-		<td>관심 재능 : 0건</td>
+		<td>관심 재능 : <a id="interestTag" href="#">0건</a></td>
 	</tr>
 	<tr>
-		<td>쪽지 : 0건</td>
+		<td>쪽지 : <a id="messageTag" href="#">0건</a></td>
 	</tr>
 </table>
 </div>

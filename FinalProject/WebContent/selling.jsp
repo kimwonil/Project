@@ -234,8 +234,8 @@ border: 1px solid black;
 						$.each(data.list, function(index, value) {
 							$('#tabs-5 > table').append(
 								'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
-								value.time + '</td><td>' + value.formatPrice + '</td><td>' +
-								(value.state==1?"대기중<br>"+value.start_date+"부터":value.state==2?"진행중<br>"+value.end_date+"까지":"종료") + '</td><td>비고</td></tr>'
+								value.time + '일 </td><td>' + value.formatPrice + '</td><td>' +
+								(value.state==1?"대기중<br>"+value.start+"부터":value.state==2?"진행중<br>"+value.end+"까지":"종료") + '</td><td>비고</td></tr>'
 							);
 						});
 						$('#currentPage').val(data.page);
@@ -536,7 +536,7 @@ border: 1px solid black;
 		//프리미엄 신청
 		$('#premiumBtn').click(function() {
 			// 			alert("프리미엄 등록");
-						alert($('#tabs-1 input:radio:checked').val());
+// 						alert($('#tabs-1 input:radio:checked').val());
 			var no = $('#tabs-1 input:radio:checked').val();
 			$('#boardNo').val(no);
 			$.ajax({
@@ -583,7 +583,7 @@ border: 1px solid black;
 		
 		$('#premiumSubmit').click(function(){
 // 			alert($('#premiumTime').val());
-			alert($(this).siblings('input').val());
+// 			alert($(this).siblings('input').val());
 			
 			$.ajax({
 				url:"premiumUpdate.do",
@@ -605,14 +605,18 @@ border: 1px solid black;
 			
 			
 		});
-
+		
 	}); //document ready
+	
+	
+	
+	
+	
 </script>
 <style type="text/css">
 #tabs tr, #tabs td, #tabs th, #purchaseTable td {
-	border: 1px solid black;
 	text-align: center;
-	height: 37px;
+	height: 37px; 
 }
 
 table {
@@ -660,6 +664,13 @@ table {
 	position: absolute;
 	left: 81%;
 	top: 2%;
+}
+#tabs table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+#tabs table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
 }
 </style>
 </head>
@@ -744,7 +755,7 @@ table {
 						<input type="button" value="프리미엄 신청" id="premiumBtn"
 							class="btn-sm btn-info">
 						<div id="tabs-1">
-							<table>
+							<table id="tab1table">
 								<tr>
 									<th width="5%">선택</th>
 									<th width="15%">등록일</th>
@@ -815,12 +826,12 @@ table {
 						<div id="tabs-5">
 							<table>
 								<tr>
-									<th>등록일</th>
-									<th>글제목</th>
-									<th>기간</th>
-									<th>비용</th>
-									<th>상태</th>
-									<th>비고</th>
+									<th width="10%">등록일</th>
+									<th width="25%">글제목</th>
+									<th width="5%">기간</th>
+									<th width="5%">비용</th>
+									<th width="10%">상태</th>
+									<th width="5%">비고</th>
 								</tr>
 							</table>
 							<div>

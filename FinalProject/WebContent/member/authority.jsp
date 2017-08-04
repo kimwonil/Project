@@ -29,16 +29,20 @@ $(document).ready(function(){
 			success:function(data){
 				console.log(data);
 				$('#talentList tr:gt(1)').remove();
-				$.each(data.list, function(index, value){
-					$('#talentList').append(
-							"<tr height='40px'><td>"+value.no+"</td><td>"+
-							value.category_no+"</td><td>"+
-							value.date+"</td><td>"+
-							(value.state==1?"승인 대기 / <button value='"+value.no+"' type='button' class='btn btn-sm btn-danger authorityDelete' data-toggle='modal' data-target='#deleteModal' >삭제</button>":value.state==2?"승인":"취소")+"</td></tr>"
-					);
-					$('.prev').val(data.page==0?0:data.page-10);
-					$('.next').val(data.totalPage-10>data.page?data.page+10:data.page);	
-				});
+				if(data.list == ""){
+					$('#talentList').append('<tr><td colspan="4">내역이 없습니다.</td></tr>');
+				}else{
+					$.each(data.list, function(index, value){
+						$('#talentList').append(
+								"<tr height='40px'><td>"+value.no+"</td><td>"+
+								value.category_no+"</td><td>"+
+								value.date+"</td><td>"+
+								(value.state==1?"승인 대기 / <button value='"+value.no+"' type='button' class='btn btn-sm btn-danger authorityDelete' data-toggle='modal' data-target='#deleteModal' >삭제</button>":value.state==2?"승인":"취소")+"</td></tr>"
+						);
+						$('.prev').val(data.page==0?0:data.page-7);
+						$('.next').val(data.totalPage-7>data.page?data.page+7:data.page);	
+					});
+				}
 			},
 			error:function(){
 				alert("실패");

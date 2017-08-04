@@ -11,6 +11,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -39,6 +40,7 @@ import model.FileUpload;
 import model.MapInfo;
 import model.Member;
 import model.Paging;
+import model.Premium;
 import model.Purchase;
 import model.PurchaseOption;
 import service.BoardService;
@@ -121,7 +123,45 @@ public class BoardController{
 		//페이징 부분
 		Paging paging = new Paging(boardService.getCount(), currentPage);
 		paging.boardPaging();
-		System.out.println(paging);
+//		System.out.println(paging);
+		
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		
+		
+		Calendar cal = Calendar.getInstance();
+		
+		for(Premium premium : boardService.currentPremium()) {
+			System.out.println(premium.getEnd_date() + "// 종료 날짜");
+			System.out.println(new Date() + "// 오늘 날짜");
+			
+			if(premium.getEnd_date().getTime() < new Date().getTime() ) {
+				HashMap<String, Object> map = new HashMap<>();
+				
+				//광고기간 지남에 따른 일반글 전환
+				map.put("premium", 1);
+				map.put("no", premium.getBoard_no());
+				boardService.premium(map);
+				map.put("state", 3);
+				boardService.premiumWaittingUpdate(map);
+				
+				//먼저 등록된 광고 대기중인 일반 글 조회 
+				Premium wait = boardService.convertPremium();
+				if(wait != null) {
+					//먼저 등록된 대기 일반글 프리미엄 글로 전환
+					map.put("no", wait.getBoard_no());
+					map.put("premium", 0);
+					boardService.premium(map);
+					
+					//대기열 프리미엄 진행중으로 변경
+					map.put("state", 2);
+					boardService.premiumWaittingUpdate(map);
+				}
+			}else {
+				System.out.println("안 지남");
+			}
+			
+		}
+		
 		
 		//프리미엄 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
 		List<Board> premiumList = new ArrayList<>();
@@ -355,14 +395,16 @@ public class BoardController{
 	 * */
 	@RequestMapping("insertBoard.do")
 	public ModelAndView board(
-			@RequestParam HashMap<String, Object> params, @RequestParam(value="option[]") List<String> paramArray1, 
-			@RequestParam(value="optionPrice[]") List<String> paramArray2, FileUpload files, 
+			@RequestParam HashMap<String, Object> params, 
+			@RequestParam(value="option[]", required=false) List<String> paramArray1, 
+			@RequestParam(value="optionPrice[]", required=false) List<String> paramArray2, 
+			FileUpload files, int optionResult,
 			HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		System.out.println("글넣기");
 		System.out.println(files);
 		
 		//세션에서 id가져와성 params에 넣자
-		String nickname = ((Member)session.getAttribute("member")).getNickName();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		params.put("nickname", nickname);
 		
 		//사진을 가져오자
@@ -375,16 +417,15 @@ public class BoardController{
 		}
 		//table:board에 넣기
 		boardService.insertBoard(params);
-		System.out.println(params.get("no"));
 		int no = Integer.parseInt(params.get("no").toString());
 		
-		//info_address가 있으면 table:map에 넣기
-		if(params.get("info_address") != null){
+		//위도가 있으면 table:map에 넣기
+		if(!params.get("lat").equals("")){
 			boardService.insertMap(params);
 		}
 
 		//files가 있으면 table:file에 넣기
-		if(files != null){
+		if(files.getFiles() != null){
 			boardService.insertFile(params);
 		}
 		
@@ -437,8 +478,10 @@ public class BoardController{
 		
 		//다시 뽑아서 글상세에서 보여주깅
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("board/detail");
-		mav.addObject("board", boardService.selectOneBoard(no));//board 뽑아서 가져오고
+		Board board = boardService.selectOneBoard(no);//방금 입력한 board 뽑아서 가져오고
+		board.setFile_name1(boardService.selectThumbnail(no));// 썸네일 넣어주고
+		mav.addObject("board", board);//실어주고
+		
 		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
 			mav.addObject("mapinfo", boardService.selectOneMap(no));
 		}
@@ -449,6 +492,7 @@ public class BoardController{
 			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
 		
+		mav.setViewName("board/detail");
 		return mav;
 	}
 	

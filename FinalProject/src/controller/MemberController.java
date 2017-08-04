@@ -70,6 +70,13 @@ public class MemberController {
 		System.out.println("간다 params.toString() 출력 : " + params.toString());
 		System.out.println("간다 params.get(따옴표id따옴표).tostring() 출력 : "+params.get("id").toString());
 		
+		//로그인 성공 -> 첫 로그인(id값이 db에 없어 저장해야 할때)
+		if(memberService.selectOne(id)==null){
+		Member member = new Member();
+		member.setId(id);
+		member.setNickname(id);
+		memberService.memberInsert(member);
+		session.setAttribute("member", memberService.selectOne(id));
 		System.out.println("형왜그래요"+memberService.selectmember(id));
 		id = request.getParameter("id");
 		System.out.println("왜그래"+memberService.selectmember(id));
@@ -80,13 +87,13 @@ public class MemberController {
 			
 			memberService.selectmember(id);
 			
-			Member member = (Member)session.getAttribute("member");
+			member = (Member)session.getAttribute("member");
 			System.out.println("session으로 id값을 가져오는지 ? (첫 로그인 아님) : "+id);
 			
 			//		session.setAttribute("id", member.getId());
 			//		session.setAttribute(id, member.getId());
 			session.setAttribute("id", id);
-			session.setAttribute("nickName", member.getNickName());
+			session.setAttribute("nickName", member.getNickname());
 
 		}
 		
@@ -100,9 +107,9 @@ public class MemberController {
 	
 		Member member = new Member();
 		member.setId(id);
-		if(member.getNickName()==null){
+		if(member.getNickname()==null){
 		//닉네임 초기값을 이메일주소로 설정
-		member.setNickName(id);	
+		member.setNickname(id);	
 		}
 		
 		System.out.println("member.getId() = "+member.getId());
@@ -110,7 +117,7 @@ public class MemberController {
 	//	session.setAttribute("id", id);
 		session.setAttribute("id", member.getId());
 		//닉네임 초기값을 이메일주소로 설정
-		session.setAttribute("nickName", member.getNickName());
+		session.setAttribute("nickName", member.getNickname());
 		
 		session.setAttribute(id, member.getId());
 		System.out.println("세션 간다 가! : " + session.getAttribute(id));
