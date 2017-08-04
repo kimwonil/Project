@@ -223,7 +223,7 @@
 							$('#tabs-5 > table').append(
 								'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
 								value.time + '일 </td><td>' + value.formatPrice + '</td><td>' +
-								(value.state==1?"대기중<br>"+value.start_date+"부터":value.state==2?"진행중<br>"+value.end_date+"까지":"종료") + '</td><td>비고</td></tr>'
+								(value.state==1?"대기중<br>"+value.start+"부터":value.state==2?"진행중<br>"+value.end+"까지":"종료") + '</td><td>비고</td></tr>'
 							);
 						});
 						$('#currentPage').val(data.page);

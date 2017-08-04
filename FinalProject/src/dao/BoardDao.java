@@ -83,8 +83,10 @@ public interface BoardDao {
 	public List<Premium> premiumList(HashMap<String, Object> map);
 	//프리미엄 페이징
 	public int totalPagePremium(String nickname);
-	
+	//종료 날짜 체크
 	public Date premiumEndDate();
+	//현재 게시중인 프리미엄 조회
+	public List<Premium> currentPremium();
 
 	
 	

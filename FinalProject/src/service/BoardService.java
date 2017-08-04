@@ -247,6 +247,10 @@ public class BoardService {
 		return boardDao.premiumEndDate();
 	}
 
+	public List<Premium> currentPremium() {
+		return boardDao.currentPremium();
+	}
+
 	
 
 

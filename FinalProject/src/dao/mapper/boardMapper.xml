@@ -246,7 +246,7 @@
  <select id="premiumCount" resultType="int">
  	select count(no) from board where premium=0
  </select>
- <!-- 프리미엄 대기 -->
+ <!-- 프리미엄 등록 -->
  <insert id="premiumWaitting" parameterType="java.util.HashMap">
  	insert into premium_waitting values(0, #{no}, #{time}, #{price}, #{nickname}, #{state}, sysdate(), #{start}, #{end})
  </insert>
@@ -260,6 +260,11 @@
 	select count(no) from premium_waitting where nickname=#{nickname}
  </select>
  
+ <!-- 현재 게시중인 프리미엄 조회 -->
+ <select id="currentPremium" resultType="Premium">
+ 	select * from premium_waitting where state = 2
+ </select>
+ <!-- 종료 날짜 체크  -->
  <select id="premiumEndDate" resultType="java.util.Date">
  	select min(end_date) from premium_waitting where state=2
  </select>
