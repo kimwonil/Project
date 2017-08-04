@@ -2,7 +2,7 @@ package model;
 
 public class Member {
 	private String id;
-	private String nickName;
+	private String nickname;
 	private String photo;
 	private int balance;
 	private int admin;
@@ -18,10 +18,10 @@ public class Member {
 		super();
 	}
 
-	public Member(String id, String nickName, String photo, int balance, int admin) {
+	public Member(String id, String nickname, String photo, int balance, int admin) {
 		super();
 		this.id = id;
-		this.nickName = nickName;
+		this.nickname = nickname;
 		this.photo = photo;
 		this.balance = balance;
 		this.admin = admin;
@@ -33,11 +33,11 @@ public class Member {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getPhoto() {
 		return photo;
@@ -76,7 +76,7 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [id=" + id + ", nickName=" + nickName + ", photo=" + photo + ", balance=" + balance + ", admin="
+		return "Member [id=" + id + ", nickname=" + nickname + ", photo=" + photo + ", balance=" + balance + ", admin="
 				+ admin + ", code=" + code + ", amount=" + amount + "]";
 	}
 

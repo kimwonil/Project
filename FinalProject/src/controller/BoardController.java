@@ -377,7 +377,7 @@ public class BoardController{
 		System.out.println(files);
 		
 		//세션에서 id가져와성 params에 넣자
-		String nickname = ((Member)session.getAttribute("member")).getNickName();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		params.put("nickname", nickname);
 		
 		//사진을 가져오자

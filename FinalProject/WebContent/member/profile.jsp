@@ -37,7 +37,7 @@
 							<td>아이디 : ${member.id}</td>
 						</tr>
 						<tr>
-							<td>닉네임 : ${member.nickName}</td>
+							<td>닉네임 : ${member.nickname}</td>
 						</tr>
 						<tr>
 							<td>사진 : ${member.photo==null?"사진 없음":member.photo}</td>
