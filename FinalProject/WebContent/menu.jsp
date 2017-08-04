@@ -315,23 +315,23 @@
 		});
 		
 		//검색부분 카테고리 가져오기
-		$.ajax({
-			url : "bringCategory.do",
-			type : "post",
-			dataType : "json",
-			success : function(data){
-				$('#categoryForSearch').empty();
-				$('#categoryForSearch').append('<option value="0">카테고리</option>');
-				$.each(data, function(index, value){
-					$('#categoryForSearch').append(
-							(value.no == $('#hiddenMajor').val() ? '<option value="'+value.no+'" selected>'+value.category_name+'</option>' : '<option value="'+value.no+'">'+value.category_name+'</option>')
-					);//append 끝
-				});//each 끝
-			},error:function(jqXHR, textStatus, errorThrown){
-    			alert(textStatus);     //응답상태
-    			alert(errorThrown);     //응답에 대한 메세지
-    		}
-		});//카테고리 가져오는 ajax 끝
+// 		$.ajax({
+// 			url : "bringCategory.do",
+// 			type : "post",
+// 			dataType : "json",
+// 			success : function(data){
+// 				$('#categoryForSearch').empty();
+// 				$('#categoryForSearch').append('<option value="0">카테고리</option>');
+// 				$.each(data, function(index, value){
+// 					$('#categoryForSearch').append(
+// 							(value.no == $('#hiddenMajor').val() ? '<option value="'+value.no+'" selected>'+value.category_name+'</option>' : '<option value="'+value.no+'">'+value.category_name+'</option>')
+// 					);//append 끝
+// 				});//each 끝
+// 			},error:function(jqXHR, textStatus, errorThrown){
+//     			alert(textStatus);     //응답상태
+//     			alert(errorThrown);     //응답에 대한 메세지
+//     		}
+// 		});//카테고리 가져오는 ajax 끝
 		
 		//검색시작!
 		$(document).on('keydown', '#searchInput', function(key){
