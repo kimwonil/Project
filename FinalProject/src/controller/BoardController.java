@@ -130,16 +130,12 @@ public class BoardController{
 		
 //		Calendar cal = Calendar.getInstance();
 		
-//		for(Premium premium : boardService.currentPremium()) {
-//			System.out.println(premium.getEnd_date() + "// 종료 날짜");
-//			System.out.println(new Date() + "// 오늘 날짜");
-//			if(premium.getEnd_date().after(new Date()) ) {
-//				System.out.println("날짜 지남");
-//			}
-//			
-////			premium.getBoard_no()
-//			
-//		}
+		for(Premium premium : boardService.currentPremium()) {
+			System.out.println(premium.getEnd_date() + "// 종료 날짜");
+			System.out.println(new Date() + "// 오늘 날짜");
+//			premium.getBoard_no()
+			
+		}
 		
 		
 		//프리미엄 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
