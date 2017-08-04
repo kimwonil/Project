@@ -346,18 +346,71 @@ $(document).ready(function(){
    		});
    	});
 	
+	
+   	//등록 마감일 당일기준으로 설정
+	document.getElementById('datePicker').valueAsDate = new Date();
+   	//오늘 날짜 이전으로 선택 못하게
+   	var year = new Date().getFullYear();
+   	var month = new Date().getMonth()+1;
+   	var date = new Date().getDate();
+   	if(month<10){
+		month = '0'+month; 		
+   	}
+   	if(date<10){
+   		date = '0'+date; 
+   	}
+   	var dateVal = year+'-'+month+'-'+date;
+   	$('#dateForm').attr('min', dateVal);
+
+
+	
+
+
+
+
    	
+   	
+	
 	
 	//옵션 추가 라디오 선택
 	$("#tableOption").hide();//옵션추가 테이블 일단 숨겨놓고 시작!
-    $('input[type=radio]').on('click',function(){
-//     	$(this).toggle('ckeck');
+    $('input[type=checkbox]').on('click',function(){
         $("#tableOption").toggle();
+    	if($(this).is(':checked')){
+    		$('#checkResult').val(0);
+    	}else{
+    		$('#checkResult').val(4);
+    	}
+    
     });
-		
+	
+	
 		
 	
+//     $('#optionRadio').click(function () {
+//         var className = $(this).data('class');
+//         //toggling to change color
+//         $(this).toggleClass(className).toggleClass(className + '1');
+
+//         //check if its clicked already using data- attribute
+//         if ($(this).data("clicked")) {
+//             //remove it if yes
+//             $("#newDiv").find("#tablefor-" + className).remove();
+//         } else {
+//             //new table - note that I've added an id to it indicate where it came from
+//             var newTable = '<table id="tablefor-' + className + '" style="font-size: 14;float:left;padding-left: 13px;" cellpadding="5"><tr><td style="color: #B2B2B9;">T1' + className + '</td></tr><tr><td id="cap">20</td></tr><tr><td id="minseat">8</td></tr></table>';
+
+//             //append table                
+//             $("#newDiv").append(newTable);
+//         }
+//         //reverse the data of clicked
+//         $(this).data("clicked", !$(this).data("clicked"));
+//     });
+	
    	
+	
+	
+	
    	//글등록
    	$('#go').click(function(){
 		if($('#major option:selected').val() == '대분류'){//카테고리
@@ -420,6 +473,8 @@ function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
 
 
 <body>
+
+
 	
 	<!-- 	<div id="fh5co-main"> -->
 		<div class="container">
@@ -445,7 +500,7 @@ function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
 									</select>
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title"> </th></tr>
-									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" value="2017-07-01"> </th></tr>
+									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" min="2017-08-06"> </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text" name="quantity"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
@@ -458,10 +513,11 @@ function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
 										<input type="hidden" id="hidn3" name="info_title">
 										<input type="hidden" id="hidn4" name="lat">
 										<input type="hidden" id="hidn5" name="lng">
+										<input type="hidden" id="checkResult" name="checkResult">
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션사항</th><th> 
-										<input type="radio" id="optionRadio"> 판매옵션 있음
+										<input type="checkbox" id="optionRadio"> 판매옵션 있음
 										<table id="tableOption">
 			                                 <tr>
 			                                 <th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th>
