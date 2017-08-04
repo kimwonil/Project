@@ -5,6 +5,7 @@
  
  <mapper namespace="dao.MemberDao">
  
+<<<<<<< HEAD
  <select id="selectOne" resultType="Member">
  	select * from profile where id=#{id}
  </select>
@@ -13,6 +14,30 @@
  	select * from profile
  </select>
  
+=======
+ <select id="selectOne" parameterType="String" resultType="Member">
+ 	select * from profile where id=#{id}
+ </select>
+ 
+ <select id="selectAll"  resultType="Member">
+ 	select * from profile
+ </select>
+ 
+ <!-- 추가한부분 -->
+ 
+  <insert id="memberInsert" parameterType="Member">
+ 	insert into member values(#{id} ,#{nickName})
+ 	<!--,#{photo},#{balance},#{admin} -->
+ 	 </insert>
+ 	 
+  <select id="selectmember" parameterType="String" resultType="Member">
+ 	select * from member where id=#{id}
+ </select>
+ 
+ <!-- 추가한부분 -->
+ 
+ 
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  <update id="memberUpdate" parameterType="Member">
  	update profile set nickname=#{nickName}, photo=#{photo}, balance=#{balance}, admin=#{admin} where id=#{id}
  </update>
@@ -29,8 +54,13 @@
 	insert into cash values(0, #{id}, sysdate(), #{amount}, #{balance}, #{code}, 1)
  </insert>
  
+<<<<<<< HEAD
  <select id="cashList" parameterType="String" resultType="CashRecord">
  	select * from cash where id=#{id}
+=======
+ <select id="cashList" parameterType="java.util.HashMap" resultType="CashRecord">
+ 	select * from cash where id=#{id} order by no desc limit #{page}, 10
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  </select>
  
  <insert id="exchange" parameterType="java.util.HashMap">
@@ -41,8 +71,13 @@
  	update profile set balance=#{balance} where id=#{id}
  </update>
  
+<<<<<<< HEAD
  <select id="exchangeList" parameterType="String" resultType="Exchange">
  	select * from exchange where id=#{id}
+=======
+ <select id="exchangeList" parameterType="java.util.HashMap" resultType="Exchange">
+ 	select * from exchange where id=#{id} order by no desc limit #{page}, 10
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  </select>
  
  <update id="exchangeManager" parameterType="java.util.HashMap">
@@ -65,6 +100,89 @@
  	insert into message values(0, #{sender}, #{receiver}, #{title}, #{content}, 1, sysdate())
  </insert>
  
+<<<<<<< HEAD
+=======
+ <insert id="authorityReg" parameterType="java.util.HashMap">
+ 	insert into authority values(0, #{id}, #{category_no}, sysdate(), 1)
+ 	
+ 	<selectKey keyProperty="no" order="AFTER" resultType="int">
+       	SELECT MAX(no) AS no FROM authority
+   	</selectKey>
+ </insert>
+ 
+ <insert id="authorityFiles" parameterType="java.util.HashMap">
+ 	insert into authority_file values(0, #{no}, #{id}, #{file1}, #{file2}, #{file3})
+ </insert>
+
+ <select id="authorityList" parameterType="java.util.HashMap" resultType="Authority">
+ 	select * from authority where id=#{id} order by no limit #{page}, 10
+ </select>
+ 
+ <select id="totalPageAuthority" parameterType="java.util.HashMap" resultType="int">
+ 	select count(no) from authority where id=#{id}
+ </select>
+ 
+ <select id="authorityAll" parameterType="java.util.HashMap" resultType="Authority">
+ 	select authority.no as no, authority.id as id, authority.category_no as category_no, authority.date as date, authority.state as state, authority_file.file1 as file1, authority_file.file2 as file2, authority_file.file3 as file3
+	from authority join authority_file
+	on authority.no = authority_file.authority_no 
+	where state=1 order by no desc limit #{page}, 10
+ </select>
+ 
+ <select id="allTotalPageAuthority" resultType="int">
+ 	select count(no) from authority
+ </select>
+ 
+ <update id="authorityUpdate" parameterType="java.util.HashMap">
+ 	update authority set state=#{state} where no=#{no}
+ </update>
+ 
+ <delete id="authorityDelete" parameterType="int">
+ 	delete from authority where no=#{no}
+ </delete> 
+ 
+ <select id="authorityDetail" parameterType="int" resultType="Authority">
+ 	select * from authority_file where authority_no=#{no}
+ </select>
+
+ <select id="totalPageCash" parameterType="String" resultType="int">
+ 	select count(no) from cash where id=#{id}
+ </select>
+
+ <select id="totalPageExchange" parameterType="String" resultType="int">
+ 	select count(no) from exchange where id=#{id}
+ </select>
+
+ <select id="allCashList" parameterType="int" resultType="CashRecord">
+	select * from cash order by no desc limit #{page}, 10 
+ </select>
+ 
+ <select id="allTotalPageCash" resultType="int">
+ 	select count(no) from cash
+ </select>
+ 
+ 
+ <select id="allExchangeList" parameterType="java.util.HashMap" resultType="Exchange">
+ 	select * from exchange order by no desc limit #{page}, 6
+ </select>
+
+ <select id="allTotalPageExchange" resultType="int">
+ 	select count(no) from exchange
+ </select>
+ 
+ <select id="getMessageCount" parameterType="String" resultType="int">
+ 	select count(*) from message
+ 	where sender=#{id}
+ 	and state=1
+ </select>
+ 
+ <select id="getMessage" parameterType="String" resultType="Message">
+ 	select * from message
+ 	where sender=#{id}
+ 	and state=1
+ </select>
+ 
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  </mapper>
  
  

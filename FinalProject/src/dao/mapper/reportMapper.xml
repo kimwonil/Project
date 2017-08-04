@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+   
+  <mapper namespace="dao.ReportDao">
+   <insert id="insertReport" parameterType="java.util.HashMap">
+ 	insert into report values(0,sysdate(),#{category_no},#{title},0,0,#{content},#{writer})
+ </insert>
+  
+    <select id="selectAllReport" resultType="Report">
+ 	select * from report
+ </select>
+  
+  <select id="selectOneReport" resultType="Report" parameterType="int">
+ 	select * from report where no=#{no}
+ </select> 
+  
+  <update id="updateReport" parameterType="java.util.HashMap">
+ 	update report set title=#{title},content=#{content},category_no=#{category_no} where no= #{no}
+ </update>
+  
+    <update id="updateReportCount" parameterType="java.util.HashMap">
+ 	update report set read_count=#{read_count} where no= #{no}
+ </update>
+  
+    <update id="updateReportAnswer" parameterType="java.util.HashMap">
+ 	update report set state=#{state} where no= #{no}
+ </update>
+  
+    <delete id="deleteReport" parameterType="int">
+ 	delete from report where no= #{no}
+ </delete>
+ 
+ 
+ <select id="selectReportPage" parameterType="java.util.HashMap" 
+        resultType="Report">
+        select * from report
+        where 1 = 0
+		<if test="title != null">
+		    or title like '%${title}%'
+		</if>
+		<if test="writer != null">
+        		or writer like #{writer}
+		</if>
+		<if test="type == 0">
+		    or 1=1
+		</if>
+		<if test="startdate != null">
+		   and date between #{startdate} and #{enddate}
+		</if>
+         order by no desc limit #{skip},#{qty}
+    </select>
+ 
+     <select id="getReportCount" resultType="int" parameterType="java.util.HashMap">
+        select count(*) from report
+              where 1 = 0
+		<if test="title != null">
+		    or title like '%${title}%'
+		</if>
+		<if test="writer != null">
+        		or writer like #{writer}
+		</if>
+		<if test="type == 0">
+		    or 1=1
+		</if>
+		<if test="startdate != null">
+		    and date between #{startdate} and #{enddate}
+		</if>
+    </select>
+ 
+ 
+  </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="dao.NoticeDao">
+ 
+ <insert id="insertNotice" parameterType="java.util.HashMap">
+ 	insert into notice values(0,sysdate(),#{category_no},#{title},#{writer},0,#{content})
+ </insert>
+ 
+ <select id="selectAllNotice" resultType="Notice">
+ 	select * from Notice
+ </select>
+ 
+ <select id="selectOneNotice" parameterType="int" resultType="Notice">
+ 	select * from Notice where no=#{no}
+ </select>
+ 
+ <update id="updateNotice" parameterType="java.util.HashMap">
+ 	update Notice set title=#{title},content=#{content},category_no=#{category_no} where no= #{no}
+ </update>
+ 
+  <update id="updateNoticeCount" parameterType="java.util.HashMap">
+ 	update Notice set read_count=#{read_count} where no= #{no}
+ </update>
+ 
+ <delete id="deleteNotice" parameterType="int">
+ 	delete from notice where no= #{no}
+ </delete>
+ 
+  <select id="selectNoticePage" parameterType="java.util.HashMap" 
+        resultType="Notice">
+        select * from notice
+        where 1 = 0
+		<if test="title != null">
+		    or title like '%${title}%'
+		</if>
+		<if test="writer != null">
+        		or writer like #{writer}
+		</if>
+		<if test="type == 0">
+		    or 1=1
+		</if>
+		<if test="startdate != null">
+		   and date between #{startdate} and #{enddate}
+		</if>
+		<if test="category_no != null">
+			and category_no=#{category_no}
+		</if>
+         order by no desc limit #{skip},#{qty}
+    </select>
+ 
+     <select id="getNoticeCount" resultType="int" parameterType="java.util.HashMap">
+        select count(*) from notice
+              where 1 = 0
+		<if test="title != null">
+		    or title like '%${title}%'
+		</if>
+		<if test="writer != null">
+        		or writer like #{writer}
+		</if>
+		<if test="type == 0">
+		    or 1=1
+		</if>
+		<if test="startdate != null">
+		    and date between #{startdate} and #{enddate}
+		</if>
+		<if test="category_no != null">
+			and category_no=#{category_no}
+		</if>
+    </select>
+ 
+ 
+ 	<select id="getHighName" resultType="String" parameterType="java.util.HashMap">
+ 		select category_name from category_high
+ 		where no=#{major}
+ 	</select>
+ 	
+ 	<select id="getLowName" resultType="String" parameterType="java.util.HashMap">
+ 		select category_name from category_low
+ 		where no=#{minor} and high_no=#{major}
+ 	</select>
+ </mapper>
