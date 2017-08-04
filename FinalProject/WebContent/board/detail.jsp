@@ -100,8 +100,6 @@ $(document).ready(function(){
 		dataType: "json",
 		success : function(data){
 			alert("성공");
-			console.log("지도 없는데 왜 긁어오냐");
-			console.log(data.lat);
 			
         	var map = new naver.maps.Map('map', {
         	    center: new naver.maps.LatLng(data.lat, data.lng),
@@ -388,14 +386,13 @@ function totalPrice(){
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
 <%-- 							<c:choose> --%>
 <%-- 								<c:when test="${member.admin eq 1}"> --%>
-									<button id="modify" value="${board.state}">글수정</button>
-									<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button><br>
+<%-- 									<button id="modify" value="${board.state}">글수정</button> --%>
+<%-- 									<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button><br> --%>
 <%-- 								</c:when> --%>
 <%-- 								<c:when test="${member.nickname eq board.writer}"> --%>
-<%-- 									<button id="modify" value="${board.state}">글수정</button> --%>
+									<button id="modify" value="${board.state}">글수정</button>
 <%-- 								</c:when> --%>
 <%-- 							</c:choose> --%>
-							<br>
 							등록일 : ${board.date}<br>
 							마감일 : ${board.end_date}<br>
 							조회수 : ${board.read_count} <br>

@@ -395,24 +395,11 @@ public class BoardController{
 	 * */
 	@RequestMapping("insertBoard.do")
 	public ModelAndView board(
-			@RequestParam HashMap<String, Object> params, 
-			@RequestParam(value="option[]", required=false) List<String> paramArray1, 
-			@RequestParam(value="optionPrice[]", required=false) List<String> paramArray2, 
-			FileUpload files, int optionResult,
+			@RequestParam HashMap<String, Object> params, @RequestParam(value="option[]") List<String> paramArray1, 
+			@RequestParam(value="optionPrice[]") List<String> paramArray2, FileUpload files, 
 			HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		System.out.println("글넣기");
 		System.out.println(files);
-		System.out.println(files.getFiles());
-		
-//		if(files.getFiles() == null){
-//			System.out.println("filse는 null");
-//		}else if(files.getFiles() != null){
-//			System.out.println("files는 not null");
-//		}else if(files.getFile() == null){
-//			System.out.println("file은 null");
-//		}else if(files.getFile() != null){
-//			System.out.println("file은 not null");
-//		}
 		
 		//세션에서 id가져와성 params에 넣자
 		String nickname = ((Member)session.getAttribute("member")).getNickname();
@@ -431,35 +418,18 @@ public class BoardController{
 		System.out.println(params.get("no"));
 		int no = Integer.parseInt(params.get("no").toString());
 		
-//		if(params.get("lat").equals("")){
-//			System.out.println("위도없음1");
-//		}else if(params.get("lat") == null){
-//			System.out.println("위도없음2");
-//		}else if((params.get("lat").toString()).isEmpty()){
-//			System.out.println("위도없음3");
-//		}
-		
-		
 		//info_address가 있으면 table:map에 넣기
-		if(!params.get("lat").equals("")){
+		if(params.get("info_address") != null){
 			boardService.insertMap(params);
 		}
 
 		//files가 있으면 table:file에 넣기
-		if(files.getFiles() != null){
+		if(files != null){
 			boardService.insertFile(params);
 		}
 		
-//		if(files == null){
-//			System.out.println("file이 null");
-//		}else if(files.equals("")){
-//			System.out.println("files == ''");
-//		}else if(files.getFiles().isEmpty()){
-//			System.out.println("files는 isEmpty");
-//		}
-		
 		//table : board_option
-		if(paramArray1 != null && optionResult==0){
+		if(paramArray1 != null){
 			HashMap<String, Object> board_option = new HashMap<>();
 			board_option.put("no", no);
 			for(int i=0;i<paramArray1.size();i++){
@@ -507,10 +477,8 @@ public class BoardController{
 		
 		//다시 뽑아서 글상세에서 보여주깅
 		ModelAndView mav = new ModelAndView();
-		Board board = boardService.selectOneBoard(no);//방금 입력한 board 뽑아서 가져오고
-		board.setFile_name1(boardService.selectThumbnail(no));// 썸네일 넣어주고
-		mav.addObject("board", board);//실어주고
-		
+		mav.setViewName("board/detail");
+		mav.addObject("board", boardService.selectOneBoard(no));//board 뽑아서 가져오고
 		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
 			mav.addObject("mapinfo", boardService.selectOneMap(no));
 		}
@@ -521,7 +489,6 @@ public class BoardController{
 			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
 		
-		mav.setViewName("board/detail");
 		return mav;
 	}
 	
@@ -546,13 +513,15 @@ public class BoardController{
 		
 		mav.addObject("board", board);
 		
+//		if(boardService.selectOneFromFile(no) != null ){//file뽑아서 가져오고
+//			mav.addObject("files", boardService.selectOneFromFile(no));
+//		}
 		mav.addObject("files", boardService.selectOneFromFile(no)); //files가 존재하거나 null이거나 빈칸이거나 
 		if(boardService.selectBoard_option(no) != null){
 			System.out.println("컨트롤러에 selectOneBoard_option하러왔엉");
 			System.out.println(boardService.selectBoard_option(no));
 			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
-		
 		
 		mav.setViewName("board/detail");
 		return mav;
