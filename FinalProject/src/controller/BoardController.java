@@ -11,6 +11,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -39,6 +40,7 @@ import model.FileUpload;
 import model.MapInfo;
 import model.Member;
 import model.Paging;
+import model.Premium;
 import model.Purchase;
 import model.PurchaseOption;
 import service.BoardService;
@@ -121,7 +123,20 @@ public class BoardController{
 		//페이징 부분
 		Paging paging = new Paging(boardService.getCount(), currentPage);
 		paging.boardPaging();
-		System.out.println(paging);
+//		System.out.println(paging);
+		
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		
+		
+//		Calendar cal = Calendar.getInstance();
+		
+		for(Premium premium : boardService.currentPremium()) {
+			System.out.println(premium.getEnd_date() + "// 종료 날짜");
+			System.out.println(new Date() + "// 오늘 날짜");
+//			premium.getBoard_no()
+			
+		}
+		
 		
 		//프리미엄 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
 		List<Board> premiumList = new ArrayList<>();

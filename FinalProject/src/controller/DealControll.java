@@ -599,6 +599,7 @@ public class DealControll {
 			DecimalFormat number = new DecimalFormat("#,###");
 			String formatPrice = number.format(premium.getPrice());
 			premium.setFormatPrice(formatPrice);
+			premium.strDate();
 		}
 		
 		map.put("list", list);
