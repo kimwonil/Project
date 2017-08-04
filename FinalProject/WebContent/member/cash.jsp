@@ -282,7 +282,7 @@
 									
 									잔액 : <label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/> </label>원
 									<input type="hidden" value="${member.id}" id="memberId">
-									<input type="hidden" value="${member.nickName}" id="memberNickName">
+									<input type="hidden" value="${member.nickname}" id="memberNickName">
 									</div>
 									</td>
 									<td>

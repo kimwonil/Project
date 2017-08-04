@@ -683,18 +683,28 @@ public class DealControll {
 		try {
 			if(boardService.premiumCount()>=20) {
 				map.put("state", 1);
+				
 				Calendar cal = Calendar.getInstance();
+				//가장 짧은 종료 날짜 조회하여 현재 날짜로 세팅
 				cal.setTime(boardService.premiumEndDate());
+				//그 다음날로 해서 시작 날짜 설정
 				cal.add(cal.DATE, 1);
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				System.out.println(format.format(cal.getTime()) + "// 시작 날짜");
 				map.put("start", format.format(cal.getTime()));
+				//내가 신청한 날짜 만큼 증가 후 종료 날짜 설정
 				cal.add(cal.DATE, time);
-				System.out.println(format.format(cal.getTime()) + "// 끝 날짜");
-				
 				map.put("end", format.format(cal.getTime()));
-				boardService.premiumWaitting(map);
+				
+				//기존 등록 여부 확인
+				if(boardService.newPremium(no).getBoard_no() != no) {
+					//대기열 등록
+					boardService.premiumWaitting(map);
+				}else {
+					//기존 등록 수정
+					boardService.premiumUpdate(map);
+				}
 				response.getWriter().write("프리미엄 대기에 등록 되었습니다.");
+				
 			}else {
 				Calendar cal = Calendar.getInstance();
 				map.put("state", 2);

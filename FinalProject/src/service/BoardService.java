@@ -259,6 +259,14 @@ public class BoardService {
 		return boardDao.premiumWaittingUpdate(map);
 	}
 
+	public Premium newPremium(int no) {
+		return boardDao.newPremium(no);
+	}
+
+	public int premiumUpdate(HashMap<String, Object> map) {
+		return boardDao.premiumUpdate(map);
+	}
+
 	
 
 

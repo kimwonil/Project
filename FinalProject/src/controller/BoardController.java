@@ -136,17 +136,26 @@ public class BoardController{
 			
 			if(premium.getEnd_date().getTime() < new Date().getTime() ) {
 				HashMap<String, Object> map = new HashMap<>();
+				
+				//광고기간 지남에 따른 일반글 전환
 				map.put("premium", 1);
 				map.put("no", premium.getBoard_no());
 				boardService.premium(map);
-				
-				map.put("no", boardService.convertPremium().getBoard_no());
-				map.put("premium", 0);
-				boardService.premium(map);
-				
-				map.put("state", 2);
+				map.put("state", 3);
 				boardService.premiumWaittingUpdate(map);
 				
+				//먼저 등록된 광고 대기중인 일반 글 조회 
+				Premium wait = boardService.convertPremium();
+				if(wait != null) {
+					//먼저 등록된 대기 일반글 프리미엄 글로 전환
+					map.put("no", wait.getBoard_no());
+					map.put("premium", 0);
+					boardService.premium(map);
+					
+					//대기열 프리미엄 진행중으로 변경
+					map.put("state", 2);
+					boardService.premiumWaittingUpdate(map);
+				}
 			}else {
 				System.out.println("안 지남");
 			}

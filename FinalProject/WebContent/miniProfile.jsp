@@ -41,7 +41,7 @@
 	</tr>
 
 	<tr>
-		<td>${member.nickName }</td>
+		<td>${member.nickname }</td>
 	</tr>
 	<tr>
 		<td><label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/></label>원</td>

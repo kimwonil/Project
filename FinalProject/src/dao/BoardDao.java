@@ -91,6 +91,10 @@ public interface BoardDao {
 	public Premium convertPremium();
 	//대기중인 프리미엄 상태 변환
 	public int premiumWaittingUpdate(HashMap<String, Object> map);
+	//이미 등록된 프리미엄 대기 조회
+	public Premium newPremium(int no);
+	//기존 등록된 프리미엄 수정
+	public int premiumUpdate(HashMap<String, Object> map);
 
 	
 	

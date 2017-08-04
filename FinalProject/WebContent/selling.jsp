@@ -524,7 +524,7 @@
 		//프리미엄 신청
 		$('#premiumBtn').click(function() {
 			// 			alert("프리미엄 등록");
-						alert($('#tabs-1 input:radio:checked').val());
+// 						alert($('#tabs-1 input:radio:checked').val());
 			var no = $('#tabs-1 input:radio:checked').val();
 			$('#boardNo').val(no);
 			$.ajax({
@@ -571,7 +571,7 @@
 		
 		$('#premiumSubmit').click(function(){
 // 			alert($('#premiumTime').val());
-			alert($(this).siblings('input').val());
+// 			alert($(this).siblings('input').val());
 			
 			$.ajax({
 				url:"premiumUpdate.do",
