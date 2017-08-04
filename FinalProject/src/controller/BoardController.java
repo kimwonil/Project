@@ -431,13 +431,13 @@ public class BoardController{
 		System.out.println(params.get("no"));
 		int no = Integer.parseInt(params.get("no").toString());
 		
-		if(params.get("lat").equals("")){
-			System.out.println("위도없음1");
-		}else if(params.get("lat") == null){
-			System.out.println("위도없음2");
-		}else if((params.get("lat").toString()).isEmpty()){
-			System.out.println("위도없음3");
-		}
+//		if(params.get("lat").equals("")){
+//			System.out.println("위도없음1");
+//		}else if(params.get("lat") == null){
+//			System.out.println("위도없음2");
+//		}else if((params.get("lat").toString()).isEmpty()){
+//			System.out.println("위도없음3");
+//		}
 		
 		
 		//info_address가 있으면 table:map에 넣기
@@ -450,13 +450,13 @@ public class BoardController{
 			boardService.insertFile(params);
 		}
 		
-		if(files == null){
-			System.out.println("file이 null");
-		}else if(files.equals("")){
-			System.out.println("files == ''");
-		}else if(files.getFiles().isEmpty()){
-			System.out.println("files는 isEmpty");
-		}
+//		if(files == null){
+//			System.out.println("file이 null");
+//		}else if(files.equals("")){
+//			System.out.println("files == ''");
+//		}else if(files.getFiles().isEmpty()){
+//			System.out.println("files는 isEmpty");
+//		}
 		
 		//table : board_option
 		if(paramArray1 != null && optionResult==0){
