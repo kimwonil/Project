@@ -25,11 +25,15 @@
 			success:function(data){
 				console.log(data);
 				$('#messageTable tr:gt(0)').remove();
-				for(var i=0;i<data.length;i++){
-				$('#messageTable').append("<tr><td>"+data[i].date+"</td><td><a id='"+data[i].no+"'class='messageDetail' data-toggle='modal' data-target='#messageModal'>"
-												+data[i].title+"</a></td><td>"
-												+data[i].sender+"</td><td>"
-												+(data[i].state==1?"읽지 않음":"읽음")+"</td></tr>");
+				if(data == ""){
+					$('#messageTable').append('<tr><td colspan="4">내역이 없습니다.</td></tr>');
+				}else{
+					for(var i=0;i<data.length;i++){
+						$('#messageTable').append("<tr><td>"+data[i].date+"</td><td><a id='"+data[i].no+"'class='messageDetail' data-toggle='modal' data-target='#messageModal'>"
+													+data[i].title+"</a></td><td>"
+													+data[i].sender+"</td><td>"
+													+(data[i].state==1?"읽지 않음":"읽음")+"</td></tr>");
+					}
 				}
 			},
 			error:function(jqXHR, textStatus, errorThrown){
