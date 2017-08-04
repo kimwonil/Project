@@ -87,6 +87,10 @@ public interface BoardDao {
 	public Date premiumEndDate();
 	//현재 게시중인 프리미엄 조회
 	public List<Premium> currentPremium();
+	//대기중인 프리미엄 조회(선착순)
+	public Premium convertPremium();
+	//대기중인 프리미엄 상태 변환
+	public int premiumWaittingUpdate(HashMap<String, Object> map);
 
 	
 	
