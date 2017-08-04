@@ -9,6 +9,10 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<<<<<<< HEAD
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+=======
 <link rel="stylesheet" href="css/starStyle.css">
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -17,10 +21,13 @@
 text-align: center;
 }
 </style>
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 <script>
 	$(function() {
 		$("#tabs").tabs();
 	});
+<<<<<<< HEAD
+=======
 	
 	function purchase(page){
 		$.ajax({
@@ -309,10 +316,23 @@ text-align: center;
 
 	});
 	
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 </script>
 <style type="text/css">
 
 #tabs tr,#tabs td,#tabs th{
+<<<<<<< HEAD
+<<<<<<< HEAD
+border: 1px solid black;
+}
+
+</style>
+</head>
+<body>
+=======
+	border: 1px solid black;
+=======
+>>>>>>> master
 	text-align: center;
 	height: 37px;
 }
@@ -373,6 +393,7 @@ text-align: center;
 	
 	</div>
 
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 
 	<div id="fh5co-main">
 		<div class="container">
@@ -381,6 +402,46 @@ text-align: center;
 					<h2>구매관리</h2>
 					<div id="tabs">
 						<ul>
+<<<<<<< HEAD
+							<li><a href="#tabs-1">진행중 거래</a></li>
+							<li><a href="#tabs-2">완료된 거래</a></li>
+							<li><a href="#tabs-3">취소된 거래</a></li>
+						</ul>
+						<div align="center">
+							<select>
+								<option>검색조건</option>
+								<option>닉네임</option>
+								<option>글제목</option>
+								<option>날짜</option>
+							</select>
+							<input type="text">
+							<button>검색</button>
+						</div>
+						<div class="fh5co-spacer fh5co-spacer-sm"></div>
+						<div id="tabs-1" >
+							<table style="width: 100%;">
+								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th><th>진행상황</th><th>비고</th></tr>
+								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td><td>진행중</td><td>버튼만들어야해</td></tr>
+							</table>
+						</div>
+						<div id="tabs-2">
+							<table style="width: 100%;">
+								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th></tr>
+								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td></tr>
+							</table>
+						</div>
+						<div id="tabs-3">
+							<table style="width: 100%;">
+								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th></tr>
+								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td></tr>
+							</table>
+						</div>
+					
+					</div>
+					
+
+					
+=======
 							<li><a href="#tabs-1" id="ongoing">진행중 거래</a></li>
 							<li><a href="#tabs-2" id="completion">완료된 거래</a></li>
 							<li><a href="#tabs-3" id="canceled">취소된 거래</a></li>
@@ -411,10 +472,13 @@ text-align: center;
 						</div>
 					
 					</div>
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 				</div>
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
+=======
 	
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -460,5 +524,6 @@ text-align: center;
 </div>
 <!-- modal end -->
 	
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 </body>
 </html>

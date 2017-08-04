@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.MemberDao;
+<<<<<<< HEAD
+=======
 import model.Authority;
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 import model.CashRecord;
 import model.Exchange;
 import model.Member;
@@ -27,6 +30,8 @@ public class MemeberService {
 		return memberDao.selectAll();
 	}
 	
+<<<<<<< HEAD
+=======
 	//추가된 부분
 	public int memberInsert(HashMap<String, Object> params){
 		return memberDao.memberInsert(params);
@@ -38,6 +43,7 @@ public class MemeberService {
 	}
 	//추가된 부분
 	
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	public int memberUpdate(Member member) {
 		return memberDao.memberUpdate(member);
 	}
@@ -55,9 +61,15 @@ public class MemeberService {
 		return memberDao.cashRecord(member);
 	}
 	
+<<<<<<< HEAD
+	public List<CashRecord> cashList(String id){
+		
+		return memberDao.cashList(id);
+=======
 	public List<CashRecord> cashList(HashMap<String, Object> map){
 		
 		return memberDao.cashList(map);
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	}
 	
 	public int exchange(HashMap<String, Object> map){
@@ -73,8 +85,13 @@ public class MemeberService {
 		return memberDao.changeBalance(map);
 	}
 	
+<<<<<<< HEAD
+	public List<Exchange> exchangeList(String id) {
+		return memberDao.exchangeList(id);
+=======
 	public List<Exchange> exchangeList(HashMap<String, Object> map) {
 		return memberDao.exchangeList(map);
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	}
 	
 	public int exchangeManager(HashMap<String, Object> map) {
@@ -91,6 +108,13 @@ public class MemeberService {
 	}
 	
 	public int messageSend(Message message) {
+<<<<<<< HEAD
+		System.out.println(message);
+		return memberDao.messageSend(message);
+	}
+	
+	
+=======
 		return memberDao.messageSend(message);
 	}
 	
@@ -165,5 +189,6 @@ public class MemeberService {
 		return memberDao.getMessage(id);
 	}
 
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	
 }

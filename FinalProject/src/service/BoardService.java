@@ -1,8 +1,11 @@
 package service;
 
+<<<<<<< HEAD
+=======
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +13,15 @@ import org.springframework.stereotype.Service;
 
 import dao.BoardDao;
 import model.Board;
+<<<<<<< HEAD
+=======
 import model.Category;
 import model.File;
 import model.FileUpload;
 import model.MapInfo;
 import model.Premium;
 import model.Purchase;
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 
 @Service
 public class BoardService {
@@ -23,6 +29,14 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
+<<<<<<< HEAD
+	public boolean insertBoard(Board board){
+		return boardDao.insertBoard(board);
+	}
+	
+	public boolean updateBoard(Board board){
+		return boardDao.updateBoard(board);
+=======
 	/**
 	 * table명 : board
 	 * */
@@ -32,12 +46,23 @@ public class BoardService {
 	
 	public boolean updateBoard(HashMap<String, Object> params){
 		return boardDao.updateBoard(params);
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	}
 	
 	public boolean deleteBoard(int no){
 		return boardDao.deleteBoard(no);
 	}
 	
+<<<<<<< HEAD
+	public Board selectOne(int no){
+		return boardDao.selectOne(no);
+	}
+	
+	public List<Board>selectAll(){
+		return boardDao.selectAll();
+	}
+		
+=======
 	public Board selectOneBoard(int no){
 		return boardDao.selectOneBoard(no);
 	}
@@ -269,5 +294,6 @@ public class BoardService {
 
 	
 
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 
 }

@@ -14,14 +14,20 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+<<<<<<< HEAD
+=======
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+<<<<<<< HEAD
+=======
 import model.Authority;
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 import model.CashRecord;
 import model.Exchange;
 import model.FileUpload;
@@ -37,6 +43,24 @@ public class MemberController {
 	
 	Gson gson = new Gson();
 	
+<<<<<<< HEAD
+	@RequestMapping("profile.do")
+	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
+		ModelAndView mv = new ModelAndView("profile");
+//		Member m = new Member(id, "kwi1222", "empty", 0, 0);
+		session.setAttribute("member", memberService.selectOne(id));
+		
+//		mv.addObject("member", memberService.selectOne(id));
+		
+		return mv;
+	}
+	
+	
+	@RequestMapping("profileUpdate.do")
+	public String profileUpdate(FileUpload file, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		
+		String path = session.getServletContext().getRealPath("/profile/");
+=======
 	/**
 	 * 첫 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)
 	 * */
@@ -182,6 +206,7 @@ public class MemberController {
 	public String profileUpdate(FileUpload file, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
 		String path = session.getServletContext().getRealPath("/user/profile/");
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 		String id = ((Member)session.getAttribute("member")).getId();
 		MultipartFile photo = file.getFile();
 		String fileName = photo.getOriginalFilename();
@@ -196,6 +221,12 @@ public class MemberController {
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+<<<<<<< HEAD
+		}
+		
+		
+		Member member = (Member)session.getAttribute("member");
+=======
 		}		
 		
 		Member member = (Member)session.getAttribute("member");
@@ -205,12 +236,20 @@ public class MemberController {
 //		member.setNickName(nickName);
 //닉네임 수정(예정) 
 		
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 		member.setPhoto(fileName);
 		
 		memberService.memberUpdate(member);
 		
 		
 		
+<<<<<<< HEAD
+		return "profile";
+	}
+	
+	
+	
+=======
 		return "member/profile";
 	}
 	
@@ -229,6 +268,7 @@ public class MemberController {
 	/**
 	 * 캐시 화면
 	 * */
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("cash.do")
 	public void refillCash(HttpServletRequest request, HttpServletResponse response) {
 //		ModelAndView mv = new ModelAndView("cash");
@@ -258,6 +298,9 @@ public class MemberController {
 		}
 	}
 	
+<<<<<<< HEAD
+	
+=======
 	/**
 	 * 캐시 관리자 화면
 	 * */
@@ -288,10 +331,20 @@ public class MemberController {
 	/**
 	 * 캐시 충전 내역 조회
 	 * */
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("cashList.do")
 	public void cashList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
+<<<<<<< HEAD
+		Member member = (Member)session.getAttribute("member");
+		String id = member.getId();
+//		Gson gson = new Gson();
+		try {
+			PrintWriter printWriter = response.getWriter();
+			List<CashRecord> list = memberService.cashList(id);
+			String json = gson.toJson(list);
+=======
 		int page = Integer.parseInt(request.getParameter("page").toString());
 		String id = ((Member)session.getAttribute("member")).getId();
 		HashMap<String, Object> map = new HashMap<>();
@@ -303,6 +356,7 @@ public class MemberController {
 			map.put("list", memberService.cashList(map));
 			map.put("totalPage", memberService.totalPageCash(id));
 			String json = gson.toJson(map);
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 			printWriter.write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -312,9 +366,13 @@ public class MemberController {
 	}
 	
 	
+<<<<<<< HEAD
+	
+=======
 	/**
 	 * 환전 화면
 	 * */
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("exchange.do")
 	public void exchange(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		Member member = (Member)session.getAttribute("member");
@@ -346,13 +404,25 @@ public class MemberController {
 		
 	}
 	
+<<<<<<< HEAD
+	
+=======
 	/**
 	 * 캐시 환전 내역 조회
 	 * */
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("exchangeList.do")
 	public void exchangeList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
+<<<<<<< HEAD
+		Member member = (Member)session.getAttribute("member");
+		List<Exchange> list = memberService.exchangeList(member.getId());
+//		Gson gson = new Gson();
+		try {
+			PrintWriter printWriter = response.getWriter();
+			String json = gson.toJson(list);
+=======
 		int page = Integer.parseInt(request.getParameter("page").toString());
 		String id = ((Member)session.getAttribute("member")).getId();
 		HashMap<String, Object> map = new HashMap<>();
@@ -392,6 +462,7 @@ public class MemberController {
 			map.put("list", memberService.allExchangeList(map));
 			map.put("totalPage", memberService.allTotalPageExchange());
 			String json = gson.toJson(map);
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 			printWriter.write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -401,6 +472,11 @@ public class MemberController {
 		
 	}
 	
+<<<<<<< HEAD
+	@RequestMapping("exchangeManager.do")
+	public void exchangeManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		int no = Integer.parseInt(request.getParameter("no"));
+=======
 	
 	
 	/**
@@ -410,6 +486,7 @@ public class MemberController {
 	public void exchangeManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int no = Integer.parseInt(request.getParameter("no"));
 		int page = Integer.parseInt(request.getParameter("page"));
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 		int state=0;
 		if(request.getParameter("state").equals("2")) {
 			state=2;
@@ -417,10 +494,25 @@ public class MemberController {
 			state=3;
 		}
 			
+<<<<<<< HEAD
+		System.out.println(no+"//"+state);
+=======
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("no", no);
 		map.put("state", state);
+<<<<<<< HEAD
+		
+		System.out.println(map);
+		
+		try {
+			if(memberService.exchangeManager(map)>=1) {
+				response.getWriter().write("{\"result\":true}");
+			}else {
+				response.getWriter().write("{\"result\":false}");
+			}
+=======
 		map.put("page", page);
 		
 		
@@ -428,12 +520,16 @@ public class MemberController {
 			memberService.exchangeManager(map);
 			String json = gson.toJson(map);
 			response.getWriter().write(json);
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+<<<<<<< HEAD
+	
+=======
 	/**
 	 * 쪽지 화면
 	 * */
@@ -446,6 +542,7 @@ public class MemberController {
 	/**
 	 * 쪽지 리스트 조회
 	 * */
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("messageList.do")
 	public void message(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -464,10 +561,13 @@ public class MemberController {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
 	
 	/**
 	 * 쪽찌 상세 보기
 	 * */
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("messageDetail.do")
 	public void messageDetail(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -485,9 +585,12 @@ public class MemberController {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
 	/**
 	 * 쪽지 보내기
 	 * */
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("messageSend.do")
 	public void messageSend(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String title = request.getParameter("title");
@@ -500,6 +603,9 @@ public class MemberController {
 		memberService.messageSend(message);
 	}
 	
+<<<<<<< HEAD
+	
+=======
 	/**
 	 * 회원관리 화면
 	 * */
@@ -511,6 +617,7 @@ public class MemberController {
 	/**
 	 * 회원 리스트 조회
 	 * */
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("memberList.do")
 	public void memberList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -525,11 +632,17 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
+		
+	}
+	
+=======
 	}
 	
 	/**
 	 * 회원 상세 보기
 	 * */
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("memberUpdateForm.do")
 	public void memberUpdateForm(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -550,9 +663,12 @@ public class MemberController {
 	}
 	
 	
+<<<<<<< HEAD
+=======
 	/**
 	 * 회원 정보 수정
 	 * */
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("memberUpdate.do")
 	public void memberUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
@@ -567,9 +683,13 @@ public class MemberController {
 		
 	}
 	
+<<<<<<< HEAD
+	
+=======
 	/**
 	 * 회원 삭제
 	 * */
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("memberDelete.do")
 	public void memberDelete(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
@@ -588,6 +708,19 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
+		
+		
+	}
+	
+	
+//	@RequestMapping("kakaoLogin.do")
+//	public void kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+////		System.out.println(request.getParameter("email"));
+//		session.setAttribute("email", request.getParameter("email")+"//카카오");
+//		
+//	}
+=======
 
 
 		
@@ -803,5 +936,6 @@ public class MemberController {
 	
 	
 	
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 
 }

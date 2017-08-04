@@ -5,6 +5,16 @@
  
  <mapper namespace="dao.MemberDao">
  
+<<<<<<< HEAD
+ <select id="selectOne" resultType="Member">
+ 	select * from profile where id=#{id}
+ </select>
+ 
+ <select id="selectAll" resultType="Member">
+ 	select * from profile
+ </select>
+ 
+=======
  <select id="selectOne" parameterType="String" resultType="Member">
  	select * from profile where id=#{id}
  </select>
@@ -27,6 +37,7 @@
  <!-- 추가한부분 -->
  
  
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  <update id="memberUpdate" parameterType="Member">
  	update profile set nickname=#{nickName}, photo=#{photo}, balance=#{balance}, admin=#{admin} where id=#{id}
  </update>
@@ -43,8 +54,13 @@
 	insert into cash values(0, #{id}, sysdate(), #{amount}, #{balance}, #{code}, 1)
  </insert>
  
+<<<<<<< HEAD
+ <select id="cashList" parameterType="String" resultType="CashRecord">
+ 	select * from cash where id=#{id}
+=======
  <select id="cashList" parameterType="java.util.HashMap" resultType="CashRecord">
  	select * from cash where id=#{id} order by no desc limit #{page}, 10
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  </select>
  
  <insert id="exchange" parameterType="java.util.HashMap">
@@ -55,8 +71,13 @@
  	update profile set balance=#{balance} where id=#{id}
  </update>
  
+<<<<<<< HEAD
+ <select id="exchangeList" parameterType="String" resultType="Exchange">
+ 	select * from exchange where id=#{id}
+=======
  <select id="exchangeList" parameterType="java.util.HashMap" resultType="Exchange">
  	select * from exchange where id=#{id} order by no desc limit #{page}, 10
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  </select>
  
  <update id="exchangeManager" parameterType="java.util.HashMap">
@@ -79,6 +100,8 @@
  	insert into message values(0, #{sender}, #{receiver}, #{title}, #{content}, 1, sysdate())
  </insert>
  
+<<<<<<< HEAD
+=======
  <insert id="authorityReg" parameterType="java.util.HashMap">
  	insert into authority values(0, #{id}, #{category_no}, sysdate(), 1)
  	
@@ -159,6 +182,7 @@
  	and state=1
  </select>
  
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  </mapper>
  
  

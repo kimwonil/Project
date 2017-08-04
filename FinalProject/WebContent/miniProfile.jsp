@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<<<<<<< HEAD
+=======
 <script type="text/javascript">
 
 
@@ -12,6 +14,7 @@
 
 
 </script>
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 <style type="text/css">
 	#miniProfile{
 		border:1px solid black;
@@ -29,7 +32,11 @@
 		left: 13%;
 		top:30%;
 		
+<<<<<<< HEAD
+		z-index:5;
+=======
 		z-index:4;
+>>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	}
 	#imgSpace{
 		height: 50px;
