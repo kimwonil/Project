@@ -140,11 +140,6 @@ public class MemberController {
 		
 		Member member = (Member)session.getAttribute("member");
 		
-//닉네임 수정(예정) 
-//		String nickName = ((Member)session.getAttribute("member")).getNickName();
-//		member.setNickName(nickName);
-//닉네임 수정(예정) 
-		
 		member.setPhoto(fileName);
 		
 		memberService.memberUpdate(member);
@@ -154,14 +149,16 @@ public class MemberController {
 		return "member/profile";
 	}
 	
-	@RequestMapping("cashPage.do")
-	public String cashPage() {
-		return "member/cash";
-	}
 	
-	@RequestMapping("cashManager.do")
-	public String cashManager() {
-		return "member/cashManager";
+	@RequestMapping("cashPage.do")
+	public String cashPage(HttpSession session) {
+		int admin = ((Member)session.getAttribute("member")).getAdmin();
+		
+		if(admin == 1) {
+			return "member/cashManager";
+		}else {
+			return "member/cash";
+		}
 	}
 	
 	
@@ -550,13 +547,6 @@ public class MemberController {
 		
 	}
 	
-	/**
-	 * 권한 신청 관리자 화면
-	 * */
-	@RequestMapping("authorityManagerPage.do")
-	public String authorityManagerPage() {
-		return "member/authorityManager";
-	}
 	
 	
 	/**

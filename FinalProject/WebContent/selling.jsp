@@ -184,7 +184,7 @@
 							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
 							value.purchaser + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="' + value.purchase_no + '"></td><td>' +
 							(value.state == 40 ? "구매자 취소" : value.state == 41 ? "취소 대기" : "취소 완료") + '</td><td>' +
-							(value.state == 40 ? '<button class="btn-sm btn-info" value="' + value.purchase_no + '">확인</button> ' : "")
+							(value.state == 40 ? '<button class="btn-sm btn-info cancellComfirm" value="' + value.purchase_no + '">확인</button> ' : "")
 						);
 					});
 					$('#currentPage').val(data.page);
@@ -592,6 +592,30 @@
 			
 			
 		});
+		
+		
+		$(document).on('click', '.cancellComfirm', function(){
+			alert($(this).val()+"취소한다");
+			
+			$.ajax({
+				url:"progress.do",
+				type:"POST",
+				data:{
+					no:$(this).val(),
+					state:42
+				},
+				success:function(){
+					alert("성공");
+					canceledList(0);
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+			
+			
+		});
+		
 		
 	}); //document ready
 	

@@ -13,7 +13,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Hydrogen &mdash; A free HTML5 Template by FREEHTML5.CO</title>
+<title>ShareAbility</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 <meta name="keywords"
@@ -210,6 +210,12 @@
 #searchInput{
 	height: 30px;
 }
+.searchIcon{
+	width: 20px;
+	height: 20px;
+}
+
+
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -352,6 +358,15 @@
 			};
 		});//검색 끝
 
+		
+		$('.searchIcon').click(function(){
+			if($('#searchInput').val() == ''){
+				alert("검색어를 입력하세요");
+				return false;
+			}else{
+				$('#searchInput').parent().submit();
+			}	
+		});
 	
 	
 		//판매등록 누르면 로그인 검사하고 보내기
@@ -388,17 +403,14 @@
 			<i class="icon-cross"></i>
 		</a>
 		<h1 class="fh5co-logo">
-			<a class="navbar-brand" href="index.jsp">Hydrogen</a>
+			<a class="navbar-brand" href="index.jsp">Home</a>
 		</h1>
 		<ul>
-			<li class="active"><a href="index.jsp">Home</a></li>
 			<li><a href="profile.do?id=kwi1222@naver.com">프로필</a></li>
 			<li><a href="authority.do">권한 신청</a></li>
-			<li><a href="authorityManagerPage.do">권한 신청 매니저</a></li>
 			<li><a href="selling.do">판매관리</a></li>
 			<li><a href="purchasing.do">구매관리</a></li>
 			<li><a href="cashPage.do">캐시관리</a></li>
-			<li><a href="cashManager.do">캐시 매니저</a></li>
 			<li><a href="message.do">쪽지관리</a></li>
 			<li><a href="customerCenterCall.do">고객센터</a></li>
 		</ul>
@@ -451,6 +463,7 @@
 				<select name="major" id="categoryForSearch">
 				</select> 
 				<input type="text" id="searchInput" name="word" value="${word}">
+				<a href="#"><img src="images/search.png" class="searchIcon"></a>
 			</form>
 			<div id="linkGroup">
 				<a href='boardForm.do' id="boardForm">판매등록</a> <a href='loginprototype.jsp'>로그인</a>
@@ -461,7 +474,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i
-					class="icon-menu"></i></a> <a class="navbar-brand" href="index.jsp">Hydrogen</a>
+					class="icon-menu"></i></a> <a class="navbar-brand" href="index.jsp">ShareAbility</a>
 			</div>
 		</div>
 

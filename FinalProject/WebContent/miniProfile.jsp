@@ -8,13 +8,11 @@
 <script type="text/javascript">
 
 
-
-
-
 </script>
 <style type="text/css">
 	#miniProfile{
-		border:1px solid black;
+		background-color:lightgray;
+		border-radius:10px;
 		position: absolute;
 		top:37%;
 		left:10%;
@@ -26,13 +24,16 @@
 		height: 100px;
 		
 		position: absolute;
-		left: 13%;
-		top:30%;
+		left: 14%;
+		top: 30%;
 		
 		z-index:4;
 	}
 	#imgSpace{
 		height: 50px;
+	}
+	.btn{
+		margin: 10px 0px 20px 0px;
 	}
 </style>
 </head>
