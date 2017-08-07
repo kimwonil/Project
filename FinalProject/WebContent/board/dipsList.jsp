@@ -96,7 +96,15 @@ h3{
 }
 #categoryList>tbody>tr>td{
 /* 	background-color: red; */
-	border: 1px solid black;
+/* 	border: 1px solid black; */
+	padding: 5px;
+}
+#categoryList div{
+	background-color: gray;
+	border-radius:5px;
+}
+#categoryList{
+	margin: 0px auto;
 }
 
 </style>

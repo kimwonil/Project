@@ -278,7 +278,29 @@ text-align: center;
 		
 		
 		$(document).on('click', '.stopBtn', function(){
-			var a = confirm("취소할래?");
+			var cancel = confirm("취소할래?");
+			
+			if(cancel){
+				$.ajax({
+					url:"progress.do",
+					type:"POST",
+					data:{
+						no:$(this).val(),
+						state:40
+					},
+					success:function(){
+						alert("성공");
+						purchase(0);
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+		    			alert(textStatus);     //응답상태
+		    			alert(errorThrown);     //응답에 대한 메세지
+		    		}
+					
+				});	
+			}
+			
+			
 			
 		});
 		

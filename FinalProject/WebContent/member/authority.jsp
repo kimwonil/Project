@@ -79,6 +79,40 @@ $(document).ready(function(){
 	});
 	
 	
+	
+	$('#regBtn').click(function(){
+		$('#addModal').modal('show');
+		$.ajax({
+			url:"bringCategory.do",
+			type:"POST",
+			dataType:"json",
+			success : function(data){
+				
+				$('#category').empty();
+				$('#category').append('<option value="0" selected>카테고리</option>');
+				$.each(data, function(index, value){
+					$('#category').append(
+							'<option value="'+value.no+'">'+value.category_name+'</option>'
+					);//append 끝
+				});//each 끝
+			},error:function(jqXHR, textStatus, errorThrown){
+    			alert(textStatus);     //응답상태
+    			alert(errorThrown);     //응답에 대한 메세지
+    		}
+		});
+		
+	});
+	
+	$('#closeBtn').click(function(){
+		$('#addModal').modal('hide');
+	});
+	
+	
+	
+	
+	
+	
+	
 });
 
 
@@ -145,19 +179,13 @@ $(document).ready(function(){
 			<div class="row">
 			
 				<div class="col-md-8 col-md-offset-2">
-					<h2>권한 신청</h2><button type="button" id="regBtn" class="btn-sm btn-info" data-toggle="modal" data-target="#addModal">재능 신청</button>
+					<h2>권한 신청</h2><button type="button" id="regBtn" class="btn-sm btn-info" >재능 신청</button>
 					<table id="talentList">
 						<tr>
 							<td>번호</td>
 							<td>재능</td>
 							<td>신청일시</td>
 							<td>비고</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>대분류</td>
-							<td>2017.07.11</td>
-							<td>승인대기중 / <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">삭제</button></td>
 						</tr>
 					</table>
 					
@@ -181,7 +209,7 @@ $(document).ready(function(){
 										<tr>
 											<td>신청 재능</td>
 											<td>
-												<select name="category_no">
+												<select id="category" name="category_no">
 													<option value="1">디자인/그래픽</option>
 													<option value="2">컴퓨터/개발</option>
 													<option value="3">음악/영상</option>
@@ -202,15 +230,14 @@ $(document).ready(function(){
 										</tr>
 									</table>
 						        </div>
-						        <div id="btnDiv">
+						        <div>
 						          <input type="submit" class="btn btn-sm btn-info register" value="등록">
 <!-- 						          <button type="button" class="btn btn-sm btn-info register" id="register">등록</button> -->
-						          <button type="button" class="btn btn-sm btn-info register" data-dismiss="modal">닫기</button>
+						          <button type="button" id="closeBtn" class="btn btn-sm btn-info register">닫기</button>
 						        
 						        </div>
 						        </form>
-						        <div class="modal-footer">
-						        </div>
+						        
 						      </div>
 						      
 						    </div>

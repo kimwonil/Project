@@ -54,19 +54,19 @@
 		<td><input type="button" value="충전" class="btn btn-sm btn-info"></td>
 	</tr>
 	<tr>
-		<td>나의 재능 : <a id="authorityTag" href="#">0건</a></td>
+		<td>나의 재능 : <a href="profile.do">0건</a></td>
 	</tr>
 	<tr>
-		<td>판매중인 재능 : <a id="sellingTag" href="#">0건</a></td>
+		<td>판매중인 재능 : <a href="selling.do">0건</a></td>
 	</tr>
 	<tr>
-		<td>거래중인 재능 : <a id="purchasingTag" href="#">0건</a></td>
+		<td>구매중인 재능 : <a href="purchasing.do">0건</a></td>
 	</tr>
 	<tr>
-		<td>관심 재능 : <a id="interestTag" href="#">0건</a></td>
+		<td>관심 재능 : <a href="dipsList.do?id=${member.id}">0건</a></td>
 	</tr>
 	<tr>
-		<td>쪽지 : <a id="messageTag" href="#">0건</a></td>
+		<td>쪽지 : <a href="message.do">0건</a></td>
 	</tr>
 </table>
 </div>

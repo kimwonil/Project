@@ -90,14 +90,27 @@ public class MemberController {
 	 * 프로필 조회
 	 * */
 	@RequestMapping("profile.do")
-	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
+	public ModelAndView profile(@RequestParam(value="id", required=false) String id, HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("member/profile");
-		Member memeber = memberService.selectOne(id);
-		session.setAttribute("member", memeber);
-		//판매중
-		session.setAttribute("selling", memberService.countSelling(memeber.getNickname()));
-		//구매중
-		session.setAttribute("purchase", memberService.countPurchase(memeber.getNickname()));
+		Member member = null;
+		if(session.getAttribute("member") != null) {
+			member = (Member)session.getAttribute("member");
+			session.setAttribute("member", memberService.selectOne(member.getId()));
+			//판매중
+			session.setAttribute("selling", memberService.countSelling(member.getNickname()));
+			//구매중
+			session.setAttribute("purchase", memberService.countPurchase(member.getNickname()));
+		}
+		if(id != null) {
+			member = memberService.selectOne(id);
+			session.setAttribute("member", member);
+			//판매중
+			session.setAttribute("selling", memberService.countSelling(member.getNickname()));
+			//구매중
+			session.setAttribute("purchase", memberService.countPurchase(member.getNickname()));
+		}else {
+			mv.setViewName("index");
+		}
 		
 		return mv;
 	}
@@ -378,7 +391,7 @@ public class MemberController {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		Member member = (Member)session.getAttribute("member");
-		List<Message> list = memberService.messageList(member.getId());
+		List<Message> list = memberService.messageList(member.getNickname());
 //		Gson gson = new Gson();
 		try {
 			if(list != null) {
@@ -420,7 +433,7 @@ public class MemberController {
 		String title = request.getParameter("title");
 		String receiver = request.getParameter("receiver");
 		String content = request.getParameter("content");
-		String sender = ((Member)session.getAttribute("member")).getId();
+		String sender = ((Member)session.getAttribute("member")).getNickname();
 		
 		Message message = new Message(sender, receiver, title, content);
 		
@@ -524,8 +537,17 @@ public class MemberController {
 	 * 권한 신청 화면
 	 * */
 	@RequestMapping("authority.do")
-	public String authority() {
-		return "member/authority";
+	public String authority(HttpSession session) {
+		if(((Member)session.getAttribute("member")) == null) {
+			return "index";
+		}else if(((Member)session.getAttribute("member")).getAdmin() == 1) {
+			return "member/authorityManager";
+		}else {
+			return "member/authority";	
+		}
+		
+		
+		
 	}
 	
 	/**
@@ -557,7 +579,7 @@ public class MemberController {
 		
 		
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("id", ((Member)session.getAttribute("member")).getId());
+		params.put("id", ((Member)session.getAttribute("member")).getNickname());
 		params.put("category_no", request.getParameter("category_no"));
 		
 		memberService.authorityReg(params);
@@ -627,7 +649,7 @@ public class MemberController {
 	 * */
 	@RequestMapping("authorityList.do")
 	public void authorityList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String id = ((Member)session.getAttribute("member")).getId();
+		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);

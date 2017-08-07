@@ -278,8 +278,26 @@ text-align: center;
 		
 		
 		$(document).on('click', '.stopBtn', function(){
-			var a = confirm("취소할래?");
-			
+			var cancel = confirm("취소할래?");
+			if(cancel){
+				$.ajax({
+					url:"progress.do",
+					type:"POST",
+					data:{
+						no:$(this).val(),
+						state:42
+					},
+					success:function(){
+						alert("성공");
+						purchase(0);
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+		    			alert(textStatus);     //응답상태
+		    			alert(errorThrown);     //응답에 대한 메세지
+		    		}
+					
+				});	
+			}
 		});
 		
 		$('#ongoing').click(function(){
@@ -390,7 +408,7 @@ text-align: center;
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
-					<h2>구매관리</h2>
+					<h2>구매관리(관리자)</h2>
 					<div id="tabs">
 						<ul>
 							<li><a href="#tabs-1" id="ongoing">진행중 거래</a></li>

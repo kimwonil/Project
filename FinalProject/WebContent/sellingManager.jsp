@@ -86,7 +86,7 @@
 							$('#tabs-2 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
 									value.purchaser + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>진행중</td><td>'+
-									'<button class="btn-sm btn-info completeBtn" value="'+value.purchase_no+'">완료</button> <button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">중단</button></td></tr>'		
+									'<button class="btn-sm btn-info completeBtn" value="'+value.purchase_no+'">완료</button> <button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
 							);								
 					});
 					$('#currentPage').val(data.page);
@@ -277,7 +277,7 @@
 				type:"POST",
 				data:{
 					no:$(this).val(),
-					state:41
+					state:42
 				},
 // 				dataType:"json",
 				success:function(data){
