@@ -14,20 +14,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
-=======
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
-<<<<<<< HEAD
-=======
 import model.Authority;
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 import model.CashRecord;
 import model.Exchange;
 import model.FileUpload;
@@ -43,24 +37,6 @@ public class MemberController {
 	
 	Gson gson = new Gson();
 	
-<<<<<<< HEAD
-	@RequestMapping("profile.do")
-	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
-		ModelAndView mv = new ModelAndView("profile");
-//		Member m = new Member(id, "kwi1222", "empty", 0, 0);
-		session.setAttribute("member", memberService.selectOne(id));
-		
-//		mv.addObject("member", memberService.selectOne(id));
-		
-		return mv;
-	}
-	
-	
-	@RequestMapping("profileUpdate.do")
-	public String profileUpdate(FileUpload file, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		
-		String path = session.getServletContext().getRealPath("/profile/");
-=======
 	/**
 	 * 첫 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)
 	 * */
@@ -101,7 +77,7 @@ public class MemberController {
 		memberService.memberInsert(params);
 		//String id = request.getParameter("id");
 		
-		System.out.println("아따 험난하다 1  memberService.selectmember(id).toString() 출력 : "+ memberService.selectmember(id).toString());
+		System.out.println("아따 험난하다 2  memberService.selectmember(id).toString() 출력 : "+ memberService.selectmember(id).toString());
 		
 		System.out.println("야이거 나오긴하냐1 = "+id);
 	
@@ -168,7 +144,6 @@ public class MemberController {
 //		return mv;
 //	}
 //		}
-
 	
 //	public String emailjoin (String id, HttpSession session){
 //		System.out.println(id);
@@ -187,6 +162,26 @@ public class MemberController {
 //		}
 //
 //	}
+		
+		
+//		<<<<<<< HEAD
+//		@RequestMapping("profile.do")
+//		public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
+//			ModelAndView mv = new ModelAndView("profile");
+////			Member m = new Member(id, "kwi1222", "empty", 0, 0);
+//			session.setAttribute("member", memberService.selectOne(id));
+//			
+////			mv.addObject("member", memberService.selectOne(id));
+//			
+//			return mv;
+//		}
+//		
+//		
+//		@RequestMapping("profileUpdate.do")
+//		public String profileUpdate(FileUpload file, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+//			
+//			String path = session.getServletContext().getRealPath("/profile/");
+//	=======
 	
 	/**
 	 * 프로필 조회
