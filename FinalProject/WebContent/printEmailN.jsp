@@ -10,10 +10,11 @@
 </head>
 <body>
 
-<form action="loginsuccess.do" method="get" name="id">
-<div id="EmailN" ></div>
-엉엉엉 : <input name="id"> <br>
-
+<form action="loginsuccess.do" method="post" name="id">
+<div>
+<div id="id">네이브어어 : </div> <br>
+<div id="EmailN">네이브어어어어 : </div> <br>
+</div>
 </form>
 
 <script type="text/javascript">
@@ -34,9 +35,25 @@ naver_id_login.get_naver_userprofile("naverSignInCallback()");
 		//이메일 값 출력
 		$('#EmailN').append(naverEmail);
 		
+		$('#id').append(naverEmail);
 		//test 0002 : 프로필페이지(id=메일)로 이동시도 
-		// location.replace("http://localhost:8080/FianlProject/profile.do?id="+naverEmail);
+		//location.replace("http://localhost:8080/FianlProject/profile.do?id="+naverEmail);
 
+		$.ajax({
+			url:"http://localhost:8080/FinalProject/loginsuccess.do",
+			type:"POST",
+			data:{id : naverEmail},
+			success:function(){
+				alert("오오");	
+				location.replace("http://localhost:8080/FinalProject/profile.do?id="+naverEmail);
+	},
+			error:function(){
+				alert("아아...");
+				location.replace("http://localhost:8080/FinalProject/profile.do?id="+naverEmail);
+	}
+		})
+
+		
 		}
 	
 	

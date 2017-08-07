@@ -5,6 +5,7 @@
  
  <mapper namespace="dao.MemberDao">
  
+ <!-- 
 <<<<<<< HEAD
  <select id="selectOne" resultType="Member">
  	select * from profile where id=#{id}
@@ -15,6 +16,8 @@
  </select>
  
 =======
+  -->
+  
  <select id="selectOne" parameterType="String" resultType="Member">
  	select * from profile where id=#{id}
  </select>
