@@ -156,12 +156,13 @@
  </select>
  
  <select id="countSelling" parameterType="String" resultType="int">
- 	select * from board where writer=#{id} and state in(0,1,2)
+ 	select count(no) from board where writer=#{id} and state in(0,1,2)
  </select>
  
  <select id="countPurchase" parameterType="String" resultType="int">
- 	select * from purchase where purchaser=#{id} state in(0,10,11)
+ 	select count(purchase_no) from purchase where purchaser=#{id} and state in(0,10,11)
  </select>
+ 
  </mapper>
  
  

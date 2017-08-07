@@ -59,10 +59,10 @@
 					<br><br>
 					<table>
 						<tr>
-							<td>판매중 : <a id="sellingTag" href="#">${selling}건</a></td>
+							<td>판매중 : <a href="selling.do">${selling}건</a></td>
 						</tr>
 						<tr>
-							<td>구매중 : <a id="purchaseTag" href="#">${purchase}건</a></td>
+							<td>구매중 : <a href="purchasing.do">${purchase}건</a></td>
 						</tr>
 						<tr>
 							<td>판매평점 : 00점</td>

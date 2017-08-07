@@ -50,7 +50,7 @@ text-align: center;
 							
 							$('#tabs-1 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+'</td><td>'+
 									'<button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
 							);								
@@ -97,7 +97,7 @@ text-align: center;
 							
 							$('#tabs-2 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+
 									'</td></tr>'		
 							);								
@@ -145,7 +145,7 @@ text-align: center;
 							
 							$('#tabs-3 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+
 									'"></td></tr>'		
 							);								
 					});
@@ -212,7 +212,7 @@ text-align: center;
 				var popWidth = $('.popupLayer').width();
 				var popHeight = $('.popupLayer').height();
 				var mouseX=event.pageX;
-				var mouseY=event.pageY;
+				var mouseY=event.pageY+30;
 				
 				if(Wwidth < popWidth + event.pageX){
 					mouseX -= popWidth;
@@ -321,21 +321,33 @@ text-align: center;
 }
 .popupLayer {
 	position: absolute;
-/* 	display: none; */
 	background-color: #ffffff;
 	border: solid 2px #d0d0d0;
 	width: 350px;
 	height: 150px;
 	padding: 10px;
-	visibility: hidden;
+ 	visibility: hidden; 
 	z-index: 5;
 }
-.popupLayer>table td{
-	border: 1px solid black;
+
+.popupLayer>table td {
 	text-align: center;
 }
-.popupLayer>table{
+
+.popupLayer>table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+.popupLayer>table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
+}
+
+.popupLayer>table {
 	width: 100%;
+}
+.optionList>span{
+	line-height: 35px;
+	display: block;
 }
 .star-cb-group{
 	margin-left: 185px;

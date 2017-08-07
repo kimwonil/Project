@@ -95,9 +95,9 @@ public class MemberController {
 		Member memeber = memberService.selectOne(id);
 		session.setAttribute("member", memeber);
 		//판매중
-		session.setAttribute("selling", memberService.countSelling(memeber.getId()));
+		session.setAttribute("selling", memberService.countSelling(memeber.getNickname()));
 		//구매중
-		session.setAttribute("purchase", memberService.countPurchase(memeber.getId()));
+		session.setAttribute("purchase", memberService.countPurchase(memeber.getNickname()));
 		
 		return mv;
 	}
