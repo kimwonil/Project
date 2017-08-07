@@ -93,6 +93,10 @@ public class MemberController {
 	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("member/profile");
 		session.setAttribute("member", memberService.selectOne(id));
+		//판매중
+		session.setAttribute("selling", memberService.countSelling(id));
+		//구매중
+		session.setAttribute("purchase", memberService.countPurchase(id));
 		
 		return mv;
 	}

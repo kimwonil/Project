@@ -48,4 +48,9 @@ public interface MemberDao {
 	public int getMessageCount(String id);
 	//알림에 띄울 확인 안한 메시지 
 	public List<Message> getMessage(String id);
+	
+	//판매 갯수
+	public int countSelling(String id);
+	//구매 갯수
+	public int countPurchase(String id);
 }

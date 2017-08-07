@@ -159,5 +159,14 @@ public class MemeberService {
 	{
 		return memberDao.getMessage(id);
 	}
+
+	public int countSelling(String id) {
+		return memberDao.countSelling(id);
+	}
+
+	public int countPurchase(String id) {
+		return memberDao.countPurchase(id);
+		
+	}
 	
 }
