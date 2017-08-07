@@ -197,6 +197,14 @@ public class DealService {
 		return dealDao.totalPagePurchaseCanceledManager();
 	}
 
+	public int optionTotal(Integer no) {
+		return dealDao.optionTotal(no);
+	}
+
+	public String purchaseName(Integer no) {
+		return dealDao.purchaseName(no);
+	}
+
 
 
 	

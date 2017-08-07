@@ -53,4 +53,6 @@ public interface MemberDao {
 	public int countSelling(String id);
 	//구매 갯수
 	public int countPurchase(String id);
+	
+	public void returnBalance(HashMap<String, Object> map);
 }

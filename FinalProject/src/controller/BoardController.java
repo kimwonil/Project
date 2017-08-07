@@ -870,7 +870,7 @@ public class BoardController{
 				pw.println("{\"result\" : \"캐시가 부족합니다\", \"state\" : 0}");
 			}else{//성고옹!
 				//purchase
-				Purchase purchase = new Purchase(0, no, member.getId(), 0, null);
+				Purchase purchase = new Purchase(0, no, member.getNickname(), 0, null);
 				dealService.insertPurchase(purchase);
 				int purchaseNo = purchase.getPurchase_no();
 				

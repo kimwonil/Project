@@ -300,6 +300,13 @@ public class DealControll {
 		if(no != null) {
 			map.put("purchase_no", no);
 			dealService.progressState(map);
+			if(state==42) {
+				int total = dealService.optionTotal(no);
+				String purchaser = dealService.purchaseName(no);
+				map.put("total", total);
+				map.put("purchaser", purchaser);
+				memberService.returnBalance(map);
+			}
 		}
 		
 		if(amount != null) {

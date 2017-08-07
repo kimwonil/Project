@@ -168,5 +168,9 @@ public class MemeberService {
 		return memberDao.countPurchase(id);
 		
 	}
+
+	public void returnBalance(HashMap<String, Object> map) {
+		memberDao.returnBalance(map);
+	}
 	
 }

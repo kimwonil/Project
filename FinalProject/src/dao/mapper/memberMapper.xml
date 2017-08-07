@@ -163,6 +163,10 @@
  	select count(purchase_no) from purchase where purchaser=#{id} and state in(0,10,11)
  </select>
  
+ <update id="returnBalance" parameterType="java.util.HashMap">
+ 	update profile set balance=#{total} where nickname=#{purchaser}
+ </update>
+ 
  </mapper>
  
  

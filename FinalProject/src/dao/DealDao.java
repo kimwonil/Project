@@ -74,6 +74,11 @@ public interface DealDao {
 	
 	
 	
+	public int optionTotal(Integer no);
+	public String purchaseName(Integer no);
+	
+	
+	
 	
 	
 	

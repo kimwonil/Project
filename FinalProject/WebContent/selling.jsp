@@ -316,7 +316,6 @@
 					no : $(this).val(),
 					state : 41
 				},
-				// 				dataType:"json",
 				success : function(data) {
 					alert("성공");
 					$('#continueModal').modal('hide');

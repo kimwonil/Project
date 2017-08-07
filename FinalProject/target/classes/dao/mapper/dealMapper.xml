@@ -173,6 +173,15 @@
 	<insert id="insertStar_point" parameterType="java.util.HashMap">
 		insert into star_point values(0, #{board_no}, #{purchase}, #{content}, #{star}, sysdate(), #{nickname})
 	</insert>
+	
+	
+	<select id="optionTotal" parameterType="int" resultType="int">
+		select sum(price) from purchase_option where no=#{no}
+	</select>
+	
+	<select id="purchaseName" parameterType="int" resultType="String">
+		select purchaser from purchase where purchase_no=#{no}
+	</select>
  </mapper>
  
  
