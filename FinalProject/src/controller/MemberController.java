@@ -92,11 +92,12 @@ public class MemberController {
 	@RequestMapping("profile.do")
 	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("member/profile");
-		session.setAttribute("member", memberService.selectOne(id));
+		Member memeber = memberService.selectOne(id);
+		session.setAttribute("member", memeber);
 		//판매중
-		session.setAttribute("selling", memberService.countSelling(id));
+		session.setAttribute("selling", memberService.countSelling(memeber.getId()));
 		//구매중
-		session.setAttribute("purchase", memberService.countPurchase(id));
+		session.setAttribute("purchase", memberService.countPurchase(memeber.getId()));
 		
 		return mv;
 	}
