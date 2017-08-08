@@ -30,8 +30,6 @@ public class MemeberService {
 		return memberDao.selectAll();
 	}
 	
-<<<<<<< HEAD
-=======
 	//추가된 부분
 	public int memberInsert(HashMap<String, Object> params){
 		return memberDao.memberInsert(params);
@@ -43,7 +41,6 @@ public class MemeberService {
 	}
 	//추가된 부분
 	
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	public int memberUpdate(Member member) {
 		return memberDao.memberUpdate(member);
 	}
@@ -189,6 +186,4 @@ public class MemeberService {
 		return memberDao.getMessage(id);
 	}
 
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
-	
 }

@@ -5,6 +5,7 @@
  
  <mapper namespace="dao.MemberDao">
  
+ <!-- 
 <<<<<<< HEAD
  <select id="selectOne" resultType="Member">
  	select * from profile where id=#{id}
@@ -15,6 +16,8 @@
  </select>
  
 =======
+  -->
+  
  <select id="selectOne" parameterType="String" resultType="Member">
  	select * from profile where id=#{id}
  </select>
@@ -100,8 +103,6 @@
  	insert into message values(0, #{sender}, #{receiver}, #{title}, #{content}, 1, sysdate())
  </insert>
  
-<<<<<<< HEAD
-=======
  <insert id="authorityReg" parameterType="java.util.HashMap">
  	insert into authority values(0, #{id}, #{category_no}, sysdate(), 1)
  	
@@ -182,7 +183,6 @@
  	and state=1
  </select>
  
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  </mapper>
  
  
