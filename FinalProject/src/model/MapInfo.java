@@ -1,13 +1,6 @@
 package model;
 
 public class MapInfo {
-<<<<<<< HEAD
-	private int no; //글번호
-	private int x; //longitude 경도
-	private int y; //latitude 위도
-	private String title; //목적지
-	private String address; //주소
-=======
 	private int no; //번호
 	private int board_no; //글번호
 	private String lat; //latitude 위도
@@ -33,7 +26,6 @@ public class MapInfo {
 		this.address = address;
 		this.address2 = address2;
 	}
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	
 	
 	public int getNo() {
@@ -42,19 +34,6 @@ public class MapInfo {
 	public void setNo(int no) {
 		this.no = no;
 	}
-<<<<<<< HEAD
-	public int getX() {
-		return x;
-	}
-	public void setX(int x) {
-		this.x = x;
-	}
-	public int getY() {
-		return y;
-	}
-	public void setY(int y) {
-		this.y = y;
-=======
 	public int getBoard_no() {
 		return board_no;
 	}
@@ -72,7 +51,6 @@ public class MapInfo {
 	}
 	public void setLng(String lng) {
 		this.lng = lng;
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	}
 	public String getTitle() {
 		return title;
@@ -86,33 +64,23 @@ public class MapInfo {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-<<<<<<< HEAD
-=======
 	public String getAddress2() {
 		return address2;
 	}
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	
 	
 	@Override
 	public String toString() {
-<<<<<<< HEAD
-		return "Map [no=" + no + ", x=" + x + ", y=" + y + ", title=" + title + ", address=" + address + "]";
-=======
 		return "MapInfo [no=" + no + ", board_no=" + board_no + ", lat=" + lat + ", lng=" + lng + ", title=" + title
 				+ ", address=" + address + ", address2=" + address2 + "]";
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	}
 	
 	
 	
 	
 
-<<<<<<< HEAD
-=======
 	
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 }

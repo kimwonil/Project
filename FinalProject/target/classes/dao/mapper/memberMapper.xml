@@ -5,19 +5,6 @@
  
  <mapper namespace="dao.MemberDao">
  
- <!-- 
-<<<<<<< HEAD
- <select id="selectOne" resultType="Member">
- 	select * from profile where id=#{id}
- </select>
- 
- <select id="selectAll" resultType="Member">
- 	select * from profile
- </select>
- 
-=======
-  -->
-  
  <select id="selectOne" parameterType="String" resultType="Member">
  	select * from profile where id=#{id}
  </select>
@@ -29,20 +16,15 @@
  <!-- 추가한부분 -->
  
   <insert id="memberInsert" parameterType="Member">
- 	insert into member values(#{id} ,#{nickName})
- 	<!--,#{photo},#{balance},#{admin} -->
- 	 </insert>
- 	 
-  <select id="selectmember" parameterType="String" resultType="Member">
- 	select * from member where id=#{id}
- </select>
+ 	insert into member values(#{id},#{nickname},#{photo},#{balance},#{admin})
+  </insert>
+ 
  
  <!-- 추가한부분 -->
  
  
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  <update id="memberUpdate" parameterType="Member">
- 	update profile set nickname=#{nickName}, photo=#{photo}, balance=#{balance}, admin=#{admin} where id=#{id}
+ 	update profile set nickname=#{nickname}, photo=#{photo}, balance=#{balance}, admin=#{admin} where id=#{id}
  </update>
  
  <delete id="memberDelete" parameterType="String">
@@ -57,13 +39,8 @@
 	insert into cash values(0, #{id}, sysdate(), #{amount}, #{balance}, #{code}, 1)
  </insert>
  
-<<<<<<< HEAD
- <select id="cashList" parameterType="String" resultType="CashRecord">
- 	select * from cash where id=#{id}
-=======
  <select id="cashList" parameterType="java.util.HashMap" resultType="CashRecord">
  	select * from cash where id=#{id} order by no desc limit #{page}, 10
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  </select>
  
  <insert id="exchange" parameterType="java.util.HashMap">
@@ -74,13 +51,8 @@
  	update profile set balance=#{balance} where id=#{id}
  </update>
  
-<<<<<<< HEAD
- <select id="exchangeList" parameterType="String" resultType="Exchange">
- 	select * from exchange where id=#{id}
-=======
  <select id="exchangeList" parameterType="java.util.HashMap" resultType="Exchange">
  	select * from exchange where id=#{id} order by no desc limit #{page}, 10
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
  </select>
  
  <update id="exchangeManager" parameterType="java.util.HashMap">
@@ -182,6 +154,18 @@
  	where sender=#{id}
  	and state=1
  </select>
+ 
+ <select id="countSelling" parameterType="String" resultType="int">
+ 	select count(no) from board where writer=#{id} and state in(0,1,2)
+ </select>
+ 
+ <select id="countPurchase" parameterType="String" resultType="int">
+ 	select count(purchase_no) from purchase where purchaser=#{id} and state in(0,10,11)
+ </select>
+ 
+ <update id="returnBalance" parameterType="java.util.HashMap">
+ 	update profile set balance=balance + #{total} where nickname=#{purchaser}
+ </update>
  
  </mapper>
  

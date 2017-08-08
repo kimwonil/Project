@@ -1,27 +1,5 @@
 package dao;
 
-<<<<<<< HEAD
-import java.util.List;
-
-import model.Board;
-import model.MapInfo;
-
-public interface BoardDao {
-	//테이블명 : board
-	public boolean insertBoard(Board board);
-	public boolean updateBoard(Board board);
-	public boolean deleteBoard(int no);
-	public Board selectOne(int no);
-	public List<Board> selectAll();
-	
-	//테이블명 : map
-	public int insertMap(MapInfo map);
-	public int updateMap(MapInfo map);
-	public int deleteMap(int no);
-	
-	
-	//테이블명 : file
-=======
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -119,7 +97,6 @@ public interface BoardDao {
 	public int premiumUpdate(HashMap<String, Object> map);
 
 	
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	
 	
 

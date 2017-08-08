@@ -166,7 +166,6 @@ $(document).ready(function(){
 <body>
 <style>
 	#talentList{
-		border: 1px solid black;
 		width: 750px;
 		text-align: center;
 		margin:10px 0px;
@@ -176,7 +175,6 @@ $(document).ready(function(){
 		margin: 0 auto;
 	}
 	#talentList td{
-		border: 1px solid black;
 		text-align: center;
 	}
 	.btn{
@@ -213,7 +211,13 @@ $(document).ready(function(){
 		top: 95%;
 		left: 55%;
 	}
-	
+	#talentList>tbody>tr:first-child{
+		background-color: #cecece;
+	}
+	#talentList>tbody>tr{
+		border-bottom: 1px solid #e4e4e4;
+		border-top: 1px solid #e4e4e4;
+	}
 	</style>
 	<input type="hidden" id="currentPage" value="">
 	<div id="fh5co-main">
@@ -223,9 +227,6 @@ $(document).ready(function(){
 				<div class="col-md-8 col-md-offset-2">
 					<h2>권한 신청 매니저</h2>
 					<table id="talentList">
-						<tr>
-							<td colspan="7">신청한 재능</td>
-						</tr>
 						<tr>
 							<td>번호</td>
 							<td>아이디</td>

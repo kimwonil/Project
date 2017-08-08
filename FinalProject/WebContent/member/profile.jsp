@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="../menu.jsp" %>
-    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -35,14 +34,10 @@
 					<img src="<c:url value="/user/profile/${member.id}"/>/${member.photo}" alt="Free HTML5 template by FREEHTML5.co" class="img-rounded img-responsive photo">
 					<table id="mainTable" class="table">
 						<tr>
-							<td>아이디 : ${member.id } / ${id } </td>
+							<td>아이디 : ${member.id}</td>
 						</tr>
 						<tr>
-<<<<<<< HEAD
 							<td>닉네임 : ${member.nickname}</td>
-=======
-							<td>닉네임 : ${member.nickName} /  ${nickName } </td>
->>>>>>> yuna
 						</tr>
 						<tr>
 							<td>사진 : ${member.photo==null?"사진 없음":member.photo}</td>
@@ -64,10 +59,10 @@
 					<br><br>
 					<table>
 						<tr>
-							<td>판매완료 : <a id="sellingTag" href="#">0건</a></td>
+							<td>판매중 : <a href="selling.do">${selling}건</a></td>
 						</tr>
 						<tr>
-							<td>구매완료 : <a id="purchaseTag" href="#">0건</a></td>
+							<td>구매중 : <a href="purchasing.do">${purchase}건</a></td>
 						</tr>
 						<tr>
 							<td>판매평점 : 00점</td>
@@ -108,16 +103,8 @@
 				<div class="modal-body">
 					<form action="profileUpdate.do" method="post" enctype="multipart/form-data">
 					<table id="profileTable">
-	<!-- 닉네임수정(예정)
-						<tr>
-							<td> 닉네임 : </td> <td><input type="text" name=""></td>							
-						</tr>
-	 -->
 						<tr>
 							<td>사진 : </td><td><input type="file" name="file"></td>
-						</tr>
-						<tr>
-							<td>관심 분야 : </td><td>관심분야 선택</td>
 						</tr>
 					</table>
 					<input type="submit" value="수정" class="btn-sm btn-info">

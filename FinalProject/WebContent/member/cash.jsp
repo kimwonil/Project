@@ -249,7 +249,6 @@
 }
 #tradeTable td, #exchangeTable td{
 	
-	border:1px solid black;
 }
 
 #tabs-2 div, #tabs-4 div{
@@ -265,7 +264,13 @@
 	position: relative;
 	left: 10%;
 }
-
+#tabs-2 table>tbody>tr:first-child, #tabs-4 table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+#tabs-2 table>tbody>tr, #tabs-4 table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
+}
 </style>
 </head>
 <body>

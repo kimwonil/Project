@@ -108,24 +108,8 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
           url: '/v1/user/me',
           success: function(res) {
             // 호출된 개인정보 중 이메일주소만 EmailK에 출력 
-    	
-            $('#id').append(JSON.stringify(res.kaccount_email));
-            $('#idK').append(JSON.stringify(res.kaccount_email));
-            
-            
-        	$.ajax({
-        		url:"http://localhost:8080/FinalProject/loginsuccess.do",
-        		type:"POST",
-        		data:{id : JSON.stringify(res.kaccount_email)},
-        		success:function(){
-        			alert("오오");	
-        			location.replace("http://localhost:8080/FinalProject/profile.do?id="+JSON.stringify(res.kaccount_email));
-        		},
-        		error:function(){
-        			alert("아아...");
-        			location.replace("http://localhost:8080/FinalProject/profile.do?id="+JSON.stringify(res.kaccount_email));
-  		      }
-        	})
+    		$('#EmailK').append(JSON.stringify(res.kaccount_email));
+     
             
             //test0003 : loginsuccess.do로 이동 -> loginsuccess.do에서 DB에 정보 추가하는게 목적
             //테스트페이지 menu.jsp -> <a href="profile.do?id=${member.id}">바이럴/마케팅/광고</a>
@@ -145,7 +129,7 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
         alert(JSON.stringify(err));
       }
     });
-
+    
 </script>
 
 <!--                        Login - Kakao                         -->
@@ -153,9 +137,6 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
 
 <!--                        Login - Google                         -->
 <br>
-<br>
-<br>
-
 
 <!-- 구글 로그인 버튼 -->
     <div id="gConnect" class="button">
@@ -167,7 +148,6 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
           data-cookiepolicy="single_host_origin">
       </button>
     </div>
-
 <!-- 구글 로그인 버튼 -->
   <script>
   /**
@@ -201,60 +181,20 @@ http://localhost:8080/FinalProject/printEmailN.jsp로 redirect 후
    for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
     }
-//	$('#EmailG').append(primaryEmail);
+	$('#EmailG').append(primaryEmail);
 	//test 0002 : 프로필페이지(id=메일)로 이동시도 
 	//location.replace("http://localhost:8080/FianlProject/profile.do?id="+primaryEmail);
 
-	//test0004 div id = id
-	$('#id').append(primaryEmail);
-
-	//$('#member.id').append(primaryEmail);
-	//
-	
-	$('#idG').append(primaryEmail);
-	$('#OOO').append(primaryEmail);
-	
-	$.ajax({
-		url:"http://localhost:8080/FinalProject/loginsuccess.do",
-		type:"POST",
-		data:{id : primaryEmail},
-		success:function(){
-			alert("오오");	
-			location.replace("http://localhost:8080/FinalProject/profile.do?id="+primaryEmail);
-},
-		error:function(){
-			alert("아아...");
-			location.replace("http://localhost:8080/FinalProject/profile.do?id="+primaryEmail);
-}
-	})
-
-	// location.replace("http://localhost:8080/FinalProject/profile.do?id="+primaryEmail);
-
+	 
  }
   
   </script>
- 
+
+
 <!--                        Login - Google                         -->
- 
-<form action="loginsuccess.do" method="post" name="id">
-<div>
-<div id="idK">카카오오오오 : </div> <br>
-<div id="id">구그으으으을 : </div> <br>
-<input type="text" id="id" name="id">
-<input type="submit" id="btn">
-</div>
+<form action="loginsuccess.do" method="get">
+카카오 이메일 : <div id="EmailK"></div><br>
+Google 이메일 : <div id="EmailG"> </div>
 </form>
-
-<!-- 
-<form action="loginsuccess.do" method="get" name="id">
-호출된 이메일주소 (div id : id) : <div id="id2"></div>
- <br>
-이거 나오냐 : ${id } , ${primaryEmail } 
-<br>
-넘겨줄 수 있는 값:  <input id="id" name="id"><br>
-<input type="submit" id="btn">
-</form>
-
- -->
 </body>
 </html>

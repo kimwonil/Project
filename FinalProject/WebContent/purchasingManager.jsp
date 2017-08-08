@@ -50,7 +50,7 @@ text-align: center;
 							
 							$('#tabs-1 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+'</td><td>'+
 									'<button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
 							);								
@@ -97,7 +97,7 @@ text-align: center;
 							
 							$('#tabs-2 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+
 									'</td></tr>'		
 							);								
@@ -145,7 +145,7 @@ text-align: center;
 							
 							$('#tabs-3 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+
 									'"></td></tr>'		
 							);								
 					});
@@ -278,8 +278,26 @@ text-align: center;
 		
 		
 		$(document).on('click', '.stopBtn', function(){
-			var a = confirm("취소할래?");
-			
+			var cancel = confirm("취소할래?");
+			if(cancel){
+				$.ajax({
+					url:"progress.do",
+					type:"POST",
+					data:{
+						no:$(this).val(),
+						state:42
+					},
+					success:function(){
+						alert("성공");
+						purchase(0);
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+		    			alert(textStatus);     //응답상태
+		    			alert(errorThrown);     //응답에 대한 메세지
+		    		}
+					
+				});	
+			}
 		});
 		
 		$('#ongoing').click(function(){
@@ -321,21 +339,33 @@ text-align: center;
 }
 .popupLayer {
 	position: absolute;
-/* 	display: none; */
 	background-color: #ffffff;
 	border: solid 2px #d0d0d0;
 	width: 350px;
 	height: 150px;
 	padding: 10px;
-	visibility: hidden;
+ 	visibility: hidden; 
 	z-index: 5;
 }
-.popupLayer>table td{
-	border: 1px solid black;
+
+.popupLayer>table td {
 	text-align: center;
 }
-.popupLayer>table{
+
+.popupLayer>table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+.popupLayer>table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
+}
+
+.popupLayer>table {
 	width: 100%;
+}
+.optionList>span{
+	line-height: 35px;
+	display: block;
 }
 .star-cb-group{
 	margin-left: 185px;
@@ -378,7 +408,7 @@ text-align: center;
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
-					<h2>구매관리</h2>
+					<h2>구매관리(관리자)</h2>
 					<div id="tabs">
 						<ul>
 							<li><a href="#tabs-1" id="ongoing">진행중 거래</a></li>

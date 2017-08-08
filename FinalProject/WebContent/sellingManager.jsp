@@ -85,8 +85,8 @@
 							
 							$('#tabs-2 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.purchaser + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>진행중</td><td>'+
-									'<button class="btn-sm btn-info completeBtn" value="'+value.purchase_no+'">완료</button> <button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">중단</button></td></tr>'		
+									value.purchaser + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>진행중</td><td>'+
+									'<button class="btn-sm btn-info completeBtn" value="'+value.purchase_no+'">완료</button> <button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
 							);								
 					});
 					$('#currentPage').val(data.page);
@@ -277,7 +277,7 @@
 				type:"POST",
 				data:{
 					no:$(this).val(),
-					state:41
+					state:42
 				},
 // 				dataType:"json",
 				success:function(data){
@@ -446,8 +446,8 @@
 				var Wheight = window.innerHeight;
 				var popWidth = $('.popupLayer').width();
 				var popHeight = $('.popupLayer').height();
-				var mouseX=event.pageX;
-				var mouseY=event.pageY;
+				var mouseX=event.pageX+20;
+				var mouseY=event.pageY+10;
 				
 				if(Wwidth < popWidth + event.pageX){
 					mouseX -= popWidth;
@@ -486,21 +486,33 @@ table{
 }
 .popupLayer {
 	position: absolute;
-/* 	display: none; */
 	background-color: #ffffff;
 	border: solid 2px #d0d0d0;
 	width: 350px;
 	height: 150px;
 	padding: 10px;
-	visibility: hidden;
+ 	visibility: hidden; 
 	z-index: 5;
 }
-.popupLayer>table td{
-	border: 1px solid black;
+
+.popupLayer>table td {
 	text-align: center;
 }
-.popupLayer>table{
+
+.popupLayer>table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+.popupLayer>table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
+}
+
+.popupLayer>table {
 	width: 100%;
+}
+.optionList>span{
+	line-height: 35px;
+	display: block;
 }
 
 #tabs-1 div, #tabs-2 div, #tabs-3 div, #tabs-4 div{

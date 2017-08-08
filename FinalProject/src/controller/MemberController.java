@@ -38,13 +38,12 @@ public class MemberController {
 	Gson gson = new Gson();
 	
 	/**
-	 * 첫 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)
+	 * 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)
 	 * */
 
 	@RequestMapping("loginsuccess.do")
-	public String emailjoin(@RequestParam HashMap<String, Object> params, HttpSession session, HttpServletRequest request, String id){
-		System.out.println("간다 params.toString() 출력 : " + params.toString());
-		System.out.println("간다 params.get(따옴표id따옴표).tostring() 출력 : "+params.get("id").toString());
+	public ModelAndView emailjoin(String id, HttpServletRequest request, HttpSession session) {
+		ModelAndView mv = new ModelAndView("member/profile");
 		
 		//로그인 성공 -> 첫 로그인(id값이 db에 없어 저장해야 할때)
 		if(memberService.selectOne(id)==null){
@@ -53,97 +52,21 @@ public class MemberController {
 		member.setNickname(id);
 		memberService.memberInsert(member);
 		session.setAttribute("member", memberService.selectOne(id));
-		System.out.println("형왜그래요"+memberService.selectmember(id));
-		id = request.getParameter("id");
-		System.out.println("왜그래"+memberService.selectmember(id));
 
-		if(memberService.selectmember(id)!=null){
-			
-			System.out.println("아따 험난하다 1  memberService.selectmember(id).toString() 출력 : "+ memberService.selectmember(id).toString());
-			
-			memberService.selectmember(id);
-			
-			member = (Member)session.getAttribute("member");
-			System.out.println("session으로 id값을 가져오는지 ? (첫 로그인 아님) : "+id);
-			
-			//		session.setAttribute("id", member.getId());
-			//		session.setAttribute(id, member.getId());
-			session.setAttribute("id", id);
-			session.setAttribute("nickName", member.getNickname());
-
-		}
-		
-		else if(memberService.selectmember(id)==null){
-		memberService.memberInsert(params);
-		//String id = request.getParameter("id");
-		
-		System.out.println("아따 험난하다 2  memberService.selectmember(id).toString() 출력 : "+ memberService.selectmember(id).toString());
-		
-		System.out.println("야이거 나오긴하냐1 = "+id);
-	
-		Member member = new Member();
-		member.setId(id);
-		if(member.getNickname()==null){
-		//닉네임 초기값을 이메일주소로 설정
-		member.setNickname(id);	
-		}
-		
-		System.out.println("member.getId() = "+member.getId());
-		
-	//	session.setAttribute("id", id);
-		session.setAttribute("id", member.getId());
-		//닉네임 초기값을 이메일주소로 설정
-		session.setAttribute("nickName", member.getNickname());
-		
-		session.setAttribute(id, member.getId());
-		System.out.println("세션 간다 가! : " + session.getAttribute(id));
-		}
-		
-		
-		return "redirect:profile.do?id="+session.getAttribute(id);
+		// 결과를 보여줄 파일명
+		//mv.setViewName("profile.do?id="+id);
+		return mv;
 	}
-	
-//	@RequestMapping("loginsuccess.do")
-//	public ModelAndView emailjoin(@RequestParam("id")String id, HttpServletRequest request, HttpSession session) {
-//		ModelAndView mv = new ModelAndView("member/profile");
-//		
-//		
-//		//로그인 성공 -> 첫 로그인(id값이 db에 없어 저장해야 할때)
-//		if(memberService.selectOne(id)==null){
-//		Member member = new Member();
-//		System.out.println("첫단계야 일단 오긴하니?");
-//		session.setAttribute("id", id);
-//		System.out.println("1.25단계야 id값이 일단 설정은 되니? " + id);
-//		member.setId(id);	
-//		System.out.println("1.5단계야 setid의 id값이 뭐니? : "+id);
-//		
-//		id = ((Member)session.getAttribute("member")).getId();
-//		System.out.println("session으로 id값을 가져오는지 ? (첫 로그인임) : "+id);
-//	
-//
-//
-//		System.out.println("member에서 setid할때 id값을 가져온건지 ? : "+member.getId());
-//		
-//		member.setNickName(id);
-//		memberService.memberInsert(member);
-//		session.setAttribute("member", memberService.selectOne(id));
-//
-//		// 결과를 보여줄 파일명
-//		//mv.setViewName("profile.do?id="+id);
-//		return mv;
-//	}
-//		//로그인 성공 -> 첫 로그인이 아님(이미 id값이 db에 저장되어 있음)
-//	else{
-//		Member member = (Member)session.getAttribute("member");
-//		id = ((Member)session.getAttribute("member")).getId();
-//		System.out.println("session으로 id값을 가져오는지 ? (첫 로그인 아님) : "+id);
-//
-////		memberService.selectOne(id);
-//		session.setAttribute("member", memberService.selectOne(id));
-//
-//		return mv;
-//	}
-//		}
+		//로그인 성공 -> 첫 로그인이 아님(이미 id값이 db에 저장되어 있음)
+	else{
+		Member member = (Member)session.getAttribute("member");
+//		memberService.selectOne(id);
+		session.setAttribute("member", memberService.selectOne(id));
+
+		return mv;
+	}
+		}
+
 	
 //	public String emailjoin (String id, HttpSession session){
 //		System.out.println(id);
@@ -162,34 +85,32 @@ public class MemberController {
 //		}
 //
 //	}
-		
-		
-//		<<<<<<< HEAD
-//		@RequestMapping("profile.do")
-//		public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
-//			ModelAndView mv = new ModelAndView("profile");
-////			Member m = new Member(id, "kwi1222", "empty", 0, 0);
-//			session.setAttribute("member", memberService.selectOne(id));
-//			
-////			mv.addObject("member", memberService.selectOne(id));
-//			
-//			return mv;
-//		}
-//		
-//		
-//		@RequestMapping("profileUpdate.do")
-//		public String profileUpdate(FileUpload file, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-//			
-//			String path = session.getServletContext().getRealPath("/profile/");
-//	=======
 	
 	/**
 	 * 프로필 조회
 	 * */
 	@RequestMapping("profile.do")
-	public ModelAndView profile(String id, HttpServletRequest request, HttpSession session) {
+	public ModelAndView profile(@RequestParam(value="id", required=false) String id, HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("member/profile");
-		session.setAttribute("member", memberService.selectOne(id));
+		Member member = null;
+		if(session.getAttribute("member") != null) {
+			member = (Member)session.getAttribute("member");
+			session.setAttribute("member", memberService.selectOne(member.getId()));
+			//판매중
+			session.setAttribute("selling", memberService.countSelling(member.getNickname()));
+			//구매중
+			session.setAttribute("purchase", memberService.countPurchase(member.getNickname()));
+		}
+		if(id != null) {
+			member = memberService.selectOne(id);
+			session.setAttribute("member", member);
+			//판매중
+			session.setAttribute("selling", memberService.countSelling(member.getNickname()));
+			//구매중
+			session.setAttribute("purchase", memberService.countPurchase(member.getNickname()));
+		}else {
+			mv.setViewName("index");
+		}
 		
 		return mv;
 	}
@@ -201,7 +122,6 @@ public class MemberController {
 	public String profileUpdate(FileUpload file, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
 		String path = session.getServletContext().getRealPath("/user/profile/");
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 		String id = ((Member)session.getAttribute("member")).getId();
 		MultipartFile photo = file.getFile();
 		String fileName = photo.getOriginalFilename();
@@ -216,46 +136,29 @@ public class MemberController {
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-<<<<<<< HEAD
-		}
-		
-		
-		Member member = (Member)session.getAttribute("member");
-=======
 		}		
 		
 		Member member = (Member)session.getAttribute("member");
 		
-//닉네임 수정(예정) 
-//		String nickName = ((Member)session.getAttribute("member")).getNickName();
-//		member.setNickName(nickName);
-//닉네임 수정(예정) 
-		
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 		member.setPhoto(fileName);
 		
 		memberService.memberUpdate(member);
 		
 		
 		
-<<<<<<< HEAD
-		return "profile";
-	}
-	
-	
-	
-=======
 		return "member/profile";
 	}
 	
-	@RequestMapping("cashPage.do")
-	public String cashPage() {
-		return "member/cash";
-	}
 	
-	@RequestMapping("cashManager.do")
-	public String cashManager() {
-		return "member/cashManager";
+	@RequestMapping("cashPage.do")
+	public String cashPage(HttpSession session) {
+		int admin = ((Member)session.getAttribute("member")).getAdmin();
+		
+		if(admin == 1) {
+			return "member/cashManager";
+		}else {
+			return "member/cash";
+		}
 	}
 	
 	
@@ -263,7 +166,6 @@ public class MemberController {
 	/**
 	 * 캐시 화면
 	 * */
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("cash.do")
 	public void refillCash(HttpServletRequest request, HttpServletResponse response) {
 //		ModelAndView mv = new ModelAndView("cash");
@@ -293,9 +195,6 @@ public class MemberController {
 		}
 	}
 	
-<<<<<<< HEAD
-	
-=======
 	/**
 	 * 캐시 관리자 화면
 	 * */
@@ -326,20 +225,10 @@ public class MemberController {
 	/**
 	 * 캐시 충전 내역 조회
 	 * */
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("cashList.do")
 	public void cashList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-<<<<<<< HEAD
-		Member member = (Member)session.getAttribute("member");
-		String id = member.getId();
-//		Gson gson = new Gson();
-		try {
-			PrintWriter printWriter = response.getWriter();
-			List<CashRecord> list = memberService.cashList(id);
-			String json = gson.toJson(list);
-=======
 		int page = Integer.parseInt(request.getParameter("page").toString());
 		String id = ((Member)session.getAttribute("member")).getId();
 		HashMap<String, Object> map = new HashMap<>();
@@ -351,7 +240,6 @@ public class MemberController {
 			map.put("list", memberService.cashList(map));
 			map.put("totalPage", memberService.totalPageCash(id));
 			String json = gson.toJson(map);
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 			printWriter.write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -361,13 +249,9 @@ public class MemberController {
 	}
 	
 	
-<<<<<<< HEAD
-	
-=======
 	/**
 	 * 환전 화면
 	 * */
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("exchange.do")
 	public void exchange(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		Member member = (Member)session.getAttribute("member");
@@ -399,25 +283,13 @@ public class MemberController {
 		
 	}
 	
-<<<<<<< HEAD
-	
-=======
 	/**
 	 * 캐시 환전 내역 조회
 	 * */
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("exchangeList.do")
 	public void exchangeList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-<<<<<<< HEAD
-		Member member = (Member)session.getAttribute("member");
-		List<Exchange> list = memberService.exchangeList(member.getId());
-//		Gson gson = new Gson();
-		try {
-			PrintWriter printWriter = response.getWriter();
-			String json = gson.toJson(list);
-=======
 		int page = Integer.parseInt(request.getParameter("page").toString());
 		String id = ((Member)session.getAttribute("member")).getId();
 		HashMap<String, Object> map = new HashMap<>();
@@ -457,7 +329,6 @@ public class MemberController {
 			map.put("list", memberService.allExchangeList(map));
 			map.put("totalPage", memberService.allTotalPageExchange());
 			String json = gson.toJson(map);
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 			printWriter.write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -467,11 +338,6 @@ public class MemberController {
 		
 	}
 	
-<<<<<<< HEAD
-	@RequestMapping("exchangeManager.do")
-	public void exchangeManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		int no = Integer.parseInt(request.getParameter("no"));
-=======
 	
 	
 	/**
@@ -481,7 +347,6 @@ public class MemberController {
 	public void exchangeManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int no = Integer.parseInt(request.getParameter("no"));
 		int page = Integer.parseInt(request.getParameter("page"));
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 		int state=0;
 		if(request.getParameter("state").equals("2")) {
 			state=2;
@@ -489,25 +354,10 @@ public class MemberController {
 			state=3;
 		}
 			
-<<<<<<< HEAD
-		System.out.println(no+"//"+state);
-=======
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("no", no);
 		map.put("state", state);
-<<<<<<< HEAD
-		
-		System.out.println(map);
-		
-		try {
-			if(memberService.exchangeManager(map)>=1) {
-				response.getWriter().write("{\"result\":true}");
-			}else {
-				response.getWriter().write("{\"result\":false}");
-			}
-=======
 		map.put("page", page);
 		
 		
@@ -515,16 +365,12 @@ public class MemberController {
 			memberService.exchangeManager(map);
 			String json = gson.toJson(map);
 			response.getWriter().write(json);
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-<<<<<<< HEAD
-	
-=======
 	/**
 	 * 쪽지 화면
 	 * */
@@ -537,13 +383,12 @@ public class MemberController {
 	/**
 	 * 쪽지 리스트 조회
 	 * */
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("messageList.do")
 	public void message(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		Member member = (Member)session.getAttribute("member");
-		List<Message> list = memberService.messageList(member.getId());
+		List<Message> list = memberService.messageList(member.getNickname());
 //		Gson gson = new Gson();
 		try {
 			if(list != null) {
@@ -556,13 +401,10 @@ public class MemberController {
 		}
 	}
 	
-<<<<<<< HEAD
-=======
 	
 	/**
 	 * 쪽찌 상세 보기
 	 * */
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("messageDetail.do")
 	public void messageDetail(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -580,27 +422,21 @@ public class MemberController {
 		}
 	}
 	
-<<<<<<< HEAD
-=======
 	/**
 	 * 쪽지 보내기
 	 * */
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("messageSend.do")
 	public void messageSend(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String title = request.getParameter("title");
 		String receiver = request.getParameter("receiver");
 		String content = request.getParameter("content");
-		String sender = ((Member)session.getAttribute("member")).getId();
+		String sender = ((Member)session.getAttribute("member")).getNickname();
 		
 		Message message = new Message(sender, receiver, title, content);
 		
 		memberService.messageSend(message);
 	}
 	
-<<<<<<< HEAD
-	
-=======
 	/**
 	 * 회원관리 화면
 	 * */
@@ -612,7 +448,6 @@ public class MemberController {
 	/**
 	 * 회원 리스트 조회
 	 * */
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("memberList.do")
 	public void memberList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -627,17 +462,11 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
-		
-	}
-	
-=======
 	}
 	
 	/**
 	 * 회원 상세 보기
 	 * */
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("memberUpdateForm.do")
 	public void memberUpdateForm(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
@@ -658,12 +487,9 @@ public class MemberController {
 	}
 	
 	
-<<<<<<< HEAD
-=======
 	/**
 	 * 회원 정보 수정
 	 * */
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("memberUpdate.do")
 	public void memberUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
@@ -678,13 +504,9 @@ public class MemberController {
 		
 	}
 	
-<<<<<<< HEAD
-	
-=======
 	/**
 	 * 회원 삭제
 	 * */
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	@RequestMapping("memberDelete.do")
 	public void memberDelete(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
@@ -703,19 +525,6 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
-		
-		
-	}
-	
-	
-//	@RequestMapping("kakaoLogin.do")
-//	public void kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-////		System.out.println(request.getParameter("email"));
-//		session.setAttribute("email", request.getParameter("email")+"//카카오");
-//		
-//	}
-=======
 
 
 		
@@ -725,17 +534,19 @@ public class MemberController {
 	 * 권한 신청 화면
 	 * */
 	@RequestMapping("authority.do")
-	public String authority() {
-		return "member/authority";
+	public String authority(HttpSession session) {
+		if(((Member)session.getAttribute("member")) == null) {
+			return "index";
+		}else if(((Member)session.getAttribute("member")).getAdmin() == 1) {
+			return "member/authorityManager";
+		}else {
+			return "member/authority";	
+		}
+		
+		
+		
 	}
 	
-	/**
-	 * 권한 신청 관리자 화면
-	 * */
-	@RequestMapping("authorityManagerPage.do")
-	public String authorityManagerPage() {
-		return "member/authorityManager";
-	}
 	
 	
 	/**
@@ -758,7 +569,7 @@ public class MemberController {
 		
 		
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("id", ((Member)session.getAttribute("member")).getId());
+		params.put("id", ((Member)session.getAttribute("member")).getNickname());
 		params.put("category_no", request.getParameter("category_no"));
 		
 		memberService.authorityReg(params);
@@ -828,7 +639,7 @@ public class MemberController {
 	 * */
 	@RequestMapping("authorityList.do")
 	public void authorityList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String id = ((Member)session.getAttribute("member")).getId();
+		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -931,6 +742,5 @@ public class MemberController {
 	
 	
 	
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 
 }

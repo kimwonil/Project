@@ -23,14 +23,6 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
-<<<<<<< HEAD
-	public boolean insertBoard(Board board){
-		return boardDao.insertBoard(board);
-	}
-	
-	public boolean updateBoard(Board board){
-		return boardDao.updateBoard(board);
-=======
 	/**
 	 * table명 : board
 	 * */
@@ -40,23 +32,12 @@ public class BoardService {
 	
 	public boolean updateBoard(HashMap<String, Object> params){
 		return boardDao.updateBoard(params);
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 	}
 	
 	public boolean deleteBoard(int no){
 		return boardDao.deleteBoard(no);
 	}
 	
-<<<<<<< HEAD
-	public Board selectOne(int no){
-		return boardDao.selectOne(no);
-	}
-	
-	public List<Board>selectAll(){
-		return boardDao.selectAll();
-	}
-		
-=======
 	public Board selectOneBoard(int no){
 		return boardDao.selectOneBoard(no);
 	}
@@ -288,6 +269,5 @@ public class BoardService {
 
 	
 
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 
 }

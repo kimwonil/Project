@@ -9,10 +9,6 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<<<<<<< HEAD
-
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-=======
 <link rel="stylesheet" href="css/starStyle.css">
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -21,13 +17,10 @@
 text-align: center;
 }
 </style>
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 <script>
 	$(function() {
 		$("#tabs").tabs();
 	});
-<<<<<<< HEAD
-=======
 	
 	function purchase(page){
 		$.ajax({
@@ -57,7 +50,7 @@ text-align: center;
 							
 							$('#tabs-1 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+'</td><td>'+
 									'<button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
 							);								
@@ -104,7 +97,7 @@ text-align: center;
 							
 							$('#tabs-2 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+
 									'</td></tr>'		
 							);								
@@ -152,7 +145,7 @@ text-align: center;
 							
 							$('#tabs-3 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList">'+total+'</a><input type="hidden" value="'+value.purchase_no+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+
 									'"></td></tr>'		
 							);								
 					});
@@ -219,7 +212,7 @@ text-align: center;
 				var popWidth = $('.popupLayer').width();
 				var popHeight = $('.popupLayer').height();
 				var mouseX=event.pageX;
-				var mouseY=event.pageY;
+				var mouseY=event.pageY+30;
 				
 				if(Wwidth < popWidth + event.pageX){
 					mouseX -= popWidth;
@@ -285,7 +278,29 @@ text-align: center;
 		
 		
 		$(document).on('click', '.stopBtn', function(){
-			var a = confirm("취소할래?");
+			var cancel = confirm("취소할래?");
+			
+			if(cancel){
+				$.ajax({
+					url:"progress.do",
+					type:"POST",
+					data:{
+						no:$(this).val(),
+						state:40
+					},
+					success:function(){
+						alert("성공");
+						purchase(0);
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+		    			alert(textStatus);     //응답상태
+		    			alert(errorThrown);     //응답에 대한 메세지
+		    		}
+					
+				});	
+			}
+			
+			
 			
 		});
 		
@@ -316,23 +331,10 @@ text-align: center;
 
 	});
 	
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 </script>
 <style type="text/css">
 
 #tabs tr,#tabs td,#tabs th{
-<<<<<<< HEAD
-<<<<<<< HEAD
-border: 1px solid black;
-}
-
-</style>
-</head>
-<body>
-=======
-	border: 1px solid black;
-=======
->>>>>>> master
 	text-align: center;
 	height: 37px;
 }
@@ -341,21 +343,33 @@ border: 1px solid black;
 }
 .popupLayer {
 	position: absolute;
-/* 	display: none; */
 	background-color: #ffffff;
 	border: solid 2px #d0d0d0;
 	width: 350px;
 	height: 150px;
 	padding: 10px;
-	visibility: hidden;
+ 	visibility: hidden; 
 	z-index: 5;
 }
-.popupLayer>table td{
-	border: 1px solid black;
+
+.popupLayer>table td {
 	text-align: center;
 }
-.popupLayer>table{
+
+.popupLayer>table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+.popupLayer>table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
+}
+
+.popupLayer>table {
 	width: 100%;
+}
+.optionList>span{
+	line-height: 35px;
+	display: block;
 }
 .star-cb-group{
 	margin-left: 185px;
@@ -393,7 +407,6 @@ border: 1px solid black;
 	
 	</div>
 
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 
 	<div id="fh5co-main">
 		<div class="container">
@@ -402,46 +415,6 @@ border: 1px solid black;
 					<h2>구매관리</h2>
 					<div id="tabs">
 						<ul>
-<<<<<<< HEAD
-							<li><a href="#tabs-1">진행중 거래</a></li>
-							<li><a href="#tabs-2">완료된 거래</a></li>
-							<li><a href="#tabs-3">취소된 거래</a></li>
-						</ul>
-						<div align="center">
-							<select>
-								<option>검색조건</option>
-								<option>닉네임</option>
-								<option>글제목</option>
-								<option>날짜</option>
-							</select>
-							<input type="text">
-							<button>검색</button>
-						</div>
-						<div class="fh5co-spacer fh5co-spacer-sm"></div>
-						<div id="tabs-1" >
-							<table style="width: 100%;">
-								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th><th>진행상황</th><th>비고</th></tr>
-								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td><td>진행중</td><td>버튼만들어야해</td></tr>
-							</table>
-						</div>
-						<div id="tabs-2">
-							<table style="width: 100%;">
-								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th></tr>
-								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td></tr>
-							</table>
-						</div>
-						<div id="tabs-3">
-							<table style="width: 100%;">
-								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>가격(수량)</th></tr>
-								<tr><td>2017.07.07</td><td>칼 갈아드립니다</td><td>칼갈이</td><td>3000/1</td></tr>
-							</table>
-						</div>
-					
-					</div>
-					
-
-					
-=======
 							<li><a href="#tabs-1" id="ongoing">진행중 거래</a></li>
 							<li><a href="#tabs-2" id="completion">완료된 거래</a></li>
 							<li><a href="#tabs-3" id="canceled">취소된 거래</a></li>
@@ -472,13 +445,10 @@ border: 1px solid black;
 						</div>
 					
 					</div>
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 				</div>
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
-=======
 	
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -524,6 +494,5 @@ border: 1px solid black;
 </div>
 <!-- modal end -->
 	
->>>>>>> 622532ef2c92c726edfce34a63728b4849323e3a
 </body>
 </html>

@@ -25,11 +25,6 @@
 	<property name="mapperLocations" value="classpath*:dao/mapper/**/*.xml"></property>
 </bean>
 
-<bean id="dao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-	<property name="mapperInterface" value="dao.Idao"></property>
-</bean>
-
 <bean id="memberDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	<property name="mapperInterface" value="dao.MemberDao"></property>
@@ -64,5 +59,13 @@
 	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	<property name="mapperInterface" value="dao.ReportDao"></property>
 </bean>
+
+<!-- email 연동 관련 추가예정
+<bean id="EmailInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	<property name="mapperInterface" value="dao.EmailInfoDao"></property>
+</bean>
+
+ -->
 
 </beans>
