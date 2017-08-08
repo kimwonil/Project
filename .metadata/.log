@@ -11942,3 +11942,12 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 =======
 >>>>>>> wonil
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-08 09:23:04.452
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-08 09:23:04.455
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.core.resources 2 10035 2017-08-08 09:23:46.589
+!MESSAGE The workspace will exit with unsaved changes in this session.
