@@ -90,23 +90,6 @@ img{
 h3{
 	text-align: center;
 }
-#categoryList>tbody>tr>td div{
- 	line-height: 50px; 
-/*  	background-color: gray; */
-}
-#categoryList>tbody>tr>td{
-/* 	background-color: red; */
-/* 	border: 1px solid black; */
-	padding: 5px;
-}
-#categoryList div{
-	background-color: gray;
-	border-radius:5px;
-}
-#categoryList{
-	margin: 0px auto;
-}
-
 </style>
 <body>
 <div id="fh5co-main">
@@ -114,10 +97,10 @@ h3{
 	
 
 		<h4>찜목록을 보여주자</h4>
-		<table id="categoryList">
+		<table border="1">
 		<tr>
 		<c:forEach items="${category}" var="major">
-		<td height="50px"><a href="dipsCategory.do?category_no=${major.no}"><div>${major.category_name}</div></a></td>
+		<td height="50px"><a href="dipsCategory.do?category_no=${major.no}"><div style="line-height: 50px">${major.category_name}</div></a></td>
 		</c:forEach>
 		</tr>
 		</table>

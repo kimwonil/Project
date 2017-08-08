@@ -93,6 +93,7 @@ height : 500px;
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	//지도 넣기
 	$.ajax({
 		url : "selectOneMap.do",
 		type : "post",
@@ -103,7 +104,12 @@ $(document).ready(function(){
 			
         	var map = new naver.maps.Map('map', {
         	    center: new naver.maps.LatLng(data.lat, data.lng),
-        	    zoom: 10
+        	    zoom: 10,
+        	    zoomControl: true,
+                zoomControlOptions: {
+                    style: naver.maps.ZoomControlStyle.SMALL,
+                    position: naver.maps.Position.TOP_RIGHT
+                }
         	});
         	
         	var marker = new naver.maps.Marker({
@@ -123,7 +129,6 @@ $(document).ready(function(){
             }
             a += '</div>';
 
-        	
         	var infowindow = new naver.maps.InfoWindow({
         	    content: a
         	});
@@ -135,6 +140,34 @@ $(document).ready(function(){
 			$('#map').append('<h5>전지역 가능</h5>');
       	}//error 끝
 	});//ajax끝
+	
+	
+	
+	//상세 내용에 img삽입
+	$.ajax({
+		url : "detailImg.do",
+		type: "post",
+		data : {no:$('#boardNo').val()},
+		dataType : "json",
+		success : function(data){
+			console.log(data);
+			if(data.file_name2 != ''){
+				$('#img').append('<img src="" id="file_name2">');
+				$('#file_name2').attr('src',"<c:url value='/user/board/"+data.no+"'/>/"+data.file_name2);
+			}
+			if(data.file_name3 != ''){
+				$('#img').append('<img src="" id="file_name3">');
+				$('#file_name3').attr('src',"<c:url value='/user/board/"+data.no+"'/>/"+data.file_name3);
+			}
+			if(data.file_name4 != ''){
+				$('#img').append('<img src="" id="file_name4">');
+				$('#file_name4').attr('src',"<c:url value='/user/board/"+data.no+"'/>/"+data.file_name4);
+			}
+		},error : function(){
+			alert("file 가져오기 실패");
+		}
+	});//상세내용 탭에 img 넣기 끝
+	
 	
 	
 	//사용자리뷰 탭 내용 뿌리기(star_point)
@@ -172,8 +205,6 @@ $(document).ready(function(){
 				
 				//table에 넣기
 				$('#purchaseList').append(
-						
-						
 					'<tr>'+
 					'<td name="kind[]" class="kind">'+ data.kind +'</td>'+ 
 					'<td name="price[]" class="price">'+ data.price +'</td>'+
@@ -349,19 +380,17 @@ function totalPrice(){
 					<div id="fh5co-board" data-columns>
 						<div class="item deal-position">
 							<div class="animate-box">
-								<a href="images/img_1.jpg" class="image-popup fh5co-board-img">
-									<c:choose>
-										<c:when test="${board.file_name1 eq ''}">
-											<img class="thumbnail" src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-										</c:when>
-										<c:when test="${board.file_name1 eq null}">
-											<img class="thumbnail" src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
-										</c:when>
-										<c:otherwise >
-											<img class="thumbnail" src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}' >
-										</c:otherwise>
-									</c:choose>
-								</a>
+								<c:choose>
+									<c:when test="${board.file_name1 eq ''}">
+										<img class="thumbnail" src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+									</c:when>
+									<c:when test="${board.file_name1 eq null}">
+										<img class="thumbnail" src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+									</c:when>
+									<c:otherwise >
+										<img class="thumbnail" src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}' >
+									</c:otherwise>
+								</c:choose>
 							</div>
 							
 							<table>
@@ -386,13 +415,14 @@ function totalPrice(){
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
 <%-- 							<c:choose> --%>
 <%-- 								<c:when test="${member.admin eq 1}"> --%>
-<%-- 									<button id="modify" value="${board.state}">글수정</button> --%>
-<%-- 									<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button><br> --%>
+									<button id="modify" value="${board.state}">글수정</button>
+									<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
 <%-- 								</c:when> --%>
 <%-- 								<c:when test="${member.nickname eq board.writer}"> --%>
-									<button id="modify" value="${board.state}">글수정</button>
+<%-- 									<button id="modify" value="${board.state}">글수정</button> --%>
 <%-- 								</c:when> --%>
 <%-- 							</c:choose> --%>
+							<br>
 							등록일 : ${board.date}<br>
 							마감일 : ${board.end_date}<br>
 							조회수 : ${board.read_count} <br>
@@ -420,7 +450,7 @@ function totalPrice(){
 								<table id="purchaseList">
 								<tr>
 								<td name="kind[]" class="kind">기본항목</td>
-								<td name="price[]" class="price"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</td>
+								<td name="price[]" class="price">${board.price}</td>
 								<td>
 									<table class="quantityBox" border="1" cellspacing="0">
 										<tr>
@@ -432,9 +462,7 @@ function totalPrice(){
 										</tr>
 									</table>
 								</td>
-								<td><div class="optionResult"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div></td>
-								<td>
-								</td>
+								<td><div class="optionResult">${board.price}</div></td>
 								</tr>
 								</table>
 							</form>
@@ -462,7 +490,8 @@ function totalPrice(){
 						  </ul>
 						  <div id="tabs-1">
 						    <div>${board.content}</div>
-						    <div id="img"></div>
+						    <div id="img">
+						    </div>
 						  </div>
 						  <div id="tabs-2">
 						    <p>주문시 유의사항 내용</p>
