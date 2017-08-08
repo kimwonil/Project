@@ -308,48 +308,52 @@
 
 		//중단 버튼
 		$(document).on('click', '.stopBtn', function() {
-			alert($(this).val());
-			$.ajax({
-				url : "progress.do",
-				type : "POST",
-				data : {
-					no : $(this).val(),
-					state : 41
-				},
-				success : function(data) {
-					alert("성공");
-					$('#continueModal').modal('hide');
-					ongoingList($('#currentPage').val());
-				},
-				error : function() {
-					alert("실패");
-				}
-			});
+			var cancel = confirm("중단 하시겠습니까?");
+			if(cancel){
+				$.ajax({
+					url : "progress.do",
+					type : "POST",
+					data : {
+						no : $(this).val(),
+						state : 41
+					},
+					success : function(data) {
+						alert("성공");
+						$('#continueModal').modal('hide');
+						ongoingList($('#currentPage').val());
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
+			}
 		});
 
 
 		//정산 버튼
 		$(document).on('click', '.calculateBtn', function() {
 			// 			alert($(this).siblings('input').val());
-
-			$.ajax({
-				url : "progress.do",
-				type : "POST",
-				data : {
-					no : $(this).val(),
-					state : 30,
-					amount : $(this).siblings('input').val()
-				},
-				dataType : "json",
-				success : function(data) {
-					console.log(data);
-					completionList($('#currentPage').val());
-					$('.balance').text(data.balanceResult);
-				},
-				error : function() {
-					alert("실패");
-				}
-			});
+			var calculate = confirm("정산 하시겠습니까?");
+			if(calculate){
+				$.ajax({
+					url : "progress.do",
+					type : "POST",
+					data : {
+						no : $(this).val(),
+						state : 30,
+						amount : $(this).siblings('input').val()
+					},
+					dataType : "json",
+					success : function(data) {
+						console.log(data);
+						completionList($('#currentPage').val());
+						$('.balance').text(data.balanceResult);
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
+			}
 		});
 
 
@@ -361,24 +365,26 @@
 			});
 			console.log(Arr);
 			jQuery.ajaxSettings.traditional = true;
-
-			$.ajax({
-				url : "progress.do",
-				type : "POST",
-				data : {
-					list : Arr,
-					state : 10
-				},
-				// 				dataType:"json",
-				success : function(data) {
-					alert("성공");
-					$('#continueModal').modal('hide');
-					sellingList($('#currentPage').val());
-				},
-				error : function() {
-					alert("실패");
-				}
-			});
+			var approval = confirm("진행 하시겠습니까?");
+			if(approval){
+				$.ajax({
+					url : "progress.do",
+					type : "POST",
+					data : {
+						list : Arr,
+						state : 10
+					},
+					// 				dataType:"json",
+					success : function(data) {
+						alert("성공");
+						$('#continueModal').modal('hide');
+						sellingList($('#currentPage').val());
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
+			}
 
 		})
 
@@ -569,28 +575,26 @@
 		});
 		
 		$('#premiumSubmit').click(function(){
-// 			alert($('#premiumTime').val());
-// 			alert($(this).siblings('input').val());
-			
-			$.ajax({
-				url:"premiumUpdate.do",
-				type:"POST",
-				data:{
-					no:$(this).siblings('input').val(),
-					time:$('#premiumTime').val(),
-					premium:0
-				},
-				dataType:"text",
-				success:function(data){
-					alert(data);
-					$('#premiumModal').modal('hide');
-				},
-				error:function(){
-					alert("실패");
-				}
-			});
-			
-			
+			var approval = confirm("신청 하시겠습니까?");
+			if(approval){
+				$.ajax({
+					url:"premiumUpdate.do",
+					type:"POST",
+					data:{
+						no:$(this).siblings('input').val(),
+						time:$('#premiumTime').val(),
+						premium:0
+					},
+					dataType:"text",
+					success:function(data){
+						alert(data);
+						$('#premiumModal').modal('hide');
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
+			}
 		});
 		
 		

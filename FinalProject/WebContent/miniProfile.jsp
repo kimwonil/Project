@@ -6,6 +6,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
+function profileContent(){
+	$.ajax({
+		url:"miniProfile.do",
+		type:"POST",
+		dataType:"json",
+		success:function(data){
+			console.log(data);
+			alert("성공");
+		},
+		error:function(){
+			alert("실패");
+		}
+	});
+	
+}
+
 
 
 </script>
@@ -55,19 +71,19 @@
 		<td><input type="button" value="충전" class="btn btn-sm btn-info"></td>
 	</tr>
 	<tr>
-		<td>나의 재능 : <a href="profile.do">0건</a></td>
+		<td>나의 재능 : <a href="profile.do"><label>0</label>건</a></td>
 	</tr>
 	<tr>
-		<td>판매중인 재능 : <a href="selling.do">0건</a></td>
+		<td>판매중인 재능 : <a href="selling.do"><label>0</label>건</a></td>
 	</tr>
 	<tr>
-		<td>구매중인 재능 : <a href="purchasing.do">0건</a></td>
+		<td>구매중인 재능 : <a href="purchasing.do"><label>0</label>건</a></td>
 	</tr>
 	<tr>
-		<td>관심 재능 : <a href="dipsList.do?id=${member.id}">0건</a></td>
+		<td>찜목록 : <a href="dipsList.do?id=${member.id}"><label>0</label>건</a></td>
 	</tr>
 	<tr>
-		<td>쪽지 : <a href="message.do">0건</a></td>
+		<td>쪽지 : <a href="message.do"><label>0</label>건</a></td>
 	</tr>
 </table>
 </div>

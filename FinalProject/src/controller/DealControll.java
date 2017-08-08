@@ -661,7 +661,9 @@ public class DealControll {
 		response.setContentType("text/xml;charset=UTF-8");
 		
 		HashMap<String, Object> map = new HashMap<>();
-		String nickname = ((Member)session.getAttribute("member")).getNickname();
+		Member member = (Member)session.getAttribute("member");
+		String nickname = member.getNickname();
+		int balance = member.getBalance();
 		int premium = Integer.parseInt(request.getParameter("premium"));
 		int no = Integer.parseInt(request.getParameter("no"));
 		int time = Integer.parseInt(request.getParameter("time"));
@@ -682,13 +684,12 @@ public class DealControll {
 		map.put("time", time);
 		map.put("price", price);
 		
-		
-		
-		
-		
-		
 		try {
-			if(boardService.premiumCount()>=20) {
+			if(balance < price) {
+				
+				response.getWriter().write("잔액이 부족합니다.");
+				
+			}else if(boardService.premiumCount()>=20) {
 				map.put("state", 1);
 				
 				Calendar cal = Calendar.getInstance();
@@ -703,14 +704,30 @@ public class DealControll {
 				map.put("end", format.format(cal.getTime()));
 				
 				//기존 등록 여부 확인
-				if(boardService.newPremium(no).getBoard_no() != no) {
+				Premium newPremium = boardService.newPremium(no);
+				String msg="";
+				if(newPremium.getBoard_no() != no) {
 					//대기열 등록
 					boardService.premiumWaitting(map);
+					msg += "프리미엄 대기에 등록 되었습니다.";
 				}else {
+					msg+="기존 프리미엄이 수정되었습니다.\n";
+					msg+="기존 : "+newPremium.getTime()+"일 / "+newPremium.getPrice()+"원\n";
+					msg+="변경 : "+time+"일 / "+price+"원\n";
+					
+					member.setBalance(balance+newPremium.getPrice());
+					memberService.memberUpdate(member);
+					balance = member.getBalance();
 					//기존 등록 수정
 					boardService.premiumUpdate(map);
 				}
-				response.getWriter().write("프리미엄 대기에 등록 되었습니다.");
+				
+				//포인트 지불
+				member.setBalance(balance-price);
+				memberService.memberUpdate(member);
+				
+				
+				response.getWriter().write(msg);
 				
 			}else {
 				Calendar cal = Calendar.getInstance();

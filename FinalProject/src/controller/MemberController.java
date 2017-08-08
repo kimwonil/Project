@@ -116,6 +116,52 @@ public class MemberController {
 	}
 	
 	/**
+	 * 미니 프로필 조회
+	 * */
+	@RequestMapping("miniProfile.do")
+	public void miniProfile(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		Member member = null;
+		try {
+			if(session.getAttribute("member") != null) {
+				HashMap<String, Object> map = new HashMap<>();
+				String id = ((Member)session.getAttribute("member")).getId();
+				member = memberService.selectOne(id);
+				DecimalFormat number = new DecimalFormat("#,###");
+				String balance = number.format(member.getBalance());
+				//세션 업데이트
+				session.setAttribute("member",member);
+				map.put("member", member);
+				//현 잔액
+				map.put("balance", balance);
+				//판매갯수
+				map.put("selling", memberService.countSelling(member.getNickname()));
+				//구매갯수
+				map.put("purchase", memberService.countPurchase(member.getNickname()));
+				//나의재능
+				
+				//찜목록
+				
+				//쪽지
+				
+				
+				
+				
+				
+				String json = gson.toJson(map);
+				
+				response.getWriter().write(json);
+				
+			}else {
+				response.sendRedirect("index.jsp");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
 	 * 프로필 사진 수정
 	 * */
 	@RequestMapping("profileUpdate.do")
@@ -569,7 +615,7 @@ public class MemberController {
 		
 		
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("id", ((Member)session.getAttribute("member")).getNickname());
+		params.put("id", ((Member)session.getAttribute("member")).getId());
 		params.put("category_no", request.getParameter("category_no"));
 		
 		memberService.authorityReg(params);
@@ -639,7 +685,7 @@ public class MemberController {
 	 * */
 	@RequestMapping("authorityList.do")
 	public void authorityList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String id = ((Member)session.getAttribute("member")).getNickname();
+		String id = ((Member)session.getAttribute("member")).getId();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
