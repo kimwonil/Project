@@ -278,7 +278,7 @@ text-align: center;
 		
 		
 		$(document).on('click', '.stopBtn', function(){
-			var cancel = confirm("취소할래?");
+			var cancel = confirm("취소하시겠습니까?");
 			
 			if(cancel){
 				$.ajax({
@@ -288,9 +288,10 @@ text-align: center;
 						no:$(this).val(),
 						state:40
 					},
-					success:function(){
+					success:function(data){
 						alert("성공");
 						purchase(0);
+// 						$('.balance').text();
 					},
 					error:function(jqXHR, textStatus, errorThrown){
 		    			alert(textStatus);     //응답상태
@@ -313,7 +314,6 @@ text-align: center;
 		});
 		
 		$('#canceled').click(function(){
-// 			alert("취소된");
 			canceledPurchase(0);
 		});
 		
