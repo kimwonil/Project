@@ -443,21 +443,24 @@
 		//진행중 거래에서 완료 버튼 
 		$(document).on('click', '.completeBtn', function() {
 			// 			alert("완료");
-			$.ajax({
-				url : "progress.do",
-				type : "POST",
-				data : {
-					no : $(this).val(),
-					state : 11
-				},
-				success : function() {
-					alert("성공");
-					ongoingList($('#currentPage').val());
-				},
-				error : function() {
-					alert("실패");
-				}
-			});
+			var complete = confirm("완료 하시겠습니까?");
+			if(complete){
+				$.ajax({
+					url : "progress.do",
+					type : "POST",
+					data : {
+						no : $(this).val(),
+						state : 11
+					},
+					success : function() {
+						alert("성공");
+						ongoingList($('#currentPage').val());
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
+			}
 		});
 
 
@@ -599,25 +602,25 @@
 		
 		
 		$(document).on('click', '.cancellComfirm', function(){
-			alert($(this).val()+"취소한다");
-			
-			$.ajax({
-				url:"progress.do",
-				type:"POST",
-				data:{
-					no:$(this).val(),
-					state:42
-				},
-				success:function(){
-					alert("성공");
-					canceledList(0);
-				},
-				error:function(){
-					alert("실패");
-				}
-			});
-			
-			
+// 			alert($(this).val()+"취소한다");
+			var cancel = confirm("취소 하시겠습니까?");
+			if(cancel){
+				$.ajax({
+					url:"progress.do",
+					type:"POST",
+					data:{
+						no:$(this).val(),
+						state:42
+					},
+					success:function(){
+						alert("성공");
+						canceledList(0);
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
+			}
 		});
 		
 		

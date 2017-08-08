@@ -251,28 +251,30 @@ text-align: center;
 		
 		//별점&리뷰 입력 후 확인 누르면 ajax
 		$(document).on('click', '#starReview', function(){
-			
-			$.ajax({
-				url:"progress.do",
-				type:"POST",
-				data:{
-					board_no:$('#hiddenBoard_no').val(),
-					purchase_no:$('#hiddenPurchase_no').val(),
-					state:20,
-					star:$('input[name="rating"]:checked').val(),
-					content:$('#review').val()
-				},
-				success:function(){
-					alert("성공");
-					purchase(0);
-					$('#rating-3').attr('ckecked','checked');
-					$('#myModal').modal('hide');
-					$('#review').val("");
-				},
-				error:function(){
-					alert("실패");
-				}
-			})
+			var complete = confirm("완료 하시겠습니까?");
+			if(complete){
+				$.ajax({
+					url:"progress.do",
+					type:"POST",
+					data:{
+						board_no:$('#hiddenBoard_no').val(),
+						purchase_no:$('#hiddenPurchase_no').val(),
+						state:20,
+						star:$('input[name="rating"]:checked').val(),
+						content:$('#review').val()
+					},
+					success:function(){
+						alert("성공");
+						purchase(0);
+						$('#rating-3').attr('ckecked','checked');
+						$('#myModal').modal('hide');
+						$('#review').val("");
+					},
+					error:function(){
+						alert("실패");
+					}
+				})
+			}
 		});
 		
 		
@@ -399,6 +401,9 @@ text-align: center;
 	border-bottom: 1px solid #e4e4e4;
 	border-top: 1px solid #e4e4e4;
 }
+#review{
+	resize:none;
+}
 </style>
 </head>
 <body>
@@ -480,14 +485,14 @@ text-align: center;
 		</div>
 		
 		<div>리뷰작성</div>
-		<textarea id="review" rows="3" cols="78"></textarea>
+		<textarea id="review" rows="3" cols="78" ></textarea>
 
       </div>
       <div class="modal-footer">
-      	<button type="button"  id="starReview">확인</button>
+      	<button type="button"  id="starReview" class="btn btn-sm btn-info">확인</button>
       	<input type="hidden" id="hiddenBoard_no">
       	<input type="hidden" id="hiddenPurchase_no">
-        <button type="button" class="btn" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-sm btn-info" data-dismiss="modal">취소</button>
       </div>
     </div>
   </div>
