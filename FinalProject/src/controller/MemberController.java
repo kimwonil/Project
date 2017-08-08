@@ -12,8 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.api.plus.Person;
+import org.springframework.social.google.api.plus.PlusOperations;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +46,98 @@ public class MemberController {
 	@Autowired
 	private MemeberService memberService;
 	
+	private GoogleConnectionFactory googleConnectionFactory;
+	private OAuth2Parameters googleOAuth2Parameters;
+	
+	
+	
+	
+	public void setGoogleConnectionFactory(GoogleConnectionFactory googleConnectionFactory) {
+		this.googleConnectionFactory = googleConnectionFactory;
+	}
+
+
+	public void setGoogleOAuth2Parameters(OAuth2Parameters googleOAuth2Parameters) {
+		this.googleOAuth2Parameters = googleOAuth2Parameters;
+	}
+
 	Gson gson = new Gson();
+	
+	/**
+	 * 로그인 요청
+	 * */
+	@RequestMapping(value = "/member/googleSignIn", method = RequestMethod.POST)
+	public void doGoogleSignInActionPage(HttpServletResponse response) {
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		System.out.println("/member/googleSignIn, url : " + url);
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.write(url);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		}
+		
+	}
+	
+	
+	@RequestMapping("/member/googleSignInCallback")
+	public String doSessionAssignActionPage(HttpServletRequest request){
+		System.out.println("/member/googleSignInCallback");
+		String code = request.getParameter("code");
+		
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(),
+				null);
+		
+		String accessToken = accessGrant.getAccessToken();
+		Long expireTime = accessGrant.getExpireTime();
+		if (expireTime != null && expireTime < System.currentTimeMillis()) {
+			accessToken = accessGrant.getRefreshToken();
+			System.out.printf("accessToken is expired. refresh token = {}", accessToken);
+		}
+		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
+		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
+		
+		PlusOperations plusOperations = google.plusOperations();
+		Person person = plusOperations.getGoogleProfile();
+		
+		
+		System.out.println(person.getAccountEmail());
+		System.out.println(person.getAboutMe());
+		System.out.println(person.getDisplayName());
+		System.out.println(person.getEtag());
+		System.out.println(person.getFamilyName());
+		System.out.println(person.getGender());
+		
+//		MemberVO member = new MemberVO();
+//		member.setNickName(person.get);
+//		member.setAuth("USR");
+
+//		HttpSession session = request.getSession();
+//		session.setAttribute("_MEMBER_", member );
+		
+		System.out.println(person.getDisplayName());
+		
+		return "redirect:/";
+		/*System.out.println(person.getAccountEmail());
+		System.out.println(person.getAboutMe());
+		System.out.println(person.getDisplayName());
+		System.out.println(person.getEtag());
+		System.out.println(person.getFamilyName());
+		System.out.println(person.getGender());
+		*/
+		
+	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)

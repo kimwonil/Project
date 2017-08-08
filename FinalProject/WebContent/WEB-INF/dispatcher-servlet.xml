@@ -11,6 +11,26 @@
 
 <context:component-scan base-package="controller"></context:component-scan>
 
+<!--  로그인 관련 -->
+<bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+	<constructor-arg value="213529835589-o9bu7h0nedcukofo2mldo1o2mpetsorh.apps.googleusercontent.com"/>
+	<constructor-arg value="AIzaSyD5LfWE3vJyXyCeKv4UoI4NPXV859Z-6rk"/>
+</bean>
+
+<bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+	<property name="scope" value="http://www.googleapis.com/auth/plus.login"/>
+	<property name="redirectUri" value="http://localhost:8080/FinalProject/member/googleSignInCallback"></property>
+</bean>
+
+
+<bean id="MemberController" class="controller.MemberController">
+	<property name="googleConnectionFactory" ref="googleConnectionFactory"/>
+	<property name="googleOAuth2Parameters" ref="googleOAuth2Parameters"></property>
+</bean>
+
+<!--  로그인 관련 -->
+
+
 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="suffix" value=".jsp"></property>
 	<property name="order" value="1"></property>
