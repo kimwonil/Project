@@ -19,19 +19,17 @@ public class MemeberService {
 	@Autowired
 	private MemberDao memberDao;
 	
-	public Member selectOne(String id) {
-		return memberDao.selectOne(id);
+	public Member selectOne(HashMap<String, Object> map) {
+		return memberDao.selectOne(map);
 	}
 	
 	public List<Member> selectAll() {
 		return memberDao.selectAll();
 	}
 	
-	//추가된 부분
 	public int memberInsert(Member member){
 		return memberDao.memberInsert(member);
 	}
-	//추가된 부분
 	
 	public int memberUpdate(Member member) {
 		return memberDao.memberUpdate(member);
@@ -171,6 +169,10 @@ public class MemeberService {
 
 	public void returnBalance(HashMap<String, Object> map) {
 		memberDao.returnBalance(map);
+	}
+
+	public int nickNameCheck(String nickname) {
+		return memberDao.nickNameCheck(nickname);
 	}
 	
 }

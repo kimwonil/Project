@@ -40,7 +40,7 @@
 						$('#tabs-1 > table').append(
 							'<tr><td><input type="radio" value="' + value.no + '" name="premiumRadio"></td><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
 							value.count + ' / ' + value.quantity + '</td><td>' + (value.state == 0 ? "대기중" : value.state == 1 ? "인원마감" : "마감일 초과") + '</td><td>' +
-							'<button class="btn-sm btn-info continueBtn" value="' + value.no + '">진행</button> <button class="btn-sm btn-info stopBtn" value="' + value.no + '">중단</button></td></tr>'
+							'<button class="btn-sm btn-info continueBtn" value="' + value.no + '">진행</button> <button class="btn-sm btn-info stopBoardBtn" value="' + value.no + '">중단</button></td></tr>'
 						);
 					});
 					$('#tabs-1 input:radio:eq(0)').attr("checked", "checked");
@@ -304,52 +304,81 @@
 
 
 		});
+		
+		
+		//판매중인 글 중단
+		$(document).on('click', '.stopBoardBtn', function(){
+			alert("글 중단");
+			var cancel = confirm("중단 하시겠습니까?");
+			if(cancel){
+// 				$.ajax({
+// 					url : ".do",
+// 					type : "POST",
+// 					data : {
+// 						no : $(this).val(),
+// 						state : 4
+// 					},
+// 					success : function(data) {
+// 						alert("성공");
+						
+// 						sellingList($('#currentPage').val());
+// 					},
+// 					error : function() {
+// 						alert("실패");
+// 					}
+// 				});
+			}
+			
+		});
 
-
-		//중단 버튼
+		//진행중인 거래 취소 버튼
 		$(document).on('click', '.stopBtn', function() {
-			alert($(this).val());
-			$.ajax({
-				url : "progress.do",
-				type : "POST",
-				data : {
-					no : $(this).val(),
-					state : 41
-				},
-				success : function(data) {
-					alert("성공");
-					$('#continueModal').modal('hide');
-					ongoingList($('#currentPage').val());
-				},
-				error : function() {
-					alert("실패");
-				}
-			});
+			var cancel = confirm("취소 하시겠습니까?");
+			if(cancel){
+				$.ajax({
+					url : "progress.do",
+					type : "POST",
+					data : {
+						no : $(this).val(),
+						state : 41
+					},
+					success : function(data) {
+						alert("성공");
+						$('#continueModal').modal('hide');
+						ongoingList($('#currentPage').val());
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
+			}
 		});
 
 
 		//정산 버튼
 		$(document).on('click', '.calculateBtn', function() {
 			// 			alert($(this).siblings('input').val());
-
-			$.ajax({
-				url : "progress.do",
-				type : "POST",
-				data : {
-					no : $(this).val(),
-					state : 30,
-					amount : $(this).siblings('input').val()
-				},
-				dataType : "json",
-				success : function(data) {
-					console.log(data);
-					completionList($('#currentPage').val());
-					$('.balance').text(data.balanceResult);
-				},
-				error : function() {
-					alert("실패");
-				}
-			});
+			var calculate = confirm("정산 하시겠습니까?");
+			if(calculate){
+				$.ajax({
+					url : "progress.do",
+					type : "POST",
+					data : {
+						no : $(this).val(),
+						state : 30,
+						amount : $(this).siblings('input').val()
+					},
+					dataType : "json",
+					success : function(data) {
+						console.log(data);
+						completionList($('#currentPage').val());
+						$('.balance').text(data.balanceResult);
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
+			}
 		});
 
 
@@ -361,24 +390,26 @@
 			});
 			console.log(Arr);
 			jQuery.ajaxSettings.traditional = true;
-
-			$.ajax({
-				url : "progress.do",
-				type : "POST",
-				data : {
-					list : Arr,
-					state : 10
-				},
-				// 				dataType:"json",
-				success : function(data) {
-					alert("성공");
-					$('#continueModal').modal('hide');
-					sellingList($('#currentPage').val());
-				},
-				error : function() {
-					alert("실패");
-				}
-			});
+			var approval = confirm("진행 하시겠습니까?");
+			if(approval){
+				$.ajax({
+					url : "progress.do",
+					type : "POST",
+					data : {
+						list : Arr,
+						state : 10
+					},
+					// 				dataType:"json",
+					success : function(data) {
+						alert("성공");
+						$('#continueModal').modal('hide');
+						sellingList($('#currentPage').val());
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
+			}
 
 		})
 
@@ -437,21 +468,24 @@
 		//진행중 거래에서 완료 버튼 
 		$(document).on('click', '.completeBtn', function() {
 			// 			alert("완료");
-			$.ajax({
-				url : "progress.do",
-				type : "POST",
-				data : {
-					no : $(this).val(),
-					state : 11
-				},
-				success : function() {
-					alert("성공");
-					ongoingList($('#currentPage').val());
-				},
-				error : function() {
-					alert("실패");
-				}
-			});
+			var complete = confirm("완료 하시겠습니까?");
+			if(complete){
+				$.ajax({
+					url : "progress.do",
+					type : "POST",
+					data : {
+						no : $(this).val(),
+						state : 11
+					},
+					success : function() {
+						alert("성공");
+						ongoingList($('#currentPage').val());
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
+			}
 		});
 
 
@@ -569,51 +603,49 @@
 		});
 		
 		$('#premiumSubmit').click(function(){
-// 			alert($('#premiumTime').val());
-// 			alert($(this).siblings('input').val());
-			
-			$.ajax({
-				url:"premiumUpdate.do",
-				type:"POST",
-				data:{
-					no:$(this).siblings('input').val(),
-					time:$('#premiumTime').val(),
-					premium:0
-				},
-				dataType:"text",
-				success:function(data){
-					alert(data);
-					$('#premiumModal').modal('hide');
-				},
-				error:function(){
-					alert("실패");
-				}
-			});
-			
-			
+			var approval = confirm("신청 하시겠습니까?");
+			if(approval){
+				$.ajax({
+					url:"premiumUpdate.do",
+					type:"POST",
+					data:{
+						no:$(this).siblings('input').val(),
+						time:$('#premiumTime').val(),
+						premium:0
+					},
+					dataType:"text",
+					success:function(data){
+						alert(data);
+						$('#premiumModal').modal('hide');
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
+			}
 		});
 		
 		
 		$(document).on('click', '.cancellComfirm', function(){
-			alert($(this).val()+"취소한다");
-			
-			$.ajax({
-				url:"progress.do",
-				type:"POST",
-				data:{
-					no:$(this).val(),
-					state:42
-				},
-				success:function(){
-					alert("성공");
-					canceledList(0);
-				},
-				error:function(){
-					alert("실패");
-				}
-			});
-			
-			
+// 			alert($(this).val()+"취소한다");
+			var cancel = confirm("취소 하시겠습니까?");
+			if(cancel){
+				$.ajax({
+					url:"progress.do",
+					type:"POST",
+					data:{
+						no:$(this).val(),
+						state:42
+					},
+					success:function(){
+						alert("성공");
+						canceledList(0);
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
+			}
 		});
 		
 		

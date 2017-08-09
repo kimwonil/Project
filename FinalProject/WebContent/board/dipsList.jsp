@@ -102,9 +102,13 @@ h3{
 #categoryList div{
 	background-color: gray;
 	border-radius:5px;
+	padding: 5px;
 }
 #categoryList{
 	margin: 0px auto;
+}
+#categoryList a{
+	color: white;
 }
 
 </style>

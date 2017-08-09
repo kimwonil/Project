@@ -25,7 +25,7 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(data){
 				console.log(data);
-				$('#talentList tr:gt(1)').remove();
+				$('#talentList tr:gt(0)').remove();
 				if(data.list == ""){
 					$('#talentList').append('<tr><td colspan="6">내역이 없습니다.</td></tr>');
 				}else{
@@ -42,8 +42,8 @@ $(document).ready(function(){
 				}
 				
 				$('#currentPage').val(data.page);
-				$('.prev').val(data.page==0?0:data.page-10);
-				$('.next').val(data.totalPage-10>data.page?data.page+10:data.page);
+				$('.prev').val(data.page==0?0:data.page-7);
+				$('.next').val(data.totalPage-7>data.page?data.page+7:data.page);
 			},
 			error:function(){
 				alert("실패");
@@ -59,39 +59,47 @@ $(document).ready(function(){
 	
 	
 	$(document).on('click','.approvalBtn', function(){
-		$.ajax({
-			url:"authorityUpdate.do",
-			type:"POST",
-			data:{
-				no:$(this).val(),
-				state:2
-			},
-			success:function(){
-				telentList(0);
-			},
-			error:function(){
-				alert("실패");
-			}
-		});
+		var approval = confirm("승인 하시겠습니까?");
+		if(approval){
+			$.ajax({
+				url:"authorityUpdate.do",
+				type:"POST",
+				data:{
+					no:$(this).val(),
+					state:2
+				},
+				success:function(){
+					telentList(0);
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+		}
 		
 	});
 	
 	$(document).on('click','.cancelBtn', function(){
-		$.ajax({
-			url:"authorityUpdate.do",
-			type:"POST",
-			data:{
-				no:$(this).val(),
-				state:3
-			},
-			success:function(){
-				telentList(0);
-			},
-			error:function(){
-				alert("실패");
-			}
-		});
+		var cancel = confirm("취소 하시겠습니까?");
+		if(cancel){
+			$.ajax({
+				url:"authorityUpdate.do",
+				type:"POST",
+				data:{
+					no:$(this).val(),
+					state:3
+				},
+				success:function(){
+					telentList(0);
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+		}
 	});
+	
+	
 	
 	$(document).on('click', '.detailBtn', function(){
 
