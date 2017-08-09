@@ -483,7 +483,7 @@
 			<div id="linkGroup">
 			
 				<c:if test="${member ne null}">
-					${email}님 환영합니다.
+					${member.nickname}님 환영합니다.
 					<a href="logout.do">로그아웃</a>
 				</c:if>
 				<c:if test="${member eq null }">
