@@ -51,6 +51,9 @@ text-decoration: none;
 width : 573px;
 height : 500px;
 }
+#fh5co-board .item .fh5co-desc{
+padding: 0px;
+}
 </style>
 
 <script>
