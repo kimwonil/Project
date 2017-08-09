@@ -6,6 +6,9 @@ public class Member {
 	private String photo;
 	private int balance;
 	private int admin;
+	private String account;
+	private String bank;
+	private int login;
 	private String code;
 	private int amount;
 	
@@ -17,7 +20,17 @@ public class Member {
 	public Member() {
 		super();
 	}
-
+	
+	public Member(String id, String nickname, String photo, int balance, int admin, int login) {
+		super();
+		this.id = id;
+		this.nickname = nickname;
+		this.photo = photo;
+		this.balance = balance;
+		this.admin = admin;
+		this.login = login;
+	}
+	
 	public Member(String id, String nickname, String photo, int balance, int admin) {
 		super();
 		this.id = id;
@@ -26,7 +39,47 @@ public class Member {
 		this.balance = balance;
 		this.admin = admin;
 	}
+	public Member(String id, String nickname, String photo, int balance, int admin, String account, String bank,
+			int login, String code, int amount) {
+		super();
+		this.id = id;
+		this.nickname = nickname;
+		this.photo = photo;
+		this.balance = balance;
+		this.admin = admin;
+		this.account = account;
+		this.bank = bank;
+		this.login = login;
+		this.code = code;
+		this.amount = amount;
+	}
+
 	
+		
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	public int getLogin() {
+		return login;
+	}
+
+	public void setLogin(int login) {
+		this.login = login;
+	}
+
 	public String getId() {
 		return id;
 	}

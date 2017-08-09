@@ -5,23 +5,25 @@
  
  <mapper namespace="dao.MemberDao">
  
- <select id="selectOne" parameterType="String" resultType="Member">
+ <select id="selectOne" parameterType="java.util.HashMap" resultType="Member">
  	select * from profile where id=#{id}
+ 	<if test="login != null">
+		and login=#{login}
+	</if>
+ 	
  </select>
  
  <select id="selectAll"  resultType="Member">
  	select * from profile
  </select>
  
- <!-- 추가한부분 -->
- 
   <insert id="memberInsert" parameterType="Member">
- 	insert into member values(#{id},#{nickname},#{photo},#{balance},#{admin})
+ 	insert into profile values(#{id}, #{nickname}, null, 0, 0, null, null, #{login})
   </insert>
- 
- 
- <!-- 추가한부분 -->
- 
+  
+  <select id="nickNameCheck" parameterType="String" resultType="int">
+  	select count(nickname) from profile where nickname=#{nickname}
+  </select>
  
  <update id="memberUpdate" parameterType="Member">
  	update profile set nickname=#{nickname}, photo=#{photo}, balance=#{balance}, admin=#{admin} where id=#{id}

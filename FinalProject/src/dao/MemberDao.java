@@ -10,11 +10,9 @@ import model.Member;
 import model.Message;
 
 public interface MemberDao {
-	public Member selectOne(String id);
+	public Member selectOne(HashMap<String, Object> map);
 	public List<Member> selectAll();
-	//추가
 	public int memberInsert(Member member);
-	//추가
 	public int memberUpdate(Member member);
 	public int memberDelete(String id);
 	public int refillCash(Member member);
@@ -55,4 +53,5 @@ public interface MemberDao {
 	public int countPurchase(String id);
 	
 	public void returnBalance(HashMap<String, Object> map);
+	public int nickNameCheck(String nickname);
 }

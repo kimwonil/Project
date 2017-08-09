@@ -45,167 +45,218 @@ public class MemberController {
 	
 	@Autowired
 	private MemeberService memberService;
-	
+	@Autowired
 	private GoogleConnectionFactory googleConnectionFactory;
+	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
 	
-	
-	
-	
-	public void setGoogleConnectionFactory(GoogleConnectionFactory googleConnectionFactory) {
-		this.googleConnectionFactory = googleConnectionFactory;
-	}
-
-
-	public void setGoogleOAuth2Parameters(OAuth2Parameters googleOAuth2Parameters) {
-		this.googleOAuth2Parameters = googleOAuth2Parameters;
-	}
-
 	Gson gson = new Gson();
+	
+	
+	
+//	public void setGoogleConnectionFactory(GoogleConnectionFactory googleConnectionFactory) {
+//		this.googleConnectionFactory = googleConnectionFactory;
+//	}
+//
+//
+//	public void setGoogleOAuth2Parameters(OAuth2Parameters googleOAuth2Parameters) {
+//		this.googleOAuth2Parameters = googleOAuth2Parameters;
+//	}
+
 	
 	/**
 	 * 로그인 요청
 	 * */
-	@RequestMapping(value = "/member/googleSignIn", method = RequestMethod.POST)
-	public void doGoogleSignInActionPage(HttpServletResponse response) {
-		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-		System.out.println("/member/googleSignIn, url : " + url);
-		
-		PrintWriter out;
-		try {
-			out = response.getWriter();
-			out.write(url);
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			throw new RuntimeException(e.getMessage(), e);
-		}
-		
+//	@RequestMapping(value = "/member/googleSignIn", method = RequestMethod.POST)
+//	public void doGoogleSignInActionPage(HttpServletResponse response) {
+//		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+//		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+//		System.out.println("/member/googleSignIn, url : " + url);
+//		
+//		PrintWriter out;
+//		try {
+//			out = response.getWriter();
+//			out.write(url);
+//			out.flush();
+//			out.close();
+//		} catch (IOException e) {
+//			throw new RuntimeException(e.getMessage(), e);
+//		}
+//		
+//	}
+//	
+//	
+//	@RequestMapping("/member/googleSignInCallback")
+//	public String doSessionAssignActionPage(HttpServletRequest request){
+//		System.out.println("/member/googleSignInCallback");
+//		String code = request.getParameter("code");
+//		
+//		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+//		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(),
+//				null);
+//		
+//		String accessToken = accessGrant.getAccessToken();
+//		Long expireTime = accessGrant.getExpireTime();
+//		if (expireTime != null && expireTime < System.currentTimeMillis()) {
+//			accessToken = accessGrant.getRefreshToken();
+//			System.out.printf("accessToken is expired. refresh token = {}", accessToken);
+//		}
+//		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
+//		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
+//		
+//		PlusOperations plusOperations = google.plusOperations();
+//		Person person = plusOperations.getGoogleProfile();
+//		
+//		
+//		System.out.println(person.getAccountEmail());
+//		System.out.println(person.getAboutMe());
+//		System.out.println(person.getDisplayName());
+//		System.out.println(person.getEtag());
+//		System.out.println(person.getFamilyName());
+//		System.out.println(person.getGender());
+//		
+////		MemberVO member = new MemberVO();
+////		member.setNickName(person.get);
+////		member.setAuth("USR");
+//
+////		HttpSession session = request.getSession();
+////		session.setAttribute("_MEMBER_", member );
+//		
+//		System.out.println(person.getDisplayName());
+//		
+//		return "redirect:/";
+//		/*System.out.println(person.getAccountEmail());
+//		System.out.println(person.getAboutMe());
+//		System.out.println(person.getDisplayName());
+//		System.out.println(person.getEtag());
+//		System.out.println(person.getFamilyName());
+//		System.out.println(person.getGender());
+//		*/
+//		
+//	}
+	
+	/**
+	 * 로그인 폼 요청
+	 * */
+	@RequestMapping("loginForm.do")
+	public String loginForm() {
+		return "login";
 	}
-	
-	
-	@RequestMapping("/member/googleSignInCallback")
-	public String doSessionAssignActionPage(HttpServletRequest request){
-		System.out.println("/member/googleSignInCallback");
-		String code = request.getParameter("code");
-		
-		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(),
-				null);
-		
-		String accessToken = accessGrant.getAccessToken();
-		Long expireTime = accessGrant.getExpireTime();
-		if (expireTime != null && expireTime < System.currentTimeMillis()) {
-			accessToken = accessGrant.getRefreshToken();
-			System.out.printf("accessToken is expired. refresh token = {}", accessToken);
-		}
-		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
-		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
-		
-		PlusOperations plusOperations = google.plusOperations();
-		Person person = plusOperations.getGoogleProfile();
-		
-		
-		System.out.println(person.getAccountEmail());
-		System.out.println(person.getAboutMe());
-		System.out.println(person.getDisplayName());
-		System.out.println(person.getEtag());
-		System.out.println(person.getFamilyName());
-		System.out.println(person.getGender());
-		
-//		MemberVO member = new MemberVO();
-//		member.setNickName(person.get);
-//		member.setAuth("USR");
-
-//		HttpSession session = request.getSession();
-//		session.setAttribute("_MEMBER_", member );
-		
-		System.out.println(person.getDisplayName());
-		
-		return "redirect:/";
-		/*System.out.println(person.getAccountEmail());
-		System.out.println(person.getAboutMe());
-		System.out.println(person.getDisplayName());
-		System.out.println(person.getEtag());
-		System.out.println(person.getFamilyName());
-		System.out.println(person.getGender());
-		*/
-		
-	}
-	
-	
-	
 	
 	
 	
 	/**
-	 * 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)
+	 * 로그인
 	 * */
-
-	@RequestMapping("loginsuccess.do")
-	public ModelAndView emailjoin(String id, HttpServletRequest request, HttpSession session) {
-		ModelAndView mv = new ModelAndView("member/profile");
+	@RequestMapping("login.do")
+	public void login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+//		System.out.println("로그인");
+//		System.out.println(request.getParameter("email"));
+		String email = request.getParameter("email");
+		int login = Integer.parseInt(request.getParameter("login"));
+		session.setAttribute("email", email);
+		session.setAttribute("login", login);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", email);
+		map.put("login", login);
+		Member member = memberService.selectOne(map);
 		
-		//로그인 성공 -> 첫 로그인(id값이 db에 없어 저장해야 할때)
-		if(memberService.selectOne(id)==null){
-		Member member = new Member();
-		member.setId(id);
-		member.setNickname(id);
-		memberService.memberInsert(member);
-		session.setAttribute("member", memberService.selectOne(id));
-
-		// 결과를 보여줄 파일명
-		//mv.setViewName("profile.do?id="+id);
-		return mv;
-	}
-		//로그인 성공 -> 첫 로그인이 아님(이미 id값이 db에 저장되어 있음)
-	else{
-		Member member = (Member)session.getAttribute("member");
-//		memberService.selectOne(id);
-		session.setAttribute("member", memberService.selectOne(id));
-
-		return mv;
-	}
+		try {
+			if(member == null) {
+				map.put("result", false);
+				String json = gson.toJson(map);
+				response.getWriter().write(json);
+			}else {
+				map.put("result", true);
+				String json = gson.toJson(map);
+				session.setAttribute("member", member);
+				response.getWriter().write(json);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
+		
+	}
 	
-//	public String emailjoin (String id, HttpSession session){
-//		System.out.println(id);
-//		
-//		if(memberService.selectOne(id)==null){
-//			Member member = new Member();
-//			member.setId(id);
-//			member.setNickName(id);
-//			memberService.memberInsert(member);
-//			return "redirect:profile.do?id="+id;
-//		}
-//		else{
-//			Member member = (Member)session.getAttribute("member");
-//			memberService.selectOne(id);
-//			return "redirect:profile.do?id="+id;
-//		}
-//
-//	}
+	/**
+	 * 로그아웃
+	 * */
+	@RequestMapping("logout.do")
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		session.invalidate();
+		
+		
+		return "redirect:load.do";
+	}
+	
+	/**
+	 * 회원가입 폼 요청
+	 * */
+	@RequestMapping("insertForm.do")
+	public String insertForm() {
+		
+		return "member/nickname";
+	}
+	
+	
+	/**
+	 * 회원가입
+	 * */
+	@RequestMapping("memberInsert.do")
+	public String memberInsert(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		System.out.println("회원가입");
+		HashMap<String, Object> map = new HashMap<>();
+		String id = session.getAttribute("email").toString();
+		map.put("id", id);
+		int login = Integer.parseInt(session.getAttribute("login").toString());
+		map.put("login", login);
+		String nickname = request.getParameter("nickname");
+		Member member = new Member(id, nickname, null, 0, 0, login);
+		memberService.memberInsert(member);
+		
+		session.setAttribute("member", memberService.selectOne(map));
+		return "board/main";
+	}
+	
+	/**
+	 * 닉네임 중복 체크
+	 * */
+	@RequestMapping("nickname.do")
+	public void nickname(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		String nickname = request.getParameter("nickname");
+		String msg="";
+		if(memberService.nickNameCheck(nickname)>=1) {
+			msg="중복입니다.";
+		}else {
+			msg="사용가능합니다.";
+		}
+		
+		try {
+			response.getWriter().write(msg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	/**
 	 * 프로필 조회
 	 * */
 	@RequestMapping("profile.do")
-	public ModelAndView profile(@RequestParam(value="id", required=false) String id, HttpServletRequest request, HttpSession session) {
+	public ModelAndView profile(HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("member/profile");
 		Member member = null;
+		HashMap<String, Object> map = new HashMap<>();
 		if(session.getAttribute("member") != null) {
 			member = (Member)session.getAttribute("member");
-			session.setAttribute("member", memberService.selectOne(member.getId()));
-			//판매중
-			session.setAttribute("selling", memberService.countSelling(member.getNickname()));
-			//구매중
-			session.setAttribute("purchase", memberService.countPurchase(member.getNickname()));
-		}
-		if(id != null) {
-			member = memberService.selectOne(id);
-			session.setAttribute("member", member);
+			map.put("id", member.getId());
+			map.put("login", member.getLogin());
+			session.setAttribute("member", memberService.selectOne(map));
 			//판매중
 			session.setAttribute("selling", memberService.countSelling(member.getNickname()));
 			//구매중
@@ -227,7 +278,8 @@ public class MemberController {
 			if(session.getAttribute("member") != null) {
 				HashMap<String, Object> map = new HashMap<>();
 				String id = ((Member)session.getAttribute("member")).getId();
-				member = memberService.selectOne(id);
+				map.put("id", id);
+				member = memberService.selectOne(map);
 				DecimalFormat number = new DecimalFormat("#,###");
 				String balance = number.format(member.getBalance());
 				//세션 업데이트
@@ -318,13 +370,15 @@ public class MemberController {
 	public void refillCash(HttpServletRequest request, HttpServletResponse response) {
 //		ModelAndView mv = new ModelAndView("cash");
 		HttpSession session = request.getSession();
+		HashMap<String, Object> map = new HashMap<>();
 		Member member = (Member) session.getAttribute("member");
 		int refillCash = Integer.parseInt(request.getParameter("refillCash").toString());
 		String code = request.getParameter("merchant_uid").toString();
 		member.setCode(code);
 		member.refillCash(refillCash);
 		int result = memberService.refillCash(member);
-		session.setAttribute("member", memberService.selectOne(member.getId()));
+		map.put("id", member.getId());
+		session.setAttribute("member", memberService.selectOne(map));
 		try {
 			if(result==1) {
 
@@ -412,7 +466,7 @@ public class MemberController {
 		map.put("id", member.getId());
 		int result = memberService.exchange(map);
 		
-		session.setAttribute("member", memberService.selectOne(member.getId()));
+		session.setAttribute("member", memberService.selectOne(map));
 		
 		
 		
@@ -619,11 +673,11 @@ public class MemberController {
 	public void memberUpdateForm(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		
+		HashMap<String, Object> map = new HashMap<>();
 		String id = request.getParameter("id");
 		System.out.println(id);
-		
-		Member member = memberService.selectOne(id);
+		map.put("id", id);
+		Member member = memberService.selectOne(map);
 		String json = gson.toJson(member);
 		
 		try {

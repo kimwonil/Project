@@ -296,7 +296,7 @@ public class DealControll {
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("state", state);
-		map.put("id", ((Member)session.getAttribute("member")).getNickname());
+		map.put("id", ((Member)session.getAttribute("member")).getId());
 		if(no != null) {
 			map.put("purchase_no", no);
 			dealService.progressState(map);
@@ -318,7 +318,8 @@ public class DealControll {
 			dealService.calculate(map);
 			
 			map.put("title", dealService.selectOneBoard(dealService.recordCashInfo(map)));
-			Member member = memberService.selectOne(map.get("id").toString());
+			
+			Member member = memberService.selectOne(map);
 			map.put("balance", member.getBalance());
 			map.put("state", 4);
 			dealService.recordCash(map);

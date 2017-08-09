@@ -384,7 +384,6 @@
 	
 	});
 </script>
-
 <body>
 	<!-- 	알림띄울 내용 -->
 	<div id="alarm-content" style="background: white; z-index: 9;">
@@ -406,7 +405,7 @@
 			<a class="navbar-brand" href="index.jsp">Home</a>
 		</h1>
 		<ul>
-			<li><a href="profile.do?id=kwi1222@naver.com">프로필</a></li>
+			<li><a href="profile.do">프로필</a></li>
 			<li><a href="authority.do">권한 신청</a></li>
 			<li><a href="selling.do">판매관리</a></li>
 			<li><a href="purchasing.do">구매관리</a></li>
@@ -466,7 +465,15 @@
 				<a href="#"><img src="images/search.png" class="searchIcon"></a>
 			</form>
 			<div id="linkGroup">
-				<a href='boardForm.do' id="boardForm">판매등록</a> <a href='loginprototype.jsp'>로그인</a>
+			
+				<c:if test="${member ne null}">
+					${email}님 환영합니다.
+					<a href="logout.do">로그아웃</a>
+				</c:if>
+				<c:if test="${member eq null }">
+					<a href='loginForm.do'>로그인</a>
+				</c:if>
+				<a href='boardForm.do' id="boardForm">판매등록</a> 
 				<a href='#' id="toggler">알림 <span class="badge" id="togglerNum"></span>
 					<a href='#'>마이페이지</a>
 			</div>
@@ -481,7 +488,7 @@
 		<!-- 		카테고리 메뉴                    -->
 		<div class="row">
 			<ul class="menu">
-				<li><a href="profile.do?id=a@naver.com">디자인/그래픽</a>
+				<li><a href="#">디자인/그래픽</a>
 					<ul>
 						<li><a href="#101" class="documents">캐리커쳐/인물/캐릭터/아이콘</a></li>
 						<li><a href="#102" class="documents">일러스트/초상화/스케치</a></li>
@@ -495,7 +502,7 @@
 						<li><a href="#109" class="documents">도면/CAD/인테리어/3D</a></li>
 						<li><a href="#110" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="profile.do?id=${member.id}">바이럴/마케팅/광고</a>
+				<li><a href="#">바이럴/마케팅/광고</a>
 					<ul>
 						<li><a href="#201" class="documents">블로그/카페/체험단</a></li>
 						<li><a href="#202" class="documents">인스타그램/페이스북/카카오/트위터</a></li>
@@ -505,7 +512,7 @@
 						<li><a href="#205" class="documents">언론/기사/보도자료</a></li>
 						<li><a href="#206" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="profile.do?id=c@naver.com">문서/서식/레포트</a>
+				<li><a href="#">문서/서식/레포트</a>
 					<ul>
 						<li><a href="#301" class="documents">워드/타이핑/엑셀/통계</a></li>
 						<li><a href="#302" class="documents">창작/대본/시나리오/카피라이팅</a></li>
