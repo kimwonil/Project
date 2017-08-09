@@ -68,18 +68,32 @@
  </select>
  
  <select id="searchCategory" parameterType="java.util.HashMap" resultType="Board">
- 	SELECT A.* FROM ( 
-	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board 
-	, (SELECT @searchnum:= 0) R 
-	where 1=0
- 	<if test="title != null">
- 		or title like '%${title}%'
- 	</if>
- 	<if test="content != null">
- 		or content like '%${content}%'
- 	</if>
- 	and category_major=#{major} order by no desc 
- 	) A WHERE A.searchnum between #{start} and #{end}
+	SELECT A.* FROM (
+    SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board
+    , (SELECT @searchnum:= 0) R
+    where 1=0
+    <if test="title != null">
+           or title like '%${title}%' and category_major=#{major}
+    </if>
+    <if test="content != null">
+           or content like '%${content}%' and category_major=#{major}
+    </if>
+    order by no desc) A WHERE A.searchnum between #{start} and #{end}
+	 
+ 
+
+<!--  	SELECT A.* FROM (  -->
+<!-- 	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board  -->
+<!-- 	, (SELECT @searchnum:= 0) R  -->
+<!-- 	where 1=0 -->
+<!--  	<if test="title != null"> -->
+<!--  		or title like '%${title}%' -->
+<!--  	</if> -->
+<!--  	<if test="content != null"> -->
+<!--  		or content like '%${content}%' -->
+<!--  	</if> -->
+<!--  	and category_major=#{major} order by no desc  -->
+<!--  	) A WHERE A.searchnum between #{start} and #{end} -->
  </select>
  
  <select id="getCount" resultType="int">
@@ -99,15 +113,20 @@
  </select>
  
    <select id="getCountForCategorySearch" parameterType="java.util.HashMap" resultType="int">
- 	select count(no) from board
- 	where 1=0
- 	<if test="title != null">
- 		or title like '%${title}%'
- 	</if>
- 	<if test="content != null">
- 		or content like '%${content}%'
- 	</if>
- 	and category_major=#{major}
+   	select count(no) from board 
+   	where category_major=#{major} and no in(select no from board where title like '%${title}%' or content like '%${content}%')
+   
+   
+   
+<!--  	select count(no) from board -->
+<!--  	where 1=0 -->
+<!--  	<if test="title != null"> -->
+<!--  		or title like '%${title}%' -->
+<!--  	</if> -->
+<!--  	<if test="content != null"> -->
+<!--  		or content like '%${content}%' -->
+<!--  	</if> -->
+<!--  	and category_major=#{major} -->
  </select>
  
  <select id="latest" parameterType="java.util.HashMap" resultType="Board">

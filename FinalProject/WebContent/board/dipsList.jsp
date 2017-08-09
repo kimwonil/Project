@@ -90,6 +90,7 @@ img{
 h3{
 	text-align: center;
 }
+<<<<<<< HEAD
 #categoryList>tbody>tr>td div{
  	line-height: 50px; 
 /*  	background-color: gray; */
@@ -111,6 +112,8 @@ h3{
 	color: white;
 }
 
+=======
+>>>>>>> syk
 </style>
 <body>
 <div id="fh5co-main">
@@ -118,10 +121,10 @@ h3{
 	
 
 		<h4>찜목록을 보여주자</h4>
-		<table id="categoryList">
+		<table border="1">
 		<tr>
 		<c:forEach items="${category}" var="major">
-		<td height="50px"><a href="dipsCategory.do?category_no=${major.no}"><div>${major.category_name}</div></a></td>
+		<td height="50px"><a href="dipsCategory.do?category_no=${major.no}"><div style="line-height: 50px">${major.category_name}</div></a></td>
 		</c:forEach>
 		</tr>
 		</table>

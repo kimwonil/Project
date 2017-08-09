@@ -59,7 +59,7 @@ public class BoardController{
 	/**
 	 * 검색 api
 	 * */
-	@RequestMapping("searchAddr.do")
+	@RequestMapping("searchApi.do")
 	public void mapSearch(HttpServletRequest req, HttpServletResponse resp){
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
@@ -395,8 +395,10 @@ public class BoardController{
 	 * */
 	@RequestMapping("insertBoard.do")
 	public ModelAndView board(
-			@RequestParam HashMap<String, Object> params, @RequestParam(value="option[]") List<String> paramArray1, 
-			@RequestParam(value="optionPrice[]") List<String> paramArray2, FileUpload files, 
+			@RequestParam HashMap<String, Object> params, 
+			@RequestParam(value="option[]", required=false) List<String> paramArray1, 
+			@RequestParam(value="optionPrice[]", required=false) List<String> paramArray2, 
+			FileUpload files, int optionResult,
 			HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		System.out.println("글넣기");
 		System.out.println(files);
@@ -415,21 +417,20 @@ public class BoardController{
 		}
 		//table:board에 넣기
 		boardService.insertBoard(params);
-		System.out.println(params.get("no"));
 		int no = Integer.parseInt(params.get("no").toString());
 		
-		//info_address가 있으면 table:map에 넣기
-		if(params.get("info_address") != null){
+		//위도가 있으면 table:map에 넣기
+		if(!params.get("lat").equals("")){
 			boardService.insertMap(params);
 		}
 
 		//files가 있으면 table:file에 넣기
-		if(files != null){
+		if(files.getFiles() != null){
 			boardService.insertFile(params);
 		}
 		
-		//table : board_option
-		if(paramArray1 != null){
+
+		if(optionResult == 0 && paramArray1 != null && paramArray2 != null){//옵션 있음 선택하고 옵션 내용 존재할 경우
 			HashMap<String, Object> board_option = new HashMap<>();
 			board_option.put("no", no);
 			for(int i=0;i<paramArray1.size();i++){
@@ -477,8 +478,10 @@ public class BoardController{
 		
 		//다시 뽑아서 글상세에서 보여주깅
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("board/detail");
-		mav.addObject("board", boardService.selectOneBoard(no));//board 뽑아서 가져오고
+		Board board = boardService.selectOneBoard(no);//방금 입력한 board 뽑아서 가져오고
+		board.setFile_name1(boardService.selectThumbnail(no));// 썸네일 넣어주고
+		mav.addObject("board", board);//실어주고
+		
 		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
 			mav.addObject("mapinfo", boardService.selectOneMap(no));
 		}
@@ -489,6 +492,7 @@ public class BoardController{
 			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
 		
+		mav.setViewName("board/detail");
 		return mav;
 	}
 	
@@ -557,6 +561,33 @@ public class BoardController{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	
+	
+	/**
+	 * detail의 상세정보 탭에 사진넣기 ajax
+	 * */
+	@RequestMapping("detailImg.do")
+	public void detailImg(HttpServletRequest req, HttpServletResponse resp){
+		System.out.println("detailImg.do");
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		int no = Integer.parseInt(req.getParameter("no").toString());
+		System.out.println(no);
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(boardService.selectOneFromFile(no));
+		
+		try {
+			PrintWriter pw = resp.getWriter();
+			pw.println(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	
@@ -870,7 +901,7 @@ public class BoardController{
 				pw.println("{\"result\" : \"캐시가 부족합니다\", \"state\" : 0}");
 			}else{//성고옹!
 				//purchase
-				Purchase purchase = new Purchase(0, no, member.getNickname(), 0, null);
+				Purchase purchase = new Purchase(0, no, member.getId(), 0, null);
 				dealService.insertPurchase(purchase);
 				int purchaseNo = purchase.getPurchase_no();
 				

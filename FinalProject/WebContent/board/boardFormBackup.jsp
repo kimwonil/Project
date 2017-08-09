@@ -30,11 +30,6 @@ border: 1px solid red;
 <script type="text/javascript">
 $(document).ready(function(){
     var map = new naver.maps.Map('map', {
-    	scaleControl: false,
-        logoControl: false,
-        mapDataControl: false,
-        zoomControl: true,
-        minZoom: 1,
     	zoom: 11
     });
     var marker;
@@ -70,11 +65,6 @@ $(document).ready(function(){
 			        
 			        map.destroy();//원래있던 지도 지우고
 			        map = new naver.maps.Map('map', {//다시 넣어주기
-			        	scaleControl: false,
-			            logoControl: false,
-			            mapDataControl: false,
-			            zoomControl: true,
-			            minZoom: 1,
   				    	zoom: 11
   				    });
 	  				
@@ -105,15 +95,21 @@ $(document).ready(function(){
 		  			            map: map
 		  			        });
 	  			        	
-			  			    console.log(response.result);
+			  			    console.log(response.result.item);
 			  			    console.log(marker.position.x);
 			  			    console.log(result.items[0].address);
+			  			    console.log(result.items[0].title);
 	  						
 		  			      	//직접 지도에서 찍은 곳으로 마커 이동
-				  			naver.maps.Event.addListener(map, 'click', function(e){
-							    marker.setPosition(e.latlng);//내가 찍은 곳의 좌표로 마커 이동
-							    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
-							    info_title = "";//직접 찍으면 지점 이름은 안나와
+				  			naver.maps.Event.addListener(map, 'click', function(e) {
+			  				
+		// 		  				infowindow.close();
+							    marker.setPosition(e.latlng);
+							
+							    console.log(e.latlng);
+							    searchCoordinateToAddress(e.latlng);
+							    info_title = "";
+							    
 							});
 				  	        
 				  	        infowindow = new naver.maps.InfoWindow({
@@ -145,13 +141,8 @@ $(document).ready(function(){
 			
 	        map.destroy();
 	        map = new naver.maps.Map('map', {
-	        	scaleControl: false,
-	            logoControl: false,
-	            mapDataControl: false,
-	            zoomControl: true,
-	            minZoom: 1,
-		    	zoom: 11
-		    });
+			    	zoom: 11
+			    });
 				
 		    naver.maps.Service.geocode({address: info_address}, function(status, response) {
 		    	if (status !== naver.maps.Service.Status.OK) {
