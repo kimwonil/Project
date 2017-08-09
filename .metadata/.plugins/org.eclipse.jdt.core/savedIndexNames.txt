@@ -61,8 +61,11 @@ INDEX VERSION 1.130+C:\Users\kwi12\OneDrive\¹®¼­\GitHub\Project\.metadata\.plugi
 2654233211.index
 605900171.index
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 378753145.index
+>>>>>>> wonil
+=======
 >>>>>>> wonil
 2537127582.index
 2728918583.index
