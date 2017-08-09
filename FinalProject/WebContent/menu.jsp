@@ -209,10 +209,15 @@
 }
 #searchInput{
 	height: 30px;
+	width:300px;
+	display: inline;
 }
 .searchIcon{
 	width: 20px;
 	height: 20px;
+}
+#searchForm{
+	float: left;
 }
 
 
@@ -457,11 +462,17 @@
 
 	<header id="fh5co-header" role="banner">
 	<div class="container">
+	<div class="row">
+			<div class="col-md-12">
+				<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i
+					class="icon-menu"></i></a> <a class="navbar-brand" href="index.jsp">ShareAbility</a>
+			</div>
+		</div>
 		<div class="row">
-			<form action="search.do" method="post">
+			<form id="searchForm" action="search.do" method="post">
 				<select name="major" id="categoryForSearch">
 				</select> 
-				<input type="text" id="searchInput" name="word" value="${word}">
+				<input type="text" class="form-control" id="searchInput" name="word" value="${word}">
 				<a href="#"><img src="images/search.png" class="searchIcon"></a>
 			</form>
 			<div id="linkGroup">
@@ -478,12 +489,8 @@
 					<a href='#'>마이페이지</a>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i
-					class="icon-menu"></i></a> <a class="navbar-brand" href="index.jsp">ShareAbility</a>
-			</div>
-		</div>
+		<p>
+		
 
 		<!-- 		카테고리 메뉴                    -->
 		<div class="row">

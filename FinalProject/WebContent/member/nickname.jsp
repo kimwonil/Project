@@ -7,7 +7,16 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 
 <script type="text/javascript">
 $(document).on('keyup', '#nickname', function(){
@@ -17,9 +26,24 @@ $(document).on('keyup', '#nickname', function(){
 		data:{
 			nickname:$(this).val()
 		},
-		dataType:"text",
+		dataType:"json",
 		success:function(data){
-			$('#result').text(data);
+			console.log(data.result);
+			$('#duplicate').val(data.result);
+			
+			if(data.result){
+				$('#inputDiv').removeClass("has-error");
+				$('#inputDiv').addClass("has-success");
+				$('#resultSpan').removeClass("glyphicon-remove");
+				$('#resultSpan').addClass("glyphicon-ok");
+				$('#result').text("사용 가능합니다.");
+			}else{
+				$('#inputDiv').removeClass("has-success");
+				$('#inputDiv').addClass("has-error");
+				$('#resultSpan').removeClass("glyphicon-ok");
+				$('#resultSpan').addClass("glyphicon-remove");
+				$('#result').text("중복입니다.");
+			}
 		},
 		error:function(){
 			alert("실패");
@@ -27,15 +51,72 @@ $(document).on('keyup', '#nickname', function(){
 	});
 });
 
+$(document).on('click', '#submitBtn', function(){
+	var duplicate = $('#duplicate').val();
+	if(duplicate=='true'){
+		$('#insertForm').submit();
+	}else{
+		alert("닉네임을 다시 확인하세요.");
+	}
+});
+
 </script>
+<style type="text/css">
+#nickname {
+	width: 200px;
+	height: 30px;
+	display: inline;
+}
+
+.container {
+	position: absolute;
+	left: 40%;
+	top: 30%;
+}
+
+table {
+	text-align: center;
+	height: 150px;
+}
+.wrapperTd{
+	text-align: left;
+	padding-left: 100px;
+} 
+</style>
 
 </head>
 <body>
-<form action="memberInsert.do" method="post">
-	${email}님 닉네임을 입력하세요.<p>
-	닉네임 : <input id="nickname" type="text" name="nickname"><span id="result"></span>
-	<input type="submit" value="확인"> 
-	<input type="reset" value="취소"> 
-</form>
+<input type="hidden" id="duplicate" value="false">
+	<div class="container">
+		<table>
+			<tr>
+				<td colspan="2">${email}님닉네임을 입력하세요.</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td width="15%">닉네임 :</td>
+				<td width="45%">
+					<form id="insertForm" action="memberInsert.do" method="post" class="form-inline">
+						<div id="inputDiv" class="form-group has-success has-feedback">
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="nickname"
+									name="nickname"> <span id="resultSpan"
+									class="glyphicon glyphicon-ok form-control-feedback"></span>
+							</div>
+						</div>
+					</form>
+				</td>
+				<td width="40%"><span id="result"></span></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button id="submitBtn" class="btn btn-sm btn-info">확인</button> <input
+					type="reset" class="btn btn-sm btn-info" value="취소">
+				</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
 </body>
 </html>

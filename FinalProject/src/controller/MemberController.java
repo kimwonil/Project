@@ -217,7 +217,7 @@ public class MemberController {
 		memberService.memberInsert(member);
 		
 		session.setAttribute("member", memberService.selectOne(map));
-		return "board/main";
+		return "redirect:load.do";
 	}
 	
 	/**
@@ -230,11 +230,10 @@ public class MemberController {
 		String nickname = request.getParameter("nickname");
 		String msg="";
 		if(memberService.nickNameCheck(nickname)>=1) {
-			msg="중복입니다.";
+			msg="{\"result\":false}";
 		}else {
-			msg="사용가능합니다.";
+			msg="{\"result\":true}";
 		}
-		
 		try {
 			response.getWriter().write(msg);
 		} catch (IOException e) {

@@ -5,6 +5,7 @@
 <head>
 <meta charset="utf-8">
 <title>로그인</title>
+
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id"
 	content="213529835589-o9bu7h0nedcukofo2mldo1o2mpetsorh.apps.googleusercontent.com">
