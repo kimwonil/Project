@@ -293,8 +293,12 @@
 	});
 
 	$(document).ready(function() {
+		var menu = $('#memberLogin').val();
 
-
+		if(menu == ''){
+			$('.fh5co-menu-btn').css('display','none');
+		}
+		
 		MessageNum();
 
 		//인터벌로 3초마다 알림에 표시되는 읽지않은 메세지 숫자
@@ -390,6 +394,7 @@
 	});
 </script>
 <body>
+<input type="hidden" id="memberLogin" value="${member.login}">
 	<!-- 	알림띄울 내용 -->
 	<div id="alarm-content" style="background: white; z-index: 9;">
 		<table class="table" id="messagetable" style="">
@@ -486,7 +491,6 @@
 				</c:if>
 				<a href='boardForm.do' id="boardForm">판매등록</a> 
 				<a href='#' id="toggler">알림 <span class="badge" id="togglerNum"></span>
-					<a href='#'>마이페이지</a>
 			</div>
 		</div>
 		<p>
