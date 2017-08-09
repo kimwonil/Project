@@ -144,7 +144,7 @@
 			},
 			dataType : "json",
 			success : function(data) {
-					  			alert(data.result);
+// 					  			alert(data.result);
 				if (data.result) {
 					$('#main').submit();
 				} else {
