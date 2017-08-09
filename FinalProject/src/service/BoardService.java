@@ -204,7 +204,14 @@ public class BoardService {
 	public List<Category> categoryLow(int high_no) {
 		return boardDao.categoryLow(high_no);
 	}
+	
+	public String category_majorName(int no){
+		return boardDao.category_majorName(no);
+	}
 
+	public String category_minorName(HashMap<String, Object> cateMap) {
+		return boardDao.category_minorName(cateMap);
+	}
 	
 
 
@@ -266,6 +273,7 @@ public class BoardService {
 	public int premiumUpdate(HashMap<String, Object> map) {
 		return boardDao.premiumUpdate(map);
 	}
+
 
 	
 

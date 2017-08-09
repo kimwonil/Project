@@ -70,7 +70,8 @@ public interface BoardDao {
 	public List<Category> category();
 	public List<Category> categoryLow(int high_no);
 	public List<Board> latest(HashMap<String, Object> pagingParam);
-	
+	public String category_majorName(int no);
+	public String category_minorName(HashMap<String, Object> cateMap);
 	
 	
 	//프리미엄 등록
