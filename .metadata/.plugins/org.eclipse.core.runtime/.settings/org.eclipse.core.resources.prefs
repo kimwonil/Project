@@ -4,6 +4,7 @@
 eclipse.preferences.version=1
 encoding=UTF-8
 <<<<<<< HEAD
+<<<<<<< HEAD
 org.eclipse.jdt.core.interfaceFormat=ZC0657|GC86817|FGNEG756252|CEB6|QC73|Q4|PQ65
 =======
 <<<<<<< HEAD
@@ -20,4 +21,7 @@ org.eclipse.jdt.core.interfaceFormat=ZC0500|GC86860|FGNEG756252|CEB6|QC6587|Q3|P
 org.eclipse.jdt.core.interfaceFormat=ZC0542|GC86802|FGNEG756252|CEB6|QC78|Q4|PQ65
 >>>>>>> 34316340bf49f087ce1d62acf78f8b5b67c12015
 >>>>>>> 5440ead26d31b7f732cc9ba832a8c5b7e3e93728
+=======
+org.eclipse.jdt.core.interfaceFormat=ZC0706|GC86066|FGNEG756252|CEB6|QC622|Q4|PQ65
+>>>>>>> wonil
 version=1

@@ -64,19 +64,19 @@
 					<br><br>
 					<table>
 						<tr>
-							<td>판매중 : <a href="selling.do">${selling}건</a></td>
+							<td>판매중 : </td><td><a href="selling.do"><div>${selling}건</div></a></td>
 						</tr>
 						<tr>
-							<td>구매중 : <a href="purchasing.do">${purchase}건</a></td>
+							<td>구매중 :  </td><td><a href="purchasing.do"><div>${purchase}건</div></a></td>
 						</tr>
 						<tr>
-							<td>판매평점 : 00점</td>
+							<td>판매평점 :  </td><td>00점</td>
 						</tr>
 						<tr>
-							<td>판매 가능 재능 목록</td>
+							<td colspan="2">판매 가능 재능 목록</td>
 						</tr>
 						<tr>
-							<td>
+							<td colspan="2">
 								<ul>
 									<li>리스트1</li>
 									<li>리스트2</li>

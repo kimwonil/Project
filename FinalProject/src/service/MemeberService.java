@@ -174,5 +174,9 @@ public class MemeberService {
 	public int nickNameCheck(String nickname) {
 		return memberDao.nickNameCheck(nickname);
 	}
+
+	public int countAuthority(String nickname) {
+		return memberDao.countAuthority(nickname);
+	}
 	
 }
