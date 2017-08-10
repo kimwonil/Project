@@ -137,7 +137,11 @@
  	SELECT A.* FROM ( 
 	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board 
 	, (SELECT @searchnum:= 0) R 
-	where premium=1 order by no desc ) A WHERE A.searchnum between #{start} and #{end}
+	where premium=1 
+	<if test="category_major != null">
+		and category_major=#{category_major} and category_minor=#{category_minor}
+	</if>
+	order by no desc ) A WHERE A.searchnum between #{start} and #{end}
  </select>
  
  <select id="gageocksun" parameterType="java.util.HashMap" resultType="Board">
