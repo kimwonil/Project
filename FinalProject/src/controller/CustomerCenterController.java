@@ -62,14 +62,14 @@ public class CustomerCenterController {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		String id = "";
-		System.out.println("메세지 카운터들어옴");
+//		System.out.println("메세지 카운터들어옴");
 		if (((Member) session.getAttribute("member")).getNickname() != null) {
 			id = ((Member) session.getAttribute("member")).getNickname();
 			int num = memberService.getMessageCount(id);
 			try {
 
 				String json = gson.toJson(num);
-				System.out.println(json);
+//				System.out.println(json);
 				response.getWriter().write(json);
 
 			} catch (IOException e) {
@@ -85,14 +85,14 @@ public class CustomerCenterController {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		String id = "";
-		System.out.println("메세지 카운터들어옴");
+//		System.out.println("메세지 카운터들어옴");
 		if (((Member) session.getAttribute("member")).getNickname() != null) {
 			id = ((Member) session.getAttribute("member")).getNickname();
 			List<Message> Mlist = memberService.getMessage(id);
 			try {
 
 				String json = gson.toJson(Mlist);
-				System.out.println(json);
+//				System.out.println(json);
 				response.getWriter().write(json);
 
 			} catch (IOException e) {
@@ -102,21 +102,21 @@ public class CustomerCenterController {
 		}
 	}
 
-	// 리스트 호출
-	@RequestMapping("customerCenterCall.do")
-	public ModelAndView All() {
-		List<Notice> noticeList = noticeService.selectAllNotice();
-		List<QnA> qnaList = qnaService.selectAllQnA();
-		List<Report> reportList = reportService.selectAllReport();
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("noticeList", noticeList);
-		mav.addObject("qnaList", qnaList);
-		mav.addObject("reportList", reportList);
-		mav.setViewName("customerCenter");
-
-		return mav;
-	}
+//	// 리스트 호출
+//	@RequestMapping("customerCenterCall.do")
+//	public ModelAndView All() {
+//		List<Notice> noticeList = noticeService.selectAllNotice();
+//		List<QnA> qnaList = qnaService.selectAllQnA();
+//		List<Report> reportList = reportService.selectAllReport();
+//
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("noticeList", noticeList);
+//		mav.addObject("qnaList", qnaList);
+//		mav.addObject("reportList", reportList);
+//		mav.setViewName("customerCenter");
+//
+//		return mav;
+//	}
 
 	// 공지 리스트
 	@RequestMapping("noticeList.do")

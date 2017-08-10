@@ -986,6 +986,7 @@ function reportList(page,type,keyword,start,end){
 				$('#QnAUpdateForm').val(data.no);
 				$('#QnADelete').val(data.no);
 				$('#AnswerInsertForm').val(data.no);
+			
 				
 				if(id!=data.writer && num==0)
 					{
