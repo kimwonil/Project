@@ -30,7 +30,12 @@ border: 1px solid red;
 <script type="text/javascript">
 $(document).ready(function(){
     var map = new naver.maps.Map('map', {
-    	zoom: 12
+    	scaleControl: false,
+        logoControl: false,
+        mapDataControl: false,
+        zoomControl: true,
+        minZoom: 1,
+    	zoom: 11
     });
     var marker;
     var info_title = ""; //장소명
@@ -41,171 +46,168 @@ $(document).ready(function(){
     
     
     $(document).on('click', '#mapSearch', function(){
-    	var way = $('input[name=way]:checked').val();
- 		console.log("검색방식 1은 주소/ 2는 키워드 : " + way);
+    	var way = $('input[name=way]:checked').val(); //검색방식 1은 주소/ 2는 키워드
  		
     	if($('#inputAddr').val() == ""){
 	  		 alert('검색어를 입력하세요');
-	  	}else{
-	  		
-  		 	if(way == 2){//키워드로 검색할 경우
-  		  		 
-		  		 $.ajax({
-		  			type : 'post',
-		  			url : 'searchAddr.do',
-		  			data : {inputAddr:$('#inputAddr').val()},
-		  			dataType : 'json',
-		  			success : function(data){
-		  				console.log(data.items);
-		  				
-		  				//주소리스트
-		  				$('#table tr:gt(0)').empty();
-		  			
-				        $.each(data.items, function(index, value){
-				          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</td><td>'+ value.address + '</td></tr>');
-				        });
-				        
-				        map.destroy();
-		  			
-				        map = new naver.maps.Map('map', {
-	  				    	zoom: 12
-	  				    });
-		  				
-		  				if(data.items[0] == null){
-		  					$('#table tbody').append('<tr><th><h3>검색결과가 올바르지 않습니다. 검색방법이 맞는지 확인하세요</h3></th></tr>');
-		  				}else{
-		  				
-		  					info_title = data.items[0].title;
-		  					info_address = data.items[0].address;
-		  					info_address2 = "";
-		  					
-		  					
-		  			    	naver.maps.Service.geocode({address: info_address}, function(status, response) {
-			  			    	if (status !== naver.maps.Service.Status.OK) {
-			  			    		return alert(info_address + '의 검색 결과가 없거나 기타 네트워크 에러');
-			  			        }
-			  			        var result = response.result;
-			  			        // 검색 결과 갯수: result.total
-			  			        // 첫번째 결과 결과 주소: result.items[0].address
-			  			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
-		  			        
-			  			        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
-			  			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  			          
-		  			          
-			  			        // 마커 표시
-			  			        marker = new naver.maps.Marker({
-			  			        	position: myaddr,
-			  			            map: map
-			  			            
-			  			        });
-		  			        
-				  			    console.log("검색어로 검색할때 " + response.result.item);
-				  			    console.log("78번째줄"+marker.position.x);
-				  			    console.log("78번째줄"+ result.items[0].address);
-				  			    console.log("78번째줄"+ result.items[0].title);
-		  						
-			  			      	//직접 지도에서 찍은 곳으로 마커 이동
-					  			naver.maps.Event.addListener(map, 'click', function(e) {
-				  				
-			// 		  				infowindow.close();
-								    marker.setPosition(e.latlng);
-								
-								    console.log(e.latlng);
-								    searchCoordinateToAddress(e.latlng);
-								    info_title = "";
-								    
-								});
-					  	        
-					  	        infowindow = new naver.maps.InfoWindow({
-					  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
-					  	        });
-					  	        
-					  	        infowindow.open(map, marker);
-					  	        lat = marker.position.y;
-					  	        lng = marker.position.x;
-					  	        	
-		
-		  			      	});//geocode 
-		  			      	
-		  				}//검색 결과 else
-		  				
-		  			},
-		  			error : function(jpXHR, textStatus, errorThrown){
-		                  alert(textStatus);
-		                  alert(errorThrown);
-		            }
-		  		 });//키워드 검색 ajax 끝
-	  		 
-	  		 	 $('#myModal').modal();
-  	 		}//키워드로 지도 찾는 경우 끝
+	  	}else if(way == 2){//키워드 검색
+	  		 $.ajax({ //검색 api ajax
+	  			type : 'post',
+	  			url : 'searchApi.do',
+	  			data : {inputAddr:$('#inputAddr').val()},
+	  			dataType : 'json',
+	  			success : function(data){
+	  				$('#table tr:gt(0)').empty();//주소 결과리스트 내용 지우고
+			      
+	  				$.each(data.items, function(index, value){//결과들 table에 표시
+			          	$('#table tbody').append(
+			          		'<tr>'+
+			          		'<td><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+			          		'<input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</td><td>'+value.address + '</td>'+
+			          		'</tr>'
+			          	);
+			        });//each 끝
+			        
+			        map.destroy();//원래있던 지도 지우고
+			        map = new naver.maps.Map('map', {//다시 넣어주기
+			        	scaleControl: false,
+			            logoControl: false,
+			            mapDataControl: false,
+			            zoomControl: true,
+			            minZoom: 1,
+  				    	zoom: 11
+  				    });
+	  				
+	  				if(data.items[0] == null){//검색결과가 없으면
+	  					$('#table tbody').append('<tr><th><h3>검색결과가 올바르지 않습니다. 검색방법이 맞는지 확인하세요</h3></th></tr>');
+	  				}else{
+	  				
+	  					info_title = data.items[0].title;
+	  					info_address = data.items[0].address;
+	  					info_address2 = "";
+	  					
+	  					//검색결과에서 받아온 주소를 지도 api에 넣어서 표시할거야
+	  			    	naver.maps.Service.geocode({address: info_address}, function(status, response) {
+		  			    	if (status !== naver.maps.Service.Status.OK) {
+		  			    		return alert(info_address + '의 검색 결과가 없거나 기타 네트워크 에러');
+		  			        }
+		  			        var result = response.result;
+		  			        // 검색 결과 갯수: result.total
+		  			        // 첫번째 결과 결과 주소: result.items[0].address
+		  			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+	  			        
+		  			        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
+		  			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  			          
+	  			          
+		  			        // 마커 표시
+		  			        marker = new naver.maps.Marker({
+		  			        	position: myaddr,
+		  			            map: map
+		  			        });
+	  			        	
+			  			    console.log(response.result);
+			  			    console.log(marker.position.x);
+			  			    console.log(result.items[0].address);
+	  						
+		  			      	//직접 지도에서 찍은 곳으로 마커 이동
+				  			naver.maps.Event.addListener(map, 'click', function(e){
+							    marker.setPosition(e.latlng);//내가 찍은 곳의 좌표로 마커 이동
+							    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
+							    info_title = "";//직접 찍으면 지점 이름은 안나와
+							});
+				  	        
+				  	        infowindow = new naver.maps.InfoWindow({
+				  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
+				  	        });
+				  	        
+				  	        infowindow.open(map, marker);
+				  	        lat = marker.position.y;
+				  	        lng = marker.position.x;
+	
+	  			      	});//geocode 
+	  			      	
+	  				}//검색 결과 else
+	  			},
+	  			error : function(jpXHR, textStatus, errorThrown){
+	                  alert(textStatus);
+	                  alert(errorThrown);
+	            }
+	  		 });//키워드 검색 ajax 끝
+  		 
+  		 	 $('#myModal').modal();
+  	 	}//키워드로 지도 찾는 경우 끝
   	 		////////////////////////////////////////////////////////////////////////////////////////////////////
-  	 		else{//주소로 검색하는 경우(way==1)
-  	 			$('#table tr:gt(0)').empty();
-				info_address = $('#inputAddr').val();
-				info_address2 = "";
-				info_title = "";
+  	 	else if(way == 1){//주소로 검색하는 경우(way==1)
+ 	 		$('#table tr:gt(0)').empty();
+			info_address = $('#inputAddr').val();
+			info_address2 = "";
+			info_title = "";
+			
+	        map.destroy();
+	        map = new naver.maps.Map('map', {
+	        	scaleControl: false,
+	            logoControl: false,
+	            mapDataControl: false,
+	            zoomControl: true,
+	            minZoom: 1,
+		    	zoom: 11
+		    });
 				
-		        map.destroy();
-		        map = new naver.maps.Map('map', {
-				    	zoom: 12
-				    });
-				
-			    naver.maps.Service.geocode({address: info_address}, function(status, response) {
-			    	if (status !== naver.maps.Service.Status.OK) {
-			    		return alert('검색방법이 잘못 되었거나 기타 네트워크 에러');
-			        }
-			    	
-			        var result = response.result;
-			        // 검색 결과 갯수: result.total
-			        // 첫번째 결과 결과 주소: result.items[0].address
-			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+		    naver.maps.Service.geocode({address: info_address}, function(status, response) {
+		    	if (status !== naver.maps.Service.Status.OK) {
+		    		return alert('검색방법이 잘못 되었거나 기타 네트워크 에러');
+		        }
+		    	
+		        var result = response.result;
+		        // 검색 결과 갯수: result.total
+		        // 첫번째 결과 결과 주소: result.items[0].address
+		        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+	        
+		        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
+		        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  		
 		        
-			        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
-			        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  		
-			        
-			        
-			        //얘도 리스트 뿌릴수잇나
-		        	$.each(result.items, function(index, value){
-			          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'"></td><td>'+ value.address + '</td></tr>');
-			        });
-			        
+		        
+		        //얘도 리스트 뿌릴수잇나
+	        	$.each(result.items, function(index, value){
+		          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'"></td><td>'+ value.address + '</td></tr>');
+		        });
+		        
 	          
-			        // 마커 표시
-			        marker = new naver.maps.Marker({
-			        	position: myaddr,
-			            map: map
-			        });
-				        
-		        	console.log(result);
-		      		console.log(response.result.items);
+		        // 마커 표시
+		        marker = new naver.maps.Marker({
+		        	position: myaddr,
+		            map: map
+		        });
+			        
+	        	console.log(result);
+	      		console.log(response.result.items);
 
-					
-		      		//직접 지도에서 찍은 곳으로 마커 이동
-					naver.maps.Event.addListener(map, 'click', function(e) {
+				
+	      		//직접 지도에서 찍은 곳으로 마커 이동
+				naver.maps.Event.addListener(map, 'click', function(e) {
 
-// 		  				infowindow.close();
-		    			marker.setPosition(e.latlng);
-		
-					    searchCoordinateToAddress(e.latlng);
-					    info_title="";
-					});
-  	        
-		  	        //인포윈도우 오픈
-		  	        infowindow = new naver.maps.InfoWindow({
-		  	        	content : result.userquery
-		  	        });
-		  	        console.log(info_title);
-		  	        infowindow.open(map, marker);
-		  	        lat = marker.position.y;
-		  	        lng = marker.position.x;
-		    		
-		      $('#myModal').modal();
-		      });//geocode 끝
-		    
-  	 	}//(way==1) else 끝
+		  				//infowindow.close();
+	    			marker.setPosition(e.latlng);
+	
+				    searchCoordinateToAddress(e.latlng);
+				    info_title="";
+				});
+ 	        
+	  	        //인포윈도우 오픈
+	  	        infowindow = new naver.maps.InfoWindow({
+	  	        	content : result.userquery
+	  	        });
+	  	        console.log(info_title);
+	  	        infowindow.open(map, marker);
+	  	        lat = marker.position.y;
+	  	        lng = marker.position.x;
+	    		
+           $('#myModal').modal();
+	       });//geocode 끝
+	    
+ 	 	}//(way==1) else 끝
   	 		
-	  	}//검색어 입력 else
-    })//검색방식 선택 했을경우 
+    })//검색버튼 누른 후 모달 결과 페이지까지 뽑기 끝 
     
     
     
@@ -217,7 +219,7 @@ $(document).ready(function(){
 				
 	    naver.maps.Service.geocode({address: myaddress}, function(status, response) {
 // 	    	map = new naver.maps.Map('map', {
-// 	        	zoom: 12
+// 	        	zoom: 11
 // 	        });
 	    	if (status !== naver.maps.Service.Status.OK) {
 	    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
@@ -311,8 +313,8 @@ $(document).ready(function(){
    	$(document).on('click', '.add', function(){
    		$('#tableOption').append(
   				'<tr>'+
-			'<td><input type="text" name="option[]"></td>'+
-			'<td><input type="text" name="optionPrice[]"></td>'+
+			'<td><input type="text" name="option[]" class="optionName"></td>'+
+			'<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
 			'<td><button class="delete">삭제</button></td>'+
 			'</tr>'
    		);
@@ -326,6 +328,7 @@ $(document).ready(function(){
 
     	
 	//대분류 선택하면 소분류 나와
+// 	$.when($.ready).then(function(){
    	$(document).on('change', '#major', function(){
    		$.ajax({
    			url:"categoryLow.do",
@@ -334,6 +337,7 @@ $(document).ready(function(){
    			dataType:"json",
    			success:function(data){
    				$('#minor').empty();
+   				$('#minor').append('<option>소분류</option>');
    				$.each(data, function(index, value){
 	   				$('#minor').append(
 	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
@@ -347,40 +351,157 @@ $(document).ready(function(){
    	});
 	
    	
+   	
 	
-	//옵션 추가 라디오 선택
-	$("#tableOption").hide();//옵션추가 테이블 일단 숨겨놓고 시작!
-    $('input[type=radio]').on('click',function(){
-//     	$(this).toggle('ckeck');
-        $("#tableOption").toggle();
+   	//등록 마감일 당일기준으로 설정
+	document.getElementById('datePicker').valueAsDate = new Date();
+   	//오늘 날짜 이전으로 선택 못하게
+   	var year = new Date().getFullYear();
+   	var month = new Date().getMonth()+1;
+   	var date = new Date().getDate();
+   	if(month<10){
+		month = '0'+month; 		
+   	}
+   	if(date<10){
+   		date = '0'+date; 
+   	}
+   	var dateVal = year+'-'+month+'-'+date;
+   	$('#datePicker').attr('min', dateVal);
+   	
+   	
+	
+	
+// 	//옵션 추가 라디오 선택
+// 	$("#tableOption").hide();//옵션추가 테이블 일단 숨겨놓고 시작!
+//     $('input[type=checkbox]').on('click',function(){
+//         $("#tableOption").toggle();
+//     	if($(this).is(':checked')){
+//     		$('#optionResult').val(0);
+//     	}else{
+//     		$('#optionResult').val(4);
+//     	}
+//     });
+
+
+	//옵션 추가 체크박스 선택
+	$("#tableOption").empty();//옵션추가 테이블 일단 숨겨놓고 시작!
+    $('input[type=checkbox]').on('click',function(){
+    	if($(this).is(':checked')){//체크되면
+    		$('#optionResult').val(0);
+    		$('#tableOption').append(
+    				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
+                     '<tr>'+
+                        '<td><input type="text" name="option[]" class="optionName"></td>'+
+                        '<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
+//                         '<td><button class="delete">삭제</button></td>'+
+                     '</tr>'
+    		);
+    	}else{//체크 안되면
+    		$('#optionResult').val(4);
+    		$('#tableOption').empty();
+    	}
+    
     });
+	
+	
 		
-		
+	
+//     $('#optionRadio').click(function () {
+//         var className = $(this).data('class');
+//         //toggling to change color
+//         $(this).toggleClass(className).toggleClass(className + '1');
+
+//         //check if its clicked already using data- attribute
+//         if ($(this).data("clicked")) {
+//             //remove it if yes
+//             $("#newDiv").find("#tablefor-" + className).remove();
+//         } else {
+//             //new table - note that I've added an id to it indicate where it came from
+//             var newTable = '<table id="tablefor-' + className + '" style="font-size: 14;float:left;padding-left: 13px;" cellpadding="5"><tr><td style="color: #B2B2B9;">T1' + className + '</td></tr><tr><td id="cap">20</td></tr><tr><td id="minseat">8</td></tr></table>';
+
+//             //append table                
+//             $("#newDiv").append(newTable);
+//         }
+//         //reverse the data of clicked
+//         $(this).data("clicked", !$(this).data("clicked"));
+//     });
 	
    	
+	
+	
+	
    	//글등록
-   	$('#go').click(function(){
+   	$(document).on('click', '#go', function(){
 		if($('#major option:selected').val() == '대분류'){//카테고리
 			console.log('카테고리를 선택하세요');
 			return false;
-		}else if($('input[name=title]').val()==''){
+		}
+		if($('#minor option:selected').val() == '소분류'){//카테고리
+			console.log('카테고리 소분류를 선택하세요');
+			return false;
+		}
+		if($('input[name=title]').val()==''){
 			console.log('제목을 쓰세요');
 			return false;
-		}else if($('input[name=quantity]').val()==''){
+		}
+		if($('input[name=quantity]').val()==''){
 			console.log('인원 또는 건수를 쓰세요');
 			return false;
-		}else if(!$.isNumeric($('input[name=quantity]').val())){
+		}
+		if(!$.isNumeric($('input[name=quantity]').val())){
 			console.log('인원 또는 건수에는 숫자를 입력하세요');
 			return false;
-		}else if($('input[name=price]').val()==''){
+		}
+		if($('input[name=price]').val()==''){
 			console.log('가격을 쓰세요');
 			return false;
-		}else if(!$.isNumeric($('input[name=price]').val())){
+		}
+		if(!$.isNumeric($('input[name=price]').val())){
 			console.log('가격에는 숫자를 입력하세요');
 			return false;
-		}else{
-			return true;
 		}
+		if($('input[type=checkbox]').is(':checked')){
+			var check1 = true;
+			var check2 = true;
+			
+			$.each($('#tableOption').find('.optionName'), function(index, value){
+				if(value.value == ''){
+					alert("옵션종류를 입력하세요");
+					check1 = false;
+					return false;//바깥 each 나가기
+				}
+				if(value.value != ''){
+					$.each($('#tableOption').find('.optionName'), function(index2, value2){
+						if(index != index2){
+							if(value.value == value2.value){
+								alert("옵션종류가 중복됩니다");
+								check1 = false;
+								check2 = false;
+								return false;//내부 each 나가기
+							}
+						}
+					});//inner each 끝
+				}
+				
+				 if(!check2){//옵션종류가 중복이면 바깥each 더 돌지말고 나가
+					return false;
+				}
+				
+			});	//옵션종류 each문 끝
+			if(check1){
+				$.each($('#tableOption').find('.optionPrice'), function(index, value){
+					if(value.value == ''){
+						alert("옵션가격을 입력하세요");
+						return false;
+					}else if(!$.isNumeric(value.value)){
+						alert("옵션가격에는 숫자를 입력하세요");
+						return false;
+					}
+				});	//옵션가격 each문 끝
+			}; //if(a)끝
+			return false;
+		};//옵션 입력값 체크
+		return true;
    	});
    	
    	
@@ -390,28 +511,28 @@ $(document).ready(function(){
 <script type="text/javascript">
 //function 모아둘거야
 
-function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
-  num = String(num).replace(/^\s+|\s+$/g, "");
+// function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
+//   num = String(num).replace(/^\s+|\s+$/g, "");
  
-  if(typeof opt == "undefined" || opt == "1"){
-    // 모든 10진수 (부호 선택, 자릿수구분기호 선택, 소수점 선택)
-    var regex = /^[+\-]?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+){1}(\.[0-9]+)?$/g;
-  }else if(opt == "2"){
-    // 부호 미사용, 자릿수구분기호 선택, 소수점 선택
-    var regex = /^(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+){1}(\.[0-9]+)?$/g;
-  }else if(opt == "3"){
-    // 부호 미사용, 자릿수구분기호 미사용, 소수점 선택
-    var regex = /^[0-9]+(\.[0-9]+)?$/g;
-  }else{
-    // only 숫자만(부호 미사용, 자릿수구분기호 미사용, 소수점 미사용)
-    var regex = /^[0-9]$/g;
-  }
+//   if(typeof opt == "undefined" || opt == "1"){
+//     // 모든 10진수 (부호 선택, 자릿수구분기호 선택, 소수점 선택)
+//     var regex = /^[+\-]?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+){1}(\.[0-9]+)?$/g;
+//   }else if(opt == "2"){
+//     // 부호 미사용, 자릿수구분기호 선택, 소수점 선택
+//     var regex = /^(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+){1}(\.[0-9]+)?$/g;
+//   }else if(opt == "3"){
+//     // 부호 미사용, 자릿수구분기호 미사용, 소수점 선택
+//     var regex = /^[0-9]+(\.[0-9]+)?$/g;
+//   }else{
+//     // only 숫자만(부호 미사용, 자릿수구분기호 미사용, 소수점 미사용)
+//     var regex = /^[0-9]$/g;
+//   }
  
-  if( regex.test(num) ){
-    num = num.replace(/,/g, "");
-    return isNaN(num) ? false : true;
-  }else{ return false;  }
-}
+//   if( regex.test(num) ){
+//     num = num.replace(/,/g, "");
+//     return isNaN(num) ? false : true;
+//   }else{ return false;  }
+// }
 
 
 
@@ -420,6 +541,8 @@ function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
 
 
 <body>
+
+
 	
 	<!-- 	<div id="fh5co-main"> -->
 		<div class="container">
@@ -445,7 +568,7 @@ function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
 									</select>
 									</th></tr>
 									<tr><th>글제목</th><th> <input type="text" name="title"> </th></tr>
-									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" value="2017-07-01"> </th></tr>
+									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" > </th></tr>
 									<tr><th>인원 또는 건수</th><th> <input type="text" name="quantity"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
@@ -458,19 +581,13 @@ function isNumeric(num, opt){ // 좌우 trim(공백제거)을 해준다.
 										<input type="hidden" id="hidn3" name="info_title">
 										<input type="hidden" id="hidn4" name="lat">
 										<input type="hidden" id="hidn5" name="lng">
+										<input type="hidden" id="optionResult" name="optionResult" value="4">
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션사항</th><th> 
-										<input type="radio" id="optionRadio"> 판매옵션 있음
+										<input type="checkbox" id="optionRadio"> 판매옵션 있음
 										<table id="tableOption">
-			                                 <tr>
-			                                 <th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th>
-			                                 </tr>
-			                                 <tr>
-			                                    <td><input type="text" name="option[]" value="${board_option.kind}"></td>
-			                                    <td><input type="text" name="optionPrice[]" value="${board_option.price}"></td>
-			                                    <td><button class="delete">삭제</button></td>
-			                                 </tr>
+			                                
 			                              </table>
 									</th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr>

@@ -12,8 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.api.plus.Person;
+import org.springframework.social.google.api.plus.PlusOperations;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,76 +45,217 @@ public class MemberController {
 	
 	@Autowired
 	private MemeberService memberService;
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
 	
 	Gson gson = new Gson();
 	
-	/**
-	 * 로그인 성공시 닉네임 자동 설정하기 (닉네임 변경 없을 경우 이메일 주소(id)를 닉네임으로 사용)
-	 * */
-
-	@RequestMapping("loginsuccess.do")
-	public ModelAndView emailjoin(String id, HttpServletRequest request, HttpSession session) {
-		ModelAndView mv = new ModelAndView("member/profile");
-		
-		//로그인 성공 -> 첫 로그인(id값이 db에 없어 저장해야 할때)
-		if(memberService.selectOne(id)==null){
-		Member member = new Member();
-		member.setId(id);
-		member.setNickname(id);
-		memberService.memberInsert(member);
-		session.setAttribute("member", memberService.selectOne(id));
-
-		// 결과를 보여줄 파일명
-		//mv.setViewName("profile.do?id="+id);
-		return mv;
-	}
-		//로그인 성공 -> 첫 로그인이 아님(이미 id값이 db에 저장되어 있음)
-	else{
-		Member member = (Member)session.getAttribute("member");
-//		memberService.selectOne(id);
-		session.setAttribute("member", memberService.selectOne(id));
-
-		return mv;
-	}
-		}
+	
+	
+//	public void setGoogleConnectionFactory(GoogleConnectionFactory googleConnectionFactory) {
+//		this.googleConnectionFactory = googleConnectionFactory;
+//	}
+//
+//
+//	public void setGoogleOAuth2Parameters(OAuth2Parameters googleOAuth2Parameters) {
+//		this.googleOAuth2Parameters = googleOAuth2Parameters;
+//	}
 
 	
-//	public String emailjoin (String id, HttpSession session){
-//		System.out.println(id);
+	/**
+	 * 로그인 요청
+	 * */
+//	@RequestMapping(value = "/member/googleSignIn", method = RequestMethod.POST)
+//	public void doGoogleSignInActionPage(HttpServletResponse response) {
+//		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+//		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+//		System.out.println("/member/googleSignIn, url : " + url);
 //		
-//		if(memberService.selectOne(id)==null){
-//			Member member = new Member();
-//			member.setId(id);
-//			member.setNickName(id);
-//			memberService.memberInsert(member);
-//			return "redirect:profile.do?id="+id;
+//		PrintWriter out;
+//		try {
+//			out = response.getWriter();
+//			out.write(url);
+//			out.flush();
+//			out.close();
+//		} catch (IOException e) {
+//			throw new RuntimeException(e.getMessage(), e);
 //		}
-//		else{
-//			Member member = (Member)session.getAttribute("member");
-//			memberService.selectOne(id);
-//			return "redirect:profile.do?id="+id;
-//		}
-//
+//		
 //	}
+//	
+//	
+//	@RequestMapping("/member/googleSignInCallback")
+//	public String doSessionAssignActionPage(HttpServletRequest request){
+//		System.out.println("/member/googleSignInCallback");
+//		String code = request.getParameter("code");
+//		
+//		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+//		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(),
+//				null);
+//		
+//		String accessToken = accessGrant.getAccessToken();
+//		Long expireTime = accessGrant.getExpireTime();
+//		if (expireTime != null && expireTime < System.currentTimeMillis()) {
+//			accessToken = accessGrant.getRefreshToken();
+//			System.out.printf("accessToken is expired. refresh token = {}", accessToken);
+//		}
+//		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
+//		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
+//		
+//		PlusOperations plusOperations = google.plusOperations();
+//		Person person = plusOperations.getGoogleProfile();
+//		
+//		
+//		System.out.println(person.getAccountEmail());
+//		System.out.println(person.getAboutMe());
+//		System.out.println(person.getDisplayName());
+//		System.out.println(person.getEtag());
+//		System.out.println(person.getFamilyName());
+//		System.out.println(person.getGender());
+//		
+////		MemberVO member = new MemberVO();
+////		member.setNickName(person.get);
+////		member.setAuth("USR");
+//
+////		HttpSession session = request.getSession();
+////		session.setAttribute("_MEMBER_", member );
+//		
+//		System.out.println(person.getDisplayName());
+//		
+//		return "redirect:/";
+//		/*System.out.println(person.getAccountEmail());
+//		System.out.println(person.getAboutMe());
+//		System.out.println(person.getDisplayName());
+//		System.out.println(person.getEtag());
+//		System.out.println(person.getFamilyName());
+//		System.out.println(person.getGender());
+//		*/
+//		
+//	}
+	
+	/**
+	 * 로그인 폼 요청
+	 * */
+	@RequestMapping("loginForm.do")
+	public String loginForm() {
+		return "login";
+	}
+	
+	
+	
+	/**
+	 * 로그인
+	 * */
+	@RequestMapping("login.do")
+	public void login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+//		System.out.println("로그인");
+//		System.out.println(request.getParameter("email"));
+		String email = request.getParameter("email");
+		int login = Integer.parseInt(request.getParameter("login"));
+		session.setAttribute("email", email);
+		session.setAttribute("login", login);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", email);
+		map.put("login", login);
+		Member member = memberService.selectOne(map);
+		
+		try {
+			if(member == null) {
+				map.put("result", false);
+				String json = gson.toJson(map);
+				response.getWriter().write(json);
+			}else {
+				map.put("result", true);
+				String json = gson.toJson(map);
+				session.setAttribute("member", member);
+				response.getWriter().write(json);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * 로그아웃
+	 * */
+	@RequestMapping("logout.do")
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		session.invalidate();
+		
+		
+		return "redirect:load.do";
+	}
+	
+	/**
+	 * 회원가입 폼 요청
+	 * */
+	@RequestMapping("insertForm.do")
+	public String insertForm() {
+		
+		return "member/nickname";
+	}
+	
+	
+	/**
+	 * 회원가입
+	 * */
+	@RequestMapping("memberInsert.do")
+	public String memberInsert(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		System.out.println("회원가입");
+		HashMap<String, Object> map = new HashMap<>();
+		String id = session.getAttribute("email").toString();
+		map.put("id", id);
+		int login = Integer.parseInt(session.getAttribute("login").toString());
+		map.put("login", login);
+		String nickname = request.getParameter("nickname");
+		Member member = new Member(id, nickname, null, 0, 0, login);
+		memberService.memberInsert(member);
+		
+		session.setAttribute("member", memberService.selectOne(map));
+		return "redirect:load.do";
+	}
+	
+	/**
+	 * 닉네임 중복 체크
+	 * */
+	@RequestMapping("nickname.do")
+	public void nickname(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		String nickname = request.getParameter("nickname");
+		String msg="";
+		if(memberService.nickNameCheck(nickname)>=1) {
+			msg="{\"result\":false}";
+		}else {
+			msg="{\"result\":true}";
+		}
+		try {
+			response.getWriter().write(msg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	/**
 	 * 프로필 조회
 	 * */
 	@RequestMapping("profile.do")
-	public ModelAndView profile(@RequestParam(value="id", required=false) String id, HttpServletRequest request, HttpSession session) {
+	public ModelAndView profile(HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("member/profile");
 		Member member = null;
+		HashMap<String, Object> map = new HashMap<>();
 		if(session.getAttribute("member") != null) {
 			member = (Member)session.getAttribute("member");
-			session.setAttribute("member", memberService.selectOne(member.getId()));
-			//판매중
-			session.setAttribute("selling", memberService.countSelling(member.getNickname()));
-			//구매중
-			session.setAttribute("purchase", memberService.countPurchase(member.getNickname()));
-		}
-		if(id != null) {
-			member = memberService.selectOne(id);
-			session.setAttribute("member", member);
+			map.put("id", member.getId());
+			map.put("login", member.getLogin());
+			session.setAttribute("member", memberService.selectOne(map));
 			//판매중
 			session.setAttribute("selling", memberService.countSelling(member.getNickname()));
 			//구매중
@@ -114,6 +266,53 @@ public class MemberController {
 		
 		return mv;
 	}
+	
+	/**
+	 * 미니 프로필 조회
+	 * */
+	@RequestMapping("miniProfile.do")
+	public void miniProfile(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		Member member = null;
+		try {
+			if(session.getAttribute("member") != null) {
+				HashMap<String, Object> map = new HashMap<>();
+				String id = ((Member)session.getAttribute("member")).getId();
+				map.put("id", id);
+				member = memberService.selectOne(map);
+				DecimalFormat number = new DecimalFormat("#,###");
+				String balance = number.format(member.getBalance());
+				//세션 업데이트
+				session.setAttribute("member",member);
+				map.put("member", member);
+				//현 잔액
+				map.put("balance", balance);
+				//판매갯수
+				map.put("selling", memberService.countSelling(member.getNickname()));
+				//구매갯수
+				map.put("purchase", memberService.countPurchase(member.getNickname()));
+				//나의재능
+				
+				//찜목록
+				
+				//쪽지
+				
+				
+				
+				
+				
+				String json = gson.toJson(map);
+				
+				response.getWriter().write(json);
+				
+			}else {
+				response.sendRedirect("index.jsp");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	/**
 	 * 프로필 사진 수정
@@ -170,13 +369,15 @@ public class MemberController {
 	public void refillCash(HttpServletRequest request, HttpServletResponse response) {
 //		ModelAndView mv = new ModelAndView("cash");
 		HttpSession session = request.getSession();
+		HashMap<String, Object> map = new HashMap<>();
 		Member member = (Member) session.getAttribute("member");
 		int refillCash = Integer.parseInt(request.getParameter("refillCash").toString());
 		String code = request.getParameter("merchant_uid").toString();
 		member.setCode(code);
 		member.refillCash(refillCash);
 		int result = memberService.refillCash(member);
-		session.setAttribute("member", memberService.selectOne(member.getId()));
+		map.put("id", member.getId());
+		session.setAttribute("member", memberService.selectOne(map));
 		try {
 			if(result==1) {
 
@@ -264,7 +465,7 @@ public class MemberController {
 		map.put("id", member.getId());
 		int result = memberService.exchange(map);
 		
-		session.setAttribute("member", memberService.selectOne(member.getId()));
+		session.setAttribute("member", memberService.selectOne(map));
 		
 		
 		
@@ -471,11 +672,11 @@ public class MemberController {
 	public void memberUpdateForm(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		
+		HashMap<String, Object> map = new HashMap<>();
 		String id = request.getParameter("id");
 		System.out.println(id);
-		
-		Member member = memberService.selectOne(id);
+		map.put("id", id);
+		Member member = memberService.selectOne(map);
 		String json = gson.toJson(member);
 		
 		try {
@@ -569,7 +770,7 @@ public class MemberController {
 		
 		
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("id", ((Member)session.getAttribute("member")).getNickname());
+		params.put("id", ((Member)session.getAttribute("member")).getId());
 		params.put("category_no", request.getParameter("category_no"));
 		
 		memberService.authorityReg(params);
@@ -639,7 +840,7 @@ public class MemberController {
 	 * */
 	@RequestMapping("authorityList.do")
 	public void authorityList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String id = ((Member)session.getAttribute("member")).getNickname();
+		String id = ((Member)session.getAttribute("member")).getId();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);

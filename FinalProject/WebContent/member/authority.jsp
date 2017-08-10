@@ -210,11 +210,6 @@ $(document).ready(function(){
 											<td>신청 재능</td>
 											<td>
 												<select id="category" name="category_no">
-													<option value="1">디자인/그래픽</option>
-													<option value="2">컴퓨터/개발</option>
-													<option value="3">음악/영상</option>
-													<option value="4">생활/대행/상담</option>
-													<option value="5">노하우/여행</option>
 												</select>
 											</td>
 										</tr>
