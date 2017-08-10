@@ -36,7 +36,11 @@
  	SELECT A.* FROM ( 
 	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board 
 	, (SELECT @searchnum:= 0) R 
-	where premium = 1 ) A WHERE A.searchnum between #{start} and #{end}
+	where premium = 1 and state = 0
+	<if test="category_major != null">
+		and category_major=#{category_major} and category_minor=#{category_minor}
+	</if>
+	) A WHERE A.searchnum between #{start} and #{end}
  </select>
  
 <!--  <update id="reduceQuantity" parameterType="java.util.HashMap"> -->
@@ -255,6 +259,14 @@
  
  <select id="categoryLow" parameterType="int" resultType="Category">
  	select * from category_low where high_no=#{high_no}
+ </select>
+ 
+ <select id="category_majorName" parameterType="int" resultType="String">
+ 	select category_name from category_high where no=#{no}
+ </select>
+ 
+ <select id="category_minorName" parameterType="java.util.HashMap" resultType="String">
+ 	select category_name from category_low where no=#{no} and high_no=#{high_no}
  </select>
 
  <!-- 프리미엄 글 변환 -->

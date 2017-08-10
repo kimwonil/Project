@@ -20,11 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
 import model.Board;
+import model.Category;
 import model.Member;
+import model.Paging;
 import model.Premium;
 import model.Purchase;
 import model.PurchaseOption;
@@ -749,5 +752,84 @@ public class DealControll {
 		}
 		
 	}
+	
+	
+	
+	
+	///////////////////////////////////////////boardController로 옮겨야 함///////////////////////////////////
+	
+	
+	@RequestMapping("categoryMenu.do")
+	public ModelAndView categoryMenu(@RequestParam(defaultValue="1") int currentPage, HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		
+		int categoryNo = Integer.parseInt(request.getParameter("no"));
+		System.out.println((categoryNo/100)*100);
+		System.out.println(categoryNo%100);
+		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=utf-8");
+		ModelAndView mav = new ModelAndView();
+		//페이징 부분
+		Paging paging = new Paging(boardService.getCount(), currentPage);
+		paging.boardPaging();
+		
+		
+		//프리미엄 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
+				List<Board> premiumList = new ArrayList<>();
+				for(Board board : boardService.selectAllPremiumBoard()){
+					int no = board.getNo();//글번호
+					String file_name1 = boardService.selectThumbnail(no);
+					board.setFile_name1(file_name1);
+					board.ratingForMain();//별점평균넣기
+					premiumList.add(board);
+				}//selectAllPremiumBoard에 각각 file_name1 넣기 끝
+				
+				//일반 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
+				List<Board> normalList = new ArrayList<>();
+				HashMap<String, Object> pagingParam = new HashMap<>();//검색에 필요한 페이징 정보를 맵에 담아서
+				pagingParam.put("start", paging.getStart());
+				pagingParam.put("end", paging.getEnd());
+				pagingParam.put("category_major", (categoryNo/100)*100);
+				pagingParam.put("category_minor", categoryNo%100);
+				for(Board board : boardService.selectAllNormalBoard(pagingParam)){
+					int no = board.getNo();//글번호
+					String file_name1 = boardService.selectThumbnail(no);
+//					if(file_name1 == null){
+//						board.setFile_name1("noimage.jpg");
+//					}else{
+						board.setFile_name1(file_name1);
+//					}
+			
+					board.ratingForMain();//별점평균넣기
+					normalList.add(board);
+				}//selectAllNormalBoard에 각각 file_name1 넣기 끝
+				
+				List<Category> categoryList = boardService.category();
+				mav.addObject(categoryList);
+				mav.addObject("paging", paging);
+				mav.addObject("pageName", "load.do");
+				mav.addObject("premiumList", premiumList);
+				mav.addObject("normalList", normalList);
+				mav.setViewName("board/main");
+				return mav;
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

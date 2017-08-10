@@ -73,6 +73,10 @@
  	select * from message where no=#{no}
  </select>
  
+ <delete id="messageDelete" parameterType="int">
+ 	delete from message where no=#{no}
+ </delete>
+ 
  <insert id="messageSend" parameterType="Message">
  	insert into message values(0, #{sender}, #{receiver}, #{title}, #{content}, 1, sysdate())
  </insert>

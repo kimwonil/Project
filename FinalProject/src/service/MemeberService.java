@@ -178,5 +178,9 @@ public class MemeberService {
 	public int countAuthority(String nickname) {
 		return memberDao.countAuthority(nickname);
 	}
+
+	public int messageDelete(int no) {
+		return memberDao.messageDelete(no);
+	}
 	
 }
