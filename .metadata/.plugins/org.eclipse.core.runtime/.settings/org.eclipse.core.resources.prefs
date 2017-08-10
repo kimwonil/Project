@@ -5,6 +5,7 @@ eclipse.preferences.version=1
 encoding=UTF-8
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 org.eclipse.jdt.core.interfaceFormat=ZC8183|GC74343|FGNEG756252|CEB6|QC788|Q2|PQ3
 =======
 org.eclipse.jdt.core.interfaceFormat=ZC0595|GC86855|FGNEG756252|CEB6|QC6562|Q3|PQ4
@@ -12,4 +13,7 @@ org.eclipse.jdt.core.interfaceFormat=ZC0595|GC86855|FGNEG756252|CEB6|QC6562|Q3|P
 =======
 org.eclipse.jdt.core.interfaceFormat=ZC0500|GC86860|FGNEG756252|CEB6|QC6587|Q3|PQ4
 >>>>>>> wonil
+=======
+org.eclipse.jdt.core.interfaceFormat=ZC0542|GC86802|FGNEG756252|CEB6|QC78|Q4|PQ65
+>>>>>>> 34316340bf49f087ce1d62acf78f8b5b67c12015
 version=1
