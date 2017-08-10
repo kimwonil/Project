@@ -113,10 +113,10 @@ text-align: center;
 				        		<a href="detailOneBoard.do?no=${board.no}">
 				        			<c:choose>
 										<c:when test="${board.file_name1 eq ''}">
-											<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+											<img src='<c:url value="/images"/>/noimage.jpg' >
 										</c:when>
 										<c:when test="${board.file_name1 eq null}">
-											<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+											<img src='<c:url value="/images"/>/noimage.jpg' >
 										</c:when>
 										<c:otherwise >
 											<img src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}' >
