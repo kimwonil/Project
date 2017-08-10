@@ -84,7 +84,7 @@
 #alarm-content {
 	position: absolute;
 	display: none;
-	top: 15%;
+	top: 20%;
 	border: 1px solid red;
 }
 
@@ -297,28 +297,40 @@
 
 		if(menu == ''){
 			$('.fh5co-menu-btn').css('display','none');
+			
+			
 		}
+		else
+			{
+	
+			MessageNum();
+
+			//인터벌로 3초마다 알림에 표시되는 읽지않은 메세지 숫자
+			setInterval(function() {
+				
+				$.ajax({
+					url : "getMessageCount.do",
+					type : "POST",
+					dataType : "json",
+					success : function(data) {
+						console.log(data);
+
+						$('#togglerNum').text(data);
+
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						console.log(textStatus);
+						console.log(errorThrown);
+					}
+				});
+				
+			}, 3000)
+			
+			}
 		
-		MessageNum();
-
-		//인터벌로 3초마다 알림에 표시되는 읽지않은 메세지 숫자
-		setInterval(function() {
-			$.ajax({
-				url : "getMessageCount.do",
-				type : "POST",
-				dataType : "json",
-				success : function(data) {
-					console.log(data);
-
-					$('#togglerNum').text(data);
-
-				},
-				error : function(jqXHR, textStatus, errorThrown) {
-					console.log(textStatus);
-					console.log(errorThrown);
-				}
-			});
-		}, 3000)
+		
+			
+		
 
 		//알림 눌렀을때 읽지않은 메세지 제목과 보낸사람 표시
 
@@ -421,7 +433,7 @@
 			<li><a href="purchasing.do">구매관리</a></li>
 			<li><a href="cashPage.do">캐시관리</a></li>
 			<li><a href="message.do">쪽지관리</a></li>
-			<li><a href="customerCenterCall.do">고객센터</a></li>
+			<li><a href="customerCenter.jsp">고객센터</a></li>
 		</ul>
 	</div>
 	<!-- 	메뉴 끝 -->

@@ -53,7 +53,7 @@
 
 </body>
 <script type="text/javascript">
-	var naver_id_login = new naver_id_login("q9jIL5jkbHpYtx4IhwrT", "http://192.168.0.143:8080/FinalProject/login.jsp");
+	var naver_id_login = new naver_id_login("q9jIL5jkbHpYtx4IhwrT", "http://localhost:8080/FinalProject/login.jsp");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("green", 3, 65);
 	naver_id_login.setState(state);
@@ -144,11 +144,9 @@
 			},
 			dataType : "json",
 			success : function(data) {
-<<<<<<< HEAD
-					  			alert(data.result);
-=======
+
 // 					  			alert(data.result);
->>>>>>> 34316340bf49f087ce1d62acf78f8b5b67c12015
+
 				if (data.result) {
 					$('#main').submit();
 				} else {
