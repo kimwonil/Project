@@ -457,6 +457,7 @@ $(document).ready(function(){
 			var check1 = true;
 			var check2 = true;
 			var check3 = true; //옵션 추가에 체크가 되어있을때 유효성 검사를 통과하면 insert되도록!
+			if($('#tableOption').find('.optionName'))
 			
 			$.each($('#tableOption').find('.optionName'), function(index, value){
 				if(value.value == ''){
@@ -493,6 +494,7 @@ $(document).ready(function(){
 					}
 				});	//옵션가격 each문 끝
 			}; //if(a)끝
+// 			return false;
 		};//옵션 입력값 체크
 		return true;
    	});

@@ -584,6 +584,7 @@ public class BoardController{
 		
 		Gson gson = new Gson();
 		String json = gson.toJson(boardService.selectOneFromFile(no));
+		System.out.println(json);
 		
 		try {
 			PrintWriter pw = resp.getWriter();

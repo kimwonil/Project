@@ -501,8 +501,7 @@ function totalPrice(){
 						  </ul>
 						  <div id="tabs-1">
 						    <div>${board.content}</div>
-						    <div id="img">
-						    </div>
+						    <div id="img"></div>
 						  </div>
 						  <div id="tabs-2">
 						    <p>주문시 유의사항 내용</p>
