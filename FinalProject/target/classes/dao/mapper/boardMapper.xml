@@ -256,6 +256,14 @@
  <select id="categoryLow" parameterType="int" resultType="Category">
  	select * from category_low where high_no=#{high_no}
  </select>
+ 
+ <select id="category_majorName" parameterType="int" resultType="String">
+ 	select category_name from category_high where no=#{no}
+ </select>
+ 
+ <select id="category_minorName" parameterType="java.util.HashMap" resultType="String">
+ 	select category_name from category_low where no=#{no} and high_no=#{high_no}
+ </select>
 
  <!-- 프리미엄 글 변환 -->
  <update id="premium" parameterType="java.util.HashMap">
