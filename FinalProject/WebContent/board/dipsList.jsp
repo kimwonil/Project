@@ -90,7 +90,7 @@ img{
 h3{
 	text-align: center;
 }
-<<<<<<< HEAD
+
 #categoryList>tbody>tr>td div{
  	line-height: 50px; 
 /*  	background-color: gray; */
@@ -112,8 +112,7 @@ h3{
 	color: white;
 }
 
-=======
->>>>>>> syk
+
 </style>
 <body>
 <div id="fh5co-main">

@@ -31,7 +31,12 @@
 			
 				<div class="col-md-8 col-md-offset-2">
 					<h2>프로필 관리</h2>
-					<img src="<c:url value="/user/profile/${member.id}"/>/${member.photo}" alt="Free HTML5 template by FREEHTML5.co" class="img-rounded img-responsive photo">
+					<c:if test="${member.photo eq null}">
+						<img class="photo" src="<c:url value="/images"/>/noimage.jpg">
+					</c:if>
+					<c:if test="${member.photo ne null}">
+						<img class="photo" src="<c:url value="/user/profile/${member.id}"/>/${member.photo}">
+					</c:if>
 					<table id="mainTable" class="table">
 						<tr>
 							<td>아이디 : ${member.id}</td>
