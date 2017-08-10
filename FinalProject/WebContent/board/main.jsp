@@ -107,6 +107,18 @@ display: inline;
 }
 </style>
 
+<script type="text/javascript">
+$(document).on('click', '#latest', function(){
+	location.href='latest.do';
+});
+$(document).on('click', '#panmaesun', function(){
+	location.href='panmaesun.do';
+});
+$(document).on('click', '#gageocksun', function(){
+	location.href='gageocksun.do';
+});
+</script>
+
 <body>
 <div id="fh5co-main">
 	<div class="container">
@@ -203,9 +215,9 @@ display: inline;
 		<span>
 			<table id="orderTable">
 			<tr>
-			<td><button onclick="location.href='latest.do'" class="btn-sm">최신순</button></td>
-			<td><button onclick="location.href='panmaesun.do'" class="btn-sm">판매순</button></td>
-			<td><button onclick="location.href='gageocksun.do'" class="btn-sm">낮은가격순</button></td>
+			<td><button id="latest" class="btn-sm">최신순</button></td>
+			<td><button id="panmaesun" class="btn-sm">판매순</button></td>
+			<td><button id="gageocksun" class="btn-sm">낮은가격순</button></td>
 			</tr>
 			</table>
 		</span>
