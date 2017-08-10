@@ -38,6 +38,7 @@ import model.Exchange;
 import model.FileUpload;
 import model.Member;
 import model.Message;
+import service.BoardService;
 import service.MemeberService;
 
 @Controller
@@ -45,6 +46,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemeberService memberService;
+	@Autowired
+	private BoardService boardService;
 	@Autowired
 	private GoogleConnectionFactory googleConnectionFactory;
 	@Autowired
@@ -272,12 +275,16 @@ public class MemberController {
 	 * */
 	@RequestMapping("miniProfile.do")
 	public void miniProfile(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
 		Member member = null;
 		try {
 			if(session.getAttribute("member") != null) {
 				HashMap<String, Object> map = new HashMap<>();
 				String id = ((Member)session.getAttribute("member")).getId();
+				int login = ((Member)session.getAttribute("member")).getLogin();
 				map.put("id", id);
+				map.put("login", login);
 				member = memberService.selectOne(map);
 				DecimalFormat number = new DecimalFormat("#,###");
 				String balance = number.format(member.getBalance());
@@ -291,11 +298,11 @@ public class MemberController {
 				//구매갯수
 				map.put("purchase", memberService.countPurchase(member.getNickname()));
 				//나의재능
-				
+				map.put("authority", memberService.countAuthority(member.getNickname()));
 				//찜목록
-				
+				map.put("dipsList", boardService.getCountDips(member.getNickname()));
 				//쪽지
-				
+				map.put("message", memberService.getMessageCount(member.getNickname()));
 				
 				
 				

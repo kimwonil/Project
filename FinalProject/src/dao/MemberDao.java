@@ -54,4 +54,5 @@ public interface MemberDao {
 	
 	public void returnBalance(HashMap<String, Object> map);
 	public int nickNameCheck(String nickname);
+	public int countAuthority(String nickname);
 }

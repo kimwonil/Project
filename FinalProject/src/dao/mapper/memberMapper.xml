@@ -119,6 +119,10 @@
  <select id="authorityDetail" parameterType="int" resultType="Authority">
  	select * from authority_file where authority_no=#{no}
  </select>
+ 
+ <select id="countAuthority" parameterType="String" resultType="int">
+ 	select count(no) from authority where id=#{nickname}
+ </select>
 
  <select id="totalPageCash" parameterType="String" resultType="int">
  	select count(no) from cash where id=#{id}

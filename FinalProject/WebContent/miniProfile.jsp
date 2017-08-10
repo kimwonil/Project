@@ -13,15 +13,22 @@ function profileContent(){
 		dataType:"json",
 		success:function(data){
 			console.log(data);
-			alert("성공");
+			$('#profileNum').text(data.authority);
+			$('#sellingNum').text(data.selling);
+			$('#purchasingNum').text(data.purchase);
+			$('#dipsListNum').text(data.dipsList);
+			$('#messageNum').text(data.message);
 		},
-		error:function(){
-			alert("실패");
+		error:function(jqXHR, textStatus, errorThrown){
+			alert(textStatus);     //응답상태
+			alert(errorThrown);     //응답에 대한 메세지
 		}
 	});
 	
 }
-
+$(document).ready(function(){
+	profileContent();
+});
 
 
 </script>
@@ -51,6 +58,9 @@ function profileContent(){
 	.btn{
 		margin: 10px 0px 20px 0px;
 	}
+	#miniProfile div{
+		display: inline;
+	}
 </style>
 </head>
 <body>
@@ -58,32 +68,32 @@ function profileContent(){
 <img src="images/img_1.jpg" class="img-circle miniImg">
 <table id="miniProfile">
 	<tr>
-		<td id="imgSpace"></td>
+		<td id="imgSpace" colspan="2"></td>
 	</tr>
 
 	<tr>
-		<td>${member.nickname }</td>
+		<td colspan="2">${member.nickname }</td>
 	</tr>
 	<tr>
-		<td><label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/></label>원</td>
+		<td colspan="2"><label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/></label>원</td>
 	</tr>
 	<tr>
-		<td><input type="button" value="충전" class="btn btn-sm btn-info"></td>
+		<td colspan="2"><input type="button" value="충전" class="btn btn-sm btn-info"></td>
 	</tr>
 	<tr>
-		<td>나의 재능 : <a href="profile.do"><label>0</label>건</a></td>
+		<td>나의 재능 : </td><td><a href="profile.do"><div id="profileNum">0</div>건</a></td>
 	</tr>
 	<tr>
-		<td>판매중인 재능 : <a href="selling.do"><label>0</label>건</a></td>
+		<td>판매중인 재능 : </td><td><a href="selling.do"><div id="sellingNum">0</div>건</a></td>
 	</tr>
 	<tr>
-		<td>구매중인 재능 : <a href="purchasing.do"><label>0</label>건</a></td>
+		<td>구매중인 재능 : </td><td><a href="purchasing.do"><div id="purchasingNum">0</div>건</a></td>
 	</tr>
 	<tr>
-		<td>찜목록 : <a href="dipsList.do?id=${member.id}"><label>0</label>건</a></td>
+		<td>찜목록 : </td><td><a href="dipsList.do?id=${member.id}"><div id="dipsListNum">0</div>건</a></td>
 	</tr>
 	<tr>
-		<td>쪽지 : <a href="message.do"><label>0</label>건</a></td>
+		<td>쪽지 : </td><td><a href="message.do"><div id="messageNum">0</div>건</a></td>
 	</tr>
 </table>
 </div>

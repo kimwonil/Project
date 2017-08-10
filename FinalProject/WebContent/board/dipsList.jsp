@@ -120,7 +120,7 @@ h3{
 	
 
 		<h4>찜목록을 보여주자</h4>
-		<table border="1">
+		<table id="categoryList">
 		<tr>
 		<c:forEach items="${category}" var="major">
 		<td height="50px"><a href="dipsCategory.do?category_no=${major.no}"><div style="line-height: 50px">${major.category_name}</div></a></td>
