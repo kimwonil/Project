@@ -516,16 +516,22 @@ public class BoardController{
 		board.setFile_name1(boardService.selectThumbnail(no));
 		
 		mav.addObject("board", board);
-		
-//		if(boardService.selectOneFromFile(no) != null ){//file뽑아서 가져오고
-//			mav.addObject("files", boardService.selectOneFromFile(no));
-//		}
+
 		mav.addObject("files", boardService.selectOneFromFile(no)); //files가 존재하거나 null이거나 빈칸이거나 
 		if(boardService.selectBoard_option(no) != null){
 			System.out.println("컨트롤러에 selectOneBoard_option하러왔엉");
 			System.out.println(boardService.selectBoard_option(no));
 			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
+		
+		String category_major = boardService.category_majorName(board.getCategory_major());//대분류 번호로 이름뽑기
+		mav.addObject("category_major", category_major);
+		
+		HashMap<String, Object> cateMap = new HashMap<>();
+		cateMap.put("no", board.getCategory_minor());
+		cateMap.put("high_no", board.getCategory_major());
+		String category_minor = boardService.category_minorName(cateMap);//소분류 이름 뽑기
+		mav.addObject("category_minor", category_minor);
 		
 		mav.setViewName("board/detail");
 		return mav;

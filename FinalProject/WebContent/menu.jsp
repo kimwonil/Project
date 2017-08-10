@@ -297,6 +297,7 @@
 
 		if(menu == ''){
 			$('.fh5co-menu-btn').css('display','none');
+			
 		}else{
 			
 			//인터벌로 3초마다 알림에 표시되는 읽지않은 메세지 숫자
@@ -428,7 +429,7 @@
 			<li><a href="purchasing.do">구매관리</a></li>
 			<li><a href="cashPage.do">캐시관리</a></li>
 			<li><a href="message.do">쪽지관리</a></li>
-			<li><a href="customerCenterCall.do">고객센터</a></li>
+			<li><a href="customerCenter.jsp">고객센터</a></li>
 		</ul>
 	</div>
 	<!-- 	메뉴 끝 -->

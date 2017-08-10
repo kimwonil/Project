@@ -3,5 +3,9 @@
 >>>>>>>=wonil
 eclipse.preferences.version=1
 encoding=UTF-8
+<<<<<<< HEAD
+org.eclipse.jdt.core.interfaceFormat=ZC0865|GC86025|FGNEG756252|CEB6|QC781|Q4|PQ65
+=======
 org.eclipse.jdt.core.interfaceFormat=ZC0960|GC86120|FGNEG756252|CEB6|QC896|Q4|PQ65
+>>>>>>> wonil
 version=1

@@ -51,6 +51,12 @@ text-decoration: none;
 width : 573px;
 height : 500px;
 }
+#fh5co-board .item .fh5co-desc{
+padding: 0px;
+}
+h5{
+text-align: center;
+}
 </style>
 
 <script>
@@ -399,9 +405,9 @@ function totalPrice(){
 							</tr>
 							<tr>
 								<td>
-									카테고리 표시
+									${category_major}  >  ${category_minor}
 								</td>
-								<td width="57%">
+								<td width="30%">
 									<div class="star-ratings-css">
 									  
 									  <div class="star-ratings-css-top" id="starPercent" style="width:${board.ratingForDetail}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
