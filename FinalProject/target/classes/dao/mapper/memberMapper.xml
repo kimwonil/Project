@@ -151,13 +151,13 @@
  
  <select id="getMessageCount" parameterType="String" resultType="int">
  	select count(*) from message
- 	where sender=#{id}
+ 	where receiver=#{id}
  	and state=1
  </select>
  
  <select id="getMessage" parameterType="String" resultType="Message">
  	select * from message
- 	where sender=#{id}
+ 	where receiver=#{id}
  	and state=1
  </select>
  

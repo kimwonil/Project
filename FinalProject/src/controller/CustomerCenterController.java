@@ -88,6 +88,7 @@ public class CustomerCenterController {
 //		System.out.println("메세지 카운터들어옴");
 		if (((Member) session.getAttribute("member")).getNickname() != null) {
 			id = ((Member) session.getAttribute("member")).getNickname();
+			System.out.println(id);
 			List<Message> Mlist = memberService.getMessage(id);
 			try {
 
