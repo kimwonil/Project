@@ -150,10 +150,10 @@ display: inline;
 									<a href="detailOneBoard.do?no=${premium.no}">
 									<c:choose>
 										<c:when test="${premium.file_name1 eq ''}">
-											<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+											<img src='<c:url value="/images"/>/noimage.jpg' >
 										</c:when>
 										<c:when test="${premium.file_name1 eq null}">
-											<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+											<img src='<c:url value="/images"/>/noimage.jpg' >
 										</c:when>
 										<c:otherwise >
 											<img src='<c:url value="/user/board/${premium.no}"/>/${premium.file_name1}' >
@@ -220,10 +220,10 @@ display: inline;
 									
 								<c:choose>
 								<c:when test="${normal.file_name1 eq ''}">
-									<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+									<img src='<c:url value="/images"/>/noimage.jpg' >
 								</c:when>
 								<c:when test="${normal.file_name1 eq null}">
-									<img src='<c:url value="/user/board/nothumbnail"/>/noimage.jpg' >
+									<img src='<c:url value="/images"/>/noimage.jpg' >
 								</c:when>
 								<c:otherwise >
 									<img src='<c:url value="/user/board/${normal.no}"/>/${normal.file_name1}' >

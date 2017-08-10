@@ -37,17 +37,18 @@ $(document).ready(function(){
         minZoom: 1,
     	zoom: 11
     });
+    var way;
+    var juso; //지도검색 후 라디오 버튼으로 선택할 때 infowindow에 써
     var marker;
-    var info_title = ""; //장소명
-    var info_address = "";//도로명
-    var info_address2 = "";//지번
+    var info_title; //장소명
+    var info_address;//도로명
+    var info_address2;//지번
     var latlng="";//위도경도
 //     var infowindow;
     
     
     $(document).on('click', '#mapSearch', function(){
-    	var way = $('input[name=way]:checked').val(); //검색방식 1은 주소/ 2는 키워드
- 		
+    	way = $('input[name=way]:checked').val(); //검색방식 1은 주소/ 2는 키워드
     	if($('#inputAddr').val() == ""){
 	  		 alert('검색어를 입력하세요');
 	  	}else if(way == 2){//키워드 검색
@@ -79,12 +80,12 @@ $(document).ready(function(){
   				    });
 	  				
 	  				if(data.items[0] == null){//검색결과가 없으면
-	  					$('#table tbody').append('<tr><th><h3>검색결과가 올바르지 않습니다. 검색방법이 맞는지 확인하세요</h3></th></tr>');
+	  					alert("검색결과가 올바르지 않습니다. 검색방법이 맞는지 확인하세요");
 	  				}else{
 	  				
 	  					info_title = data.items[0].title;
 	  					info_address = data.items[0].address;
-	  					info_address2 = "";
+	  					info_address2 = '';
 	  					
 	  					//검색결과에서 받아온 주소를 지도 api에 넣어서 표시할거야
 	  			    	naver.maps.Service.geocode({address: info_address}, function(status, response) {
@@ -109,13 +110,6 @@ $(document).ready(function(){
 			  			    console.log(marker.position.x);
 			  			    console.log(result.items[0].address);
 	  						
-		  			      	//직접 지도에서 찍은 곳으로 마커 이동
-				  			naver.maps.Event.addListener(map, 'click', function(e){
-							    marker.setPosition(e.latlng);//내가 찍은 곳의 좌표로 마커 이동
-							    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
-							    info_title = "";//직접 찍으면 지점 이름은 안나와
-							});
-				  	        
 				  	        infowindow = new naver.maps.InfoWindow({
 				  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
 				  	        });
@@ -125,7 +119,7 @@ $(document).ready(function(){
 				  	        lng = marker.position.x;
 	
 	  			      	});//geocode 
-	  			      	
+	  			    	$('#myModal').modal('show');
 	  				}//검색 결과 else
 	  			},
 	  			error : function(jpXHR, textStatus, errorThrown){
@@ -134,14 +128,14 @@ $(document).ready(function(){
 	            }
 	  		 });//키워드 검색 ajax 끝
   		 
-  		 	 $('#myModal').modal();
+//   		 	 $('#myModal').modal('show');
   	 	}//키워드로 지도 찾는 경우 끝
-  	 		////////////////////////////////////////////////////////////////////////////////////////////////////
+  	 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  	 	/*
+  	 	주소로 검색하는 경우
+  	 	*/
   	 	else if(way == 1){//주소로 검색하는 경우(way==1)
  	 		$('#table tr:gt(0)').empty();
-			info_address = $('#inputAddr').val();
-			info_address2 = "";
-			info_title = "";
 			
 	        map.destroy();
 	        map = new naver.maps.Map('map', {
@@ -153,7 +147,7 @@ $(document).ready(function(){
 		    	zoom: 11
 		    });
 				
-		    naver.maps.Service.geocode({address: info_address}, function(status, response) {
+		    naver.maps.Service.geocode({address: $('#inputAddr').val()}, function(status, response) {
 		    	if (status !== naver.maps.Service.Status.OK) {
 		    		return alert('검색방법이 잘못 되었거나 기타 네트워크 에러');
 		        }
@@ -162,6 +156,9 @@ $(document).ready(function(){
 		        // 검색 결과 갯수: result.total
 		        // 첫번째 결과 결과 주소: result.items[0].address
 		        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+		        info_title='';
+		        info_address = result.items[0].address;
+		        info_address2 = '';
 	        
 		        var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
 		        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  		
@@ -182,28 +179,17 @@ $(document).ready(function(){
 	        	console.log(result);
 	      		console.log(response.result.items);
 
-				
-	      		//직접 지도에서 찍은 곳으로 마커 이동
-				naver.maps.Event.addListener(map, 'click', function(e) {
-
-		  				//infowindow.close();
-	    			marker.setPosition(e.latlng);
-	
-				    searchCoordinateToAddress(e.latlng);
-				    info_title="";
-				});
- 	        
 	  	        //인포윈도우 오픈
 	  	        infowindow = new naver.maps.InfoWindow({
-	  	        	content : result.userquery
+	  	        	content : "<h6>"+info_address+"</h6>"
 	  	        });
 	  	        console.log(info_title);
 	  	        infowindow.open(map, marker);
 	  	        lat = marker.position.y;
 	  	        lng = marker.position.x;
 	    		
-           $('#myModal').modal();
 	       });//geocode 끝
+           $('#myModal').modal();
 	    
  	 	}//(way==1) else 끝
   	 		
@@ -213,7 +199,7 @@ $(document).ready(function(){
     
     //라디오 선택
     $(document).on('click',".addrRadio",function(){
-    	alert($(this).val());
+    	way = $('input[name=way]:checked').val(); //검색방식 1은 주소/ 2는 키워드
     	
 		var myaddress = $(this).val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
 				
@@ -241,13 +227,20 @@ $(document).ready(function(){
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
 	        console.log(result.items);
 	        info_address = myaddress;
-	        info_address2 = "";
-	        info_title = $('input[name=address]:checked + input').val()
 	        
+	        if(way == 1){
+	        	info_title = '';
+	        	info_address2 = '';
+				juso = "<h6>"+info_address+"</h6>";     	
+	        }else if(way == 2){
+		        info_title = $('input[name=address]:checked + input').val();
+		        info_address2 = '';
+	        	juso = "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>";
+	        }
 
           // 인포윈도우 오픈
           infowindow = new naver.maps.InfoWindow({
-        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
+        	  content : juso
           });
           
           infowindow.open(map, marker);
@@ -255,11 +248,22 @@ $(document).ready(function(){
 	    });
 
     });//라디오 선택 끝
+    
+    
+   	//직접 지도에서 찍은 곳으로 마커 이동
+   	$(document).on('click', map, function(){
+   	
+		naver.maps.Event.addListener(map, 'click', function(e){
+		    marker.setPosition(e.latlng);//내가 찍은 곳의 좌표로 마커 이동
+		    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
+		    info_title = "";//직접 찍으면 지점 이름은 안나와
+		});
+   	
+   	});
 
     
     //지점 찍었을 때 해당 좌표 -> 주소로 변환해주는 함수
     function searchCoordinateToAddress(latlng) {
-		 
     	var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);//위경도를 tm128로 바꾸고
 
     	naver.maps.Service.reverseGeocode({
@@ -273,30 +277,46 @@ $(document).ready(function(){
 	
 	        var items = response.result.items,
             htmlAddresses = [];
+  	        info_address = items[0].address;
+  	        info_address2 = items[1].address
         
   	          // 인포윈도우 오픈
   	        infowindow = new naver.maps.InfoWindow({
-  	        	content : "<h6>" + items[0].address+"</h6><h6>"+items[1].address+"</h6>"
+  	        	content : "<h6>" + info_address+"</h6><h6>"+info_address2+"</h6>"
   	        });
   	          
   	        infowindow.open(map, marker);
-  	        info_address = items[0].address;
-  	        info_address2 = items[1].address
     	});
 	}//searchCoordinateToAddress 함수 끝
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
-    //클릭하면 지도 검색한 주소 가지고 부모창으로 가기
+    //확인 클릭하면 지도 검색한 주소 가지고 부모창으로 가기
     $(document).on('click', "#submit", function(){
-    	console.log('클릭');
+   		//일단 있던거 비우고
+    	$('#addrResult').empty();
+   		$('#hidn').empty();
+    	$('#hidn2').empty();
+    	$('#hidn3').empty();
+    	$('#hidn4').empty();
+    	$('#hidn5').empty();
+    
     	
     	//infowindow에 있는 내용 담아두자
     	var addrResult = $('h6').text();
     	console.log($('h6').text());
     	
+    	var jusoResult = info_address; //jusoResult는 부모창 addrResult에 넣을 애야
+    	if(info_title != ''){
+    		jusoResult = info_title +"<br>"+ info_address
+    	}
+    	if(info_address2 != ''){
+    		jusoResult += "<br>"+info_address2;
+    	}
+    	
     	//부모창 div에 넣기
-    	$('#addrResult').html(info_title +"<br>"+ info_address +"<br>"+info_address2);
+//     	$('#addrResult').html(info_title +"<br>"+ info_address +"<br>"+info_address2);
+    	$('#addrResult').html(jusoResult);
     	$('#hidn').val(info_address);
     	$('#hidn2').val(info_address2);
     	$('#hidn3').val(info_title);
@@ -305,6 +325,16 @@ $(document).ready(function(){
     	console.log($('#hidn').text());
     });//부모창에 주소 가져가기 끝
     
+   	//지도 모달창에서 취소 누르면 부모창으로 주소 안가져갈거야
+   	$(document).on('click', '#cancel', function(){
+   		$('#addrResult').empty();
+   		$('#hidn').empty();
+    	$('#hidn2').empty();
+    	$('#hidn3').empty();
+    	$('#hidn4').empty();
+    	$('#hidn5').empty();
+   		$('#inputAddr').val('');
+   	});
     
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -328,7 +358,6 @@ $(document).ready(function(){
 
     	
 	//대분류 선택하면 소분류 나와
-// 	$.when($.ready).then(function(){
    	$(document).on('change', '#major', function(){
    		$.ajax({
    			url:"categoryLow.do",
@@ -368,19 +397,7 @@ $(document).ready(function(){
    	var dateVal = year+'-'+month+'-'+date;
    	$('#datePicker').attr('min', dateVal);
    	
-   	
-	
-	
-// 	//옵션 추가 라디오 선택
-// 	$("#tableOption").hide();//옵션추가 테이블 일단 숨겨놓고 시작!
-//     $('input[type=checkbox]').on('click',function(){
-//         $("#tableOption").toggle();
-//     	if($(this).is(':checked')){
-//     		$('#optionResult').val(0);
-//     	}else{
-//     		$('#optionResult').val(4);
-//     	}
-//     });
+
 
 
 	//옵션 추가 체크박스 선택
@@ -400,33 +417,9 @@ $(document).ready(function(){
     		$('#optionResult').val(4);
     		$('#tableOption').empty();
     	}
-    
     });
 	
 	
-		
-	
-//     $('#optionRadio').click(function () {
-//         var className = $(this).data('class');
-//         //toggling to change color
-//         $(this).toggleClass(className).toggleClass(className + '1');
-
-//         //check if its clicked already using data- attribute
-//         if ($(this).data("clicked")) {
-//             //remove it if yes
-//             $("#newDiv").find("#tablefor-" + className).remove();
-//         } else {
-//             //new table - note that I've added an id to it indicate where it came from
-//             var newTable = '<table id="tablefor-' + className + '" style="font-size: 14;float:left;padding-left: 13px;" cellpadding="5"><tr><td style="color: #B2B2B9;">T1' + className + '</td></tr><tr><td id="cap">20</td></tr><tr><td id="minseat">8</td></tr></table>';
-
-//             //append table                
-//             $("#newDiv").append(newTable);
-//         }
-//         //reverse the data of clicked
-//         $(this).data("clicked", !$(this).data("clicked"));
-//     });
-	
-   	
 	
 	
 	
@@ -463,6 +456,7 @@ $(document).ready(function(){
 		if($('input[type=checkbox]').is(':checked')){
 			var check1 = true;
 			var check2 = true;
+			var check3 = true; //옵션 추가에 체크가 되어있을때 유효성 검사를 통과하면 insert되도록!
 			
 			$.each($('#tableOption').find('.optionName'), function(index, value){
 				if(value.value == ''){
@@ -499,11 +493,13 @@ $(document).ready(function(){
 					}
 				});	//옵션가격 each문 끝
 			}; //if(a)끝
-			return false;
 		};//옵션 입력값 체크
 		return true;
    	});
    	
+   	
+   	
+
    	
    	
 });//document.ready
@@ -575,6 +571,7 @@ $(document).ready(function(){
           								<input type="radio" name="way" value="2"> 키워드<br>
 										<input type="text" id="inputAddr" name="inputAddr" > 
 										<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
+										<button type="button" class="btn btn-info btn-sm"  id="cancel">취소</button> 
 										<div id="addrResult"></div>
 										<input type="hidden" id="hidn" name="info_address">
 										<input type="hidden" id="hidn2" name="info_address2">
@@ -587,8 +584,7 @@ $(document).ready(function(){
 									<tr><th>옵션사항</th><th> 
 										<input type="checkbox" id="optionRadio"> 판매옵션 있음
 										<table id="tableOption">
-			                                
-			                              </table>
+			                            </table>
 									</th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>
@@ -630,7 +626,8 @@ $(document).ready(function(){
 		  </table>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="submit">Close</button>
+       	  <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">취소</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="submit">확인</button>
         </div>
       </div>
     </div>
