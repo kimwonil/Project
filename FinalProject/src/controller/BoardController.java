@@ -852,7 +852,8 @@ public class BoardController{
 	 * 찜한글 카테고리로 다시 검색
 	 * */
 	@RequestMapping("dipsCategory.do")
-	public ModelAndView dipsCategory(HttpSession session, int category_no){
+	public ModelAndView dipsCategory(HttpSession session,
+			@RequestParam(defaultValue="1") int currentPage, int category_no){
 		ModelAndView mav = new ModelAndView();
 		System.out.println("dipsCategory.do");
 		System.out.println(category_no);
@@ -864,6 +865,16 @@ public class BoardController{
 		params.put("category_no", category_no);
 		params.put("id", id);
 		
+		//페이징
+		Paging paging = new Paging(boardService.getCountDipsCategory(params), currentPage);
+		paging.boardPaging();
+		System.out.println(paging);
+		
+		params.put("start", paging.getStart());
+		params.put("end", paging.getEnd());
+		
+		System.out.println(boardService.dipsWithCategory(params));
+		
 		List<Board> dipsList = new ArrayList<>();
 		//해당 id가 찜한 글번호들
 		for(HashMap<String, Object> dips : boardService.dipsWithCategory(params)){
@@ -872,8 +883,11 @@ public class BoardController{
 		board.setFile_name1(boardService.selectThumbnail(no));
 		dipsList.add(board);
 	}
-		System.out.println(dipsList);
+//		System.out.println(dipsList);
 		
+		mav.addObject("category_no", category_no);
+		mav.addObject("paging", paging);
+		mav.addObject("pageName", "dipsCategory.do");
 		mav.addObject("category", boardService.category());
 		mav.addObject("dipsList", dipsList);
 		mav.setViewName("board/dipsList");
@@ -925,6 +939,13 @@ public class BoardController{
 				dealService.minusCash(params);
 				
 				pw.println("{\"result\" : \"구매성공! 구매관리를 확인하세요\", \"state\" : 1}");
+				
+				//quantity 체크해서 글쓴이가 설정한 수랑 일치하면 state=1로 바꿔야해
+				Board board = boardService.selectOneBoard(no);
+				if(dealService.purchaseCount(no) >= board.getQuantity()){
+					board.setState(1);
+				}
+				
 			}
 			
 		} catch (IOException e) {

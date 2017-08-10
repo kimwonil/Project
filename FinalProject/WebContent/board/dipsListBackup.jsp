@@ -202,8 +202,8 @@ h3{
 				<div>
 				<center>
 					<c:if test="${paging.currentPage > 1}">
-						<a href="${pageName}?currentPage=1&id=${id}&category_no=${category_no}">[처음]</a>
-						<a href="${pageName}?currentPage=${paging.currentPage-1}&id=${id}&category_no=${category_no}">[이전]</a>
+						<a href="${pageName}?currentPage=1&id=${id}">[처음]</a>
+						<a href="${pageName}?currentPage=${paging.currentPage-1}&id=${id}">[이전]</a>
 					</c:if>
 					
 					<c:forEach begin="${paging.startPage }" end="${paging.endPage>paging.lastPage? paging.lastPage:paging.endPage }" var="i">
@@ -211,14 +211,13 @@ h3{
 							<b>${i }</b>
 						</c:if>
 						<c:if test="${i ne paging.currentPage }">
-							<a href="${pageName}?currentPage=${i}&id=${id}&category_no=${category_no}">[${i}]</a>
+							<a href="${pageName}?currentPage=${i}&id=${id}">[${i}]</a>
 						</c:if>
 					</c:forEach>
 					
-<%-- 					<c:if test="${paging.currentPage != paging.lastPage && paging.endPage ne 0}"> --%>
-					<c:if test="${paging.currentPage < paging.lastPage}">
-						<a href="${pageName}?currentPage=${paging.currentPage+1 }&id=${id}&category_no=${category_no}">[다음]</a>
-						<a href="${pageName}?currentPage=${paging.lastPage }&id=${id}&category_no=${category_no}">[마지막]</a>
+					<c:if test="${paging.currentPage != paging.lastPage && paging.endPage ne 0}">
+						<a href="${pageName}?currentPage=${paging.currentPage+1 }&id=${id}">[다음]</a>
+						<a href="${pageName}?currentPage=${paging.lastPage }&id=${id}">[마지막]</a>
 					</c:if>
 				</center>
 				</div>

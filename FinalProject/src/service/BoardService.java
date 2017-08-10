@@ -185,6 +185,11 @@ public class BoardService {
 		return boardDao.getCountDips(id);
 	}
 	
+	public int getCountDipsCategory(HashMap<String, Object> params) {
+		return boardDao.getCountDipsCategory(params);
+	}
+	
+	
 
 	/**
 	 * table명 : star_point

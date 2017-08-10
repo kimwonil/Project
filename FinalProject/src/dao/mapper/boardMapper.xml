@@ -101,7 +101,7 @@
  </select>
  
  <select id="getCount" resultType="int">
- 	select count(no) from board where premium=1
+ 	select count(no) from board where premium=1 and state=0
  </select>
  
   <select id="getCountForSearch" parameterType="java.util.HashMap" resultType="int">
@@ -240,8 +240,16 @@
  	select count(no) from interest where id=#{id}
  </select>
  
+ <select id="getCountDipsCategory" parameterType="java.util.HashMap" resultType="int">
+ 	select count(no) from interest where id=#{id} and category_no=#{category_no}
+ </select>
+ 
   <select id="dipsWithCategory" parameterType="java.util.HashMap" resultType="java.util.HashMap">
- 	select * from interest where id=#{id} and category_no=#{category_no}
+<!--  	select * from interest where id=#{id} and category_no=#{category_no} -->
+	SELECT A.* FROM ( 
+	SELECT @searchnum := @searchnum+ 1 AS searchnum, interest.*  FROM interest 
+	, (SELECT @searchnum:= 0) R 
+	where id=#{id} and category_no=#{category_no} order by no desc ) A WHERE A.searchnum between #{start} and #{end}
  </select>
  
  

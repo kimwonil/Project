@@ -11,8 +11,8 @@ public class Board {
 	private String content;
 	private String date;
 	private String end_date;
-	private int count;
-	private int quantity;
+	private int count; //구매수(현재 작업중)
+	private int quantity; //판매자가 정한 판매개수
 	private int state;
 	private int price;
 	private int optionprice;

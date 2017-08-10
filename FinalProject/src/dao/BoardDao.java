@@ -60,6 +60,7 @@ public interface BoardDao {
 	public List<HashMap<String, Object>> selectAllDips(HashMap<String, Object> param);
 	public List<HashMap<String, Object>> dipsWithCategory(HashMap<String, Object> params);
 	public int getCountDips(String id);
+	public int getCountDipsCategory(HashMap<String, Object> params);
 	
 	
 	//테이블명 : star_point
