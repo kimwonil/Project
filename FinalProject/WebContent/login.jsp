@@ -144,7 +144,11 @@
 			},
 			dataType : "json",
 			success : function(data) {
+<<<<<<< HEAD
+					  			alert(data.result);
+=======
 // 					  			alert(data.result);
+>>>>>>> 34316340bf49f087ce1d62acf78f8b5b67c12015
 				if (data.result) {
 					$('#main').submit();
 				} else {

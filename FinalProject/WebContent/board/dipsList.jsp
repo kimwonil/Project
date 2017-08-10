@@ -90,7 +90,11 @@ img{
 h3{
 	text-align: center;
 }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
+>>>>>>> 34316340bf49f087ce1d62acf78f8b5b67c12015
 #categoryList>tbody>tr>td div{
  	line-height: 50px; 
 /*  	background-color: gray; */
@@ -111,8 +115,13 @@ h3{
 #categoryList a{
 	color: white;
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 34316340bf49f087ce1d62acf78f8b5b67c12015
 
+=======
+>>>>>>> syk
 </style>
 <body>
 <div id="fh5co-main">

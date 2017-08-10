@@ -30,6 +30,10 @@
 <fullyQualifiedTypeName name="service.MemeberService"/>
 <fullyQualifiedTypeName name="service.DealService"/>
 <fullyQualifiedTypeName name="model.premium"/>
+<<<<<<< HEAD
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+=======
+>>>>>>> 34316340bf49f087ce1d62acf78f8b5b67c12015
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="model.Board"/>
 <fullyQualifiedTypeName name="javax.swing.text.DateFormatter"/>
@@ -37,6 +41,23 @@
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
+<<<<<<< HEAD
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="model.Member"/>
+<fullyQualifiedTypeName name="model.Premium"/>
+<fullyQualifiedTypeName name="org.springframework.social.oauth2.OAuth2Operations"/>
+<fullyQualifiedTypeName name="org.springframework.social.google.connect.GoogleConnectionFactory"/>
+<fullyQualifiedTypeName name="org.springframework.social.oauth2.OAuth2Parameters"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
+<fullyQualifiedTypeName name="org.springframework.social.oauth2.GrantType"/>
+<fullyQualifiedTypeName name="org.springframework.social.oauth2.AccessGrant"/>
+<fullyQualifiedTypeName name="org.springframework.social.google.api.Google"/>
+<fullyQualifiedTypeName name="org.springframework.social.connect.Connection"/>
+<fullyQualifiedTypeName name="org.springframework.social.google.api.impl.GoogleTemplate"/>
+<fullyQualifiedTypeName name="org.springframework.social.google.api.plus.PlusOperations"/>
+<fullyQualifiedTypeName name="org.springframework.social.google.api.plus.Person"/>
+=======
 <fullyQualifiedTypeName name="model.Premium"/>
 <fullyQualifiedTypeName name="org.springframework.social.oauth2.OAuth2Operations"/>
 <fullyQualifiedTypeName name="org.springframework.social.google.connect.GoogleConnectionFactory"/>
@@ -56,4 +77,5 @@
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="model.Member"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
+>>>>>>> 34316340bf49f087ce1d62acf78f8b5b67c12015
 </qualifiedTypeNameHistroy>

@@ -31,9 +31,12 @@
 	
 	var member_id = "<%=session.getAttribute("member")%>"
 	var a=member_id.indexOf(",");
+	var b=member_id.indexOf(",",a+1);
+
 	var admin=member_id.indexOf("admin");
 	var num=member_id.substr(admin+6,1);
-	var id=member_id.substr(11,a-11);
+	var n=member_id.indexOf("nickname");
+	var id=member_id.substr(n+9,b-(n+9));
 	
 	var Noticepage=1;
 	var Noticetype=0;

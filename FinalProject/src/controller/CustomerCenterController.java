@@ -52,62 +52,56 @@ public class CustomerCenterController {
 
 	@Autowired
 	private MemeberService memberService;
-	
+
 	@Autowired
 	private BoardService BoardService;
-	
-	
+
+	// 확인하지않은 메세지수
 	@RequestMapping("getMessageCount.do")
-	public void getMessageCount(HttpServletRequest request, HttpServletResponse response, HttpSession session)
-	{
+	public void getMessageCount(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id="";
+		String id = "";
 		System.out.println("메세지 카운터들어옴");
-		if(((Member) session.getAttribute("member")).getId()!=null)
-		{
-		id = ((Member) session.getAttribute("member")).getId();
-		int num=memberService.getMessageCount(id);
-		try {
-			
+		if (((Member) session.getAttribute("member")).getNickname() != null) {
+			id = ((Member) session.getAttribute("member")).getNickname();
+			int num = memberService.getMessageCount(id);
+			try {
+
 				String json = gson.toJson(num);
 				System.out.println(json);
 				response.getWriter().write(json);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
-	
+
+	// 확인하지않은 메세지 리스트
 	@RequestMapping("getMessage.do")
-	public void getMessage(HttpServletRequest request, HttpServletResponse response, HttpSession session)
-	{
+	public void getMessage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id="";
+		String id = "";
 		System.out.println("메세지 카운터들어옴");
-		if(((Member) session.getAttribute("member")).getId()!=null)
-		{
-		id = ((Member) session.getAttribute("member")).getId();
-		List<Message> Mlist=memberService.getMessage(id);
-		try {
-			
+		if (((Member) session.getAttribute("member")).getNickname() != null) {
+			id = ((Member) session.getAttribute("member")).getNickname();
+			List<Message> Mlist = memberService.getMessage(id);
+			try {
+
 				String json = gson.toJson(Mlist);
 				System.out.println(json);
 				response.getWriter().write(json);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
-	
-	
-	
-	
+
 	// 리스트 호출
 	@RequestMapping("customerCenterCall.do")
 	public ModelAndView All() {
@@ -132,8 +126,7 @@ public class CustomerCenterController {
 		response.setContentType("text/xml;charset=UTF-8");
 		System.out.println("공지 리스트 들어옴");
 		int page = Integer.parseInt(request.getParameter("page"));
-	
-		
+
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		System.out.println(request.getParameter("start"));
 		System.out.println(request.getParameter("page"));
@@ -144,7 +137,7 @@ public class CustomerCenterController {
 			params.put("enddate", request.getParameter("end"));
 
 		}
-		
+
 		System.out.println("현재 페이지 : " + page);
 		params.put("type", type);
 		params.put("keyword", keyword);
@@ -267,7 +260,7 @@ public class CustomerCenterController {
 		}
 		System.out.println("파람 : " + params);
 		List<QnA> list = qnaService.getQnAListPage(params, page);
-		
+
 		// Gson gson = new Gson();
 		try {
 			if (list != null) {
@@ -280,11 +273,11 @@ public class CustomerCenterController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// 질문 페이징
 	@RequestMapping("qnaPage.do")
 	public void qnaPage(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type){
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		System.out.println("질문 페이지 들어옴");
@@ -382,11 +375,10 @@ public class CustomerCenterController {
 		}
 	}
 
-	
 	// 질문 페이징
 	@RequestMapping("reportPage.do")
 	public void reportPage(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type){
+			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		System.out.println("신고 페이지 들어옴");
@@ -432,9 +424,7 @@ public class CustomerCenterController {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
 	// 공지사항 상세
 	@RequestMapping("noticeContent.do")
 	public void NoticeContent(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -443,15 +433,15 @@ public class CustomerCenterController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		Notice notice = noticeService.selectOneNotice(no);
-		String str=notice.getCategory_no()+"";
-		int major=Integer.parseInt(str.substring(0, 3));
-		int minor=Integer.parseInt(str.substring(3, str.length()));
+		String str = notice.getCategory_no() + "";
+		int major = Integer.parseInt(str.substring(0, 3));
+		int minor = Integer.parseInt(str.substring(3, str.length()));
 		HashMap<String, Object> pa = new HashMap<String, Object>();
 		pa.put("major", major);
 		pa.put("minor", minor);
-		String HighName=noticeService.getHighName(pa);
-		String LowName=noticeService.getLowName(pa);
-		System.out.println(HighName+"  "+LowName);
+		String HighName = noticeService.getHighName(pa);
+		String LowName = noticeService.getLowName(pa);
+		System.out.println(HighName + "  " + LowName);
 		int read_count = notice.getRead_count();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("no", no);
@@ -465,7 +455,7 @@ public class CustomerCenterController {
 		result.put("HighName", HighName);
 		result.put("LowName", LowName);
 		result.put("content", notice.getContent());
-		
+
 		System.out.println(result);
 		String json = gson.toJson(result);
 		System.out.println(json);
@@ -513,12 +503,13 @@ public class CustomerCenterController {
 		noticeService.updateNoticeCount(params);
 
 	}
-	//카테고리 하이 불러오기
+
+	// 카테고리 하이 불러오기
 	@RequestMapping("high.do")
 	public void categoryLow(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=utf-8");
-		
+
 		List<Category> highlist = BoardService.category();
 		Gson gson = new Gson();
 		String json = gson.toJson(highlist);
@@ -529,12 +520,13 @@ public class CustomerCenterController {
 			e.printStackTrace();
 		}
 	}
-	//카테고리 로우 불러오기
+
+	// 카테고리 로우 불러오기
 	@RequestMapping("Low.do")
 	public void categoryLow(int high_no, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=utf-8");
-		
+
 		List<Category> lowlist = BoardService.categoryLow(high_no);
 		Gson gson = new Gson();
 		String json = gson.toJson(lowlist);
@@ -545,32 +537,27 @@ public class CustomerCenterController {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	// 공지사항 등록
-		@RequestMapping("insertNotice.do")
-		public void insertNotice(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-			String id = ((Member) session.getAttribute("member")).getId();
-			int category_no = Integer.parseInt((request.getParameter("major") + request.getParameter("minor")));
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-		
-			HashMap<String, Object> params = new HashMap<String, Object>();
-			params.put("writer", id);
-			params.put("category_no", category_no);
-			params.put("title", title);
-			params.put("content", content);
-		
+	@RequestMapping("insertNotice.do")
+	public void insertNotice(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		String nickname = ((Member) session.getAttribute("member")).getNickname();
+		int category_no = Integer.parseInt((request.getParameter("major") + request.getParameter("minor")));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
 
-			System.out.println("공지 인설트");
-			System.out.println(params);
-			
-			noticeService.insertNotice(params);
-		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("writer", nickname);
+		params.put("category_no", category_no);
+		params.put("title", title);
+		params.put("content", content);
 
-		}
-	
-	
+		System.out.println("공지 인설트");
+		System.out.println(params);
+
+		noticeService.insertNotice(params);
+
+	}
 
 	// 공지사항 삭제
 	@RequestMapping("deleteNotice.do")
@@ -583,13 +570,13 @@ public class CustomerCenterController {
 	// 질문 등록
 	@RequestMapping("insertQuestion.do")
 	public void insertQuestion(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String id = ((Member) session.getAttribute("member")).getId();
+		String nickname = ((Member) session.getAttribute("member")).getNickname();
 		int category_no = Integer.parseInt((request.getParameter("major") + request.getParameter("minor")));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		int open = Integer.parseInt(request.getParameter("open"));
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("writer", id);
+		params.put("writer", nickname);
 		params.put("category_no", category_no);
 		params.put("title", title);
 		params.put("content", content);
@@ -597,21 +584,20 @@ public class CustomerCenterController {
 
 		System.out.println("질문 인설트");
 		System.out.println(params);
-		
+
 		qnaService.insertQnA(params);
-	
 
 	}
 
 	// 답변 등록
 	@RequestMapping("insertAnswer.do")
 	public void insertAnswer(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String id = ((Member) session.getAttribute("member")).getId();
+		String nickname = ((Member) session.getAttribute("member")).getNickname();
 		int qna_no = Integer.parseInt(request.getParameter("qna_no"));
 		String content = request.getParameter("content");
 
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("writer", id);
+		params.put("writer", nickname);
 
 		params.put("qna_no", qna_no);
 
@@ -635,31 +621,84 @@ public class CustomerCenterController {
 	public void QnAContent(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id = ((Member) session.getAttribute("member")).getId();
-		int admin = ((Member) session.getAttribute("member")).getAdmin();
+
+		System.out.println("질문 상세");
+		String id = "";
+		int admin = 0;
+
+		if (session.getAttribute("member") == null) {
+			System.out.println("널이네");
+		} else {
+			id = ((Member) session.getAttribute("member")).getNickname();
+			admin = ((Member) session.getAttribute("member")).getAdmin();
+		}
+
 		System.out.println("어드민" + admin);
 
 		String json = "";
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		QnA qna = qnaService.selectOneQnA(no);
-		String str=qna.getCategory_no()+"";
-		int major=Integer.parseInt(str.substring(0, 3));
-		int minor=Integer.parseInt(str.substring(3, str.length()));
+		String str = qna.getCategory_no() + "";
+		int major = Integer.parseInt(str.substring(0, 3));
+		int minor = Integer.parseInt(str.substring(3, str.length()));
 		HashMap<String, Object> pa = new HashMap<String, Object>();
 		pa.put("major", major);
 		pa.put("minor", minor);
-		String HighName=noticeService.getHighName(pa);
-		String LowName=noticeService.getLowName(pa);
-		
-		
-		
+		String HighName = noticeService.getHighName(pa);
+		String LowName = noticeService.getLowName(pa);
+
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		int read_count = qna.getRead_count();
 		System.out.println("디비에 작성자" + qna.getWriter());
 		System.out.println("현재 접속자" + id);
-		if (admin == 1 || qna.getWriter().equals(id)) {
-			System.out.println("조건 맞음");
+		if (qna.getState() == 0) {
+			if (admin == 1 || qna.getWriter().equals(id)) {
+				System.out.println("조건 맞음");
+				params.put("no", no);
+				params.put("read_count", read_count + 1);
+				qnaService.updateQnACount(params);
+				Answer answer = new Answer();
+				if (answerService.selectOneAnswer(no) != null) {
+					answer = answerService.selectOneAnswer(no);
+				}
+				params.remove("read_count");
+				params.put("title", qna.getTitle());
+				params.put("writer", qna.getWriter());
+				params.put("content", qna.getContent());
+				params.put("HighName", HighName);
+				params.put("LowName", LowName);
+				params.put("state", qna.getState());
+				params.put("category_no", qna.getCategory_no());
+				params.put("open", qna.getOpen());
+				params.put("answercontent", answer.getContent());
+				json = gson.toJson(params);
+
+			} else {
+				System.out.println("조건 틀림");
+				params.put("no", no);
+				params.put("read_count", read_count + 1);
+				qnaService.updateQnACount(params);
+				Answer answer = new Answer();
+				if (answerService.selectOneAnswer(no) != null) {
+					answer = answerService.selectOneAnswer(no);
+				}
+				params.remove("read_count");
+				params.put("title", "비공개");
+				params.put("writer", "비공개");
+				params.put("content", "비공개");
+				params.put("HighName", "비공개");
+				params.put("LowName", "비공개");
+				params.put("state", qna.getState());
+				params.put("category_no", qna.getCategory_no());
+				params.put("open", qna.getOpen());
+				params.put("answercontent", "비공개");
+				json = gson.toJson(params);
+
+			}
+		}
+		else
+		{
 			params.put("no", no);
 			params.put("read_count", read_count + 1);
 			qnaService.updateQnACount(params);
@@ -678,30 +717,8 @@ public class CustomerCenterController {
 			params.put("open", qna.getOpen());
 			params.put("answercontent", answer.getContent());
 			json = gson.toJson(params);
-
-		} else {
-			System.out.println("조건 틀림");
-			params.put("no", no);
-			params.put("read_count", read_count + 1);
-			qnaService.updateQnACount(params);
-			Answer answer = new Answer();
-			if (answerService.selectOneAnswer(no) != null) {
-				answer = answerService.selectOneAnswer(no);
-			}
-			params.remove("read_count");
-			params.put("title", "비공개");
-			params.put("writer", "비공개");
-			params.put("content", "비공개");
-			params.put("HighName", "비공개");
-			params.put("LowName", "비공개");
-			params.put("state", qna.getState());
-			params.put("category_no", qna.getCategory_no());
-			params.put("open", qna.getOpen());
-			params.put("answercontent", "비공개");
-			json = gson.toJson(params);
-
 		}
-
+		System.out.println(json);
 		try {
 			response.getWriter().write(json);
 		} catch (IOException e) {
@@ -774,21 +791,21 @@ public class CustomerCenterController {
 	// 신고 등록
 	@RequestMapping("insertReport.do")
 	public void insertReport(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String id = ((Member) session.getAttribute("member")).getId();
+		String nickname = ((Member) session.getAttribute("member")).getNickname();
 		int category_no = Integer.parseInt((request.getParameter("major") + request.getParameter("minor")));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("writer", id);
+		params.put("writer", nickname);
 		params.put("category_no", category_no);
 		params.put("title", title);
 		params.put("content", content);
 
 		System.out.println("질문 인설트");
 		System.out.println(params);
-		
+
 		reportService.insertReport(params);
-		
+
 	}
 
 	// 신고 상세
@@ -799,23 +816,21 @@ public class CustomerCenterController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		Report report = reportService.selectOneReport(no);
-		String str=report.getCategory_no()+"";
-		int major=Integer.parseInt(str.substring(0, 3));
-		int minor=Integer.parseInt(str.substring(3, str.length()));
+		String str = report.getCategory_no() + "";
+		int major = Integer.parseInt(str.substring(0, 3));
+		int minor = Integer.parseInt(str.substring(3, str.length()));
 		HashMap<String, Object> pa = new HashMap<String, Object>();
 		pa.put("major", major);
 		pa.put("minor", minor);
-		String HighName=noticeService.getHighName(pa);
-		String LowName=noticeService.getLowName(pa);
-		
-		
-		
+		String HighName = noticeService.getHighName(pa);
+		String LowName = noticeService.getLowName(pa);
+
 		int read_count = report.getRead_count();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("no", no);
 		params.put("read_count", read_count + 1);
 		reportService.updateReportCount(params);
-		
+
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("no", report.getNo());
 		result.put("title", report.getTitle());
@@ -875,7 +890,7 @@ public class CustomerCenterController {
 		String title = report.getTitle() + "신고 상황 해결";
 		String receiver = report.getWriter();
 		String content = receiver + "님이 접수하신" + report.getTitle() + " 신고상황을 해결했습니다.";
-		String sender = ((Member) session.getAttribute("member")).getId();
+		String sender = ((Member) session.getAttribute("member")).getNickname();
 
 		Message message = new Message(sender, receiver, title, content);
 
