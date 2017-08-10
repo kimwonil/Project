@@ -58,9 +58,11 @@
 			dataType:"json",
 			success:function(data){
 				messageList();
+				console.log(data);
 				$('#titleLabel').text(data.title);
 				$('#senderLabel').text(data.sender);
 				$('#contentLabel').text(data.content);
+				$('#messageDelete').val(data.no);
 			},
 			error:function(){
 				alert("실패");
@@ -90,6 +92,25 @@
 				console.log(errorThrown);
 			}
 			
+		});
+		
+	});
+	
+	$(document).on('click', '#messageDelete', function(){
+		$.ajax({
+			url:"messageDelete.do",
+			type:"POST",
+			data:{
+				no:$(this).val()
+			},
+			dataType:"json",
+			success:function(){
+				alert("성공");
+				$('#messageModal').modal('hide');
+			},
+			error:function(){
+				alert("실패");
+			}
 		});
 		
 	});
@@ -146,6 +167,9 @@ textarea{
 #tabs-1 table>tbody>tr {
 	border-bottom: 1px solid #e4e4e4;
 	border-top: 1px solid #e4e4e4;
+}
+a:hover{
+	cursor: pointer;
 }
 
 </style>

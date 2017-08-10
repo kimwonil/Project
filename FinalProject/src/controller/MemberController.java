@@ -611,7 +611,7 @@ public class MemberController {
 	
 	
 	/**
-	 * 쪽찌 상세 보기
+	 * 쪽지 상세 보기
 	 * */
 	@RequestMapping("messageDetail.do")
 	public void messageDetail(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -629,6 +629,21 @@ public class MemberController {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 쪽지 삭제
+	 * */
+	@RequestMapping("messageDelete.do")
+	public void messageDelete(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		memberService.messageDelete(no);
+	}
+	
+	
+	
 	
 	/**
 	 * 쪽지 보내기
