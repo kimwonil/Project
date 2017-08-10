@@ -297,41 +297,7 @@
 
 		if(menu == ''){
 			$('.fh5co-menu-btn').css('display','none');
-<<<<<<< HEAD
 			
-			
-		}
-		else
-			{
-	
-			MessageNum();
-
-			//인터벌로 3초마다 알림에 표시되는 읽지않은 메세지 숫자
-			setInterval(function() {
-				
-				$.ajax({
-					url : "getMessageCount.do",
-					type : "POST",
-					dataType : "json",
-					success : function(data) {
-						console.log(data);
-
-						$('#togglerNum').text(data);
-
-					},
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log(textStatus);
-						console.log(errorThrown);
-					}
-				});
-				
-			}, 3000)
-			
-			}
-		
-		
-			
-=======
 		}else{
 			
 			//인터벌로 3초마다 알림에 표시되는 읽지않은 메세지 숫자
@@ -356,7 +322,6 @@
 		MessageNum();
 		
 
->>>>>>> wonil
 		
 
 		//알림 눌렀을때 읽지않은 메세지 제목과 보낸사람 표시
