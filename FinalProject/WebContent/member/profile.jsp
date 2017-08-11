@@ -100,10 +100,6 @@
 						<a href="memberManager.do" class="btn btn-sm btn-info">회원관리</a>
 					</c:if>
 					
-					<script type="text/javascript">
-						$( "#spinner" ).spinner();
-						
-					</script>
 					<div>
 					<table>
 						<tr>
@@ -143,7 +139,7 @@
 										<option value="${bankValue.no}" >${bankValue.bank}</option>
 									</c:forEach>
 								</select>
-							<input type="text" name="account"></td>
+							<input type="text" name="account" value="${member.account}"></td>
 						</tr>
 						<tr>
 							<td>소개글 : </td>
@@ -157,7 +153,6 @@
 					</form>
 				</div>
 			</div>
-
 		</div>
 	</div>
 	<!-- Modal -->
