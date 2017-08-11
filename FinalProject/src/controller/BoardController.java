@@ -400,7 +400,6 @@ public class BoardController{
 		List<MultipartFile> fileList = files.getFiles();
 		int fileNo = 1;
 		for(MultipartFile file : fileList){
-			System.out.println(file.getOriginalFilename());
 			params.put("file_name"+fileNo, file.getOriginalFilename());
 			fileNo++;
 		}
@@ -437,23 +436,30 @@ public class BoardController{
 		MultipartFile file2 = fileList.get(1);
 		MultipartFile file3 = fileList.get(2);
 		MultipartFile file4 = fileList.get(3);
-		
+		System.out.println(file1.getOriginalFilename());
+		System.out.println(file2.getOriginalFilename());
+		System.out.println(file3.getOriginalFilename());
+		System.out.println(file4.getOriginalFilename());
 		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
 		if(!dir.isDirectory()){//폴더가 없으면 생성
 			dir.mkdirs();
 		}
 		
 			try {
-				if(file1 != null){
+				if(!file1.equals("")){
+					System.out.println(file1.getOriginalFilename());
 					file1.transferTo(new File(path+no+"/"+file1.getOriginalFilename()));
 				}
-				if(file2 != null){
+				if(!file2.equals("")){
+					System.out.println(file2.getOriginalFilename());
 					file2.transferTo(new File(path+no+"/"+file2.getOriginalFilename()));
 				}
-				if(file3 != null){
+				if(!file3.equals("")){
+					System.out.println(file3.getOriginalFilename());
 					file3.transferTo(new File(path+no+"/"+file3.getOriginalFilename()));
 				}
-				if(file4 != null){
+				if(!file4.equals("")){
+					System.out.println(file4.getOriginalFilename());
 					file4.transferTo(new File(path+no+"/"+file4.getOriginalFilename()));
 				}
 			} catch (IllegalStateException e) {
