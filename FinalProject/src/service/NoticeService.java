@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.NoticeDao;
+import model.Member;
 import model.Notice;
 
 @Service
@@ -106,4 +107,10 @@ public class NoticeService {
 	{
 		return noticeDao.getLowName(params);
 	}
+	
+	public Member getWriterInfo(String nickname)
+	{
+		return noticeDao.getWriterInfo(nickname);
+	}
+	
 }

@@ -3,6 +3,7 @@ package dao;
 import java.util.HashMap;
 import java.util.List;
 
+import model.Member;
 import model.Notice;
 
 public interface NoticeDao {
@@ -19,5 +20,6 @@ public interface NoticeDao {
 
 	public String getHighName(HashMap<String , Object> params);
 	public String getLowName(HashMap<String , Object> params);
+	public Member getWriterInfo(String nickname);
 
 }

@@ -75,6 +75,11 @@
 	<![endif]-->
 </head>
 <style>
+
+
+
+
+
 #linkGroup {
 	position: relative;
 	right: 1%;
@@ -85,8 +90,22 @@
 	position: absolute;
 	display: none;
 	top: 20%;
+	right: 5%;
 	border: 1px solid red;
 }
+
+
+#alarm-content table>tbody>tr:first-child{
+	background-color: #cecece;
+}
+#alarm-content table>tbody>tr {
+	border-bottom: 1px solid #e4e4e4;
+	border-top: 1px solid #e4e4e4;
+}
+#alarm-content table{
+	text-align: center;
+}
+
 
 /* ///////////////////////DropDown/////////////////////////////////// */
 .menu, .menu ul, .menu li, .menu a {
@@ -241,8 +260,8 @@
 				$('#messagetable tr:gt(0)').remove();
 				for (var i = 0; i < data.length; i++) {
 					$('#messagetable').append("<tr><td><a id='" + data[i].no + "'class='messageDetail' data-toggle='modal' data-target='#messageModal'>"
-						+ data[i].title + "</a></td><td>"
-						+ data[i].receiver + "</td></tr>");
+						+ data[i].title + "&nbsp;&nbsp;&nbsp;</a></td><td>"
+						+ data[i].sender + "</td></tr>");
 				}
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
@@ -329,11 +348,11 @@
 		$("#toggler").click(function() {
 			var a = $("#toggler").offset();
 
-			var left = a.left - 150;
+// 			var left = a.left - 150;
 
-			$("#alarm-content").css({
-				"left" : left
-			});
+// 			$("#alarm-content").css({
+// 				"left" : left
+// 			});
 			$("#alarm-content").slideToggle(1000);
 			MessageList();
 
@@ -386,17 +405,15 @@
 	
 	
 		//판매등록 누르면 로그인 검사하고 보내기
-// 		$(document).on('click', '#boardForm', function(){
-// 			if(${member.nickname} == null || ${member.nickname} == ''){
-// 				alert('로그인 후에 이용하실 수 있습니다');
-// 			}else{
-// 				locaiton.href = "boardForm.do";
-// 			}
-// 		});
+		$(document).on('click', '#boardForm', function(){
+			if($('#memberLogin').val() == null || $('#memberLogin').val() == ''){
+				alert('로그인 후에 이용하실 수 있습니다');
+				return false;
+			}else{
+				locaiton.href = "boardForm.do";
+			}
+		});
 		
-// 		$(document).on('click', '.categoryMenu a', function(){
-// 			alert("카테고리");
-// 		});
 		
 	
 	});
@@ -588,6 +605,7 @@
 					</ul></li>
 				<li><a href="#">비즈니스/창업/사업</a>
 					<ul>
+
 						<li><a href="categoryMenu.do?no=801" class="documents">사업계획/사업제안</a></li>
 						<li><a href="categoryMenu.do?no=802" class="documents">법인설립/사업자등록/통신판매</a></li>
 						<li><a href="categoryMenu.do?no=803" class="documents">리서치/컨설팅</a></li>
@@ -596,6 +614,7 @@
 						<li><a href="categoryMenu.do?no=806" class="documents">창업상담/비즈니스 모델진단</a></li>
 						<li><a href="categoryMenu.do?no=807" class="documents">창업정보/창업자료/창업노하우</a></li>
 						<li><a href="categoryMenu.do?no=808" class="documents">기타</a></li>
+
 					</ul></li>
 				<li><a href="#">번역/외국어</a>
 					<ul>
@@ -612,6 +631,9 @@
 		</div>
 
 	</div>
+	
+
+	
 	</header>
 	<!-- END .header -->
 

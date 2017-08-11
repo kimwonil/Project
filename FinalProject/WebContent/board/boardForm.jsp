@@ -44,7 +44,7 @@ $(document).ready(function(){
     var info_address;//도로명
     var info_address2;//지번
     var latlng="";//위도경도
-//     var infowindow;
+    var infowindow;
     
     
     $(document).on('click', '#mapSearch', function(){
@@ -119,6 +119,8 @@ $(document).ready(function(){
 				  	        lng = marker.position.x;
 	
 	  			      	});//geocode 
+	  			        $('.addrRadio:first').attr('checked', true);
+	  			     	iwillkillvertical();
 	  			    	$('#myModal').modal('show');
 	  				}//검색 결과 else
 	  			},
@@ -187,9 +189,12 @@ $(document).ready(function(){
 	  	        infowindow.open(map, marker);
 	  	        lat = marker.position.y;
 	  	        lng = marker.position.x;
+		    
+		   $('.addrRadio:first').attr('checked', true);
+		   iwillkillvertical();
+           $('#myModal').modal();
 	    		
 	       });//geocode 끝
-           $('#myModal').modal();
 	    
  	 	}//(way==1) else 끝
   	 		
@@ -199,14 +204,31 @@ $(document).ready(function(){
     
     //라디오 선택
     $(document).on('click',".addrRadio",function(){
-    	way = $('input[name=way]:checked').val(); //검색방식 1은 주소/ 2는 키워드
     	
-		var myaddress = $(this).val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+    	iwillkillvertical();
+
+    });//라디오 선택 끝
+    
+    
+   	//직접 지도에서 찍은 곳으로 마커 이동
+   	$(document).on('click', map, function(){
+   	
+		naver.maps.Event.addListener(map, 'click', function(e){
+		    marker.setPosition(e.latlng);//내가 찍은 곳의 좌표로 마커 이동
+		    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
+		    info_title = "";//직접 찍으면 지점 이름은 안나와
+		});
+   	
+   	});
+
+    
+    function iwillkillvertical(){
+		way = $('input[name=way]:checked').val(); //검색방식 1은 주소/ 2는 키워드
+    	
+		var myaddress = $('.addrRadio:checked').val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
 				
 	    naver.maps.Service.geocode({address: myaddress}, function(status, response) {
-// 	    	map = new naver.maps.Map('map', {
-// 	        	zoom: 11
-// 	        });
+
 	    	if (status !== naver.maps.Service.Status.OK) {
 	    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
 	        }
@@ -246,21 +268,7 @@ $(document).ready(function(){
           infowindow.open(map, marker);
 	     
 	    });
-
-    });//라디오 선택 끝
-    
-    
-   	//직접 지도에서 찍은 곳으로 마커 이동
-   	$(document).on('click', map, function(){
-   	
-		naver.maps.Event.addListener(map, 'click', function(e){
-		    marker.setPosition(e.latlng);//내가 찍은 곳의 좌표로 마커 이동
-		    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
-		    info_title = "";//직접 찍으면 지점 이름은 안나와
-		});
-   	
-   	});
-
+    }
     
     //지점 찍었을 때 해당 좌표 -> 주소로 변환해주는 함수
     function searchCoordinateToAddress(latlng) {
@@ -433,11 +441,11 @@ $(document).ready(function(){
 			console.log('카테고리 소분류를 선택하세요');
 			return false;
 		}
-		if($('input[name=title]').val()==''){
+		if($('input[name=title]').val()=='' || $('input[name=title]').val().trim() == ''){
 			console.log('제목을 쓰세요');
 			return false;
 		}
-		if($('input[name=quantity]').val()==''){
+		if($('input[name=quantity]').val()=='' || $('input[name=quantity]').val().trim() == ''){
 			console.log('인원 또는 건수를 쓰세요');
 			return false;
 		}
@@ -445,7 +453,7 @@ $(document).ready(function(){
 			console.log('인원 또는 건수에는 숫자를 입력하세요');
 			return false;
 		}
-		if($('input[name=price]').val()==''){
+		if($('input[name=price]').val()=='' || $('input[name=price]').val().trim()==''){
 			console.log('가격을 쓰세요');
 			return false;
 		}
