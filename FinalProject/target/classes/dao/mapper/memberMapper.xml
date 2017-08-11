@@ -26,7 +26,7 @@
   </select>
  
  <update id="memberUpdate" parameterType="Member">
- 	update profile set nickname=#{nickname}, photo=#{photo}, balance=#{balance}, admin=#{admin} where id=#{id}
+ 	update profile set nickname=#{nickname}, photo=#{photo}, balance=#{balance}, admin=#{admin}, account=#{account}, bank=#{bank}, introduce=#{introduce} where id=#{id} and login=#{login}
  </update>
  
  <delete id="memberDelete" parameterType="String">
@@ -177,6 +177,13 @@
  	update profile set balance=balance + #{total} where nickname=#{purchaser}
  </update>
  
+ <select id="bankName" parameterType="String" resultType="String">
+ 	select bank from bank where no=#{bank}
+ </select>
+ 
+ <select id="bankList" resultType="Bank">
+ 	select * from bank
+ </select>
  </mapper>
  
  

@@ -11,6 +11,7 @@ public class Member {
 	private int login;
 	private String code;
 	private int amount;
+	private String introduce;
 	
 	public void refillCash(int refillCash) {
 		this.amount = refillCash;
@@ -56,6 +57,14 @@ public class Member {
 
 	
 		
+	public String getIntroduce() {
+		return introduce;
+	}
+
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+
 	public String getAccount() {
 		return account;
 	}
