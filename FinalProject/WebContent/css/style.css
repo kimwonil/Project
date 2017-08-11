@@ -1382,11 +1382,11 @@ th {
   content: "\e260";
 }
 
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+ * { 
+   -webkit-box-sizing: border-box; 
+   -moz-box-sizing: border-box; 
+   box-sizing: border-box; 
+ } 
 
 *:before,
 *:after {
@@ -3093,7 +3093,6 @@ input[type="search"] {
   box-sizing: border-box;
 }
 
-input[type="radio"],
 input[type="checkbox"] {
   margin: 4px 0 0;
   margin-top: 1px \9;
@@ -3279,7 +3278,8 @@ input[type="search"] {
   margin-left: 10px;
 }
 
-input[type="radio"][disabled], input[type="radio"].disabled, fieldset[disabled] input[type="radio"],
+input[type="radio"][disabled], input[type="radio"].disabled, 
+fieldset[disabled] input[type="radio"],
 input[type="checkbox"][disabled],
 input[type="checkbox"].disabled, fieldset[disabled]
 input[type="checkbox"] {
