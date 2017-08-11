@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.NoticeDao;
+import model.Board;
 import model.Member;
 import model.Notice;
 
@@ -113,4 +114,30 @@ public class NoticeService {
 		return noticeDao.getWriterInfo(nickname);
 	}
 	
+	public int getWriterCount(String nickname)
+	{
+		
+		return noticeDao.getWriterCount(nickname);
+	}
+	
+	public int getWriterSumStar(String nickname)
+	{
+		return noticeDao.getWriterSumStar(nickname);
+	}
+	
+	public int getWriterSumNum(String nickname)
+	{
+		return noticeDao.getWriterSumNum(nickname);
+	}
+	
+	public List<Board> getListNo(String nickname)
+	{
+		return noticeDao.getListNo(nickname);
+	}
+	
+	public List<Integer> getBoardState(int no)
+	{
+		List<Integer> n=noticeDao.getBoardState(no);
+		return n;
+	}
 }

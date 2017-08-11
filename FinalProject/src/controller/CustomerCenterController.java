@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import model.Answer;
+import model.Board;
 import model.Category;
 import model.Member;
 import model.Message;
@@ -63,10 +64,43 @@ public class CustomerCenterController {
 		response.setContentType("text/xml;charset=UTF-8");
 		String nickname = request.getParameter("nickname");
 		Member member=noticeService.getWriterInfo(nickname);
+		int star=0;
+		int count=noticeService.getWriterCount(nickname);
+		int totalStar=noticeService.getWriterSumStar(nickname);
+		int totalNum=noticeService.getWriterSumNum(nickname);
+		System.out.println("글수 "+count);
+		System.out.println(totalStar+"  "+totalNum);
+		List<Board> nolist=noticeService.getListNo(nickname);
+		System.out.println(nolist.get(1).getNo());
+		int countState=0;
+		for(int i=0;i<nolist.size();i++)
+		{
+			List<Integer> stateList=noticeService.getBoardState(nolist.get(i).getNo());
+			for(int j=0;j<stateList.size();j++)
+			{
+				if(stateList.get(j)==20 || stateList.get(j)==30)
+				{
+					countState++;
+				}
+			}
+		}
+//		System.out.println("완료갯수 "+ countState);
+//		nolist.get(0)
 		
+		if(totalNum!=0)
+		{
+			star=totalStar/totalNum;
+		}
+		HashMap<String, Object> params=new HashMap<String, Object>();
+		params.put("id",member.getId());
+		params.put("nickname",member.getNickname());
+		params.put("introduce",member.getIntroduce());
+		params.put("photo",member.getPhoto());
+		params.put("star", star);
+		params.put("count", countState);
 		try {
 
-			String json = gson.toJson(member);
+			String json = gson.toJson(params);
 			System.out.println(json);
 			response.getWriter().write(json);
 
@@ -75,6 +109,8 @@ public class CustomerCenterController {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 	
 	// 확인하지않은 메세지수

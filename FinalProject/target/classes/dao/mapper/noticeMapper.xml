@@ -85,4 +85,25 @@
  	<select id="getWriterInfo" resultType="Member" parameterType="String">
  		select * from profile where nickname=#{nickname}
  	</select>
+ 	
+ 	<select id="getWriterCount" resultType="int" parameterType="String">
+ 		select count(*) from board where writer=#{nickname}
+ 	</select>
+ 	
+ 	<select id="getWriterSumStar" resultType="int" parameterType="String">
+ 		select sum(total_star) from board where writer=#{nickname}
+ 	</select>
+ 		
+ 	<select id="getWriterSumNum" resultType="int" parameterType="String">
+ 		select sum(num_evaluator) from board where writer=#{nickname}
+ 	</select>
+ 	
+ 	
+ 	<select id="getListNo" resultType="Board" parameterType="String">
+ 		select no from board where writer=#{nickname}
+ 	</select>
+ 	
+ 	<select id="getBoardState" resultType="Int" parameterType="Int">
+ 		select state from purchase where no=#{no}
+ 	</select>
  </mapper>
