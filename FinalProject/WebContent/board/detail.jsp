@@ -262,9 +262,8 @@ h5 {
 					$('#writerNick').text(data.nickname);
 					$('#introduce').text(data.introduce);
 					$('#End').text(data.count);
-					$('#circleImg').attr('src', "<c:url value='/user/profile/" + data.id + "'/>/" + data.photo);
-				// 					$('#circleImg').attr('src', str); 
-				// 					alert(data.photo);
+					$('#circleImg').attr('src', "<c:url value='/user/profile/" + data.nickname + "'/>/" + data.photo);
+			
 				},
 				error : function() {
 					alert("file 가져오기 실패");
