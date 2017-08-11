@@ -299,7 +299,7 @@ public class DealControll {
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("state", state);
-		map.put("id", ((Member)session.getAttribute("member")).getId());
+		map.put("id", ((Member)session.getAttribute("member")).getNickname());
 		if(no != null) {
 			map.put("purchase_no", no);
 			dealService.progressState(map);
@@ -588,6 +588,19 @@ public class DealControll {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	/**
+	 * 등록된 글 판매 중단
+	 * */
+	@RequestMapping("stopBoard.do")
+	public void stopBoard(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		int no = Integer.parseInt(request.getParameter("no"));
+		int state = Integer.parseInt(request.getParameter("state"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("no", no);
+		map.put("state", state);
+		dealService.stopBoard(map);
 	}
 	
 	

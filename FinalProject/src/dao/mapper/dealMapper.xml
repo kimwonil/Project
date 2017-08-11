@@ -182,6 +182,10 @@
 	<select id="purchaseName" parameterType="int" resultType="String">
 		select purchaser from purchase where purchase_no=#{no}
 	</select>
+	
+	<update id="stopBoard" parameterType="java.util.HashMap">
+		update board set state=#{state} where no=#{no}
+	</update>
  </mapper>
  
  

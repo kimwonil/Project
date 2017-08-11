@@ -19,7 +19,15 @@
 	#mainTable{
 		display: inline;
 	}
-	
+	textarea{
+		resize: none;
+	}
+	#profileTable input[type=text]{
+		width:256px;
+	}
+	#profileTable select{
+		height: 31px;
+	}
 	</style>
 	
 
@@ -45,20 +53,22 @@
 							<td>닉네임 : ${member.nickname}</td>
 						</tr>
 						<tr>
-							<td>사진 : ${member.photo==null?"사진 없음":member.photo}</td>
+							<td>사진 : ${member.photo}</td>
 						</tr>
 						<tr>
 							<td>포인트 : <fmt:formatNumber value="${member.balance}"
-									type="number" /> 포인트
+									type="number" /> P
 							</td>
 						</tr>
-						<tr>
-							<td>관리자 : ${member.admin}</td>
-						</tr>
+<!-- 						<tr> -->
+<%-- 							<td>관리자 : ${member.admin}</td> --%>
+<!-- 						</tr> -->
 						<tr>
 							<td>관심분야 : <button onclick="location.href='dipsList.do?id=${member.id}'">찜목록</button></td>
 						</tr>
-						<tr><td></td></tr>
+						<tr>
+							<td>계좌 : ${member.bank} / ${member.account} </td>
+						</tr>
 					</table>
 					<br><br>
 					<br><br>
@@ -90,6 +100,23 @@
 						<a href="memberManager.do" class="btn btn-sm btn-info">회원관리</a>
 					</c:if>
 					
+					<script type="text/javascript">
+						$( "#spinner" ).spinner();
+						
+					</script>
+					<div>
+					<table>
+						<tr>
+						<td>수량:<input id="spinner" name="value"></td>
+						<td></td>
+						</tr>
+					</table>
+					<p>
+					  
+					  
+					</p>
+					
+					</div>
 				</div>
         	</div>
        </div>
@@ -108,6 +135,20 @@
 				<div class="modal-body">
 					<form action="profileUpdate.do" method="post" enctype="multipart/form-data">
 					<table id="profileTable">
+						<tr>
+							<td>계좌번호 : </td>
+							<td>
+								<select name="bank">
+									<c:forEach items="${bankList}" var="bankValue">
+										<option value="${bankValue.no}" >${bankValue.bank}</option>
+									</c:forEach>
+								</select>
+							<input type="text" name="account"></td>
+						</tr>
+						<tr>
+							<td>소개글 : </td>
+							<td><textarea rows="10" cols="50" name="introduce">${member.introduce}</textarea></td>
+						</tr>
 						<tr>
 							<td>사진 : </td><td><input type="file" name="file"></td>
 						</tr>

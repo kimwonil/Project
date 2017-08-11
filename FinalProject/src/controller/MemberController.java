@@ -258,11 +258,21 @@ public class MemberController {
 			member = (Member)session.getAttribute("member");
 			map.put("id", member.getId());
 			map.put("login", member.getLogin());
-			session.setAttribute("member", memberService.selectOne(map));
+			member = memberService.selectOne(map);
+//			String introduce = member.getIntroduce();
+//			System.out.println(introduce+"//확인");
+//			if(introduce != null) {
+//				introduce = introduce.replaceAll("<br>", "\r\n");
+//				introduce = introduce.replaceAll("&nbsp;", "\u0020");
+//				member.setIntroduce(introduce);
+//			}
+			session.setAttribute("member", member);
 			//판매중
 			session.setAttribute("selling", memberService.countSelling(member.getNickname()));
 			//구매중
 			session.setAttribute("purchase", memberService.countPurchase(member.getNickname()));
+			//은행 리스트
+			session.setAttribute("bankList", memberService.bankList());
 		}else {
 			mv.setViewName("index");
 		}
@@ -326,9 +336,12 @@ public class MemberController {
 	 * */
 	@RequestMapping("profileUpdate.do")
 	public String profileUpdate(FileUpload file, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		
+		String introduce = request.getParameter("introduce");
+		String account = request.getParameter("account");
+		String bank = request.getParameter("bank");
+		Member member = (Member)session.getAttribute("member");
 		String path = session.getServletContext().getRealPath("/user/profile/");
-		String id = ((Member)session.getAttribute("member")).getId();
+		String id = member.getId();
 		MultipartFile photo = file.getFile();
 		String fileName = photo.getOriginalFilename();
 		System.out.println(path);
@@ -338,18 +351,22 @@ public class MemberController {
 		}
 		
 		try {
-			photo.transferTo(new File(path+id+"/"+fileName));
+			if(!fileName.equals("")) {
+				photo.transferTo(new File(path+id+"/"+fileName));
+				member.setPhoto(fileName);
+			}
 		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+//		introduce = introduce.replaceAll("\r\n", "<br>");
+//		introduce = introduce.replaceAll("\u0020", "&nbsp;");
 		
-		Member member = (Member)session.getAttribute("member");
-		
-		member.setPhoto(fileName);
+		member.setBank(memberService.bankName(bank));
+		member.setAccount(account);
+		member.setIntroduce(introduce);
 		
 		memberService.memberUpdate(member);
-		
+		session.setAttribute("bankList", memberService.bankList());
 		
 		
 		return "member/profile";

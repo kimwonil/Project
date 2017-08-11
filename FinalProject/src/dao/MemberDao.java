@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.Authority;
+import model.Bank;
 import model.CashRecord;
 import model.Exchange;
 import model.Member;
@@ -56,4 +57,6 @@ public interface MemberDao {
 	public int nickNameCheck(String nickname);
 	public int countAuthority(String nickname);
 	public int messageDelete(int no);
+	public String bankName(String bank);
+	public List<Bank> bankList();
 }

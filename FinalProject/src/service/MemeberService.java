@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import dao.MemberDao;
 import model.Authority;
+import model.Bank;
 import model.CashRecord;
 import model.Exchange;
 import model.Member;
@@ -181,6 +182,14 @@ public class MemeberService {
 
 	public int messageDelete(int no) {
 		return memberDao.messageDelete(no);
+	}
+
+	public String bankName(String bank) {
+		return memberDao.bankName(bank);
+	}
+
+	public List<Bank> bankList() {
+		return memberDao.bankList();
 	}
 	
 }

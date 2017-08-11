@@ -205,6 +205,10 @@ public class DealService {
 		return dealDao.purchaseName(no);
 	}
 
+	public int stopBoard(HashMap<String, Object> map) {
+		return dealDao.stopBoard(map);
+	}
+
 
 
 	

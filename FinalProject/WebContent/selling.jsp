@@ -39,8 +39,10 @@
 					$.each(data.list, function(index, value) {
 						$('#tabs-1 > table').append(
 							'<tr><td><input type="radio" value="' + value.no + '" name="premiumRadio"></td><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
-							value.count + ' / ' + value.quantity + '</td><td>' + (value.state == 0 ? "대기중" : value.state == 1 ? "인원마감" : "마감일 초과") + '</td><td>' +
-							'<button class="btn-sm btn-info continueBtn" value="' + value.no + '">진행</button> <button class="btn-sm btn-info stopBoardBtn" value="' + value.no + '">중단</button></td></tr>'
+							value.count + ' / ' + value.quantity + '</td><td>' + 
+							(value.state == 0 ? "대기중" : value.state == 1 ? "인원마감" : value.state==3 ? "마감일 초과" : "판매 중단") + '</td><td>' +
+							'<button class="btn-sm btn-info continueBtn" value="' + value.no + '">진행</button>'+
+							(value.state==4 ? '<button class="btn-sm btn-info reBoardBtn" value="' + value.no + '">판매</button></td></tr>' : '<button class="btn-sm btn-info stopBoardBtn" value="' + value.no + '">중단</button></td></tr>')
 						);
 					});
 					$('#tabs-1 input:radio:eq(0)').attr("checked", "checked");
@@ -308,28 +310,53 @@
 		
 		//판매중인 글 중단
 		$(document).on('click', '.stopBoardBtn', function(){
-			alert("글 중단");
 			var cancel = confirm("중단 하시겠습니까?");
 			if(cancel){
-// 				$.ajax({
-// 					url : ".do",
-// 					type : "POST",
-// 					data : {
-// 						no : $(this).val(),
-// 						state : 4
-// 					},
-// 					success : function(data) {
-// 						alert("성공");
+				$.ajax({
+					url : "stopBoard.do",
+					type : "POST",
+					data : {
+						no : $(this).val(),
+						state:4
 						
-// 						sellingList($('#currentPage').val());
-// 					},
-// 					error : function() {
-// 						alert("실패");
-// 					}
-// 				});
+					},
+					success : function(data) {
+						alert("성공");
+						
+						sellingList($('#currentPage').val());
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
 			}
 			
 		});
+		
+		//재판매 
+		$(document).on('click', '.reBoardBtn', function(){
+			var cancel = confirm("재판매 하시겠습니까?");
+			if(cancel){
+				$.ajax({
+					url : "stopBoard.do",
+					type : "POST",
+					data : {
+						no : $(this).val(),
+						state:0
+					},
+					success : function(data) {
+						alert("성공");
+						
+						sellingList($('#currentPage').val());
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
+			}
+			
+		});
+		
 
 		//진행중인 거래 취소 버튼
 		$(document).on('click', '.stopBtn', function() {
