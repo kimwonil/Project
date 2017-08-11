@@ -461,11 +461,11 @@ $(document).ready(function(){
 			console.log('가격에는 숫자를 입력하세요');
 			return false;
 		}
+		
+		
 		if($('input[type=checkbox]').is(':checked')){
 			var check1 = true;
 			var check2 = true;
-			var check3 = true; //옵션 추가에 체크가 되어있을때 유효성 검사를 통과하면 insert되도록!
-			if($('#tableOption').find('.optionName'))
 			
 			$.each($('#tableOption').find('.optionName'), function(index, value){
 				if(value.value == ''){
@@ -485,24 +485,29 @@ $(document).ready(function(){
 						}
 					});//inner each 끝
 				}
-				
-				 if(!check2){//옵션종류가 중복이면 바깥each 더 돌지말고 나가
+				if(!check2){//옵션종류가 중복이면 바깥each 더 돌지말고 나가
 					return false;
 				}
-				
 			});	//옵션종류 each문 끝
+			
 			if(check1){
 				$.each($('#tableOption').find('.optionPrice'), function(index, value){
 					if(value.value == ''){
 						alert("옵션가격을 입력하세요");
+						check1 = false;
 						return false;
 					}else if(!$.isNumeric(value.value)){
 						alert("옵션가격에는 숫자를 입력하세요");
+						check1 = false;
 						return false;
 					}
 				});	//옵션가격 each문 끝
 			}; //if(a)끝
-// 			return false;
+			if(check1 && check2){
+				return true;
+			}else{
+				return false;
+			}
 		};//옵션 입력값 체크
 		return true;
    	});
