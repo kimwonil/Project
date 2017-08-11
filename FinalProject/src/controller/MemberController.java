@@ -332,7 +332,7 @@ public class MemberController {
 	
 	
 	/**
-	 * 프로필 사진 수정
+	 * 프로필 정보 수정
 	 * */
 	@RequestMapping("profileUpdate.do")
 	public String profileUpdate(FileUpload file, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -800,7 +800,7 @@ public class MemberController {
 		
 		
 		if(fileList.get(0).getOriginalFilename().equals("")) {
-			return "authority";
+			return "member/authority";
 		}else if(fileList.get(1).getOriginalFilename().equals("")) {
 			System.out.println("비어있음2");
 		}else if(fileList.get(2).getOriginalFilename().equals("")) {

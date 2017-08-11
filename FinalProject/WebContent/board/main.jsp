@@ -152,7 +152,7 @@ $(document).on('click', '#gageocksun', function(){
 		<div class="row">
 			<div id="fh5co-board" class="premium" data-columns>
 			<div class="sp-slideshow">
-			<input id="button-1" type="radio" name="radio-set" class="sp-selector-1" checked="checked" />
+				<input id="button-1" type="radio" name="radio-set" class="sp-selector-1" checked="checked" />
 				<label for="button-1" class="button-label-1"></label>
 				
 				<input id="button-2" type="radio" name="radio-set" class="sp-selector-2" />
@@ -166,6 +166,7 @@ $(document).on('click', '#gageocksun', function(){
 				
 				<input id="button-5" type="radio" name="radio-set" class="sp-selector-5" />
 				<label for="button-5" class="button-label-5"></label>
+				
 				
 				<label for="button-1" class="sp-arrow sp-a1"></label>
 				<label for="button-2" class="sp-arrow sp-a2"></label>
