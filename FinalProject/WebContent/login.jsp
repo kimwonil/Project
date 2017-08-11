@@ -41,7 +41,7 @@
 				width="300" height="60" />
 			</a>
 		<p>
-		<div class="g-signin2" data-onsuccess="onSignIn" data-width="300"
+		<div id="googleBtn" class="g-signin2" data-onsuccess="onSignIn" data-width="300"
 			data-height="65" data-longtitle="true" data-theme="dark"></div>
 	</div>
 	
@@ -133,13 +133,13 @@
 	;
 </script>
 <script>
-	function onSignIn(googleUser) {
-		var profile = googleUser.getBasicProfile();
+	function googleLogin(){
+		
 		$.ajax({
 			url : "login.do",
 			type : "POST",
 			data : {
-				email : profile.getEmail(),
+				email : $('#id').val(),
 				login : 3
 			},
 			dataType : "json",
@@ -159,10 +159,19 @@
 				alert("실패");
 			}
 		});
-
-
 	}
-	;
+	
+	$(document).on('click', '.g-signin3', function(){
+		googleLogin();
+	});
+
+	function onSignIn(googleUser) {
+		var profile = googleUser.getBasicProfile();
+		console.log(profile);
+		$('#googleBtn').addClass("g-signin3");
+		$('#id').val(profile.getEmail());
+		$('#login').val(3);
+	};
 </script>
 
 
