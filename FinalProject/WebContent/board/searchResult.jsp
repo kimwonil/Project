@@ -174,7 +174,8 @@ text-align: center;
 						</c:if>
 					</c:forEach>
 					
-					<c:if test="${paging.currentPage != paging.lastPage && paging.endPage ne 0}">
+<%-- 					<c:if test="${paging.currentPage != paging.lastPage && paging.endPage ne 0}"> --%>
+					<c:if test="${paging.currentPage < paging.lastPage}">
 						<a href="${pageName}?currentPage=${paging.currentPage+1}&word=${word}&major=${major}">[다음]</a>
 						<a href="${pageName}?currentPage=${paging.lastPage }&word=${word}&major=${major}">[마지막]</a>
 					</c:if>
