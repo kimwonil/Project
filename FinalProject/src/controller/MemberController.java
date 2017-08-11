@@ -341,7 +341,7 @@ public class MemberController {
 		String bank = request.getParameter("bank");
 		Member member = (Member)session.getAttribute("member");
 		String path = session.getServletContext().getRealPath("/user/profile/");
-		String id = member.getId();
+		String id = member.getNickname();
 		MultipartFile photo = file.getFile();
 		String fileName = photo.getOriginalFilename();
 		System.out.println(path);

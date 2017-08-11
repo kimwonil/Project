@@ -43,7 +43,7 @@
 						<img class="photo" src="<c:url value="/images"/>/noimage.jpg">
 					</c:if>
 					<c:if test="${member.photo ne null}">
-						<img class="photo" src="<c:url value="/user/profile/${member.id}"/>/${member.photo}">
+						<img class="photo" src="<c:url value="/user/profile/${member.nickname}"/>/${member.photo}">
 					</c:if>
 					<table id="mainTable" class="table">
 						<tr>
