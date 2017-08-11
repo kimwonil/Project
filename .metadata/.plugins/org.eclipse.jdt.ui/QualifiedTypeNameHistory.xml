@@ -30,7 +30,6 @@
 <fullyQualifiedTypeName name="service.MemeberService"/>
 <fullyQualifiedTypeName name="service.DealService"/>
 <fullyQualifiedTypeName name="model.premium"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="model.Board"/>
 <fullyQualifiedTypeName name="javax.swing.text.DateFormatter"/>
 <fullyQualifiedTypeName name="java.text.DateFormat"/>
@@ -50,11 +49,13 @@
 <fullyQualifiedTypeName name="org.springframework.social.google.api.plus.PlusOperations"/>
 <fullyQualifiedTypeName name="org.springframework.social.google.api.plus.Person"/>
 <fullyQualifiedTypeName name="org.springframework.web.servlet.ModelAndView"/>
-<fullyQualifiedTypeName name="java.lang.Object"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="model.Member"/>
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="service.BoardService"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="model.Bank"/>
 </qualifiedTypeNameHistroy>
