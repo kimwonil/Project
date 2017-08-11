@@ -426,7 +426,7 @@ $(document).ready(function(){
     	}
     });
 	
-	
+
 	
 	
 	
@@ -568,7 +568,6 @@ $(document).ready(function(){
 										<button type="button" class="btn btn-info btn-sm"  id="mapSearch">검색</button> 
 										<button type="button" class="btn btn-info btn-sm"  id="cancel">취소</button> 
 										<div id="addrResult">
-
 											<c:choose>
 												<c:when test="${mapinfo ne null}">
 													<c:if test="${mapinfo.title ne ''}">
@@ -601,11 +600,15 @@ $(document).ready(function(){
 													<th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th>
 													</tr>
 													
-												<c:forEach items="${board_optionList }" var="board_option">
+												<c:forEach items="${board_optionList }" var="board_option" varStatus="i">
 													<tr>
 													<td><input type="text" name="option[]" value="${board_option.kind}"></td>
 													<td><input type="text" name="optionPrice[]" value="${board_option.price }"></td>
-													<td><button class="delete">삭제</button></td>
+													<td>
+													<c:if test="${i.count ne 1}">
+														<button class="delete">삭제</button>
+													</c:if>
+													</td>
 													</tr>
 												</c:forEach>
 					                            </table>
