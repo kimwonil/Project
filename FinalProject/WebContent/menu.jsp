@@ -338,8 +338,8 @@
 				});
 			}, 3000);
 		}
-		MessageNum();
 		
+		MessageNum();
 
 		
 
