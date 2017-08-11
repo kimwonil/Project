@@ -807,6 +807,8 @@ public class DealControll {
 				}//selectAllNormalBoard에 각각 file_name1 넣기 끝
 				
 				List<Category> categoryList = boardService.category();
+				mav.addObject("currentMajor", (categoryNo/100)*100);
+				mav.addObject("currentMinor", categoryNo%100);
 				mav.addObject(categoryList);
 				mav.addObject("paging", paging);
 				mav.addObject("pageName", "load.do");
@@ -815,21 +817,28 @@ public class DealControll {
 				mav.setViewName("board/main");
 				return mav;
 		
-		
-		
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping("currentCategoryName.do")
+	public void currentCategoryName(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		int major = Integer.parseInt(request.getParameter("currentMajor"));
+		int minor = Integer.parseInt(request.getParameter("currentMinor"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("no", minor);
+		map.put("high_no", major);
+		String categoryName = boardService.category_minorName(map);
+		
+		try {
+			response.getWriter().write(categoryName);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 }
