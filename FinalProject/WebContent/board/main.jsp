@@ -108,6 +108,31 @@ display: inline;
 </style>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+	var category = $('#currentMajor').val();
+	if(category != ''){
+		$.ajax({
+			url:"currentCategoryName.do",
+			type:"POST",
+			data:{
+				currentMajor:$('#currentMajor').val(),
+				currentMinor:$('#currentMinor').val()
+			},
+			dataType:"text",
+			success:function(data){
+				$('#currentCategoryName').text(data);
+			},
+			error:function(){
+				alert("카테고리 실패");
+			}
+		});
+	}
+	
+	
+});
+
+
 $(document).on('click', '#latest', function(){
 	location.href='latest.do';
 });
@@ -211,7 +236,10 @@ $(document).on('click', '#gageocksun', function(){
 			
 		<div class="fh5co-spacer fh5co-spacer-sm"></div>
 			
-		<h3>일반글</h3>
+		<input type="hidden" id="currentMajor" name="currentMajor" value="${currentMajor}">
+		<input type="hidden" id="currentMinor" name="currentMinor" value="${currentMinor}">	
+		<h3>일반글</h3>&nbsp;&nbsp;&nbsp;&nbsp;<label id="currentCategoryName">카테고리 이름</label>
+		
 		<span>
 			<table id="orderTable">
 			<tr>
