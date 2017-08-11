@@ -440,27 +440,47 @@ public class BoardController{
 		System.out.println(file2.getOriginalFilename());
 		System.out.println(file3.getOriginalFilename());
 		System.out.println(file4.getOriginalFilename());
+		
+		String fileName1=null, fileName2=null, fileName3=null, fileName4=null;
+		if(file1 != null) {
+			fileName1 = file1.getOriginalFilename();
+		}
+		
+		if(file2 != null) {
+			fileName2 = file2.getOriginalFilename();
+		}
+		
+		if(file3 != null) {
+			fileName3 = file3.getOriginalFilename();
+		}
+		if(file4 != null) {
+			fileName4 = file4.getOriginalFilename();
+		}
+		
 		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
 		if(!dir.isDirectory()){//폴더가 없으면 생성
+			System.out.println("dkdk");
 			dir.mkdirs();
+		}else{
+			System.out.println("아무거나");
 		}
 		
 			try {
 				if(!file1.equals("")){
 					System.out.println(file1.getOriginalFilename());
-					file1.transferTo(new File(path+no+"/"+file1.getOriginalFilename()));
+					file1.transferTo(new File(path+no+"/"+fileName1));
 				}
 				if(!file2.equals("")){
 					System.out.println(file2.getOriginalFilename());
-					file2.transferTo(new File(path+no+"/"+file2.getOriginalFilename()));
+					file2.transferTo(new File(path+no+"/"+fileName2));
 				}
 				if(!file3.equals("")){
 					System.out.println(file3.getOriginalFilename());
-					file3.transferTo(new File(path+no+"/"+file3.getOriginalFilename()));
+					file3.transferTo(new File(path+no+"/"+fileName3));
 				}
 				if(!file4.equals("")){
 					System.out.println(file4.getOriginalFilename());
-					file4.transferTo(new File(path+no+"/"+file4.getOriginalFilename()));
+					file4.transferTo(new File(path+no+"/"+fileName4));
 				}
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
@@ -634,7 +654,13 @@ public class BoardController{
 		
 		//카테고리대분류 리스트 뽑기
 		List<Category> categoryList = boardService.category();
-		mav.addObject(categoryList);
+		mav.addObject("categoryList", categoryList);
+		System.out.println("카테고리 대분류"+categoryList);
+		
+		//해당되는 카테고리 소분류 리스트 뽑기
+		List<Category> categoryLowList = boardService.categoryLow(boardService.selectOneBoard(no).getCategory_major());
+		mav.addObject("categoryLowList", categoryLowList);
+		System.out.println("카테고리 소분류"+categoryLowList);
 		
 		//map에서 주소 뽑아서 보내기
 		mav.addObject("mapinfo", boardService.selectOneMap(no));
@@ -668,9 +694,18 @@ public class BoardController{
 		System.out.println(paramArray1);
 		System.out.println(paramArray2);
 
-		//board, map, board_option, file 수정하기
+		//위도가 있으면 table:map 수정
+		if(!params.get("lat").equals("")){
+			//원글이 mapinfo가 없었으면 insert 있었으면 update
+			if(boardService.selectOneMap(no) == null){
+				boardService.insertMap(params);
+			}else{
+				boardService.updateMap(params);
+			}
+		}
+		
+		//board, board_option, file 수정하기
 		boardService.updateBoard(params);
-		boardService.updateMap(params);
 		boardService.deleteBoard_option(no);//board_option에서 글번호에 해당하는 옵션을 다 지우고
 		if(paramArray1 != null){//입력받은 옵션들로 새로 넣어주는거야
 			HashMap<String, Object> board_option = new HashMap<>();
@@ -730,10 +765,13 @@ public class BoardController{
 			boardService.updateFile(params);
 		}
 		
+		
 		//수정 후 페이지 이동
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("board", boardService.selectOneBoard(no));
-		mav.addObject("mapinfo", boardService.selectOneMap(no));
+		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
+			mav.addObject("mapinfo", boardService.selectOneMap(no));
+		}
 		mav.addObject("board_optionList", boardService.selectBoard_option(no));
 		mav.addObject("files", boardService.selectOneFromFile(no));
 		mav.setViewName("board/detail");

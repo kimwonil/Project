@@ -21,7 +21,7 @@
  
  <update id="updateBoard" parameterType="java.util.HashMap">
  	update board set category_major=#{major}, category_minor=#{minor}, title=#{title}, content=#{content}, 
- 	date=sysdate(), end_date=#{end_date},  state=0, price=#{price}, quantity=#{quantity} where no=#{no}
+ 	date=sysdate(), end_date=#{end_date}, price=#{price}, quantity=#{quantity} where no=#{no}
  </update>
  
  <select id="selectOneBoard" parameterType="int" resultType="Board">
