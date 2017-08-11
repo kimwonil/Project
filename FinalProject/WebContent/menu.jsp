@@ -386,17 +386,15 @@
 	
 	
 		//판매등록 누르면 로그인 검사하고 보내기
-// 		$(document).on('click', '#boardForm', function(){
-// 			if(${member.nickname} == null || ${member.nickname} == ''){
-// 				alert('로그인 후에 이용하실 수 있습니다');
-// 			}else{
-// 				locaiton.href = "boardForm.do";
-// 			}
-// 		});
+		$(document).on('click', '#boardForm', function(){
+			if($('#memberLogin').val() == null || $('#memberLogin').val() == ''){
+				alert('로그인 후에 이용하실 수 있습니다');
+				return false;
+			}else{
+				locaiton.href = "boardForm.do";
+			}
+		});
 		
-// 		$(document).on('click', '.categoryMenu a', function(){
-// 			alert("카테고리");
-// 		});
 		
 	
 	});
