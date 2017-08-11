@@ -75,6 +75,11 @@
 	<![endif]-->
 </head>
 <style>
+
+
+
+
+
 #linkGroup {
 	position: relative;
 	right: 1%;
@@ -602,17 +607,7 @@
 					</ul></li>
 				<li><a href="#">비즈니스/창업/사업</a>
 					<ul>
-<<<<<<< HEAD
-						<li><a href="#801" class="documents">사업계획/사업제안</a></li>
-						<li><a href="#802" class="documents">법인설립/사업자등록/통신판매</a></li>
-						<li><a href="#803" class="documents">리서치/컨설팅</a></li>
-						<li><a href="#804" class="documents">투자/금융/경매</a></li>
-						<li><a href="#805" class="documents">법무/인사/노동법/세무/회계</a></li>
-						<li><a href="#806" class="documents">창업상담/비즈니스 모델진단</a></li>
-						<li><a href="#807" class="documents">창업정보/창업자료/창업노하우</a></li>
-						<li><a href="#808" class="documents">기타</a></li>
-						
-=======
+
 						<li><a href="categoryMenu.do?no=801" class="documents">사업계획/사업제안</a></li>
 						<li><a href="categoryMenu.do?no=802" class="documents">법인설립/사업자등록/통신판매</a></li>
 						<li><a href="categoryMenu.do?no=803" class="documents">리서치/컨설팅</a></li>
@@ -621,7 +616,7 @@
 						<li><a href="categoryMenu.do?no=806" class="documents">창업상담/비즈니스 모델진단</a></li>
 						<li><a href="categoryMenu.do?no=807" class="documents">창업정보/창업자료/창업노하우</a></li>
 						<li><a href="categoryMenu.do?no=808" class="documents">기타</a></li>
->>>>>>> master
+
 					</ul></li>
 				<li><a href="#">번역/외국어</a>
 					<ul>
@@ -638,6 +633,9 @@
 		</div>
 
 	</div>
+	
+
+	
 	</header>
 	<!-- END .header -->
 

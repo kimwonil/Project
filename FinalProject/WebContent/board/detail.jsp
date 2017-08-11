@@ -15,6 +15,38 @@
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=A5owm24oXM2NprihulHy&submodules=geocoder"></script>
 </head>
 <style>
+
+	#miniProfile{
+		background-color:lightgray;
+		border-radius:10px;
+		position: absolute;
+		
+		text-align: center;
+		width:200px;
+	}
+	.miniImg{
+		width: 100px;
+		height: 100px;
+		
+		position: absolute;
+	
+		
+		z-index:4;
+	}
+	#imgSpace{
+		height: 50px;
+	}
+	.btn{
+		margin: 10px 0px 20px 0px;
+	}
+	#miniProfile div{
+		display: inline;
+	}
+
+
+
+
+
 .deal-info {
 	position: absolute;
 	right: 20%;
@@ -63,6 +95,9 @@ text-align: center;
   $( function() {
     $( "#tabs" ).tabs();
   } );
+  
+  
+  
   
   function selectUserReview(){
 	  $.ajax({
@@ -183,6 +218,51 @@ $(document).ready(function(){
 	
 	
 	
+	//판매자 아이디 마우스 오버 했을때 정보 보여주는부분
+	$(document).on('mouseover', '#writerProfile', function(){
+		  function mouseX(event) {
+			      x = event.pageX;
+			     return x;
+			   }
+		  function mouseY(event) {
+		      Y = event.pageY;
+		     return Y;
+		   }
+		  x=mouseX(event);
+		  y=mouseY(event);
+
+		  $.ajax({
+				url : "getWriterInfo.do",
+				type: "post",
+				data : {nickname:$('#writerProfile').text()},
+				dataType : "json",
+				success : function(data){
+					console.log(data);
+// 					alert(data.nickname);
+					$('#writerNick').text(data.nickname);
+					
+
+// 					$('#circleImg').attr('src', str); 
+// 					alert(data.photo);
+				},error : function(){
+					alert("file 가져오기 실패");
+				}
+			});
+		  
+		 
+		  $('.miniImg').css("left",x-50);
+		  $('.miniImg').css("top",y+5);
+		  $('#miniProfile').css("left",x-100);
+		  $('#miniProfile').css("top",y+55);
+		$('#writerMini').css("display","block");
+	})
+// 	//판매자 아이디 마우스 아웃했을때 안보이게하는 부분
+// 	$(document).on('mouseout', '#writerProfile', function(){
+// 		$('#writerMini').css("display","none");
+// 	})
+	
+	
+
 	
 	//글수정 가기 전에 state확인
 	$('#modify').on('click', function(){
@@ -422,7 +502,8 @@ function totalPrice(){
 
 						<div class="item deal-info">
 							
-							판매자 닉네임 : <a href="profile.do?nickname=${board.writer}" id="writer" style="display: inline-block;">${board.writer}</a><br>
+							판매자 닉네임 : <a href="" id="writerProfile" style="display: inline-block;">${board.writer}</a><br>
+<%-- 							판매자 닉네임 : <a href="profile.do?nickname=${board.writer}" id="writer" style="display: inline-block;">${board.writer}</a><br> --%>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
 <%-- 							<c:choose> --%>
 <%-- 								<c:when test="${member.admin eq 1}"> --%>
@@ -551,5 +632,31 @@ function totalPrice(){
   </div>
 </div>
 <!-- modal end -->
+
+
+<div id="writerMini" style="display:none; ">
+<img id="circleImg" src="images/img_1.jpg" class="img-circle miniImg">
+<table id="miniProfile">
+	<tr>
+		<td id="imgSpace" colspan="2"></td>
+	</tr>
+
+	<tr>
+		<td colspan="2" ><span id="writerNick"></span></td>
+	</tr>
+	<tr>
+		<td>별점 : </td><td><label id="star"></label></td>
+	</tr>
+	<tr>
+		<td>완료된 작업수 : </td><td><label id="End"></label></td>
+	</tr>
+	<tr>
+		<td>소개글 : </td><td><label id="introduction"></label></td>
+	</tr>
+	
+</table>
+</div>
+
+
 </body>
 </html>

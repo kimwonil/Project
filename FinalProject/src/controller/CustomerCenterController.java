@@ -56,6 +56,27 @@ public class CustomerCenterController {
 	@Autowired
 	private BoardService BoardService;
 
+	
+	@RequestMapping("getWriterInfo.do")
+	public void getWriterInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		String nickname = request.getParameter("nickname");
+		Member member=noticeService.getWriterInfo(nickname);
+		
+		try {
+
+			String json = gson.toJson(member);
+			System.out.println(json);
+			response.getWriter().write(json);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	// 확인하지않은 메세지수
 	@RequestMapping("getMessageCount.do")
 	public void getMessageCount(HttpServletRequest request, HttpServletResponse response, HttpSession session) {

@@ -81,4 +81,8 @@
  		select category_name from category_low
  		where no=#{minor} and high_no=#{major}
  	</select>
+ 	
+ 	<select id="getWriterInfo" resultType="Member" parameterType="String">
+ 		select * from profile where nickname=#{nickname}
+ 	</select>
  </mapper>
