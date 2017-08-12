@@ -436,10 +436,10 @@ public class BoardController{
 		MultipartFile file2 = fileList.get(1);
 		MultipartFile file3 = fileList.get(2);
 		MultipartFile file4 = fileList.get(3);
-		System.out.println(file1.getOriginalFilename());
-		System.out.println(file2.getOriginalFilename());
-		System.out.println(file3.getOriginalFilename());
-		System.out.println(file4.getOriginalFilename());
+		System.out.println(file1.getOriginalFilename()+"//1번파일");
+		System.out.println(file2.getOriginalFilename()+"//2번파일");
+		System.out.println(file3.getOriginalFilename()+"//3번파일");
+		System.out.println(file4.getOriginalFilename()+"//4번파일");
 		
 		String fileName1=null, fileName2=null, fileName3=null, fileName4=null;
 		if(file1 != null) {
@@ -456,9 +456,9 @@ public class BoardController{
 		if(file4 != null) {
 			fileName4 = file4.getOriginalFilename();
 		}
-		
-		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
-		if(!dir.isDirectory()){//폴더가 없으면 생성
+		path = path+no;
+		File dir = new File(path);//각각의 글에 해당하는 파일이 들어갈 폴더생성path+no
+		if(!dir.exists()){//폴더가 없으면 생성
 			System.out.println("dkdk");
 			dir.mkdirs();
 		}else{
@@ -466,21 +466,21 @@ public class BoardController{
 		}
 		
 			try {
-				if(!file1.equals("")){
+				if(!fileName1.equals("")){
 					System.out.println(file1.getOriginalFilename());
-					file1.transferTo(new File(path+no+"/"+fileName1));
+					file1.transferTo(new File(path+"/"+fileName1));
 				}
-				if(!file2.equals("")){
+				if(!fileName2.equals("")){
 					System.out.println(file2.getOriginalFilename());
-					file2.transferTo(new File(path+no+"/"+fileName2));
+					file2.transferTo(new File(path+"/"+fileName2));
 				}
-				if(!file3.equals("")){
+				if(!fileName3.equals("")){
 					System.out.println(file3.getOriginalFilename());
-					file3.transferTo(new File(path+no+"/"+fileName3));
+					file3.transferTo(new File(path+"/"+fileName3));
 				}
-				if(!file4.equals("")){
+				if(!fileName4.equals("")){
 					System.out.println(file4.getOriginalFilename());
-					file4.transferTo(new File(path+no+"/"+fileName4));
+					file4.transferTo(new File(path+"/"+fileName4));
 				}
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block

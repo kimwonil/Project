@@ -48,7 +48,6 @@
 	<form action="insertForm.do" method="post" id="insertForm">
 		<input id="id" type="hidden" name="email" value=""> 
 		<input id="login" type="hidden" name="login" value="">
-		<input id="googleAuto" type="hidden" value="0"> 	
 	</form>
 	<form action="load.do" method="post" id="main"></form>
 
@@ -166,19 +165,12 @@
 		googleLogin();
 	});
 	
-	$(document).on('change', '#googleAuto', function(){
-		googleLogin();
-	});
 	
-	$('#googleAuto').on('textchange',function(){
-		alert("변경");
-	});
 
 	function onSignIn(googleUser) {
 		var profile = googleUser.getBasicProfile();
 		console.log(profile);
 		
-		$('#googleAuto').val(1);
 		$('#googleBtn').addClass("g-signin3");
 		$('#id').val(profile.getEmail());
 		$('#login').val(3);

@@ -21,13 +21,22 @@
 		$(document).ready(function(){
 			var a = "one apple, two apple, three apple";
 			
-			var pos = n_indexOf(a,"apple", 3);
-			
+			var pos = n_indexOf(a,"apple", 4);
+			console.log(pos);
 			var a1 = a.substring(0, pos);
 			var a2 = a.substring(pos);
 			
 			$('#test').html(a1+"<br>"+a2);
+			
+			
+			
+			$('.addrRadio:gt').trigger('click');
 		});
+		
+		$(document).on('click','.addrRadio', function(){
+			alert($(this).val()+"자동으로 클릭!");
+		});
+		
 		
 		function n_indexOf(str, search, nth){
 			var times=0, num=null;
@@ -83,6 +92,16 @@
 		
 		<div id="test"></div>
 		<button id="logout">로그아웃</button>
+		1번 <input class="addrRadio" type="radio" value="1"><br>
+		2번 <input class="addrRadio" type="radio" value="2"><br>
+		3번 <input class="addrRadio" type="radio" value="3"><br>
+		4번 <input class="addrRadio" type="radio" value="4"><br>
+		5번 <input class="addrRadio" type="radio" value="5"><br>
+		6번 <input class="addrRadio" type="radio" value="6"><br>
+		7번 <input class="addrRadio" type="radio" value="7"><br>
+		8번 <input class="addrRadio" type="radio" value="8"><br>
+		9번 <input class="addrRadio" type="radio" value="9"><br>
+		10번 <input class="addrRadio" type="radio" value="10"><br>
 		
 		
 		

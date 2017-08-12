@@ -29,6 +29,18 @@ border: 1px solid red;
 
 <script type="text/javascript">
 $(document).ready(function(){
+	////////////////////////////////////
+	function n_indexOf(str, search, nth){
+		var times=0, num=null;
+		while(times < nth && num !== -1){
+			num= str.indexOf(search, num+1);
+			times++;
+		}
+		return num;
+	}
+	
+	
+	/////////////////////////////////////
     var map = new naver.maps.Map('map', {
     	scaleControl: false,
         logoControl: false,
@@ -58,6 +70,8 @@ $(document).ready(function(){
 	  			data : {inputAddr:$('#inputAddr').val()},
 	  			dataType : 'json',
 	  			success : function(data){
+	  				
+	  		    
 	  				$('#table tr:gt(0)').empty();//주소 결과리스트 내용 지우고
 			      
 	  				$.each(data.items, function(index, value){//결과들 table에 표시
@@ -93,6 +107,8 @@ $(document).ready(function(){
 		  			    		return alert(info_address + '의 검색 결과가 없거나 기타 네트워크 에러');
 		  			        }
 		  			        var result = response.result;
+		  			        console.log("리절트");
+		  			        console.log(result);
 		  			        // 검색 결과 갯수: result.total
 		  			        // 첫번째 결과 결과 주소: result.items[0].address
 		  			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
@@ -106,22 +122,33 @@ $(document).ready(function(){
 		  			            map: map
 		  			        });
 	  			        	
-			  			    console.log(response.result);
-			  			    console.log(marker.position.x);
-			  			    console.log(result.items[0].address);
+// 			  			    console.log(response.result);
+// 			  			    console.log(marker.position.x);
+// 			  			    console.log(result.items[0].address);
 	  						
-				  	        infowindow = new naver.maps.InfoWindow({
-				  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
-				  	        });
+			  			    
+			  			    console.log(info_address+"인포어드레스");
+			  				var pos = n_indexOf(info_address," ", 4);
+			  				if(pos > 0){
+				  				var addr1 = info_address.substring(0, pos);
+				  				var addr2 = info_address.substring(pos);
+				  			    
+				  				info_address = addr1+"<br>"+addr2;
+				  			}
+// 			  				<h5>"+info_title+"</h5><h6>"+info_address+"</h6>
+// 				  	        infowindow = new naver.maps.InfoWindow({
+// 				  	        	  content : "최초에 보이는 인포"
+// 				  	        });
 				  	        
-				  	        infowindow.open(map, marker);
+// 				  	        infowindow.open(map, marker);
 				  	        lat = marker.position.y;
 				  	        lng = marker.position.x;
 	
 	  			      	});//geocode 
 	  			        $('.addrRadio:first').attr('checked', true);
+	  			        $('#myModal').modal('show');
+	  			    	$('.addrRadio:eq(0)').trigger('click');
 	  			     	iwillkillvertical();
-	  			    	$('#myModal').modal('show');
 	  				}//검색 결과 else
 	  			},
 	  			error : function(jpXHR, textStatus, errorThrown){
@@ -181,6 +208,18 @@ $(document).ready(function(){
 	        	console.log(result);
 	      		console.log(response.result.items);
 
+	      		
+	      		
+	      		var pos = n_indexOf(info_address," ", 4);
+	  			if(pos > 0){
+	  				var addr1 = info_address.substring(0, pos);
+	  				var addr2 = info_address.substring(pos);
+	  			    
+	  				info_address = addr1+"<br>"+addr2;
+	  			}
+	      		
+	      		
+	      		
 	  	        //인포윈도우 오픈
 	  	        infowindow = new naver.maps.InfoWindow({
 	  	        	content : "<h6>"+info_address+"</h6>"
@@ -191,20 +230,21 @@ $(document).ready(function(){
 	  	        lng = marker.position.x;
 		    
 		   $('.addrRadio:first').attr('checked', true);
-		   iwillkillvertical();
            $('#myModal').modal();
-	    		
+           $('.addrRadio:eq(0)').trigger('click');
+		   iwillkillvertical();
 	       });//geocode 끝
 	    
  	 	}//(way==1) else 끝
   	 		
+    	
     })//검색버튼 누른 후 모달 결과 페이지까지 뽑기 끝 
     
     
     
     //라디오 선택
     $(document).on('click',".addrRadio",function(){
-    	
+    	console.log($(this).val()+"//라디오 선택");
     	iwillkillvertical();
 
     });//라디오 선택 끝
@@ -227,7 +267,7 @@ $(document).ready(function(){
     	
 		var myaddress = $('.addrRadio:checked').val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
 				
-	    naver.maps.Service.geocode({address: myaddress}, function(status, response) {
+	    naver.maps.Service.geocode({address:myaddress}, function(status, response) {
 
 	    	if (status !== naver.maps.Service.Status.OK) {
 	    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
@@ -247,8 +287,17 @@ $(document).ready(function(){
 	            map: map
 	        });
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
-	        console.log(result.items);
+// 	        console.log(result.items);
 	        info_address = myaddress;
+	        
+	        var pos = n_indexOf(info_address," ", 4);
+  			if(pos > 0){
+  				var addr1 = info_address.substring(0, pos);
+  				var addr2 = info_address.substring(pos);
+  			    
+  				info_address = addr1+"<br>"+addr2;
+  			}
+	        
 	        
 	        if(way == 1){
 	        	info_title = '';
@@ -259,7 +308,7 @@ $(document).ready(function(){
 		        info_address2 = '';
 	        	juso = "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>";
 	        }
-
+		
           // 인포윈도우 오픈
           infowindow = new naver.maps.InfoWindow({
         	  content : juso
@@ -641,8 +690,8 @@ $(document).ready(function(){
 		  </table>
         </div>
         <div class="modal-footer">
-       	  <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">취소</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="submit">확인</button>
+       	  <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" id="cancel">취소</button>
+          <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" id="submit">확인</button>
         </div>
       </div>
     </div>
