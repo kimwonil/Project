@@ -459,10 +459,7 @@ public class BoardController{
 		
 		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
 		if(!dir.isDirectory()){//폴더가 없으면 생성
-			System.out.println("dkdk");
 			dir.mkdirs();
-		}else{
-			System.out.println("아무거나");
 		}
 		
 			try {
@@ -489,7 +486,7 @@ public class BoardController{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+		System.out.println(dir);
 		
 		//다시 뽑아서 글상세에서 보여주깅
 		ModelAndView mav = new ModelAndView();

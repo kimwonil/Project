@@ -375,7 +375,7 @@ h5 {
 			$.ajax({
 				url : "dips.do",
 				type : "post",
-				data : $('#boardNo'),
+				data : {no : $('#boardNo')},
 				dateType : "text",
 				success : function(data) {
 					alert(data);
@@ -597,8 +597,10 @@ h5 {
 							<br>
 							<div id="totalPrice">${board.price }</div>
 							<p>
-								<button id="buy">구매하기</button>
-								<button id="dips">찜하기</button>
+								<c:if test="${board.state eq 0 }">
+									<button id="buy">구매하기</button>
+									<button id="dips">찜하기</button>
+								</c:if>
 								<button id="msgModal">쪽지문의</button>
 							</p>
 							장소<br>
