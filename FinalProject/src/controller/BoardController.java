@@ -456,16 +456,16 @@ public class BoardController{
 		if(file4 != null) {
 			fileName4 = file4.getOriginalFilename();
 		}
-<<<<<<< HEAD
+//<<<<<<< HEAD
 		path = path+no;
 		File dir = new File(path);//각각의 글에 해당하는 파일이 들어갈 폴더생성path+no
 		if(!dir.exists()){//폴더가 없으면 생성
 			System.out.println("dkdk");
-=======
-		
-		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
-		if(!dir.isDirectory()){//폴더가 없으면 생성
->>>>>>> syk
+//=======
+//		
+//		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
+//		if(!dir.isDirectory()){//폴더가 없으면 생성
+//>>>>>>> syk
 			dir.mkdirs();
 		}
 		
