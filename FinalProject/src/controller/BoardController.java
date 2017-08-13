@@ -456,13 +456,17 @@ public class BoardController{
 		if(file4 != null) {
 			fileName4 = file4.getOriginalFilename();
 		}
+<<<<<<< HEAD
 		path = path+no;
 		File dir = new File(path);//각각의 글에 해당하는 파일이 들어갈 폴더생성path+no
 		if(!dir.exists()){//폴더가 없으면 생성
 			System.out.println("dkdk");
+=======
+		
+		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
+		if(!dir.isDirectory()){//폴더가 없으면 생성
+>>>>>>> syk
 			dir.mkdirs();
-		}else{
-			System.out.println("아무거나");
 		}
 		
 			try {
@@ -489,7 +493,7 @@ public class BoardController{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+		System.out.println(dir);
 		
 		//다시 뽑아서 글상세에서 보여주깅
 		ModelAndView mav = new ModelAndView();
@@ -815,6 +819,7 @@ public class BoardController{
 		
 		System.out.println("찜하기  interest.do");
 		int board_no = Integer.parseInt(req.getParameter("no").toString());
+		System.out.println(board_no);
 		Member member = (Member)session.getAttribute("member");
 		try {
 			PrintWriter pw = resp.getWriter();

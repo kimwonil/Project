@@ -351,21 +351,35 @@ h5 {
 
 
 		//클릭해서 구매 수량 변하게!
+		var nf = Intl.NumberFormat();
+		
 		$(document).on('click', '.minus', function() {
-			var q = parseInt($(this).parent().parent().find('.quantity').val()) - 1;
-			$(this).parent().parent().find('.quantity').val(q);
-			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
-			console.log(hiddenPrice);
+			//수량 조절 박스의 quantity 바꿔주기
+			var q = parseInt($(this).parent().parent().find('.quantity').val()) - 1;//원래있던 수량을 잡아서
+			$(this).parent().parent().find('.quantity').val(q);//-1한 값을 수량 칸에 넣어주고
+			
+			//각 옵션의 optionResult 바꿔주기
+			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());//hiddenPrice값을 가져와서
 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
 			$('#totalPrice').text(totalPrice());
+// 			var price = hiddenPrice*q;
+// 			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').text(price);//hiddenOptionPrice에 변환전 숫자 넣고
+// 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price)); //변환 후 숫자 넣고
+		
+// 			totalPrice();
 		}); //마이너스 클릭하면 줄어들고
 		$(document).on('click', '.plus', function() {
 			var q = parseInt($(this).parent().parent().find('.quantity').val()) + 1;
 			$(this).parent().parent().find('.quantity').val(q);
+			
 			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
-			console.log(hiddenPrice);
 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
 			$('#totalPrice').text(totalPrice());
+// 			var price = hiddenPrice*q;
+// 			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').text(price);
+// 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price));
+		
+// 			totalPrice();
 		}); //플러스 클릭하면 늘어나고
 
 
@@ -481,6 +495,16 @@ h5 {
 
 		return result;
 	}
+
+// 	function totalPrice(){
+// 		var nf = Intl.NumberFormat();
+// 		var result = 0;
+// 		$('.hiddenOptionResult').each(function(){
+// 			result += parseInt($(this).text);
+// 		});
+		
+// 		$('totalPrice').text(nf.format(result));
+// 	}
 </script>
 
 
@@ -539,7 +563,6 @@ h5 {
 
 							판매자 닉네임 : <a href="" id="writerProfile"
 								style="display: inline-block;">${board.writer}</a><br>
-							<%-- 							판매자 닉네임 : <a href="profile.do?nickname=${board.writer}" id="writer" style="display: inline-block;">${board.writer}</a><br> --%>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
 							<%-- 							<c:choose> --%>
 							<%-- 								<c:when test="${member.admin eq 1}"> --%>
@@ -576,7 +599,7 @@ h5 {
 								<table id="purchaseList">
 									<tr>
 										<td name="kind[]" class="kind">기본항목</td>
-										<td name="price[]" class="price">${board.price}</td>
+										<td name="price[]" class="price"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div></td>
 										<td>
 											<table class="quantityBox" border="1" cellspacing="0">
 												<tr>
@@ -589,15 +612,20 @@ h5 {
 												</tr>
 											</table>
 										</td>
-										<td><div class="optionResult">${board.price}</div></td>
+										<td><div class="optionResult"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div>
+											<input type="hidden" class="hiddenOptionResult" value="${board.price}">
+										</td>
 									</tr>
 								</table>
 							</form>
 							<br>
-							<div id="totalPrice">${board.price }</div>
+							<div id="totalPrice"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div></div>
+							<input type="hidden" id="hiddenTotalPrice" value="${board.price}">
 							<p>
-								<button id="buy">구매하기</button>
-								<button id="dips">찜하기</button>
+								<c:if test="${board.state eq 0 }">
+									<button id="buy">구매하기</button>
+									<button id="dips">찜하기</button>
+								</c:if>
 								<button id="msgModal">쪽지문의</button>
 							</p>
 							장소<br>
