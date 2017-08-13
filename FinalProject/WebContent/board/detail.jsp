@@ -360,26 +360,26 @@ h5 {
 			
 			//각 옵션의 optionResult 바꿔주기
 			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());//hiddenPrice값을 가져와서
-			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
-			$('#totalPrice').text(totalPrice());
-// 			var price = hiddenPrice*q;
-// 			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').text(price);//hiddenOptionPrice에 변환전 숫자 넣고
-// 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price)); //변환 후 숫자 넣고
+// 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
+// 			$('#totalPrice').text(totalPrice());
+			var price = hiddenPrice*q;
+			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').text(price);//hiddenOptionPrice에 변환전 숫자 넣고
+			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price)); //변환 후 숫자 넣고
 		
-// 			totalPrice();
+			totalPrice();
 		}); //마이너스 클릭하면 줄어들고
 		$(document).on('click', '.plus', function() {
 			var q = parseInt($(this).parent().parent().find('.quantity').val()) + 1;
 			$(this).parent().parent().find('.quantity').val(q);
 			
 			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
-			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
-			$('#totalPrice').text(totalPrice());
-// 			var price = hiddenPrice*q;
-// 			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').text(price);
-// 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price));
+// 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
+// 			$('#totalPrice').text(totalPrice());
+			var price = hiddenPrice*q;
+			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').text(price);
+			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price));
 		
-// 			totalPrice();
+			totalPrice();
 		}); //플러스 클릭하면 늘어나고
 
 
@@ -486,25 +486,26 @@ h5 {
 	})
 </script>
 <script type="text/javascript">
-	function totalPrice() {
-		var result = 0;
-		$('.optionResult').each(function() {
-			result += parseInt($(this).text());
-
-		});
-
-		return result;
-	}
-
-// 	function totalPrice(){
-// 		var nf = Intl.NumberFormat();
+// 	function totalPrice() {
 // 		var result = 0;
-// 		$('.hiddenOptionResult').each(function(){
-// 			result += parseInt($(this).text);
+// 		$('.optionResult').each(function() {
+// 			result += parseInt($(this).text());
+
 // 		});
-		
-// 		$('totalPrice').text(nf.format(result));
+
+// 		return result;
 // 	}
+
+	function totalPrice(){
+		var nf = Intl.NumberFormat();
+		var result = 0;
+		$('.hiddenOptionResult').each(function(){
+			result += parseInt($(this).text());
+		});
+		console.log(result);
+		
+		$('#totalPrice').text(nf.format(result));
+	}
 </script>
 
 
