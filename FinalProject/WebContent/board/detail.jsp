@@ -375,7 +375,7 @@ h5 {
 			$.ajax({
 				url : "dips.do",
 				type : "post",
-				data : {no : $('#boardNo')},
+				data : $('#boardNo'),
 				dateType : "text",
 				success : function(data) {
 					alert(data);
@@ -540,7 +540,6 @@ h5 {
 
 							판매자 닉네임 : <a href="" id="writerProfile"
 								style="display: inline-block;">${board.writer}</a><br>
-							<%-- 							판매자 닉네임 : <a href="profile.do?nickname=${board.writer}" id="writer" style="display: inline-block;">${board.writer}</a><br> --%>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
 							<%-- 							<c:choose> --%>
 							<%-- 								<c:when test="${member.admin eq 1}"> --%>

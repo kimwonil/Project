@@ -812,6 +812,7 @@ public class BoardController{
 		
 		System.out.println("찜하기  interest.do");
 		int board_no = Integer.parseInt(req.getParameter("no").toString());
+		System.out.println(board_no);
 		Member member = (Member)session.getAttribute("member");
 		try {
 			PrintWriter pw = resp.getWriter();
