@@ -456,16 +456,11 @@ public class BoardController{
 		if(file4 != null) {
 			fileName4 = file4.getOriginalFilename();
 		}
-//<<<<<<< HEAD
+
 		path = path+no;
 		File dir = new File(path);//각각의 글에 해당하는 파일이 들어갈 폴더생성path+no
 		if(!dir.exists()){//폴더가 없으면 생성
 			System.out.println("dkdk");
-//=======
-//		
-//		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
-//		if(!dir.isDirectory()){//폴더가 없으면 생성
-//>>>>>>> syk
 			dir.mkdirs();
 		}
 		
@@ -946,6 +941,7 @@ public class BoardController{
 		resp.setContentType("text/html; charset=UTF-8");
 		System.out.println("thisIsAllMine.do");
 		Member member = (Member)session.getAttribute("member");
+		Board board = boardService.selectOneBoard(no);
 		//1. 세션확인
 		//2. 구매자 포인트 충분한지 확인
 		//3. 정보들 가져와서 purchase, purchase_option, 구매자의 cash테이블 수정, board(quantity에 마이너스 해줘)
@@ -954,7 +950,7 @@ public class BoardController{
 			PrintWriter pw = resp.getWriter();
 			if(member == null){//로그인이 안된 상태면
 				pw.println("{\"result\" : \"로그인 후에 구매할 수 있습니다\", \"state\" : 0}");
-			}else if(boardService.selectOneBoard(no).getQuantity() < Integer.parseInt((quantityArr.get(0)).toString())){//판매 잔여량이 기본항목 구매수량 이상이어야 해
+			}else if(board.getQuantity()-dealService.purchaseCount(no)>=quantityArr.indexOf(0)){//판매 잔여량이 기본항목 구매수량 이상이어야 해
 				pw.println("{\"result\" : \"잔고 수량이 부족합니다\", \"state\" : 0}");
 			}else if(member.getBalance()<totalPrice){//구매자 잔여캐시<금액
 				pw.println("{\"result\" : \"캐시가 부족합니다\", \"state\" : 0}");
@@ -979,7 +975,6 @@ public class BoardController{
 				pw.println("{\"result\" : \"구매성공! 구매관리를 확인하세요\", \"state\" : 1}");
 				
 				//quantity 체크해서 글쓴이가 설정한 수랑 일치하면 state=1로 바꿔야해
-				Board board = boardService.selectOneBoard(no);
 				if(dealService.purchaseCount(no) >= board.getQuantity()){
 					board.setState(1);
 				}

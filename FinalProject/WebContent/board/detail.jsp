@@ -364,21 +364,17 @@ h5 {
 			
 			//각 옵션의 optionResult 바꿔주기
 			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());//hiddenPrice값을 가져와서
-// 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
-// 			$('#totalPrice').text(totalPrice());
-			var price = hiddenPrice*q;
+			var price = hiddenPrice*q;//구매수량 곱해주고
 			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').val(price);//hiddenOptionPrice에 변환전 숫자 넣고
 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price)); //변환 후 숫자 넣고
 		
-			totalPrice();
+			totalPrice();//totalPrice 바꾸기
 		}); //마이너스 클릭하면 줄어들고
 		$(document).on('click', '.plus', function() {
 			var q = parseInt($(this).parent().parent().find('.quantity').val()) + 1;
 			$(this).parent().parent().find('.quantity').val(q);
 			
 			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
-// 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
-// 			$('#totalPrice').text(totalPrice());
 			var price = hiddenPrice*q;
 			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').val(price);
 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price));
@@ -414,8 +410,8 @@ h5 {
 			console.log(kind);
 
 			var price = [];
-			$('.price').each(function() {
-				price.push($(this).text());
+			$('.hiddenPrice').each(function() {
+				price.push($(this).val());
 			})
 			console.log(price);
 
@@ -434,7 +430,7 @@ h5 {
 					price : price,
 					quantity : quantity,
 					no : $('#boardNo').val(),
-					totalPrice : $('#totalPrice').text()
+					totalPrice : $('#hiddenTotalPrice').val()				
 				},
 				dataType : "json",
 				success : function(data) {
@@ -490,24 +486,13 @@ h5 {
 	})
 </script>
 <script type="text/javascript">
-// 	function totalPrice() {
-// 		var result = 0;
-// 		$('.optionResult').each(function() {
-// 			result += parseInt($(this).text());
-
-// 		});
-
-// 		return result;
-// 	}
-
 	function totalPrice(){
 		var nf = Intl.NumberFormat();
 		var result = 0;
 		$('.hiddenOptionResult').each(function(){
 			result += parseInt($(this).val());
 		});
-		console.log(result);
-		
+		$('#hiddenTotalPrice').val(result);
 		$('#totalPrice').text(nf.format(result));
 	}
 </script>
