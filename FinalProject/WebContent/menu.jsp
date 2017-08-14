@@ -369,7 +369,8 @@
 				dataType : "json",
 				success : function(data){
 					$('#categoryForSearch').empty();
-					$('#categoryForSearch').append('<option value="0">카테고리</option>');
+					$('#categoryForSearch').append('<option value="1">판매자 닉네임</option>');
+					$('#categoryForSearch').append('<option value="0">카테고리 전체</option>');
 					$.each(data, function(index, value){
 						$('#categoryForSearch').append(
 								(value.no == $('#hiddenMajor').val() ? '<option value="'+value.no+'" selected>'+value.category_name+'</option>' : '<option value="'+value.no+'">'+value.category_name+'</option>')
@@ -386,7 +387,6 @@
 		//검색시작!
 		$(document).on('keydown', '#searchInput', function(key){
 			if(key.keyCode == 13){ //엔터눌렀을때
-				console.log($('#searchInput').val()+"11111111111");
 				if($('#searchInput').val() == ''){
 					alert("검색어를 입력하세요");
 					return false;

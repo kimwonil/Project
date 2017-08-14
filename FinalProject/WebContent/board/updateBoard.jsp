@@ -409,15 +409,14 @@ $(document).ready(function(){
 
 
 	//옵션 추가 체크박스 선택
-    $('input[type=checkbox]').on('click',function(){
-    	if($(this).is(':checked')){//체크되면
+    $(document).on('click', 'input[type=checkbox]', function(){
+    	if($('input[type=checkbox]').is(':checked')){//체크되면
     		$('#optionResult').val(0);
     		$('#tableOption').append(
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
                         '<td><input type="text" name="option[]" class="optionName"></td>'+
                         '<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
-//                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
     		);
     	}else{//체크 안되면
@@ -427,6 +426,9 @@ $(document).ready(function(){
     });
 	
 
+
+
+	
 	
 	
 	
@@ -588,35 +590,65 @@ $(document).ready(function(){
 										<input type="hidden" id="hidn4" name="lat" value="${mapinfo.lat}">
 										<input type="hidden" id="hidn5" name="lng" value="${mapinfo.lng}">
 										<input type="hidden" name="no" value="${board.no}">
+										<c:if test="${board_optionList eq null}">
 										<input type="hidden" id="optionResult" name="optionResult" value="4">
+										</c:if>
+										<c:if test="${board_optionList ne null}">
+										<input type="hidden" id="optionResult" name="optionResult" value="0">
+										</c:if>
 									</th></tr>
 									<tr><th>기본가격</th><th> <input type="text" name="price" value="${board.price}"> </th></tr>
 									<tr><th>옵션사항</th><th>
 										<c:choose>
-											<c:when test="${board_optionList ne null}">
+											<c:when test="${board_optionList eq null}">
+												<input type="checkbox" id="optionRadio"> 판매옵션 있음
+											</c:when>
+											<c:otherwise>
 												<input type="checkbox" id="optionRadio" checked="checked"> 판매옵션 있음
 												<table id="tableOption">
 													<tr>
 													<th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th>
 													</tr>
 													
-												<c:forEach items="${board_optionList }" var="board_option" varStatus="i">
-													<tr>
-													<td><input type="text" name="option[]" value="${board_option.kind}"></td>
-													<td><input type="text" name="optionPrice[]" value="${board_option.price }"></td>
-													<td>
-													<c:if test="${i.count ne 1}">
-														<button class="delete">삭제</button>
-													</c:if>
-													</td>
-													</tr>
-												</c:forEach>
+													<c:forEach items="${board_optionList }" var="board_option" varStatus="i">
+														<tr>
+														<td><input type="text" name="option[]" value="${board_option.kind}"></td>
+														<td><input type="text" name="optionPrice[]" value="${board_option.price }"></td>
+														<td>
+														<c:if test="${i.count ne 1}">
+															<button class="delete">삭제</button>
+														</c:if>
+														</td>
+														</tr>
+													</c:forEach>
 					                            </table>
-											</c:when>
-											<c:otherwise>
-												<input type="checkbox" id="optionRadio"> 판매옵션 있음
-											</c:otherwise>										 
+											</c:otherwise>
 										</c:choose>
+<%-- 										<c:choose> --%>
+<%-- 											<c:when test="${board_optionList ne null || board_optionList ne ''}"> --%>
+<!-- 												<input type="checkbox" id="optionRadio" checked="checked"> 판매옵션 있음 -->
+<!-- 												<table id="tableOption"> -->
+<!-- 													<tr> -->
+<!-- 													<th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th> -->
+<!-- 													</tr> -->
+													
+<%-- 													<c:forEach items="${board_optionList }" var="board_option" varStatus="i"> --%>
+<!-- 														<tr> -->
+<%-- 														<td><input type="text" name="option[]" value="${board_option.kind}"></td> --%>
+<%-- 														<td><input type="text" name="optionPrice[]" value="${board_option.price }"></td> --%>
+<!-- 														<td> -->
+<%-- 														<c:if test="${i.count ne 1}"> --%>
+<!-- 															<button class="delete">삭제</button> -->
+<%-- 														</c:if> --%>
+<!-- 														</td> -->
+<!-- 														</tr> -->
+<%-- 													</c:forEach> --%>
+<!-- 					                            </table> -->
+<%-- 											</c:when> --%>
+<%-- 											<c:otherwise> --%>
+<!-- 												<input type="checkbox" id="optionRadio"> 판매옵션 있음 -->
+<%-- 											</c:otherwise>										  --%>
+<%-- 										</c:choose> --%>
 									</th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> 
 									<div>${files.file_name1}</div>

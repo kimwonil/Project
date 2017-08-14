@@ -25,9 +25,13 @@ public interface BoardDao {
 //	public boolean reduceQuantity(HashMap<String, Object> params);
 	public void updateStar(HashMap<String, Object> boardMap);
 	public void udpateBoardRead_count(int no);
-	public List<Board> selectSearchResult(HashMap<String, Object> searchMap);
-	public List<Board> searchCategory(HashMap<String, Object> searchMap);
+	public List<Board> searchNickname(HashMap<String, Object> searchMap);//판매자 닉네임으로 검색
+	public List<Board> searchExactNickname(HashMap<String, Object> searchMap);//판매자의 다른글 리스트
+	public List<Board> selectSearchResult(HashMap<String, Object> searchMap);//카테고리 전체 제목&내용 검색
+	public List<Board> searchCategory(HashMap<String, Object> searchMap);//카테고리별 제목&내용 검색
 	public int getCount(); //일반글 수 
+	public int getCountForNickname(HashMap<String, Object> searchMap);
+	public int getCountExactNickname(HashMap<String, Object> searchMap);//detail에서 판매자의 다른 글목록 클릭하면
 	public int getCountForSearch(HashMap<String, Object> countParam); //전체 검색 record 수
 	public int getCountForCategorySearch(HashMap<String, Object> searchMap); //카테고리 검색 record 수
 	public List<Board> gageocksun(HashMap<String, Object> pagingParam);

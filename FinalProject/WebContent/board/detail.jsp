@@ -747,7 +747,7 @@ h5 {
 					</tr>
 					<tr>
 						<td colspan="2">
-						<a href=# >판매자의 다른 글 보기</a>
+						<a href='search.do?major=2&word=${board.writer}' >판매자의 다른 글 보기</a>
 						</td>
 					</tr>
 				</tbody>

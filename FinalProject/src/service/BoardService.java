@@ -69,6 +69,14 @@ public class BoardService {
 	public void udpateBoardRead_count(int no) {
 		boardDao.udpateBoardRead_count(no);
 	}
+
+	public List<Board> searchNickname(HashMap<String, Object> searchMap) {
+		return boardDao.searchNickname(searchMap);
+	}
+
+	public List<Board> searchExactNickname(HashMap<String, Object> searchMap) {
+		return boardDao.searchExactNickname(searchMap);
+	}
 	
 	public List<Board> selectSearchResult(HashMap<String, Object> searchMap) {
 		return boardDao.selectSearchResult(searchMap);
@@ -80,6 +88,14 @@ public class BoardService {
 	
 	public int getCount() {
 		return boardDao.getCount();
+	}
+	
+	public int getCountForNickname(HashMap<String, Object> searchMap) {
+		return boardDao.getCountForNickname(searchMap);
+	}
+
+	public int getCountExactNickname(HashMap<String, Object> searchMap) {
+		return boardDao.getCountExactNickname(searchMap);
 	}
 	
 	public int getCountForSearch(HashMap<String, Object> countParam){
@@ -286,6 +302,11 @@ public class BoardService {
 	public int premiumUpdate(HashMap<String, Object> map) {
 		return boardDao.premiumUpdate(map);
 	}
+
+
+
+
+	
 
 	
 

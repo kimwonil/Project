@@ -60,6 +60,23 @@
  	update board set read_count = read_count+1 where no=#{no}
  </update>
  
+ <select id="searchNickname" parameterType="java.util.HashMap" resultType="Board">
+ 	SELECT A.* FROM (
+    SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board
+    , (SELECT @searchnum:= 0) R
+    where writer like '%${writer}%' and state=0
+    order by no desc) A WHERE A.searchnum between #{start} and #{end}
+ </select>
+
+ <select id="searchExactNickname" parameterType="java.util.HashMap" resultType="Board">
+ 	SELECT A.* FROM (
+    SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board
+    , (SELECT @searchnum:= 0) R
+    where writer like #{writer} and state=0
+    order by no desc) A WHERE A.searchnum between #{start} and #{end}
+ </select>
+
+ 
  <select id="selectSearchResult" parameterType="java.util.HashMap" resultType="Board">
 	SELECT A.* FROM ( 
 	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board 
@@ -93,6 +110,17 @@
  <select id="getCount" resultType="int">
  	select count(no) from board where premium=1 and state=0
  </select>
+ 
+ <select id="getCountForNickname" parameterType="java.util.HashMap" resultType="int">
+ 	select count(no) from board
+ 	where writer like '%${writer}%' and state=0
+ </select>
+
+ <select id="getCountExactNickname" parameterType="java.util.HashMap" resultType="int">
+ 	select count(no) from board
+ 	where writer like #{writer} and state=0
+ </select>
+
  
   <select id="getCountForSearch" parameterType="java.util.HashMap" resultType="int">
  	select count(no) from board 

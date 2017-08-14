@@ -665,8 +665,11 @@ public class BoardController{
 		mav.addObject("mapinfo", boardService.selectOneMap(no));
 		
 		//board_option 뽑아서 보내기
-		mav.addObject("board_optionList", boardService.selectBoard_option(no));
-		
+		if(!boardService.selectBoard_option(no).isEmpty()){
+			mav.addObject("board_optionList", boardService.selectBoard_option(no));
+			System.out.println("옵션 있음");
+		}
+		System.out.println("옵션없음");
 		//사진파일보내기
 		mav.addObject("files", boardService.selectOneFromFile(no));
 		return mav;
@@ -721,7 +724,6 @@ public class BoardController{
 		List<MultipartFile> fileList = files.getFiles();
 		int fileNo = 1;
 		for(MultipartFile file : fileList){
-			System.out.println(file.getOriginalFilename());
 			params.put("file_name"+fileNo, file.getOriginalFilename());
 			fileNo++;
 		}
@@ -733,23 +735,42 @@ public class BoardController{
 		MultipartFile file3 = fileList.get(2);
 		MultipartFile file4 = fileList.get(3);
 		
+		//파일 이름 변수에 저장
+		String fileName1=null, fileName2=null, fileName3=null, fileName4=null;
+		
+		if(file1 != null){
+			fileName1 = file1.getOriginalFilename();
+		}
+		if(file2 != null){
+			fileName2 = file2.getOriginalFilename();
+		}
+		if(file3 != null){
+			fileName3 = file3.getOriginalFilename();
+		}
+		if(file4 != null){
+			fileName4 = file4.getOriginalFilename();
+		}
+		
+		
+		
+		
 		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
-		if(!dir.isDirectory()){//폴더가 없으면 생성
+		if(!dir.exists()){//폴더가 없으면 생성
 			dir.mkdirs();
 		}
 		
 			try {
-				if(file1 != null){
-					file1.transferTo(new File(path+no+"/"+file1.getOriginalFilename()));
+				if(!fileName1.equals("")){
+					file1.transferTo(new File(path+no+"/"+fileName1));
 				}
-				if(file2 != null){
-					file2.transferTo(new File(path+no+"/"+file2.getOriginalFilename()));
+				if(!fileName2.equals("")){
+					file2.transferTo(new File(path+no+"/"+fileName2));
 				}
-				if(file3 != null){
-					file3.transferTo(new File(path+no+"/"+file3.getOriginalFilename()));
+				if(!fileName3.equals("")){
+					file3.transferTo(new File(path+no+"/"+fileName3));
 				}
-				if(file4 != null){
-					file4.transferTo(new File(path+no+"/"+file4.getOriginalFilename()));
+				if(!fileName4.equals("")){
+					file4.transferTo(new File(path+no+"/"+fileName4));
 				}
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
@@ -771,7 +792,9 @@ public class BoardController{
 		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
 			mav.addObject("mapinfo", boardService.selectOneMap(no));
 		}
-		mav.addObject("board_optionList", boardService.selectBoard_option(no));
+		if(boardService.selectBoard_option(no) != null){
+			mav.addObject("board_optionList", boardService.selectBoard_option(no));
+		}
 		mav.addObject("files", boardService.selectOneFromFile(no));
 		mav.setViewName("board/detail");
 		return mav;
@@ -1016,8 +1039,39 @@ public class BoardController{
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("title", word);
 		searchMap.put("content", word);
+		searchMap.put("writer", word);
 		
-		if(major == 0){
+		if(major == 1){ //판매자 검색결과
+			System.out.println("판매자 검색");
+			
+			//페이징 부분
+			Paging paging = new Paging(boardService.getCountForNickname(searchMap), currentPage);
+			paging.boardPaging();
+			System.out.println("판매자 검색부분 페이징"+ paging);
+			searchMap.put("start", paging.getStart());
+			searchMap.put("end", paging.getEnd());
+			
+			mav.addObject("paging", paging);//페이징 정보 보내고
+			
+			List<Board> boardSearchList = boardPlusThumbnail(boardService.searchNickname(searchMap));
+			mav.addObject("boardSearchList", boardSearchList);
+		
+		}else if(major == 2){//detail에서 판매자의 다른글 보기 클릭
+			System.out.println("판매자의 다른글 보기");
+			
+			//페이징 부분
+			Paging paging = new Paging(boardService.getCountExactNickname(searchMap), currentPage);
+			paging.boardPaging();
+			System.out.println("판매자 검색부분 페이징"+ paging);
+			searchMap.put("start", paging.getStart());
+			searchMap.put("end", paging.getEnd());
+			
+			mav.addObject("paging", paging);//페이징 정보 보내고
+			
+			List<Board> boardSearchList = boardPlusThumbnail(boardService.searchExactNickname(searchMap));
+			mav.addObject("boardSearchList", boardSearchList);
+			
+		}else if(major == 0){
 			System.out.println("전체검색");
 			
 			//페이징 부분
