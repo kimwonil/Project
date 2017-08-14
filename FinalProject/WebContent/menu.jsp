@@ -238,6 +238,9 @@
 #searchForm{
 	float: left;
 }
+.fh5co-menu-btn{
+	display: none;
+}
 
 
 </style>

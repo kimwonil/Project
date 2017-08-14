@@ -317,12 +317,14 @@ h5 {
 				dataType : 'json',
 				success : function(data) {
 					alert(data.kind);
+					var nf = Intl.NumberFormat();
+					var dataPrice = data.price;
 
 					//table에 넣기
 					$('#purchaseList').append(
 						'<tr>' +
 						'<td name="kind[]" class="kind">' + data.kind + '</td>' +
-						'<td name="price[]" class="price">' + data.price + '</td>' +
+						'<td name="price[]" class="price">' + nf.format(dataPrice) + '</td>' +
 						'<td>' +
 						'<table class="quantityBox" border="1" cellspacing="0">' +
 						'<tr>' +
@@ -333,11 +335,13 @@ h5 {
 						'</tr>' +
 						'</table>' +
 						'</td>' +
-						'<td><div class="optionResult">' + data.price + '</div></td>' +
+						'<td><div class="optionResult">' + nf.format(dataPrice) + '</div>'+
+						'<input type="hidden" class="hiddenOptionResult" value="'+data.price+'"></td>' +
 						'<td><button class="optionDelete">x</button></td>' +
 						'</tr>'
 					)
-					$('#totalPrice').text(totalPrice());
+
+					totalPrice();
 				},
 			}) //ajax 끝
 		}) //옵션추가하면 밑에 테이블에 띄우기
@@ -351,21 +355,31 @@ h5 {
 
 
 		//클릭해서 구매 수량 변하게!
+		var nf = Intl.NumberFormat();
+		
 		$(document).on('click', '.minus', function() {
-			var q = parseInt($(this).parent().parent().find('.quantity').val()) - 1;
-			$(this).parent().parent().find('.quantity').val(q);
-			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
-			console.log(hiddenPrice);
-			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
-			$('#totalPrice').text(totalPrice());
+			//수량 조절 박스의 quantity 바꿔주기
+			var q = parseInt($(this).parent().parent().find('.quantity').val()) - 1;//원래있던 수량을 잡아서
+			$(this).parent().parent().find('.quantity').val(q);//-1한 값을 수량 칸에 넣어주고
+			
+			//각 옵션의 optionResult 바꿔주기
+			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());//hiddenPrice값을 가져와서
+			var price = hiddenPrice*q;//구매수량 곱해주고
+			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').val(price);//hiddenOptionPrice에 변환전 숫자 넣고
+			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price)); //변환 후 숫자 넣고
+		
+			totalPrice();//totalPrice 바꾸기
 		}); //마이너스 클릭하면 줄어들고
 		$(document).on('click', '.plus', function() {
 			var q = parseInt($(this).parent().parent().find('.quantity').val()) + 1;
 			$(this).parent().parent().find('.quantity').val(q);
+			
 			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
-			console.log(hiddenPrice);
-			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
-			$('#totalPrice').text(totalPrice());
+			var price = hiddenPrice*q;
+			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').val(price);
+			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price));
+		
+			totalPrice();
 		}); //플러스 클릭하면 늘어나고
 
 
@@ -396,8 +410,8 @@ h5 {
 			console.log(kind);
 
 			var price = [];
-			$('.price').each(function() {
-				price.push($(this).text());
+			$('.hiddenPrice').each(function() {
+				price.push($(this).val());
 			})
 			console.log(price);
 
@@ -416,7 +430,7 @@ h5 {
 					price : price,
 					quantity : quantity,
 					no : $('#boardNo').val(),
-					totalPrice : $('#totalPrice').text()
+					totalPrice : $('#hiddenTotalPrice').val()				
 				},
 				dataType : "json",
 				success : function(data) {
@@ -472,14 +486,14 @@ h5 {
 	})
 </script>
 <script type="text/javascript">
-	function totalPrice() {
+	function totalPrice(){
+		var nf = Intl.NumberFormat();
 		var result = 0;
-		$('.optionResult').each(function() {
-			result += parseInt($(this).text());
-
+		$('.hiddenOptionResult').each(function(){
+			result += parseInt($(this).val());
 		});
-
-		return result;
+		$('#hiddenTotalPrice').val(result);
+		$('#totalPrice').text(nf.format(result));
 	}
 </script>
 
@@ -539,7 +553,6 @@ h5 {
 
 							판매자 닉네임 : <a href="" id="writerProfile"
 								style="display: inline-block;">${board.writer}</a><br>
-							<%-- 							판매자 닉네임 : <a href="profile.do?nickname=${board.writer}" id="writer" style="display: inline-block;">${board.writer}</a><br> --%>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
 							<%-- 							<c:choose> --%>
 							<%-- 								<c:when test="${member.admin eq 1}"> --%>
@@ -576,7 +589,7 @@ h5 {
 								<table id="purchaseList">
 									<tr>
 										<td name="kind[]" class="kind">기본항목</td>
-										<td name="price[]" class="price">${board.price}</td>
+										<td name="price[]" class="price"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</td>
 										<td>
 											<table class="quantityBox" border="1" cellspacing="0">
 												<tr>
@@ -589,15 +602,20 @@ h5 {
 												</tr>
 											</table>
 										</td>
-										<td><div class="optionResult">${board.price}</div></td>
+										<td><div class="optionResult"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div>
+											<input type="hidden" class="hiddenOptionResult" value="${board.price}">
+										</td>
 									</tr>
 								</table>
 							</form>
 							<br>
-							<div id="totalPrice">${board.price }</div>
+							<div id="totalPrice"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div></div>
+							<input type="hidden" id="hiddenTotalPrice" value="${board.price}">
 							<p>
-								<button id="buy">구매하기</button>
-								<button id="dips">찜하기</button>
+								<c:if test="${board.state eq 0 }">
+									<button id="buy">구매하기</button>
+									<button id="dips">찜하기</button>
+								</c:if>
 								<button id="msgModal">쪽지문의</button>
 							</p>
 							장소<br>
