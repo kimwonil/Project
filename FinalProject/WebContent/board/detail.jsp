@@ -317,12 +317,14 @@ h5 {
 				dataType : 'json',
 				success : function(data) {
 					alert(data.kind);
+					var nf = Intl.NumberFormat();
+					var dataPrice = data.price;
 
 					//table에 넣기
 					$('#purchaseList').append(
 						'<tr>' +
 						'<td name="kind[]" class="kind">' + data.kind + '</td>' +
-						'<td name="price[]" class="price">' + data.price + '</td>' +
+						'<td name="price[]" class="price">' + nf.format(dataPrice) + '</td>' +
 						'<td>' +
 						'<table class="quantityBox" border="1" cellspacing="0">' +
 						'<tr>' +
@@ -333,11 +335,13 @@ h5 {
 						'</tr>' +
 						'</table>' +
 						'</td>' +
-						'<td><div class="optionResult">' + data.price + '</div></td>' +
+						'<td><div class="optionResult">' + nf.format(dataPrice) + '</div>'+
+						'<input type="hidden" class="hiddenOptionResult" value="'+data.price+'"></td>' +
 						'<td><button class="optionDelete">x</button></td>' +
 						'</tr>'
 					)
-					$('#totalPrice').text(totalPrice());
+
+					totalPrice();
 				},
 			}) //ajax 끝
 		}) //옵션추가하면 밑에 테이블에 띄우기
@@ -363,7 +367,7 @@ h5 {
 // 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
 // 			$('#totalPrice').text(totalPrice());
 			var price = hiddenPrice*q;
-			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').text(price);//hiddenOptionPrice에 변환전 숫자 넣고
+			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').val(price);//hiddenOptionPrice에 변환전 숫자 넣고
 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price)); //변환 후 숫자 넣고
 		
 			totalPrice();
@@ -376,7 +380,7 @@ h5 {
 // 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(hiddenPrice * q);
 // 			$('#totalPrice').text(totalPrice());
 			var price = hiddenPrice*q;
-			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').text(price);
+			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').val(price);
 			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price));
 		
 			totalPrice();
@@ -500,7 +504,7 @@ h5 {
 		var nf = Intl.NumberFormat();
 		var result = 0;
 		$('.hiddenOptionResult').each(function(){
-			result += parseInt($(this).text());
+			result += parseInt($(this).val());
 		});
 		console.log(result);
 		
@@ -600,7 +604,7 @@ h5 {
 								<table id="purchaseList">
 									<tr>
 										<td name="kind[]" class="kind">기본항목</td>
-										<td name="price[]" class="price"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div></td>
+										<td name="price[]" class="price"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</td>
 										<td>
 											<table class="quantityBox" border="1" cellspacing="0">
 												<tr>
