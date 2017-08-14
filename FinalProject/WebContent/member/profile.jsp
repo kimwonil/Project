@@ -104,8 +104,28 @@
 						<tr>
 							<td colspan="2">
 								<ul>
-									<li>리스트1</li>
-									<li>리스트2</li>
+									<c:choose>
+										<c:when test="${authority ne null}">
+											<c:forEach items="${authority}" var="authorityList">
+												<li>${authorityList.categoryName} / 등록일 : ${authorityList.date} / 상태 : 
+												<c:choose>
+													<c:when test="${authorityList.state==1}">
+														승인 대기중
+													</c:when>
+													<c:when test="${authorityList.state==2}">
+														승인 완료
+													</c:when>
+													<c:otherwise>
+														승인 취소
+													</c:otherwise>
+												</c:choose>
+												</li>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<li>판매 가능한 재능이 없습니다.</li>	
+										</c:otherwise>
+									</c:choose>
 								</ul>
 							</td>
 						</tr>

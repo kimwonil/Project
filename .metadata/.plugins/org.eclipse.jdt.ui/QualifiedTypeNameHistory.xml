@@ -11,7 +11,6 @@
 <fullyQualifiedTypeName name="java.net.URLDecoder"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.io.PrintWriter"/>
-<fullyQualifiedTypeName name="model.Authority"/>
 <fullyQualifiedTypeName name="model.FileUpload"/>
 <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
@@ -56,6 +55,7 @@
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="model.Bank"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="model.Authority"/>
 </qualifiedTypeNameHistroy>

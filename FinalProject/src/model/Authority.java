@@ -4,6 +4,7 @@ public class Authority {
 	private int no;
 	private String id;
 	private int category_no;
+	private String categoryName;
 	private String date;
 	private int state;
 	private String file1;
@@ -39,6 +40,18 @@ public class Authority {
 		this.file1 = file1;
 		this.file2 = file2;
 		this.file3 = file3;
+	}
+
+	
+	
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 

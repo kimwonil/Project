@@ -59,4 +59,5 @@ public interface MemberDao {
 	public int messageDelete(int no);
 	public String bankName(String bank);
 	public List<Bank> bankList();
+	public List<Authority> myAuthority(String nickname);
 }

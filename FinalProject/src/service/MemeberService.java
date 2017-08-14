@@ -191,5 +191,9 @@ public class MemeberService {
 	public List<Bank> bankList() {
 		return memberDao.bankList();
 	}
+
+	public List<Authority> myAuthority(String nickname) {
+		return memberDao.myAuthority(nickname);
+	}
 	
 }

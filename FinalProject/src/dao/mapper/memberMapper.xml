@@ -97,6 +97,10 @@
  	select * from authority where id=#{id} order by no limit #{page}, 7
  </select>
  
+ <select id="myAuthority" parameterType="String" resultType="Authority">
+ 	select * from authority where id=#{nickname}
+ </select>
+ 
  <select id="totalPageAuthority" parameterType="java.util.HashMap" resultType="int">
  	select count(no) from authority where id=#{id}
  </select>

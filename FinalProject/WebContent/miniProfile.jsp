@@ -28,6 +28,10 @@ function profileContent(){
 }
 $(document).ready(function(){
 	profileContent();
+	
+	$('#chargeCash').click(function(){
+		location.href="cashPage.do";
+	});
 });
 
 
@@ -65,7 +69,12 @@ $(document).ready(function(){
 </head>
 <body>
 <div>
-<img src="images/img_1.jpg" class="img-circle miniImg">
+<c:if test="${member.photo eq null}">
+	<img class="img-circle miniImg" src="<c:url value="/images"/>/noimage.jpg">
+</c:if>
+<c:if test="${member.photo ne null}">
+	<img class="img-circle miniImg" src="<c:url value="/user/profile/${member.id}/${member.login}"/>/${member.photo}">
+</c:if>
 <table id="miniProfile">
 	<tr>
 		<td id="imgSpace" colspan="2"></td>
@@ -78,7 +87,7 @@ $(document).ready(function(){
 		<td colspan="2"><label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/></label>원</td>
 	</tr>
 	<tr>
-		<td colspan="2"><input type="button" value="충전" class="btn btn-sm btn-info"></td>
+		<td colspan="2"><input id="chargeCash" type="button" value="충전" class="btn btn-sm btn-info"></td>
 	</tr>
 	<tr>
 		<td>나의 재능 : </td><td><a href="profile.do"><div id="profileNum">0</div>건</a></td>

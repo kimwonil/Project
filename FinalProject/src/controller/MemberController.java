@@ -273,6 +273,12 @@ public class MemberController {
 			session.setAttribute("purchase", memberService.countPurchase(member.getNickname()));
 			//은행 리스트
 			session.setAttribute("bankList", memberService.bankList());
+			//판매 재능 리스트
+			List<Authority> authorityList = memberService.myAuthority(member.getNickname());
+			for(Authority authority : authorityList) {
+				authority.setCategoryName(boardService.category_majorName(authority.getCategory_no()));
+			}
+			session.setAttribute("authority", authorityList);
 		}else {
 			mv.setViewName("index");
 		}
@@ -811,7 +817,7 @@ public class MemberController {
 		
 		
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("id", ((Member)session.getAttribute("member")).getId());
+		params.put("id", ((Member)session.getAttribute("member")).getNickname());
 		params.put("category_no", request.getParameter("category_no"));
 		
 		memberService.authorityReg(params);
