@@ -321,7 +321,7 @@
 			$('.fh5co-menu-btn').css('display','none');
 			
 		}else{
-			
+			$('.fh5co-menu-btn').css('display','inline');
 			//인터벌로 3초마다 알림에 표시되는 읽지않은 메세지 숫자
 			setInterval(function() {
 				$.ajax({

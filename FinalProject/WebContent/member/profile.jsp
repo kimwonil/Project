@@ -22,11 +22,20 @@
 	textarea{
 		resize: none;
 	}
+	#profileTable{
+		margin: 0px auto;
+	}
 	#profileTable input[type=text]{
 		width:256px;
 	}
 	#profileTable select{
 		height: 31px;
+	}
+	#introduce{
+		margin-top: 70px;
+	}
+	#introduce textarea{
+		margin: 10px;
 	}
 	</style>
 	
@@ -43,7 +52,7 @@
 						<img class="photo" src="<c:url value="/images"/>/noimage.jpg">
 					</c:if>
 					<c:if test="${member.photo ne null}">
-						<img class="photo" src="<c:url value="/user/profile/${member.nickname}"/>/${member.photo}">
+						<img class="photo" src="<c:url value="/user/profile/${member.id}/${member.login}"/>/${member.photo}">
 					</c:if>
 					<table id="mainTable" class="table">
 						<tr>
@@ -69,9 +78,16 @@
 						<tr>
 							<td>계좌 : ${member.bank} / ${member.account} </td>
 						</tr>
+						<tr>
+						<td></td>
+						</tr>
 					</table>
-					<br><br>
-					<br><br>
+					<br>
+					<table id="introduce">
+						<tr>
+							<td><textarea rows="10" cols="75" readonly="readonly">${member.introduce}</textarea></td>
+						</tr>
+					</table>
 					<table>
 						<tr>
 							<td>판매중 : </td><td><a href="selling.do"><div>${selling}건</div></a></td>
@@ -99,20 +115,6 @@
 					<c:if test="${member.admin==1}">
 						<a href="memberManager.do" class="btn btn-sm btn-info">회원관리</a>
 					</c:if>
-					
-					<div>
-					<table>
-						<tr>
-						<td>수량:<input id="spinner" name="value"></td>
-						<td></td>
-						</tr>
-					</table>
-					<p>
-					  
-					  
-					</p>
-					
-					</div>
 				</div>
         	</div>
        </div>
@@ -132,7 +134,7 @@
 					<form action="profileUpdate.do" method="post" enctype="multipart/form-data">
 					<table id="profileTable">
 						<tr>
-							<td>계좌번호 : </td>
+							<td width="20%">계좌번호 : </td>
 							<td>
 								<select name="bank">
 									<c:forEach items="${bankList}" var="bankValue">

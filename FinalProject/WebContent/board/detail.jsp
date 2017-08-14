@@ -50,24 +50,24 @@
 
 .deal-info {
 	position: absolute;
-	right: 20%;
-	left: 57%;
+	left: 60%;
 	width: 340px;
-	height: 564px;
+	height: 70%;
 	top: 25%;
 	padding: 1%;
 }
 
 .deal-position {
 	position: absolute;
-	left: 20%;
+	left: 10%;
 	top: 25%;
+	height: 70%;
 }
 
 .deal-detail {
 	position: absolute;
-	left: 20%;
-	right: 20%;
+	left: 10%;
+	width:975px;
 	top: 100%;
 }
 
@@ -302,10 +302,16 @@ h5 {
 
 		$('#img') //상세정보 tab안에 사진 넣기
 
+		
+		function optionReset(){
+			console.log("옵션 리셋");
+			$('#optionList option:eq(0)').attr("selected", "selected");
+		}
 
-
+		var optionArr = new Array();
 		//옵션추가
 		$(document).on('change', '#optionList', function() {
+			
 			console.log($(this).val());
 			$.ajax({
 				url : 'searchOption.do',
@@ -316,39 +322,57 @@ h5 {
 				},
 				dataType : 'json',
 				success : function(data) {
-					alert(data.kind);
-					var nf = Intl.NumberFormat();
-					var dataPrice = data.price;
-
-					//table에 넣기
-					$('#purchaseList').append(
-						'<tr>' +
-						'<td name="kind[]" class="kind">' + data.kind + '</td>' +
-						'<td name="price[]" class="price">' + nf.format(dataPrice) + '</td>' +
-						'<td>' +
-						'<table class="quantityBox" border="1" cellspacing="0">' +
-						'<tr>' +
-						'<td width="20%"><a href="#" class="minus">-</a></td>' +
-						'<td width="40%"><input type="text" size="1" name="quantity[]" class="quantity" value=1>' +
-						'<input type="hidden" value="' + data.price + '" class="hiddenPrice" ></td>' +
-						'<td width="20%"><a href="#" class="plus">+</a></td>' +
-						'</tr>' +
-						'</table>' +
-						'</td>' +
-						'<td><div class="optionResult">' + nf.format(dataPrice) + '</div>'+
-						'<input type="hidden" class="hiddenOptionResult" value="'+data.price+'"></td>' +
-						'<td><button class="optionDelete">x</button></td>' +
-						'</tr>'
-					)
-
-					totalPrice();
+					
+					var duplicate = optionArr.some(function(item, index, array){
+						return !!~item.search(data.kind);
+					});
+					
+					if(!duplicate){
+						optionArr.push(data.kind);
+						
+						var nf = Intl.NumberFormat();
+						var dataPrice = data.price;
+						
+						//table에 넣기
+						$('#purchaseList').append(
+							'<tr>' +
+							'<td name="kind[]" class="kind">' + data.kind + '</td>' +
+							'<td name="price[]" class="price">' + nf.format(dataPrice) + '</td>' +
+							'<td>' +
+							'<table class="quantityBox" border="1" cellspacing="0">' +
+							'<tr>' +
+							'<td width="20%"><a href="#" class="minus">-</a></td>' +
+							'<td width="40%"><input type="text" size="1" name="quantity[]" class="quantity" value=1>' +
+							'<input type="hidden" value="' + data.price + '" class="hiddenPrice" ></td>' +
+							'<td width="20%"><a href="#" class="plus">+</a></td>' +
+							'</tr>' +
+							'</table>' +
+							'</td>' +
+							'<td><div class="optionResult">' + nf.format(dataPrice) + '</div>'+
+							'<input type="hidden" class="hiddenOptionResult" value="'+data.price+'"></td>' +
+							'<td><button class="optionDelete">x</button></td>' +
+							'</tr>'
+						)
+						totalPrice();
+						
+					}else{
+						alert("옵션 중복입니다.");
+					}
+					
 				},
-			}) //ajax 끝
-		}) //옵션추가하면 밑에 테이블에 띄우기
+				
+				complete:function(){
+					optionReset();
+				}
+			}); //ajax 끝
+		}); //옵션추가하면 밑에 테이블에 띄우기
 
 
 		//추가한 옵션 삭제하기
 		$(document).on('click', '.optionDelete', function() {
+			var optionName = $(this).parent().parent().find('.kind').text();
+			var num = optionArr.indexOf(optionName);
+			optionArr.splice(num, 1); 
 			$(this).parent().parent().remove();
 			$('#totalPrice').text(totalPrice());
 		}) //추가한 옵션 삭제하기
@@ -609,7 +633,7 @@ h5 {
 								</table>
 							</form>
 							<br>
-							<div id="totalPrice"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div></div>
+							<div id="totalPrice"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div>
 							<input type="hidden" id="hiddenTotalPrice" value="${board.price}">
 							<p>
 								<c:if test="${board.state eq 0 }">

@@ -341,18 +341,20 @@ public class MemberController {
 		String bank = request.getParameter("bank");
 		Member member = (Member)session.getAttribute("member");
 		String path = session.getServletContext().getRealPath("/user/profile/");
-		String id = member.getNickname();
+		String id = member.getId();
+		int login=member.getLogin();
 		MultipartFile photo = file.getFile();
 		String fileName = photo.getOriginalFilename();
 		System.out.println(path);
-		File dir = new File(path+id);
+		path = path + id + "/" + login;
+		File dir = new File(path);
 		if(!dir.isDirectory()) {
 			dir.mkdirs();
 		}
 		
 		try {
 			if(!fileName.equals("")) {
-				photo.transferTo(new File(path+id+"/"+fileName));
+				photo.transferTo(new File(path+"/"+fileName));
 				member.setPhoto(fileName);
 			}
 		} catch (IllegalStateException | IOException e) {
