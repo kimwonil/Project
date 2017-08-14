@@ -525,7 +525,7 @@ public class BoardController{
 		//board 테이블에서 가져온 정보
 		Board board = boardService.selectOneBoard(no);
 		ModelAndView mav = new ModelAndView();
-		board.setCount(dealService.purchaseCount(no));
+//		board.setCount(dealService.purchaseCount(no));
 		board.ratingForDetail();
 		board.setFile_name1(boardService.selectThumbnail(no));
 		
@@ -942,6 +942,9 @@ public class BoardController{
 		System.out.println("thisIsAllMine.do");
 		Member member = (Member)session.getAttribute("member");
 		Board board = boardService.selectOneBoard(no);
+		System.out.println("종류"+kindArr);
+		System.out.println("가격"+priceArr);
+		System.out.println("수량"+quantityArr);
 		//1. 세션확인
 		//2. 구매자 포인트 충분한지 확인
 		//3. 정보들 가져와서 purchase, purchase_option, 구매자의 cash테이블 수정, board(quantity에 마이너스 해줘)
@@ -950,17 +953,17 @@ public class BoardController{
 			PrintWriter pw = resp.getWriter();
 			if(member == null){//로그인이 안된 상태면
 				pw.println("{\"result\" : \"로그인 후에 구매할 수 있습니다\", \"state\" : 0}");
-			}else if(board.getQuantity()-dealService.purchaseCount(no)>=quantityArr.indexOf(0)){//판매 잔여량이 기본항목 구매수량 이상이어야 해
+			}else if(board.getQuantity()-board.getCount()< Integer.parseInt(quantityArr.get(0))){//판매 잔여량이 기본항목 구매수량 이상이어야 해
 				pw.println("{\"result\" : \"잔고 수량이 부족합니다\", \"state\" : 0}");
 			}else if(member.getBalance()<totalPrice){//구매자 잔여캐시<금액
 				pw.println("{\"result\" : \"캐시가 부족합니다\", \"state\" : 0}");
 			}else{//성고옹!
-				//purchase
+				//purchase 테이블에 입력
 				Purchase purchase = new Purchase(0, no, member.getId(), 0, null);
 				dealService.insertPurchase(purchase);
 				int purchaseNo = purchase.getPurchase_no();
 				
-				//purchase_option
+				//purchase_option 테이블에 입력(뭘 샀는지)
 				for(int i=0; i<kindArr.size(); i++){
 					PurchaseOption option = new PurchaseOption(0, purchaseNo, kindArr.get(i), Integer.parseInt(priceArr.get(i).toString()), Integer.parseInt(quantityArr.get(i).toString()));
 					dealService.insertPurchaseOption(option);
@@ -972,12 +975,23 @@ public class BoardController{
 				params.put("id", member.getId());
 				dealService.minusCash(params);
 				
-				pw.println("{\"result\" : \"구매성공! 구매관리를 확인하세요\", \"state\" : 1}");
+				//구매자가 산 갯수만큼 board의 count 더하기
+				HashMap<String, Object> map = new HashMap<>();
+				map.put("no", no);
+				int count = board.getCount()+Integer.parseInt(quantityArr.get(0));
+				System.out.println("count : "+ count );
+				map.put("count", count);
+				map.put("state", 1);
 				
-				//quantity 체크해서 글쓴이가 설정한 수랑 일치하면 state=1로 바꿔야해
-				if(dealService.purchaseCount(no) >= board.getQuantity()){
-					board.setState(1);
+				boardService.updateCount(map);//count 바꿔주고
+				
+				Board board2 = boardService.selectOneBoard(no);//state 바꾸기 전에 board 다시 가져와서
+				//count==0 이면 state=1로 바꿔야해
+				if(board2.getCount() == board2.getQuantity()){
+					boardService.updateState(map);
 				}
+				
+				pw.println("{\"result\" : \"구매성공! 구매관리를 확인하세요\", \"state\" : 1}");
 				
 			}
 			

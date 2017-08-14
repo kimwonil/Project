@@ -16,6 +16,8 @@ public interface BoardDao {
 	//테이블명 : board
 	public boolean insertBoard(HashMap<String, Object> params);
 	public boolean updateBoard(HashMap<String, Object> params);
+	public void updateCount(HashMap<String, Object> map);
+	public void updateState(HashMap<String, Object> map);
 	public boolean deleteBoard(int no);
 	public Board selectOneBoard(int no);
 	public List<Board> selectAllPremiumBoard();//프리미엄글 전체 select

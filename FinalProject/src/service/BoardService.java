@@ -34,6 +34,14 @@ public class BoardService {
 		return boardDao.updateBoard(params);
 	}
 	
+	public void updateCount(HashMap<String, Object> map) {
+		boardDao.updateCount(map);
+	}
+	
+	public void updateState(HashMap<String, Object> map) {
+		boardDao.updateState(map);
+	}
+	
 	public boolean deleteBoard(int no){
 		return boardDao.deleteBoard(no);
 	}
@@ -278,6 +286,10 @@ public class BoardService {
 	public int premiumUpdate(HashMap<String, Object> map) {
 		return boardDao.premiumUpdate(map);
 	}
+
+	
+
+	
 
 
 	
