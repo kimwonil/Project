@@ -310,6 +310,13 @@ public class DealControll {
 				map.put("purchaser", purchaser);
 				memberService.returnBalance(map);
 			}
+			
+			//판매자가 진행 누르면 amount만큼을 해당글의 count에서 제하고 state도 확인///////////0815연경
+			if(state == 10){
+				
+				
+			}
+			/////////////////////////////////////////////////////
 		}
 		
 		if(amount != null) {

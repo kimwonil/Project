@@ -50,6 +50,10 @@ public class BoardService {
 		return boardDao.selectOneBoard(no);
 	}
 	
+	public List<Board>selectAllBoard(){
+		return boardDao.selectAllBoard();
+	}
+	
 	public List<Board>selectAllPremiumBoard(){
 		return boardDao.selectAllPremiumBoard();
 	}

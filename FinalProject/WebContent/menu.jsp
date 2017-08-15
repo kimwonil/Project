@@ -449,7 +449,7 @@
 			<li><a href="purchasing.do">구매관리</a></li>
 			<li><a href="cashPage.do">캐시관리</a></li>
 			<li><a href="message.do">쪽지관리</a></li>
-			<li><a href="customerCenter.jsp">고객센터</a></li>
+			<li><a href="customerCenter.do">고객센터</a></li>
 		</ul>
 	</div>
 	<!-- 	메뉴 끝 -->

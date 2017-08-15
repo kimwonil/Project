@@ -36,6 +36,10 @@
  	select * from board where no=#{no}
  </select>
  
+ <select id="selectAllBoard" resultType="Board">
+ 	select no, title, writer, date_format(end_date, '%Y%m%d') as end_date from board 
+ </select>
+ 
  <select id="selectAllPremiumBoard" parameterType="int" resultType="Board">
  	select * from board where premium = 0
  </select>
