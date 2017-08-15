@@ -780,11 +780,16 @@ public class BoardController{
 				e.printStackTrace();
 			}
 			
-		//files가 있으면 수정하기
-		if(files != null){
-			boardService.updateFile(params);
-		}
+		System.out.println("file table : "+params);
 		
+		//원글에 files가 있었으면 수정하고 없었으면 files insert하기
+		if(files.getFiles()!=null && boardService.selectOneFromFile(no) != null){
+			System.out.println("있었으면 수정하고");
+			boardService.updateFile(params);
+		}else if(files.getFiles()!=null && boardService.selectOneFromFile(no) == null){
+			System.out.println("없었으면 insert");
+			boardService.insertFile(params);
+		}
 		
 		//수정 후 페이지 이동
 		ModelAndView mav = new ModelAndView();
