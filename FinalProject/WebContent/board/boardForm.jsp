@@ -70,10 +70,8 @@ $(document).ready(function(){
 	  			data : {inputAddr:$('#inputAddr').val()},
 	  			dataType : 'json',
 	  			success : function(data){
-	  				
 	  		    
 	  				$('#table tr:gt(0)').empty();//주소 결과리스트 내용 지우고
-			      
 	  				$.each(data.items, function(index, value){//결과들 table에 표시
 			          	$('#table tbody').append(
 			          		'<tr>'+
@@ -146,7 +144,7 @@ $(document).ready(function(){
 	
 	  			      	});//geocode 
 	  			        $('.addrRadio:first').attr('checked', true);
-	  			        $('#myModal').modal('show');
+// 	  			        $('#myModal').modal('show');
 	  			    	$('.addrRadio:eq(0)').trigger('click');
 	  			     	iwillkillvertical();
 	  				}//검색 결과 else
@@ -156,8 +154,8 @@ $(document).ready(function(){
 	                  alert(errorThrown);
 	            }
 	  		 });//키워드 검색 ajax 끝
-  		 
-//   		 	 $('#myModal').modal('show');
+  		 		
+  		 	 $('#myModal').modal('show');
   	 	}//키워드로 지도 찾는 경우 끝
   	 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   	 	/*
@@ -195,7 +193,11 @@ $(document).ready(function(){
 		        
 		        //얘도 리스트 뿌릴수잇나
 	        	$.each(result.items, function(index, value){
-		          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'"></td><td>'+ value.address + '</td></tr>');
+		          	$('#table tbody').append(
+		          			'<tr>'+
+		          			'<td><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+		          			'<input type="hidden" name="ttt" value="'+value.title+'"></td><td>'+ value.address + '</td></tr>'
+		          	);
 		        });
 		        
 	          
@@ -234,7 +236,8 @@ $(document).ready(function(){
            $('.addrRadio:eq(0)').trigger('click');
 		   iwillkillvertical();
 	       });//geocode 끝
-	    
+		   $('.addrRadio:eq(0)').trigger('click');
+		   $('#myModal').modal('show');
  	 	}//(way==1) else 끝
   	 		
     	
