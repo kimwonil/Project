@@ -300,6 +300,9 @@ public class DealControll {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("state", state);
 		map.put("id", member.getNickname());
+//		System.out.println("연경");
+//		System.out.println("state="+state+" / "+"amount="+amount+" / "+"board_no="+board_no);
+//		System.out.println(paramArray);
 		
 		if(no != null) {
 			map.put("purchase_no", no);
@@ -314,7 +317,9 @@ public class DealControll {
 			
 			//판매자가 진행 누르면 amount만큼을 해당글의 count에서 제하고 state도 확인///////////0815연경
 			if(state == 10){
-				
+				//1. 
+				System.out.println("기본항목 수량 : "+amount);
+				System.out.println("글번호 : "+board_no);
 				
 			}
 			/////////////////////////////////////////////////////

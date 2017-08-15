@@ -40,7 +40,7 @@
 						$('#tabs-1 > table').append(
 							'<tr><td><input type="radio" value="' + value.no + '" name="premiumRadio"></td><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.title + '</a></td><td>' +
 							value.count + ' / ' + value.quantity + '</td><td>' + 
-							(value.state == 0 ? "대기중" : value.state == 1 ? "인원마감" : value.state==3 ? "마감일 초과" : "판매 중단") + '</td><td>' +
+							(value.state == 0 ? "대기중" : value.state == 1 ? "인원마감" : value.state==2 ? "마감일 초과" : "판매 중단") + '</td><td>' +
 							'<button class="btn-sm btn-info continueBtn" value="' + value.no + '">진행</button>'+
 							(value.state==4 ? '<button class="btn-sm btn-info reBoardBtn" value="' + value.no + '">판매</button></td></tr>' : '<button class="btn-sm btn-info stopBoardBtn" value="' + value.no + '">중단</button></td></tr>')
 						);

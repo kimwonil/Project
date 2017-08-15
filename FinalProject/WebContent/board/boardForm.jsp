@@ -105,8 +105,6 @@ $(document).ready(function(){
 		  			    		return alert(info_address + '의 검색 결과가 없거나 기타 네트워크 에러');
 		  			        }
 		  			        var result = response.result;
-		  			        console.log("리절트");
-		  			        console.log(result);
 		  			        // 검색 결과 갯수: result.total
 		  			        // 첫번째 결과 결과 주소: result.items[0].address
 		  			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
@@ -119,34 +117,27 @@ $(document).ready(function(){
 		  			        	position: myaddr,
 		  			            map: map
 		  			        });
-	  			        	
-// 			  			    console.log(response.result);
-// 			  			    console.log(marker.position.x);
-// 			  			    console.log(result.items[0].address);
-	  						
-			  			    
-			  			    console.log(info_address+"인포어드레스");
-			  				var pos = n_indexOf(info_address," ", 4);
-			  				if(pos > 0){
-				  				var addr1 = info_address.substring(0, pos);
-				  				var addr2 = info_address.substring(pos);
+	  			        		  						
+// 			  			    var pos = n_indexOf(info_address," ", 4);
+// 			  				if(pos > 0){
+// 				  				var addr1 = info_address.substring(0, pos);
+// 				  				var addr2 = info_address.substring(pos);
 				  			    
-				  				info_address = addr1+"<br>"+addr2;
-				  			}
-// 			  				<h5>"+info_title+"</h5><h6>"+info_address+"</h6>
-// 				  	        infowindow = new naver.maps.InfoWindow({
-// 				  	        	  content : "최초에 보이는 인포"
-// 				  	        });
+// 				  				info_address = addr1+"<br>"+addr2;
+// 				  			}
+			  				
+				  	        infowindow = new naver.maps.InfoWindow({
+				  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
+				  	        });
 				  	        
-// 				  	        infowindow.open(map, marker);
+				  	        infowindow.open(map, marker);
 				  	        lat = marker.position.y;
 				  	        lng = marker.position.x;
 	
 	  			      	});//geocode 
 	  			        $('.addrRadio:first').attr('checked', true);
-// 	  			        $('#myModal').modal('show');
 	  			    	$('.addrRadio:eq(0)').trigger('click');
-	  			     	iwillkillvertical();
+	  			     	selectRadio();
 	  				}//검색 결과 else
 	  			},
 	  			error : function(jpXHR, textStatus, errorThrown){
@@ -207,36 +198,20 @@ $(document).ready(function(){
 		            map: map
 		        });
 			        
-	        	console.log(result);
-	      		console.log(response.result.items);
-
-	      		
-	      		
-	      		var pos = n_indexOf(info_address," ", 4);
-	  			if(pos > 0){
-	  				var addr1 = info_address.substring(0, pos);
-	  				var addr2 = info_address.substring(pos);
-	  			    
-	  				info_address = addr1+"<br>"+addr2;
-	  			}
-	      		
-	      		
-	      		
+	        	     		
 	  	        //인포윈도우 오픈
 	  	        infowindow = new naver.maps.InfoWindow({
 	  	        	content : "<h6>"+info_address+"</h6>"
 	  	        });
-	  	        console.log(info_title);
+
 	  	        infowindow.open(map, marker);
 	  	        lat = marker.position.y;
 	  	        lng = marker.position.x;
 		    
 		   $('.addrRadio:first').attr('checked', true);
-           $('#myModal').modal();
            $('.addrRadio:eq(0)').trigger('click');
-		   iwillkillvertical();
+		   selectRadio();
 	       });//geocode 끝
-		   $('.addrRadio:eq(0)').trigger('click');
 		   $('#myModal').modal('show');
  	 	}//(way==1) else 끝
   	 		
@@ -247,9 +222,7 @@ $(document).ready(function(){
     
     //라디오 선택
     $(document).on('click',".addrRadio",function(){
-    	console.log($(this).val()+"//라디오 선택");
-    	iwillkillvertical();
-
+    	selectRadio();
     });//라디오 선택 끝
     
     
@@ -265,7 +238,7 @@ $(document).ready(function(){
    	});
 
     
-    function iwillkillvertical(){
+    function selectRadio(){
 		way = $('input[name=way]:checked').val(); //검색방식 1은 주소/ 2는 키워드
     	
 		var myaddress = $('.addrRadio:checked').val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
@@ -292,14 +265,6 @@ $(document).ready(function(){
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
 // 	        console.log(result.items);
 	        info_address = myaddress;
-	        
-	        var pos = n_indexOf(info_address," ", 4);
-  			if(pos > 0){
-  				var addr1 = info_address.substring(0, pos);
-  				var addr2 = info_address.substring(pos);
-  			    
-  				info_address = addr1+"<br>"+addr2;
-  			}
 	        
 	        
 	        if(way == 1){

@@ -29,6 +29,18 @@ border: 1px solid red;
 
 <script type="text/javascript">
 $(document).ready(function(){
+	////////////////////////////////////
+	function n_indexOf(str, search, nth){
+		var times=0, num=null;
+		while(times < nth && num !== -1){
+			num= str.indexOf(search, num+1);
+			times++;
+		}
+		return num;
+	}
+	
+	
+	/////////////////////////////////////
     var map = new naver.maps.Map('map', {
     	scaleControl: false,
         logoControl: false,
@@ -44,7 +56,7 @@ $(document).ready(function(){
     var info_address;//도로명
     var info_address2;//지번
     var latlng="";//위도경도
-//     var infowindow;
+    var infowindow;
     
     
     $(document).on('click', '#mapSearch', function(){
@@ -58,8 +70,8 @@ $(document).ready(function(){
 	  			data : {inputAddr:$('#inputAddr').val()},
 	  			dataType : 'json',
 	  			success : function(data){
+	  		    
 	  				$('#table tr:gt(0)').empty();//주소 결과리스트 내용 지우고
-			      
 	  				$.each(data.items, function(index, value){//결과들 table에 표시
 			          	$('#table tbody').append(
 			          		'<tr>'+
@@ -93,6 +105,8 @@ $(document).ready(function(){
 		  			    		return alert(info_address + '의 검색 결과가 없거나 기타 네트워크 에러');
 		  			        }
 		  			        var result = response.result;
+		  			        console.log("리절트");
+		  			        console.log(result);
 		  			        // 검색 결과 갯수: result.total
 		  			        // 첫번째 결과 결과 주소: result.items[0].address
 		  			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
@@ -106,20 +120,33 @@ $(document).ready(function(){
 		  			            map: map
 		  			        });
 	  			        	
-			  			    console.log(response.result);
-			  			    console.log(marker.position.x);
-			  			    console.log(result.items[0].address);
+// 			  			    console.log(response.result);
+// 			  			    console.log(marker.position.x);
+// 			  			    console.log(result.items[0].address);
 	  						
-				  	        infowindow = new naver.maps.InfoWindow({
-				  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
-				  	        });
+			  			    
+			  			    console.log(info_address+"인포어드레스");
+			  				var pos = n_indexOf(info_address," ", 4);
+			  				if(pos > 0){
+				  				var addr1 = info_address.substring(0, pos);
+				  				var addr2 = info_address.substring(pos);
+				  			    
+				  				info_address = addr1+"<br>"+addr2;
+				  			}
+// 			  				<h5>"+info_title+"</h5><h6>"+info_address+"</h6>
+// 				  	        infowindow = new naver.maps.InfoWindow({
+// 				  	        	  content : "최초에 보이는 인포"
+// 				  	        });
 				  	        
-				  	        infowindow.open(map, marker);
+// 				  	        infowindow.open(map, marker);
 				  	        lat = marker.position.y;
 				  	        lng = marker.position.x;
 	
 	  			      	});//geocode 
-	  			    	$('#myModal').modal('show');
+	  			        $('.addrRadio:first').attr('checked', true);
+// 	  			        $('#myModal').modal('show');
+	  			    	$('.addrRadio:eq(0)').trigger('click');
+	  			     	iwillkillvertical();
 	  				}//검색 결과 else
 	  			},
 	  			error : function(jpXHR, textStatus, errorThrown){
@@ -127,8 +154,8 @@ $(document).ready(function(){
 	                  alert(errorThrown);
 	            }
 	  		 });//키워드 검색 ajax 끝
-  		 
-//   		 	 $('#myModal').modal('show');
+  		 		
+  		 	 $('#myModal').modal('show');
   	 	}//키워드로 지도 찾는 경우 끝
   	 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   	 	/*
@@ -166,7 +193,11 @@ $(document).ready(function(){
 		        
 		        //얘도 리스트 뿌릴수잇나
 	        	$.each(result.items, function(index, value){
-		          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'"></td><td>'+ value.address + '</td></tr>');
+		          	$('#table tbody').append(
+		          			'<tr>'+
+		          			'<td><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+		          			'<input type="hidden" name="ttt" value="'+value.title+'"></td><td>'+ value.address + '</td></tr>'
+		          	);
 		        });
 		        
 	          
@@ -179,6 +210,18 @@ $(document).ready(function(){
 	        	console.log(result);
 	      		console.log(response.result.items);
 
+	      		
+	      		
+	      		var pos = n_indexOf(info_address," ", 4);
+	  			if(pos > 0){
+	  				var addr1 = info_address.substring(0, pos);
+	  				var addr2 = info_address.substring(pos);
+	  			    
+	  				info_address = addr1+"<br>"+addr2;
+	  			}
+	      		
+	      		
+	      		
 	  	        //인포윈도우 오픈
 	  	        infowindow = new naver.maps.InfoWindow({
 	  	        	content : "<h6>"+info_address+"</h6>"
@@ -187,26 +230,48 @@ $(document).ready(function(){
 	  	        infowindow.open(map, marker);
 	  	        lat = marker.position.y;
 	  	        lng = marker.position.x;
-	    		
-	       });//geocode 끝
+		    
+		   $('.addrRadio:first').attr('checked', true);
            $('#myModal').modal();
-	    
+           $('.addrRadio:eq(0)').trigger('click');
+		   iwillkillvertical();
+	       });//geocode 끝
+		   $('.addrRadio:eq(0)').trigger('click');
+		   $('#myModal').modal('show');
  	 	}//(way==1) else 끝
   	 		
+    	
     })//검색버튼 누른 후 모달 결과 페이지까지 뽑기 끝 
     
     
     
     //라디오 선택
     $(document).on('click',".addrRadio",function(){
-    	way = $('input[name=way]:checked').val(); //검색방식 1은 주소/ 2는 키워드
+    	console.log($(this).val()+"//라디오 선택");
+    	iwillkillvertical();
+
+    });//라디오 선택 끝
+    
+    
+   	//직접 지도에서 찍은 곳으로 마커 이동
+   	$(document).on('click', map, function(){
+   	
+		naver.maps.Event.addListener(map, 'click', function(e){
+		    marker.setPosition(e.latlng);//내가 찍은 곳의 좌표로 마커 이동
+		    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
+		    info_title = "";//직접 찍으면 지점 이름은 안나와
+		});
+   	
+   	});
+
+    
+    function iwillkillvertical(){
+		way = $('input[name=way]:checked').val(); //검색방식 1은 주소/ 2는 키워드
     	
-		var myaddress = $(this).val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+		var myaddress = $('.addrRadio:checked').val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
 				
-	    naver.maps.Service.geocode({address: myaddress}, function(status, response) {
-// 	    	map = new naver.maps.Map('map', {
-// 	        	zoom: 11
-// 	        });
+	    naver.maps.Service.geocode({address:myaddress}, function(status, response) {
+
 	    	if (status !== naver.maps.Service.Status.OK) {
 	    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
 	        }
@@ -225,8 +290,17 @@ $(document).ready(function(){
 	            map: map
 	        });
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
-	        console.log(result.items);
+// 	        console.log(result.items);
 	        info_address = myaddress;
+	        
+	        var pos = n_indexOf(info_address," ", 4);
+  			if(pos > 0){
+  				var addr1 = info_address.substring(0, pos);
+  				var addr2 = info_address.substring(pos);
+  			    
+  				info_address = addr1+"<br>"+addr2;
+  			}
+	        
 	        
 	        if(way == 1){
 	        	info_title = '';
@@ -237,7 +311,7 @@ $(document).ready(function(){
 		        info_address2 = '';
 	        	juso = "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>";
 	        }
-
+		
           // 인포윈도우 오픈
           infowindow = new naver.maps.InfoWindow({
         	  content : juso
@@ -246,21 +320,7 @@ $(document).ready(function(){
           infowindow.open(map, marker);
 	     
 	    });
-
-    });//라디오 선택 끝
-    
-    
-   	//직접 지도에서 찍은 곳으로 마커 이동
-   	$(document).on('click', map, function(){
-   	
-		naver.maps.Event.addListener(map, 'click', function(e){
-		    marker.setPosition(e.latlng);//내가 찍은 곳의 좌표로 마커 이동
-		    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
-		    info_title = "";//직접 찍으면 지점 이름은 안나와
-		});
-   	
-   	});
-
+    }
     
     //지점 찍었을 때 해당 좌표 -> 주소로 변환해주는 함수
     function searchCoordinateToAddress(latlng) {
@@ -433,11 +493,11 @@ $(document).ready(function(){
 			console.log('카테고리 소분류를 선택하세요');
 			return false;
 		}
-		if($('input[name=title]').val()==''){
+		if($('input[name=title]').val()=='' || $('input[name=title]').val().trim() == ''){
 			console.log('제목을 쓰세요');
 			return false;
 		}
-		if($('input[name=quantity]').val()==''){
+		if($('input[name=quantity]').val()=='' || $('input[name=quantity]').val().trim() == ''){
 			console.log('인원 또는 건수를 쓰세요');
 			return false;
 		}
@@ -445,7 +505,7 @@ $(document).ready(function(){
 			console.log('인원 또는 건수에는 숫자를 입력하세요');
 			return false;
 		}
-		if($('input[name=price]').val()==''){
+		if($('input[name=price]').val()=='' || $('input[name=price]').val().trim()==''){
 			console.log('가격을 쓰세요');
 			return false;
 		}
@@ -453,10 +513,11 @@ $(document).ready(function(){
 			console.log('가격에는 숫자를 입력하세요');
 			return false;
 		}
+		
+		
 		if($('input[type=checkbox]').is(':checked')){
 			var check1 = true;
 			var check2 = true;
-			var check3 = true; //옵션 추가에 체크가 되어있을때 유효성 검사를 통과하면 insert되도록!
 			
 			$.each($('#tableOption').find('.optionName'), function(index, value){
 				if(value.value == ''){
@@ -476,24 +537,29 @@ $(document).ready(function(){
 						}
 					});//inner each 끝
 				}
-				
-				 if(!check2){//옵션종류가 중복이면 바깥each 더 돌지말고 나가
+				if(!check2){//옵션종류가 중복이면 바깥each 더 돌지말고 나가
 					return false;
 				}
-				
 			});	//옵션종류 each문 끝
+			
 			if(check1){
 				$.each($('#tableOption').find('.optionPrice'), function(index, value){
 					if(value.value == ''){
 						alert("옵션가격을 입력하세요");
+						check1 = false;
 						return false;
 					}else if(!$.isNumeric(value.value)){
 						alert("옵션가격에는 숫자를 입력하세요");
+						check1 = false;
 						return false;
 					}
 				});	//옵션가격 each문 끝
 			}; //if(a)끝
-// 			return false;
+			if(check1 && check2){
+				return true;
+			}else{
+				return false;
+			}
 		};//옵션 입력값 체크
 		return true;
    	});
@@ -627,8 +693,8 @@ $(document).ready(function(){
 		  </table>
         </div>
         <div class="modal-footer">
-       	  <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">취소</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="submit">확인</button>
+       	  <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" id="cancel">취소</button>
+          <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" id="submit">확인</button>
         </div>
       </div>
     </div>

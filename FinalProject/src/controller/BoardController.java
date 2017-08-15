@@ -130,11 +130,9 @@ public class BoardController{
 		for(Board board : boardService.selectAllBoard()){
 			//글의 end_date
 			int end_date = Integer.parseInt(board.getEnd_date().toString());
-			System.out.println("end_date : "+end_date);
 			//오늘날짜
 			SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
 			int today = Integer.parseInt(date.format(new Date()).toString());
-			System.out.println("오늘날짜 : "+today);
 			
 			HashMap<String, Object> map = new HashMap<>();
 			map.put("no", board.getNo());
@@ -148,8 +146,6 @@ public class BoardController{
 		Calendar cal = Calendar.getInstance();
 		
 		for(Premium premium : boardService.currentPremium()) {
-			System.out.println(premium.getEnd_date() + "// 종료 날짜");
-			System.out.println(new Date() + "// 오늘 날짜");
 			
 			if(premium.getEnd_date().getTime() < new Date().getTime() ) {
 				HashMap<String, Object> map = new HashMap<>();
