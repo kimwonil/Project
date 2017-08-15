@@ -20,6 +20,7 @@ public interface BoardDao {
 	public void updateState(HashMap<String, Object> map);
 	public boolean deleteBoard(int no);
 	public Board selectOneBoard(int no);
+	public List<Board> selectAllBoard(); //사이트에 있는 모든 글
 	public List<Board> selectAllPremiumBoard();//프리미엄글 전체 select
 	public List<Board> selectAllNormalBoard(HashMap<String, Object> pagingParam);//일반글 전체 select
 //	public boolean reduceQuantity(HashMap<String, Object> params);

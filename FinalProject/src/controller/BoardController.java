@@ -121,6 +121,26 @@ public class BoardController{
 		resp.setContentType("text/html; charset=utf-8");
 		ModelAndView mav = new ModelAndView();
 		
+		
+		//모든글 체크해서 end_date 지나면 state=2
+		for(Board board : boardService.selectAllBoard()){
+			//글의 end_date
+			int end_date = Integer.parseInt(board.getEnd_date().toString());
+			System.out.println("end_date : "+end_date);
+			//오늘날짜
+			SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+			int today = Integer.parseInt(date.format(new Date()).toString());
+			System.out.println("오늘날짜 : "+today);
+			
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("no", board.getNo());
+			map.put("state", 2);
+			
+			if(end_date < today){
+				boardService.updateState(map);
+			}
+		}
+		
 		Calendar cal = Calendar.getInstance();
 		
 		for(Premium premium : boardService.currentPremium()) {
@@ -152,7 +172,6 @@ public class BoardController{
 			}else {
 				System.out.println("안 지남");
 			}
-			
 		}
 		
 		
@@ -784,10 +803,8 @@ public class BoardController{
 		
 		//원글에 files가 있었으면 수정하고 없었으면 files insert하기
 		if(files.getFiles()!=null && boardService.selectOneFromFile(no) != null){
-			System.out.println("있었으면 수정하고");
 			boardService.updateFile(params);
 		}else if(files.getFiles()!=null && boardService.selectOneFromFile(no) == null){
-			System.out.println("없었으면 insert");
 			boardService.insertFile(params);
 		}
 		
@@ -1129,6 +1146,13 @@ public class BoardController{
 		return "redirect:load.do";
 	}
 	
+	/**
+	 * 고객센터 페이지 연결
+	 * */
+	@RequestMapping("customerCenter.do")
+	public String customerCenter(){
+		return "customerCenter";
+	}
 	
 	
 
