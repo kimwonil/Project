@@ -250,6 +250,7 @@
 
 		//등록한 재능글에서 진행 버튼 -> modal
 		$(document).on('click', '.continueBtn', function() {
+			$('#currentBoardNo').val($(this).val());
 			$.ajax({
 				url : "purchaseList.do",
 				type : "POST",
@@ -289,8 +290,6 @@
 								'<td>' + optionPrice + '</td>' +
 								'<td>' + total + '</td>' +
 								'</tr>'
-
-
 							);
 						});
 					}
@@ -424,6 +423,7 @@
 					type : "POST",
 					data : {
 						list : Arr,
+						continue_no:$('#currentBoardNo').val(),
 						state : 10
 					},
 					// 				dataType:"json",
@@ -757,6 +757,7 @@ table {
 </style>
 </head>
 <body>
+	<input type="hidden" id="currentBoardNo" value="">
 	<input type="hidden" id="currentPage" value="">
 	<div class="popupLayer"></div>
 
@@ -784,7 +785,7 @@ table {
 									<th width="15%">등록일</th>
 									<th width="35%">글제목</th>
 									<th width="15%">구매자</th>
-									<th width="10%">상태</th>
+									<th width="12%">상태</th>
 									<th width="20%">비고</th>
 								</tr>
 							</table>

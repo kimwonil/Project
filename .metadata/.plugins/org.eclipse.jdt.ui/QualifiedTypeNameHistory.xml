@@ -28,12 +28,10 @@
 <fullyQualifiedTypeName name="model.Exchange"/>
 <fullyQualifiedTypeName name="service.DealService"/>
 <fullyQualifiedTypeName name="model.premium"/>
-<fullyQualifiedTypeName name="model.Board"/>
 <fullyQualifiedTypeName name="javax.swing.text.DateFormatter"/>
 <fullyQualifiedTypeName name="java.text.DateFormat"/>
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="model.Premium"/>
 <fullyQualifiedTypeName name="org.springframework.social.oauth2.OAuth2Operations"/>
 <fullyQualifiedTypeName name="org.springframework.social.google.connect.GoogleConnectionFactory"/>
@@ -58,4 +56,6 @@
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="service.MemeberService"/>
 <fullyQualifiedTypeName name="model.Member"/>
+<fullyQualifiedTypeName name="model.Board"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
 </qualifiedTypeNameHistroy>

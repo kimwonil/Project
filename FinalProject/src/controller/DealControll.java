@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -288,6 +289,7 @@ public class DealControll {
 	 * */
 	@RequestMapping("progress.do")
 	public void progress(@RequestParam(value="list", required=false) List<String> paramArray,
+						 @RequestParam(value="continue_no", required=false) Integer continue_no,
 						 @RequestParam(value="purchase_no", required=false) Integer purchase_no, 
 						 int state,
 						 @RequestParam(value="no", required=false) Integer no,
@@ -316,12 +318,11 @@ public class DealControll {
 			}
 			
 			//판매자가 진행 누르면 amount만큼을 해당글의 count에서 제하고 state도 확인///////////0815연경
-			if(state == 10){
-				//1. 
-				System.out.println("기본항목 수량 : "+amount);
-				System.out.println("글번호 : "+board_no);
-				
-			}
+//			if(state == 10){
+//				System.out.println("기본항목 수량 : "+amount);
+//				System.out.println("글번호 : "+board_no);
+//				
+//			}
 			/////////////////////////////////////////////////////
 			
 			//미니프로필 현재 금액 업데이트
@@ -379,9 +380,42 @@ public class DealControll {
 		}
 		
 		if(paramArray != null) { //판매자
+			//현재 게시물 소환!
+			Board board = boardService.selectOneBoard(continue_no);
+			//진행된 구매자 수
+			int purchaseCount = paramArray.size();
+			//현재 구매수
+			int currentCount = board.getCount();
+			map.put("no", continue_no);
+			//현재 구매에서 진행된 구매자 수 빼기
+			map.put("count", currentCount-purchaseCount);
+			boardService.updateCount(map);
+			
 			for(String purchase:paramArray) {
 				map.put("purchase_no", purchase);
 				dealService.progressState(map);
+			}
+			
+			Date end_date = new Date();
+			
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				end_date = transFormat.parse(board.getEnd_date());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			if(end_date.getTime() < new Date().getTime()) {
+				//판매 날짜 초과 state 2로 바꾸기
+				map.put("state", 2);
+				boardService.updateState(map);
+			}else {
+				//날짜 초과 아님 and 대기중 상태로 바꿔야 함(state 0)
+				map.put("state", 0);
+				boardService.updateState(map);
 			}
 		}
 		
