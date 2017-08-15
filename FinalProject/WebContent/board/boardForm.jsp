@@ -25,6 +25,31 @@ right: 15%;
 top: 10%;
 border: 1px solid red;
 }
+
+#map{
+float: right;
+}
+
+.tdT{
+overflow: hidden; 
+text-overflow: ellipsis;
+white-space: nowrap; 
+width: 150px;
+height: 20px;
+display: block;
+}
+
+.tdA{
+overflow: hidden; 
+text-overflow: ellipsis;
+white-space: nowrap; 
+width: 300px;
+height: 20px;
+display: block;
+}
+
+
+
 </style>
 
 <script type="text/javascript">
@@ -75,8 +100,8 @@ $(document).ready(function(){
 	  				$.each(data.items, function(index, value){//결과들 table에 표시
 			          	$('#table tbody').append(
 			          		'<tr>'+
-			          		'<td><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
-			          		'<input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</td><td>'+value.address + '</td>'+
+			          		'<td class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+			          		'<input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</td><td class="tdA">'+value.address + '</td>'+
 			          		'</tr>'
 			          	);
 			        });//each 끝
@@ -186,8 +211,8 @@ $(document).ready(function(){
 	        	$.each(result.items, function(index, value){
 		          	$('#table tbody').append(
 		          			'<tr>'+
-		          			'<td><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
-		          			'<input type="hidden" name="ttt" value="'+value.title+'"></td><td>'+ value.address + '</td></tr>'
+		          			'<td class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+		          			'<input type="hidden" name="ttt" value="'+value.title+'"></td><td class="tdA">'+ value.address + '</td></tr>'
 		          	);
 		        });
 		        
@@ -329,7 +354,6 @@ $(document).ready(function(){
     	
     	//infowindow에 있는 내용 담아두자
     	var addrResult = $('h6').text();
-    	console.log($('h6').text());
     	
     	var jusoResult = info_address; //jusoResult는 부모창 addrResult에 넣을 애야
     	if(info_title != ''){
@@ -649,14 +673,27 @@ $(document).ready(function(){
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">주소를 선택하거나 지도상에서 직접 찍은 후 확인을 눌러주세요</h4>
-
         </div>  
-        <div class="modal-body">
-          <div id="map" style="width:858px;height:400px;text-align: center;"></div>
-          <table id="table">
-			<tr><th>명칭</th><th>주소</th></tr>
-		  </table>
-        </div>
+        
+<!--         <div class="modal-body"> -->
+<!--         	<div id="map" style="width:850px;height:400px;text-align: center;"></div> -->
+<!--        		<table id="table"> -->
+<!-- 				<tr><th>명칭</th><th>주소</th></tr> -->
+<!-- 			</table> -->
+<!--         </div> -->
+
+		<div class="modal-body">
+			<table>
+				<tr><td>
+					<table id="table">
+					<tr><th>명칭</th><th>주소</th></tr>
+					</table>
+				</td><td>
+					<div id="map" style="width:450px;height:400px;text-align: center;"></div>
+				</td></tr>
+			</table>
+		</div>
+
         <div class="modal-footer">
        	  <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" id="cancel">취소</button>
           <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" id="submit">확인</button>
