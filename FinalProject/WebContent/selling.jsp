@@ -38,7 +38,7 @@
 				} else {
 					$.each(data.list, function(index, value) {
 						$('#tabs-1 > table').append(
-							'<tr><td><input type="radio" value="' + value.no + '" name="premiumRadio"></td><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
+							'<tr><td><input type="radio" value="' + value.no + '" name="premiumRadio"></td><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.title + '</a></td><td>' +
 							value.count + ' / ' + value.quantity + '</td><td>' + 
 							(value.state == 0 ? "대기중" : value.state == 1 ? "인원마감" : value.state==3 ? "마감일 초과" : "판매 중단") + '</td><td>' +
 							'<button class="btn-sm btn-info continueBtn" value="' + value.no + '">진행</button>'+
@@ -86,7 +86,7 @@
 						});
 
 						$('#tabs-2 > table').append(
-							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+							'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.boardTitle + '</a></td><td>' +
 							value.purchaser + '</td><td><a href="#" class="optionList"><span>' + total + '</span></a><input type="hidden" value="' + value.purchase_no + '"></td><td>진행중</td><td>' +
 							'<button class="btn-sm btn-info completeBtn" value="' + value.purchase_no + '">완료</button> <button class="btn-sm btn-info stopBtn" value="' + value.purchase_no + '">취소</button></td></tr>'
 						);
@@ -134,7 +134,7 @@
 						});
 
 						$('#tabs-3 > table').append(
-							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+							'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.boardTitle + '</a></td><td>' +
 							value.purchaser + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="' + value.purchase_no + '"></td><td>' +
 							(value.state == 11 ? "완료 대기" : value.state == 20 ? "정산 대기" : "정산 완료") + '</td><td>' +
 							(value.state == 11 ? "" : value.state == 20 ? '<button class="btn-sm btn-info calculateBtn" value="' +
@@ -183,7 +183,7 @@
 						});
 
 						$('#tabs-4 > table').append(
-							'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+							'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.boardTitle + '</a></td><td>' +
 							value.purchaser + '</td><td><a href="#" class="optionList">' + total + '</a><input type="hidden" value="' + value.purchase_no + '"></td><td>' +
 							(value.state == 40 ? "구매자 취소" : value.state == 41 ? "취소 대기" : "취소 완료") + '</td><td>' +
 							(value.state == 40 ? '<button class="btn-sm btn-info cancellComfirm" value="' + value.purchase_no + '">확인</button> ' : "")
@@ -223,7 +223,7 @@
 						console.log(data);
 						$.each(data.list, function(index, value) {
 							$('#tabs-5 > table').append(
-								'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
+								'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.title + '</a></td><td>' +
 								value.time + '일 </td><td>' + value.formatPrice + '</td><td>' +
 								(value.state==1?"대기중<br>"+value.start+"부터":value.state==2?"진행중<br>"+value.end+"까지":"종료") + '</td><td>비고</td></tr>'
 							);

@@ -45,6 +45,7 @@ import model.Purchase;
 import model.PurchaseOption;
 import service.BoardService;
 import service.DealService;
+import service.MemeberService;
 
 
 @Controller
@@ -55,6 +56,9 @@ public class BoardController{
 	
 	@Autowired
 	private DealService dealService;
+	
+	@Autowired
+	private MemeberService memberService;
 	
 	/**
 	 * 검색 api
@@ -1004,7 +1008,7 @@ public class BoardController{
 				pw.println("{\"result\" : \"캐시가 부족합니다\", \"state\" : 0}");
 			}else{//성고옹!
 				//purchase 테이블에 입력
-				Purchase purchase = new Purchase(0, no, member.getId(), 0, null);
+				Purchase purchase = new Purchase(0, no, member.getNickname(), 0, null);
 				dealService.insertPurchase(purchase);
 				int purchaseNo = purchase.getPurchase_no();
 				
@@ -1036,6 +1040,9 @@ public class BoardController{
 					boardService.updateState(map);
 				}
 				
+				map.put("id", member.getId());
+				map.put("login", member.getLogin());
+				session.setAttribute("member", memberService.selectOne(map));
 				pw.println("{\"result\" : \"구매성공! 구매관리를 확인하세요\", \"state\" : 1}");
 				
 			}
@@ -1147,7 +1154,7 @@ public class BoardController{
 	}
 	
 	/**
-	 * 고객센터 페이지 연결
+	 * 고객센터 페이지 연결 굳!
 	 * */
 	@RequestMapping("customerCenter.do")
 	public String customerCenter(){

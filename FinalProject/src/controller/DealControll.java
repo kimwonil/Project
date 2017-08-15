@@ -296,10 +296,11 @@ public class DealControll {
 						 @RequestParam(value="star", required=false) Integer star,
 						 @RequestParam(value="content", required=false) String content,
 						 HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		
+		Member member = (Member)session.getAttribute("member");
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("state", state);
-		map.put("id", ((Member)session.getAttribute("member")).getNickname());
+		map.put("id", member.getNickname());
+		
 		if(no != null) {
 			map.put("purchase_no", no);
 			dealService.progressState(map);
@@ -317,6 +318,26 @@ public class DealControll {
 				
 			}
 			/////////////////////////////////////////////////////
+			
+			//미니프로필 현재 금액 업데이트
+			try {
+				map.put("id", member.getId());
+				map.put("login", member.getLogin());
+				member = memberService.selectOne(map);
+				System.out.println(member);
+				DecimalFormat number = new DecimalFormat("#,###");
+				String balance = number.format(member.getBalance());
+				System.out.println("발란스!!!"+ balance);
+				map.put("balanceResult", balance);
+				String json = gson.toJson(map);
+				response.getWriter().write(json);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 		}
 		
 		if(amount != null) {
@@ -329,7 +350,7 @@ public class DealControll {
 			
 			map.put("title", dealService.selectOneBoard(dealService.recordCashInfo(map)));
 			
-			Member member = memberService.selectOne(map);
+			member = memberService.selectOne(map);
 			map.put("balance", member.getBalance());
 			map.put("state", 4);
 			dealService.recordCash(map);
@@ -339,6 +360,7 @@ public class DealControll {
 			try {
 				DecimalFormat number = new DecimalFormat("#,###");
 				String balance = number.format(member.getBalance());
+				System.out.println("발란스!!!"+ balance);
 				map.put("balanceResult", balance);
 				String json = gson.toJson(map);
 				response.getWriter().write(json);
@@ -363,7 +385,7 @@ public class DealControll {
 			dealService.progressState(map);
 			
 			//star_point에 insert
-			Member member = (Member)session.getAttribute("member");
+//			member = (Member)session.getAttribute("member");
 			map.put("nickname", member.getNickname());
 			map.put("board_no", board_no);
 			map.put("purchase", purchase_no);
@@ -377,8 +399,6 @@ public class DealControll {
 			boardMap.put("star", star);
 			boardService.updateStar(boardMap);
 		}
-		
-		
 	}
 	
 	

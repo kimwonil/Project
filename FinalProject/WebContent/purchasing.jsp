@@ -49,7 +49,7 @@ text-align: center;
 							});
 							
 							$('#tabs-1 > table').append(
-									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.boardTitle + '</a></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+'</td><td>'+
 									'<button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
@@ -96,7 +96,7 @@ text-align: center;
 							});
 							
 							$('#tabs-2 > table').append(
-									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.boardTitle + '</a></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+
 									'</td></tr>'		
@@ -144,9 +144,9 @@ text-align: center;
 							});
 							
 							$('#tabs-3 > table').append(
-									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.boardTitle + '</a></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+
-									'"></td></tr>'		
+									'"></td><td>'+(value.state==40?'취소 대기':value.state==41?'<button class="btn-sm btn-info cancelBtn" value="' + value.purchase_no + '">취소</button>':'취소 완료')+'</td></tr>'		
 							);								
 					});
 					$('#currentPage').val(data.page);
@@ -277,8 +277,36 @@ text-align: center;
 			}
 		});
 		
+		//취소버튼(판매자 취소시)
+		$(document).on('click', '.cancelBtn', function(){
+			var cancel = confirm("취소하시겠습니까?");
+			
+			if(cancel){
+				$.ajax({
+					url:"progress.do",
+					type:"POST",
+					data:{
+						no:$(this).val(),
+						state:42
+					},
+					dataType:"json",
+					success:function(data){
+						alert("성공");
+						canceledPurchase(0);
+						console.log(data);
+						$('.balance').text(data.balanceResult);
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+		    			alert(textStatus);     //응답상태
+		    			alert(errorThrown);     //응답에 대한 메세지
+		    		}
+					
+				});
+			}
+		});
 		
 		
+		//취소버튼(구매자 취소시)
 		$(document).on('click', '.stopBtn', function(){
 			var cancel = confirm("취소하시겠습니까?");
 			
@@ -442,7 +470,7 @@ text-align: center;
 						</div>
 						<div id="tabs-3">
 							<table>
-								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>총액</th></tr>
+								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>총액</th><th>상태</th></tr>
 							</table>
 							<div>
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
