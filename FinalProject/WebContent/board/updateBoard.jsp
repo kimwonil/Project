@@ -503,8 +503,9 @@ $(document).ready(function(){
 			if(!$.isNumeric($('input[name=price]').val())){
 				console.log('가격에는 숫자를 입력하세요');
 				check = false;
+			}else{
+				check = true;
 			}
-			
 			
 			if($('input[type=checkbox]').is(':checked')){
 				var check1 = true;
@@ -551,6 +552,7 @@ $(document).ready(function(){
 						}
 					});	//옵션가격 each문 끝
 				}; //if(a)끝
+				
 				if(check1 && check2){
 					check = true;
 				}else{
