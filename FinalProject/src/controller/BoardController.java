@@ -678,6 +678,7 @@ public class BoardController{
 		try {
 			//star_point에서 글번호로 리스트 뽑고
 			pw = resp.getWriter();
+			System.out.println(boardService.selectUserReview(no));
 			String json = gson.toJson(boardService.selectUserReview(no));
 			System.out.println(json);
 			pw.write(json);
