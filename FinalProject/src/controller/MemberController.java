@@ -374,8 +374,8 @@ public class MemberController {
 		member.setIntroduce(introduce);
 		
 		memberService.memberUpdate(member);
+		session.setAttribute("member", member);
 		session.setAttribute("bankList", memberService.bankList());
-		
 		
 		return "member/profile";
 	}
@@ -398,17 +398,17 @@ public class MemberController {
 	 * 캐시 화면
 	 * */
 	@RequestMapping("cash.do")
-	public void refillCash(HttpServletRequest request, HttpServletResponse response) {
+	public void refillCash(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 //		ModelAndView mv = new ModelAndView("cash");
-		HttpSession session = request.getSession();
 		HashMap<String, Object> map = new HashMap<>();
 		Member member = (Member) session.getAttribute("member");
-		int refillCash = Integer.parseInt(request.getParameter("refillCash").toString());
+		int refillCash = Integer.parseInt(request.getParameter("refillCash"));
 		String code = request.getParameter("merchant_uid").toString();
 		member.setCode(code);
 		member.refillCash(refillCash);
 		int result = memberService.refillCash(member);
 		map.put("id", member.getId());
+		map.put("login", member.getLogin());
 		session.setAttribute("member", memberService.selectOne(map));
 		try {
 			if(result==1) {
@@ -435,7 +435,7 @@ public class MemberController {
 	public void allCashList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		int page = Integer.parseInt(request.getParameter("page").toString());
+		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("page", page);
 		try {
@@ -463,15 +463,15 @@ public class MemberController {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		int page = Integer.parseInt(request.getParameter("page").toString());
-		String id = ((Member)session.getAttribute("member")).getId();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("nickname", nickname);
 		map.put("page", page);
 		try {
 			PrintWriter printWriter = response.getWriter();
 			
 			map.put("list", memberService.cashList(map));
-			map.put("totalPage", memberService.totalPageCash(id));
+			map.put("totalPage", memberService.totalPageCash(nickname));
 			String json = gson.toJson(map);
 			printWriter.write(json);
 		} catch (IOException e) {
@@ -494,6 +494,7 @@ public class MemberController {
 		
 		map.put("amount", amount);
 		map.put("balance", currentBalance);
+		map.put("nickname", member.getNickname());
 		map.put("id", member.getId());
 		int result = memberService.exchange(map);
 		
@@ -524,16 +525,16 @@ public class MemberController {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		int page = Integer.parseInt(request.getParameter("page").toString());
-		String id = ((Member)session.getAttribute("member")).getId();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("nickname", nickname);
 		map.put("page", page);
 		
 		try {
 			PrintWriter printWriter = response.getWriter();
 			
 			map.put("list", memberService.exchangeList(map));
-			map.put("totalPage", memberService.totalPageExchange(id));
+			map.put("totalPage", memberService.totalPageExchange(nickname));
 			String json = gson.toJson(map);
 			printWriter.write(json);
 		} catch (IOException e) {
@@ -817,7 +818,7 @@ public class MemberController {
 		
 		
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("id", ((Member)session.getAttribute("member")).getNickname());
+		params.put("nickname", ((Member)session.getAttribute("member")).getNickname());
 		params.put("category_no", request.getParameter("category_no"));
 		
 		memberService.authorityReg(params);
@@ -887,13 +888,19 @@ public class MemberController {
 	 * */
 	@RequestMapping("authorityList.do")
 	public void authorityList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String id = ((Member)session.getAttribute("member")).getNickname();
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("nickname", nickname);
 		map.put("page", page);
-		map.put("list", memberService.authorityList(map));
-		map.put("totalPage", memberService.totalPageAuthority(id));
+		List<Authority> list = memberService.authorityList(map);
+		for(Authority authority : list) {
+			authority.setCategoryName(memberService.getCategoryName(authority.getCategory_no()));
+		}
+		map.put("list", list);
+		map.put("totalPage", memberService.totalPageAuthority(nickname));
 		
 		try {
 			String json = gson.toJson(map);
@@ -925,7 +932,12 @@ public class MemberController {
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("page", page);
-		map.put("list", memberService.authorityAll(map));
+		
+		List<Authority> list = memberService.authorityAll(map);
+		for(Authority authority : list) {
+			authority.setCategoryName(memberService.getCategoryName(authority.getCategory_no()));
+		}
+		map.put("list", list);
 		map.put("totalPage", memberService.allTotalPageAuthority());
 		
 		

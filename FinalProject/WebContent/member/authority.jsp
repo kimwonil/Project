@@ -35,7 +35,7 @@ $(document).ready(function(){
 					$.each(data.list, function(index, value){
 						$('#talentList').append(
 								"<tr height='40px'><td>"+value.no+"</td><td>"+
-								value.category_no+"</td><td>"+
+								value.categoryName+"</td><td>"+
 								value.date+"</td><td>"+
 								(value.state==1?"승인 대기 / <button value='"+value.no+"' type='button' class='btn btn-sm btn-danger authorityDelete' data-toggle='modal' data-target='#deleteModal' >삭제</button>":value.state==2?"승인":"취소")+"</td></tr>"
 						);
@@ -44,9 +44,10 @@ $(document).ready(function(){
 					});
 				}
 			},
-			error:function(){
-				alert("실패");
-			}
+			error:function(jqXHR, textStatus, errorThrown){
+    			alert(textStatus);     //응답상태
+    			alert(errorThrown);     //응답에 대한 메세지
+    		}
 		});
 	}
 	
@@ -96,7 +97,7 @@ $(document).ready(function(){
 					);//append 끝
 				});//each 끝
 			},error:function(jqXHR, textStatus, errorThrown){
-    			alert(textStatus);     //응답상태
+    			alert(textStatus+"여기1?");     //응답상태
     			alert(errorThrown);     //응답에 대한 메세지
     		}
 		});

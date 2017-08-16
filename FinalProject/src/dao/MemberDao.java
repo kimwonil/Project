@@ -40,7 +40,7 @@ public interface MemberDao {
 	public int allTotalPageCash();
 	public List<Exchange> allExchangeList(HashMap<String, Object> map);
 	public int allTotalPageExchange();
-	public int totalPageAuthority(String id);
+	public int totalPageAuthority(String nickname);
 	public int allTotalPageAuthority();
 	
 	//알림에 띄울 확인 안한 메시지 수
@@ -60,4 +60,5 @@ public interface MemberDao {
 	public String bankName(String bank);
 	public List<Bank> bankList();
 	public List<Authority> myAuthority(String nickname);
+	public String getCategoryName(int category_no);
 }

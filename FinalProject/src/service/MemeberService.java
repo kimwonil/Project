@@ -140,8 +140,8 @@ public class MemeberService {
 		return memberDao.allTotalPageExchange();
 	}
 
-	public int totalPageAuthority(String id) {
-		return memberDao.totalPageAuthority(id);
+	public int totalPageAuthority(String nickname) {
+		return memberDao.totalPageAuthority(nickname);
 	}
 
 	public int allTotalPageAuthority() {
@@ -194,6 +194,10 @@ public class MemeberService {
 
 	public List<Authority> myAuthority(String nickname) {
 		return memberDao.myAuthority(nickname);
+	}
+
+	public String getCategoryName(int category_no) {
+		return memberDao.getCategoryName(category_no);
 	}
 	
 }
