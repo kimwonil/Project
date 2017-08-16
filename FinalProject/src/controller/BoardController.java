@@ -537,8 +537,16 @@ public class BoardController{
 		if(boardService.purchseHistory(no)==0  && boardService.dipsHistory(no)==0){
 			show = true;
 		}
-		System.out.println("보여줄지 말지 : "+show);
 		mav.addObject("show", show);
+		
+		String category_major = boardService.category_majorName(board.getCategory_major());//대분류 번호로 이름뽑기
+		mav.addObject("category_major", category_major);
+		
+		HashMap<String, Object> cateMap = new HashMap<>();
+		cateMap.put("no", board.getCategory_minor());
+		cateMap.put("high_no", board.getCategory_major());
+		String category_minor = boardService.category_minorName(cateMap);//소분류 이름 뽑기
+		mav.addObject("category_minor", category_minor);
 		
 		mav.setViewName("board/detail");
 		return mav;
@@ -795,8 +803,6 @@ public class BoardController{
 		}
 		
 		
-		
-		
 		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
 		if(!dir.exists()){//폴더가 없으면 생성
 			dir.mkdirs();
@@ -833,7 +839,13 @@ public class BoardController{
 		
 		//수정 후 페이지 이동
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("board", boardService.selectOneBoard(no));
+		
+		Board board2 = boardService.selectOneBoard(no);
+		board2.setFile_name1(boardService.selectThumbnail(no));//file 테이블에서 썸네일을 넣고
+		board2.ratingForMain();//해당글의 별점 평균을 넣고
+		
+		
+		mav.addObject("board", board2);
 		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
 			mav.addObject("mapinfo", boardService.selectOneMap(no));
 		}
@@ -841,6 +853,14 @@ public class BoardController{
 			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
 		
+		String category_major = boardService.category_majorName(board.getCategory_major());//대분류 번호로 이름뽑기
+		mav.addObject("category_major", category_major);
+		
+		HashMap<String, Object> cateMap = new HashMap<>();
+		cateMap.put("no", board.getCategory_minor());
+		cateMap.put("high_no", board.getCategory_major());
+		String category_minor = boardService.category_minorName(cateMap);//소분류 이름 뽑기
+		mav.addObject("category_minor", category_minor);
 		
 		//글번호에 해당하는 구매이력, 찜 이력이 없으면 판매자가 글수정, 글삭제 가능
 		boolean show = false;

@@ -447,18 +447,42 @@ $(document).ready(function(){
 
 
 
-	//옵션 추가 체크박스 선택
-    $(document).on('click', 'input[type=checkbox]', function(){
-    	if($('input[type=checkbox]').is(':checked')){//체크되면
+// 	//옵션 추가 체크박스 선택
+//     $(document).on('click', 'input[type=checkbox]', function(){
+//     	if($('input[type=checkbox]').is(':checked')){//체크되면
+//     	console.log("체크박스 클릭");
+    		
+//     		$('#optionResult').val(0);
+//     		$('#tableOption').append(
+//     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
+//                      '<tr>'+
+//                         '<td><input type="text" name="option[]" class="optionName"></td>'+
+//                         '<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
+//                      '</tr>'
+//     		);
+//     	}else{//체크 안되면
+//     		console.log("체크안됐어");
+//     		$('#optionResult').val(4);
+//     		$('#tableOption').empty();
+//     	}
+//     });
+
+//옵션 추가 체크박스 선택
+	$("#tableOption").empty();//옵션추가 테이블 일단 숨겨놓고 시작!
+    $('input[type=checkbox]').on('click',function(){
+    	if($(this).is(':checked')){//체크되면
+    		console.log("체크");
     		$('#optionResult').val(0);
-    		$('#tableOption').append(
+    		$('.appendTable').append(
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
                         '<td><input type="text" name="option[]" class="optionName"></td>'+
                         '<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
+//                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
     		);
     	}else{//체크 안되면
+    		console.log("체크노노");
     		$('#optionResult').val(4);
     		$('#tableOption').empty();
     	}
@@ -652,7 +676,7 @@ $(document).ready(function(){
 											</c:when>
 											<c:otherwise>
 												<input type="checkbox" id="optionRadio" checked="checked"> 판매옵션 있음
-												<table id="tableOption">
+												<table id="tableOption" class="appendTable">
 													<tr>
 													<th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th>
 													</tr>
