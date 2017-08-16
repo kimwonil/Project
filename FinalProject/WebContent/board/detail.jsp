@@ -106,6 +106,9 @@ h5 {
 margin-left: auto;
 margin-right: auto;
 }
+#evaluator{
+	padding-left: 40px;
+}
 </style>
 
 <script>
@@ -567,8 +570,8 @@ margin-right: auto;
 								<td colspan="3" style="padding:10px;">${board.title}</td>
 							</tr>
 							<tr>
-								<td style="padding:10px;">${category_major}> ${category_minor}</td>
-								<td width="30%">
+								<td width="70%" style="padding:10px;">${category_major}<br> ${category_minor}</td>
+								<td width="15%">
 									<div class="star-ratings-css">
 
 										<div class="star-ratings-css-top" id="starPercent"
@@ -580,7 +583,7 @@ margin-right: auto;
 										</div>
 									</div>
 								</td>
-								<td>(${board.num_evaluator})</td>
+								<td width="15%"><div id="evaluator">(${board.num_evaluator})</div></td>
 							</tr>
 						</table>
 					</div>
