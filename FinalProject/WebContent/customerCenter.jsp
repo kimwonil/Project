@@ -507,7 +507,7 @@ function qnaList(page,type,keyword,start,end){
 					$('#qnaTable').append("<tr><td>"+data[i].date+"</td><td>"
 							+data[i].no+"</td><td>"
 							+"<a id='"+data[i].no+"'class='QnADetail' data-toggle='modal' data-target='#QnAContentModal'>"
-							+(data[i].open==0?data[i].title:"비공개")+"</a></td><td>"
+							+data[i].title+"</a></td><td>"
 							+(data[i].open==0?data[i].writer:"비공개")+"</td><td>"
 							+(data[i].state==0?"미답변":"답변완료")+"</td><td>"
 							+data[i].read_count+"</td></tr>");
@@ -1717,6 +1717,26 @@ $(document).on('click','#reportResetBtn',function(){
 	left:570px;
 	top:-378px;
 }
+textarea{
+	resize:none;
+}
+#qnaTitle, #reportTitle, #noticeTitle{
+	width: 703px;
+}
+.QnADetail, .ReportDetail, .NoticeDetail{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	width: 300px;
+	height: 20px;
+	display: block;
+}
+#qnaMajor, #reportMajor{
+	width: 200px;
+}
+#qnaMinor, #reportMinor{
+	width: 500px;
+}
 
 </style>
 </head>
@@ -1890,7 +1910,7 @@ $(document).on('click','#reportResetBtn',function(){
 												</tr>
 												<tr>
 													<th>공지 내용</th>
-													<th><textarea rows="10" cols="50" name="content"
+													<th><textarea rows="10" cols="85" name="content"
 															id="noticeContent"></textarea></th>
 												</tr>
 
@@ -1937,12 +1957,12 @@ $(document).on('click','#reportResetBtn',function(){
 												</tr>
 												<tr>
 													<th>질문 내용</th>
-													<th><textarea rows="10" cols="50" name="content"
+													<th><textarea rows="10" cols="85" name="content"
 															id="qnaContent"></textarea></th>
 												</tr>
 												<tr>
 													<th>공개/비공개</th>
-													<th><input type="radio" name="qnaopen" value="0">공개
+													<th><input type="radio" name="qnaopen" value="0" checked="checked">공개
 														<input type="radio" name="qnaopen" value="1">비공개</th>
 												</tr>
 											</table>
@@ -1987,7 +2007,7 @@ $(document).on('click','#reportResetBtn',function(){
 												</tr>
 												<tr>
 													<th>신고 내용</th>
-													<th><textarea rows="10" cols="50" name="content"
+													<th><textarea rows="10" cols="85" name="content"
 															id="reportContent"></textarea></th>
 												</tr>
 
@@ -2019,7 +2039,7 @@ $(document).on('click','#reportResetBtn',function(){
 								<div class="modal-body">
 									<table id="QnADetail">
 										<tr>
-											<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
+											<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;목
 												: <label id="QnAtitleLabel"></label>
 											</td>
 
@@ -2341,7 +2361,7 @@ $(document).on('click','#reportResetBtn',function(){
 								<div class="modal-body">
 									<table id="NoticeDetail">
 										<tr>
-											<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
+											<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;목
 												: <label id="ReporttitleLabel"></label>
 											</td>
 
