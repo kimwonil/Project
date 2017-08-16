@@ -18,7 +18,7 @@
  </select>
  
   <insert id="memberInsert" parameterType="Member">
- 	insert into profile values(#{id}, #{nickname}, null, 0, 0, null, null, #{login})
+ 	insert into profile values(#{id}, #{nickname}, null, 0, 0, null, null, #{login}, null)
   </insert>
   
   <select id="nickNameCheck" parameterType="String" resultType="int">
