@@ -532,6 +532,14 @@ public class BoardController{
 			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
 		
+		//글번호에 해당하는 구매이력, 찜 이력이 없으면 판매자가 글수정, 글삭제 가능
+		boolean show = false;
+		if(boardService.purchseHistory(no)==0  && boardService.dipsHistory(no)==0){
+			show = true;
+		}
+		System.out.println("보여줄지 말지 : "+show);
+		mav.addObject("show", show);
+		
 		mav.setViewName("board/detail");
 		return mav;
 	}
@@ -830,8 +838,18 @@ public class BoardController{
 			mav.addObject("mapinfo", boardService.selectOneMap(no));
 		}
 		if(boardService.selectBoard_option(no) != null){
-			mav.addObject("board_optionList", boardService.selectBoard_option(no));
+			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
+		
+		
+		//글번호에 해당하는 구매이력, 찜 이력이 없으면 판매자가 글수정, 글삭제 가능
+		boolean show = false;
+		if(boardService.purchseHistory(no)==0  && boardService.dipsHistory(no)==0){
+			show = true;
+		}
+		System.out.println("보여줄지 말지 : "+show);
+		mav.addObject("show", show);
+		
 		mav.addObject("files", boardService.selectOneFromFile(no));
 		mav.setViewName("board/detail");
 		return mav;
