@@ -322,7 +322,8 @@ $(document).on('click', '#gageocksun', function(){
 						</c:if>
 					</c:forEach>
 					
-					<c:if test="${paging.currentPage != paging.lastPage && paging.endPage ne 0}">
+<%-- 					<c:if test="${paging.currentPage != paging.lastPage && paging.endPage ne 0}"> --%>
+					<c:if test="${paging.currentPage < paging.lastPage}">
 						<a href="${pageName}?currentPage=${paging.currentPage+1 }">[다음]</a>
 						<a href="${pageName}?currentPage=${paging.lastPage }">[마지막]</a>
 					</c:if>

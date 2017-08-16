@@ -855,7 +855,7 @@ public class BoardController{
 		resp.setContentType("text/html; charset=UTF-8");
 		
 		System.out.println("찜하기  interest.do");
-		int board_no = Integer.parseInt(req.getParameter("no").toString());
+		int board_no = Integer.parseInt(req.getParameter("board_no").toString());
 		System.out.println(board_no);
 		Member member = (Member)session.getAttribute("member");
 		try {
@@ -1032,7 +1032,7 @@ public class BoardController{
 					boardService.updateState(map);
 				}
 				
-				map.put("nickname", member.getNickname());
+				map.put("id", member.getId());
 				map.put("login", member.getLogin());
 				session.setAttribute("member", memberService.selectOne(map));
 				pw.println("{\"result\" : \"구매성공! 구매관리를 확인하세요\", \"state\" : 1}");

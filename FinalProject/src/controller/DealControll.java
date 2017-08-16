@@ -850,9 +850,16 @@ public class DealControll {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=utf-8");
 		ModelAndView mav = new ModelAndView();
+
+		HashMap<String, Object> pagingParam = new HashMap<>();//검색에 필요한 페이징 정보를 맵에 담아서
+		pagingParam.put("category_major", (categoryNo/100)*100);
+		pagingParam.put("category_minor", categoryNo%100);
 		//페이징 부분
-		Paging paging = new Paging(boardService.getCount(), currentPage);
+		Paging paging = new Paging(boardService.getCountCategory(pagingParam), currentPage);
 		paging.boardPaging();
+
+		pagingParam.put("start", paging.getStart());
+		pagingParam.put("end", paging.getEnd());
 		
 		
 		//프리미엄 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
@@ -867,11 +874,6 @@ public class DealControll {
 				
 				//일반 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
 				List<Board> normalList = new ArrayList<>();
-				HashMap<String, Object> pagingParam = new HashMap<>();//검색에 필요한 페이징 정보를 맵에 담아서
-				pagingParam.put("start", paging.getStart());
-				pagingParam.put("end", paging.getEnd());
-				pagingParam.put("category_major", (categoryNo/100)*100);
-				pagingParam.put("category_minor", categoryNo%100);
 				for(Board board : boardService.selectAllNormalBoard(pagingParam)){
 					int no = board.getNo();//글번호
 					String file_name1 = boardService.selectThumbnail(no);
