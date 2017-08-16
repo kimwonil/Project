@@ -49,11 +49,13 @@ display: block;
 overflow: hidden; 
 text-overflow: ellipsis;
 white-space: nowrap; 
-width: 300px;
+width: 260px;
 height: 20px;
 display: block;
 }
-
+#mapTableList{
+	vertical-align: top;
+}
 
 
 </style>
@@ -95,8 +97,8 @@ $(document).ready(function(){
 	  				$.each(data.items, function(index, value){//결과들 table에 표시
 			          	$('#table tbody').append(
 			          		'<tr>'+
-			          		'<td class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
-			          		'<input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</td><td class="tdA">'+value.address + '</td>'+
+			          		'<td><div class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+			          		'<input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</div></td><td><div class="tdA">'+value.address + '</td></td>'+
 			          		'</tr>'
 			          	);
 			        });//each 끝
@@ -668,11 +670,11 @@ $(document).ready(function(){
 
 		<div class="modal-body">
 			<table>
-				<tr><td>
+				<tr><td id="mapTableList" width="50%">
 					<table id="table">
 					<tr><th width="100">명칭</th><th width="230">주소</th></tr>
 					</table>
-				</td><td>
+				</td><td width="50%">
 					<div id="map" style="width:450px;height:400px;text-align: center;"></div>
 				</td></tr>
 			</table>
