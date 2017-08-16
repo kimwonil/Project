@@ -220,7 +220,10 @@ public class BoardService {
 	public int getCountDipsCategory(HashMap<String, Object> params) {
 		return boardDao.getCountDipsCategory(params);
 	}
-	
+
+	public int dipsHistory(int no) {
+		return boardDao.dipsHistory(no);
+	}
 	
 
 	/**
@@ -249,8 +252,18 @@ public class BoardService {
 	public String category_minorName(HashMap<String, Object> cateMap) {
 		return boardDao.category_minorName(cateMap);
 	}
+
+	public Category allowedCategory(int cateNo) {
+		return boardDao.allowedCategory(cateNo);
+	}
 	
 	
+	/**
+	 * 판매자한테 허용된 카테고리만(table : authority)
+	 * */
+	public List<Integer> myAuthority(String nickname) {
+		return boardDao.myAuthority(nickname);
+	}
 
 
 
@@ -311,6 +324,13 @@ public class BoardService {
 	public int premiumUpdate(HashMap<String, Object> map) {
 		return boardDao.premiumUpdate(map);
 	}
+
+
+	public int purchseHistory(int no) {
+		return boardDao.purchseHistory(no);
+	}
+
+
 
 
 

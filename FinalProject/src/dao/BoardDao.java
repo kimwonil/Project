@@ -38,6 +38,7 @@ public interface BoardDao {
 	public int getCountForCategorySearch(HashMap<String, Object> searchMap); //카테고리 검색 record 수
 	public List<Board> gageocksun(HashMap<String, Object> pagingParam);
 	public List<Board> panmaesun(HashMap<String, Object> pagingParam);
+	public List<Board> latest(HashMap<String, Object> pagingParam);
 	
 	
 	//테이블명 : map
@@ -69,6 +70,7 @@ public interface BoardDao {
 	public List<HashMap<String, Object>> dipsWithCategory(HashMap<String, Object> params);
 	public int getCountDips(String id);
 	public int getCountDipsCategory(HashMap<String, Object> params);
+	public int dipsHistory(int no);//글번호에 해당하는 찜내역 있나 조회
 	
 	
 	//테이블명 : star_point
@@ -78,9 +80,13 @@ public interface BoardDao {
 	//테이블명 : category_high
 	public List<Category> category();
 	public List<Category> categoryLow(int high_no);
-	public List<Board> latest(HashMap<String, Object> pagingParam);
 	public String category_majorName(int no);
 	public String category_minorName(HashMap<String, Object> cateMap);
+	public Category allowedCategory(int cateNo);
+
+	
+	//테이블명 : authority
+	public List<Integer> myAuthority(String nickname);
 	
 	
 	//프리미엄 등록
@@ -105,6 +111,9 @@ public interface BoardDao {
 	public Premium newPremium(int no);
 	//기존 등록된 프리미엄 수정
 	public int premiumUpdate(HashMap<String, Object> map);
+	
+	
+	public int purchseHistory(int no);//구매이력 조회
 
 	
 	

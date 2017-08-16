@@ -576,18 +576,18 @@ h5 {
 
 						<div class="item deal-info">
 
-							판매자 닉네임 : <a href="" id="writerProfile"
-								style="display: inline-block;">${board.writer}</a><br>
+							판매자 닉네임 : <a href="" id="writerProfile" style="display: inline-block;">${board.writer}</a><br>
 							<input type="hidden" value="${board.no}" name="no" id="boardNo">
-							<%-- 							<c:choose> --%>
-							<%-- 								<c:when test="${member.admin eq 1}"> --%>
-							<button id="modify" value="${board.state}">글수정</button>
-							<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
-							<%-- 								</c:when> --%>
-							<%-- 								<c:when test="${member.nickname eq board.writer}"> --%>
-							<%-- 									<button id="modify" value="${board.state}">글수정</button> --%>
-							<%-- 								</c:when> --%>
-							<%-- 							</c:choose> --%>
+							<c:choose>
+								<c:when test="${member.admin eq 1}">
+									<button id="modify" value="${board.state}">글수정</button>
+									<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
+								</c:when>
+								<c:when test="${member.nickname eq board.writer && show}">
+									<button id="modify" value="${board.state}">글수정</button>
+									<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
+								</c:when>
+							</c:choose>
 							<br> 등록일 : ${board.date}<br> 마감일 : ${board.end_date}<br>
 							조회수 : ${board.read_count} <br> 인원 또는 건수 :
 							${board.count}/${board.quantity}<br>

@@ -15,7 +15,13 @@
 
 #bckground{
 width: 655px;
-text-align: right;
+}
+
+#bckgrndtable{
+text-align: left;
+}
+#bckground div:last-child{
+text-align: right !important;
 }
 
 #mapContent{
@@ -585,7 +591,7 @@ $(document).ready(function(){
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
 							<form id="detailInfo" action="insertBoard.do" method="post" enctype="multipart/form-data" >
-								<table class="table">
+								<table class="table" id="bckgrndtable">
 									<tr><th>카테고리 </th><th>
 									<select name="major" id="major">
 										<option>대분류</option>
@@ -630,7 +636,7 @@ $(document).ready(function(){
 									</th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">
+								<div><input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!"></div>
 							</form>
 							</div>
 						</div>

@@ -341,11 +341,18 @@ public class BoardController{
 	 * 판매등록하러 갈거야
 	 * */
 	@RequestMapping("boardForm.do")
-	public ModelAndView boardForm(){
+	public ModelAndView boardForm(HttpSession session){
 		ModelAndView mv = new ModelAndView();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		
-		List<Category> categoryList = boardService.category();
-		
+		//내가 권한 가진 카테고리 번호 가져와서 
+		List<Integer> categoryNo = boardService.myAuthority(nickname);
+		//그 번호로 category_high select 해서 리스트에 넣어
+		List<Category> categoryList = new ArrayList<>();
+		for(int cateNo : categoryNo){
+			categoryList.add(boardService.allowedCategory(cateNo));
+		}
+
 		mv.addObject(categoryList);
 		mv.setViewName("board/boardForm");
 		
@@ -566,6 +573,14 @@ public class BoardController{
 		String category_minor = boardService.category_minorName(cateMap);//소분류 이름 뽑기
 		mav.addObject("category_minor", category_minor);
 		
+		//글번호에 해당하는 구매이력, 찜 이력이 없으면 판매자가 글수정, 글삭제 가능
+		boolean show = false;
+		if(boardService.purchseHistory(no)==0  && boardService.dipsHistory(no)==0){
+			show = true;
+		}
+		System.out.println("보여줄지 말지 : "+show);
+		mav.addObject("show", show);
+		
 		mav.setViewName("board/detail");
 		return mav;
 	}
@@ -662,7 +677,7 @@ public class BoardController{
 	 * 글수정 폼요청
 	 * */
 	@RequestMapping("updateBoardForm.do")
-	public ModelAndView updateBoardForm(int no){
+	public ModelAndView updateBoardForm(int no, HttpSession session){
 		System.out.println("updateBoardForm.do");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/updateBoard");
@@ -670,15 +685,20 @@ public class BoardController{
 		//board 뽑아서 보내기
 		mav.addObject("board", boardService.selectOneBoard(no));
 		
-		//카테고리대분류 리스트 뽑기
-		List<Category> categoryList = boardService.category();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
+		
+		//내가 권한 가진 카테고리 번호 가져와서 
+		List<Integer> categoryNo = boardService.myAuthority(nickname);
+		//그 번호로 category_high select 해서 리스트에 넣어
+		List<Category> categoryList = new ArrayList<>();
+		for(int cateNo : categoryNo){
+			categoryList.add(boardService.allowedCategory(cateNo));
+		}
 		mav.addObject("categoryList", categoryList);
-		System.out.println("카테고리 대분류"+categoryList);
 		
 		//해당되는 카테고리 소분류 리스트 뽑기
 		List<Category> categoryLowList = boardService.categoryLow(boardService.selectOneBoard(no).getCategory_major());
 		mav.addObject("categoryLowList", categoryLowList);
-		System.out.println("카테고리 소분류"+categoryLowList);
 		
 		//map에서 주소 뽑아서 보내기
 		mav.addObject("mapinfo", boardService.selectOneMap(no));
@@ -686,9 +706,7 @@ public class BoardController{
 		//board_option 뽑아서 보내기
 		if(!boardService.selectBoard_option(no).isEmpty()){
 			mav.addObject("board_optionList", boardService.selectBoard_option(no));
-			System.out.println("옵션 있음");
 		}
-		System.out.println("옵션없음");
 		//사진파일보내기
 		mav.addObject("files", boardService.selectOneFromFile(no));
 		return mav;

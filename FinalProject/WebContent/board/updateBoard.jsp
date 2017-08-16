@@ -15,7 +15,13 @@
 
 #bckground{
 width: 655px;
-text-align: right;
+}
+
+#bckgrndtable{
+text-align: left;
+}
+#bckground div:last-child{
+text-align: right !important;
 }
 
 #mapContent{
@@ -529,7 +535,7 @@ $(document).ready(function(){
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
 							<form id="detailInfo" action="updateBoard.do" method="post" enctype="multipart/form-data" >
-								<table class="table">
+								<table class="table" id="bckgrndtable">
 									<tr><th>카테고리 </th><th>
 										<select name="major" id="major">
 											<c:forEach items="${categoryList}" var="high">
@@ -617,31 +623,7 @@ $(document).ready(function(){
 					                            </table>
 											</c:otherwise>
 										</c:choose>
-<%-- 										<c:choose> --%>
-<%-- 											<c:when test="${board_optionList ne null || board_optionList ne ''}"> --%>
-<!-- 												<input type="checkbox" id="optionRadio" checked="checked"> 판매옵션 있음 -->
-<!-- 												<table id="tableOption"> -->
-<!-- 													<tr> -->
-<!-- 													<th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th> -->
-<!-- 													</tr> -->
-													
-<%-- 													<c:forEach items="${board_optionList }" var="board_option" varStatus="i"> --%>
-<!-- 														<tr> -->
-<%-- 														<td><input type="text" name="option[]" value="${board_option.kind}"></td> --%>
-<%-- 														<td><input type="text" name="optionPrice[]" value="${board_option.price }"></td> --%>
-<!-- 														<td> -->
-<%-- 														<c:if test="${i.count ne 1}"> --%>
-<!-- 															<button class="delete">삭제</button> -->
-<%-- 														</c:if> --%>
-<!-- 														</td> -->
-<!-- 														</tr> -->
-<%-- 													</c:forEach> --%>
-<!-- 					                            </table> -->
-<%-- 											</c:when> --%>
-<%-- 											<c:otherwise> --%>
-<!-- 												<input type="checkbox" id="optionRadio"> 판매옵션 있음 -->
-<%-- 											</c:otherwise>										  --%>
-<%-- 										</c:choose> --%>
+							
 									</th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> 
 									<div>${files.file_name1}</div>
@@ -658,7 +640,7 @@ $(document).ready(function(){
 									</th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">
+								<div><input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!"></div>
 							</form>
 							</div>
 						</div>
