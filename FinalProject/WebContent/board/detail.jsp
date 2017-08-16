@@ -128,11 +128,12 @@ margin-right: auto;
 			data : $('#boardNo'),
 			dataType : "json",
 			success : function(data) {
+				$('#selectUserReview').empty();
 				$.each(data, function(index, value) {
-					console.log(value.content);
+					console.log(value);
 					//사용자 리뷰 탭에 table만들어서 넣을거야
 					$('#selectUserReview').append(
-						'<table border="1" width="80%">' +
+						'<table width="80%">' +
 						'<tr><td>' + value.nickname + '</td><td>' +
 						'<div class="star-ratings-css">' +
 						'<div class="star-ratings-css-top" style="width:' + value.star * 25 + '%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>' +
@@ -144,6 +145,7 @@ margin-right: auto;
 						'</table>'
 					// '<h5>사용자 리뷰리뷰리뷰</h5>'
 					);
+					
 				});
 			},
 			error : function() {

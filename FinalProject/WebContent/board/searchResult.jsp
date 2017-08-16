@@ -132,7 +132,7 @@ text-align: center;
 									</tr>
 									
 									<tr>
-										<td colspan="3" width="90%" height="20%" class="price">${board.price}</td>
+										<td colspan="3" width="90%" height="20%" class="price"><fmt:formatNumber value="${board.price}" groupingUsed="true"/></td>
 										<td width="10%" class="read_count">조회수${board.read_count}회</td>
 									</tr>
 									

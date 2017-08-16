@@ -142,6 +142,8 @@ $(document).on('click', '#panmaesun', function(){
 $(document).on('click', '#gageocksun', function(){
 	location.href='gageocksun.do';
 });
+
+
 </script>
 
 <body>
@@ -206,7 +208,7 @@ $(document).on('click', '#gageocksun', function(){
 										</tr>
 										
 										<tr>
-											<td colspan="3" width="90%" height="20%" class="price">${premium.price}</td>
+											<td colspan="3" width="90%" height="20%" class="price"><fmt:formatNumber value="${premium.price}" groupingUsed="true"/></td>
 											<td width="10%" class="read_count">조회수${premium.read_count}회</td>
 										</tr>
 										
@@ -281,7 +283,7 @@ $(document).on('click', '#gageocksun', function(){
 								</tr>
 								
 								<tr>
-									<td colspan="3" width="90%" height="20%" class="price">${normal.price}</td>
+									<td colspan="3" width="90%" height="20%" class="price"><fmt:formatNumber value="${normal.price}" groupingUsed="true"/></td>
 									<td width="10%" class="read_count">조회수${normal.read_count}회</td>
 								</tr>
 								
