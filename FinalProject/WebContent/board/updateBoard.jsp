@@ -12,7 +12,6 @@
 
 </head>
 <style>
-
 #bckground{
 width: 655px;
 }
@@ -30,6 +29,47 @@ display : none;
 right: 15%;
 top: 10%;
 border: 1px solid red;
+}
+
+#map{
+float: right;
+}
+
+.tdT{
+overflow: hidden; 
+text-overflow: ellipsis;
+white-space: nowrap; 
+width: 150px;
+height: 20px;
+display: block;
+}
+
+.tdA{
+overflow: hidden; 
+text-overflow: ellipsis;
+white-space: nowrap; 
+width: 260px;
+height: 20px;
+display: block;
+}
+#mapTableList{
+	vertical-align: top;
+}
+
+#bckground input[name="title"]{
+	width: 100%;
+}
+#bckground input[type="date"]{
+	width: 185px;
+}
+#major{
+	width: 30%;
+}
+#minor{
+	width: 69%;
+}
+textarea{
+	resize:none;
 }
 </style>
 
@@ -69,8 +109,8 @@ $(document).ready(function(){
 	  				$.each(data.items, function(index, value){//결과들 table에 표시
 			          	$('#table tbody').append(
 			          		'<tr>'+
-			          		'<td><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
-			          		'<input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</td><td>'+value.address + '</td>'+
+			          		'<td><div class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+			          		'<input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</div></td><td><div class="tdA">'+value.address + '</div></td>'+
 			          		'</tr>'
 			          	);
 			        });//each 끝
@@ -174,7 +214,7 @@ $(document).ready(function(){
 		        
 		        //얘도 리스트 뿌릴수잇나
 	        	$.each(result.items, function(index, value){
-		          	$('#table tbody').append('<tr><td><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'"></td><td>'+ value.address + '</td></tr>');
+		          	$('#table tbody').append('<tr><td><div class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'"></div></td><td><div class="tdA">'+ value.address + '</div></td></tr>');
 		        });
 		        
 	          
@@ -433,88 +473,95 @@ $(document).ready(function(){
 	
    	//글등록
    	$(document).on('click', '#go', function(){
-		if($('#major option:selected').val() == '대분류'){//카테고리
-			console.log('카테고리를 선택하세요');
-			return false;
-		}
-		if($('#minor option:selected').val() == '소분류'){//카테고리
-			console.log('카테고리 소분류를 선택하세요');
-			return false;
-		}
-		if($('input[name=title]').val()=='' || $('input[name=title]').val().trim() == ''){
-			console.log('제목을 쓰세요');
-			return false;
-		}
-		if($('input[name=quantity]').val()=='' || $('input[name=quantity]').val().trim() == ''){
-			console.log('인원 또는 건수를 쓰세요');
-			return false;
-		}
-		if(!$.isNumeric($('input[name=quantity]').val())){
-			console.log('인원 또는 건수에는 숫자를 입력하세요');
-			return false;
-		}
-		if($('input[name=price]').val()=='' || $('input[name=price]').val().trim()==''){
-			console.log('가격을 쓰세요');
-			return false;
-		}
-		if(!$.isNumeric($('input[name=price]').val())){
-			console.log('가격에는 숫자를 입력하세요');
-			return false;
-		}
-		
-		
-		if($('input[type=checkbox]').is(':checked')){
-			var check1 = true;
-			var check2 = true;
-			
-			$.each($('#tableOption').find('.optionName'), function(index, value){
-				if(value.value == ''){
-					alert("옵션종류를 입력하세요");
-					check1 = false;
-					return false;//바깥 each 나가기
-				}
-				if(value.value != ''){
-					$.each($('#tableOption').find('.optionName'), function(index2, value2){
-						if(index != index2){
-							if(value.value == value2.value){
-								alert("옵션종류가 중복됩니다");
-								check1 = false;
-								check2 = false;
-								return false;//내부 each 나가기
-							}
-						}
-					});//inner each 끝
-				}
-				if(!check2){//옵션종류가 중복이면 바깥each 더 돌지말고 나가
-					return false;
-				}
-			});	//옵션종류 each문 끝
-			
-			if(check1){
-				$.each($('#tableOption').find('.optionPrice'), function(index, value){
-					if(value.value == ''){
-						alert("옵션가격을 입력하세요");
-						check1 = false;
-						return false;
-					}else if(!$.isNumeric(value.value)){
-						alert("옵션가격에는 숫자를 입력하세요");
-						check1 = false;
-						return false;
-					}
-				});	//옵션가격 each문 끝
-			}; //if(a)끝
-			if(check1 && check2){
-				return true;
-			}else{
-				return false;
+   		var updateSubmit = confirm("사진파일 미선택시 글에 포함된 사진이 지워집니다. \n수정 하시겠습니까?");
+   		var check=false;
+   		if(updateSubmit){
+			if($('#major option:selected').val() == '대분류'){//카테고리
+				console.log('카테고리를 선택하세요');
+				check = false;
+			}else
+			if($('#minor option:selected').val() == '소분류'){//카테고리
+				console.log('카테고리 소분류를 선택하세요');
+				check = false;
+			}else
+			if($('input[name=title]').val()=='' || $('input[name=title]').val().trim() == ''){
+				console.log('제목을 쓰세요');
+				check = false;
+			}else
+			if($('input[name=quantity]').val()=='' || $('input[name=quantity]').val().trim() == ''){
+				console.log('인원 또는 건수를 쓰세요');
+				check = false;
+			}else
+			if(!$.isNumeric($('input[name=quantity]').val())){
+				console.log('인원 또는 건수에는 숫자를 입력하세요');
+				check = false;
+			}else
+			if($('input[name=price]').val()=='' || $('input[name=price]').val().trim()==''){
+				console.log('가격을 쓰세요');
+				check = false;
+			}else
+			if(!$.isNumeric($('input[name=price]').val())){
+				console.log('가격에는 숫자를 입력하세요');
+				check = false;
 			}
-		};//옵션 입력값 체크
-		return true;
+			
+			
+			if($('input[type=checkbox]').is(':checked')){
+				var check1 = true;
+				var check2 = true;
+				
+				$.each($('#tableOption').find('.optionName'), function(index, value){
+					if(value.value == ''){
+						alert("옵션종류를 입력하세요");
+						check1 = false;
+						check = false;//바깥 each 나가기
+						return;
+					}
+					if(value.value != ''){
+						$.each($('#tableOption').find('.optionName'), function(index2, value2){
+							if(index != index2){
+								if(value.value == value2.value){
+									alert("옵션종류가 중복됩니다");
+									check1 = false;
+									check2 = false;
+									check = false;//내부 each 나가기
+									return;
+								}
+							}
+						});//inner each 끝
+					}
+					if(!check2){//옵션종류가 중복이면 바깥each 더 돌지말고 나가
+						check = false;
+						return;
+					}
+				});	//옵션종류 each문 끝
+				
+				if(check1){
+					$.each($('#tableOption').find('.optionPrice'), function(index, value){
+						if(value.value == ''){
+							alert("옵션가격을 입력하세요");
+							check1 = false;
+							check = false;
+							return;
+						}else if(!$.isNumeric(value.value)){
+							alert("옵션가격에는 숫자를 입력하세요");
+							check1 = false;
+							check = false;
+							return;
+						}
+					});	//옵션가격 each문 끝
+				}; //if(a)끝
+				if(check1 && check2){
+					check = true;
+				}else{
+					check = false;
+				}
+			};//옵션 입력값 체크
+			if(check){
+				$('#detailInfo').submit();
+			};
+	   	};
    	});
-   	
-   	
-   	
-
    	
    	
 });//document.ready
@@ -549,7 +596,6 @@ $(document).ready(function(){
 												
 											</c:forEach>
 										</select> 
-										<br>
 										<select name="minor" id="minor">
 											<c:forEach items="${categoryLowList}" var="low">
 												<c:if test="${low.no eq board.category_minor}">
@@ -628,7 +674,7 @@ $(document).ready(function(){
 									<tr><th>썸네일</th><th> <input type="file" name="files"> 
 									<div>${files.file_name1}</div>
 									</th></tr>
-									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content">${board.content}</textarea> </th></tr>
+									<tr><th>상세내용</th><th> <textarea rows="10" cols="60" name="content">${board.content}</textarea> </th></tr>
 									<tr><th>상세 이미지 또는 동영상</th>
 									<th> 
 										<input type="file" name="files" >
@@ -640,7 +686,7 @@ $(document).ready(function(){
 									</th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<div><input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!"></div>
+								<div><input type="button" class="btn btn-sm btn-primary" id="go" value="GO!"></div>
 							</form>
 							</div>
 						</div>
