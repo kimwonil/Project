@@ -37,10 +37,23 @@
 	#introduce textarea{
 		margin: 10px;
 	}
+	#bottomTable{
+		
+	}
 	</style>
+	<script type="text/javascript">
+		$(document).on('click', '#updateBtn', function(){
+			var length = $('#accountNum').val();
+			if(!$.isNumeric(length) || length.length > 15){
+				alert("숫자만 입력하세요.(15자 이하)");
+				$('#accountNum').focus();
+				$('#accountNum').val(length.substr(0,15));
+			}else{
+				$('#updataForm').submit();
+			}
+		});
 	
-
-	
+	</script>
 	
 	<div id="fh5co-main">
 		<div class="container">
@@ -88,7 +101,7 @@
 							<td><textarea rows="10" cols="75" readonly="readonly">${member.introduce}</textarea></td>
 						</tr>
 					</table>
-					<table>
+					<table id="bottomTable">
 						<tr>
 							<td>판매중 : </td><td><a href="selling.do"><div>${selling}건</div></a></td>
 						</tr>
@@ -151,7 +164,7 @@
 					<h4 class="modal-title">정보 수정</h4>
 				</div>
 				<div class="modal-body">
-					<form action="profileUpdate.do" method="post" enctype="multipart/form-data">
+					<form id="updataForm" action="profileUpdate.do" method="post" enctype="multipart/form-data">
 					<table id="profileTable">
 						<tr>
 							<td width="20%">계좌번호 : </td>
@@ -161,7 +174,7 @@
 										<option value="${bankValue.no}" >${bankValue.bank}</option>
 									</c:forEach>
 								</select>
-							<input type="text" name="account" value="${member.account}"></td>
+							<input id="accountNum" type="text" name="account" value="${member.account}"></td>
 						</tr>
 						<tr>
 							<td>소개글 : </td>
@@ -171,7 +184,7 @@
 							<td>사진 : </td><td><input type="file" name="file"></td>
 						</tr>
 					</table>
-					<input type="submit" value="수정" class="btn-sm btn-info">
+					<input id="updateBtn" type="button" value="수정" class="btn-sm btn-info">
 					</form>
 				</div>
 			</div>
