@@ -644,7 +644,7 @@ $(document).ready(function(){
 									</th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="60" name="content"></textarea> </th></tr>
-									<tr><th>상세 이미지 <br>또는 동영상</th>
+									<tr><th>상세 이미지</th>
 									<th> 
 									<input type="file" name="files">
 									<input type="file" name="files">

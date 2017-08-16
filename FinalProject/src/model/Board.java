@@ -45,6 +45,9 @@ public class Board {
 	}
 	
 	
+	
+	
+	
 	public float getRatingForDetail() {
 		return ratingForDetail;
 	}

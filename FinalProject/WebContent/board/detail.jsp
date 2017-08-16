@@ -109,6 +109,14 @@ margin-right: auto;
 #evaluator{
 	padding-left: 40px;
 }
+
+#selectUserReview table{
+width: 100%;
+}
+
+.smaller{
+font-size: smaller;
+}
 </style>
 
 <script>
@@ -133,8 +141,8 @@ margin-right: auto;
 					console.log(value);
 					//사용자 리뷰 탭에 table만들어서 넣을거야
 					$('#selectUserReview').append(
-						'<table width="80%">' +
-						'<tr><td>' + value.nickname + '</td><td>' +
+						'<table>' +
+						'<tr class="smaller"><td>' + value.nickname + '</td><td>' +
 						'<div class="star-ratings-css">' +
 						'<div class="star-ratings-css-top" style="width:' + value.star * 25 + '%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>' +
 						'<div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>' +
@@ -152,7 +160,22 @@ margin-right: auto;
 				alert("실패");
 			}
 		}); //ajax 끝
-
+	}
+	
+	
+	function notice(){
+		$('#notice').empty();
+		$('#notice').append(
+			'<table boarder="1"'>+
+			'<tr><td>'+
+			'· 판매자의 설명과 옵션을 다시 한번 확인하시기 바랍니다.<br>'+
+			'· 판매자가 직거래를 요구하는 경우, 즉시 고객센터로 신고해 주십시오.<br>'+
+			'· 본 사이트의 결제시스템을 이용하지 않고 판매자와 직거래를 하는 경우, 문제발생 시 아무런 도움을 드릴 수 없습니다.<br>'+
+			'· 직거래로 인한 피해발생시 ShareAbility는 이에 대한 일체의 책임을 지지 않습니다.'+
+			'· 구매한 공유가 설명과 다르거나 판매자와 연락이 되지 않는 경우, 고객센터로 연락 주시기 바랍니다.<br>'+
+			'</td></tr>'+
+			'<table>'
+		);
 	}
 </script>
 
@@ -246,7 +269,10 @@ margin-right: auto;
 		$(document).on('click', '#selectUserReviewBTN', function() {
 			selectUserReview();
 		})
-
+		
+		$(document).on('click', '#noticeBTN', function() {
+			notice();
+		})
 
 
 		//판매자 아이디 마우스 오버 했을때 정보 보여주는부분
@@ -672,7 +698,7 @@ margin-right: auto;
 					<div id="tabs">
 						<ul>
 							<li><a href="#tabs-1">상세정보</a></li>
-							<li><a href="#tabs-2">주문시 유의사항</a></li>
+							<li><a href="#tabs-2" id="noticeBTN">주문시 유의사항</a></li>
 							<li><a href="#tabs-3" id="selectUserReviewBTN">사용자 리뷰</a></li>
 						</ul>
 						<div id="tabs-1">
@@ -680,7 +706,7 @@ margin-right: auto;
 							<div id="img"></div>
 						</div>
 						<div id="tabs-2">
-							<p>주문시 유의사항 내용</p>
+							<div id="notice"></div>
 						</div>
 						<div id="tabs-3">
 							<div id="selectUserReview"></div>
