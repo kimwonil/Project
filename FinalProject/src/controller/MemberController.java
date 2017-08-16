@@ -887,7 +887,7 @@ public class MemberController {
 	 * */
 	@RequestMapping("authorityList.do")
 	public void authorityList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String id = ((Member)session.getAttribute("member")).getId();
+		String id = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("id", id);
