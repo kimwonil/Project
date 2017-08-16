@@ -592,7 +592,7 @@ $(document).ready(function(){
 							<div class="fh5co-pricing-table" id="bckground">
 							<form id="detailInfo" action="insertBoard.do" method="post" enctype="multipart/form-data" >
 								<table class="table" id="bckgrndtable">
-									<tr><th>카테고리 </th><th>
+									<tr><th>* 카테고리 </th><th>
 									<select name="major" id="major">
 										<option>대분류</option>
 										<c:forEach items="${categoryList}" var="high">
@@ -670,7 +670,7 @@ $(document).ready(function(){
 			<table>
 				<tr><td>
 					<table id="table">
-					<tr><th>명칭</th><th>주소</th></tr>
+					<tr><th width="100">명칭</th><th width="230">주소</th></tr>
 					</table>
 				</td><td>
 					<div id="map" style="width:450px;height:400px;text-align: center;"></div>
