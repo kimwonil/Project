@@ -91,6 +91,7 @@ padding: 15px;
 .thumbnail {
 	width: 573px;
 	height: 500px;
+	margin: 0px auto;
 }
 
 #fh5co-board .item .fh5co-desc {
@@ -196,10 +197,11 @@ margin-right: auto;
 				});
 
 				infowindow.open(map, marker);
-
+				$('#map').css("display","block");
 			}, //success 끝
 			error : function() {
-				$('#map').append('<h5>전지역 가능</h5>');
+				$('#map').css("display","none");
+				$('#allRound').append('<h5>전지역 가능</h5>');
 			} //error 끝
 		}); //ajax끝
 
@@ -539,7 +541,7 @@ margin-right: auto;
 			<div class="row">
 
 				<div id="fh5co-board" data-columns>
-				<table border="1" id="test" width="950px">
+				<table id="test" width="950px">
 				<tr><td>
 				
 					<div class="item deal-position">
@@ -562,10 +564,10 @@ margin-right: auto;
 
 						<table>
 							<tr>
-								<td colspan="3"><div class="fh5co-desc">${board.title}</div></td>
+								<td colspan="3" style="padding:10px;">${board.title}</td>
 							</tr>
 							<tr>
-								<td>${category_major}> ${category_minor}</td>
+								<td style="padding:10px;">${category_major}> ${category_minor}</td>
 								<td width="30%">
 									<div class="star-ratings-css">
 
@@ -655,6 +657,7 @@ margin-right: auto;
 							<button id="msgModal">쪽지문의</button>
 						</p>
 						장소<br>
+						<div id="allRound"></div>
 						<div id="map" style="width: :250px; height: 250px;"></div>
 					</div>
 				</td></tr>
