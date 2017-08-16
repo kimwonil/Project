@@ -446,34 +446,18 @@ $(document).ready(function(){
    	
 
 
-
-// 	//옵션 추가 체크박스 선택
-//     $(document).on('click', 'input[type=checkbox]', function(){
-//     	if($('input[type=checkbox]').is(':checked')){//체크되면
-//     	console.log("체크박스 클릭");
-    		
-//     		$('#optionResult').val(0);
-//     		$('#tableOption').append(
-//     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
-//                      '<tr>'+
-//                         '<td><input type="text" name="option[]" class="optionName"></td>'+
-//                         '<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
-//                      '</tr>'
-//     		);
-//     	}else{//체크 안되면
-//     		console.log("체크안됐어");
-//     		$('#optionResult').val(4);
-//     		$('#tableOption').empty();
-//     	}
-//     });
+   	
+   	
+   	
+   	
 
 //옵션 추가 체크박스 선택
 	$("#tableOption").empty();//옵션추가 테이블 일단 숨겨놓고 시작!
-    $('input[type=checkbox]').on('click',function(){
+    $('#optionRadio').on('click',function(){
     	if($(this).is(':checked')){//체크되면
     		console.log("체크");
     		$('#optionResult').val(0);
-    		$('.appendTable').append(
+    		$('#optionTable').append(
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
                         '<td><input type="text" name="option[]" class="optionName"></td>'+
@@ -484,7 +468,7 @@ $(document).ready(function(){
     	}else{//체크 안되면
     		console.log("체크노노");
     		$('#optionResult').val(4);
-    		$('#tableOption').empty();
+    		$('#optionTable').empty();
     	}
     });
 	
@@ -589,6 +573,28 @@ $(document).ready(function(){
 	   	};
    	});
    	
+  //옵션 가져오기
+	function bringOption(no){
+	    alert(no);
+	  	$.ajax({
+	  		url:"bringOption.do",
+	  		type:"POST",
+	  		data:{
+	  			no:no
+	  		},
+	  		dataType:"json",
+	  		success:function(data){
+	  			console.log(data);
+	  			alert("성공");
+	  		},
+	  		error:function(){
+	  			alert("실패");
+	  		}
+	  	});
+    };
+   	
+   	bringOption($('#hidn6').val());
+   	
    	
 });//document.ready
 </script>
@@ -660,7 +666,7 @@ $(document).ready(function(){
 										<input type="hidden" id="hidn3" name="info_title" value="${mapinfo.title }">
 										<input type="hidden" id="hidn4" name="lat" value="${mapinfo.lat}">
 										<input type="hidden" id="hidn5" name="lng" value="${mapinfo.lng}">
-										<input type="hidden" name="no" value="${board.no}">
+										<input type="hidden" id="hidn6" name="no" value="${board.no}">
 										<c:if test="${board_optionList eq null}">
 										<input type="hidden" id="optionResult" name="optionResult" value="4">
 										</c:if>
@@ -668,35 +674,13 @@ $(document).ready(function(){
 										<input type="hidden" id="optionResult" name="optionResult" value="0">
 										</c:if>
 									</th></tr>
-									<tr><th>기본가격</th><th> <input type="text" name="price" value="${board.price}"> </th></tr>
-									<tr><th>옵션사항</th><th>
-										<c:choose>
-											<c:when test="${board_optionList eq null}">
-												<input type="checkbox" id="optionRadio"> 판매옵션 있음
-											</c:when>
-											<c:otherwise>
-												<input type="checkbox" id="optionRadio" checked="checked"> 판매옵션 있음
-												<table id="tableOption" class="appendTable">
-													<tr>
-													<th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th>
-													</tr>
-													
-													<c:forEach items="${board_optionList }" var="board_option" varStatus="i">
-														<tr>
-														<td><input type="text" name="option[]" value="${board_option.kind}"></td>
-														<td><input type="text" name="optionPrice[]" value="${board_option.price }"></td>
-														<td>
-														<c:if test="${i.count ne 1}">
-															<button class="delete">삭제</button>
-														</c:if>
-														</td>
-														</tr>
-													</c:forEach>
-					                            </table>
-											</c:otherwise>
-										</c:choose>
-							
-									</th></tr>
+									<tr><th>기본가격</th><td><input type="text" name="price" value="${board.price}"> </td></tr>
+									<tr><th>옵션사항</th>
+									<td>
+									<div><input type="checkbox" id="optionRadio">옵션 여부</div>
+										<table id="optionTable">
+										</table>
+									</td></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> 
 									<div>${files.file_name1}</div>
 									</th></tr>
