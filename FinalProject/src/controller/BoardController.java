@@ -721,8 +721,11 @@ public class BoardController{
 		mav.addObject("mapinfo", boardService.selectOneMap(no));
 		
 		//board_option 뽑아서 보내기
-		if(!boardService.selectBoard_option(no).isEmpty()){
-			mav.addObject("board_optionList", boardService.selectBoard_option(no));
+		List<HashMap<String, Object>> list = boardService.selectBoard_option(no);
+		System.out.println("리스트 확인");
+		System.out.println(list);
+		if(!list.isEmpty()){
+			mav.addObject("board_optionList", list);
 		}
 		//사진파일보내기
 		mav.addObject("files", boardService.selectOneFromFile(no));
