@@ -24,15 +24,16 @@ $(document).ready(function(){
 			},
 			dataType:"json",
 			success:function(data){
-				console.log(data);
+// 				console.log(data);
 				$('#talentList tr:gt(0)').remove();
 				if(data.list == ""){
 					$('#talentList').append('<tr><td colspan="6">내역이 없습니다.</td></tr>');
 				}else{
 					$.each(data.list, function(index, value){
+						console.log(value);
 						$('#talentList').append(
 							"<tr><td>"+value.no+"</td><td>"+
-							value.id+"</td><td>"+
+							value.nickname+"</td><td>"+
 							value.categoryName+"</td><td>"+
 							value.date+"</td><td>"+
 							"<button value='"+value.no+"' class='btn-sm btn-info detailBtn'>상세보기</button></td><td>"+
@@ -238,7 +239,7 @@ $(document).ready(function(){
 					<table id="talentList">
 						<tr>
 							<td>번호</td>
-							<td>아이디</td>
+							<td>닉네임</td>
 							<td>재능</td>
 							<td>신청일시</td>
 							<td>첨부</td>
