@@ -21,14 +21,15 @@
 						console.log(data);
 						$('#memberTable tr:gt(0)').remove();
 						for(var i=0;i<data.length;i++){
-							$('#memberTable').append("<tr><td><input type='radio' name='memberCheck' value='"+data[i].id+"'></td><td>"
-									+data[i].id+"</td><td>"
-									+data[i].nickName+"</td><td>"
-									+data[i].photo+"</td><td>"
-									+numberWithCommas(data[i].balance)+"</td><td>"
-									+(data[i].admin==1?"관리자":"일반회원")+"</td></tr>");
-						}
-						
+								$('#memberTable').append("<tr><td><input type='radio' name='memberCheck' value='"+data[i].id+"'></td><td>"
+										+data[i].id+"</td><td>"
+										+data[i].nickname+"</td><td>"
+										+data[i].photo+"</td><td>"
+										+numberWithCommas(data[i].balance)+"</td><td>"
+										+(data[i].login==1?"네이버":data[i].login==2?"카카오":"구글")+"</td><td>"
+										+(data[i].admin==1?"관리자":"일반회원")+"</td></tr>");
+							}
+						$('#memberTable input[type="radio"]:eq(0)').attr("checked", "checked");
 					},
 					error:function(){
 						alert("실패");
@@ -59,9 +60,10 @@
 						
 						$('#updateTable').append(
 								"<tr><td width='20%'>아이디</td><td width='40%'><label id='memberId'>"+data.id+"</label></td></tr>"
-								+"<tr><td>닉네임</td><td><input id='memberNickname' type='text' value='"+data.nickName+"'></td></tr>"
+								+"<tr><td>닉네임</td><td><input id='memberNickname' type='text' value='"+data.nickname+"'></td></tr>"
 								+"<tr><td>사진</td><td><label id='memberPhoto'>"+data.photo+"</label></td></tr>"
 								+"<tr><td>포인트</td><td><input id='memberBalance' type='text' value='"+data.balance+"'></td></tr>"
+								+"<tr><td>종류</td><td>"+(data.login==1?"네이버":data.login==2?"카카오":"구글")+"</td></tr>"
 								+"<tr><td>비고</td><td>"+select+"</td></tr>"
 						);
 					},
@@ -117,7 +119,6 @@
 					}
 				});
 			});
-			
 		});//document.ready
 	
 	
@@ -165,8 +166,9 @@
 							<td width="20%">아이디</td>
 							<td width="20%">닉네임</td>
 							<td width="20%">사진</td>
-							<td width="15%">포인트</td>
-							<td width="15%">비고</td>
+							<td width="10%">포인트</td>
+							<td width="10%">종류</td>
+							<td width="10%">비고</td>
 						</tr>
 						
 					</table>

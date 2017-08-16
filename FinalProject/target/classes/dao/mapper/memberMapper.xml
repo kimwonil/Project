@@ -30,31 +30,31 @@
  </update>
  
  <delete id="memberDelete" parameterType="String">
- 	delete from profile where id=#{id}
+ 	delete from profile where nickname=#{nickname}
  </delete>
  
  <update id="refillCash" parameterType="Member">
- 	update profile set balance=#{balance} where id=#{id}
+ 	update profile set balance=#{balance} where nickname=#{nickname}
  </update>
  
  <insert id="cashRecord" parameterType="Member">
-	insert into cash values(0, #{id}, sysdate(), #{amount}, #{balance}, #{code}, 1)
+	insert into cash values(0, #{nickname}, sysdate(), #{amount}, #{balance}, #{code}, 1)
  </insert>
  
  <select id="cashList" parameterType="java.util.HashMap" resultType="CashRecord">
- 	select * from cash where id=#{id} order by no desc limit #{page}, 10
+ 	select * from cash where nickname=#{nickname} order by no desc limit #{page}, 10
  </select>
  
  <insert id="exchange" parameterType="java.util.HashMap">
- 	insert into exchange values(0, sysdate(), #{amount}, #{balance}, 1, #{id})
+ 	insert into exchange values(0, sysdate(), #{amount}, #{balance}, 1, #{nickname})
  </insert>
  
  <update id="changeBalance" parameterType="java.util.HashMap">
- 	update profile set balance=#{balance} where id=#{id}
+ 	update profile set balance=#{balance} where nickname=#{nickname}
  </update>
  
  <select id="exchangeList" parameterType="java.util.HashMap" resultType="Exchange">
- 	select * from exchange where id=#{id} order by no desc limit #{page}, 10
+ 	select * from exchange where nickname=#{nickname} order by no desc limit #{page}, 10
  </select>
  
  <update id="exchangeManager" parameterType="java.util.HashMap">
@@ -82,7 +82,7 @@
  </insert>
  
  <insert id="authorityReg" parameterType="java.util.HashMap">
- 	insert into authority values(0, #{id}, #{category_no}, sysdate(), 1)
+ 	insert into authority values(0, #{nickname}, #{category_no}, sysdate(), 1)
  	
  	<selectKey keyProperty="no" order="AFTER" resultType="int">
        	SELECT MAX(no) AS no FROM authority
@@ -94,19 +94,19 @@
  </insert>
 
  <select id="authorityList" parameterType="java.util.HashMap" resultType="Authority">
- 	select * from authority where id=#{id} order by no limit #{page}, 7
+ 	select * from authority where nickname=#{nickname} order by no limit #{page}, 7
  </select>
  
  <select id="myAuthority" parameterType="String" resultType="Authority">
- 	select * from authority where id=#{nickname}
+ 	select * from authority where nickname=#{nickname}
  </select>
  
  <select id="totalPageAuthority" parameterType="java.util.HashMap" resultType="int">
- 	select count(no) from authority where id=#{id}
+ 	select count(no) from authority where nickname=#{nickname}
  </select>
  
  <select id="authorityAll" parameterType="java.util.HashMap" resultType="Authority">
- 	select authority.no as no, authority.id as id, authority.category_no as category_no, authority.date as date, authority.state as state, authority_file.file1 as file1, authority_file.file2 as file2, authority_file.file3 as file3
+ 	select authority.no as no, authority.nickname as nickname, authority.category_no as category_no, authority.date as date, authority.state as state, authority_file.file1 as file1, authority_file.file2 as file2, authority_file.file3 as file3
 	from authority join authority_file
 	on authority.no = authority_file.authority_no 
 	where state=1 order by no desc limit #{page}, 7
@@ -129,15 +129,15 @@
  </select>
  
  <select id="countAuthority" parameterType="String" resultType="int">
- 	select count(no) from authority where id=#{nickname}
+ 	select count(no) from authority where nickname=#{nickname}
  </select>
 
  <select id="totalPageCash" parameterType="String" resultType="int">
- 	select count(no) from cash where id=#{id}
+ 	select count(no) from cash where nickname=#{nicname}
  </select>
 
  <select id="totalPageExchange" parameterType="String" resultType="int">
- 	select count(no) from exchange where id=#{id}
+ 	select count(no) from exchange where nickname=#{nickname}
  </select>
 
  <select id="allCashList" parameterType="int" resultType="CashRecord">
@@ -187,6 +187,10 @@
  
  <select id="bankList" resultType="Bank">
  	select * from bank
+ </select>
+ 
+ <select id="getCategoryName" parameterType="int" resultType="String">
+ 	select category_name from category_high where no=#{category_no}
  </select>
  </mapper>
  

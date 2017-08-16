@@ -20,7 +20,7 @@ function profileContent(){
 			$('#messageNum').text(data.message);
 		},
 		error:function(jqXHR, textStatus, errorThrown){
-			alert(textStatus);     //응답상태
+			alert(textStatus+"여기2?");     //응답상태
 			alert(errorThrown);     //응답에 대한 메세지
 		}
 	});

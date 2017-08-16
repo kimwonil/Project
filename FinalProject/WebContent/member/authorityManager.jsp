@@ -33,7 +33,7 @@ $(document).ready(function(){
 						$('#talentList').append(
 							"<tr><td>"+value.no+"</td><td>"+
 							value.id+"</td><td>"+
-							value.category_no+"</td><td>"+
+							value.categoryName+"</td><td>"+
 							value.date+"</td><td>"+
 							"<button value='"+value.no+"' class='btn-sm btn-info detailBtn'>상세보기</button></td><td>"+
 							"<button type='button' value='"+value.no+"' class='btn btn-sm btn-info approvalBtn' >승인</button> / <button type='button' value='"+value.no+"' class='btn btn-sm btn-danger cancelBtn' >취소</button></td></tr>"

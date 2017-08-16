@@ -2,7 +2,7 @@ package model;
 
 public class Authority {
 	private int no;
-	private String id;
+	private String nickname;
 	private int category_no;
 	private String categoryName;
 	private String date;
@@ -17,10 +17,10 @@ public class Authority {
 	}
 
 
-	public Authority(int no, String id, int category_no, String date, int state) {
+	public Authority(int no, String nickname, int category_no, String date, int state) {
 		super();
 		this.no = no;
-		this.id = id;
+		this.nickname = nickname;
 		this.category_no = category_no;
 		this.date = date;
 		this.state = state;
@@ -29,11 +29,11 @@ public class Authority {
 	
 
 
-	public Authority(int no, String id, int category_no, String date, int state, String file1, String file2,
+	public Authority(int no, String nickname, int category_no, String date, int state, String file1, String file2,
 			String file3) {
 		super();
 		this.no = no;
-		this.id = id;
+		this.nickname = nickname;
 		this.category_no = category_no;
 		this.date = date;
 		this.state = state;
@@ -66,12 +66,12 @@ public class Authority {
 
 
 	public String getId() {
-		return id;
+		return nickname;
 	}
 
 
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String nickname) {
+		this.nickname = nickname;
 	}
 
 
@@ -139,7 +139,7 @@ public class Authority {
 
 	@Override
 	public String toString() {
-		return "Authority [no=" + no + ", id=" + id + ", category_no=" + category_no + ", date=" + date + ", state="
+		return "Authority [no=" + no + ", nickname=" + nickname + ", category_no=" + category_no + ", date=" + date + ", state="
 				+ state + ", file1=" + file1 + ", file2=" + file2 + ", file3=" + file3 + "]";
 	}
 
