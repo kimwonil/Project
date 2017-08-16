@@ -1695,8 +1695,27 @@ $(document).on('click','#reportResetBtn',function(){
 	border-bottom: 1px solid #e4e4e4;
 	border-top: 1px solid #e4e4e4;
 }
+#tabs-2, #tabs-1, #tabs-3{
+	height: 370px;
+}
+#tabs-1 div, #tabs-2 div, #tabs-3 div{
+	text-align:center;
+	position: absolute;
+	top: 90%;
+	left: 4%;
+}
 #tabs table{
 	text-align: center;
+}
+.col-md-8{
+	position: relative;
+	left: 10%;
+	top:-50px;
+}
+.btn-group .btn{
+	position: absolute;
+	left:570px;
+	top:-378px;
 }
 
 </style>
@@ -1714,10 +1733,7 @@ $(document).on('click','#reportResetBtn',function(){
 							<li><a href="#tabs-1" id="noticeList">공지사항</a></li>
 							<li><a href="#tabs-2" id="qnaList">Q & A</a></li>
 							<li><a href="#tabs-3" id="reportList">신 고</a></li>
-
 						</ul>
-
-						<div class="fh5co-spacer fh5co-spacer-sm"></div>
 						<div id="tabs-1">
 							<table id="noticeTable" 
 								style="width: 100%;">
@@ -1730,13 +1746,6 @@ $(document).on('click','#reportResetBtn',function(){
 									</tr>
 
 							</table>
-
-							<!-- 							<div class="text-center"> -->
-							<!-- 								<ul class="pagination" id="noticePage"> -->
-
-
-							<!-- 								</ul> -->
-							<!-- 							</div> -->
 							<table id="noticePage"
 								style="width: 100%; margin-left: auto; margin-right: auto;">
 								<tr>
@@ -1756,9 +1765,7 @@ $(document).on('click','#reportResetBtn',function(){
 								<button id="noticeSerchBtn">검색</button>
 								<button id="noticeResetBtn">검색초기화</button>
 							</div>
-
 							<br>
-
 							<c:choose>
 								<c:when test="${member.admin==1}">
 									<div class="form-group" style="text-align: right;">
@@ -1768,9 +1775,93 @@ $(document).on('click','#reportResetBtn',function(){
 									</div>
 								</c:when>
 							</c:choose>
+						</div>
+						<div id="tabs-2">
+							<table id="qnaTable" 
+								style="width: 100%;">
+								<tr>
+									<th width="15%">등록일</th>
+									<th width="10%">글번호</th>
+									<th width="28%">글제목</th>
+									<th width="22%">작성자</th>
+									<th width="15%">답변상태</th>
+									<th width="10%">조회수</th>
+								</tr>
+							</table>
+							<table id="qnaPage" style="width: 100%;" align="center">
+								<tr>
+									<th></th>
+								</tr>
+							</table>
+							<br>
+							<div>
+								<input type="date" id="qnastartDate"> <input type="date"
+									id="qnaendDate"> <select style="height: 32px;"
+									name="qnaSerch" id="qnaSerch">
+									<option value="0">검색조건</option>
+									<option value="1">닉네임</option>
+									<option value="2">글제목</option>
+								</select> <input type="text" id="qnaSerchKeyword" style="width: 130px;">
+								<button id="qnaSerchBtn">검색</button>
+								<button id="qnaResetBtn">검색초기화</button>
+							</div>
+							<br>
+							<c:choose>
+								<c:when test="${member.admin==0 || member.admin==1}">
+							<div class="form-group btn-group" style="text-align: right;">
+								<button type="button" class="btn btn-info btn-sm"
+									data-toggle="modal" data-target="#QnAinsertModal"
+									id="QnAinsertBtn">Q&A 등록</button>
+							</div>
+							</c:when>
+							</c:choose>
+
+							
+						</div>
+						<div id="tabs-3">
 
 
-							<!-- Modal -->
+
+							<table id="reportTable" 
+								style="width: 100%;">
+								<tr>
+									<th width="15%">등록일</th>
+									<th width="10%">글번호</th>
+									<th width="28%">글제목</th>
+									<th width="22%">작성자</th>
+									<th width="15%">처리상태</th>
+									<th width="10%">조회수</th>
+								</tr>
+
+							</table>
+							<table id="reportPage" style="width: 100%;">
+								<tr>
+									<th></th>
+								</tr>
+							</table>
+
+							<br>
+							<div>
+								<input type="date" id="reportstartDate" size="40"> <input
+									type="date" id="reportendDate" width="15%"> <select
+									style="height: 32px;" name="reportSerch" id="reportSerch">
+									<option value="0">검색조건</option>
+									<option value="1">닉네임</option>
+									<option value="2">글제목</option>
+								</select> <input type="text" id="reportSerchKeyword"
+									style="width: 130px;">
+								<button id="reportSerchBtn">검색</button>
+								<button id="reportResetBtn">검색초기화</button>
+							</div>
+							<br>
+							<div class="form-group btn-group" style="text-align: right;">
+								<button type="button" class="btn btn-info btn-sm"
+									data-toggle="modal" data-target="#ReportinsertModal"
+									id="ReportinsertBtn">신고 등록</button>
+							</div>
+						</div>
+					</div>
+					<!-- Modal -->
 							<div class="modal fade" id="NoticeinsertModal" role="dialog">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content">
@@ -1804,7 +1895,6 @@ $(document).on('click','#reportResetBtn',function(){
 												</tr>
 
 											</table>
-											<div class="fh5co-spacer fh5co-spacer-sm"></div>
 											<input type="button" class="btn btn-sm btn-primary"
 												id="noticeinsert" value="공지 등록">
 											<button type="button" class="btn btn-primary btn-sm"
@@ -1816,57 +1906,8 @@ $(document).on('click','#reportResetBtn',function(){
 									</div>
 								</div>
 							</div>
-
-
-
-						</div>
-						<div id="tabs-2">
-
-
-
-							<table id="qnaTable" 
-								style="width: 100%;">
-								<tr>
-									<th width="15%">등록일</th>
-									<th width="10%">글번호</th>
-									<th width="28%">글제목</th>
-									<th width="22%">작성자</th>
-									<th width="15%">답변상태</th>
-									<th width="10%">조회수</th>
-
-								</tr>
-
-
-							</table>
-							<table id="qnaPage" style="width: 100%;" align="center">
-								<tr>
-									<th></th>
-								</tr>
-							</table>
-							<br>
-							<div>
-								<input type="date" id="qnastartDate"> <input type="date"
-									id="qnaendDate"> <select style="height: 32px;"
-									name="qnaSerch" id="qnaSerch">
-									<option value="0">검색조건</option>
-									<option value="1">닉네임</option>
-									<option value="2">글제목</option>
-								</select> <input type="text" id="qnaSerchKeyword" style="width: 130px;">
-								<button id="qnaSerchBtn">검색</button>
-								<button id="qnaResetBtn">검색초기화</button>
-							</div>
-							<br>
-							<c:choose>
-								<c:when test="${member.admin==0 || member.admin==1}">
-							<div class="form-group" style="text-align: right;">
-								<button type="button" class="btn btn-info btn-lg"
-									data-toggle="modal" data-target="#QnAinsertModal"
-									id="QnAinsertBtn">Q & A 등록</button>
-							</div>
-							</c:when>
-							</c:choose>
-
-							<!-- Modal -->
+					
+					<!-- Modal -->
 							<div class="modal fade" id="QnAinsertModal" role="dialog">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content">
@@ -1905,7 +1946,6 @@ $(document).on('click','#reportResetBtn',function(){
 														<input type="radio" name="qnaopen" value="1">비공개</th>
 												</tr>
 											</table>
-											<div class="fh5co-spacer fh5co-spacer-sm"></div>
 											<input type="button" class="btn btn-sm btn-primary"
 												id="qnainsert" value="질문하기">
 											<button type="button" class="btn btn-primary btn-sm"
@@ -1917,49 +1957,7 @@ $(document).on('click','#reportResetBtn',function(){
 									</div>
 								</div>
 							</div>
-						</div>
-						<div id="tabs-3">
-
-
-
-							<table id="reportTable" 
-								style="width: 100%;">
-								<tr>
-									<th width="15%">등록일</th>
-									<th width="10%">글번호</th>
-									<th width="28%">글제목</th>
-									<th width="22%">작성자</th>
-									<th width="15%">처리상태</th>
-									<th width="10%">조회수</th>
-								</tr>
-
-							</table>
-							<table id="reportPage" style="width: 100%;">
-								<tr>
-									<th></th>
-								</tr>
-							</table>
-
-							<br>
-							<div>
-								<input type="date" id="reportstartDate" size="40"> <input
-									type="date" id="reportendDate" width="15%"> <select
-									style="height: 32px;" name="reportSerch" id="reportSerch">
-									<option value="0">검색조건</option>
-									<option value="1">닉네임</option>
-									<option value="2">글제목</option>
-								</select> <input type="text" id="reportSerchKeyword"
-									style="width: 130px;">
-								<button id="reportSerchBtn">검색</button>
-								<button id="reportResetBtn">검색초기화</button>
-							</div>
-							<br>
-							<div class="form-group" style="text-align: right;">
-								<button type="button" class="btn btn-info btn-lg"
-									data-toggle="modal" data-target="#ReportinsertModal"
-									id="ReportinsertBtn">신고 등록</button>
-							</div>
-							<!-- Modal -->
+					<!-- Modal -->
 							<div class="modal fade" id="ReportinsertModal" role="dialog">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content">
@@ -1994,7 +1992,6 @@ $(document).on('click','#reportResetBtn',function(){
 												</tr>
 
 											</table>
-											<div class="fh5co-spacer fh5co-spacer-sm"></div>
 											<input type="button" class="btn btn-sm btn-primary"
 												id="reportinsert" value="신고하기">
 											<button type="button" class="btn btn-primary btn-sm"
@@ -2006,14 +2003,8 @@ $(document).on('click','#reportResetBtn',function(){
 									</div>
 								</div>
 							</div>
-						</div>
-
-
-						<div class="fh5co-spacer fh5co-spacer-sm"></div>
-
-
-
-					</div>
+					
+					
 
 					<!--QnAContentModal qna상세-->
 					<div class="modal fade" id="QnAContentModal" role="dialog">
@@ -2439,7 +2430,7 @@ $(document).on('click','#reportResetBtn',function(){
 						</div>
 					</div>
 					<!-- Report업데이트상세 끝 -->
-
+					
 
 				</div>
 			</div>

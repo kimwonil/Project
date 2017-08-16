@@ -162,7 +162,8 @@ $(document).ready(function(){
 	}
 	.col-md-8{
 		position: relative;
-		left: 15%;
+		left: 10%;
+		top:-50px;
 	}
 	#talentList>tbody>tr:first-child{
 		background-color: #cecece;

@@ -387,6 +387,7 @@ text-align: center;
 .col-md-8{
 	position: relative;
 	left: 10%;
+	top:-50px;
 }
 #tabs table>tbody>tr:first-child{
 	background-color: #cecece;
