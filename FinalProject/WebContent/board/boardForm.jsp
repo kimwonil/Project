@@ -57,7 +57,21 @@ display: block;
 	vertical-align: top;
 }
 
-
+#bckground input[name="title"]{
+	width: 100%;
+}
+#bckground input[type="date"]{
+	width: 185px;
+}
+#major{
+	width: 30%;
+}
+#minor{
+	width: 69%;
+}
+textarea{
+	resize:none;
+}
 </style>
 
 <script type="text/javascript">
@@ -594,7 +608,7 @@ $(document).ready(function(){
 							<div class="fh5co-pricing-table" id="bckground">
 							<form id="detailInfo" action="insertBoard.do" method="post" enctype="multipart/form-data" >
 								<table class="table" id="bckgrndtable">
-									<tr><th>* 카테고리 </th><th>
+									<tr><th>* 카테고리 </th><th width="515">
 									<select name="major" id="major">
 										<option>대분류</option>
 										<c:forEach items="${categoryList}" var="high">
@@ -629,8 +643,8 @@ $(document).ready(function(){
 			                            </table>
 									</th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr>
-									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>
-									<tr><th>상세 이미지 또는 동영상</th>
+									<tr><th>상세내용</th><th> <textarea rows="10" cols="60" name="content"></textarea> </th></tr>
+									<tr><th>상세 이미지 <br>또는 동영상</th>
 									<th> 
 									<input type="file" name="files">
 									<input type="file" name="files">
