@@ -734,6 +734,29 @@ public class BoardController{
 	
 	
 	/**
+	 * 글 수정 폼에서 옵션 가져가기
+	 * */
+	@RequestMapping("bringOption.do")
+	public void bringOption(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		int no = Integer.parseInt(req.getParameter("no"));
+		
+		List<HashMap<String, Object>> list = boardService.selectBoard_option(no);
+		System.out.println(list);
+		Gson gson = new Gson();
+		String json = gson.toJson(list);
+		
+		try {
+			resp.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
 	 * 글수정하기
 	 * */
 	@RequestMapping("updateBoard.do")
