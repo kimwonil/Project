@@ -115,6 +115,10 @@
  	select count(no) from board where premium=1 and state=0
  </select>
  
+ <select id="getCountCategory" parameterType="java.util.HashMap" resultType="int">
+ 	select count(no) from board where premium=1 and state=0 and category_major=#{category_major} and category_minor=#{category_minor}
+ </select>
+ 
  <select id="getCountForNickname" parameterType="java.util.HashMap" resultType="int">
  	select count(no) from board
  	where writer like '%${writer}%' and state=0
@@ -236,26 +240,26 @@
  
 <!--  table명 : interest -->
  <insert id="insertInterest" parameterType="java.util.HashMap">
- 	insert into interest values(0, #{board_no}, #{id}, #{category_no});
+ 	insert into interest values(0, #{board_no}, #{nickname}, #{category_no});
  </insert>
  
  <select id="selectOneInterest" parameterType="java.util.HashMap" resultType="java.util.HashMap">
- 	select * from interest where id=#{id} and board_no=#{board_no}
+ 	select * from interest where nickname=#{nickname} and board_no=#{board_no}
  </select>
  
  <select id="selectAllDips" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 	SELECT A.* FROM ( 
 	SELECT @searchnum := @searchnum+ 1 AS searchnum, interest.*  FROM interest 
 	, (SELECT @searchnum:= 0) R 
-	where id=#{id} order by no desc ) A WHERE A.searchnum between #{start} and #{end}
+	where nickname=#{nickname} order by no desc ) A WHERE A.searchnum between #{start} and #{end}
  </select>
  
  <select id="getCountDips" parameterType="String" resultType="int">
- 	select count(no) from interest where id=#{id}
+ 	select count(no) from interest where nickname=#{nickname}
  </select>
  
  <select id="getCountDipsCategory" parameterType="java.util.HashMap" resultType="int">
- 	select count(no) from interest where id=#{id} and category_no=#{category_no}
+ 	select count(no) from interest where nickname=#{nickname} and category_no=#{category_no}
  </select>
  
   <select id="dipsWithCategory" parameterType="java.util.HashMap" resultType="java.util.HashMap">
@@ -263,7 +267,7 @@
 	SELECT A.* FROM ( 
 	SELECT @searchnum := @searchnum+ 1 AS searchnum, interest.*  FROM interest 
 	, (SELECT @searchnum:= 0) R 
-	where id=#{id} and category_no=#{category_no} order by no desc ) A WHERE A.searchnum between #{start} and #{end}
+	where nickname=#{nickname} and category_no=#{category_no} order by no desc ) A WHERE A.searchnum between #{start} and #{end}
  </select>
  
  

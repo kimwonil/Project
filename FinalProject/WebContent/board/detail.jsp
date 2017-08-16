@@ -412,14 +412,15 @@ h5 {
 			$.ajax({
 				url : "dips.do",
 				type : "post",
-				data : $('#boardNo'),
-				dateType : "text",
+				data : {board_no : $('#boardNo').val()},
+				dateType : "json",
 				success : function(data) {
 					alert(data);
 				},
-				error : function() {
-					alert("실패");
-				}
+				error : function(jpXHR, textStatus, errorThrown){
+	                  alert(textStatus);
+	                  alert(errorThrown);
+	            }
 			})
 		}); //찜하기
 

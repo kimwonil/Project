@@ -86,7 +86,7 @@
 <%-- 							<td>관리자 : ${member.admin}</td> --%>
 <!-- 						</tr> -->
 						<tr>
-							<td>관심분야 : <button onclick="location.href='dipsList.do?id=${member.id}'">찜목록</button></td>
+							<td>관심분야 : <button onclick="location.href='dipsList.do?nickname=${member.nickname}'">찜목록</button></td>
 						</tr>
 						<tr>
 							<td>계좌 : ${member.bank} / ${member.account} </td>

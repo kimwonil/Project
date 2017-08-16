@@ -167,7 +167,7 @@
 	</insert>
 	
 	<update id="minusCash" parameterType="java.util.HashMap">
-		update profile set balance=balance-#{totalPrice} where id=#{id}
+		update profile set balance=balance-#{totalPrice} where nickname=#{nickname}
 	</update>
 	
 	<insert id="insertStar_point" parameterType="java.util.HashMap">

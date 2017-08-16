@@ -93,6 +93,10 @@ public class BoardService {
 	public int getCount() {
 		return boardDao.getCount();
 	}
+
+	public int getCountCategory(HashMap<String, Object> pagingParam) {
+		return boardDao.getCountCategory(pagingParam);
+	}
 	
 	public int getCountForNickname(HashMap<String, Object> searchMap) {
 		return boardDao.getCountForNickname(searchMap);
@@ -246,6 +250,7 @@ public class BoardService {
 		return boardDao.category_minorName(cateMap);
 	}
 	
+	
 
 
 
@@ -306,6 +311,7 @@ public class BoardService {
 	public int premiumUpdate(HashMap<String, Object> map) {
 		return boardDao.premiumUpdate(map);
 	}
+
 
 
 

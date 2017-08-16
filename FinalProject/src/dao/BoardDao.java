@@ -31,6 +31,7 @@ public interface BoardDao {
 	public List<Board> selectSearchResult(HashMap<String, Object> searchMap);//카테고리 전체 제목&내용 검색
 	public List<Board> searchCategory(HashMap<String, Object> searchMap);//카테고리별 제목&내용 검색
 	public int getCount(); //일반글 수 
+	public int getCountCategory(HashMap<String, Object> pagingParam);//카테고리별 글 수
 	public int getCountForNickname(HashMap<String, Object> searchMap);
 	public int getCountExactNickname(HashMap<String, Object> searchMap);//detail에서 판매자의 다른 글목록 클릭하면
 	public int getCountForSearch(HashMap<String, Object> countParam); //전체 검색 record 수
