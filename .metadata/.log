@@ -1790,3 +1790,9 @@ java.lang.IllegalArgumentException: Index out of bounds [offset value: 94]
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-16 18:08:53.671
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-16 18:13:48.728
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-16 18:13:48.730
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
