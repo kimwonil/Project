@@ -212,6 +212,7 @@ $(document).ready(function(){
 	.col-md-8{
 		position: relative;
 		left: 10%;
+		top:-50px;
 	}
 	#btnDiv{
 		text-align:center;

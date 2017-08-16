@@ -247,9 +247,6 @@
 	text-align: center;
 	margin: 0 auto;
 }
-#tradeTable td, #exchangeTable td{
-	
-}
 
 #tabs-2 div, #tabs-4 div{
 	text-align:center;
@@ -263,6 +260,7 @@
 .col-md-8{
 	position: relative;
 	left: 10%;
+	top:-50px;
 }
 #tabs-2 table>tbody>tr:first-child, #tabs-4 table>tbody>tr:first-child{
 	background-color: #cecece;

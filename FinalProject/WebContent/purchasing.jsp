@@ -12,11 +12,7 @@
 <link rel="stylesheet" href="css/starStyle.css">
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<style type="text/css">
-#starCenter>h5{
-text-align: center;
-}
-</style>
+
 <script>
 	$(function() {
 		$("#tabs").tabs();
@@ -363,7 +359,9 @@ text-align: center;
 	
 </script>
 <style type="text/css">
-
+#starCenter>h5{
+	text-align: center;
+}
 #tabs tr,#tabs td,#tabs th{
 	text-align: center;
 	height: 37px;
@@ -421,6 +419,7 @@ text-align: center;
 .col-md-8{
 	position: relative;
 	left: 10%;
+	top:-50px;
 }
 #tabs table>tbody>tr:first-child{
 	background-color: #cecece;

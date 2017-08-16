@@ -737,9 +737,10 @@ table {
 	height: 400px;
 }
 
-.col-md-8 {
+.col-md-8{
 	position: relative;
 	left: 10%;
+	top:-50px;
 }
 
 #premiumBtn {
