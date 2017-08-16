@@ -54,18 +54,7 @@ display: block;
 
 <script type="text/javascript">
 $(document).ready(function(){
-	////////////////////////////////////
-	function n_indexOf(str, search, nth){
-		var times=0, num=null;
-		while(times < nth && num !== -1){
-			num= str.indexOf(search, num+1);
-			times++;
-		}
-		return num;
-	}
 	
-	
-	/////////////////////////////////////
     var map = new naver.maps.Map('map', {
     	scaleControl: false,
         logoControl: false,
@@ -143,14 +132,7 @@ $(document).ready(function(){
 		  			            map: map
 		  			        });
 	  			        		  						
-// 			  			    var pos = n_indexOf(info_address," ", 4);
-// 			  				if(pos > 0){
-// 				  				var addr1 = info_address.substring(0, pos);
-// 				  				var addr2 = info_address.substring(pos);
-				  			    
-// 				  				info_address = addr1+"<br>"+addr2;
-// 				  			}
-			  				
+			  			   
 				  	        infowindow = new naver.maps.InfoWindow({
 				  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
 				  	        });
@@ -253,13 +235,11 @@ $(document).ready(function(){
     
    	//직접 지도에서 찍은 곳으로 마커 이동
    	$(document).on('click', map, function(){
-   	
 		naver.maps.Event.addListener(map, 'click', function(e){
 		    marker.setPosition(e.latlng);//내가 찍은 곳의 좌표로 마커 이동
 		    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
 		    info_title = "";//직접 찍으면 지점 이름은 안나와
 		});
-   	
    	});
 
     
@@ -274,7 +254,6 @@ $(document).ready(function(){
 	    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
 	        }
 	        var result = response.result;
-	        console.log(result);
 	        // 검색 결과 갯수: result.total
 	        // 첫번째 결과 결과 주소: result.items[0].address
 	        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
@@ -288,7 +267,6 @@ $(document).ready(function(){
 	            map: map
 	        });
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
-// 	        console.log(result.items);
 	        info_address = myaddress;
 	        
 	        

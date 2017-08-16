@@ -708,8 +708,6 @@ public class BoardController{
 		System.out.println("updateBoard.do");
 		int no = Integer.parseInt(params.get("no").toString());
 		Board board = boardService.selectOneBoard(no);
-		String id = board.getWriter();
-		params.put("id", id);
 		params.put("no", no);
 		
 		System.out.println(paramArray1);
@@ -799,7 +797,6 @@ public class BoardController{
 				e.printStackTrace();
 			}
 			
-		System.out.println("file table : "+params);
 		
 		//원글에 files가 있었으면 수정하고 없었으면 files insert하기
 		if(files.getFiles()!=null && boardService.selectOneFromFile(no) != null){
@@ -866,11 +863,11 @@ public class BoardController{
 			if(member == null){
 				pw.println("로그인 후에 찜할 수 있습니다");
 			}else{
-				String id = member.getId();
+				String nickname = member.getNickname();
 				HashMap<String, Object> params = new HashMap<>();
 				params.put("category_no", boardService.selectOneBoard(board_no).getCategory_major());
 				params.put("board_no", board_no);
-				params.put("id", id);
+				params.put("nickname", nickname);
 				
 				if(boardService.selectOneInterest(params) != null){
 					pw.println("이미 찜한 글입니다");
@@ -891,20 +888,20 @@ public class BoardController{
 	 * 찜목록으로 가기
 	 * */
 	@RequestMapping("dipsList.do")
-	public ModelAndView selectMyDips(String id,
+	public ModelAndView selectMyDips(String nickname,
 			@RequestParam(defaultValue="1") int currentPage){
 		System.out.println("dipsList.do");
-		System.out.println(id);
+		System.out.println(nickname);
 		ModelAndView mav = new ModelAndView();
 		
 		//페이징
-		Paging paging = new Paging(boardService.getCountDips(id), currentPage);
+		Paging paging = new Paging(boardService.getCountDips(nickname), currentPage);
 		paging.boardPaging();
 		
 		HashMap<String, Object> param = new HashMap<>();
 		param.put("start", paging.getStart());
 		param.put("end", paging.getEnd());
-		param.put("id", id);
+		param.put("nickname", nickname);
 		
 		List<Board> dipsList = new ArrayList<>();
 		
@@ -916,7 +913,7 @@ public class BoardController{
 			dipsList.add(board);
 		}
 		
-		mav.addObject("id", id);
+		mav.addObject("nickname", nickname);
 		mav.addObject("paging", paging);
 		mav.addObject("pageName", "dipsList.do");
 		mav.addObject("category", boardService.category());
@@ -936,12 +933,11 @@ public class BoardController{
 		System.out.println("dipsCategory.do");
 		System.out.println(category_no);
 		Member member = (Member)session.getAttribute("member");
-		String id = member.getId();
-		System.out.println(id);
+		String nickname = member.getNickname();
 		
 		HashMap<String, Object> params = new HashMap<>();
 		params.put("category_no", category_no);
-		params.put("id", id);
+		params.put("nickname", nickname);
 		
 		//페이징
 		Paging paging = new Paging(boardService.getCountDipsCategory(params), currentPage);
@@ -1017,7 +1013,7 @@ public class BoardController{
 				//구매자 포인트 제하기
 				HashMap<String, Object> params = new HashMap<>();
 				params.put("totalPrice", totalPrice);
-				params.put("id", member.getId());
+				params.put("nickname", member.getNickname());
 				dealService.minusCash(params);
 				
 				//구매자가 산 갯수만큼 board의 count 더하기
@@ -1036,7 +1032,7 @@ public class BoardController{
 					boardService.updateState(map);
 				}
 				
-				map.put("id", member.getId());
+				map.put("nickname", member.getNickname());
 				map.put("login", member.getLogin());
 				session.setAttribute("member", memberService.selectOne(map));
 				pw.println("{\"result\" : \"구매성공! 구매관리를 확인하세요\", \"state\" : 1}");

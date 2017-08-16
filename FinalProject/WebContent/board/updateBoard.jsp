@@ -120,8 +120,8 @@ $(document).ready(function(){
 	
 	  			      	});//geocode 
 	  			        $('.addrRadio:first').attr('checked', true);
-	  			     	iwillkillvertical();
-	  			    	$('#myModal').modal('show');
+	  			    	$('.addrRadio:eq(0)').trigger('click');
+	  			     	selectRadio();
 	  				}//검색 결과 else
 	  			},
 	  			error : function(jpXHR, textStatus, errorThrown){
@@ -130,7 +130,7 @@ $(document).ready(function(){
 	            }
 	  		 });//키워드 검색 ajax 끝
   		 
-//   		 	 $('#myModal').modal('show');
+  		 	 $('#myModal').modal('show');
   	 	}//키워드로 지도 찾는 경우 끝
   	 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   	 	/*
@@ -190,12 +190,11 @@ $(document).ready(function(){
 	  	        lat = marker.position.y;
 	  	        lng = marker.position.x;
 		    
-		   $('.addrRadio:first').attr('checked', true);
-		   iwillkillvertical();
-           $('#myModal').modal();
-	    		
+  	       $('.addrRadio:first').attr('checked', true);
+           $('.addrRadio:eq(0)').trigger('click');
+		   selectRadio();
 	       });//geocode 끝
-	    
+		   $('#myModal').modal('show');
  	 	}//(way==1) else 끝
   	 		
     })//검색버튼 누른 후 모달 결과 페이지까지 뽑기 끝 
@@ -204,25 +203,21 @@ $(document).ready(function(){
     
     //라디오 선택
     $(document).on('click',".addrRadio",function(){
-    	
-    	iwillkillvertical();
-
+    	selectRadio();
     });//라디오 선택 끝
     
     
    	//직접 지도에서 찍은 곳으로 마커 이동
    	$(document).on('click', map, function(){
-   	
 		naver.maps.Event.addListener(map, 'click', function(e){
 		    marker.setPosition(e.latlng);//내가 찍은 곳의 좌표로 마커 이동
 		    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
 		    info_title = "";//직접 찍으면 지점 이름은 안나와
 		});
-   	
    	});
 
     
-    function iwillkillvertical(){
+    function selectRadio(){
 		way = $('input[name=way]:checked').val(); //검색방식 1은 주소/ 2는 키워드
     	
 		var myaddress = $('.addrRadio:checked').val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
@@ -233,7 +228,6 @@ $(document).ready(function(){
 	    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
 	        }
 	        var result = response.result;
-	        console.log(result);
 	        // 검색 결과 갯수: result.total
 	        // 첫번째 결과 결과 주소: result.items[0].address
 	        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
@@ -247,7 +241,6 @@ $(document).ready(function(){
 	            map: map
 	        });
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
-	        console.log(result.items);
 	        info_address = myaddress;
 	        
 	        if(way == 1){
