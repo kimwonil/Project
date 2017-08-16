@@ -760,10 +760,15 @@ $(document).ready(function(){
 
         </div>  
         <div class="modal-body">
-          <div id="map" style="width:858px;height:400px;text-align: center;"></div>
-          <table id="table">
-			<tr><th>명칭</th><th>주소</th></tr>
-		  </table>
+          <table>
+				<tr><td id="mapTableList" width="50%">
+					<table id="table">
+					<tr><th width="100">명칭</th><th width="230">주소</th></tr>
+					</table>
+				</td><td width="50%">
+					<div id="map" style="width:450px;height:400px;text-align: center;"></div>
+				</td></tr>
+			</table>
         </div>
         <div class="modal-footer">
        	  <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">취소</button>

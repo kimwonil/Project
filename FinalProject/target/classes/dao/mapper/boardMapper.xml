@@ -52,7 +52,7 @@
 	<if test="category_major != null">
 		and category_major=#{category_major} and category_minor=#{category_minor}
 	</if>
-	) A WHERE A.searchnum between #{start} and #{end}
+	order by no desc ) A WHERE A.searchnum between #{start} and #{end}
  </select>
 
  

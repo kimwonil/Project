@@ -117,6 +117,12 @@ width: 100%;
 .smaller{
 font-size: smaller;
 }
+#notice {
+font-size: small; 
+}
+#selectUserReview .star-ratings-css{
+font-size: 16px;
+}
 </style>
 
 <script>
@@ -144,7 +150,7 @@ font-size: smaller;
 						'<table>' +
 						'<tr class="smaller"><td>' + value.nickname + '</td><td>' +
 						'<div class="star-ratings-css">' +
-						'<div class="star-ratings-css-top" style="width:' + value.star * 25 + '%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>' +
+						'<div class="star-ratings-css-top" style="width:' + value.star * 16 + '%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>' +
 						'<div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>' +
 						'</div>' +
 						'<td>' + value.date + '</td>' +
@@ -166,13 +172,13 @@ font-size: smaller;
 	function notice(){
 		$('#notice').empty();
 		$('#notice').append(
-			'<table boarder="1"'>+
+			'<table boarder="1">'+
 			'<tr><td>'+
 			'· 판매자의 설명과 옵션을 다시 한번 확인하시기 바랍니다.<br>'+
 			'· 판매자가 직거래를 요구하는 경우, 즉시 고객센터로 신고해 주십시오.<br>'+
-			'· 본 사이트의 결제시스템을 이용하지 않고 판매자와 직거래를 하는 경우, 문제발생 시 아무런 도움을 드릴 수 없습니다.<br>'+
-			'· 직거래로 인한 피해발생시 ShareAbility는 이에 대한 일체의 책임을 지지 않습니다.'+
-			'· 구매한 공유가 설명과 다르거나 판매자와 연락이 되지 않는 경우, 고객센터로 연락 주시기 바랍니다.<br>'+
+			'· 본 사이트의 결제시스템을 이용하지 않고 판매자와 직거래를 하는 경우,<br> &nbsp 문제발생 시 아무런 도움을 드릴 수 없습니다.<br>'+
+			'· 직거래로 인한 피해발생시 ShareAbility는 이에 대한 일체의 책임을 지지 않습니다.<br>'+
+			'· 구매한 공유가 설명과 다르거나 판매자와 연락이 되지 않는 경우,<br> &nbsp 고객센터로 연락 주시기 바랍니다.<br>'+
 			'</td></tr>'+
 			'<table>'
 		);
@@ -620,22 +626,20 @@ font-size: smaller;
 				
 					<div class="item deal-info">
 
-						판매자 닉네임 : <a href="" id="writerProfile" style="display: inline-block;">${board.writer}</a><br>
+						판매자  <a href="" id="writerProfile" style="display: inline-block;">${board.writer}</a><br>
 						<input type="hidden" value="${board.no}" name="no" id="boardNo">
 						<c:choose>
 							<c:when test="${member.admin eq 1}">
-								<button id="modify" value="${board.state}">글수정</button>
-								<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
+								<button class="btn btn-sm btn-primary" id="modify" value="${board.state}">글수정</button>
+								<button class="btn btn-sm btn-primary" onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
 							</c:when>
 							<c:when test="${member.nickname eq board.writer && show}">
-								<button id="modify" value="${board.state}">글수정</button>
-								<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
+								<button class="btn btn-sm btn-primary" id="modify" value="${board.state}">글수정</button>
+								<button class="btn btn-sm btn-primary" onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
 							</c:when>
 						</c:choose>
-						<br> 등록일 : ${board.date}<br> 마감일 : ${board.end_date}<br>
-						조회수 : ${board.read_count} <br> 인원 또는 건수 :
-						${board.count}/${board.quantity}<br>
-
+						<br> 등록일  ${board.date}<br> 마감일  ${board.end_date}<br>
+						조회수  ${board.read_count} <br> 인원 또는 건수  ${board.count}/${board.quantity}<br>
 						<table>
 							<tr>
 								<th>기본항목</th>
@@ -682,10 +686,10 @@ font-size: smaller;
 						<input type="hidden" id="hiddenTotalPrice" value="${board.price}">
 						<p>
 							<c:if test="${board.state eq 0 }">
-								<button id="buy">구매하기</button>
-								<button id="dips">찜하기</button>
+								<button class="btn btn-sm btn-primary" id="buy">구매하기</button>
+								<button class="btn btn-sm btn-primary" id="dips">찜하기</button>
 							</c:if>
-							<button id="msgModal">쪽지문의</button>
+							<button class="btn btn-sm btn-primary" id="msgModal">쪽지문의</button>
 						</p>
 						장소<br>
 						<div id="allRound"></div>

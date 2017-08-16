@@ -509,9 +509,10 @@
 						alert("성공");
 						ongoingList($('#currentPage').val());
 					},
-					error : function() {
-						alert("실패");
-					}
+					error : function(jpXHR, textStatus, errorThrown){
+		                  alert(textStatus);
+		                  alert(errorThrown);
+		            }
 				});
 			}
 		});

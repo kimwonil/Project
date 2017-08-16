@@ -92,7 +92,6 @@ img{
 #orderTable{
 	height: 40px;
 	float: right;
-	
 }
 #orderTable div{
 	background-color: white;
@@ -104,6 +103,9 @@ display: inline;
 }
 .rowClear{
 	clear: both;
+}
+#gageocksun{
+margin: 4px;
 }
 </style>
 
@@ -246,9 +248,9 @@ $(document).on('click', '#gageocksun', function(){
 		<span>
 			<table id="orderTable">
 			<tr>
-			<td><button id="latest" class="btn-sm">최신순</button></td>
-			<td><button id="panmaesun" class="btn-sm">판매순</button></td>
-			<td><button id="gageocksun" class="btn-sm">낮은가격순</button></td>
+<!-- 			<td><button id="latest" class="btn-sm">최신순</button></td> -->
+			<td><button id="panmaesun" class="btn-sm btn-primary">판매순</button></td>
+			<td><button id="gageocksun" class="btn-sm btn-primary">낮은가격순</button></td>
 			</tr>
 			</table>
 		</span>
