@@ -48,31 +48,27 @@
 }
 
 
-/* .deal-info {  */
-/* position: absolute;  */
-/* left: 60%;  */
-/* width: 340px;  */
-/* height: 70%;  */
-/* top: 25%;   */
-/* padding: 1%;  */
-/*  }  */
+.deal-info {
+	position: absolute;
+	left: 60%;
+	width: 340px;
+	height: 70%;
+	top: 25%;
+	padding: 1%;
+}
 
-/* .deal-position {  */
-/* position: absolute;  */
-/* left: 10%;  */
-/* top: 25%;   */
-/* height: 70%;  */
-/* }  */
+.deal-position {
+	position: absolute;
+	left: 10%;
+	top: 25%;
+	height: 70%;
+}
 
-/* .deal-detail {  */
-/* position: absolute;  */
-/* left: 10%;  */
-/* width:975px;  */
-/* top: 120%;  */
-/* }  */
-
-.deal-info{
-padding: 15px;
+.deal-detail {
+	position: absolute;
+	left: 10%;
+	width:975px;
+	top: 100%;
 }
 
 .quantityBox td {
@@ -99,11 +95,6 @@ padding: 15px;
 
 h5 {
 	text-align: center;
-}
-
-#test{
-margin-left: auto;
-margin-right: auto;
 }
 </style>
 
@@ -538,159 +529,154 @@ margin-right: auto;
 		<div class="container">
 			<div class="row">
 
-				<div id="fh5co-board" data-columns>
-				<table border="1" id="test" width="950px">
-				<tr><td>
-				
-					<div class="item deal-position">
-						<div class="animate-box">
-							<c:choose>
-								<c:when test="${board.file_name1 eq ''}">
-									<img class="thumbnail"
-										src='<c:url value="/images"/>/noimage.jpg'>
-								</c:when>
-								<c:when test="${board.file_name1 eq null}">
-									<img class="thumbnail"
-										src='<c:url value="/images"/>/noimage.jpg'>
-								</c:when>
-								<c:otherwise>
-									<img class="thumbnail"
-										src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}'>
-								</c:otherwise>
-							</c:choose>
-						</div>
+				<div class="col-md-offset-2">
 
-						<table>
-							<tr>
-								<td colspan="3"><div class="fh5co-desc">${board.title}</div></td>
-							</tr>
-							<tr>
-								<td>${category_major}> ${category_minor}</td>
-								<td width="30%">
-									<div class="star-ratings-css">
+					<div id="fh5co-board" data-columns>
+						<div class="item deal-position">
+							<div class="animate-box">
+								<c:choose>
+									<c:when test="${board.file_name1 eq ''}">
+										<img class="thumbnail"
+											src='<c:url value="/images"/>/noimage.jpg'>
+									</c:when>
+									<c:when test="${board.file_name1 eq null}">
+										<img class="thumbnail"
+											src='<c:url value="/images"/>/noimage.jpg'>
+									</c:when>
+									<c:otherwise>
+										<img class="thumbnail"
+											src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}'>
+									</c:otherwise>
+								</c:choose>
+							</div>
 
-										<div class="star-ratings-css-top" id="starPercent"
-											style="width:${board.ratingForDetail}%">
-											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-										</div>
-										<div class="star-ratings-css-bottom">
-											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-										</div>
-									</div>
-								</td>
-								<td>(${board.num_evaluator})</td>
-							</tr>
-						</table>
-					</div>
-				
-				</td><td rowspan="2" width="350px" style="vertical-align: top;" >
-				
-					<div class="item deal-info">
-
-						판매자 닉네임 : <a href="" id="writerProfile" style="display: inline-block;">${board.writer}</a><br>
-						<input type="hidden" value="${board.no}" name="no" id="boardNo">
-						<c:choose>
-							<c:when test="${member.admin eq 1}">
-								<button id="modify" value="${board.state}">글수정</button>
-								<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
-							</c:when>
-							<c:when test="${member.nickname eq board.writer && show}">
-								<button id="modify" value="${board.state}">글수정</button>
-								<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
-							</c:when>
-						</c:choose>
-						<br> 등록일 : ${board.date}<br> 마감일 : ${board.end_date}<br>
-						조회수 : ${board.read_count} <br> 인원 또는 건수 :
-						${board.count}/${board.quantity}<br>
-
-						<table>
-							<tr>
-								<th>기본항목</th>
-								<td><fmt:formatNumber value="${board.price}"
-										groupingUsed="true" />원</td>
-							</tr>
-							<c:if test="${board_option ne null}">
+							<table>
 								<tr>
-									<th>옵션항목</th>
-									<td><select id="optionList">
-											<option>옵션없음</option>
-											<c:forEach var="i" items="${board_option}">
-												<option value="${i.kind}">${i.kind}(+${i.price})</option>
-											</c:forEach>
-									</select></td>
+									<td colspan="3"><div class="fh5co-desc">${board.title}</div></td>
 								</tr>
-							</c:if>
-						</table>
-						<form action="thisIsAllMine.do" method="post">
-							<table id="purchaseList">
 								<tr>
-									<td name="kind[]" class="kind">기본항목</td>
-									<td name="price[]" class="price"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</td>
-									<td>
-										<table class="quantityBox" border="1" cellspacing="0">
-											<tr>
-												<td width="20%"><a href="#" class="minus">-</a></td>
-												<td width="40%"><input type="text" size="1"
-													name="quantity[]" class="quantity" value=1> <input
-													type="hidden" value="${board.price}" class="hiddenPrice"></td>
-												<input type="hidden" name="no" value="${board.no}">
-												<td width="20%"><a href="#" class="plus">+</a></td>
-											</tr>
-										</table>
+									<td>${category_major}> ${category_minor}</td>
+									<td width="30%">
+										<div class="star-ratings-css">
+
+											<div class="star-ratings-css-top" id="starPercent"
+												style="width:${board.ratingForDetail}%">
+												<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+											</div>
+											<div class="star-ratings-css-bottom">
+												<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+											</div>
+										</div>
 									</td>
-									<td><div class="optionResult"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div>
-										<input type="hidden" class="hiddenOptionResult" value="${board.price}">
-									</td>
+									<td>(${board.num_evaluator})</td>
 								</tr>
 							</table>
-						</form>
-						<br>
-						<div id="totalPrice"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div>
-						<input type="hidden" id="hiddenTotalPrice" value="${board.price}">
-						<p>
-							<c:if test="${board.state eq 0 }">
-								<button id="buy">구매하기</button>
-								<button id="dips">찜하기</button>
-							</c:if>
-							<button id="msgModal">쪽지문의</button>
-						</p>
-						장소<br>
-						<div id="map" style="width: :250px; height: 250px;"></div>
-					</div>
-				</td></tr>
-				<tr><td>
-				
-				<div class="item deal-detail">
-					<div id="tabs">
-						<ul>
-							<li><a href="#tabs-1">상세정보</a></li>
-							<li><a href="#tabs-2">주문시 유의사항</a></li>
-							<li><a href="#tabs-3" id="selectUserReviewBTN">사용자 리뷰</a></li>
-						</ul>
-						<div id="tabs-1">
-							<div>${board.content}</div>
-							<div id="img"></div>
-						</div>
-						<div id="tabs-2">
-							<p>주문시 유의사항 내용</p>
-						</div>
-						<div id="tabs-3">
-							<div id="selectUserReview"></div>
-						</div>
-					</div>
-				</div>
-				
-				</td></tr>
-				</table>
 
-				</div>
-					
+						</div>
 
+						<div class="item deal-info">
+
+							판매자 닉네임 : <a href="" id="writerProfile" style="display: inline-block;">${board.writer}</a><br>
+							<input type="hidden" value="${board.no}" name="no" id="boardNo">
+							<c:choose>
+								<c:when test="${member.admin eq 1}">
+									<button id="modify" value="${board.state}">글수정</button>
+									<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
+								</c:when>
+								<c:when test="${member.nickname eq board.writer && show}">
+									<button id="modify" value="${board.state}">글수정</button>
+									<button onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
+								</c:when>
+							</c:choose>
+							<br> 등록일 : ${board.date}<br> 마감일 : ${board.end_date}<br>
+							조회수 : ${board.read_count} <br> 인원 또는 건수 :
+							${board.count}/${board.quantity}<br>
+
+							<table>
+								<tr>
+									<th>기본항목</th>
+									<td><fmt:formatNumber value="${board.price}"
+											groupingUsed="true" />원</td>
+								</tr>
+								<c:if test="${board_option ne null}">
+									<tr>
+										<th>옵션항목</th>
+										<td><select id="optionList">
+												<option>옵션없음</option>
+												<c:forEach var="i" items="${board_option}">
+													<option value="${i.kind}">${i.kind}(+${i.price})</option>
+												</c:forEach>
+										</select></td>
+									</tr>
+								</c:if>
+							</table>
+							<form action="thisIsAllMine.do" method="post">
+								<table id="purchaseList">
+									<tr>
+										<td name="kind[]" class="kind">기본항목</td>
+										<td name="price[]" class="price"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</td>
+										<td>
+											<table class="quantityBox" border="1" cellspacing="0">
+												<tr>
+													<td width="20%"><a href="#" class="minus">-</a></td>
+													<td width="40%"><input type="text" size="1"
+														name="quantity[]" class="quantity" value=1> <input
+														type="hidden" value="${board.price}" class="hiddenPrice"></td>
+													<input type="hidden" name="no" value="${board.no}">
+													<td width="20%"><a href="#" class="plus">+</a></td>
+												</tr>
+											</table>
+										</td>
+										<td><div class="optionResult"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div>
+											<input type="hidden" class="hiddenOptionResult" value="${board.price}">
+										</td>
+									</tr>
+								</table>
+							</form>
+							<br>
+							<div id="totalPrice"><fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</div>
+							<input type="hidden" id="hiddenTotalPrice" value="${board.price}">
+							<p>
+								<c:if test="${board.state eq 0 }">
+									<button id="buy">구매하기</button>
+									<button id="dips">찜하기</button>
+								</c:if>
+								<button id="msgModal">쪽지문의</button>
+							</p>
+							장소<br>
+							<div id="map" style="width: :250px; height: 250px;"></div>
+						</div>
+
+					</div>
 				</div>
 			</div>
-			
-			
+			<div class="row">
+				<div id="fh5co-board" data-columns>
+					<div class="item deal-detail">
+
+						<div id="tabs">
+							<ul>
+								<li><a href="#tabs-1">상세정보</a></li>
+								<li><a href="#tabs-2">주문시 유의사항</a></li>
+								<li><a href="#tabs-3" id="selectUserReviewBTN">사용자 리뷰</a></li>
+							</ul>
+							<div id="tabs-1">
+								<div>${board.content}</div>
+								<div id="img"></div>
+							</div>
+							<div id="tabs-2">
+								<p>주문시 유의사항 내용</p>
+							</div>
+							<div id="tabs-3">
+								<div id="selectUserReview"></div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
 		</div>
+	</div>
 
 
 	<!-- Modal -->
