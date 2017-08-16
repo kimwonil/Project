@@ -37,6 +37,7 @@
 					);
 				} else {
 					$.each(data.list, function(index, value) {
+						console.log(value);
 						$('#tabs-1 > table').append(
 							'<tr><td><input type="radio" value="' + value.no + '" name="premiumRadio"></td><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.title + '</a></td><td>' +
 							value.count + ' / ' + value.quantity + '</td><td>' + 

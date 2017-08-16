@@ -80,6 +80,10 @@ public interface DealDao {
 	
 	
 	
+	public int getAmount(String purchaseNo);
+	
+	
+	
 	
 	
 	

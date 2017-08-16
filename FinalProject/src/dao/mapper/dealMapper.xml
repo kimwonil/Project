@@ -186,6 +186,11 @@
 	<update id="stopBoard" parameterType="java.util.HashMap">
 		update board set state=#{state} where no=#{no}
 	</update>
+	
+	<select id="getAmount" parameterType="String" resultType="int">
+		select amount from purchase_option where no=#{purchaseNo} and kind='기본항목'
+	</select>
+	
  </mapper>
  
  

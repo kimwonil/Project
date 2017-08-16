@@ -209,6 +209,10 @@ public class DealService {
 		return dealDao.stopBoard(map);
 	}
 
+	public int getAmount(String purchaseNo) {
+		return dealDao.getAmount(purchaseNo);
+	}
+
 
 
 	

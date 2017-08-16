@@ -93,9 +93,7 @@ public class DealControll {
 		
 		List<Board> list = dealService.selectAll(map);
 		System.out.println(list);
-		for(Board board : list) {
-			board.setCount(dealService.purchaseCount(board.getNo()));
-		}
+
 		map.put("list", list);
 		map.put("totalPage", dealService.totalPageSelling(id));
 		
@@ -317,13 +315,7 @@ public class DealControll {
 				memberService.returnBalance(map);
 			}
 			
-			//판매자가 진행 누르면 amount만큼을 해당글의 count에서 제하고 state도 확인///////////0815연경
-//			if(state == 10){
-//				System.out.println("기본항목 수량 : "+amount);
-//				System.out.println("글번호 : "+board_no);
-//				
-//			}
-			/////////////////////////////////////////////////////
+
 			
 			//미니프로필 현재 금액 업데이트
 			try {
@@ -383,7 +375,15 @@ public class DealControll {
 			//현재 게시물 소환!
 			Board board = boardService.selectOneBoard(continue_no);
 			//진행된 구매자 수
-			int purchaseCount = paramArray.size();
+			int purchaseCount = 0;
+			for(String purchaseNo : paramArray){
+				System.out.println(purchaseNo);
+				purchaseCount += dealService.getAmount(purchaseNo);
+			}
+			
+			
+			
+			
 			//현재 구매수
 			int currentCount = board.getCount();
 			map.put("no", continue_no);
