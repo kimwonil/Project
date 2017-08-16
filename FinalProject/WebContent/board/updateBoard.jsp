@@ -388,13 +388,12 @@ $(document).ready(function(){
 //가격 입력하기
 
    	$(document).on('click', '.add', function(){
-   		$('#tableOption').append(
-  				'<tr>'+
-			'<td><input type="text" name="option[]" class="optionName"></td>'+
-			'<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
-			'<td><button class="delete">삭제</button></td>'+
-			'</tr>'
+   		$('#optionTable').append(
+   				'<tr><td><input type="text" name="option[]"></td>'+
+				'<td><input type="text" name="optionPrice[]"></td>'+
+				'<td>'+'<input type="button" class="delete" value="삭제">'+'</td></tr>'
    		);
+   		
    	});
 
     
@@ -458,11 +457,10 @@ $(document).ready(function(){
     		console.log("체크");
     		$('#optionResult').val(0);
     		$('#optionTable').append(
-    				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
+    				 '<tr><td>옵션종류</td><td>추가가격</td><td><input type="button" class="add" value="추가"></td></tr>'+
                      '<tr>'+
                         '<td><input type="text" name="option[]" class="optionName"></td>'+
                         '<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
-//                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
     		);
     	}else{//체크 안되면
@@ -585,7 +583,29 @@ $(document).ready(function(){
 	  		dataType:"json",
 	  		success:function(data){
 	  			console.log(data);
-	  			alert("성공");
+				if(data != ''){
+					$('#optionRadio').attr("checked","checked");
+					$('#optionTable tr:gt(0)').remove();
+					$('#optionTable').append(
+						'<tr><td>옵션종류</td><td>추가가격</td><td><input type="button" class="add" value="추가"></td></tr>'
+					);	
+					$.each(data,function(index, value){
+						if(index==0){
+							$('#optionTable').append(
+								'<tr><td><input type="text" name="option[]" value="'+value.kind+'"></td>'+
+								'<td><input type="text" name="optionPrice[]" value="'+value.price+'"></td>'+
+								'<td></td></tr>'
+							);
+						}else{
+							$('#optionTable').append(
+								'<tr><td><input type="text" name="option[]" value="'+value.kind+'"></td>'+
+								'<td><input type="text" name="optionPrice[]" value="'+value.price+'"></td>'+
+								'<td>'+'<input type="button" class="delete" value="삭제">'+'</td></tr>'
+							);
+						}					
+						
+					});
+				}	  			
 	  		},
 	  		error:function(){
 	  			alert("실패");
@@ -685,7 +705,7 @@ $(document).ready(function(){
 									<div>${files.file_name1}</div>
 									</th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="60" name="content">${board.content}</textarea> </th></tr>
-									<tr><th>상세 이미지 또는 동영상</th>
+									<tr><th>상세 이미지</th>
 									<th> 
 										<input type="file" name="files" >
 										<div>${files.file_name2}</div>
