@@ -71,6 +71,9 @@ display: block;
 textarea{
 	resize:none;
 }
+.fileTable td{
+padding-right: 10px;
+}
 </style>
 
 <script type="text/javascript">
@@ -615,6 +618,16 @@ $(document).ready(function(){
    	
    	bringOption($('#hidn6').val());
    	
+   	//기존이미지 삭제 체크박스
+   	$(document).on('click', '.dlt', function(){
+   		//체크하면 기존이미지&현재선택한 이미지 hide
+   		//체크박스 value=1 넣어서 가져가
+   			console.log("check");
+   			$(this).parent().parent().find('.original').empty();
+   			$(this).prev('input[type=file]').remove();
+   		return false;
+   	});//체크박스 클릭
+   	
    	
 });//document.ready
 </script>
@@ -635,7 +648,7 @@ $(document).ready(function(){
 							<div class="fh5co-pricing-table" id="bckground">
 							<form id="detailInfo" action="updateBoard.do" method="post" enctype="multipart/form-data" >
 								<table class="table" id="bckgrndtable">
-									<tr><th>카테고리 </th><th>
+									<tr><th>* 카테고리 </th><th>
 										<select name="major" id="major">
 											<c:forEach items="${categoryList}" var="high">
 												<c:if test="${high.no eq board.category_major}">
@@ -657,9 +670,9 @@ $(document).ready(function(){
 											</c:forEach>
 										</select>
 									</th></tr>
-									<tr><th>글제목</th><th> <input type="text" name="title" value="${board.title}"> </th></tr>
-									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" value="${board.end_date }"> </th></tr>
-									<tr><th>인원 또는 건수</th><th> <input type="text" name="quantity" value="${board.quantity }"> </th></tr>
+									<tr><th>* 글제목</th><th> <input type="text" name="title" value="${board.title}"> </th></tr>
+									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" value="${board.end_date }"> </th></tr>
+									<tr><th>* 인원 또는 건수</th><th> <input type="text" name="quantity" value="${board.quantity }"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
           								<input type="radio" name="way" value="2"> 키워드<br>
@@ -694,7 +707,7 @@ $(document).ready(function(){
 										<input type="hidden" id="optionResult" name="optionResult" value="0">
 										</c:if>
 									</th></tr>
-									<tr><th>기본가격</th><td><input type="text" name="price" value="${board.price}"> </td></tr>
+									<tr><th>* 기본가격</th><td><input type="text" name="price" value="${board.price}"> </td></tr>
 									<tr><th>옵션사항</th>
 									<td>
 									<div><input type="checkbox" id="optionRadio">옵션 여부</div>
@@ -702,17 +715,24 @@ $(document).ready(function(){
 										</table>
 									</td></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> 
-									<div>${files.file_name1}</div>
+									<div>
+										<table class="fileTable">
+											<tr><td colspan="3"></td></tr>
+											<tr><td>기존이미지</td><td class="original">${files.file_name1}</td><td><button class="dlt">x</button><input type="hidden" name="fileCheck"></td></tr>
+										</table>
+									</div>
 									</th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="60" name="content">${board.content}</textarea> </th></tr>
 									<tr><th>상세 이미지</th>
 									<th> 
-										<input type="file" name="files" >
-										<div>${files.file_name2}</div>
-										<input type="file" name="files" >
-										<div>${files.file_name3}</div>
-										<input type="file" name="files" >
-										<div>${files.file_name4}</div>
+										<table class="fileTable">
+										<tr><td colspan="3"><input type="file" name="files" ></td></tr>
+										<tr><td>기존이미지</td><td class="original">${files.file_name2}</td><td><button class="dlt">x</button></td></tr>
+										<tr><td colspan="3"><input type="file" name="files" ></td></tr>
+										<tr><td>기존이미지</td><td class="original">${files.file_name3}</td><td><button class="dlt">x</button></td></tr>
+										<tr><td colspan="3"><input type="file" name="files" ></td></tr>
+										<tr><td>기존이미지</td><td class="original">${files.file_name4}</td><td><button class="dlt">x</button></td></tr>
+										</table>
 									</th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>

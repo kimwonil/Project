@@ -15,7 +15,13 @@
 
 #bckground{
 width: 655px;
-text-align: right;
+}
+
+#bckgrndtable{
+text-align: left;
+}
+#bckground div:last-child{
+text-align: right !important;
 }
 
 #mapContent{
@@ -25,22 +31,52 @@ right: 15%;
 top: 10%;
 border: 1px solid red;
 }
+
+#map{
+float: right;
+}
+
+.tdT{
+overflow: hidden; 
+text-overflow: ellipsis;
+white-space: nowrap; 
+width: 150px;
+height: 20px;
+display: block;
+}
+
+.tdA{
+overflow: hidden; 
+text-overflow: ellipsis;
+white-space: nowrap; 
+width: 260px;
+height: 20px;
+display: block;
+}
+#mapTableList{
+	vertical-align: top;
+}
+
+#bckground input[name="title"]{
+	width: 100%;
+}
+#bckground input[type="date"]{
+	width: 185px;
+}
+#major{
+	width: 30%;
+}
+#minor{
+	width: 69%;
+}
+textarea{
+	resize:none;
+}
 </style>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	////////////////////////////////////
-	function n_indexOf(str, search, nth){
-		var times=0, num=null;
-		while(times < nth && num !== -1){
-			num= str.indexOf(search, num+1);
-			times++;
-		}
-		return num;
-	}
 	
-	
-	/////////////////////////////////////
     var map = new naver.maps.Map('map', {
     	scaleControl: false,
         logoControl: false,
@@ -75,8 +111,8 @@ $(document).ready(function(){
 	  				$.each(data.items, function(index, value){//결과들 table에 표시
 			          	$('#table tbody').append(
 			          		'<tr>'+
-			          		'<td><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
-			          		'<input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</td><td>'+value.address + '</td>'+
+			          		'<td><div class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+			          		'<input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</div></td><td><div class="tdA">'+value.address + '</td></td>'+
 			          		'</tr>'
 			          	);
 			        });//each 끝
@@ -105,8 +141,6 @@ $(document).ready(function(){
 		  			    		return alert(info_address + '의 검색 결과가 없거나 기타 네트워크 에러');
 		  			        }
 		  			        var result = response.result;
-		  			        console.log("리절트");
-		  			        console.log(result);
 		  			        // 검색 결과 갯수: result.total
 		  			        // 첫번째 결과 결과 주소: result.items[0].address
 		  			        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
@@ -119,34 +153,20 @@ $(document).ready(function(){
 		  			        	position: myaddr,
 		  			            map: map
 		  			        });
-	  			        	
-// 			  			    console.log(response.result);
-// 			  			    console.log(marker.position.x);
-// 			  			    console.log(result.items[0].address);
-	  						
-			  			    
-			  			    console.log(info_address+"인포어드레스");
-			  				var pos = n_indexOf(info_address," ", 4);
-			  				if(pos > 0){
-				  				var addr1 = info_address.substring(0, pos);
-				  				var addr2 = info_address.substring(pos);
-				  			    
-				  				info_address = addr1+"<br>"+addr2;
-				  			}
-// 			  				<h5>"+info_title+"</h5><h6>"+info_address+"</h6>
-// 				  	        infowindow = new naver.maps.InfoWindow({
-// 				  	        	  content : "최초에 보이는 인포"
-// 				  	        });
+	  			        		  						
+			  			   
+				  	        infowindow = new naver.maps.InfoWindow({
+				  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
+				  	        });
 				  	        
-// 				  	        infowindow.open(map, marker);
+				  	        infowindow.open(map, marker);
 				  	        lat = marker.position.y;
 				  	        lng = marker.position.x;
 	
 	  			      	});//geocode 
 	  			        $('.addrRadio:first').attr('checked', true);
-// 	  			        $('#myModal').modal('show');
 	  			    	$('.addrRadio:eq(0)').trigger('click');
-	  			     	iwillkillvertical();
+	  			     	selectRadio();
 	  				}//검색 결과 else
 	  			},
 	  			error : function(jpXHR, textStatus, errorThrown){
@@ -195,8 +215,8 @@ $(document).ready(function(){
 	        	$.each(result.items, function(index, value){
 		          	$('#table tbody').append(
 		          			'<tr>'+
-		          			'<td><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
-		          			'<input type="hidden" name="ttt" value="'+value.title+'"></td><td>'+ value.address + '</td></tr>'
+		          			'<td class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+		          			'<input type="hidden" name="ttt" value="'+value.title+'"></td><td class="tdA">'+ value.address + '</td></tr>'
 		          	);
 		        });
 		        
@@ -207,36 +227,20 @@ $(document).ready(function(){
 		            map: map
 		        });
 			        
-	        	console.log(result);
-	      		console.log(response.result.items);
-
-	      		
-	      		
-	      		var pos = n_indexOf(info_address," ", 4);
-	  			if(pos > 0){
-	  				var addr1 = info_address.substring(0, pos);
-	  				var addr2 = info_address.substring(pos);
-	  			    
-	  				info_address = addr1+"<br>"+addr2;
-	  			}
-	      		
-	      		
-	      		
+	        	     		
 	  	        //인포윈도우 오픈
 	  	        infowindow = new naver.maps.InfoWindow({
 	  	        	content : "<h6>"+info_address+"</h6>"
 	  	        });
-	  	        console.log(info_title);
+
 	  	        infowindow.open(map, marker);
 	  	        lat = marker.position.y;
 	  	        lng = marker.position.x;
 		    
 		   $('.addrRadio:first').attr('checked', true);
-           $('#myModal').modal();
            $('.addrRadio:eq(0)').trigger('click');
-		   iwillkillvertical();
+		   selectRadio();
 	       });//geocode 끝
-		   $('.addrRadio:eq(0)').trigger('click');
 		   $('#myModal').modal('show');
  	 	}//(way==1) else 끝
   	 		
@@ -247,25 +251,21 @@ $(document).ready(function(){
     
     //라디오 선택
     $(document).on('click',".addrRadio",function(){
-    	console.log($(this).val()+"//라디오 선택");
-    	iwillkillvertical();
-
+    	selectRadio();
     });//라디오 선택 끝
     
     
    	//직접 지도에서 찍은 곳으로 마커 이동
    	$(document).on('click', map, function(){
-   	
 		naver.maps.Event.addListener(map, 'click', function(e){
 		    marker.setPosition(e.latlng);//내가 찍은 곳의 좌표로 마커 이동
 		    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
 		    info_title = "";//직접 찍으면 지점 이름은 안나와
 		});
-   	
    	});
 
     
-    function iwillkillvertical(){
+    function selectRadio(){
 		way = $('input[name=way]:checked').val(); //검색방식 1은 주소/ 2는 키워드
     	
 		var myaddress = $('.addrRadio:checked').val();// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
@@ -276,7 +276,6 @@ $(document).ready(function(){
 	    		return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
 	        }
 	        var result = response.result;
-	        console.log(result);
 	        // 검색 결과 갯수: result.total
 	        // 첫번째 결과 결과 주소: result.items[0].address
 	        // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
@@ -290,16 +289,7 @@ $(document).ready(function(){
 	            map: map
 	        });
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
-// 	        console.log(result.items);
 	        info_address = myaddress;
-	        
-	        var pos = n_indexOf(info_address," ", 4);
-  			if(pos > 0){
-  				var addr1 = info_address.substring(0, pos);
-  				var addr2 = info_address.substring(pos);
-  			    
-  				info_address = addr1+"<br>"+addr2;
-  			}
 	        
 	        
 	        if(way == 1){
@@ -364,7 +354,6 @@ $(document).ready(function(){
     	
     	//infowindow에 있는 내용 담아두자
     	var addrResult = $('h6').text();
-    	console.log($('h6').text());
     	
     	var jusoResult = info_address; //jusoResult는 부모창 addrResult에 넣을 애야
     	if(info_title != ''){
@@ -618,8 +607,8 @@ $(document).ready(function(){
 						<div class="col-md-4">
 							<div class="fh5co-pricing-table" id="bckground">
 							<form id="detailInfo" action="insertBoard.do" method="post" enctype="multipart/form-data" >
-								<table class="table">
-									<tr><th>카테고리 </th><th>
+								<table class="table" id="bckgrndtable">
+									<tr><th>* 카테고리 </th><th width="515">
 									<select name="major" id="major">
 										<option>대분류</option>
 										<c:forEach items="${categoryList}" var="high">
@@ -654,8 +643,8 @@ $(document).ready(function(){
 			                            </table>
 									</th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr>
-									<tr><th>상세내용</th><th> <textarea rows="10" cols="10" name="content"></textarea> </th></tr>
-									<tr><th>상세 이미지 또는 동영상</th>
+									<tr><th>상세내용</th><th> <textarea rows="10" cols="60" name="content"></textarea> </th></tr>
+									<tr><th>상세 이미지</th>
 									<th> 
 									<input type="file" name="files">
 									<input type="file" name="files">
@@ -663,7 +652,7 @@ $(document).ready(function(){
 									</th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!">
+								<div><input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!"></div>
 							</form>
 							</div>
 						</div>
@@ -684,14 +673,27 @@ $(document).ready(function(){
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">주소를 선택하거나 지도상에서 직접 찍은 후 확인을 눌러주세요</h4>
-
         </div>  
-        <div class="modal-body">
-          <div id="map" style="width:858px;height:400px;text-align: center;"></div>
-          <table id="table">
-			<tr><th>명칭</th><th>주소</th></tr>
-		  </table>
-        </div>
+        
+<!--         <div class="modal-body"> -->
+<!--         	<div id="map" style="width:850px;height:400px;text-align: center;"></div> -->
+<!--        		<table id="table"> -->
+<!-- 				<tr><th>명칭</th><th>주소</th></tr> -->
+<!-- 			</table> -->
+<!--         </div> -->
+
+		<div class="modal-body">
+			<table>
+				<tr><td id="mapTableList" width="50%">
+					<table id="table">
+					<tr><th width="100">명칭</th><th width="230">주소</th></tr>
+					</table>
+				</td><td width="50%">
+					<div id="map" style="width:450px;height:400px;text-align: center;"></div>
+				</td></tr>
+			</table>
+		</div>
+
         <div class="modal-footer">
        	  <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" id="cancel">취소</button>
           <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" id="submit">확인</button>

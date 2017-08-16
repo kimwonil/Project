@@ -784,7 +784,7 @@ public class BoardController{
 			}
 		}
 		
-		//board, board_option, file 수정하기
+		//board, board_option 수정하기
 		boardService.updateBoard(params);
 		boardService.deleteBoard_option(no);//board_option에서 글번호에 해당하는 옵션을 다 지우고
 		if(paramArray1 != null){//입력받은 옵션들로 새로 넣어주는거야
@@ -797,7 +797,7 @@ public class BoardController{
 			}
 		}
 		
-		//file수정
+		//file 수정
 		//사진을 가져오자
 		List<MultipartFile> fileList = files.getFiles();
 		int fileNo = 1;
@@ -830,10 +830,10 @@ public class BoardController{
 		}
 		
 		
-		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
-		if(!dir.exists()){//폴더가 없으면 생성
-			dir.mkdirs();
-		}
+//		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
+//		if(!dir.exists()){//폴더가 없으면 생성
+//			dir.mkdirs();
+//		}
 		
 			try {
 				if(!fileName1.equals("")){

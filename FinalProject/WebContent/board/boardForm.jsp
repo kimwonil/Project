@@ -619,9 +619,9 @@ $(document).ready(function(){
 										<option>소분류</option><option>대분류를 선택하세요</option>
 									</select>
 									</th></tr>
-									<tr><th>글제목</th><th> <input type="text" name="title"> </th></tr>
-									<tr><th>등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" > </th></tr>
-									<tr><th>인원 또는 건수</th><th> <input type="text" name="quantity"> </th></tr>
+									<tr><th>* 글제목</th><th> <input type="text" name="title"> </th></tr>
+									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" > </th></tr>
+									<tr><th>* 인원 또는 건수</th><th> <input type="text" name="quantity"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
           								<input type="radio" name="way" value="2"> 키워드<br>
@@ -636,13 +636,13 @@ $(document).ready(function(){
 										<input type="hidden" id="hidn5" name="lng">
 										<input type="hidden" id="optionResult" name="optionResult" value="4">
 									</th></tr>
-									<tr><th>기본가격</th><th> <input type="text" name="price"> </th></tr>
+									<tr><th>* 기본가격</th><th> <input type="text" name="price"> </th></tr>
 									<tr><th>옵션사항</th><th> 
 										<input type="checkbox" id="optionRadio"> 판매옵션 있음
 										<table id="tableOption">
 			                            </table>
 									</th></tr>
-									<tr><th>썸네일</th><th> <input type="file" name="files"> </th></tr>
+									<tr><th>썸네일</th><th> <input type="file" name="files" > </th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="60" name="content"></textarea> </th></tr>
 									<tr><th>상세 이미지</th>
 									<th> 
