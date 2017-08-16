@@ -661,7 +661,7 @@ margin-right: auto;
 						</p>
 						장소<br>
 						<div id="allRound"></div>
-						<div id="map" style="width: :250px; height: 250px;"></div>
+						<div id="map" style="width: :250px; height: 250px;z-index:0;"></div>
 					</div>
 				</td></tr>
 				<tr><td>
