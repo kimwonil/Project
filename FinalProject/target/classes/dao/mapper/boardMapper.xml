@@ -306,7 +306,7 @@
  
 <!--  table명 : authority -->
  <select id="myAuthority" parameterType="String" resultType="int">
- 	select category_no from authority where nickname=#{nickname}
+ 	select category_no from authority where nickname=#{nickname} and state=2
  </select>
  
 
