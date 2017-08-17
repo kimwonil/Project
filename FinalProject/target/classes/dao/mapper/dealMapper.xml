@@ -29,7 +29,7 @@
 	</select>
 	
 	<select id="purchase" parameterType="java.util.HashMap" resultType="Purchase">
-		select * from purchase where purchaser=#{nickname} and state in(0, 1, 2, 10, 11) order by purchase_no limit #{page}, 8
+		select * from purchase where purchaser=#{nickname} and state in(0, 1, 2, 10, 11) order by purchase_no desc limit #{page}, 8
 	</select>
 	
 	<select id="purchaseManager" parameterType="java.util.HashMap" resultType="Purchase">

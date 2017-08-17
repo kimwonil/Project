@@ -41,7 +41,7 @@
  </select>
  
  <select id="selectAllPremiumBoard" parameterType="int" resultType="Board">
- 	select * from board where premium = 0
+ 	select * from board where premium = 0 and state=0
  </select>
  
  <select id="selectAllNormalBoard" parameterType="java.util.HashMap" resultType="Board">

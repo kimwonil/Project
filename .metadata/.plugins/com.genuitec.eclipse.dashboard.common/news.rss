@@ -12,12 +12,65 @@
 	<atom:link href="https://www.genuitec.com/feed/" rel="self" type="application/rss+xml" />
 	<link>https://www.genuitec.com</link>
 	<description>The Cloud Control Company</description>
-	<lastBuildDate>Wed, 02 Aug 2017 07:40:32 +0000</lastBuildDate>
+	<lastBuildDate>Thu, 17 Aug 2017 09:58:47 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>hourly</sy:updatePeriod>
 	<sy:updateFrequency>1</sy:updateFrequency>
 	<generator>https://wordpress.org/?v=4.6.1</generator>
 	<item>
+		<title>Realtime Server Monitoring App with Angular 4 , Node.js &#038; Chart.js</title>
+		<link>https://www.genuitec.com/realtime-server-monitoring-app-angular-4-node-js-chart-js/</link>
+		<pubDate>Mon, 14 Aug 2017 20:25:55 +0000</pubDate>
+		<dc:creator><![CDATA[Bob at Genuitec]]></dc:creator>
+				<category><![CDATA[Genuitec]]></category>
+
+		<guid isPermaLink="false">https://www.genuitec.com/?p=533461</guid>
+		<description><![CDATA[<p>This article will show you how to build a very simple monitor that allows you to observe some OS parameters, such as free memory available. We will be using Node.js, Angular 4 and Chart.js, so ensure you have Node and Angular IDE installed. To create our development server, we will be using Vagrant, click here [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.genuitec.com/realtime-server-monitoring-app-angular-4-node-js-chart-js/">Realtime Server Monitoring App with Angular 4 , Node.js &amp; Chart.js</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
+]]></description>
+		</item>
+		<item>
+		<title>Navigating through an Angular Project</title>
+		<link>https://www.genuitec.com/navigating-angular-project/</link>
+		<pubDate>Thu, 10 Aug 2017 15:41:12 +0000</pubDate>
+		<dc:creator><![CDATA[Brian Fernandes]]></dc:creator>
+				<category><![CDATA[Eclipse]]></category>
+		<category><![CDATA[Genuitec]]></category>
+		<category><![CDATA[Programming Tips]]></category>
+		<category><![CDATA[Webclipse]]></category>
+		<category><![CDATA[Angular]]></category>
+		<category><![CDATA[code navigation]]></category>
+		<category><![CDATA[navigate between files]]></category>
+		<category><![CDATA[navigate within files]]></category>
+
+		<guid isPermaLink="false">https://www.genuitec.com/?p=533342</guid>
+		<description><![CDATA[<p>You might now be familiar with easy cruising through a Webclipse or an Eclipse project after reading our blog or thanks to a personal experience, but what if you are more of an Angular guy or gal? No worries, breezy navigation is also a reality for Angular projects.This video will give you some useful tips [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.genuitec.com/navigating-angular-project/">Navigating through an Angular Project</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
+]]></description>
+		</item>
+		<item>
+		<title>Enhanced Code Navigation Made Possible with Webclipse</title>
+		<link>https://www.genuitec.com/enhanced-code-navigation-webclipse/</link>
+		<pubDate>Mon, 07 Aug 2017 17:01:17 +0000</pubDate>
+		<dc:creator><![CDATA[Wanda Muriy]]></dc:creator>
+				<category><![CDATA[Eclipse]]></category>
+		<category><![CDATA[Genuitec]]></category>
+		<category><![CDATA[MyEclipse]]></category>
+		<category><![CDATA[Programming Tips]]></category>
+		<category><![CDATA[Webclipse]]></category>
+		<category><![CDATA[breadcrumb]]></category>
+		<category><![CDATA[devsearch]]></category>
+		<category><![CDATA[Minimap]]></category>
+		<category><![CDATA[navigation]]></category>
+		<category><![CDATA[projectexplorer]]></category>
+		<category><![CDATA[search]]></category>
+
+		<guid isPermaLink="false">https://www.genuitec.com/?p=532034</guid>
+		<description><![CDATA[<p>There are more reasons to love our Webclipse &#8212; navigating through your Eclipse code is like sailing on a calm, blue sea. Minimap, Breadcrumb Navigation and Project Explorer+ are your unwavering beacons that show you the way to your files and source code, while DevSearch is the compass that will steer you right inside your [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.genuitec.com/enhanced-code-navigation-webclipse/">Enhanced Code Navigation Made Possible with Webclipse</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
+]]></description>
+		</item>
+		<item>
 		<title>Webscripting Made Easy with JSjet.</title>
 		<link>https://www.genuitec.com/webscripting-made-easy-jsjet/</link>
 		<pubDate>Mon, 31 Jul 2017 16:31:15 +0000</pubDate>
@@ -230,63 +283,14 @@
 <p>The post <a rel="nofollow" href="https://www.genuitec.com/create-ecommerce-dashboard-angular-4/">Create an Ecommerce Dashboard with Angular 4</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
 ]]></description>
 		</item>
-		<item>
-		<title>Genuitec Went Virtual Before It Was Cool!</title>
-		<link>https://www.genuitec.com/genuitec-went-virtual-before-it-was-cool/</link>
-		<pubDate>Mon, 19 Jun 2017 12:28:04 +0000</pubDate>
-		<dc:creator><![CDATA[Wanda Muriy]]></dc:creator>
-				<category><![CDATA[Genuitec]]></category>
-
-		<guid isPermaLink="false">https://www.genuitec.com/?p=526653</guid>
-		<description><![CDATA[<p>Home is where the… work is? Indeed! More and more companies are choosing the online world, and we are no exception. Why be tied to an office if your job can literally accompany you wherever you go? That is the case for developers who can be working peacefully in the comfort of their homes or [&#8230;]</p>
-<p>The post <a rel="nofollow" href="https://www.genuitec.com/genuitec-went-virtual-before-it-was-cool/">Genuitec Went Virtual Before It Was Cool!</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
-]]></description>
-		</item>
-		<item>
-		<title>Slack Is Using TypeScript, and You Should Too!</title>
-		<link>https://www.genuitec.com/slack-using-typescript/</link>
-		<pubDate>Wed, 14 Jun 2017 17:11:03 +0000</pubDate>
-		<dc:creator><![CDATA[Wanda Muriy]]></dc:creator>
-				<category><![CDATA[Eclipse]]></category>
-		<category><![CDATA[Genuitec]]></category>
-		<category><![CDATA[MyEclipse]]></category>
-		<category><![CDATA[Programming Tips]]></category>
-		<category><![CDATA[Webclipse]]></category>
-		<category><![CDATA[typescript]]></category>
-		<category><![CDATA[using typescript]]></category>
-
-		<guid isPermaLink="false">https://www.genuitec.com/?p=525382</guid>
-		<description><![CDATA[<p>Building a desktop application with multiple threads is a challenge not everyone is up to. No problem for TypeScript, though! All the pieces must fit in perfectly to make sure an application doesn’t crash due to even a tiny mistake. For this reason, folks at Slack (and many others) have put their faith in it. [&#8230;]</p>
-<p>The post <a rel="nofollow" href="https://www.genuitec.com/slack-using-typescript/">Slack Is Using TypeScript, and You Should Too!</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
-]]></description>
-		</item>
-		<item>
-		<title>Creating Your First Angular 4 App Using Angular IDE</title>
-		<link>https://www.genuitec.com/creating-first-angular-4-app-using-angular-ide/</link>
-		<pubDate>Mon, 12 Jun 2017 17:47:47 +0000</pubDate>
-		<dc:creator><![CDATA[dimitry]]></dc:creator>
-				<category><![CDATA[Eclipse]]></category>
-		<category><![CDATA[Genuitec]]></category>
-		<category><![CDATA[MyEclipse]]></category>
-		<category><![CDATA[Programming Tips]]></category>
-		<category><![CDATA[Webclipse]]></category>
-		<category><![CDATA[angular 4 app]]></category>
-		<category><![CDATA[create angular 4 app]]></category>
-		<category><![CDATA[create angular app]]></category>
-
-		<guid isPermaLink="false">https://www.genuitec.com/?p=526340</guid>
-		<description><![CDATA[<p>Some time ago an article Creating My First Web App with Angular 2 in Eclipse was published. Since then, Angular was upgraded and became Angular 4, and new tooling for it in Webclipse appeared. Let’s see how creating a simple application using Angular 4 and new Angular tooling looks.PrerequisitesAngular IDE or Webclipse —We’ll do our development [&#8230;]</p>
-<p>The post <a rel="nofollow" href="https://www.genuitec.com/creating-first-angular-4-app-using-angular-ide/">Creating Your First Angular 4 App Using Angular IDE</a> appeared first on <a rel="nofollow" href="https://www.genuitec.com">Genuitec</a>.</p>
-]]></description>
-		</item>
 	</channel>
 </rss>
 
 <!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
 
-Object Caching 9289/9404 objects using disk
+Object Caching 9283/9400 objects using disk
 Page Caching using disk: enhanced (Requested URI is rejected)
 Content Delivery Network via resources.cloud.genuitec.com
-Database Caching 41/43 queries in 0.007 seconds using disk
+Database Caching 38/44 queries in 0.007 seconds using disk
 
- Served from: www.genuitec.com @ 2017-08-02 03:48:35 by W3 Total Cache -->
+ Served from: www.genuitec.com @ 2017-08-17 05:12:22 by W3 Total Cache -->
