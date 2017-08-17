@@ -4,6 +4,7 @@ public class Authority {
 	private int no;
 	private String nickname;
 	private int category_no;
+	private int authority_no;
 	private String categoryName;
 	private String date;
 	private int state;
@@ -44,6 +45,26 @@ public class Authority {
 
 	
 	
+
+	public String getNickname() {
+		return nickname;
+	}
+
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+
+	public int getAuthority_no() {
+		return authority_no;
+	}
+
+
+	public void setAuthority_no(int authority_no) {
+		this.authority_no = authority_no;
+	}
+
 
 	public String getCategoryName() {
 		return categoryName;

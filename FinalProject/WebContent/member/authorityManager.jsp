@@ -117,9 +117,9 @@ $(document).ready(function(){
 
 				if(data.file1!=""){
 					$('#cycle-slideshow').append('<img src="" id="imageFile1">');
-					$('#imageFile1').attr('src',"<c:url value='/user/authority/"+data.no+"'/>/"+data.file1);
+					$('#imageFile1').attr('src',"<c:url value='/user/authority/"+data.authority_no+"'/>/"+data.file1);
 			
-					$('#download1').html("<a href='download.do?no="+data.no+"&name="+data.file1+"'>"+data.file1+"</a>");
+					$('#download1').html("<a href='download.do?no="+data.authority_no+"&name="+data.file1+"'>"+data.file1+"</a>");
 					$('#download2').html("첨부 파일 없음");
 					$('#download3').html("첨부 파일 없음");
 				}
@@ -127,16 +127,16 @@ $(document).ready(function(){
 				if(data.file2!=""){
 					$('#cycle-slideshow').append('<img src="" id="imageFile2">');
 					
-					$('#imageFile2').attr('src',"<c:url value='/user/authority/"+data.no+"'/>/"+data.file2);
-					$('#download2').html("<a href='download.do?no="+data.no+"&name="+data.file2+"'>"+data.file2+"</a>");
+					$('#imageFile2').attr('src',"<c:url value='/user/authority/"+data.authority_no+"'/>/"+data.file2);
+					$('#download2').html("<a href='download.do?no="+data.authority_no+"&name="+data.file2+"'>"+data.file2+"</a>");
 					$('#download3').html("첨부 파일 없음");
 				}
 				
 				if(data.file3!=""){
 					$('#cycle-slideshow').append('<img src="" id="imageFile3">');
 					
-					$('#imageFile3').attr('src',"<c:url value='/user/authority/"+data.no+"'/>/"+data.file3);
-					$('#download3').html("<a href='download.do?no="+data.no+"&name="+data.file3+"'>"+data.file3+"</a>");
+					$('#imageFile3').attr('src',"<c:url value='/user/authority/"+data.authority_no+"'/>/"+data.file3);
+					$('#download3').html("<a href='download.do?no="+data.authority_no+"&name="+data.file3+"'>"+data.file3+"</a>");
 				}
 				
 				$('#cycle-slideshow').cycle({

@@ -96,12 +96,22 @@ display: none;
 
 <script type="text/javascript">
 $(document).ready(function(){
+	//지도인포 잘라주는 함수
+	function valueCut(str){
+		var index=0;
+		
+		for(var i=1;i<=4;i++){
+			index = str.indexOf(" ", index+1);
+		}
+		return index;
+	}
+	
 	
     var map = new naver.maps.Map('map', {
     	scaleControl: false,
         logoControl: false,
         mapDataControl: false,
-        zoomControl: true,
+        zoomControl: false,
         minZoom: 1,
     	zoom: 11
     });
@@ -150,7 +160,7 @@ $(document).ready(function(){
 				        	scaleControl: false,
 				            logoControl: false,
 				            mapDataControl: false,
-				            zoomControl: true,
+				            zoomControl: false,
 				            minZoom: 1,
 	  				    	zoom: 11
 	  				    });
@@ -178,7 +188,13 @@ $(document).ready(function(){
 		  			            map: map
 		  			        });
 	  			        		  						
-			  			   
+			  			    //지도인포 자르기
+			  			    if(info_address.length > 20){
+				  			  var check = valueCut(info_address);
+				  			  info_address = info_address.substring(0, check)+"<br>"+info_address.substring(check);
+			  			    }
+			  			  console.log(info_address);
+		  			        
 				  	        infowindow = new naver.maps.InfoWindow({
 				  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
 				  	        });
@@ -220,7 +236,7 @@ $(document).ready(function(){
 		        	scaleControl: false,
 		            logoControl: false,
 		            mapDataControl: false,
-		            zoomControl: true,
+		            zoomControl: false,
 		            minZoom: 1,
 			    	zoom: 11
 			    });
@@ -253,7 +269,12 @@ $(document).ready(function(){
 		            map: map
 		        });
 			        
-	        	     		
+		        //인포 자르기!
+		        if(info_address.length > 20){
+	  			  var check = valueCut(info_address);
+	  			  info_address = info_address.substring(0, check)+"<br>"+info_address.substring(check);
+  			    }
+	        	 console.log(info_address);    		
 	  	        //인포윈도우 오픈
 	  	        infowindow = new naver.maps.InfoWindow({
 	  	        	content : "<h6>"+info_address+"</h6>"
@@ -320,6 +341,11 @@ $(document).ready(function(){
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
 	        info_address = myaddress;
 	        
+	      //지도인포 자르기
+		    if(info_address.length > 20){
+  			  var check = valueCut(info_address);
+  			  info_address = info_address.substring(0, check)+"<br>"+info_address.substring(check);
+		    }
 	        
 	        if(way == 1){
 	        	info_title = '';
@@ -331,6 +357,11 @@ $(document).ready(function(){
 	        	juso = "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>";
 	        }
 		
+	        
+	        
+	      
+	        
+	        
           // 인포윈도우 오픈
           infowindow = new naver.maps.InfoWindow({
         	  content : juso
