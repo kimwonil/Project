@@ -770,7 +770,6 @@ public class BoardController{
 		int no = Integer.parseInt(params.get("no").toString());
 		Board board = boardService.selectOneBoard(no);
 		params.put("no", no);
-		System.out.println("originArr = "+originArr);
 
 		//위도가 있으면 table:map 수정
 		if(!params.get("lat").equals("")){
@@ -805,7 +804,6 @@ public class BoardController{
 		}
 		//사진이 저장될 위치 만들어주기
 		String path = session.getServletContext().getRealPath("/user/board/");
-		System.out.println(path);
 
 
 		//사진이 존재하면 폴더에 넣기
@@ -834,7 +832,6 @@ public class BoardController{
 				 fileMap.put("file_name"+i, originArr.get(i-1));
 			 }
 		}
-		System.out.println(fileMap);
 		boardService.updateFile(fileMap);
 			
 		//수정 후 페이지 이동
@@ -867,7 +864,6 @@ public class BoardController{
 		if(boardService.purchseHistory(no)==0  && boardService.dipsHistory(no)==0){
 			show = true;
 		}
-		System.out.println("보여줄지 말지 : "+show);
 		mav.addObject("show", show);
 		
 		mav.addObject("files", boardService.selectOneFromFile(no));
