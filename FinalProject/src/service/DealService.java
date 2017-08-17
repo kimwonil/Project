@@ -89,16 +89,16 @@ public class DealService {
 		return dealDao.insertStar_point(map);
 	}
 
-	public int totalPageSelling(String id) {
-		return dealDao.totalPageSelling(id);
+	public int totalPageSelling(String nickname) {
+		return dealDao.totalPageSelling(nickname);
 	}
 
-	public int totalPageCompletion(String id) {
-		return dealDao.totalPageCompletion(id);
+	public int totalPageCompletion(String nickname) {
+		return dealDao.totalPageCompletion(nickname);
 	}
 
-	public int totalPageOngoing(String id) {
-		return dealDao.totalPageOngoing(id);
+	public int totalPageOngoing(String nickname) {
+		return dealDao.totalPageOngoing(nickname);
 	}
 
 	
@@ -111,8 +111,8 @@ public class DealService {
 		return dealDao.canceledPurcharse(map);
 	}
 
-	public int totalPageCanceled(String id) {
-		return dealDao.totalPageCanceled(id);
+	public int totalPageCanceled(String nickname) {
+		return dealDao.totalPageCanceled(nickname);
 	}
 
 	public int calculate(HashMap<String, Object> map) {
@@ -155,12 +155,12 @@ public class DealService {
 		return dealDao.totalPageCanceledManager();
 	}
 
-	public int totalPagePurchase(String id) {
-		return dealDao.totalPagePurchase(id);
+	public int totalPagePurchase(String nickname) {
+		return dealDao.totalPagePurchase(nickname);
 	}
 
-	public int totalPagePurchaseComplete(String id) {
-		return dealDao.totalPagePurchaseComplete(id);
+	public int totalPagePurchaseComplete(String nickname) {
+		return dealDao.totalPagePurchaseComplete(nickname);
 	}
 
 	public int totalPagePurchaseCompleteManager() {
@@ -182,8 +182,8 @@ public class DealService {
 		return dealDao.purchaseCanceled(map);
 	}
 	
-	public int totalPagePurchaseCanceled(String id) {
-		return dealDao.totalPagePurchaseCanceled(id);
+	public int totalPagePurchaseCanceled(String nickname) {
+		return dealDao.totalPagePurchaseCanceled(nickname);
 	}
 	
 	

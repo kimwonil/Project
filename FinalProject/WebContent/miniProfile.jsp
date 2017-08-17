@@ -50,9 +50,9 @@ $(document).ready(function(){
 		width: 100px;
 		height: 100px;
 		
-		position: absolute;
+		position: fixed;
 		left: 14%;
-		top: 30%;
+		top: 34%;
 		
 		z-index:4;
 	}
@@ -65,10 +65,15 @@ $(document).ready(function(){
 	#miniProfile div{
 		display: inline;
 	}
+	#miniProfileDiv{
+		position: absolute;
+		left: 10%;
+		top: 40%;
+	}
 </style>
 </head>
 <body>
-<div>
+<div id="miniProfileDiv">
 <c:if test="${member.photo eq null}">
 	<img class="img-circle miniImg" src="<c:url value="/images"/>/noimage.jpg">
 </c:if>

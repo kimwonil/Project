@@ -85,17 +85,17 @@ public class DealControll {
 	public void sellingList(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id = ((Member)session.getAttribute("member")).getNickname();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("nickname", nickname);
 		map.put("page", page);
 		
 		List<Board> list = dealService.selectAll(map);
 		System.out.println(list);
 
 		map.put("list", list);
-		map.put("totalPage", dealService.totalPageSelling(id));
+		map.put("totalPage", dealService.totalPageSelling(nickname));
 		
 		String json = gson.toJson(map);
 		
@@ -115,10 +115,10 @@ public class DealControll {
 	public void sellingListManager(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id = ((Member)session.getAttribute("member")).getNickname();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("nickname", nickname);
 		map.put("page", page);
 		
 		List<Board> list = dealService.selectAllManager(map);
@@ -177,22 +177,22 @@ public class DealControll {
 	public void purchase(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
-		String id = ((Member)session.getAttribute("member")).getNickname();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		int state = Integer.parseInt(request.getParameter("state"));
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("nickname", nickname);
 		map.put("page", page);
 		List<Purchase> list = null;
 		if(state == 20) {
 			list = dealService.purchaseComplete(map);
-			map.put("totalPage", dealService.totalPagePurchaseComplete(id));
+			map.put("totalPage", dealService.totalPagePurchaseComplete(nickname));
 		}else if(state == 40) {
 			list = dealService.purchaseCanceled(map);
-			map.put("totalPage", dealService.totalPagePurchaseCanceled(id));
+			map.put("totalPage", dealService.totalPagePurchaseCanceled(nickname));
 		}else {
 			list = dealService.purchase(map);
-			map.put("totalPage", dealService.totalPagePurchase(id));
+			map.put("totalPage", dealService.totalPagePurchase(nickname));
 		}
 		
 		for(Purchase purchase : list) {
@@ -299,12 +299,14 @@ public class DealControll {
 		Member member = (Member)session.getAttribute("member");
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("state", state);
-		map.put("id", member.getNickname());
+		map.put("id", member.getId());
+		map.put("nickname", member.getNickname());
+		map.put("login", member.getLogin());
 //		System.out.println("연경");
 //		System.out.println("state="+state+" / "+"amount="+amount+" / "+"board_no="+board_no);
 //		System.out.println(paramArray);
 		
-		if(no != null) {
+		if(state == 11 || state == 40 || state == 41 || state == 42) {
 			map.put("purchase_no", no);
 			dealService.progressState(map);
 			if(state==42) {
@@ -319,8 +321,6 @@ public class DealControll {
 			
 			//미니프로필 현재 금액 업데이트
 			try {
-				map.put("id", member.getId());
-				map.put("login", member.getLogin());
 				member = memberService.selectOne(map);
 				System.out.println(member);
 				DecimalFormat number = new DecimalFormat("#,###");
@@ -338,7 +338,7 @@ public class DealControll {
 			
 		}
 		
-		if(amount != null) {
+		if(state==30) {
 			map.put("amount", amount);
 			map.put("purchase_no", no);
 			
@@ -348,7 +348,10 @@ public class DealControll {
 			
 			map.put("title", dealService.selectOneBoard(dealService.recordCashInfo(map)));
 			
+			System.out.println(map);
+			
 			member = memberService.selectOne(map);
+			System.out.println(member);
 			map.put("balance", member.getBalance());
 			map.put("state", 4);
 			dealService.recordCash(map);
@@ -371,7 +374,7 @@ public class DealControll {
 			
 		}
 		
-		if(paramArray != null) { //판매자
+		if(state==10) { //판매자
 			//현재 게시물 소환!
 			Board board = boardService.selectOneBoard(continue_no);
 			//진행된 구매자 수
@@ -419,7 +422,7 @@ public class DealControll {
 			}
 		}
 		
-		if(purchase_no != null) { //구매자
+		if(state==20) { //구매자
 			map.put("purchase_no", purchase_no);
 			dealService.progressState(map);
 			
@@ -449,10 +452,10 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-		String id = ((Member)session.getAttribute("member")).getNickname();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("nickname", nickname);
 		map.put("page", page);
 		
 		List<Purchase> purchaseList = dealService.ongoingPurcharse(map);
@@ -463,7 +466,7 @@ public class DealControll {
 		
 		
 		map.put("list", purchaseList);
-		map.put("totalPage", dealService.totalPageOngoing(id));
+		map.put("totalPage", dealService.totalPageOngoing(nickname));
 		
 		
 		String json = gson.toJson(map);
@@ -521,10 +524,10 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-		String id = ((Member)session.getAttribute("member")).getNickname();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("nickname", nickname);
 		map.put("page", page);
 		
 		List<Purchase> purchaseList = dealService.completionPurcharse(map);
@@ -535,7 +538,7 @@ public class DealControll {
 		
 		
 		map.put("list", purchaseList);
-		map.put("totalPage", dealService.totalPageCompletion(id));
+		map.put("totalPage", dealService.totalPageCompletion(nickname));
 		
 		String json = gson.toJson(map);
 		
@@ -593,10 +596,10 @@ public class DealControll {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		
-		String id = ((Member)session.getAttribute("member")).getNickname();
+		String nickname = ((Member)session.getAttribute("member")).getNickname();
 		int page = Integer.parseInt(request.getParameter("page"));
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		map.put("nickname", nickname);
 		map.put("page", page);
 		
 		List<Purchase> purchaseList = dealService.canceledPurcharse(map);
@@ -607,7 +610,7 @@ public class DealControll {
 		
 		
 		map.put("list", purchaseList);
-		map.put("totalPage", dealService.totalPageCanceled(id));
+		map.put("totalPage", dealService.totalPageCanceled(nickname));
 		
 		String json = gson.toJson(map);
 		

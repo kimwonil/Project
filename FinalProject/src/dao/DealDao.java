@@ -13,29 +13,29 @@ public interface DealDao {
 	public List<Purchase> purchaseList(int no);
 	public List<PurchaseOption> purchaseOption(int no);
 	public int progressState(HashMap<String, Object> map);
-	public List<Purchase> purchaseList(String id);
+	public List<Purchase> purchaseList(String nickname);
 	
 	public List<Purchase> purchase(HashMap<String, Object> map);
-	public int totalPagePurchase(String id);
+	public int totalPagePurchase(String nickname);
 
 	public List<Purchase> purchaseManager(HashMap<String, Object> map);
 	public int totalPagePurchaseManager();
 	
 	public Board boardInfo(int no);
 	public List<Purchase> purchaseComplete(HashMap<String, Object> map);
-	public int totalPagePurchaseComplete(String id);
+	public int totalPagePurchaseComplete(String nickname);
 	public List<Purchase> purchaseCompleteManager(HashMap<String, Object> map);
 	public int totalPagePurchaseCompleteManager();
 	public List<Purchase> purchaseCanceledManager(HashMap<String, Object> map);
 	public int totalPagePurchaseCanceledManager();
 	
 	public List<Purchase> purchaseCanceled(HashMap<String, Object> map);
-	public int totalPagePurchaseCanceled(String id);
+	public int totalPagePurchaseCanceled(String nickname);
 	
-	public int totalPageSelling(String id);
-	public int totalPageOngoing(String id);
-	public int totalPageCompletion(String id);
-	public int totalPageCanceled(String id);
+	public int totalPageSelling(String nickname);
+	public int totalPageOngoing(String nickname);
+	public int totalPageCompletion(String nickname);
+	public int totalPageCanceled(String nickname);
 	
 	public List<Purchase> ongoingPurcharse(HashMap<String, Object> map);
 	public List<Purchase> completionPurcharse(HashMap<String, Object> map);

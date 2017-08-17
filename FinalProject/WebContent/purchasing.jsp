@@ -45,7 +45,8 @@
 							});
 							
 							$('#tabs-1 > table').append(
-									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.boardTitle + '</a></td><td>' +
+									'<tr><td>' + value.date + '</td><td><span class="titlecut1"><a href="detailOneBoard.do?no='+value.no+'">' + 
+									value.boardTitle + '</a></span></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+'</td><td>'+
 									'<button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
@@ -92,7 +93,8 @@
 							});
 							
 							$('#tabs-2 > table').append(
-									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.boardTitle + '</a></td><td>' +
+									'<tr><td>' + value.date + '</td><td><span class="titlecut2"><a href="detailOneBoard.do?no='+value.no+'">' + 
+									value.boardTitle + '</a></span></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+
 									'</td></tr>'		
@@ -128,7 +130,7 @@
 				$('#tabs-3 > table tr:gt(0)').remove();
 				if(data.list == ""){
 					$('#tabs-3 > table').append(
-							'<tr><td colspan="4">내역이 없습니다.</td></tr>'		
+							'<tr><td colspan="5">내역이 없습니다.</td></tr>'		
 					);
 				}else{
 					$.each(data.list, function(index, value){
@@ -140,7 +142,8 @@
 							});
 							
 							$('#tabs-3 > table').append(
-									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'">' + value.boardTitle + '</a></td><td>' +
+									'<tr><td>' + value.date + '</td><td><span class="titlecut3"><a href="detailOneBoard.do?no='+value.no+'">' + 
+									value.boardTitle + '</a></span></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+
 									'"></td><td>'+(value.state==40?'취소 대기':value.state==41?'<button class="btn-sm btn-info cancelBtn" value="' + value.purchase_no + '">취소</button>':'취소 완료')+'</td></tr>'		
 							);								
@@ -430,6 +433,22 @@
 }
 #review{
 	resize:none;
+}
+.titlecut1{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	display:block;
+	width: 295px;
+	height: 20px;
+}
+.titlecut2, .titlecut3{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	display:block;
+	width: 160px;
+	height: 20px;
 }
 </style>
 </head>
