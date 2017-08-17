@@ -237,6 +237,7 @@
 }
 #searchForm{
 	float: left;
+	margin-left: 30px;
 }
 .fh5co-menu-btn{
 	display: none;
