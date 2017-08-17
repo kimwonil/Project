@@ -13,7 +13,7 @@
 </head>
 <style>
 #bckground{
-width: 655px;
+width: 665px;
 }
 
 #bckgrndtable{
@@ -624,7 +624,8 @@ $(document).ready(function(){
    		//체크박스 value=1 넣어서 가져가
    			console.log("check");
    			$(this).parent().parent().find('.original').empty();
-   			$(this).prev('input[type=file]').remove();
+   			$(this).parent().parent().prev().find('input[type=file]').val('');
+   			$(this).siblings('input').val('');
    		return false;
    	});//체크박스 클릭
    	
@@ -718,7 +719,7 @@ $(document).ready(function(){
 									<div>
 										<table class="fileTable">
 											<tr><td colspan="3"></td></tr>
-											<tr><td>기존이미지</td><td class="original">${files.file_name1}</td><td><button class="dlt">x</button><input type="hidden" name="fileCheck"></td></tr>
+											<tr><td>기존이미지</td><td class="original">${files.file_name1}</td><td><button type="button" class="dlt">x</button><input type="hidden" name="original[]" value="${files.file_name1}"></td></tr>
 										</table>
 									</div>
 									</th></tr>
@@ -727,16 +728,20 @@ $(document).ready(function(){
 									<th> 
 										<table class="fileTable">
 										<tr><td colspan="3"><input type="file" name="files" ></td></tr>
-										<tr><td>기존이미지</td><td class="original">${files.file_name2}</td><td><button class="dlt">x</button></td></tr>
+										<tr><td>기존이미지</td><td class="original">${files.file_name2}</td><td><button type="button" class="dlt">x</button><input type="hidden" name="original[]" value="${files.file_name2}"></td></tr>
 										<tr><td colspan="3"><input type="file" name="files" ></td></tr>
-										<tr><td>기존이미지</td><td class="original">${files.file_name3}</td><td><button class="dlt">x</button></td></tr>
+										<tr><td>기존이미지</td><td class="original">${files.file_name3}</td><td><button type="button" class="dlt">x</button><input type="hidden" name="original[]" value="${files.file_name3}"></td></tr>
 										<tr><td colspan="3"><input type="file" name="files" ></td></tr>
-										<tr><td>기존이미지</td><td class="original">${files.file_name4}</td><td><button class="dlt">x</button></td></tr>
+										<tr><td>기존이미지</td><td class="original">${files.file_name4}</td><td><button type="button" class="dlt">x</button><input type="hidden" name="original[]" value="${files.file_name4}"></td></tr>
 										</table>
 									</th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<div><input type="button" class="btn btn-sm btn-primary" id="go" value="GO!"></div>
+								<div>
+								<button class="btn btn-sm btn-primary" onclick="historyback">취소</button>
+								<button class="btn btn-sm btn-primary" id="go">등록</button>
+<!-- 								<input type="button" class="btn btn-sm btn-primary" id="go" value="GO!"> -->
+								</div>
 							</form>
 							</div>
 						</div>
