@@ -1000,7 +1000,12 @@ public class MemberController {
 	}
 	
 	
-	
-	
+	/**
+	 * 에러페이지
+	 * */
+	@RequestMapping("errorPage.do")
+	public String errorPage() {
+		return "errorPage";
+	}
 
 }
