@@ -13,13 +13,13 @@
 </head>
 <style>
 #bckground{
-width: 665px;
+width: 750px;
 }
 
 #bckgrndtable{
 text-align: left;
 }
-#bckground div:last-child{
+#idDiv{
 text-align: right !important;
 }
 
@@ -39,7 +39,7 @@ float: right;
 overflow: hidden; 
 text-overflow: ellipsis;
 white-space: nowrap; 
-width: 150px;
+width: 130px;
 height: 20px;
 display: block;
 }
@@ -48,7 +48,7 @@ display: block;
 overflow: hidden; 
 text-overflow: ellipsis;
 white-space: nowrap; 
-width: 260px;
+width: 240px;
 height: 20px;
 display: block;
 }
@@ -71,6 +71,20 @@ display: block;
 textarea{
 	resize:none;
 }
+#scroll{
+overflow: scroll;
+width: 380px;
+height: 300px;
+/* overflow-x: hidden; */
+/* overflow-y: hidden; */
+}
+#mapTr{
+border-top: hidden;
+}
+
+#mapDiv{
+display: none;
+}
 .fileTable td{
 padding-right: 10px;
 }
@@ -78,6 +92,17 @@ padding-right: 10px;
 
 <script type="text/javascript">
 $(document).ready(function(){
+	//지도인포 잘라주는 함수
+	function valueCut(str){
+		var index=0;
+		
+		for(var i=1;i<=4;i++){
+			index = str.indexOf(" ", index+1);
+		}
+		return index;
+	}
+	
+	
     var map = new naver.maps.Map('map', {
     	scaleControl: false,
         logoControl: false,
@@ -118,21 +143,24 @@ $(document).ready(function(){
 			          	);
 			        });//each 끝
 			        
-			        map.destroy();//원래있던 지도 지우고
-			        map = new naver.maps.Map('map', {//다시 넣어주기
-			        	scaleControl: false,
-			            logoControl: false,
-			            mapDataControl: false,
-			            zoomControl: true,
-			            minZoom: 1,
-  				    	zoom: 11
-  				    });
 	  				
 	  				if(data.items[0] == null){//검색결과가 없으면
 	  					alert("검색결과가 올바르지 않습니다. 검색방법이 맞는지 확인하세요");
 	  				}else{
+	  			    	$('#mapDiv').css('display', 'inline');
+	  			    	$('#mapTr').css('border-top', '1px solid #ddd' );
 	  				
-	  					info_title = data.items[0].title;
+				        map.destroy();//원래있던 지도 지우고
+				        map = new naver.maps.Map('map', {//다시 넣어주기
+				        	scaleControl: false,
+				            logoControl: false,
+				            mapDataControl: false,
+				            zoomControl: true,
+				            minZoom: 1,
+	  				    	zoom: 11
+	  				    });
+
+				        info_title = data.items[0].title;
 	  					info_address = data.items[0].address;
 	  					info_address2 = '';
 	  					
@@ -155,9 +183,12 @@ $(document).ready(function(){
 		  			            map: map
 		  			        });
 	  			        	
-			  			    console.log(response.result);
-			  			    console.log(marker.position.x);
-			  			    console.log(result.items[0].address);
+		  			    	//지도인포 자르기
+			  			    if(info_address.length > 20){
+				  			  var check = valueCut(info_address);
+				  			  info_address = info_address.substring(0, check)+"<br>"+info_address.substring(check);
+			  			    }
+			  			 	 console.log(info_address);
 	  						
 				  	        infowindow = new naver.maps.InfoWindow({
 				  	        	  content : "<h5>"+info_title+"</h5><h6>"+info_address+"</h6>"
@@ -188,21 +219,23 @@ $(document).ready(function(){
   	 	else if(way == 1){//주소로 검색하는 경우(way==1)
  	 		$('#table tr:gt(0)').empty();
 			
-	        map.destroy();
-	        map = new naver.maps.Map('map', {
-	        	scaleControl: false,
-	            logoControl: false,
-	            mapDataControl: false,
-	            zoomControl: true,
-	            minZoom: 1,
-		    	zoom: 11
-		    });
 				
 		    naver.maps.Service.geocode({address: $('#inputAddr').val()}, function(status, response) {
 		    	if (status !== naver.maps.Service.Status.OK) {
 		    		return alert('검색방법이 잘못 되었거나 기타 네트워크 에러');
 		        }
-		    	
+		    	$('#mapDiv').css('display', 'inline');
+		    	$('#mapTr').css('border-top', '1px solid #ddd' );
+		        map.destroy();
+		        map = new naver.maps.Map('map', {
+		        	scaleControl: false,
+		            logoControl: false,
+		            mapDataControl: false,
+		            zoomControl: true,
+		            minZoom: 1,
+			    	zoom: 11
+			    });
+
 		        var result = response.result;
 		        // 검색 결과 갯수: result.total
 		        // 첫번째 결과 결과 주소: result.items[0].address
@@ -217,7 +250,11 @@ $(document).ready(function(){
 		        
 		        //얘도 리스트 뿌릴수잇나
 	        	$.each(result.items, function(index, value){
-		          	$('#table tbody').append('<tr><td><div class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'"><input type="hidden" name="ttt" value="'+value.title+'"></div></td><td><div class="tdA">'+ value.address + '</div></td></tr>');
+		          	$('#table tbody').append(
+		          			'<tr>'+
+		          			'<td><div class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+		          			'<input type="hidden" name="ttt" value="'+value.title+'"></div></td><td><div class="tdA">'+ value.address + '</div></td></tr>'
+		          	);
 		        });
 		        
 	          
@@ -227,14 +264,17 @@ $(document).ready(function(){
 		            map: map
 		        });
 			        
-	        	console.log(result);
-	      		console.log(response.result.items);
-
+		      //인포 자르기!
+		        if(info_address.length > 20){
+	  			  var check = valueCut(info_address);
+	  			  info_address = info_address.substring(0, check)+"<br>"+info_address.substring(check);
+  			    }
+	        	 console.log(info_address);    
+		        
 	  	        //인포윈도우 오픈
 	  	        infowindow = new naver.maps.InfoWindow({
 	  	        	content : "<h6>"+info_address+"</h6>"
 	  	        });
-	  	        console.log(info_title);
 	  	        infowindow.open(map, marker);
 	  	        lat = marker.position.y;
 	  	        lng = marker.position.x;
@@ -243,7 +283,6 @@ $(document).ready(function(){
            $('.addrRadio:eq(0)').trigger('click');
 		   selectRadio();
 	       });//geocode 끝
-		   $('#myModal').modal('show');
  	 	}//(way==1) else 끝
   	 		
     })//검색버튼 누른 후 모달 결과 페이지까지 뽑기 끝 
@@ -253,6 +292,7 @@ $(document).ready(function(){
     //라디오 선택
     $(document).on('click',".addrRadio",function(){
     	selectRadio();
+    	insertToHidden();
     });//라디오 선택 끝
     
     
@@ -292,6 +332,12 @@ $(document).ready(function(){
 	        map.setCenter(myaddr); // 검색된 좌표로 지도 이동  
 	        info_address = myaddress;
 	        
+	      //지도인포 자르기
+		    if(info_address.length > 20){
+  			  var check = valueCut(info_address);
+  			  info_address = info_address.substring(0, check)+"<br>"+info_address.substring(check);
+		    }
+	        
 	        if(way == 1){
 	        	info_title = '';
 	        	info_address2 = '';
@@ -308,6 +354,7 @@ $(document).ready(function(){
           });
           
           infowindow.open(map, marker);
+          insertToHidden();
 	     
 	    });
     }
@@ -336,13 +383,14 @@ $(document).ready(function(){
   	        });
   	          
   	        infowindow.open(map, marker);
+  	      insertToHidden();
     	});
 	}//searchCoordinateToAddress 함수 끝
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
     //확인 클릭하면 지도 검색한 주소 가지고 부모창으로 가기
-    $(document).on('click', "#submit", function(){
+    function insertToHidden(){
    		//일단 있던거 비우고
     	$('#addrResult').empty();
    		$('#hidn').empty();
@@ -354,7 +402,6 @@ $(document).ready(function(){
     	
     	//infowindow에 있는 내용 담아두자
     	var addrResult = $('h6').text();
-    	console.log($('h6').text());
     	
     	var jusoResult = info_address; //jusoResult는 부모창 addrResult에 넣을 애야
     	if(info_title != ''){
@@ -373,7 +420,7 @@ $(document).ready(function(){
     	$('#hidn4').val(lat);
     	$('#hidn5').val(lng);
     	console.log($('#hidn').text());
-    });//부모창에 주소 가져가기 끝
+    }//부모창에 주소 가져가기 끝
     
    	//지도 모달창에서 취소 누르면 부모창으로 주소 안가져갈거야
    	$(document).on('click', '#cancel', function(){
@@ -486,31 +533,23 @@ $(document).ready(function(){
    		var check=false;
    		if(updateSubmit){
 			if($('#major option:selected').val() == '대분류'){//카테고리
-				console.log('카테고리를 선택하세요');
+				alert('카테고리를 선택하세요');
 				check = false;
 			}else
 			if($('#minor option:selected').val() == '소분류'){//카테고리
-				console.log('카테고리 소분류를 선택하세요');
+				alert('카테고리 소분류를 선택하세요');
 				check = false;
 			}else
 			if($('input[name=title]').val()=='' || $('input[name=title]').val().trim() == ''){
-				console.log('제목을 쓰세요');
+				alert('제목을 쓰세요');
 				check = false;
 			}else
 			if($('input[name=quantity]').val()=='' || $('input[name=quantity]').val().trim() == ''){
-				console.log('인원 또는 건수를 쓰세요');
-				check = false;
-			}else
-			if(!$.isNumeric($('input[name=quantity]').val())){
-				console.log('인원 또는 건수에는 숫자를 입력하세요');
+				alert('인원 또는 건수를 쓰세요');
 				check = false;
 			}else
 			if($('input[name=price]').val()=='' || $('input[name=price]').val().trim()==''){
 				console.log('가격을 쓰세요');
-				check = false;
-			}else
-			if(!$.isNumeric($('input[name=price]').val())){
-				console.log('가격에는 숫자를 입력하세요');
 				check = false;
 			}else{
 				check = true;
@@ -672,9 +711,9 @@ $(document).ready(function(){
 											</c:forEach>
 										</select>
 									</th></tr>
-									<tr><th>* 글제목</th><th> <input type="text" name="title" value="${board.title}"> </th></tr>
+									<tr><th>* 글제목</th><th> <input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*()?+=\/]{1,30}" name="title" value="${board.title}"> </th></tr>
 									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" value="${board.end_date}"> </th></tr>
-									<tr><th>* 인원 또는 건수</th><th> <input type="text" name="quantity" value="${board.quantity }"> </th></tr>
+									<tr><th>* 인원 또는 건수</th><th> <input type="number" min="1" max="99" name="quantity" value="${board.quantity }"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
           								<input type="radio" name="way" value="2"> 키워드<br>
@@ -709,7 +748,27 @@ $(document).ready(function(){
 										<input type="hidden" id="optionResult" name="optionResult" value="0">
 										</c:if>
 									</th></tr>
-									<tr><th>* 기본가격</th><td><input type="text" name="price" value="${board.price}"> </td></tr>
+									<tr id="mapTr"><td colspan="2">
+									<div id="mapDiv">
+									
+									
+									<table>
+										<tr><td id="mapTableList" width="50%">
+											<div id="scroll">
+											<table id="table">
+											<tr><th width="100">명칭</th><th width="230">주소</th></tr>
+											</table>
+											</div>
+										</td><td width="50%">
+											<div id="map" style="width:330px;height:300px;text-align: center;"></div>
+										</td></tr>
+									</table>
+									
+									</div>
+									
+									
+									</td></tr>
+									<tr><th>* 기본가격</th><td><input type="number" min="0" max="999900" name="price"></td></tr>
 									<tr><th>옵션사항</th>
 									<td>
 									<div><input type="checkbox" id="optionRadio">옵션 여부</div>
@@ -753,39 +812,39 @@ $(document).ready(function(){
 				</div>
         	</div>
        </div>
-<!-- 	</div> -->
+<!-- <!-- 	</div> --> -->
 
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">주소를 선택하거나 지도상에서 직접 찍은 후 확인을 눌러주세요</h4>
+<!--   <!-- Modal --> -->
+<!--   <div class="modal fade" id="myModal" role="dialog"> -->
+<!--     <div class="modal-dialog modal-lg"> -->
+<!--       <div class="modal-content"> -->
+<!--         <div class="modal-header"> -->
+<!--           <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+<!--           <h4 class="modal-title">주소를 선택하거나 지도상에서 직접 찍은 후 확인을 눌러주세요</h4> -->
 
-        </div>  
-        <div class="modal-body">
-          <table>
-				<tr><td id="mapTableList" width="50%">
-					<table id="table">
-					<tr><th width="100">명칭</th><th width="230">주소</th></tr>
-					</table>
-				</td><td width="50%">
-					<div id="map" style="width:450px;height:400px;text-align: center;"></div>
-				</td></tr>
-			</table>
-        </div>
-        <div class="modal-footer">
-       	  <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">취소</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="submit">확인</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<!--         </div>   -->
+<!--         <div class="modal-body"> -->
+<!--           <table> -->
+<!-- 				<tr><td id="mapTableList" width="50%"> -->
+<!-- 					<table id="table"> -->
+<!-- 					<tr><th width="100">명칭</th><th width="230">주소</th></tr> -->
+<!-- 					</table> -->
+<!-- 				</td><td width="50%"> -->
+<!-- 					<div id="map" style="width:450px;height:400px;text-align: center;"></div> -->
+<!-- 				</td></tr> -->
+<!-- 			</table> -->
+<!--         </div> -->
+<!--         <div class="modal-footer"> -->
+<!--        	  <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">취소</button> -->
+<!--           <button type="button" class="btn btn-default" data-dismiss="modal" id="submit">확인</button> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
   
   
-<!--   손연경 -->
+<!-- <!--   손연경 --> -->
 
 </body>
 </html>

@@ -340,7 +340,7 @@ font-size: 16px;
 				dataType : "json",
 				success : function(data) {
 					console.log(data);
-					$('#star').text(data.star);
+					$('#star').css('width', data.star*20+'%');
 					$('#writerNick').text(data.nickname);
 					$('#introduce').val(data.introduce);
 					$('#End').text(data.count);
@@ -861,7 +861,16 @@ font-size: 16px;
 					</tr>
 					<tr>
 						<td>별점 :</td>
-						<td><label id="star"></label></td>
+						<td>						
+							<div class="star-ratings-css">
+								<div class="star-ratings-css-top" id="star">
+									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+								</div>
+								<div class="star-ratings-css-bottom">
+									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+								</div>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<td>완료된 작업수 :</td>

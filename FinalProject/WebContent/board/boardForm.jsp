@@ -22,10 +22,6 @@ text-align: left;
 }
 
 
-#bckground div:last-child{
-
-}
-
 #idDiv{
 text-align: right !important;
 }
@@ -310,8 +306,6 @@ $(document).ready(function(){
 		    searchCoordinateToAddress(e.latlng);//찍은 곳의 좌표를 주소로 변환
 		    info_title = "";//직접 찍으면 지점 이름은 안나와
 		});
-		
-		
    	});
 
     
