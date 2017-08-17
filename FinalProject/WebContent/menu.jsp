@@ -237,7 +237,11 @@
 }
 #searchForm{
 	float: left;
+<<<<<<< HEAD
 	margin-left: 10px;
+=======
+	margin-left: 30px;
+>>>>>>> wonil
 }
 .fh5co-menu-btn{
 	display: none;
