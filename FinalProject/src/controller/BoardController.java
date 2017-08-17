@@ -80,7 +80,7 @@ public class BoardController{
 	        
 	        
 	        String text = URLEncoder.encode(inputAddr, "UTF-8");
-            String apiURL = "https://openapi.naver.com/v1/search/local.json?query="+ text; // json 결과
+            String apiURL = "https://openapi.naver.com/v1/search/local.json?query="+ text+"&display=50"; // json 결과
             //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -142,6 +142,8 @@ public class BoardController{
 				boardService.updateState(map);
 			}
 		}
+		
+		
 		
 		Calendar cal = Calendar.getInstance();
 		
@@ -430,6 +432,13 @@ public class BoardController{
 			fileNo++;
 		}
 		//table:board에 넣기
+		String content = params.get("content").toString();
+		if(content != null){
+			content = content.replaceAll("<br>", "\r\n");
+			content = content.replaceAll("&nbsp;", "\u0020");
+		}
+		params.put("content", content);
+		
 		boardService.insertBoard(params);
 		int no = Integer.parseInt(params.get("no").toString());
 		
@@ -462,10 +471,6 @@ public class BoardController{
 		MultipartFile file2 = fileList.get(1);
 		MultipartFile file3 = fileList.get(2);
 		MultipartFile file4 = fileList.get(3);
-		System.out.println(file1.getOriginalFilename()+"//1번파일");
-		System.out.println(file2.getOriginalFilename()+"//2번파일");
-		System.out.println(file3.getOriginalFilename()+"//3번파일");
-		System.out.println(file4.getOriginalFilename()+"//4번파일");
 		
 		String fileName1=null, fileName2=null, fileName3=null, fileName4=null;
 		if(file1 != null) {
@@ -520,6 +525,15 @@ public class BoardController{
 		ModelAndView mav = new ModelAndView();
 		Board board = boardService.selectOneBoard(no);//방금 입력한 board 뽑아서 가져오고
 		board.setFile_name1(boardService.selectThumbnail(no));// 썸네일 넣어주고
+		
+		//보내기 전에 띄어쓰기 태그 넣어줄거야
+		String content1 = board.getContent();
+		if(content1 != null){
+			content1 = content1.replaceAll("\r\n", "<br>");
+			content1 = content1.replaceAll("\u0020", "&nbsp;");
+		}
+		board.setContent(content1);
+		mav.addObject("board", board);
 		mav.addObject("board", board);//실어주고
 		
 		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
@@ -570,6 +584,13 @@ public class BoardController{
 		board.ratingForDetail();
 		board.setFile_name1(boardService.selectThumbnail(no));
 		
+		//보내기 전에 띄어쓰기 태그 넣어줄거야
+		String content = board.getContent();
+		if(content != null){
+			content = content.replaceAll("\r\n", "<br>");
+			content = content.replaceAll("\u0020", "&nbsp;");
+		}
+		board.setContent(content);
 		mav.addObject("board", board);
 
 		mav.addObject("files", boardService.selectOneFromFile(no)); //files가 존재하거나 null이거나 빈칸이거나 
@@ -841,6 +862,12 @@ public class BoardController{
 		board2.setFile_name1(boardService.selectThumbnail(no));//file 테이블에서 썸네일을 넣고
 		board2.ratingForMain();//해당글의 별점 평균을 넣고
 		
+		String content1 = board2.getContent();
+		if(content1 != null){
+			content1 = content1.replaceAll("\r\n", "<br>");
+			content1 = content1.replaceAll("\u0020", "&nbsp;");
+		}
+		board2.setContent(content1);
 		
 		mav.addObject("board", board2);
 		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고

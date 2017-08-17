@@ -302,9 +302,6 @@ public class DealControll {
 		map.put("id", member.getId());
 		map.put("nickname", member.getNickname());
 		map.put("login", member.getLogin());
-//		System.out.println("연경");
-//		System.out.println("state="+state+" / "+"amount="+amount+" / "+"board_no="+board_no);
-//		System.out.println(paramArray);
 		
 		if(state == 11 || state == 40 || state == 41 || state == 42) {
 			map.put("purchase_no", no);
@@ -317,7 +314,6 @@ public class DealControll {
 				memberService.returnBalance(map);
 			}
 			
-
 			
 			//미니프로필 현재 금액 업데이트
 			try {
@@ -385,8 +381,6 @@ public class DealControll {
 			}
 			
 			
-			
-			
 			//현재 구매수
 			int currentCount = board.getCount();
 			map.put("no", continue_no);
@@ -399,6 +393,8 @@ public class DealControll {
 				dealService.progressState(map);
 			}
 			
+			
+			/////////////////////////////
 			Date end_date = new Date();
 			
 			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -410,8 +406,9 @@ public class DealControll {
 			}
 			
 			
-			
-			if(end_date.getTime() < new Date().getTime()) {
+			System.out.println("연경 end_date : "+end_date.getTime());
+			System.out.println("연경 today : "+new Date().getTime());
+			if(end_date.getTime()+(24*60*60*1000) < new Date().getTime()) {
 				//판매 날짜 초과 state 2로 바꾸기
 				map.put("state", 2);
 				boardService.updateState(map);
@@ -420,6 +417,7 @@ public class DealControll {
 				map.put("state", 0);
 				boardService.updateState(map);
 			}
+			/////////////////////////////
 		}
 		
 		if(state==20) { //구매자
