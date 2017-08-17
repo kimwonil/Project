@@ -524,13 +524,13 @@
 			<div id="linkGroup">
 			
 				<c:if test="${member ne null}">
-					${member.nickname}님 환영합니다.
-					<a href="logout.do">로그아웃</a>
-					<a href='boardForm.do' id="boardForm">판매등록</a>
+					${member.nickname}님 환영합니다.&nbsp
+					<a href="logout.do">로그아웃</a>&nbsp
+					<a href='boardForm.do' id="boardForm">판매등록</a>&nbsp
 					<a href='#' id="toggler">알림 <span class="badge" id="togglerNum"></span>
 				</c:if>
 				<c:if test="${member eq null }">
-					<a href='loginForm.do'>로그인</a>
+					<a href='loginForm.do'>로그인</a>&nbsp
 					<a href='boardForm.do' id="boardForm">판매등록</a>
 				</c:if>
 					

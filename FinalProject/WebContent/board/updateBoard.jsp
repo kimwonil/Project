@@ -630,13 +630,14 @@ $(document).ready(function(){
    	});//체크박스 클릭
    	
    	
+//    	//원글 end_date가 왜 안먹히냐
+//    	var end_date = $('#datePicker').val();
+//    	console.log(end_date);
+// //    	$('#datePicker').val(end_date);
+   	
 });//document.ready
 </script>
-
-
-
 <body>
-	
 	<!-- 	<div id="fh5co-main"> -->
 		<div class="container">
 			<div class="row">
@@ -672,7 +673,7 @@ $(document).ready(function(){
 										</select>
 									</th></tr>
 									<tr><th>* 글제목</th><th> <input type="text" name="title" value="${board.title}"> </th></tr>
-									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" value="${board.end_date }"> </th></tr>
+									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" value="${board.end_date}"> </th></tr>
 									<tr><th>* 인원 또는 건수</th><th> <input type="text" name="quantity" value="${board.quantity }"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
