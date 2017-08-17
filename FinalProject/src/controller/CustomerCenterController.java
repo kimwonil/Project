@@ -96,6 +96,7 @@ public class CustomerCenterController {
 		params.put("nickname",member.getNickname());
 		params.put("introduce",member.getIntroduce());
 		params.put("photo",member.getPhoto());
+		params.put("login", member.getLogin());
 		params.put("star", star);
 		params.put("count", countState);
 		try {
