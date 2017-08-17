@@ -91,7 +91,7 @@
 	display: none;
 	top: 20%;
 	right: 5%;
-	border: 1px solid red;
+	min-height: 250px;
 }
 
 
@@ -237,11 +237,14 @@
 }
 #searchForm{
 	float: left;
+	margin-left: 10px;
 }
 .fh5co-menu-btn{
 	display: none;
 }
-
+#messagetable{
+	width: 400px;
+}
 
 </style>
 
@@ -261,10 +264,16 @@
 			success : function(data) {
 				console.log(data);
 				$('#messagetable tr:gt(0)').remove();
-				for (var i = 0; i < data.length; i++) {
-					$('#messagetable').append("<tr><td><a id='" + data[i].no + "'class='messageDetail' data-toggle='modal' data-target='#messageModal'>"
-						+ data[i].title + "&nbsp;&nbsp;&nbsp;</a></td><td>"
-						+ data[i].sender + "</td></tr>");
+				if(data == ''){
+					$('#messagetable').append(
+						"<tr><td colspan='2'>알림이 없습니다.</td></tr>"		
+					);
+				}else{
+					for (var i = 0; i < data.length; i++) {
+						$('#messagetable').append("<tr><td><a id='" + data[i].no + "'class='messageDetail' data-toggle='modal' data-target='#messageModal'>"
+							+ data[i].title + "&nbsp;&nbsp;&nbsp;</a></td><td>"
+							+ data[i].sender + "</td></tr>");
+					}
 				}
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
@@ -356,7 +365,7 @@
 // 			$("#alarm-content").css({
 // 				"left" : left
 // 			});
-			$("#alarm-content").slideToggle(1000);
+			$("#alarm-content").slideToggle(1);
 			MessageList();
 
 		});
@@ -513,12 +522,14 @@
 				<c:if test="${member ne null}">
 					${member.nickname}님 환영합니다.
 					<a href="logout.do">로그아웃</a>
+					<a href='boardForm.do' id="boardForm">판매등록</a>
+					<a href='#' id="toggler">알림 <span class="badge" id="togglerNum"></span>
 				</c:if>
 				<c:if test="${member eq null }">
 					<a href='loginForm.do'>로그인</a>
+					<a href='boardForm.do' id="boardForm">판매등록</a>
 				</c:if>
-				<a href='boardForm.do' id="boardForm">판매등록</a> 
-				<a href='#' id="toggler">알림 <span class="badge" id="togglerNum"></span>
+					
 			</div>
 		</div>
 		<p>

@@ -107,6 +107,14 @@ display: inline;
 #gageocksun{
 margin: 4px;
 }
+.titlecut{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	display:block;
+	width: 170px;
+	height: 20px;
+}
 </style>
 
 <script type="text/javascript">
@@ -206,7 +214,7 @@ $(document).on('click', '#gageocksun', function(){
 								<div class="fh5co-desc">
 									<table class="infoTable">
 										<tr>
-											<td colspan="4" class="titleHeight">${premium.title}</td>
+											<td colspan="4" class="titleHeight"><span class="titlecut">${premium.title}</span></td>
 										</tr>
 										
 										<tr>
@@ -281,7 +289,7 @@ $(document).on('click', '#gageocksun', function(){
 		        		<div class="fh5co-desc">
 							<table class="infoTable">
 								<tr>
-									<td colspan="4" class="titleHeight">${normal.title}</td>
+									<td colspan="4" class="titleHeight"><span class="titlecut">${normal.title}</span></td>
 								</tr>
 								
 								<tr>
