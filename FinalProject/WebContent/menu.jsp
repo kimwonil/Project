@@ -237,17 +237,16 @@
 }
 #searchForm{
 	float: left;
-<<<<<<< HEAD
 	margin-left: 10px;
-=======
-	margin-left: 30px;
->>>>>>> wonil
 }
 .fh5co-menu-btn{
 	display: none;
 }
 #messagetable{
 	width: 400px;
+}
+#receiverLabel{
+	height: 20px;
 }
 
 </style>
@@ -317,6 +316,8 @@
 				$('#titleLabel').text(data.title);
 				$('#senderLabel').text(data.sender);
 				$('#contentLabel').text(data.content);
+				$('#messageDelete').val(data.no);
+				$('#messageRe').val(data.no);
 				MessageList();
 				MessageNum();
 			},
@@ -324,9 +325,109 @@
 				alert("실패");
 			}
 		});
-
 	});
-
+	
+	//메세지 삭제
+	$(document).on('click', '#messageDelete', function(){
+		$.ajax({
+			url:"messageDelete.do",
+			type:"POST",
+			data:{
+				no:$(this).val()
+			},
+			success:function(){
+				alert("성공");
+				$('#messageModal').modal('hide');
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+	});
+	
+	//메세지 답장 modal 띄우기
+	$(document).on('click','#messageRe',function(){
+		$('#messageModal').modal('hide');
+		$('#messageReSend').modal('show');
+		$.ajax({
+			url:"messageDetail.do",
+			type:"POST",
+			data:{
+				no:$(this).val()
+			},
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				$('#messageReTitle').val(data.title+" : 답변");
+				$('#receiverLabel').text(data.sender);
+				$('#messageReContent').val(data.content+" \n ================================================================\n");
+			},
+			error:function(){
+				alert("실패");
+			}
+			
+		});
+		
+		
+	});
+	
+	//답장 보내기
+		$(document).on('click','#messageReBtn',function(){
+			
+			$.ajax({
+				url:"messageSend.do",
+				type:"POST",
+				data:{
+					title:$('#messageReTitle').val(),
+					receiver:$('#receiverLabel').text(),
+					content:$('#messageReContent').val()
+				},
+				success:function(){
+					alert("메세지 발송 완료");
+					$('#messageReTitle').val("");
+					$('#receiverLabel').text("");
+					$('#messageReContent').val("");
+					$('#messageReSend').modal('hide');
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+				
+			});
+			
+		});
+	
+	
+	//메세지 보내기
+	$(document).on('click','#messageBtn',function(){
+		
+		$.ajax({
+			url:"messageSend.do",
+			type:"POST",
+			data:{
+				title:$('#messageTitle').val(),
+				receiver:$('#messageReceiver').val(),
+				content:$('#messageContent').val()
+			},
+			success:function(){
+				alert("메세지 발송 완료");
+				$('#messageTitle').val("");
+				$('#messageReceiver').val("");
+				$('#messageContent').val("");
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+			
+		});
+		
+	});
+	
+	
+	
 	$(document).ready(function() {
 		var menu = $('#memberLogin').val();
 
@@ -484,8 +585,9 @@
 							<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
 								: <label id="titleLabel"></label>
 							</td>
-							<td width="20%" rowspan="2" align="center"><button
-									type="button" id="messageDelete" class="btn btn-sm btn-danger">삭제</button></td>
+							<td width="20%" rowspan="2" align="center">
+							<button type="button" id="messageRe" class="btn btn-sm btn-danger">답장</button>
+							<button type="button" id="messageDelete" class="btn btn-sm btn-danger">삭제</button></td>
 						</tr>
 						<tr>
 
@@ -494,7 +596,7 @@
 						</tr>
 						<tr>
 							<td colspan="3"><textarea id="contentLabel" rows="10"
-									cols="78" readonly="readonly"></textarea></td>
+									cols="75" readonly="readonly"></textarea></td>
 						</tr>
 					</table>
 				</div>
@@ -503,7 +605,37 @@
 		</div>
 	</div>
 	<!-- Modal -->
+	
+	<!-- 메세지 답장  Modal -->
+	<div class="modal fade" id="messageReSend" role="dialog">
+		<div class="modal-dialog">
 
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">답변</h4>
+				</div>
+				<div class="modal-body">
+					<table id="messageReTable">
+						<tr>
+							<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목 : <input type="text" class="messageInput" id="messageReTitle"></td>
+							<td width="20%" rowspan="2" align="center"><button type="button" id="messageReBtn" class="btn btn-sm btn-info">보내기</button></td>
+						</tr>
+						<tr>
+							
+							<td width="80%">받는사람 : <label id="receiverLabel"></label></td>
+						</tr>
+						<tr>
+							<td colspan="3"><textarea rows="10" cols="75" id="messageReContent"></textarea></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Modal -->
 
 
 	<header id="fh5co-header" role="banner">
@@ -672,5 +804,6 @@
 	<script src="js/salvattore.min.js"></script>
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
+	
 </body>
 </html>

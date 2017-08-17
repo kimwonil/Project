@@ -1420,7 +1420,7 @@ function reportList(page,type,keyword,start,end){
 				if(data.state==0)
 					{
 					$("#ReportClearBtn").attr("name","ReportClearBtn")
-					$('#ReportClearBtn').text("처리 완료 메세지 전송");
+					$('#ReportClearBtn').text("완료 메세지 전송");
 					}
 				else
 					{
@@ -1737,6 +1737,16 @@ textarea{
 #qnaMinor, #reportMinor{
 	width: 500px;
 }
+#noticeMajor{
+	width: 30%;
+}
+#noticeMinor{
+	width: 61%;
+}
+.customerCenterBtn{
+	position: relative;
+	left: 70%;
+}
 
 </style>
 </head>
@@ -1788,8 +1798,8 @@ textarea{
 							<br>
 							<c:choose>
 								<c:when test="${member.admin==1}">
-									<div class="form-group" style="text-align: right;">
-										<button type="button" class="btn btn-info btn-lg"
+									<div class="form-group btn-group" style="text-align: right;">
+										<button type="button" class="btn btn-info btn-sm"
 											data-toggle="modal" data-target="#NoticeinsertModal"
 											id="NoticeinsertBtn">공지 등록</button>
 									</div>
@@ -1890,10 +1900,6 @@ textarea{
 											<h4 class="modal-title">공지 등록</h4>
 										</div>
 										<div class="modal-body">
-
-
-
-
 											<table class="table">
 												<tr>
 													<th>카테고리</th>
@@ -1915,11 +1921,12 @@ textarea{
 												</tr>
 
 											</table>
+											<div class="customerCenterBtn">
 											<input type="button" class="btn btn-sm btn-primary"
 												id="noticeinsert" value="공지 등록">
 											<button type="button" class="btn btn-primary btn-sm"
 												data-dismiss="modal">취소하기</button>
-
+											</div>
 
 										</div>
 
@@ -1966,10 +1973,12 @@ textarea{
 														<input type="radio" name="qnaopen" value="1">비공개</th>
 												</tr>
 											</table>
+											<div class="customerCenterBtn">
 											<input type="button" class="btn btn-sm btn-primary"
 												id="qnainsert" value="질문하기">
 											<button type="button" class="btn btn-primary btn-sm"
 												data-dismiss="modal">취소하기</button>
+											</div>
 
 
 										</div>
@@ -2012,10 +2021,12 @@ textarea{
 												</tr>
 
 											</table>
+											<div class="customerCenterBtn">
 											<input type="button" class="btn btn-sm btn-primary"
 												id="reportinsert" value="신고하기">
 											<button type="button" class="btn btn-primary btn-sm"
 												data-dismiss="modal">취소하기</button>
+											</div>
 
 
 										</div>
@@ -2071,9 +2082,13 @@ textarea{
 
 
 										<tr>
-											<td><button type="button" class="btn btn-sm btn-danger"
+											<td style="text-align: right;">
+											<button type="button" class="btn btn-danger btn-sm"
+														id="AnswerInsertForm" name="" data-toggle="modal"
+														data-target="#AnswerInsertModal"></button>
+											<button type="button" class="btn btn-sm btn-danger"
 													id="QnAUpdateForm" data-toggle="modal"
-													data-target="#QnAContentUpdateModal">질문 수정 하기</button>
+													data-target="#QnAContentUpdateModal">질문 수정</button>
 												<button type="button" id="QnADelete"
 													class="btn btn-sm btn-danger">질문 삭제</button></td>
 										</tr>
@@ -2082,9 +2097,7 @@ textarea{
 										<tr>
 
 											<td><div class="form-group" style="text-align: right;">
-													<button type="button" class="btn btn-info btn-lg"
-														id="AnswerInsertForm" name="" data-toggle="modal"
-														data-target="#AnswerInsertModal"></button>
+													
 												</div></td>
 
 										</tr>
@@ -2134,7 +2147,7 @@ textarea{
 											<td><br></td>
 										</tr>
 										<tr>
-											<td><button type="button" class="btn btn-sm btn-danger"
+											<td style="text-align: right;"><button type="button" class="btn btn-sm btn-danger"
 													id="AnswerInsert">답변 등록</button>
 												<button type="button" id="Answercancel"
 													class="btn btn-sm btn-danger" data-dismiss="modal">취소</button></td>
@@ -2186,7 +2199,7 @@ textarea{
 											<td><br></td>
 										</tr>
 										<tr>
-											<td><button type="button" class="btn btn-sm btn-danger"
+											<td style="text-align: right;"><button type="button" class="btn btn-sm btn-danger"
 													id="AnswerUpdate">답변 수정</button>
 												<button type="button" id="Answercancel"
 													class="btn btn-sm btn-danger" data-dismiss="modal">취소</button></td>
@@ -2242,7 +2255,7 @@ textarea{
 											</th>
 										</tr>
 										<tr>
-											<td><button type="button" class="btn btn-sm btn-danger"
+											<td style="text-align: right;"><button type="button" class="btn btn-sm btn-danger"
 													id="QnAUpdateBtn">질문 수정</button></td>
 										</tr>
 									</table>
@@ -2288,9 +2301,9 @@ textarea{
 											<td><br></td>
 										</tr>
 										<tr>
-											<td><button type="button" class="btn btn-sm btn-danger"
+											<td style="text-align: right;"><button type="button" class="btn btn-sm btn-danger"
 													id="NoticeUpdateForm" data-toggle="modal"
-													data-target="#NoticeContentUpdateModal">공지 수정 하기</button>
+													data-target="#NoticeContentUpdateModal">공지 수정</button>
 												<button type="button" id="NoticeDelete"
 													class="btn btn-sm btn-danger">공지 삭제</button></td>
 										</tr>
@@ -2384,19 +2397,19 @@ textarea{
 											<td><br></td>
 										</tr>
 										<tr>
-											<td><button type="button" class="btn btn-sm btn-danger"
+											<td style="text-align: right;">
+											<button type="button" class="btn btn-danger btn-sm"
+														id="ReportClearBtn" name=""></button>
+											<button type="button" class="btn btn-sm btn-danger"
 													id="ReportUpdateForm" data-toggle="modal"
-													data-target="#ReportContentUpdateModal">신고 수정 하기</button>
+													data-target="#ReportContentUpdateModal">신고 수정</button>
 												<button type="button" id="ReportDelete"
-													class="btn btn-sm btn-danger">신고 삭제</button></td>
+													class="btn  btn-sm btn-danger">신고 삭제</button></td>
 										</tr>
 
 										<tr>
 
-											<td><div class="form-group" style="text-align: right;">
-													<button type="button" class="btn btn-info btn-lg"
-														id="ReportClearBtn" name=""></button>
-												</div></td>
+											<td></td>
 
 										</tr>
 									</table>
@@ -2450,8 +2463,6 @@ textarea{
 						</div>
 					</div>
 					<!-- Report업데이트상세 끝 -->
-					
-
 				</div>
 			</div>
 		</div>

@@ -6,8 +6,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>오류 페이지</title>
+<style type="text/css">
+#errorImg{
+	position: fixed;
+	left: 15%;
+	top: 25%;
+}
+#homeBtn{
+	position: fixed;
+	left: 24%;
+	top: 40%;
+}
+</style>
 </head>
 <body>
-<img src="/images/error.png" alt="에러페이지" >
+<img id="errorImg" src="images/error.gif" alt="에러페이지" >
+
+<button id="homeBtn" class="btn btn-sm btn-info"><a href="index.jsp">홈페이지 가기</a></button>
 </body>
 </html>

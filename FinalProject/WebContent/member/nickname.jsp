@@ -20,35 +20,46 @@
 
 <script type="text/javascript">
 $(document).on('keyup', '#nickname', function(){
-	$.ajax({
-		url:"nickname.do",
-		type:"POST",
-		data:{
-			nickname:$(this).val()
-		},
-		dataType:"json",
-		success:function(data){
-			console.log(data.result);
-			$('#duplicate').val(data.result);
-			
-			if(data.result){
-				$('#inputDiv').removeClass("has-error");
-				$('#inputDiv').addClass("has-success");
-				$('#resultSpan').removeClass("glyphicon-remove");
-				$('#resultSpan').addClass("glyphicon-ok");
-				$('#result').text("사용 가능합니다.");
-			}else{
-				$('#inputDiv').removeClass("has-success");
-				$('#inputDiv').addClass("has-error");
-				$('#resultSpan').removeClass("glyphicon-ok");
-				$('#resultSpan').addClass("glyphicon-remove");
-				$('#result').text("중복입니다.");
+	var nicknameCheck = $(this).val();
+	var check = /^[가-힣a-zA-Z0-9]{2,10}$/;
+	if(check.test(nicknameCheck)){
+		$.ajax({
+			url:"nickname.do",
+			type:"POST",
+			data:{
+				nickname:$(this).val()
+			},
+			dataType:"json",
+			success:function(data){
+				console.log(data.result);
+				$('#duplicate').val(data.result);
+				
+				if(data.result){
+					$('#inputDiv').removeClass("has-error");
+					$('#inputDiv').addClass("has-success");
+					$('#resultSpan').removeClass("glyphicon-remove");
+					$('#resultSpan').addClass("glyphicon-ok");
+					$('#result').text("사용 가능합니다.");
+				}else{
+					$('#inputDiv').removeClass("has-success");
+					$('#inputDiv').addClass("has-error");
+					$('#resultSpan').removeClass("glyphicon-ok");
+					$('#resultSpan').addClass("glyphicon-remove");
+					$('#result').text("중복입니다.");
+				}
+			},
+			error:function(){
+				alert("실패");
 			}
-		},
-		error:function(){
-			alert("실패");
-		}
-	});
+		});
+	}else{
+		$('#duplicate').val(false);
+		$('#inputDiv').removeClass("has-success");
+		$('#inputDiv').addClass("has-error");
+		$('#resultSpan').removeClass("glyphicon-ok");
+		$('#resultSpan').addClass("glyphicon-remove");
+		$('#result').text("사용 불가합니다.");
+	}
 });
 
 $(document).on('click', '#submitBtn', function(){
@@ -57,6 +68,7 @@ $(document).on('click', '#submitBtn', function(){
 		$('#insertForm').submit();
 	}else{
 		alert("닉네임을 다시 확인하세요.");
+		$('#nickname').focus();
 	}
 });
 
@@ -99,8 +111,8 @@ table {
 					<form id="insertForm" action="memberInsert.do" method="post" class="form-inline">
 						<div id="inputDiv" class="form-group has-success has-feedback">
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="nickname"
-									name="nickname"> <span id="resultSpan"
+							<input type="text" class="form-control" pattern="[가-힣a-zA-Z0-9]{1,10}" title="닉네임은 10자 이하로 입력하세요(특수문자불가)" name="nickname" id="nickname">
+								 <span id="resultSpan"
 									class="glyphicon glyphicon-ok form-control-feedback"></span>
 							</div>
 						</div>
@@ -109,9 +121,20 @@ table {
 				<td width="40%"><span id="result"></span></td>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td colspan="2" height="100">
 					<button id="submitBtn" class="btn btn-sm btn-info">확인</button> <input
 					type="reset" class="btn btn-sm btn-info" value="취소">
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2" height="100" align="left">
+					<ul>
+						<li>영문, 한글, 숫자 조합 가능</li>
+						<li>최소 2글자, 최대 10글자 사용</li>
+						<li>특수문자 사용 불가</li>
+						<li>한글은 자음 또는 모음만 사용 불가</li>
+					</ul>
 				</td>
 				<td></td>
 			</tr>
