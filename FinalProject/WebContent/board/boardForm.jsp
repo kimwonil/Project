@@ -14,7 +14,7 @@
 <style>
 
 #bckground{
-width: 655px;
+width: 665px;
 }
 
 #bckgrndtable{
@@ -392,13 +392,12 @@ $(document).ready(function(){
    	$(document).on('click', '.add', function(){
    		$('#tableOption').append(
   				'<tr>'+
-			'<td><input type="text" name="option[]" class="optionName"></td>'+
-			'<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
+			'<td><input type="text" pattern="[가-힣a-zA-Z0-9!#$%^&*()?+=\/]{1,30}" name="option[]" class="optionName"></td>'+
+			'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice"></td>'+
 			'<td><button class="delete">삭제</button></td>'+
 			'</tr>'
    		);
    	});
-
     
    	//옵션삭제
    	$(document).on('click', '.delete', function(){
@@ -457,8 +456,8 @@ $(document).ready(function(){
     		$('#tableOption').append(
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
-                        '<td><input type="text" name="option[]" class="optionName"></td>'+
-                        '<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
+                        '<td><input type="text" pattern="[가-힣a-zA-Z0-9!#$%^&*()?+=\/]{1,30}" title="제목은 10자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
+                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice"></td>'+
 //                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
     		);
@@ -469,39 +468,36 @@ $(document).ready(function(){
     });
 	
 	
+
 	
 	
 	
    	//글등록
    	$(document).on('click', '#go', function(){
 		if($('#major option:selected').val() == '대분류'){//카테고리
-			console.log('카테고리를 선택하세요');
+			alert('카테고리를 선택하세요');
 			return false;
 		}
 		if($('#minor option:selected').val() == '소분류'){//카테고리
-			console.log('카테고리 소분류를 선택하세요');
+			alert('카테고리 소분류를 선택하세요');
 			return false;
 		}
 		if($('input[name=title]').val()=='' || $('input[name=title]').val().trim() == ''){
-			console.log('제목을 쓰세요');
+			alert('제목을 쓰세요');
+			$('input[name=title]').focus();
 			return false;
 		}
 		if($('input[name=quantity]').val()=='' || $('input[name=quantity]').val().trim() == ''){
-			console.log('인원 또는 건수를 쓰세요');
-			return false;
-		}
-		if(!$.isNumeric($('input[name=quantity]').val())){
-			console.log('인원 또는 건수에는 숫자를 입력하세요');
+			alert('인원 또는 건수를 쓰세요');
+			$('input[name=quantity]').focus();
 			return false;
 		}
 		if($('input[name=price]').val()=='' || $('input[name=price]').val().trim()==''){
-			console.log('가격을 쓰세요');
+			alert('가격을 쓰세요');
+			$('input[name=price]').focus();
 			return false;
 		}
-		if(!$.isNumeric($('input[name=price]').val())){
-			console.log('가격에는 숫자를 입력하세요');
-			return false;
-		}
+
 		
 		
 		if($('input[type=checkbox]').is(':checked')){
@@ -619,9 +615,9 @@ $(document).ready(function(){
 										<option>소분류</option><option>대분류를 선택하세요</option>
 									</select>
 									</th></tr>
-									<tr><th>* 글제목</th><th> <input type="text" name="title"> </th></tr>
+									<tr><th>* 글제목</th><th> <input type="text" pattern="[가-힣a-zA-Z0-9!#$%^&*()?+=\/]{1,30}" title="제목은 30자 이하로 입력하세요" name="title"> </th></tr>
 									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" > </th></tr>
-									<tr><th>* 인원 또는 건수</th><th> <input type="text" name="quantity"> </th></tr>
+									<tr><th>* 인원 또는 건수</th><th> <input type="number" min="1" max="99" name="quantity"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
           								<input type="radio" name="way" value="2"> 키워드<br>
@@ -636,7 +632,7 @@ $(document).ready(function(){
 										<input type="hidden" id="hidn5" name="lng">
 										<input type="hidden" id="optionResult" name="optionResult" value="4">
 									</th></tr>
-									<tr><th>* 기본가격</th><th> <input type="text" name="price"> </th></tr>
+									<tr><th>* 기본가격</th><th> <input type="number" min="0" max="999900" name="price"> </th></tr>
 									<tr><th>옵션사항</th><th> 
 										<input type="checkbox" id="optionRadio"> 판매옵션 있음
 										<table id="tableOption">
