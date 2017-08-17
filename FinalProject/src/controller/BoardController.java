@@ -567,7 +567,6 @@ public class BoardController{
 		//board 테이블에서 가져온 정보
 		Board board = boardService.selectOneBoard(no);
 		ModelAndView mav = new ModelAndView();
-//		board.setCount(dealService.purchaseCount(no));
 		board.ratingForDetail();
 		board.setFile_name1(boardService.selectThumbnail(no));
 		
@@ -765,14 +764,13 @@ public class BoardController{
 			@RequestParam HashMap<String, Object> params, 
 			@RequestParam(value="option[]", required=false) List<String> paramArray1, 
 			@RequestParam(value="optionPrice[]", required=false) List<String> paramArray2, 
+			@RequestParam(value="original[]", required=false) List<String> originArr,
 			FileUpload files){
 		System.out.println("updateBoard.do");
 		int no = Integer.parseInt(params.get("no").toString());
 		Board board = boardService.selectOneBoard(no);
 		params.put("no", no);
-		
-		System.out.println(paramArray1);
-		System.out.println(paramArray2);
+		System.out.println("originArr = "+originArr);
 
 		//위도가 있으면 table:map 수정
 		if(!params.get("lat").equals("")){
@@ -808,62 +806,37 @@ public class BoardController{
 		//사진이 저장될 위치 만들어주기
 		String path = session.getServletContext().getRealPath("/user/board/");
 		System.out.println(path);
-		MultipartFile file1 = fileList.get(0); //fileList에 들어있는 파일들을 하나씩 꺼내주고
-		MultipartFile file2 = fileList.get(1);
-		MultipartFile file3 = fileList.get(2);
-		MultipartFile file4 = fileList.get(3);
-		
-		//파일 이름 변수에 저장
-		String fileName1=null, fileName2=null, fileName3=null, fileName4=null;
-		
-		if(file1 != null){
-			fileName1 = file1.getOriginalFilename();
-		}
-		if(file2 != null){
-			fileName2 = file2.getOriginalFilename();
-		}
-		if(file3 != null){
-			fileName3 = file3.getOriginalFilename();
-		}
-		if(file4 != null){
-			fileName4 = file4.getOriginalFilename();
-		}
-		
-		
-//		File dir = new File(path+no);//각각의 글에 해당하는 파일이 들어갈 폴더생성
-//		if(!dir.exists()){//폴더가 없으면 생성
-//			dir.mkdirs();
-//		}
-		
-			try {
-				if(!fileName1.equals("")){
-					file1.transferTo(new File(path+no+"/"+fileName1));
+
+
+		//사진이 존재하면 폴더에 넣기
+		try {
+			for(MultipartFile file : fileList){
+				if(file.getSize() >= 0){
+					file.transferTo(new File(path+no+"/"+file.getOriginalFilename()));
 				}
-				if(!fileName2.equals("")){
-					file2.transferTo(new File(path+no+"/"+fileName2));
-				}
-				if(!fileName3.equals("")){
-					file3.transferTo(new File(path+no+"/"+fileName3));
-				}
-				if(!fileName4.equals("")){
-					file4.transferTo(new File(path+no+"/"+fileName4));
-				}
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 			
 		
-		//원글에 files가 있었으면 수정하고 없었으면 files insert하기
-		if(files.getFiles()!=null && boardService.selectOneFromFile(no) != null){
-			boardService.updateFile(params);
-		}else if(files.getFiles()!=null && boardService.selectOneFromFile(no) == null){
-			boardService.insertFile(params);
+		//새로 받아온 file이 존재하면 그 이름으로 table에 update하고, 없으면 원본으로
+		HashMap<String, Object> fileMap = new HashMap<>();
+		fileMap.put("no", no);
+		for(int i=1; i<5; i++){
+			 if(!fileList.get(i-1).getOriginalFilename().equals("")){
+				 fileMap.put("file_name"+i, fileList.get(i-1).getOriginalFilename());
+			 }else{
+				 fileMap.put("file_name"+i, originArr.get(i-1));
+			 }
 		}
-		
+		System.out.println(fileMap);
+		boardService.updateFile(fileMap);
+			
 		//수정 후 페이지 이동
 		ModelAndView mav = new ModelAndView();
 		
