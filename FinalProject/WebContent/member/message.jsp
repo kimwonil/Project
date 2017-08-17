@@ -71,52 +71,6 @@
 		
 	});
 	
-	$(document).on('click','#messageBtn',function(){
-		
-		$.ajax({
-			url:"messageSend.do",
-			type:"POST",
-			data:{
-				title:$('#messageTitle').val(),
-				receiver:$('#messageReceiver').val(),
-				content:$('#messageContent').val()
-			},
-			success:function(){
-				alert("성공");
-				$('#messageTitle').val("");
-				$('#messageReceiver').val("");
-				$('#messageContent').val("");
-			},
-			error:function(jqXHR, textStatus, errorThrown){
-				console.log(textStatus);
-				console.log(errorThrown);
-			}
-			
-		});
-		
-	});
-	
-	$(document).on('click', '#messageDelete', function(){
-		$.ajax({
-			url:"messageDelete.do",
-			type:"POST",
-			data:{
-				no:$(this).val()
-			},
-			dataType:"json",
-			success:function(){
-				alert("성공");
-				$('#messageModal').modal('hide');
-			},
-			error:function(){
-				alert("실패");
-			}
-		});
-		
-	});
-	
-	
-	
 	
 </script>
 <style type="text/css">
@@ -241,7 +195,7 @@ a:hover{
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3"><textarea id="contentLabel" rows="10" cols="78" readonly="readonly"></textarea></td>
+											<td colspan="3"><textarea id="contentLabel" rows="10" cols="75" readonly="readonly"></textarea></td>
 										</tr>
 									</table>
 								</div>
