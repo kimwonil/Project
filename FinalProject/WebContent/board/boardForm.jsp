@@ -104,12 +104,12 @@ $(document).ready(function(){
 	
 	
     var map = new naver.maps.Map('map', {
-    	scaleControl: false,
-        logoControl: false,
-        mapDataControl: false,
-        zoomControl: false,
-        minZoom: 1,
-    	zoom: 11
+//     	scaleControl: false,
+//         logoControl: false,
+//         mapDataControl: false,
+//         zoomControl: false,
+//         minZoom: 1,
+    	zoom: 12
     });
     var way;
     var juso; //지도검색 후 라디오 버튼으로 선택할 때 infowindow에 써
@@ -153,12 +153,12 @@ $(document).ready(function(){
 	  				
 				        map.destroy();//원래있던 지도 지우고
 				        map = new naver.maps.Map('map', {//다시 넣어주기
-				        	scaleControl: false,
-				            logoControl: false,
-				            mapDataControl: false,
-				            zoomControl: false,
-				            minZoom: 1,
-	  				    	zoom: 11
+// 				        	scaleControl: false,
+// 				            logoControl: false,
+// 				            mapDataControl: false,
+// 				            zoomControl: false,
+// 				            minZoom: 1,
+	  				    	zoom: 12
 	  				    });
 				        
 	  					info_title = data.items[0].title;
@@ -229,12 +229,12 @@ $(document).ready(function(){
 		    	$('#mapTr').css('border-top', '1px solid #ddd' );
 		        map.destroy();
 		        map = new naver.maps.Map('map', {
-		        	scaleControl: false,
-		            logoControl: false,
-		            mapDataControl: false,
-		            zoomControl: false,
-		            minZoom: 1,
-			    	zoom: 11
+// 		        	scaleControl: false,
+// 		            logoControl: false,
+// 		            mapDataControl: false,
+// 		            zoomControl: false,
+// 		            minZoom: 1,
+			    	zoom: 12
 			    });
 		    	
 		        var result = response.result;
@@ -445,17 +445,8 @@ $(document).ready(function(){
     
     
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//가격 입력하기
 
-   	$(document).on('click', '.add', function(){
-   		$('#tableOption').append(
-  				'<tr>'+
-			'<td><input type="text" pattern="[가-힣a-zA-Z0-9!#$%^&*()?+=\\s/]{1,30}" name="option[]" class="optionName"></td>'+
-			'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice"></td>'+
-			'<td><button class="delete">삭제</button></td>'+
-			'</tr>'
-   		);
-   	});
+
     
    	//옵션삭제
    	$(document).on('click', '.delete', function(){
@@ -507,15 +498,15 @@ $(document).ready(function(){
 
 
 	//옵션 추가 체크박스 선택
-	$("#tableOption").empty();//옵션추가 테이블 일단 숨겨놓고 시작!
+	$("#tableOption").empty();//옵션추가 테이블 한번 비우고
     $('input[type=checkbox]').on('click',function(){
     	if($(this).is(':checked')){//체크되면
     		$('#optionResult').val(0);
     		$('#tableOption').append(
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
-                        '<td><input type="text" pattern="[가-힣a-zA-Z0-9!#$%^&*()?+=\/]{1,30}" title="제목은 10자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice"></td>'+
+                        '<td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
+                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
 //                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
     		);
@@ -526,6 +517,24 @@ $(document).ready(function(){
     });
 	
 	
+	//옵션 추가 클릭
+   	$(document).on('click', '.add', function(){
+   		var no = 0;
+   		$.each($('#tableOption').find('.optionName'), function(index, value){
+   			no += 1;
+   		});
+   		if(no>4){
+			alert("옵션은 최대 5개까지 추가 가능합니다");
+		}else{
+	   		$('#tableOption').append(
+	  				'<tr>'+
+				'<td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
+				'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
+				'<td><button class="delete">삭제</button></td>'+
+				'</tr>'
+	   		);
+		}
+   	});
 
 	
 	
@@ -556,7 +565,6 @@ $(document).ready(function(){
 			return false;
 		}
 
-		
 		
 		if($('input[type=checkbox]').is(':checked')){
 			var check1 = true;
@@ -641,9 +649,9 @@ $(document).ready(function(){
 										<option>소분류</option><option>대분류를 선택하세요</option>
 									</select>
 									</th></tr>
-									<tr><th>* 글제목</th><th> <input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*()?+=\/]{1,30}" title="제목은 30자 이하로 입력하세요" name="title"> </th></tr>
-									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" > </th></tr>
-									<tr><th>* 인원 또는 건수</th><th> <input type="number" min="1" max="99" name="quantity"> </th></tr>
+									<tr><th>* 글제목</th><th> <input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,30}" title="제목은 30자 이하로 입력하세요" name="title"> </th></tr>
+									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" title="오늘 이전 날짜는 선택할 수 없습니다"> </th></tr>
+									<tr><th>* 인원 또는 건수</th><th> <input type="number" min="1" max="99" name="quantity" title="100명 미만으로 입력하세요"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 									
 										<input type="radio" name="way" value="1" checked="checked">주소
@@ -684,7 +692,7 @@ $(document).ready(function(){
 									
 									
 									</td></tr>
-									<tr><th>* 기본가격</th><th> <input type="number" min="0" max="999900" name="price"> </th></tr>
+									<tr><th>* 기본가격</th><th> <input type="number" min="0" max="999999" name="price" title="100만원 미만으로 입력하세요"> </th></tr>
 									<tr><th>옵션사항</th><th> 
 										<input type="checkbox" id="optionRadio"> 판매옵션 있음
 										<table id="tableOption">
@@ -700,7 +708,11 @@ $(document).ready(function(){
 									</th></tr>
 								</table>
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
-								<div id="idDiv"><input type="submit" class="btn btn-sm btn-primary" id="go" value="GO!"></div>
+								<div id="idDiv">
+								<button type="button" class="btn btn-sm btn-primary" onclick="history.back()">뒤로가기</button>
+<!-- 								<button type="button" class="btn btn-sm btn-primary" id="go">등록하기</button> -->
+								<input type="submit" class="btn btn-sm btn-primary" id="go" value="등록하기">
+								</div>
 							</form>
 							</div>
 						</div>

@@ -437,7 +437,14 @@ $(document).ready(function(){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //가격 입력하기
 
-
+   	$(document).on('click', '.add', function(){
+   		$('#optionTable').append(
+   				'<tr><td><input type="text" name="option[]"></td>'+
+				'<td><input type="text" name="optionPrice[]"></td>'+
+				'<td>'+'<input type="button" class="delete" value="삭제">'+'</td></tr>'
+   		);
+   		
+   	});
 
     
    	//옵션삭제
@@ -493,142 +500,116 @@ $(document).ready(function(){
    	
    	
 
-// //옵션 추가 체크박스 선택
-// 	$("#tableOption").empty();//옵션추가 테이블 일단 숨겨놓고 시작!
-//     $('#optionRadio').on('click',function(){
-//     	if($(this).is(':checked')){//체크되면
-//     		console.log("체크");
-//     		$('#optionResult').val(0);
-//     		$('#optionTable').append(
-//     				 '<tr><td>옵션종류</td><td>추가가격</td><td><input type="button" class="add" value="추가"></td></tr>'+
-//                      '<tr>'+
-//                         '<td><input type="text" name="option[]" class="optionName"></td>'+
-//                         '<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
-//                      '</tr>'
-//     		);
-//     	}else{//체크 안되면
-//     		console.log("체크노노");
-//     		$('#optionResult').val(4);
-//     		$('#optionTable').empty();
-//     	}
-//     });
-	
-		//옵션 추가 체크박스 선택
-	$("#tableOption").empty();//옵션추가 테이블 한번 비우고
-    $('input[type=checkbox]').on('click',function(){
+//옵션 추가 체크박스 선택
+	$("#tableOption").empty();//옵션추가 테이블 일단 숨겨놓고 시작!
+    $('#optionRadio').on('click',function(){
     	if($(this).is(':checked')){//체크되면
+    		console.log("체크");
     		$('#optionResult').val(0);
-    		$('#tableOption').append(
-    				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
+    		$('#optionTable').append(
+    				 '<tr><td>옵션종류</td><td>추가가격</td><td><input type="button" class="add" value="추가"></td></tr>'+
                      '<tr>'+
-                        '<td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
-//                         '<td><button class="delete">삭제</button></td>'+
+                        '<td><input type="text" name="option[]" class="optionName"></td>'+
+                        '<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
                      '</tr>'
     		);
     	}else{//체크 안되면
+    		console.log("체크노노");
     		$('#optionResult').val(4);
-    		$('#tableOption').empty();
+    		$('#optionTable').empty();
     	}
     });
+	
 
 
 
-  //옵션 추가 클릭
-   	$(document).on('click', '.add', function(){
-   		var no = 0;
-   		$.each($('#tableOption').find('.optionName'), function(index, value){
-   			no += 1;
-   		});
-   		if(no>4){
-			alert("옵션은 최대 5개까지 추가 가능합니다");
-		}else{
-	   		$('#tableOption').append(
-	  				'<tr>'+
-				'<td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-				'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
-				'<td><button class="delete">삭제</button></td>'+
-				'</tr>'
-	   		);
-		}
-   	});
 	
 	
 	
-  //글등록
+	
+   	//글등록
    	$(document).on('click', '#go', function(){
-		if($('#major option:selected').val() == '대분류'){//카테고리
-			alert('카테고리를 선택하세요');
-			return false;
-		}
-		if($('#minor option:selected').val() == '소분류'){//카테고리
-			alert('카테고리 소분류를 선택하세요');
-			return false;
-		}
-		if($('input[name=title]').val()=='' || $('input[name=title]').val().trim() == ''){
-			alert('제목을 쓰세요');
-			$('input[name=title]').focus();
-			return false;
-		}
-		if($('input[name=quantity]').val()=='' || $('input[name=quantity]').val().trim() == ''){
-			alert('인원 또는 건수를 쓰세요');
-			$('input[name=quantity]').focus();
-			return false;
-		}
-		if($('input[name=price]').val()=='' || $('input[name=price]').val().trim()==''){
-			alert('가격을 쓰세요');
-			$('input[name=price]').focus();
-			return false;
-		}
-
-		
-		if($('input[type=checkbox]').is(':checked')){
-			var check1 = true;
-			var check2 = true;
-			
-			$.each($('#tableOption').find('.optionName'), function(index, value){
-				if(value.value == ''){
-					alert("옵션종류를 입력하세요");
-					check1 = false;
-					return false;//바깥 each 나가기
-				}
-				if(value.value != ''){
-					$.each($('#tableOption').find('.optionName'), function(index2, value2){
-						if(index != index2){
-							if(value.value == value2.value){
-								alert("옵션종류가 중복됩니다");
-								check1 = false;
-								check2 = false;
-								return false;//내부 each 나가기
-							}
-						}
-					});//inner each 끝
-				}
-				if(!check2){//옵션종류가 중복이면 바깥each 더 돌지말고 나가
-					return false;
-				}
-			});	//옵션종류 each문 끝
-			
-			if(check1){
-				$.each($('#tableOption').find('.optionPrice'), function(index, value){
-					if(value.value == ''){
-						alert("옵션가격을 입력하세요");
-						check1 = false;
-						return false;
-					}else if(!$.isNumeric(value.value)){
-						alert("옵션가격에는 숫자를 입력하세요");
-						check1 = false;
-						return false;
-					}
-				});	//옵션가격 each문 끝
-			}; //if(a)끝
-			if(check1 && check2){
-				return true;
+   		var check=false;
+   		if(true){
+			if($('#major option:selected').val() == '대분류'){//카테고리
+				alert('카테고리를 선택하세요');
+				check = false;
+			}else
+			if($('#minor option:selected').val() == '소분류'){//카테고리
+				alert('카테고리 소분류를 선택하세요');
+				check = false;
+			}else
+			if($('input[name=title]').val()=='' || $('input[name=title]').val().trim() == ''){
+				alert('제목을 쓰세요');
+				check = false;
+			}else
+			if($('input[name=quantity]').val()=='' || $('input[name=quantity]').val().trim() == ''){
+				alert('인원 또는 건수를 쓰세요');
+				check = false;
+			}else
+			if($('input[name=price]').val()=='' || $('input[name=price]').val().trim()==''){
+				console.log('가격을 쓰세요');
+				check = false;
 			}else{
-				return false;
+				check = true;
 			}
-		};//옵션 입력값 체크
-		return true;
+			
+			if($('input[type=checkbox]').is(':checked')){
+				var check1 = true;
+				var check2 = true;
+				
+				$.each($('#tableOption').find('.optionName'), function(index, value){
+					if(value.value == ''){
+						alert("옵션종류를 입력하세요");
+						check1 = false;
+						check = false;//바깥 each 나가기
+						return;
+					}
+					if(value.value != ''){
+						$.each($('#tableOption').find('.optionName'), function(index2, value2){
+							if(index != index2){
+								if(value.value == value2.value){
+									alert("옵션종류가 중복됩니다");
+									check1 = false;
+									check2 = false;
+									check = false;//내부 each 나가기
+									return;
+								}
+							}
+						});//inner each 끝
+					}
+					if(!check2){//옵션종류가 중복이면 바깥each 더 돌지말고 나가
+						check = false;
+						return;
+					}
+				});	//옵션종류 each문 끝
+				
+				if(check1){
+					$.each($('#tableOption').find('.optionPrice'), function(index, value){
+						if(value.value == ''){
+							alert("옵션가격을 입력하세요");
+							check1 = false;
+							check = false;
+							return;
+						}else if(!$.isNumeric(value.value)){
+							alert("옵션가격에는 숫자를 입력하세요");
+							check1 = false;
+							check = false;
+							return;
+						}
+					});	//옵션가격 each문 끝
+				}; //if(a)끝
+				
+				if(check1 && check2){
+					check = true;
+				}else{
+					check = false;
+				}
+			};//옵션 입력값 체크
+			if(check){
+				$('#detailInfo').submit();
+			};
+	   	};
    	});
    	
   //옵션 가져오기
@@ -685,7 +666,12 @@ $(document).ready(function(){
    			$(this).siblings('input').val('');
    		return false;
    	});//체크박스 클릭
-
+   	
+   	
+//    	//원글 end_date가 왜 안먹히냐
+//    	var end_date = $('#datePicker').val();
+//    	console.log(end_date);
+// //    	$('#datePicker').val(end_date);
    	
 });//document.ready
 </script>
@@ -812,8 +798,8 @@ $(document).ready(function(){
 								<div class="fh5co-spacer fh5co-spacer-sm"></div>
 								<div id="idDiv">
 								<button type="button" class="btn btn-sm btn-primary" onclick="history.back()">뒤로가기</button>
-<!-- 								<button type="button" class="btn btn-sm btn-primary" id="go">등록하기</button> -->
-								<input type="submit" class="btn btn-sm btn-primary" id="go" value="등록하기">
+								<button type="button"  class="btn btn-sm btn-primary" id="go">수정하기</button>
+<!-- 								<input type="button" class="btn btn-sm btn-primary" id="go" value="GO!"> -->
 								</div>
 							</form>
 							</div>
