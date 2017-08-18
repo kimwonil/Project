@@ -88,6 +88,7 @@ display: none;
 .fileTable td{
 padding-right: 10px;
 }
+
 </style>
 
 <script type="text/javascript">
@@ -499,7 +500,7 @@ $(document).ready(function(){
 //     	if($(this).is(':checked')){//체크되면
 //     		console.log("체크");
 //     		$('#optionResult').val(0);
-//     		$('#optionTable').append(
+//     		$('#tableOption').append(
 //     				 '<tr><td>옵션종류</td><td>추가가격</td><td><input type="button" class="add" value="추가"></td></tr>'+
 //                      '<tr>'+
 //                         '<td><input type="text" name="option[]" class="optionName"></td>'+
@@ -509,7 +510,7 @@ $(document).ready(function(){
 //     	}else{//체크 안되면
 //     		console.log("체크노노");
 //     		$('#optionResult').val(4);
-//     		$('#optionTable').empty();
+//     		$('#tableOption').empty();
 //     	}
 //     });
 	
@@ -522,7 +523,7 @@ $(document).ready(function(){
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
                         '<td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
+                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="0"></td>'+
 //                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
     		);
@@ -537,6 +538,7 @@ $(document).ready(function(){
   //옵션 추가 클릭
    	$(document).on('click', '.add', function(){
    		var no = 0;
+   		console.log($('#tableOption').find('.optionName').val());
    		$.each($('#tableOption').find('.optionName'), function(index, value){
    			no += 1;
    		});
@@ -546,7 +548,7 @@ $(document).ready(function(){
 	   		$('#tableOption').append(
 	  				'<tr>'+
 				'<td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-				'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
+				'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="0"></td>'+
 				'<td><button class="delete">삭제</button></td>'+
 				'</tr>'
 	   		);
@@ -645,21 +647,21 @@ $(document).ready(function(){
 	  			console.log(data);
 				if(data != ''){
 					$('#optionRadio').attr("checked","checked");
-					$('#optionTable tr:gt(0)').remove();
-					$('#optionTable').append(
+					$('#tableOption tr:gt(0)').remove();
+					$('#tableOption').append(
 						'<tr><td>옵션종류</td><td>추가가격</td><td><input type="button" class="add" value="추가"></td></tr>'
 					);	
 					$.each(data,function(index, value){
 						if(index==0){
-							$('#optionTable').append(
-								'<tr><td><input type="text" name="option[]" value="'+value.kind+'"></td>'+
-								'<td><input type="text" name="optionPrice[]" value="'+value.price+'"></td>'+
+							$('#tableOption').append(
+								'<tr><td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName" value="'+value.kind+'"></td>'+
+								'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="'+value.price+'"></td>'+
 								'<td></td></tr>'
 							);
 						}else{
-							$('#optionTable').append(
-								'<tr><td><input type="text" name="option[]" value="'+value.kind+'"></td>'+
-								'<td><input type="text" name="optionPrice[]" value="'+value.price+'"></td>'+
+							$('#tableOption').append(
+								'<tr><td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName" value="'+value.kind+'"></td>'+
+								'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="'+value.price+'"></td>'+
 								'<td>'+'<input type="button" class="delete" value="삭제">'+'</td></tr>'
 							);
 						}					
@@ -785,7 +787,7 @@ $(document).ready(function(){
 									<tr><th>옵션사항</th>
 									<td>
 									<div><input type="checkbox" id="optionRadio">옵션 여부</div>
-										<table id="optionTable">
+										<table id="tableOption">
 										</table>
 									</td></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> 
