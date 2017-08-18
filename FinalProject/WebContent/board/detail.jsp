@@ -63,7 +63,9 @@
 	width: 100%
 }
 
-
+.deal-options{
+	padding: 11px;
+}
 
 
 
@@ -209,7 +211,6 @@ font-size: 16px;
 			},
 			dataType : "json",
 			success : function(data) {
-				alert("성공");
 
 				var map = new naver.maps.Map('map', {
 					center : new naver.maps.LatLng(data.lat, data.lng),
@@ -317,8 +318,11 @@ font-size: 16px;
 					$('#writerNick').text(data.nickname);
 					$('#introduce').val(data.introduce);
 					$('#End').text(data.count);
-					$('#circleImg').attr('src', "<c:url value='/user/profile/" + data.id + "/"+data.login+"'/>/" + data.photo);
-			
+					if(data.photo == null){
+						
+					}else{
+						$('#circleImg').attr('src', "<c:url value='/user/profile/" + data.id + "/"+data.login+"'/>/" + data.photo);
+					}
 				},
 				error : function() {
 					alert("file 가져오기 실패");
@@ -395,7 +399,7 @@ font-size: 16px;
 							'<td name="price[]" class="price"  style="width:88px;">' + nf.format(dataPrice) + '</td>' +
 							'<td style="width:56px;">' +
 							'<input type="number" min="1" max="99" value="1" class="quantity" name="quantity[]">'+
-							'<input type="hidden" value="${board.price}" class="hiddenPrice">'+
+							'<input type="hidden" value="'+dataPrice+'" class="hiddenPrice">'+
 							'</td>' +
 							'<td align="center"  style="width:88px;"><span class="optionResult">' + nf.format(dataPrice) + '</span>'+
 							'<input type="hidden" class="hiddenOptionResult" value="'+data.price+'"></td>' +
@@ -505,7 +509,7 @@ font-size: 16px;
 					alert(textStatus);
 					alert(errorThrown);
 				}
-			})
+			});
 		});
 
 		//쪽지문의 모달 띄우기
@@ -529,7 +533,6 @@ font-size: 16px;
 						receiver : $('#receiver').text()
 					},
 					success : function() {
-						alert("성공");
 						$('#myModal').modal('hide');
 						$('#messageTitle').val("");
 						$('#messageContent').val("");
@@ -818,7 +821,7 @@ font-size: 16px;
 
 
 	<div id="writerMini" style="display: none;">
-		<img id="circleImg" src="" class="img-circle miniImg">
+		<img id="circleImg" src="<c:url value="/images"/>/noimage.jpg" class="img-circle miniImg">
 
 			<table id="miniProfile">
 					<tr>

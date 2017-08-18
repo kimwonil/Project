@@ -84,6 +84,9 @@
 	position: relative;
 	right: 1%;
 	float: right;
+	font-family: Helvetica, Arial, sans-serif;
+	color: #f3f3f3;
+	font-weight: bold;
 }
 
 #alarm-content {
@@ -117,14 +120,17 @@
 
 .menu {
 	height: 40px;
-	width: 1130px;
+	position: fixed;
+	z-index:10;
+	left:0%;
+	width: 100%;
 	margin: 0px auto;
 	background: #4c4e5a;
-	background: -webkit-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
-	background: -moz-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
-	background: -o-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
-	background: -ms-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
-	background: linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+	background: -webkit-linear-gradient(top, #5fcec0 0%, #5fcec0 100%);
+	background: -moz-linear-gradient(top, #5fcec0 0%, #5fcec0 100%);
+	background: -o-linear-gradient(top, #5fcec0 0%, #5fcec0 100%);
+	background: -ms-linear-gradient(top, #5fcec0 0%, #5fcec0 100%);
+	background: linear-gradient(top, #5fcec0 0%, #5fcec0 100%);
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -134,6 +140,7 @@
 	position: relative;
 	list-style: none;
 	float: left;
+	width:11.1%;
 	display: block;
 	height: 40px;
 	padding: 0px 6px;
@@ -146,8 +153,6 @@
 	margin: 6px 0;
 	line-height: 28px;
 	text-decoration: none;
-	border-left: 1px solid #393942;
-	border-right: 1px solid #4f5058;
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	font-size: 13px;
@@ -178,7 +183,7 @@
 	top: 40px;
 	left: 0;
 	opacity: 0;
-	background: #1f2024;
+	background: #5fcec0; 
 	-webkit-border-radius: 0 0 5px 5px;
 	-moz-border-radius: 0 0 5px 5px;
 	border-radius: 0 0 5px 5px;
@@ -194,6 +199,7 @@
 }
 
 .menu ul li {
+	width:100%;
 	height: 0;
 	overflow: hidden;
 	padding: 0;
@@ -221,6 +227,16 @@
 }
 
 /* 	.menu ul li:last-child a { border: none; } */
+
+.fh5co-header{
+	position: fixed;
+	z-index: 10;
+	background: white;
+
+}
+
+
+
 
 /* //////////////////////////////////////////////////////////////// */
 #categoryForSearch{
@@ -484,7 +500,10 @@
 				success : function(data){
 					$('#categoryForSearch').empty();
 					$('#categoryForSearch').append('<option value="1">판매자 닉네임</option>');
-					$('#categoryForSearch').append('<option value="0">카테고리 전체</option>');
+					 $('#categoryForSearch').append(
+		                     ($('#hiddenMajor').val() ==0 ? '<option value="0" selected>카테고리 전체</option>' : '<option value="0">카테고리 전체</option>')
+		                     
+		               );
 					$.each(data, function(index, value){
 						$('#categoryForSearch').append(
 								(value.no == $('#hiddenMajor').val() ? '<option value="'+value.no+'" selected>'+value.category_name+'</option>' : '<option value="'+value.no+'">'+value.category_name+'</option>')

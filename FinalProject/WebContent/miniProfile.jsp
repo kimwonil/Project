@@ -40,8 +40,8 @@ $(document).ready(function(){
 	#miniProfile{
 		background-color:lightgray;
 		border-radius:10px;
-		position: absolute;
-		top:37%;
+		position: fixed;
+		top:40%;
 		left:10%;
 		text-align: center;
 		width:200px;

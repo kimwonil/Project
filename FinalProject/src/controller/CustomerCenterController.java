@@ -71,7 +71,6 @@ public class CustomerCenterController {
 		System.out.println("글수 "+count);
 		System.out.println(totalStar+"  "+totalNum);
 		List<Board> nolist=noticeService.getListNo(nickname);
-		System.out.println(nolist.get(1).getNo());
 		int countState=0;
 		for(int i=0;i<nolist.size();i++)
 		{
