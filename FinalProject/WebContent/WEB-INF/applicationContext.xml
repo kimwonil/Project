@@ -14,8 +14,8 @@
 <bean id="dataSource"
 	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-	<property name="url" value="jdbc:mysql://localhost:3306/shareability"></property>
-	<property name="username" value="root"></property>
+	<property name="url" value="jdbc:mysql://192.168.0.143:3306/shareability"></property>
+	<property name="username" value="final"></property>
 	<property name="password" value="mysql"></property>
 </bean>
 
