@@ -241,7 +241,9 @@ public class DealControll {
 		}
 		
 		for(Purchase purchase : list) {
+			System.out.println(purchase);
 			Board board = dealService.boardInfo(purchase.getNo());
+			System.out.println(board+"ddddd");
 			purchase.setBoardTitle(board.getTitle());
 			purchase.setSeller(board.getWriter());
 			purchase.setOptionList(dealService.purchaseOption(purchase.getPurchase_no()));
@@ -752,7 +754,7 @@ public class DealControll {
 		int no = Integer.parseInt(request.getParameter("no"));
 		int time = Integer.parseInt(request.getParameter("time"));
 		int price = 0;
-		
+		String msg="";
 		if(time == 7) {
 			price = 10000;
 		}else if(time == 14) {
@@ -789,7 +791,7 @@ public class DealControll {
 				
 				//기존 등록 여부 확인
 				Premium newPremium = boardService.newPremium(no);
-				String msg="";
+				
 				if(newPremium.getBoard_no() != no) {
 					//대기열 등록
 					boardService.premiumWaitting(map);
@@ -809,8 +811,9 @@ public class DealControll {
 				//포인트 지불
 				member.setBalance(balance-price);
 				memberService.memberUpdate(member);
-				
-				
+				System.out.println("확인");
+				System.out.println(member);
+				msg = "{\"result\":"+msg+", \"balanceResult\":\""+member.getBalance()+"\"}";
 				response.getWriter().write(msg);
 				
 			}else {
@@ -820,11 +823,18 @@ public class DealControll {
 				cal.add(cal.DATE, time);
 				map.put("end", cal.getTime());
 				
+				//포인트 지불
+				member.setBalance(balance-price);
+				memberService.memberUpdate(member);
 				
 				boardService.premiumWaitting(map);
 				boardService.premium(map);
-				response.getWriter().write("프리미엄이 등록 되었습니다.");
+				
+				msg = "{\"result\":\"프리미엄이 등록 되었습니다.\", \"balanceResult\":\""+member.getBalance()+"\"}";
+				
+				response.getWriter().write(msg);
 			}
+			session.setAttribute("member", member);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

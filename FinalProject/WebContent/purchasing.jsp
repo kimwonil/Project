@@ -269,7 +269,7 @@
 						content:$('#review').val()
 					},
 					success:function(){
-						alert("성공");
+// 						alert("성공");
 						purchase(0);
 						$('#rating-3').attr('ckecked','checked');
 						$('#myModal').modal('hide');
@@ -296,7 +296,7 @@
 					},
 					dataType:"json",
 					success:function(data){
-						alert("성공");
+// 						alert("성공");
 						canceledPurchase(0);
 						console.log(data);
 						$('.balance').text(data.balanceResult);
@@ -324,7 +324,7 @@
 						state:40
 					},
 					success:function(data){
-						alert("성공");
+// 						alert("성공");
 						purchase(0);
 // 						$('.balance').text();
 					},

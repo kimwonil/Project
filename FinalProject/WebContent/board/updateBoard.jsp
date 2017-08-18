@@ -635,7 +635,6 @@ $(document).ready(function(){
    	
   //옵션 가져오기
 	function bringOption(no){
-	    alert(no);
 	  	$.ajax({
 	  		url:"bringOption.do",
 	  		type:"POST",

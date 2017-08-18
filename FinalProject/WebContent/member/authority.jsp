@@ -28,7 +28,7 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(data){
 				console.log(data);
-				$('#talentList tr:gt(1)').remove();
+				$('#talentList tr:gt(0)').remove();
 				if(data.list == ""){
 					$('#talentList').append('<tr><td colspan="4">내역이 없습니다.</td></tr>');
 				}else{
@@ -39,6 +39,7 @@ $(document).ready(function(){
 								value.date+"</td><td>"+
 								(value.state==1?"승인 대기 / <button value='"+value.no+"' type='button' class='btn btn-sm btn-danger authorityDelete' data-toggle='modal' data-target='#deleteModal' >삭제</button>":value.state==2?"승인":"취소")+"</td></tr>"
 						);
+						$('#currentPage').val(data.page);
 						$('.prev').val(data.page==0?0:data.page-7);
 						$('.next').val(data.totalPage-7>data.page?data.page+7:data.page);	
 					});
@@ -67,10 +68,13 @@ $(document).ready(function(){
 		$.ajax({
 			url:"authorityDelete.do",
 			type:"POST",
-			data:{no:$('#authorityHidden').val()},
+			data:{
+				no:$('#authorityHidden').val(),
+				page:$('#currentPage').val()
+			},
 // 			dataType:"json",
 			success:function(){
-				authorityList();
+				authorityList(0);
 				$('#deleteModal').modal('hide');
 			},
 			error:function(){
@@ -175,7 +179,7 @@ $(document).ready(function(){
 	}
 	
 	</style>
-	
+	<input type="hidden" id="currentPage" value="0">
 	<div id="fh5co-main">
 		<div class="container">
 			<div class="row">

@@ -332,7 +332,7 @@
 						
 					},
 					success : function(data) {
-						alert("성공");
+// 						alert("성공");
 						
 						sellingList($('#currentPage').val());
 					},
@@ -356,7 +356,7 @@
 						state:0
 					},
 					success : function(data) {
-						alert("성공");
+// 						alert("성공");
 						
 						sellingList($('#currentPage').val());
 					},
@@ -381,7 +381,7 @@
 						state : 41
 					},
 					success : function(data) {
-						alert("성공");
+// 						alert("성공");
 						$('#continueModal').modal('hide');
 						ongoingList($('#currentPage').val());
 					},
@@ -440,7 +440,7 @@
 					},
 					// 				dataType:"json",
 					success : function(data) {
-						alert("성공");
+// 						alert("성공");
 						$('#continueModal').modal('hide');
 						sellingList($('#currentPage').val());
 					},
@@ -517,7 +517,7 @@
 						state : 11
 					},
 					success : function() {
-						alert("성공");
+// 						alert("성공");
 						ongoingList($('#currentPage').val());
 					},
 					error : function(jpXHR, textStatus, errorThrown){
@@ -653,9 +653,11 @@
 						time:$('#premiumTime').val(),
 						premium:0
 					},
-					dataType:"text",
+					dataType:"json",
 					success:function(data){
-						alert(data);
+						alert(data.result);
+						
+						$('.balance').text(comma(data.balanceResult));
 						$('#premiumModal').modal('hide');
 					},
 					error:function(){
@@ -678,7 +680,7 @@
 						state:42
 					},
 					success:function(){
-						alert("성공");
+// 						alert("성공");
 						canceledList(0);
 					},
 					error:function(){
