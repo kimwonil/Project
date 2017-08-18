@@ -46,30 +46,26 @@
 #miniProfile div {
 	display: inline;
 }
+#positionTD{
+	vertical-align: top;
+}
+
+#infoTD{
+	vertical-align: top;
+	width: 380px;
+}
+
+#optionsTable{
+	width: 100%;
+}
+
+#purchaseList{
+	width: 100%
+}
 
 
-/* .deal-info {  */
-/* position: absolute;  */
-/* left: 60%;  */
-/* width: 340px;  */
-/* height: 70%;  */
-/* top: 25%;   */
-/* padding: 1%;  */
-/*  }  */
 
-/* .deal-position {  */
-/* position: absolute;  */
-/* left: 10%;  */
-/* top: 25%;   */
-/* height: 70%;  */
-/* }  */
 
-/* .deal-detail {  */
-/* position: absolute;  */
-/* left: 10%;  */
-/* width:975px;  */
-/* top: 120%;  */
-/* }  */
 
 .deal-info{
 padding: 15px;
@@ -89,7 +85,7 @@ padding: 15px;
 }
 
 .thumbnail {
-	width: 573px;
+	width: 100%;
 	height: 500px;
 	margin: 0px auto;
 }
@@ -122,24 +118,6 @@ font-size: small;
 }
 #selectUserReview .star-ratings-css{
 font-size: 16px;
-}
-.deal-position{
-	position: absolute;
-	left: 5%;
-	top: 25%;
-	width: 45%;
-}
-.deal-detail{
-	position: absolute;
-	left: 5%;
-	top: 93%;
-	width: 45%;
-}
-.deal-info{
-	position: absolute;
-	left: 53%;
-	top: 25%;
-	width: 41%;
 }
 .deal-info table{
 	width: 100%;
@@ -235,12 +213,7 @@ font-size: 16px;
 
 				var map = new naver.maps.Map('map', {
 					center : new naver.maps.LatLng(data.lat, data.lng),
-					zoom : 10,
-					zoomControl : true,
-					zoomControlOptions : {
-						style : naver.maps.ZoomControlStyle.SMALL,
-						position : naver.maps.Position.TOP_RIGHT
-					}
+					zoom : 10
 				});
 
 				var marker = new naver.maps.Marker({
@@ -366,7 +339,7 @@ font-size: 16px;
 		$(document).on('mouseleave', '#writerMini', function() {
 			a = false;
 // 			alert(a);
-// 			$('#writerMini').css("display", "none");
+			$('#writerMini').css("display", "none");
 		})
 
 		
@@ -421,18 +394,12 @@ font-size: 16px;
 							'<td name="kind[]" class="kind" width="30%">' + data.kind + '</td>' +
 							'<td name="price[]" class="price" width="17%">' + nf.format(dataPrice) + '</td>' +
 							'<td>' +
-							'<table class="quantityBox" border="1" cellspacing="0">' +
-							'<tr>' +
-							'<td width="20%"><a href="#" class="minus">-</a></td>' +
-							'<td width="60%"><input type="text" size="1" name="quantity[]" class="quantity" value=1>' +
-							'<input type="hidden" value="' + data.price + '" class="hiddenPrice" ></td>' +
-							'<td width="20%"><a href="#" class="plus">+</a></td>' +
-							'</tr>' +
-							'</table>' +
+							'<input type="number" min="1" max="99" value="1" class="quantityBox" name="quantity[]">'+
+							'<input type="hidden" value="${board.price}" class="hiddenPrice">'+
 							'</td>' +
 							'<td align="center"><span class="optionResult">' + nf.format(dataPrice) + '</span>'+
 							'<input type="hidden" class="hiddenOptionResult" value="'+data.price+'"></td>' +
-							'<td><button class="optionDelete">x</button></td>' +
+							'<td width="7%"><button class="optionDelete">x</button></td>' +
 							'</tr>'
 						)
 						totalPrice();
@@ -456,38 +423,25 @@ font-size: 16px;
 			var num = optionArr.indexOf(optionName);
 			optionArr.splice(num, 1); 
 			$(this).parent().parent().remove();
-			$('#totalPrice').text("총액 : "+totalPrice()+"원");
+			totalPrice();
 		}) //추가한 옵션 삭제하기
 
 
 		//클릭해서 구매 수량 변하게!
 		var nf = Intl.NumberFormat();
 		
-		$(document).on('click', '.minus', function() {
+		$(document).on('click', '.quantityBox', function() {
 			//수량 조절 박스의 quantity 바꿔주기
-			var q = parseInt($(this).parent().parent().find('.quantity').val()) - 1;//원래있던 수량을 잡아서
-			$(this).parent().parent().find('.quantity').val(q);//-1한 값을 수량 칸에 넣어주고
+			var q = $(this).val();//원래있던 수량을 잡아서
 			
 			//각 옵션의 optionResult 바꿔주기
-			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());//hiddenPrice값을 가져와서
+			var hiddenPrice = parseInt($(this).next().val());//hiddenPrice값을 가져와서
 			var price = hiddenPrice*q;//구매수량 곱해주고
-			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').val(price);//hiddenOptionPrice에 변환전 숫자 넣고
-			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price)); //변환 후 숫자 넣고
+			$(this).parent().parent().find('.hiddenOptionResult').val(price);//hiddenOptionPrice에 변환전 숫자 넣고
+			$(this).parent().parent().find('.optionResult').text(nf.format(price)); //변환 후 숫자 넣고
 		
 			totalPrice();//totalPrice 바꾸기
 		}); //마이너스 클릭하면 줄어들고
-		$(document).on('click', '.plus', function() {
-			var q = parseInt($(this).parent().parent().find('.quantity').val()) + 1;
-			$(this).parent().parent().find('.quantity').val(q);
-			
-			var hiddenPrice = parseInt($(this).parent().parent().find('.hiddenPrice').val());
-			var price = hiddenPrice*q;
-			$(this).parent().parent().parent().parent().parent().parent().find('.hiddenOptionResult').val(price);
-			$(this).parent().parent().parent().parent().parent().parent().find('.optionResult').text(nf.format(price));
-		
-			totalPrice();
-		}); //플러스 클릭하면 늘어나고
-
 
 		//찜하기
 		$(document).on('click', '#dips', function() {
@@ -612,167 +566,182 @@ font-size: 16px;
 			<div class="row">
 
 				<div id="fh5co-board" data-columns>
-				<table id="test" width="950px">
-				<tr><td>
-				
-					<div class="item deal-position">
-						<div class="animate-box">
-							<c:choose>
-								<c:when test="${board.file_name1 eq ''}">
-									<img class="thumbnail"
-										src='<c:url value="/images"/>/noimage.jpg'>
-								</c:when>
-								<c:when test="${board.file_name1 eq null}">
-									<img class="thumbnail"
-										src='<c:url value="/images"/>/noimage.jpg'>
-								</c:when>
-								<c:otherwise>
-									<img class="thumbnail"
-										src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}'>
-								</c:otherwise>
-							</c:choose>
-						</div>
+				<table id="test" width="1000px">
+						<tr>
+							<td id="positionTD">
 
-						<table>
-							<tr>
-								<td colspan="3" style="padding:10px;">${board.title}</td>
-							</tr>
-							<tr>
-								<td width="70%" style="padding:10px;">${category_major}<br> ${category_minor}</td>
-								<td width="15%">
-									<div class="star-ratings-css">
-
-										<div class="star-ratings-css-top" id="starPercent"
-											style="width:${board.ratingForDetail}%">
-											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-										</div>
-										<div class="star-ratings-css-bottom">
-											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-										</div>
+								<div class="item deal-position">
+									<div class="animate-box">
+										<c:choose>
+											<c:when test="${board.file_name1 eq ''}">
+												<img class="thumbnail"
+													src='<c:url value="/images"/>/noimage.jpg'>
+											</c:when>
+											<c:when test="${board.file_name1 eq null}">
+												<img class="thumbnail"
+													src='<c:url value="/images"/>/noimage.jpg'>
+											</c:when>
+											<c:otherwise>
+												<img class="thumbnail"
+													src='<c:url value="/user/board/${board.no}"/>/${board.file_name1}'>
+											</c:otherwise>
+										</c:choose>
 									</div>
-								</td>
-								<td width="15%"><div id="evaluator">(${board.num_evaluator})</div></td>
-							</tr>
-						</table>
-					</div>
-				
-				</td><td rowspan="2" width="350px" style="vertical-align: top;" >
-				
-					<div class="item deal-info">
-					
-						<table>
-							<tr>
-								<td>판매자</td>
-								<td><a href="" id="writerProfile" style="display: inline-block;">${board.writer}</a><input type="hidden" value="${board.no}" name="no" id="boardNo"></td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<c:choose>
-										<c:when test="${member.admin eq 1}">
-											<button class="btn btn-sm btn-primary" id="modify" value="${board.state}">글수정</button>
-											<button class="btn btn-sm btn-primary" onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
-										</c:when>
-										<c:when test="${member.nickname eq board.writer && show}">
-											<button class="btn btn-sm btn-primary" id="modify" value="${board.state}">글수정</button>
-											<button class="btn btn-sm btn-primary" onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
-										</c:when>
-									</c:choose>
-								</td>
-							</tr>
-							<tr>
-								<td>등록일</td>
-								<td>${board.date}</td>
-							</tr>
-							<tr>
-								<td>마감일</td>
-								<td>${board.end_date}</td>
-							</tr>
-							<tr>
-								<td>조회수</td>
-								<td>${board.read_count}</td>
-							</tr>
-							<tr>
-								<td>인원 & 건수</td>
-								<td>${board.count}/${board.quantity}</td>
-							</tr>
-							<tr>
-								<td colspan="2">
+
 									<table>
 										<tr>
-											<th>기본항목</th>
-											<td><fmt:formatNumber value="${board.price}"
-													groupingUsed="true" />원</td>
+											<td colspan="3" style="padding: 10px;">${board.title}</td>
 										</tr>
-										<c:if test="${board_option ne null}">
-											<tr>
-												<th>옵션항목</th>
-												<td><select id="optionList">
-														<option>옵션없음</option>
-														<c:forEach var="i" items="${board_option}">
-															<option value="${i.kind}">${i.kind}(+${i.price})</option>
-														</c:forEach>
-												</select></td>
-											</tr>
-										</c:if>
+										<tr>
+											<td width="70%" style="padding: 10px;">${category_major}<br>
+												${category_minor}
+											</td>
+											<td width="15%">
+												<div class="star-ratings-css">
+
+													<div class="star-ratings-css-top" id="starPercent"
+														style="width:${board.ratingForDetail}%">
+														<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+													</div>
+													<div class="star-ratings-css-bottom">
+														<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+													</div>
+												</div>
+											</td>
+											<td width="15%"><div id="evaluator">(${board.num_evaluator})</div></td>
+										</tr>
 									</table>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<form action="thisIsAllMine.do" method="post">
-										<table id="purchaseList" align="center">
-											<tr>
-												<td name="kind[]" class="kind" width="30%">기본항목</td>
-												<td name="price[]" class="price" width="17%"><fmt:formatNumber value="${board.price}" groupingUsed="true"/></td>
-												<td width="15%">
-													<table class="quantityBox" border="1" cellspacing="0">
-														<tr>
-															<td width="20%"><a href="#" class="minus">-</a></td>
-															<td width="40%"><input type="text" size="1"
-																name="quantity[]" class="quantity" value=1> <input
-																type="hidden" value="${board.price}" class="hiddenPrice">
-															<input type="hidden" name="no" value="${board.no}"></td>
-															<td width="20%"><a href="#" class="plus">+</a></td>
-														</tr>
-													</table>
-												</td>
-												<td align="center" width="20%"><span class="optionResult"><fmt:formatNumber value="${board.price}" groupingUsed="true"/></span>
-													<input type="hidden" class="hiddenOptionResult" value="${board.price}">
-												</td>
-												<td>
-												</td>
-											</tr>
-										</table>
-									</form>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" align="right">
-									<span id="totalPrice">총액 : <fmt:formatNumber value="${board.price}" groupingUsed="true"/>원</span>
-									<input type="hidden" id="hiddenTotalPrice" value="${board.price}">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<c:if test="${board.state eq 0 }">
-										<button class="btn btn-sm btn-primary" id="buy">구매하기</button>
-										<button class="btn btn-sm btn-primary" id="dips">찜하기</button>
+								</div>
+
+							</td>
+							<td rowspan="2" id="infoTD">
+
+								<div class="item deal-info">
+
+									<table>
+										<tr>
+											<td>판매자</td>
+											<td><a href="" id="writerProfile"
+												style="display: inline-block;">${board.writer}</a><input
+												type="hidden" value="${board.no}" name="no" id="boardNo"></td>
+										</tr>
+										<tr>
+											<td colspan="2"><c:choose>
+													<c:when test="${member.admin eq 1}">
+														<button class="btn btn-sm btn-primary" id="modify"
+															value="${board.state}">글수정</button>
+														<button class="btn btn-sm btn-primary"
+															onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
+													</c:when>
+													<c:when test="${member.nickname eq board.writer && show}">
+														<button class="btn btn-sm btn-primary" id="modify"
+															value="${board.state}">글수정</button>
+														<button class="btn btn-sm btn-primary"
+															onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
+													</c:when>
+												</c:choose></td>
+										</tr>
+										<tr>
+											<td>등록일</td>
+											<td>${board.date}</td>
+										</tr>
+										<tr>
+											<td>마감일</td>
+											<td>${board.end_date}</td>
+										</tr>
+										<tr>
+											<td>조회수</td>
+											<td>${board.read_count}</td>
+										</tr>
+										<tr>
+											<td>인원 & 건수</td>
+											<td>${board.count}/${board.quantity}</td>
+										</tr>
+
+										<tr>
+											<td colspan="2">장소<br>
+												<div id="allRound"></div>
+												<div id="map"
+													style="width: :250px; height: 250px; z-index: 0;"></div>
+											</td>
+										</tr>
+									</table>
+									<!-- 						                     -->
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+						
+						<tr>
+						<td>
+						<div class="item deal-options">
+						<table id="optionsTable">
+						<tr>
+							<td colspan="2">
+								<table>
+									<tr>
+										<th>기본항목</th>
+										<td><fmt:formatNumber value="${board.price}"
+												groupingUsed="true" />원</td>
+									</tr>
+									<c:if test="${board_option ne null}">
+										<tr>
+											<th>옵션항목</th>
+											<td><select id="optionList">
+													<option>옵션없음</option>
+													<c:forEach var="i" items="${board_option}">
+														<option value="${i.kind}">${i.kind}(+${i.price})</option>
+													</c:forEach>
+											</select></td>
+										</tr>
 									</c:if>
-									<button class="btn btn-sm btn-primary" id="msgModal">쪽지문의</button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									장소<br>
-									<div id="allRound"></div>
-									<div id="map" style="width: :250px; height: 250px;z-index:0;"></div>
-								</td>
-							</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<form action="thisIsAllMine.do" method="post">
+									<table id="purchaseList" align="center">
+										<tr>
+											<td name="kind[]" class="kind" width="33%">기본항목</td>
+											<td name="price[]" class="price" width="17%"><fmt:formatNumber
+													value="${board.price}" groupingUsed="true" /></td>
+											<td width="10%">
+												<input type="number" min="1" max="99" value="1" class="quantityBox" name="quantity[]">
+												<input type="hidden" value="${board.price}" class="hiddenPrice">
+											</td>
+											<td align="center" width="22%"><span
+												class="optionResult"><fmt:formatNumber
+														value="${board.price}" groupingUsed="true" /></span> <input
+												type="hidden" class="hiddenOptionResult"
+												value="${board.price}"></td>
+											<td width="8%"></td>
+										</tr>
+									</table>
+								</form>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" align="right"><span id="totalPrice">총액
+									: <fmt:formatNumber value="${board.price}" groupingUsed="true" />원
+							</span> <input type="hidden" id="hiddenTotalPrice"
+								value="${board.price}"></td>
+						</tr>
+						<tr>
+							<td colspan="2" align="center"><c:if test="${board.state eq 0 }">
+									<button class="btn btn-sm btn-primary" id="buy">구매하기</button>
+									<button class="btn btn-sm btn-primary" id="dips">찜하기</button>
+								</c:if>
+								<button class="btn btn-sm btn-primary" id="msgModal">쪽지문의</button>
+							</td>
+						</tr>
 						</table>
-<!-- 						                     -->
-					</div>
-				</td></tr>
-				<tr><td>
+						</div>
+						</td>
+					<td></td>
+				</tr>
+				<tr><td  id="detailTD">
 				
 				<div class="item deal-detail">
 					<div id="tabs">
