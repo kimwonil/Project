@@ -108,7 +108,7 @@
 				{
 				$('#noticeMinor').empty();
 				$('#noticeMinor').append(
-   						'<option>소분류</option><option>대부분를 선택해주세요</option>'
+   						'<option>소분류</option><option>대분류를 선택해주세요</option>'
    				);
 				}
 			
@@ -144,7 +144,7 @@
 			{
 			$('#NoticeMinorUpdate').empty();
 			$('#NoticeMinorUpdate').append(
-						'<option>소분류</option><option>대부분를 선택해주세요</option>'
+						'<option>소분류</option><option>대분류를 선택해주세요</option>'
 				);
 			}
 			else
@@ -180,7 +180,7 @@
 					{
 					$('#SearchnoticeMinor').empty();
 					$('#SearchnoticeMinor').append(
-								'<option>소분류</option><option>대부분를 선택해주세요</option>'
+								'<option>소분류</option><option>대분류를 선택해주세요</option>'
 						);
 					}
 					
@@ -1758,7 +1758,7 @@ textarea{
 				<div class="col-md-8 col-md-offset-2"
 					style="position: absoulete; left: 100px;">
 					<h2>고객센터</h2>
-					<div id="tabs">
+					<div id="tabs" >
 						<ul>
 							<li><a href="#tabs-1" id="noticeList">공지사항</a></li>
 							<li><a href="#tabs-2" id="qnaList">Q & A</a></li>
@@ -1782,8 +1782,8 @@ textarea{
 									<th></th>
 								</tr>
 							</table>
-							<br>
-							<div>
+							
+							<div style="top: 366px;">
 								<input type="date" id="noticestartDate"> <input
 									type="date" id="noticeendDate"> <select
 									style="height: 32px;" name="noticeSerch" id="noticeSerch">
@@ -1792,8 +1792,8 @@ textarea{
 									<option value="2">글제목</option>
 								</select> <input type="text" id="noticeSerchKeyword"
 									style="width: 130px;">
-								<button id="noticeSerchBtn">검색</button>
-								<button id="noticeResetBtn">검색초기화</button>
+								<button id="noticeSerchBtn" class="btn btn-info btn-sm" style="WIDTH: 40pt; text-align:left; padding-left: 10px; margin-top:15px;">검색</button>
+								<button id="noticeResetBtn" class="btn btn-info btn-sm" style="WIDTH: 80pt; text-align:left; padding-left: 10px; margin-top:15px;">검색초기화</button>
 							</div>
 							<br>
 							<c:choose>
@@ -1824,7 +1824,7 @@ textarea{
 								</tr>
 							</table>
 							<br>
-							<div>
+							<div style="top: 366px;">
 								<input type="date" id="qnastartDate"> <input type="date"
 									id="qnaendDate"> <select style="height: 32px;"
 									name="qnaSerch" id="qnaSerch">
@@ -1832,8 +1832,8 @@ textarea{
 									<option value="1">닉네임</option>
 									<option value="2">글제목</option>
 								</select> <input type="text" id="qnaSerchKeyword" style="width: 130px;">
-								<button id="qnaSerchBtn">검색</button>
-								<button id="qnaResetBtn">검색초기화</button>
+								<button id="qnaSerchBtn" class="btn btn-info btn-sm" style="WIDTH: 40pt; text-align:left; padding-left: 10px; margin-top:15px;">검색</button>
+								<button id="qnaResetBtn" class="btn btn-info btn-sm" style="WIDTH: 80pt; text-align:left; padding-left: 10px; margin-top:15px;">검색초기화</button>
 							</div>
 							<br>
 							<c:choose>
@@ -1871,7 +1871,7 @@ textarea{
 							</table>
 
 							<br>
-							<div>
+							<div style="top: 366px;"> 
 								<input type="date" id="reportstartDate" size="40"> <input
 									type="date" id="reportendDate" width="15%"> <select
 									style="height: 32px;" name="reportSerch" id="reportSerch">
@@ -1880,8 +1880,8 @@ textarea{
 									<option value="2">글제목</option>
 								</select> <input type="text" id="reportSerchKeyword"
 									style="width: 130px;">
-								<button id="reportSerchBtn">검색</button>
-								<button id="reportResetBtn">검색초기화</button>
+								<button id="reportSerchBtn" class="btn btn-info btn-sm" style="WIDTH: 40pt; text-align:left; padding-left: 10px; margin-top:15px;">검색</button>
+								<button id="reportResetBtn" class="btn btn-info btn-sm" style="WIDTH: 80pt; text-align:left; padding-left: 10px; margin-top:15px;">검색초기화</button>
 							</div>
 							<br>
 							<div class="form-group btn-group" style="text-align: right;">
