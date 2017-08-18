@@ -470,25 +470,25 @@ $(document).ready(function(){
    	});
 	
    	
-   	
-	
-   	//등록 마감일 당일기준으로 설정
-	document.getElementById('datePicker').valueAsDate = new Date();
-   	//오늘 날짜 이전으로 선택 못하게
-   	var year = new Date().getFullYear();
-   	var month = new Date().getMonth()+1;
-   	var date = new Date().getDate();
-   	if(month<10){
-		month = '0'+month; 		
+   	function dateSetting(){
+	//    	등록 마감일 당일기준으로 설정
+		document.getElementById('datePicker').valueAsDate = new Date();
+	//    	오늘 날짜 이전으로 선택 못하게
+	   	var year = new Date().getFullYear();
+	   	var month = new Date().getMonth()+1;
+	   	var date = new Date().getDate();
+	   	if(month<10){
+			month = '0'+month; 		
+	   	}
+	   	if(date<10){
+	   		date = '0'+date; 
+	   	}
+	   	var dateVal = year+'-'+month+'-'+date;
+	   	$('#datePicker').attr('min', dateVal);
+	   	$('#datePicker').val($('#dateSetting').val());
+	   	
    	}
-   	if(date<10){
-   		date = '0'+date; 
-   	}
-   	var dateVal = year+'-'+month+'-'+date;
-   	$('#datePicker').attr('min', dateVal);
-   	
-
-
+   	dateSetting();
    	
    	
    	
@@ -522,7 +522,7 @@ $(document).ready(function(){
     		$('#tableOption').append(
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
-                        '<td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
+                        '<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
                         '<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="0"></td>'+
 //                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
@@ -547,7 +547,7 @@ $(document).ready(function(){
 		}else{
 	   		$('#tableOption').append(
 	  				'<tr>'+
-				'<td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
+				'<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
 				'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="0"></td>'+
 				'<td><button class="delete">삭제</button></td>'+
 				'</tr>'
@@ -654,13 +654,13 @@ $(document).ready(function(){
 					$.each(data,function(index, value){
 						if(index==0){
 							$('#tableOption').append(
-								'<tr><td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName" value="'+value.kind+'"></td>'+
+								'<tr><td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName" value="'+value.kind+'"></td>'+
 								'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="'+value.price+'"></td>'+
 								'<td></td></tr>'
 							);
 						}else{
 							$('#tableOption').append(
-								'<tr><td><input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName" value="'+value.kind+'"></td>'+
+								'<tr><td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName" value="'+value.kind+'"></td>'+
 								'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="'+value.price+'"></td>'+
 								'<td>'+'<input type="button" class="delete" value="삭제">'+'</td></tr>'
 							);
@@ -726,8 +726,10 @@ $(document).ready(function(){
 											</c:forEach>
 										</select>
 									</th></tr>
-									<tr><th>* 글제목</th><th> <input type="text" pattern="[가-힣\sa-zA-Z0-9!#$%^&*()?+=\/]{1,30}" name="title" value="${board.title}"> </th></tr>
-									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" value="${board.end_date}"> </th></tr>
+									<tr><th>* 글제목</th><th> <input type="text" pattern="[가-힣\sa-zA-Z0-9!\-#$%^&*\.()?+=\/]{1,30}" name="title" value="${board.title}"> </th></tr>
+									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker"> 
+										<input type="hidden" id="dateSetting" value="${board.end_date}">
+									</th></tr>
 									<tr><th>* 인원 또는 건수</th><th> <input type="number" min="1" max="99" name="quantity" value="${board.quantity }"> </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
@@ -783,7 +785,7 @@ $(document).ready(function(){
 									
 									
 									</td></tr>
-									<tr><th>* 기본가격</th><td><input type="number" min="0" max="999900" name="price"></td></tr>
+									<tr><th>* 기본가격</th><td><input type="number" min="0" max="999900" name="price" value="${board.price}"></td></tr>
 									<tr><th>옵션사항</th>
 									<td>
 									<div><input type="checkbox" id="optionRadio">옵션 여부</div>
