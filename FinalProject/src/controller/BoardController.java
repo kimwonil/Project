@@ -523,35 +523,82 @@ public class BoardController{
 		
 		//다시 뽑아서 글상세에서 보여주깅
 		ModelAndView mav = new ModelAndView();
-		Board board = boardService.selectOneBoard(no);//방금 입력한 board 뽑아서 가져오고
-		board.setFile_name1(boardService.selectThumbnail(no));// 썸네일 넣어주고
+//		Board board = boardService.selectOneBoard(no);//방금 입력한 board 뽑아서 가져오고
+//		board.setFile_name1(boardService.selectThumbnail(no));// 썸네일 넣어주고
+//		
+//		//보내기 전에 띄어쓰기 태그 넣어줄거야
+//		String content1 = board.getContent();
+//		if(content1 != null){
+//			content1 = content1.replaceAll("\r\n", "<br>");
+//			content1 = content1.replaceAll("\u0020", "&nbsp;");
+//		}
+//		board.setContent(content1);
+//		mav.addObject("board", board);
+//		mav.addObject("board", board);//실어주고
+//		
+//		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
+//			mav.addObject("mapinfo", boardService.selectOneMap(no));
+//		}
+//		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
+//			mav.addObject("fileinfo", boardService.selectOneFromFile(no));
+//		}
+//		if(boardService.selectBoard_option(no) != null){
+//			mav.addObject("board_option", boardService.selectBoard_option(no));
+//		}
+//		
+//		//글번호에 해당하는 구매이력, 찜 이력이 없으면 판매자가 글수정, 글삭제 가능
+//		boolean show = false;
+//		if(boardService.purchseHistory(no)==0  && boardService.dipsHistory(no)==0){
+//			show = true;
+//		}
+//		mav.addObject("show", show);
+//		
+//		String category_major = boardService.category_majorName(board.getCategory_major());//대분류 번호로 이름뽑기
+//		mav.addObject("category_major", category_major);
+//		
+//		HashMap<String, Object> cateMap = new HashMap<>();
+//		cateMap.put("no", board.getCategory_minor());
+//		cateMap.put("high_no", board.getCategory_major());
+//		String category_minor = boardService.category_minorName(cateMap);//소분류 이름 뽑기
+//		mav.addObject("category_minor", category_minor);
+		session.setAttribute("no", no);
+		mav.setViewName("redirect:insertResult.do");
+		return mav;
+	}
+	
+	
+	/**
+	 * 판매등록 후 결과 페이지
+	 * */
+	@RequestMapping("insertResult.do")
+	public ModelAndView insertResult(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+		System.out.println("detailOneBoard.do들어옴");
+		int no = Integer.parseInt(session.getAttribute("no").toString());
+		
+		//조회수 올리기
+		boardService.udpateBoardRead_count(no);
+				
+		//board 테이블에서 가져온 정보
+		Board board = boardService.selectOneBoard(no);
+		ModelAndView mav = new ModelAndView();
+		board.ratingForDetail();
+		board.setFile_name1(boardService.selectThumbnail(no));
 		
 		//보내기 전에 띄어쓰기 태그 넣어줄거야
-		String content1 = board.getContent();
-		if(content1 != null){
-			content1 = content1.replaceAll("\r\n", "<br>");
-			content1 = content1.replaceAll("\u0020", "&nbsp;");
+		String content = board.getContent();
+		if(content != null){
+			content = content.replaceAll("\r\n", "<br>");
+			content = content.replaceAll("\u0020", "&nbsp;");
 		}
-		board.setContent(content1);
+		board.setContent(content);
 		mav.addObject("board", board);
-		mav.addObject("board", board);//실어주고
-		
-		if(boardService.selectOneMap(no) != null){//map 뽑아서 가져오고
-			mav.addObject("mapinfo", boardService.selectOneMap(no));
-		}
-		if(boardService.selectOneFromFile(no) != null){//file뽑아서 가져오고
-			mav.addObject("fileinfo", boardService.selectOneFromFile(no));
-		}
+
+		mav.addObject("files", boardService.selectOneFromFile(no)); //files가 존재하거나 null이거나 빈칸이거나 
 		if(boardService.selectBoard_option(no) != null){
+			System.out.println("컨트롤러에 selectOneBoard_option하러왔엉");
+			System.out.println(boardService.selectBoard_option(no));
 			mav.addObject("board_option", boardService.selectBoard_option(no));
 		}
-		
-		//글번호에 해당하는 구매이력, 찜 이력이 없으면 판매자가 글수정, 글삭제 가능
-		boolean show = false;
-		if(boardService.purchseHistory(no)==0  && boardService.dipsHistory(no)==0){
-			show = true;
-		}
-		mav.addObject("show", show);
 		
 		String category_major = boardService.category_majorName(board.getCategory_major());//대분류 번호로 이름뽑기
 		mav.addObject("category_major", category_major);
@@ -562,9 +609,18 @@ public class BoardController{
 		String category_minor = boardService.category_minorName(cateMap);//소분류 이름 뽑기
 		mav.addObject("category_minor", category_minor);
 		
+		//글번호에 해당하는 구매이력, 찜 이력이 없으면 판매자가 글수정, 글삭제 가능
+		boolean show = false;
+		if(boardService.purchseHistory(no)==0  && boardService.dipsHistory(no)==0){
+			show = true;
+		}
+		System.out.println("보여줄지 말지 : "+show);
+		mav.addObject("show", show);
+		
 		mav.setViewName("board/detail");
 		return mav;
 	}
+	
 	
 	
 	/**
