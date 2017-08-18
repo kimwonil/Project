@@ -293,7 +293,7 @@ $(document).on('click', '#gageocksun', function(){
 								</tr>
 								
 								<tr>
-									<td colspan="3" width="90%" height="20%" class="price"><fmt:formatNumber value="${normal.price}" groupingUsed="true"/></td>
+									<td colspan="3" class="price"><fmt:formatNumber value="${normal.price}"/></td>
 									<td width="10%" class="read_count">조회수${normal.read_count}회</td>
 								</tr>
 								
