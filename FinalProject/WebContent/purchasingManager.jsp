@@ -18,6 +18,11 @@ text-align: center;
 }
 </style>
 <script>
+	function comma(str) {
+		str = String(str);
+		return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	}
+
 	$(function() {
 		$("#tabs").tabs();
 	});
@@ -50,7 +55,7 @@ text-align: center;
 							
 							$('#tabs-1 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+comma(total)+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+'</td><td>'+
 									'<button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
 							);								
@@ -97,7 +102,7 @@ text-align: center;
 							
 							$('#tabs-2 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+comma(total)+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+
 									'</td></tr>'		
 							);								
@@ -145,7 +150,7 @@ text-align: center;
 							
 							$('#tabs-3 > table').append(
 									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
-									value.seller + '</td><td><a href="#" class="optionList"><span>'+total+'</span></a><input type="hidden" value="'+value.purchase_no+
+									value.seller + '</td><td><a href="#" class="optionList"><span>'+comma(total)+'</span></a><input type="hidden" value="'+value.purchase_no+
 									'"></td></tr>'		
 							);								
 					});
@@ -192,14 +197,14 @@ text-align: center;
 						
 						$.each(data, function(index, option){
 							optionStr += option.kind + "<br>";
-							optionPrice += option.price + "<br>";
+							optionPrice += comma(option.price) + "<br>";
 							optionAmount += option.amount +"<br>";
 							total += option.price * option.amount;
 						});
 						
 						$('.popupLayer').html(
 								'<table><tr><td>옵션</td><td>수량</td><td>금액</td><td>총액</td></tr>'+
-								'<tr><td>'+optionStr+'</td><td>'+optionAmount+'</td><td>'+optionPrice+'</td><td>'+total+'</td></tr></table>'
+								'<tr><td>'+optionStr+'</td><td>'+optionAmount+'</td><td>'+optionPrice+'</td><td>'+comma(total)+'</td></tr></table>'
 						);
 					},
 					error:function(){

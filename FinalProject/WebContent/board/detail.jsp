@@ -391,15 +391,15 @@ font-size: 16px;
 						//table에 넣기
 						$('#purchaseList').append(
 							'<tr>' +
-							'<td name="kind[]" class="kind" width="30%">' + data.kind + '</td>' +
-							'<td name="price[]" class="price" width="17%">' + nf.format(dataPrice) + '</td>' +
-							'<td>' +
-							'<input type="number" min="1" max="99" value="1" class="quantityBox" name="quantity[]">'+
+							'<td name="kind[]" class="kind"  style="width:345px;">' + data.kind + '</td>' +
+							'<td name="price[]" class="price"  style="width:88px;">' + nf.format(dataPrice) + '</td>' +
+							'<td style="width:56px;">' +
+							'<input type="number" min="1" max="99" value="1" class="quantity" name="quantity[]">'+
 							'<input type="hidden" value="${board.price}" class="hiddenPrice">'+
 							'</td>' +
-							'<td align="center"><span class="optionResult">' + nf.format(dataPrice) + '</span>'+
+							'<td align="center"  style="width:88px;"><span class="optionResult">' + nf.format(dataPrice) + '</span>'+
 							'<input type="hidden" class="hiddenOptionResult" value="'+data.price+'"></td>' +
-							'<td width="7%"><button class="optionDelete">x</button></td>' +
+							'<td  style="width:40px;"><button class="optionDelete">x</button></td>' +
 							'</tr>'
 						)
 						totalPrice();
@@ -430,7 +430,7 @@ font-size: 16px;
 		//클릭해서 구매 수량 변하게!
 		var nf = Intl.NumberFormat();
 		
-		$(document).on('click', '.quantityBox', function() {
+		$(document).on('click', '.quantity', function() {
 			//수량 조절 박스의 quantity 바꿔주기
 			var q = $(this).val();//원래있던 수량을 잡아서
 			
@@ -481,6 +481,7 @@ font-size: 16px;
 				quantity.push($(this).val());
 			})
 			console.log(quantity);
+			console.log("확인");
 			jQuery.ajaxSettings.traditional = true;
 
 			$.ajax({
@@ -682,13 +683,13 @@ font-size: 16px;
 								<table>
 									<tr>
 										<th>기본항목</th>
-										<td><fmt:formatNumber value="${board.price}"
+										<td>&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber value="${board.price}"
 												groupingUsed="true" />원</td>
 									</tr>
 									<c:if test="${board_option ne null}">
 										<tr>
 											<th>옵션항목</th>
-											<td><select id="optionList">
+											<td>&nbsp;&nbsp;&nbsp;&nbsp;<select id="optionList">
 													<option>옵션없음</option>
 													<c:forEach var="i" items="${board_option}">
 														<option value="${i.kind}">${i.kind}(+${i.price})</option>
@@ -704,19 +705,19 @@ font-size: 16px;
 								<form action="thisIsAllMine.do" method="post">
 									<table id="purchaseList" align="center">
 										<tr>
-											<td name="kind[]" class="kind" width="33%">기본항목</td>
-											<td name="price[]" class="price" width="17%"><fmt:formatNumber
+											<td class="kind" style="width:345px;">기본항목</td>
+											<td class="price" style="width:88px;"><fmt:formatNumber
 													value="${board.price}" groupingUsed="true" /></td>
-											<td width="10%">
-												<input type="number" min="1" max="99" value="1" class="quantityBox" name="quantity[]">
+											<td  style="width:56px;">
+												<input type="number" min="1" max="99" value="1" class="quantity" name="quantity[]">
 												<input type="hidden" value="${board.price}" class="hiddenPrice">
 											</td>
-											<td align="center" width="22%"><span
+											<td align="center"  style="width:88px;"><span
 												class="optionResult"><fmt:formatNumber
 														value="${board.price}" groupingUsed="true" /></span> <input
 												type="hidden" class="hiddenOptionResult"
 												value="${board.price}"></td>
-											<td width="8%"></td>
+											<td  style="width:40px;"></td>
 										</tr>
 									</table>
 								</form>
