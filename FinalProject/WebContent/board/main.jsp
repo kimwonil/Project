@@ -11,20 +11,12 @@
 <title>Insert title here</title>
 </head>
 <style>
-/* slide관련 */
-.sp-slideshow{
-	width: 100%;
-}
-/* slide관련 끝 */
 .normal>.item{
 	width: 200px;
 	height: 350px;
 	position: relative;
 	float: left;
 }
-/* .normal>.item{ */
-/* 	height: 200px; */
-/* } */
 .row{
 	margin: 0px auto;
 }
@@ -130,7 +122,7 @@ width: 220px;
 
 
 /* The dots/bullets/indicators */
-.dot {
+.dot, .noticeDot {
   height: 13px;
   width: 13px;
   margin: 0 2px;
@@ -152,6 +144,7 @@ width: 220px;
   animation-duration: 5s;
 }
 
+
 @-webkit-keyframes fade {
   from {opacity: .8} 
   to {opacity: 1}
@@ -161,12 +154,6 @@ width: 220px;
   from {opacity: .8} 
   to {opacity: 1}
 }
-
-/* On smaller screens, decrease text size */
-@media only screen and (max-width: 300px) {
-  .text {font-size: 11px}
-}
-
 
 
 /* //////////////////////////////////////////////////// */
@@ -214,10 +201,29 @@ $(document).on('click', '#gageocksun', function(){
 <body>
 <div class="fh5co-spacer fh5co-spacer-lg"></div>
 <div class="fh5co-spacer fh5co-spacer-lg"></div>
+<div class="fh5co-spacer fh5co-spacer-lg"></div>
 <!-- ////////////////////////////////////////////////////////////////// -->
 
-
-
+<div class="slideshow-container" >
+	<div class="noticeSlides fade">
+		<a href="#">첫번째 글</a>
+	</div>
+	<div class="noticeSlides fade">
+		<a href="#">두번째 글</a>
+	</div>
+	<div class="noticeSlides fade">
+		<a href="#">세번째 글</a>
+	</div>
+	<div class="noticeSlides fade">
+		<a href="#">네번째 글</a>
+	</div>
+</div>
+<div style="text-align:center">
+	<span class="noticeDot"></span>
+	<span class="noticeDot"></span>
+	<span class="noticeDot"></span>
+	<span class="noticeDot"></span>
+</div>
 <!-- ///////////////////////////////////////////////////////////////// -->
 <div id="fh5co-main">
 	<div class="container">
@@ -292,7 +298,7 @@ $(document).on('click', '#gageocksun', function(){
 <script>
 var slideIndex = 0;
 showSlides();
-
+noticeSlides();
 function showSlides() {
     var i;
     var slides = document.getElementsByClassName("mySlides");
@@ -308,6 +314,23 @@ function showSlides() {
     slides[slideIndex-1].style.display = "block";  
     dots[slideIndex-1].className += " active";
     setTimeout(showSlides, 5000); // Change image every 2 seconds
+}
+
+function noticeSlides() {
+    var i;
+    var slides = document.getElementsByClassName("noticeSlides");
+    var dots = document.getElementsByClassName("noticeDot");
+    for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex> slides.length) {slideIndex = 1}    
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+    setTimeout(showSlides, 3000); // Change image every 2 seconds
 }
 </script>
 
