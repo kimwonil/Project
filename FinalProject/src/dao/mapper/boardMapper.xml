@@ -48,7 +48,7 @@
  	SELECT A.* FROM ( 
 	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board 
 	, (SELECT @searchnum:= 0) R 
-	where premium = 1 and state = 0
+	where state = 0
 	<if test="category_major != null">
 		and category_major=#{category_major} and category_minor=#{category_minor}
 	</if>

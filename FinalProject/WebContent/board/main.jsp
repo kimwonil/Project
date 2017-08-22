@@ -131,26 +131,57 @@ width: 220px;
   display: inline-block;
   transition: background-color 2s ease;
 }
+.noticeDot{
+	display: none;
+}
 
 .active {
   background-color: #717171;
 }
 
+.notice-container{
+	overflow: hidden;
+	border: 1px soild;
+}
+
+.noticeLink{
+	cursor: pointer;
+}
 /* Fading animation */
-.fade {
-  -webkit-animation-name: fade;
+.fadeitem {
+  -webkit-animation-name: fadeitem;
   -webkit-animation-duration: 5s;
-  animation-name: fade;
+  animation-name: fadeitem;
   animation-duration: 5s;
 }
 
+.noticefade {
+  position:relative;
+  -webkit-animation-name: noticefade;
+  -webkit-animation-duration: 5s;
+  animation-name: noticefade;
+  animation-duration: 5s;
+}
 
-@-webkit-keyframes fade {
+@-webkit-keyframes noticefade {
+  0% {top:40px;opacity: .5}
+  50% {top:0px;opacity: 1}
+  100%  {top:-40px;opacity: .5}
+}
+
+@keyframes noticefade {
+  0% {top:40px;opacity: .5}
+  50% {top:0px;opacity: 1}
+  100%  {top:-40px;opacity: .5}
+}
+
+
+@-webkit-keyframes fadeitem {
   from {opacity: .8} 
   to {opacity: 1}
 }
 
-@keyframes fade {
+@keyframes fadeitem {
   from {opacity: .8} 
   to {opacity: 1}
 }
@@ -204,25 +235,25 @@ $(document).on('click', '#gageocksun', function(){
 <div class="fh5co-spacer fh5co-spacer-lg"></div>
 <!-- ////////////////////////////////////////////////////////////////// -->
 
-<div class="slideshow-container" >
-	<div class="noticeSlides fade">
-		<a href="#">첫번째 글</a>
-	</div>
-	<div class="noticeSlides fade">
-		<a href="#">두번째 글</a>
-	</div>
-	<div class="noticeSlides fade">
-		<a href="#">세번째 글</a>
-	</div>
-	<div class="noticeSlides fade">
-		<a href="#">네번째 글</a>
-	</div>
+<div class="slideshow-container notice-container" >
+		<div class="noticeSlides noticefade">
+			<a class="noticeLink" data-toggle="modal" data-target="#noticeModal">하요</a>
+		</div>
+		<div class="noticeSlides noticefade">
+			<a class="noticeLink" data-toggle="modal" data-target="#noticeModal">둘째글</a>
+		</div>
+	<c:forEach items="${noticeList}" var="notice">
+		<div class="noticeSlides noticefade">
+			<a class="noticeLink" data-toggle="modal" data-target="#noticeModal">${notice.title}</a>
+		</div>
+	</c:forEach>	
 </div>
 <div style="text-align:center">
-	<span class="noticeDot"></span>
-	<span class="noticeDot"></span>
-	<span class="noticeDot"></span>
-	<span class="noticeDot"></span>
+<span class="noticeDot"></span>
+<span class="noticeDot"></span>
+	<c:forEach items="${noticeList}" var="notice">
+			<span class="noticeDot"></span>
+	</c:forEach>
 </div>
 <!-- ///////////////////////////////////////////////////////////////// -->
 <div id="fh5co-main">
@@ -234,7 +265,7 @@ $(document).on('click', '#gageocksun', function(){
 	<div class="slideshow-container" >
 		<c:forEach items="${premiumList}" var="premium" varStatus="status">
 			<c:if test="${status.count%5 eq 1}">
-				<div class="mySlides fade">
+				<div class="mySlides fadeitem">
 			</c:if>
 	
 						<div class="column size-1of4">
@@ -297,17 +328,19 @@ $(document).on('click', '#gageocksun', function(){
 
 <script>
 var slideIndex = 0;
+var noticeIndex = 0;
+
 showSlides();
-noticeSlides();
 function showSlides() {
     var i;
     var slides = document.getElementsByClassName("mySlides");
     var dots = document.getElementsByClassName("dot");
+    
     for (i = 0; i < slides.length; i++) {
        slides[i].style.display = "none";  
     }
     slideIndex++;
-    if (slideIndex> slides.length) {slideIndex = 1}    
+    if (slideIndex> slides.length) {slideIndex = 1} 
     for (i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(" active", "");
     }
@@ -316,21 +349,22 @@ function showSlides() {
     setTimeout(showSlides, 5000); // Change image every 2 seconds
 }
 
+noticeSlides();
 function noticeSlides() {
     var i;
-    var slides = document.getElementsByClassName("noticeSlides");
-    var dots = document.getElementsByClassName("noticeDot");
-    for (i = 0; i < slides.length; i++) {
-       slides[i].style.display = "none";  
+    var slides2 = document.getElementsByClassName("noticeSlides");
+    var dots2 = document.getElementsByClassName("noticeDot");
+    for (i = 0; i < slides2.length; i++) {
+       slides2[i].style.display = "none";  
     }
-    slideIndex++;
-    if (slideIndex> slides.length) {slideIndex = 1}    
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
+    noticeIndex++;
+    if (noticeIndex> slides2.length) {noticeIndex = 1}    
+    for (i = 0; i < dots2.length; i++) {
+        dots2[i].className = dots2[i].className.replace(" active", "");
     }
-    slides[slideIndex-1].style.display = "block";  
-    dots[slideIndex-1].className += " active";
-    setTimeout(showSlides, 3000); // Change image every 2 seconds
+    slides2[noticeIndex-1].style.display = "block";  
+    dots2[noticeIndex-1].className += " active";
+    setTimeout(noticeSlides, 3000); // Change image every 2 seconds
 }
 </script>
 
@@ -441,6 +475,29 @@ function noticeSlides() {
 		
 	</div>
 	
+	
+	
+	
+	<!-- Modal -->
+  <div class="modal fade" id="noticeModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 	
 
 
