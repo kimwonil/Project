@@ -147,6 +147,10 @@ width: 220px;
 .noticeLink{
 	cursor: pointer;
 }
+#noticeContent{
+	resize:none;
+}
+
 /* Fading animation */
 .fadeitem {
   -webkit-animation-name: fadeitem;
@@ -227,30 +231,43 @@ $(document).on('click', '#gageocksun', function(){
 	location.href='gageocksun.do';
 });
 
+$(document).on('click', '.noticeLink', function(){
+	var noticeNo = $(this).siblings('input').val();
+	$.ajax({
+		url:"mainNotice.do",
+		type:"POST",
+		data:{
+			no : noticeNo
+		},
+		dataType:"json",
+		success:function(data){
+			$('#noticeTitle').text(data.title);
+			$('#noticeWriter').text(data.writer);
+			$('#noticeContent').val(data.content);
+		},
+		error:function(){
+			alert("실패");
+		}
+	});
+});
+
 </script>
 
 <body>
 <div class="fh5co-spacer fh5co-spacer-lg"></div>
 <div class="fh5co-spacer fh5co-spacer-lg"></div>
-<div class="fh5co-spacer fh5co-spacer-lg"></div>
+<div class="fh5co-spacer fh5co-spacer-sm"></div>
 <!-- ////////////////////////////////////////////////////////////////// -->
 
 <div class="slideshow-container notice-container" >
-		<div class="noticeSlides noticefade">
-			<a class="noticeLink" data-toggle="modal" data-target="#noticeModal">하요</a>
-		</div>
-		<div class="noticeSlides noticefade">
-			<a class="noticeLink" data-toggle="modal" data-target="#noticeModal">둘째글</a>
-		</div>
 	<c:forEach items="${noticeList}" var="notice">
 		<div class="noticeSlides noticefade">
 			<a class="noticeLink" data-toggle="modal" data-target="#noticeModal">${notice.title}</a>
+			<input type="hidden" value="${notice.no}">
 		</div>
 	</c:forEach>	
 </div>
 <div style="text-align:center">
-<span class="noticeDot"></span>
-<span class="noticeDot"></span>
 	<c:forEach items="${noticeList}" var="notice">
 			<span class="noticeDot"></span>
 	</c:forEach>
@@ -366,6 +383,13 @@ function noticeSlides() {
     dots2[noticeIndex-1].className += " active";
     setTimeout(noticeSlides, 3000); // Change image every 2 seconds
 }
+
+
+
+	$(document).on('click', '#chat', function(){
+	   location.href='node/indexBefore.html';
+	})
+
 </script>
 
 <!-- ///////////////////////////////////////////////////////////////// -->
@@ -382,6 +406,7 @@ function noticeSlides() {
 		<span>
 			<table id="orderTable">
 			<tr>
+			<td><button id="chat" class="btn-sm btn-primary">관리자와 채팅</button></td>
 			<td><button id="latest" class="btn-sm btn-primary">최신순</button></td>
 			<td><button id="panmaesun" class="btn-sm btn-primary">판매순</button></td>
 			<td><button id="gageocksun" class="btn-sm btn-primary">낮은가격순</button></td>
@@ -486,13 +511,25 @@ function noticeSlides() {
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title">공지사항</h4>
         </div>
         <div class="modal-body">
-          <p>Some text in the modal.</p>
+          <table>
+          	<tr>
+          		<td width="10%">제&nbsp;&nbsp;&nbsp;&nbsp;목 :</td>
+          		<td width="90%"><label id="noticeTitle"></label></td>
+          	</tr>
+          	<tr>
+          		<td>작성자 :</td>
+          		<td><label id="noticeWriter"></label></td>
+          	</tr>
+          	<tr>
+          		<td colspan="2"> <textarea id="noticeContent" cols="78" rows="10"></textarea></td>
+          	</tr>
+          </table>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-info btn-sm" data-dismiss="modal">Close</button>
         </div>
       </div>
       

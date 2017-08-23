@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="index.js"></script>
+
+</head>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(document).on('click', '#startCht', function(){
+		window.open('/chch', 'popup', 'width=500, height=500, ');
+	});
+})
+</script>
+<body>
+<button id="startCht" >채팅시작</button>
+<a href="/chch">링크</a>
+</body>
+</html>

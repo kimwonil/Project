@@ -446,36 +446,23 @@
 	
 	$(document).ready(function() {
 		var menu = $('#memberLogin').val();
-
+		$('#togglerNum').text(0);
 		if(menu == ''){
 			$('.fh5co-menu-btn').css('display','none');
-			
+			clearInterval(messageCount);
 		}else{
 			$('.fh5co-menu-btn').css('display','inline');
 			//인터벌로 3초마다 알림에 표시되는 읽지않은 메세지 숫자
-			setInterval(function() {
-				$.ajax({
-					url : "getMessageCount.do",
-					type : "POST",
-					dataType : "json",
-					success : function(data) {
-						console.log(data);
-						
-						$('#togglerNum').text(data);
-
-					},
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log(textStatus);
-						console.log(errorThrown);
-					}
-				});
-			}, 3000);
+			var messageCount = setInterval(function() {
+				MessageNum();
+			}, 1000);
 		}
 		
-		MessageNum();
-
 		
-
+		
+		
+		
+		
 		//알림 눌렀을때 읽지않은 메세지 제목과 보낸사람 표시
 
 		$("#toggler").click(function() {
