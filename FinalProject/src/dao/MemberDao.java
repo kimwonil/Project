@@ -61,4 +61,5 @@ public interface MemberDao {
 	public List<Bank> bankList();
 	public List<Authority> myAuthority(String nickname);
 	public String getCategoryName(int category_no);
+	public Member selectNickOne(HashMap<String, Object> map);
 }

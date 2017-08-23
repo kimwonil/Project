@@ -358,6 +358,27 @@ font-size: 16px;
 				alert("거래 진행 후에는 글을 수정할 수 없습니다");
 			}
 		}); //글수정 state확인 끝
+		
+		$('#declare').on('click', function() {
+			var no = $('#declare').val();
+			alert(no);
+			$.ajax({
+				url:"declare.do",
+				type:"POST",
+				data:{
+					no:no
+				},
+// 				dataType:"json",
+				success:function(){
+					alert("성공");
+				},
+				error:function(){
+					alert("실패");
+				}
+			});
+			
+		});
+		
 
 		$('#img') //상세정보 tab안에 사진 넣기
 
@@ -643,6 +664,10 @@ font-size: 16px;
 														<button class="btn btn-sm btn-primary"
 															onclick="location.href='deleteBoard.do?no=${board.no}'">글삭제</button>
 													</c:when>
+													<c:otherwise>
+														<button class="btn btn-sm btn-primary" id="declare"
+															value="${board.no}">신고</button>
+													</c:otherwise>
 												</c:choose></td>
 										</tr>
 										<tr>

@@ -721,10 +721,10 @@ public class MemberController {
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		HashMap<String, Object> map = new HashMap<>();
-		String id = request.getParameter("id");
-		System.out.println(id);
-		map.put("id", id);
-		Member member = memberService.selectOne(map);
+		String nickname = request.getParameter("nickname");
+		System.out.println(nickname);
+		map.put("nickname", nickname);
+		Member member = memberService.selectNickOne(map);
 		String json = gson.toJson(member);
 		
 		try {
@@ -791,12 +791,29 @@ public class MemberController {
 		}else {
 			return "member/authority";	
 		}
-		
-		
-		
 	}
 	
-	
+	/**
+	 * 회원관리에서 개인 권한 조회
+	 * */
+	@RequestMapping("privateAuthority.do")
+	public void privateAuthority(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		String nickname = request.getParameter("nickname");
+		
+		List<Authority> authorityList = memberService.myAuthority(nickname);
+		for(Authority authority : authorityList) {
+			authority.setCategoryName(boardService.category_majorName(authority.getCategory_no()));
+		}
+		try {
+			String json = gson.toJson(authorityList);
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * 권한 신청 등록

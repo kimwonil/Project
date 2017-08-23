@@ -13,6 +13,10 @@
  	
  </select>
  
+ <select id="selectNickOne" parameterType="java.util.HashMap" resultType="Member">
+     select * from profile where nickname=#{nickname}
+ </select>
+ 
  <select id="selectAll"  resultType="Member">
  	select * from profile
  </select>

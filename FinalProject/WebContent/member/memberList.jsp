@@ -21,13 +21,17 @@
 						console.log(data);
 						$('#memberTable tr:gt(0)').remove();
 						for(var i=0;i<data.length;i++){
-								$('#memberTable').append("<tr><td><input type='radio' name='memberCheck' value='"+data[i].id+"'></td><td>"
+								$('#memberTable').append("<tr><td><input type='radio' name='memberCheck' value='"+data[i].nickname+"'></td><td>"
 										+data[i].id+"</td><td>"
 										+data[i].nickname+"</td><td>"
 										+data[i].photo+"</td><td>"
 										+numberWithCommas(data[i].balance)+"</td><td>"
 										+(data[i].login==1?"네이버":data[i].login==2?"카카오":"구글")+"</td><td>"
-										+(data[i].admin==1?"관리자":"일반회원")+"</td></tr>");
+										+(data[i].admin==1?"관리자":"일반")+"</td>"+
+										"<td><button class='btn-sm btn-info privateAuthority' value='"+data[i].nickname+"'>권한</button></td>"+
+										"</tr>"
+										
+								);
 							}
 						$('#memberTable input[type="radio"]:eq(0)').attr("checked", "checked");
 					},
@@ -46,7 +50,7 @@
 				$.ajax({
 					url:"memberUpdateForm.do",
 					type:"POST",
-					data:{id:$('input[name=memberCheck]:checked').val()},
+					data:{nickname:$('input[name=memberCheck]:checked').val()},
 					dataType:"json",
 					success:function(data){
 						console.log(data);
@@ -119,6 +123,41 @@
 					}
 				});
 			});
+			
+			$(document).on('click', '.privateAuthority', function(){
+				var nickname = $(this).val();
+				$.ajax({
+					url:"privateAuthority.do",
+					type:"POST",
+					data:{
+						nickname:nickname
+					},
+					dataType:"json",
+					success:function(data){
+						$('#authorityNickname').text(nickname);
+						$('#authorityTable tr:gt(0)').remove();
+						for(var i=0;i<data.length;i++){
+							$('#authorityTable').append(
+									"<tr><td><input type='radio' value='"+data[i].no+"'></td><td>"
+									+data[i].categoryName+"</td><td>"
+									+data[i].date+"</td><td>"
+									+"<button class='btn-sm btn-info authorityCancel' value='"+data[i].no+"'>취소</button>"
+									+"</td></tr>"
+							);
+						}
+					$('#authorityTable input[type="radio"]:eq(0)').attr("checked", "checked");
+					$('#authorityModal').modal('show');
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
+			});
+			
+			$(document).on('click', '.authorityCancel', function(){
+				alert($(this).val());
+			});
+			
 		});//document.ready
 	
 	
@@ -153,7 +192,6 @@
 	</style>
 	</head>
 	<body>
-	
 	<div id="fh5co-main">
 		<div class="container">
 			<div class="row">
@@ -162,13 +200,13 @@
 					<h2>멤버 관리</h2>
 					<table id="memberTable">
 						<tr>
-							<td width="10%">체크</td>
+							<td width="5%">체크</td>
 							<td width="20%">아이디</td>
 							<td width="20%">닉네임</td>
 							<td width="20%">사진</td>
 							<td width="10%">포인트</td>
 							<td width="10%">종류</td>
-							<td width="10%">비고</td>
+							<td width="15%" colspan="2">비고</td>
 						</tr>
 						
 					</table>
@@ -194,6 +232,37 @@
 								<div class="modal-body">
 									<table id="updateTable">
 									
+									</table>
+									
+								</div>
+								<div>
+									<button class="btn btn-sm btn-info updateBtn">수정</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- Modal -->
+					
+					<!-- 회원 권한 수정  Modal -->
+					<div class="modal fade" id="authorityModal" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">회원 권한 수정</h4>
+								</div>
+								<div class="modal-body">
+									<h4><label id="authorityNickname"></label></h4>
+									<table id="authorityTable">
+										<tr>
+											<td>체크</td>
+											<td>카테고리</td>
+											<td>등록일</td>
+											<td>권한 취소</td>
+										</tr>
 									</table>
 									
 								</div>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<script type="text/javascript">
+$.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+    a: $('input[name="a"]').val(),
+    b: $('input[name="b"]').val()
+  }, function(data) {
+    $("#result").text(data.result);
+  });
+
+</script>
+<body>
+
+</body>
+</html>

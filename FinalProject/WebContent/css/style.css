@@ -7475,7 +7475,7 @@ h1, h2, h3, h4, h5, h6 {
   float: left;
   width: 100%;
   position: fixed;
-  background: #5fcec0;
+  background: #60ccbd;
   padding-top: 4em;
   padding-bottom: 4em;
   z-index: 10;
@@ -7570,11 +7570,11 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
   display: block;
   float: none !important;
-  width: 200px;
-  margin: 0 auto;
+  width: 400px;
+  margin: -15px auto 40px auto;
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-size: 20px;
+  font-size: 40px;
   font-family: "Montserrat", arial, sans-serif;
   color: #000;
 }

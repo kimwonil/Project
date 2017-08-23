@@ -140,8 +140,9 @@ width: 220px;
 }
 
 .notice-container{
+	width:1100px;
 	overflow: hidden;
-	border: 1px soild;
+	font-size: 20px;
 }
 
 .noticeLink{
@@ -220,6 +221,9 @@ $(document).ready(function(){
 	
 });
 
+$(document).on('click', '#chat', function(){
+	window.open('http://192.168.0.143:3000/', 'popup', 'width=500, height=500, ');
+});
 
 $(document).on('click', '#latest', function(){
 	location.href='latest.do';
@@ -244,6 +248,7 @@ $(document).on('click', '.noticeLink', function(){
 			$('#noticeTitle').text(data.title);
 			$('#noticeWriter').text(data.writer);
 			$('#noticeContent').val(data.content);
+			$("#noticeModal").modal({backdrop: false});
 		},
 		error:function(){
 			alert("실패");
@@ -254,23 +259,28 @@ $(document).on('click', '.noticeLink', function(){
 </script>
 
 <body>
-<div class="fh5co-spacer fh5co-spacer-lg"></div>
-<div class="fh5co-spacer fh5co-spacer-lg"></div>
-<div class="fh5co-spacer fh5co-spacer-sm"></div>
-<!-- ////////////////////////////////////////////////////////////////// -->
 
-<div class="slideshow-container notice-container" >
-	<c:forEach items="${noticeList}" var="notice">
-		<div class="noticeSlides noticefade">
-			<a class="noticeLink" data-toggle="modal" data-target="#noticeModal">${notice.title}</a>
-			<input type="hidden" value="${notice.no}">
+<!-- ////////////////////////////////////////////////////////////////// -->
+<div id="fh5co-main">
+	<div class="container">
+	<div>
+		<h3>공지사항</h3>
+		<p>
+		<div class="slideshow-container notice-container">
+			<c:forEach items="${noticeList}" var="notice">
+				<div class="noticeSlides noticefade">
+					<a class="noticeLink">${notice.title}</a>
+					<input type="hidden" value="${notice.no}">
+				</div>
+			</c:forEach>	
 		</div>
-	</c:forEach>	
-</div>
-<div style="text-align:center">
-	<c:forEach items="${noticeList}" var="notice">
-			<span class="noticeDot"></span>
-	</c:forEach>
+		<div style="text-align:center">
+			<c:forEach items="${noticeList}" var="notice">
+					<span class="noticeDot"></span>
+			</c:forEach>
+		</div>
+	</div>
+	</div>
 </div>
 <!-- ///////////////////////////////////////////////////////////////// -->
 <div id="fh5co-main">
@@ -386,9 +396,6 @@ function noticeSlides() {
 
 
 
-	$(document).on('click', '#chat', function(){
-	   location.href='node/indexBefore.html';
-	})
 
 </script>
 

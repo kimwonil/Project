@@ -15,37 +15,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>ShareAbility</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
-<meta name="keywords"
-	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-<meta name="author" content="FREEHTML5.CO" />
 
-
-
-<!-- 
-	//////////////////////////////////////////////////////
-
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-
-	//////////////////////////////////////////////////////
-	 -->
-
-<!-- Facebook and Twitter integration -->
-<meta property="og:title" content="" />
-<meta property="og:image" content="" />
-<meta property="og:url" content="" />
-<meta property="og:site_name" content="" />
-<meta property="og:description" content="" />
-<meta name="twitter:title" content="" />
-<meta name="twitter:image" content="" />
-<meta name="twitter:url" content="" />
-<meta name="twitter:card" content="" />
 
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 <link rel="shortcut icon" href="favicon.ico">
@@ -75,7 +45,10 @@
 	<![endif]-->
 </head>
 <style>
-
+.category_img{
+	width: 100px;
+	height: 70px;
+}
 
 
 
@@ -94,6 +67,7 @@
 	display: none;
 	top: 20%;
 	right: 5%;
+	
 	min-height: 250px;
 }
 
@@ -119,21 +93,24 @@
 }
 
 .menu {
-	height: 40px;
+	height: 110px;
 	position: fixed;
 	z-index:10;
 	left:0%;
 	width: 100%;
 	margin: 0px auto;
-	background: #4c4e5a;
-	background: -webkit-linear-gradient(top, #5fcec0 0%, #5fcec0 100%);
-	background: -moz-linear-gradient(top, #5fcec0 0%, #5fcec0 100%);
-	background: -o-linear-gradient(top, #5fcec0 0%, #5fcec0 100%);
-	background: -ms-linear-gradient(top, #5fcec0 0%, #5fcec0 100%);
-	background: linear-gradient(top, #5fcec0 0%, #5fcec0 100%);
+	background: #60ccbd;
+	background: -webkit-linear-gradient(top, #60ccbd 0%, #60ccbd 100%);
+	background: -moz-linear-gradient(top, #60ccbd 0%, #60ccbd 100%);
+	background: -o-linear-gradient(top, #60ccbd 0%, #60ccbd 100%);
+	background: -ms-linear-gradient(top, #60ccbd 0%, #60ccbd 100%);
+	background: linear-gradient(top, #60ccbd 0%, #60ccbd 100%);
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+}
+.categoryMenu>li{
+	text-align: center;
 }
 
 .menu li {
@@ -180,10 +157,10 @@
 .menu ul {
 	position: absolute;
 	z-index: 5;
-	top: 40px;
+	top: 110px;
 	left: 0;
 	opacity: 0;
-	background: #5fcec0; 
+	background: #60ccbd; 
 	-webkit-border-radius: 0 0 5px 5px;
 	-moz-border-radius: 0 0 5px 5px;
 	border-radius: 0 0 5px 5px;
@@ -544,7 +521,7 @@
 <body>
 <input type="hidden" id="memberLogin" value="${member.login}">
 	<!-- 	알림띄울 내용 -->
-	<div id="alarm-content" style="background: white; z-index: 9;">
+	<div id="alarm-content" style="background: white; z-index: 11;">
 		<table class="table" id="messagetable" style="">
 			<tr>
 				<th>새로도착한 쪽지</th>
@@ -646,7 +623,7 @@
 
 	<header id="fh5co-header" role="banner">
 	<div class="container">
-	<div class="row">
+		<div class="row">
 			<div class="col-md-12">
 				<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i
 					class="icon-menu"></i></a> <a class="navbar-brand" href="index.jsp">ShareAbility</a>
@@ -680,7 +657,7 @@
 		<!-- 		카테고리 메뉴                    -->
 		<div class="row">
 			<ul class="menu categoryMenu">
-				<li><a href="#">디자인/그래픽</a>
+				<li><img class="category_img" src="images/design.jpg" alt="디자인"><a href="#">디자인/그래픽</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=101" class="documents">캐리커쳐/인물/캐릭터/아이콘</a></li>
 						<li><a href="categoryMenu.do?no=102" class="documents">일러스트/초상화/스케치</a></li>
@@ -694,7 +671,7 @@
 						<li><a href="categoryMenu.do?no=109" class="documents">도면/CAD/인테리어/3D</a></li>
 						<li><a href="categoryMenu.do?no=110" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="#">바이럴/마케팅/광고</a>
+				<li><img class="category_img" src="images/marketing.jpg" alt="마케팅"><a href="#">바이럴/마케팅/광고</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=201" class="documents">블로그/카페/체험단</a></li>
 						<li><a href="categoryMenu.do?no=202" class="documents">인스타그램/페이스북/카카오/트위터</a></li>
@@ -704,7 +681,7 @@
 						<li><a href="categoryMenu.do?no=205" class="documents">언론/기사/보도자료</a></li>
 						<li><a href="categoryMenu.do?no=206" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="#">문서/서식/레포트</a>
+				<li><img class="category_img" src="images/document.jpg" alt="문서"><a href="#">문서/서식/레포트</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=301" class="documents">워드/타이핑/엑셀/통계</a></li>
 						<li><a href="categoryMenu.do?no=302" class="documents">창작/대본/시나리오/카피라이팅</a></li>
@@ -717,7 +694,7 @@
 						<li><a href="categoryMenu.do?no=309" class="documents">논문 컨설팅/보고서/리서치</a></li>
 						<li><a href="categoryMenu.do?no=310" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="#">컴퓨터/개발</a>
+				<li><img class="category_img" src="images/computer.jpg" alt="컴퓨터"><a href="#">컴퓨터/개발</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=401" class="documents">홈페이지/웹개발</a></li>
 						<li><a href="categoryMenu.do?no=402" class="documents">모바일/Web/App/어플</a></li>
@@ -726,7 +703,7 @@
 						<li><a href="categoryMenu.do?no=405" class="documents">플래시/스크립트</a></li>
 						<li><a href="categoryMenu.do?no=406" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="#">음악/영상</a>
+				<li><img class="category_img" src="images/music_video.jpg" alt="음악"><a href="#">음악/영상</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=501" class="documents">영상제작/자막제작/편집</a></li>
 						<li><a href="categoryMenu.do?no=502" class="documents">작사/작곡/MR/음악편집/녹음</a></li>
@@ -735,7 +712,7 @@
 						<li><a href="categoryMenu.do?no=505" class="documents">인디음악/창작음악</a></li>
 						<li><a href="categoryMenu.do?no=506" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="#">생활/대행/상담</a>
+				<li><img class="category_img" src="images/counseling.jpg" alt="생활"><a href="#">생활/대행/상담</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=601" class="documents">고민상담/진로상담/취업상담/기타상담</a></li>
 						<li><a href="categoryMenu.do?no=602" class="documents">점/운세/사주/토정비결/궁합</a></li>
@@ -748,7 +725,7 @@
 						<li><a href="categoryMenu.do?no=609" class="documents">구매대행</a></li>
 						<li><a href="categoryMenu.do?no=610" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="#">노하우/여행</a>
+				<li><img class="category_img" src="images/knowhow.jpg" alt="노하우"><a href="#">노하우/여행</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=701" class="documents">생활지식/비법/수리/노하우/팁</a></li>
 						<li><a href="categoryMenu.do?no=702" class="documents">투자/재테크</a></li>
@@ -759,7 +736,7 @@
 						<li><a href="categoryMenu.do?no=707" class="documents">온라인게임</a></li>
 						<li><a href="categoryMenu.do?no=708" class="documents">기타</a></li>
 					</ul></li>
-				<li><a href="#">비즈니스/창업/사업</a>
+				<li><img class="category_img" src="images/startup.jpg" alt="창업"><a href="#">비즈니스/창업/사업</a>
 					<ul>
 
 						<li><a href="categoryMenu.do?no=801" class="documents">사업계획/사업제안</a></li>
@@ -772,8 +749,8 @@
 						<li><a href="categoryMenu.do?no=808" class="documents">기타</a></li>
 
 					</ul></li>
-				<li><a href="#">번역/외국어</a>
-					<ul>
+				<li><img class="category_img" src="images/translate.jpg" alt="번역"><a href="#">번역/외국어</a>
+					<ul style="left:-100px;">
 						<li><a href="categoryMenu.do?no=901" class="documents">영어</a></li>
 						<li><a href="categoryMenu.do?no=902" class="documents">일본어</a></li>
 						<li><a href="categoryMenu.do?no=903" class="documents">중국어</a></li>
@@ -810,6 +787,8 @@
 	<script src="js/salvattore.min.js"></script>
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
-	
+	<div class="fh5co-spacer fh5co-spacer-lg"></div>
+<div class="fh5co-spacer fh5co-spacer-lg"></div>
+<div class="fh5co-spacer fh5co-spacer-lg"></div>
 </body>
 </html>
