@@ -11,20 +11,12 @@
 <title>Insert title here</title>
 </head>
 <style>
-/* slide관련 */
-.sp-slideshow{
-	width: 100%;
-}
-/* slide관련 끝 */
 .normal>.item{
 	width: 200px;
 	height: 350px;
 	position: relative;
 	float: left;
 }
-/* .normal>.item{ */
-/* 	height: 200px; */
-/* } */
 .row{
 	margin: 0px auto;
 }
@@ -80,7 +72,7 @@
 #fh5co-board .item{
 	margin: 14px;
 }
-img{
+.item img{
 	width: 200px;
 	height: 200px;
 }
@@ -115,6 +107,93 @@ width: 220px;
 	width: 170px;
 	height: 20px;
 }
+
+
+/* ////////////////////////////////////////////////// */
+
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1140px;
+  position: relative;
+  margin: auto;
+}
+
+
+
+/* The dots/bullets/indicators */
+.dot, .noticeDot {
+  height: 13px;
+  width: 13px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 2s ease;
+}
+.noticeDot{
+	display: none;
+}
+
+.active {
+  background-color: #717171;
+}
+
+.notice-container{
+	width:1100px;
+	overflow: hidden;
+	font-size: 20px;
+}
+
+.noticeLink{
+	cursor: pointer;
+}
+#noticeContent{
+	resize:none;
+}
+
+/* Fading animation */
+.fadeitem {
+  -webkit-animation-name: fadeitem;
+  -webkit-animation-duration: 5s;
+  animation-name: fadeitem;
+  animation-duration: 5s;
+}
+
+.noticefade {
+  position:relative;
+  -webkit-animation-name: noticefade;
+  -webkit-animation-duration: 5s;
+  animation-name: noticefade;
+  animation-duration: 5s;
+}
+
+@-webkit-keyframes noticefade {
+  0% {top:40px;opacity: .5}
+  50% {top:0px;opacity: 1}
+  100%  {top:-40px;opacity: .5}
+}
+
+@keyframes noticefade {
+  0% {top:40px;opacity: .5}
+  50% {top:0px;opacity: 1}
+  100%  {top:-40px;opacity: .5}
+}
+
+
+@-webkit-keyframes fadeitem {
+  from {opacity: .8} 
+  to {opacity: 1}
+}
+
+@keyframes fadeitem {
+  from {opacity: .8} 
+  to {opacity: 1}
+}
+
+
+/* //////////////////////////////////////////////////// */
+
 </style>
 
 <script type="text/javascript">
@@ -153,47 +232,66 @@ $(document).on('click', '#gageocksun', function(){
 	location.href='gageocksun.do';
 });
 
+$(document).on('click', '.noticeLink', function(){
+	var noticeNo = $(this).siblings('input').val();
+	$.ajax({
+		url:"mainNotice.do",
+		type:"POST",
+		data:{
+			no : noticeNo
+		},
+		dataType:"json",
+		success:function(data){
+			$('#noticeTitle').text(data.title);
+			$('#noticeWriter').text(data.writer);
+			$('#noticeContent').val(data.content);
+			$("#noticeModal").modal({backdrop: false});
+		},
+		error:function(){
+			alert("실패");
+		}
+	});
+});
 
 </script>
 
 <body>
+
+<!-- ////////////////////////////////////////////////////////////////// -->
+<div id="fh5co-main">
+	<div class="container">
+	<div>
+		<h3>공지사항</h3>
+		<p>
+		<div class="slideshow-container notice-container">
+			<c:forEach items="${noticeList}" var="notice">
+				<div class="noticeSlides noticefade">
+					<a class="noticeLink">${notice.title}</a>
+					<input type="hidden" value="${notice.no}">
+				</div>
+			</c:forEach>	
+		</div>
+		<div style="text-align:center">
+			<c:forEach items="${noticeList}" var="notice">
+					<span class="noticeDot"></span>
+			</c:forEach>
+		</div>
+	</div>
+	</div>
+</div>
+<!-- ///////////////////////////////////////////////////////////////// -->
 <div id="fh5co-main">
 	<div class="container">
 	<div>
 		<h3>프리미엄</h3>
+		<div>&nbsp;</div>
 		<div class="row">
-			<div id="fh5co-board" class="premium" data-columns>
-			<div class="sp-slideshow">
-				<input id="button-1" type="radio" name="radio-set" class="sp-selector-1" checked="checked" />
-				<label for="button-1" class="button-label-1"></label>
-				
-				<input id="button-2" type="radio" name="radio-set" class="sp-selector-2" />
-				<label for="button-2" class="button-label-2"></label>
-				
-				<input id="button-3" type="radio" name="radio-set" class="sp-selector-3" />
-				<label for="button-3" class="button-label-3"></label>
-				
-				<input id="button-4" type="radio" name="radio-set" class="sp-selector-4" />
-				<label for="button-4" class="button-label-4"></label>
-				
-				<input id="button-5" type="radio" name="radio-set" class="sp-selector-5" />
-				<label for="button-5" class="button-label-5"></label>
-				
-				
-				<label for="button-1" class="sp-arrow sp-a1"></label>
-				<label for="button-2" class="sp-arrow sp-a2"></label>
-				<label for="button-3" class="sp-arrow sp-a3"></label>
-				<label for="button-4" class="sp-arrow sp-a4"></label>
-				<label for="button-5" class="sp-arrow sp-a5"></label>
-				
-				<div class="sp-content">
-					<div class="sp-parallax-bg"></div>
-					<ul class="sp-slider clearfix">
-			
-				<c:forEach items="${premiumList}" var="premium" varStatus="status">
-					<c:if test="${status.count%4 eq 1}">
-					<li>
-					</c:if>
+	<div class="slideshow-container" >
+		<c:forEach items="${premiumList}" var="premium" varStatus="status">
+			<c:if test="${status.count%5 eq 1}">
+				<div class="mySlides fadeitem">
+			</c:if>
+	
 						<div class="column size-1of4">
 							<div class="item">
 								<div class="animate-box">
@@ -236,16 +334,72 @@ $(document).on('click', '#gageocksun', function(){
 								</div>
 							</div>
 						</div>
-						<c:if test="${status.count%4 eq 0}">
-					</li>
+					<c:if test="${status.count%5 eq 0}">
+						</div>
 					</c:if>
-				</c:forEach>
-				</ul>
-				</div><!-- sp-content -->
-			</div><!-- sp-slideshow -->
-			</div>
-			</div>
-		</div>
+		</c:forEach>
+	</div>
+<div class="fh5co-spacer fh5co-spacer-lg"></div>
+<div style="text-align:center">
+<c:forEach items="${premiumList}" var="premium" varStatus="status">
+	<c:if test="${status.count%5 eq 1}">
+	  <span class="dot"></span>
+	</c:if>
+</c:forEach>
+</div>
+</div>
+</div>
+
+<script>
+var slideIndex = 0;
+var noticeIndex = 0;
+
+showSlides();
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    
+    for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex> slides.length) {slideIndex = 1} 
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+    setTimeout(showSlides, 5000); // Change image every 2 seconds
+}
+
+noticeSlides();
+function noticeSlides() {
+    var i;
+    var slides2 = document.getElementsByClassName("noticeSlides");
+    var dots2 = document.getElementsByClassName("noticeDot");
+    for (i = 0; i < slides2.length; i++) {
+       slides2[i].style.display = "none";  
+    }
+    noticeIndex++;
+    if (noticeIndex> slides2.length) {noticeIndex = 1}    
+    for (i = 0; i < dots2.length; i++) {
+        dots2[i].className = dots2[i].className.replace(" active", "");
+    }
+    slides2[noticeIndex-1].style.display = "block";  
+    dots2[noticeIndex-1].className += " active";
+    setTimeout(noticeSlides, 3000); // Change image every 2 seconds
+}
+
+
+
+
+</script>
+
+<!-- ///////////////////////////////////////////////////////////////// -->
+
+
+
 			
 		<div class="fh5co-spacer fh5co-spacer-sm"></div>
 			
@@ -256,6 +410,9 @@ $(document).on('click', '#gageocksun', function(){
 		<span>
 			<table id="orderTable">
 			<tr>
+			<td>
+				<a href="http://192.168.0.109:3000/?nickname=${member.nickname}" target="iframe_a"class="btn-sm btn-primary">관리자와 채팅</a>
+			</td>
 			<td><button id="latest" class="btn-sm btn-primary">최신순</button></td>
 			<td><button id="panmaesun" class="btn-sm btn-primary">판매순</button></td>
 			<td><button id="gageocksun" class="btn-sm btn-primary">낮은가격순</button></td>
@@ -350,7 +507,44 @@ $(document).on('click', '#gageocksun', function(){
 	</div>
 	
 	
+	
+	
+	<!-- Modal -->
+  <div class="modal fade" id="noticeModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">공지사항</h4>
+        </div>
+        <div class="modal-body">
+          <table>
+          	<tr>
+          		<td width="10%">제&nbsp;&nbsp;&nbsp;&nbsp;목 :</td>
+          		<td width="90%"><label id="noticeTitle"></label></td>
+          	</tr>
+          	<tr>
+          		<td>작성자 :</td>
+          		<td><label id="noticeWriter"></label></td>
+          	</tr>
+          	<tr>
+          		<td colspan="2"> <textarea id="noticeContent" cols="78" rows="10"></textarea></td>
+          	</tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info btn-sm" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+	
+<iframe height="300" width="300" name="iframe_a" >
 
+</iframe>
 
 </body>
 </html>

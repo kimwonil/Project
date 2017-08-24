@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<script type="text/javascript">
+
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+$('#btn2').bind('click', function(){
+	$.getJSON('/qos', {
+	    qos1: $('input[name="qos1"]').val(),
+	    qos_interface1: $('input[name="qos_interface1"]').val(),
+	    config:"yes"
+	  }, function(data) {
+// 	    	콜백함수
+	  });
+});
+
+
+/////////////////////////////
+
+$(document).on('click', '#btn1', function(){
+	var qos = $('input[name="qos"]').val();
+	var qos_interface = $('input[name="qos_interface"]').val();
+	
+	$.getJSON('/qos', {
+		qos : qos,
+		qos_interface : qos_interface
+	}, function(data){
+		console.log(data);
+	});
+});
+
+/////////////////////////////////
+
+$(document).on('click', '#btn1', function(){
+	var qos = $('input[name="qos"]').val();
+	var qos_interface = $('input[name="qos_interface"]').val();
+	
+	$.ajax({
+		url:"/qos",
+		type:"POST",
+		data:{
+			qos:qos,
+			qos_interface:qos_interface
+		},
+		dataType:"json",
+		success:function(data){
+			console.log(data);
+			alert("성공");
+		},
+		error:function(jqXHR, textStatus, errorThrown){
+			alert(textStatus);     //응답상태
+			alert(errorThrown);     //응답에 대한 메세지
+		}
+	});
+});
+
+
+</script>
+<body>
+
+</body>
+</html>

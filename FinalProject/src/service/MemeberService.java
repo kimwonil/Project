@@ -199,5 +199,10 @@ public class MemeberService {
 	public String getCategoryName(int category_no) {
 		return memberDao.getCategoryName(category_no);
 	}
+
+	public Member selectNickOne(HashMap<String, Object> map) {
+		return memberDao.selectNickOne(map);
+	}
+
 	
 }

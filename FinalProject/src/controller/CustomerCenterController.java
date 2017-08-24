@@ -850,12 +850,12 @@ public class CustomerCenterController {
 	@RequestMapping("insertReport.do")
 	public void insertReport(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String nickname = ((Member) session.getAttribute("member")).getNickname();
-		int category_no = Integer.parseInt((request.getParameter("major") + request.getParameter("minor")));
+		String category = request.getParameter("category");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("writer", nickname);
-		params.put("category_no", category_no);
+		params.put("category", category);
 		params.put("title", title);
 		params.put("content", content);
 
@@ -874,14 +874,6 @@ public class CustomerCenterController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		Report report = reportService.selectOneReport(no);
-		String str = report.getCategory_no() + "";
-		int major = Integer.parseInt(str.substring(0, 3));
-		int minor = Integer.parseInt(str.substring(3, str.length()));
-		HashMap<String, Object> pa = new HashMap<String, Object>();
-		pa.put("major", major);
-		pa.put("minor", minor);
-		String HighName = noticeService.getHighName(pa);
-		String LowName = noticeService.getLowName(pa);
 
 		int read_count = report.getRead_count();
 		HashMap<String, Object> params = new HashMap<String, Object>();
@@ -893,9 +885,7 @@ public class CustomerCenterController {
 		result.put("no", report.getNo());
 		result.put("title", report.getTitle());
 		result.put("writer", report.getWriter());
-		result.put("category_no", report.getCategory_no());
-		result.put("HighName", HighName);
-		result.put("LowName", LowName);
+		result.put("category", report.getCategory());
 		result.put("content", report.getContent());
 		result.put("state", report.getState());
 		System.out.println(result);

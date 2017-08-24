@@ -5,7 +5,7 @@ import java.util.Date;
 public class Report {
 	private int no;
 	private String date;
-	private int category_no;	
+	private String category;	
 	private String title;
 	private int state;
 	private int read_count;
@@ -24,11 +24,11 @@ public class Report {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public int getCategory_no() {
-		return category_no;
+	public String getCategory() {
+		return category;
 	}
-	public void setCategory_no(int category_no) {
-		this.category_no = category_no;
+	public void setCategory_no(String category) {
+		this.category = category;
 	}
 	public String getTitle() {
 		return title;
@@ -62,7 +62,7 @@ public class Report {
 	}
 	@Override
 	public String toString() {
-		return "Report [no=" + no + ", date=" + date + ", category_no=" + category_no + ", title=" + title + ", state="
+		return "Report [no=" + no + ", date=" + date + ", category=" + category + ", title=" + title + ", state="
 				+ state + ", read_count=" + read_count + ", content=" + content + ", writer=" + writer + "]";
 	}
 	

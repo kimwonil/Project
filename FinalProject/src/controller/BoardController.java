@@ -39,6 +39,7 @@ import model.Category;
 import model.FileUpload;
 import model.MapInfo;
 import model.Member;
+import model.Notice;
 import model.Paging;
 import model.Premium;
 import model.Purchase;
@@ -46,6 +47,7 @@ import model.PurchaseOption;
 import service.BoardService;
 import service.DealService;
 import service.MemeberService;
+import service.NoticeService;
 
 
 @Controller
@@ -59,6 +61,9 @@ public class BoardController{
 	
 	@Autowired
 	private MemeberService memberService;
+	
+	@Autowired
+	private NoticeService noticeService;
 	
 	/**
 	 * 검색 api
@@ -110,7 +115,24 @@ public class BoardController{
 			e.printStackTrace();
 		}
 	}
-	
+	@RequestMapping("mainNotice.do")
+	public void mainNotice(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=utf-8");
+		int no = Integer.parseInt(req.getParameter("no"));
+		Notice notice = noticeService.selectOneNotice(no);
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(notice);
+		
+		try {
+			resp.getWriter().write(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
@@ -186,7 +208,6 @@ public class BoardController{
 			board.ratingForMain();//별점평균넣기
 			premiumList.add(board);
 		}//selectAllPremiumBoard에 각각 file_name1 넣기 끝
-		
 		//페이징 부분
 		Paging paging = new Paging(boardService.getCount(), currentPage);
 		paging.boardPaging();
@@ -195,14 +216,14 @@ public class BoardController{
 		HashMap<String, Object> pagingParam = new HashMap<>();//검색에 필요한 페이징 정보를 맵에 담아서
 		pagingParam.put("start", paging.getStart());
 		pagingParam.put("end", paging.getEnd());
-		 
 		//일반 - 메인에 뿌려주러 가기 전에 썸네일들도 가져갈거양
 		List<Board> noThumbnail = boardService.selectAllNormalBoard(pagingParam);
 		List<Board> normalList = new ArrayList<>();
 		normalList = boardPlusThumbnail(noThumbnail);
-		
+		List<Notice> noticeList = noticeService.selectAllNotice();
 		List<Category> categoryList = boardService.category();
 		mav.addObject(categoryList);
+		mav.addObject("noticeList",noticeList);
 		mav.addObject("paging", paging);
 		mav.addObject("pageName", "load.do");
 		mav.addObject("premiumList", premiumList);
@@ -1305,6 +1326,15 @@ public class BoardController{
 	
 	
 	
+	/**
+	 * 글 신고
+	 * */
+	@RequestMapping("declare.do")
+	public void declare(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+		int no = Integer.parseInt(req.getParameter("no"));
+		
+		
+	}
 
 
 }

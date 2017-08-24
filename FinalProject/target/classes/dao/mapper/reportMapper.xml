@@ -6,7 +6,7 @@
    
   <mapper namespace="dao.ReportDao">
    <insert id="insertReport" parameterType="java.util.HashMap">
- 	insert into report values(0,sysdate(),#{category_no},#{title},0,0,#{content},#{writer})
+ 	insert into report values(0,sysdate(),#{category},#{title},0,0,#{content},#{writer})
  </insert>
   
     <select id="selectAllReport" resultType="Report">
