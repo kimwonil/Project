@@ -221,9 +221,6 @@ $(document).ready(function(){
 	
 });
 
-$(document).on('click', '#chat', function(){
-	window.open('http://192.168.0.143:3000/', 'popup', 'width=500, height=500, ');
-});
 
 $(document).on('click', '#latest', function(){
 	location.href='latest.do';
@@ -413,7 +410,9 @@ function noticeSlides() {
 		<span>
 			<table id="orderTable">
 			<tr>
-			<td><button id="chat" class="btn-sm btn-primary">관리자와 채팅</button></td>
+			<td>
+				<a href="http://192.168.0.109:3000/?nickname=${member.nickname}" target="iframe_a"class="btn-sm btn-primary">관리자와 채팅</a>
+			</td>
 			<td><button id="latest" class="btn-sm btn-primary">최신순</button></td>
 			<td><button id="panmaesun" class="btn-sm btn-primary">판매순</button></td>
 			<td><button id="gageocksun" class="btn-sm btn-primary">낮은가격순</button></td>
@@ -543,7 +542,9 @@ function noticeSlides() {
     </div>
   </div>
 	
+<iframe height="300" width="300" name="iframe_a" >
 
+</iframe>
 
 </body>
 </html>

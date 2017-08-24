@@ -671,7 +671,7 @@
 						<li><a href="categoryMenu.do?no=109" class="documents">도면/CAD/인테리어/3D</a></li>
 						<li><a href="categoryMenu.do?no=110" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/marketing.jpg" alt="마케팅"><a href="#">바이럴/마케팅/광고</a>
+				<li><img class="category_img" src="images/marketing.jpg" alt="마케팅"><a href="#">마케팅/광고</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=201" class="documents">블로그/카페/체험단</a></li>
 						<li><a href="categoryMenu.do?no=202" class="documents">인스타그램/페이스북/카카오/트위터</a></li>
@@ -736,7 +736,7 @@
 						<li><a href="categoryMenu.do?no=707" class="documents">온라인게임</a></li>
 						<li><a href="categoryMenu.do?no=708" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/startup.jpg" alt="창업"><a href="#">비즈니스/창업/사업</a>
+				<li><img class="category_img" src="images/startup.jpg" alt="창업"><a href="#">비즈니스/창업</a>
 					<ul>
 
 						<li><a href="categoryMenu.do?no=801" class="documents">사업계획/사업제안</a></li>

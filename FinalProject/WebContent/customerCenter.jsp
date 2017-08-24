@@ -84,9 +84,6 @@
 	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
 	   						);
 	   				
-	   				$('#reportMajor').append(
-	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-	   				);
 	   				$('#ReportMajorUpdate').append(
 	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
 	   				);
@@ -269,42 +266,6 @@
 				   				$('#QnAMinorUpdate').empty();
 				   				$.each(data, function(index, value){
 					   				$('#QnAMinorUpdate').append(
-					   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-					   				);
-				   				});
-
-				   			},
-				   			error:function(){
-				   				alert("실패");
-				   			}
-				   			
-				   		});
-						}
-			   		
-				});
-				//report 카테고리 로우 불러오기
-				$(document).on('change','#reportMajor', function(){
-					
-					if($('#reportMajor').val()=='대분류')
-					{
-					$('#reportMinor').empty();
-					$('#reportMinor').append(
-								'<option>소분류</option><option>대부분를 선택해주세요</option>'
-						);
-					}
-					
-					else
-						{
-						$.ajax({
-				   			url:"Low.do",
-				   			type:"POST",
-				   			data:{high_no:$(this).val()},
-				   			dataType:"json",
-				   			success:function(data){
-				   				console.log(data);
-				   				$('#reportMinor').empty();
-				   				$.each(data, function(index, value){
-					   				$('#reportMinor').append(
 					   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
 					   				);
 				   				});
@@ -717,9 +678,6 @@ function reportList(page,type,keyword,start,end){
 		});
 		$(document).on('click','#ReportinsertBtn',function(){
 			$('#reportMajor option:eq(0)').prop("selected", true);
-			$('#reportMinor').empty();
-			$('#reportMinor').append('<option>소분류</option><option>대분류를 선택하세요</option>');
-			$('#reportMinor option:eq(0)').prop("selected", true);
 		});
 		//공지 등록
 		$(document).on('click','#noticeinsert',function(){
@@ -1406,15 +1364,13 @@ function reportList(page,type,keyword,start,end){
 				reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 				$('#ReporttitleLabel').text(data.title);
 				$('#ReportwriterLabel').text(data.writer);
-				$('#ReportMajorLabel').text(data.HighName);
-				$('#ReportMinorLabel').text(data.LowName);
+				$('#ReportMajorLabel').text(data.category);
 				$('#ReportcontentLabel').text(data.content);
 				$('#ReportUpdateForm').val(data.no);
 				$('#ReportDelete').val(data.no);
 				$('#ReportClearBtn').val(data.no);
 				if(id!=data.writer && num==0)
 					{
-					$("#ReportUpdateForm").hide();
 					$("#ReportDelete").hide();
 					}
 				if(data.state==0)
@@ -1452,38 +1408,10 @@ function reportList(page,type,keyword,start,end){
 			success:function(data){
 				reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 				
-				var cate=data.category_no+"";
+				var cate=data.category;
 				
-				var major=cate.substr(0, 3);
-				var minor=cate.substring(3, cate.lengh);
-				
-				major/=100;
-				minor*=1;
 	
 				$('#ReportContentModal').modal('hide');
-				$('#ReportMajorUpdate option:eq('+major+')').prop("selected", true);
-				$.ajax({
-		   			url:"Low.do",
-		   			type:"POST",
-		   			data:{high_no:$('#ReportMajorUpdate').val()},
-		   			dataType:"json",
-		   			success:function(data){
-		   				console.log(data);
-		   				$('#ReportMinorUpdate').empty();
-		   				$.each(data, function(index, value){
-			   				$('#ReportMinorUpdate').append(
-			   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-			   				);
-			   				
-			   				$('#ReportMinorUpdate option:eq('+(minor-1)+')').prop("selected", true);
-		   				});
-
-		   			},
-		   			error:function(){
-		   				alert("실패");
-		   			}
-		   			
-		   		});
 				$('#ReporttitleUpdate').val(data.title);
 				$('#ReportcontentUpdate').val(data.content);
 				$('#ReportUpdateBtn').val(data.no);
@@ -1531,76 +1459,29 @@ function reportList(page,type,keyword,start,end){
 				
 			});
 	
-	//신고 수정
-		$(document).on('click','#ReportUpdateBtn',function(){
-
-			var category=""+$('#ReportMajorUpdate').val()+""+$('#ReportMinorUpdate').val();
-
-			var cateChk=true;
-			var titleChk=true;
-			var contentChk=true;
-			
-			
-			if($('#ReportMajorUpdate').val()=='대분류')
-				{
-				alert("카테고리를 입력하세요.");
-				cateChk=false;
-				}
-			else if($('#ReporttitleUpdate').val()=='')
-				{
-				alert("제목을 입력하세요.");
-				titleChk=false;
-				}
-			else if($('#ReportcontentUpdate').val()=='')
-				{
-				alert("내용을 입력하세요.");
-				contentChk=false;
-				}
-			
-			if(cateChk==true && titleChk==true && contentChk==true)
-				{
-			
-			$.ajax({
-				url:"ReportUpdate.do",
-				type:"POST",
-				data:{
-				no:$("#ReportUpdateBtn").val(),
-				category_no:category,
-				title:$('#ReporttitleUpdate').val(),
-				content:$('#ReportcontentUpdate').val()
-				},
-				success:function(){
-					reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
-					
-					$('#ReportContentUpdateModal').modal('hide');
-				},
-				error:function(){
-					alert("실패");
-				}
-			});
-				}
-		});
 		//신고 삭제
 		$(document).on('click','#ReportDelete',function(){
-
+			var deleteCheck = confirm("삭제 하시겠습니까?");
 			
-
-			$.ajax({
-				url:"deleteReport.do",
-				type:"POST",
-				data:{
-				no:$('#ReportDelete').val(),
-				
-				},
-				success:function(){
-					reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
-				
-					$('#ReportContentModal').modal('hide');
-				},
-				error:function(){
-					alert("실패");
-				}
-			});
+			if(deleteCheck){
+			
+				$.ajax({
+					url:"deleteReport.do",
+					type:"POST",
+					data:{
+					no:$('#ReportDelete').val(),
+					
+					},
+					success:function(){
+						reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
+					
+						$('#ReportContentModal').modal('hide');
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
+			}
 			
 		});
 	
@@ -1612,12 +1493,7 @@ $(document).on('click','#reportinsert',function(){
 	var contentChk=true;
 
 	
-	if($('#reportMajor').val()=='대분류')
-		{
-		alert("카테고리를 입력하세요.");
-		cateChk=false;
-		}
-	else if($('#reportTitle').val()=='')
+	if($('#reportTitle').val()=='')
 		{
 		alert("제목을 입력하세요.");
 		titleChk=false;
@@ -1631,13 +1507,12 @@ $(document).on('click','#reportinsert',function(){
 	
 	if(cateChk==true && titleChk==true && contentChk==true )
 		{
-	
+		alert($('#reportMajor').val());
 		$.ajax({
 			url:"insertReport.do",
 			type:"POST",
 			data:{
-				major:$('#reportMajor').val(),
-				minor:$('#reportMinor').val(),
+				category:$('#reportMajor').val(),
 				title:$('#reportTitle').val(),
 				content:$('#reportContent').val()
 				
@@ -1647,7 +1522,6 @@ $(document).on('click','#reportinsert',function(){
 				reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 				$('#ReportinsertModal').modal('hide');
 				$('#reportMajor option:eq(0)').prop("selected", true);
-				$('#reportMinor option:eq(0)').prop("selected", true);
 				$('#reportTitle').val("");
 				$('#reportContent').val("");
 			
@@ -1732,7 +1606,7 @@ textarea{
 	display: block;
 }
 #qnaMajor, #reportMajor{
-	width: 200px;
+	width: 703px;
 }
 #qnaMinor, #reportMinor{
 	width: 500px;
@@ -1996,19 +1870,16 @@ textarea{
 										</div>
 										<div class="modal-body">
 
-
-
-
 											<table class="table">
 												<tr>
 													<th>카테고리</th>
 													<th><select name="major" id="reportMajor">
-															<option selected>대분류</option>
-
-													</select> <select name="minor" id="reportMinor">
-															<option selected>소분류</option>
-															<option>대분류를 선택하세요</option>
-													</select></th>
+															<option value="판매 글 관련" selected>판매 글 관련</option>
+															<option value="캐시 관련">캐시 관련</option>
+															<option value="회원 관련">회원 관련</option>
+															<option value="홈페이지 관련">홈페이지 관련</option>
+															<option value="기타">기타</option>
+													</th>
 												</tr>
 												<tr>
 													<th>신고 제목</th>
@@ -2385,8 +2256,7 @@ textarea{
 											</td>
 										</tr>
 										<tr>
-											<td>대분류 : <label id="ReportMajorLabel"></label>
-												&nbsp;&nbsp;&nbsp; 소분류 : <label id="ReportMinorLabel"></label>
+											<td>카테고리 : <label id="ReportMajorLabel"></label>
 											</td>
 										</tr>
 										<tr>
@@ -2400,9 +2270,6 @@ textarea{
 											<td style="text-align: right;">
 											<button type="button" class="btn btn-danger btn-sm"
 														id="ReportClearBtn" name=""></button>
-											<button type="button" class="btn btn-sm btn-danger"
-													id="ReportUpdateForm" data-toggle="modal"
-													data-target="#ReportContentUpdateModal">신고 수정</button>
 												<button type="button" id="ReportDelete"
 													class="btn  btn-sm btn-danger">신고 삭제</button></td>
 										</tr>
@@ -2420,49 +2287,6 @@ textarea{
 					</div>
 					<!-- Report상세 끝 -->
 
-					<!--ReportContentUpdateModal Report업데이트상세-->
-					<div class="modal fade" id="ReportContentUpdateModal" role="dialog">
-						<div class="modal-dialog modal-lg">
-
-							<!-- Modal content-->
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">신고 수정 폼</h4>
-								</div>
-								<div class="modal-body">
-									<table id="ReportDetail" class="table">
-										<tr>
-											<th>카테고리</th>
-											<th><select id="ReportMajorUpdate" name="major">
-													<option>대분류</option>
-
-											</select> <select id="ReportMinorUpdate" name="minor">
-													<option>소분류</option>
-
-											</select></th>
-										</tr>
-										<tr>
-											<th>제목 :</th>
-											<td><input size="48" type="text" id="ReporttitleUpdate"></td>
-										</tr>
-
-										<tr>
-											<th>내용 :</th>
-											<td><input type="text" size="48"
-												id="ReportcontentUpdate" style="height: 200px;"></td>
-										</tr>
-										<tr>
-											<td><button type="button" class="btn btn-sm btn-danger"
-													id="ReportUpdateBtn">신고 수정</button></td>
-										</tr>
-									</table>
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<!-- Report업데이트상세 끝 -->
 				</div>
 			</div>
 		</div>
