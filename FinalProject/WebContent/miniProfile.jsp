@@ -41,8 +41,8 @@ $(document).ready(function(){
 		background-color:lightgray;
 		border-radius:10px;
 		position: fixed;
-		top:40%;
-		left:10%;
+		top:400px;
+		left:100px;
 		text-align: center;
 		width:200px;
 	}
@@ -51,8 +51,8 @@ $(document).ready(function(){
 		height: 100px;
 		
 		position: fixed;
-		left: 14%;
-		top: 34%;
+		left: 150px;
+		top: 340px;
 		
 		z-index:4;
 	}
