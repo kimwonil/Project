@@ -137,6 +137,14 @@ font-size: 16px;
 #introduce{
 	resize:none;
 }
+#reportMajor, #reportTitle{
+	width: 700px;
+}
+.customerCenterBtn{
+	text-align: right;
+	margin-right: 40px;
+}
+
 </style>
 
 <script>
@@ -145,9 +153,6 @@ font-size: 16px;
 	$(function() {
 		$("#tabs").tabs();
 	});
-
-
-
 
 	function selectUserReview() {
 		$.ajax({
@@ -361,23 +366,36 @@ font-size: 16px;
 		
 		$('#declare').on('click', function() {
 			var no = $('#declare').val();
-			alert(no);
+			$('#declareNo').val(no);
+			$('#ReportinsertModal').modal('show');
+			
+			
+		});
+		
+		
+		$(document).on('click', '#reportinsert', function(){
 			$.ajax({
-				url:"declare.do",
+				url:"insertReport.do",
 				type:"POST",
 				data:{
-					no:no
+					no:$('#declareNo').val(),
+					category:$('#reportMajor').val(),
+					title:$('#reportTitle').val(),
+					content:$('#reportContent').val()
 				},
-// 				dataType:"json",
 				success:function(){
-					alert("성공");
+					
+					$('#ReportinsertModal').modal('hide');
 				},
 				error:function(){
 					alert("실패");
 				}
 			});
-			
 		});
+		
+		
+		
+		
 		
 
 		$('#img') //상세정보 tab안에 사진 넣기
@@ -890,7 +908,54 @@ font-size: 16px;
 			</table>
 		
 	</div>
+	
+	
+<!-- Modal -->
+							<div class="modal fade" id="ReportinsertModal" role="dialog">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">신고 등록</h4>
+										</div>
+										<div class="modal-body">
 
+											<table class="table">
+												<tr>
+													<th>카테고리</th>
+													<th><select name="major" id="reportMajor">
+															<option value="판매 글 관련" selected>판매 글 관련</option>
+															<option value="캐시 관련">캐시 관련</option>
+															<option value="회원 관련">회원 관련</option>
+															<option value="홈페이지 관련">홈페이지 관련</option>
+															<option value="기타">기타</option>
+													</th>
+												</tr>
+												<tr>
+													<th>신고 제목</th>
+													<th><input type="text" name="title" id="reportTitle"></th>
+												</tr>
+												<tr>
+													<th>신고 내용</th>
+													<th><textarea rows="10" cols="85" name="content"
+															id="reportContent"></textarea></th>
+												</tr>
+
+											</table>
+											<input type="hidden" id="declareNo">
+											<div class="customerCenterBtn">
+											<input type="button" class="btn btn-sm btn-primary"
+												id="reportinsert" value="신고하기">
+											<button type="button" class="btn btn-primary btn-sm"
+												data-dismiss="modal">취소하기</button>
+											</div>
+
+
+										</div>
+
+									</div>
+								</div>
+							</div>
 
 </body>
 </html>

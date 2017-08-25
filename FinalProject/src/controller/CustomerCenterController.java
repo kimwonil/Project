@@ -853,7 +853,13 @@ public class CustomerCenterController {
 		String category = request.getParameter("category");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		int board_no = 0;
+		
+		if(request.getParameter("no") != null) {
+			board_no = Integer.parseInt(request.getParameter("no"));
+		}
 		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("board_no", board_no);
 		params.put("writer", nickname);
 		params.put("category", category);
 		params.put("title", title);
@@ -888,6 +894,10 @@ public class CustomerCenterController {
 		result.put("category", report.getCategory());
 		result.put("content", report.getContent());
 		result.put("state", report.getState());
+		result.put("board_no", report.getBoard_no());
+		if(report.getBoard_no() != 0) {
+			result.put("board_name", BoardService.selectOneBoard(report.getBoard_no()).getTitle());
+		}
 		System.out.println(result);
 		String json = gson.toJson(result);
 		System.out.println(json);

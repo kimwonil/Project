@@ -1323,18 +1323,5 @@ public class BoardController{
 		}
 		return boardWithThumbnail;
 	}
-	
-	
-	
-	/**
-	 * 글 신고
-	 * */
-	@RequestMapping("declare.do")
-	public void declare(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
-		int no = Integer.parseInt(req.getParameter("no"));
-		
-		
-	}
-
 
 }

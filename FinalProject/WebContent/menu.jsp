@@ -681,7 +681,7 @@
 						<li><a href="categoryMenu.do?no=205" class="documents">언론/기사/보도자료</a></li>
 						<li><a href="categoryMenu.do?no=206" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/document.jpg" alt="문서"><a href="#">문서/서식/레포트</a>
+				<li><img class="category_img" src="images/document.jpg" alt="문서"><a href="#">문서/서식</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=301" class="documents">워드/타이핑/엑셀/통계</a></li>
 						<li><a href="categoryMenu.do?no=302" class="documents">창작/대본/시나리오/카피라이팅</a></li>

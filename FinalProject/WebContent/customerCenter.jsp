@@ -1360,12 +1360,18 @@ function reportList(page,type,keyword,start,end){
 			data:{no:$(this).attr('id')},
 			dataType:"json",
 			success:function(data){
-				
+				console.log(data);
 				reportList(Reportpage,Reporttype,Reportkeyword,Reportstart,Reportend);
 				$('#ReporttitleLabel').text(data.title);
 				$('#ReportwriterLabel').text(data.writer);
 				$('#ReportMajorLabel').text(data.category);
 				$('#ReportcontentLabel').text(data.content);
+				if(data.board_no!=0){
+					$('#ReprotBoardLabelP').css('display','block');
+					$('#ReportBoardLabel').text(data.board_name);
+				}else{
+					$('#ReprotBoardLabelP').css('display','none');
+				}
 				$('#ReportUpdateForm').val(data.no);
 				$('#ReportDelete').val(data.no);
 				$('#ReportClearBtn').val(data.no);
@@ -1507,7 +1513,6 @@ $(document).on('click','#reportinsert',function(){
 	
 	if(cateChk==true && titleChk==true && contentChk==true )
 		{
-		alert($('#reportMajor').val());
 		$.ajax({
 			url:"insertReport.do",
 			type:"POST",
@@ -1620,6 +1625,9 @@ textarea{
 .customerCenterBtn{
 	position: relative;
 	left: 70%;
+}
+#ReprotBoardLabelP{
+	display: none;
 }
 
 </style>
@@ -2256,7 +2264,9 @@ textarea{
 											</td>
 										</tr>
 										<tr>
-											<td>카테고리 : <label id="ReportMajorLabel"></label>
+											<td>카테고리 : <label id="ReportMajorLabel"></label><p id="ReprotBoardLabelP">
+											    신고 글 제목 : <label id="ReportBoardLabel"></label>
+											    </p>
 											</td>
 										</tr>
 										<tr>
