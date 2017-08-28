@@ -491,28 +491,7 @@ $(document).ready(function(){
    	dateSetting();
    	
    	
-   	
-   	
 
-// //옵션 추가 체크박스 선택
-// 	$("#tableOption").empty();//옵션추가 테이블 일단 숨겨놓고 시작!
-//     $('#optionRadio').on('click',function(){
-//     	if($(this).is(':checked')){//체크되면
-//     		console.log("체크");
-//     		$('#optionResult').val(0);
-//     		$('#tableOption').append(
-//     				 '<tr><td>옵션종류</td><td>추가가격</td><td><input type="button" class="add" value="추가"></td></tr>'+
-//                      '<tr>'+
-//                         '<td><input type="text" name="option[]" class="optionName"></td>'+
-//                         '<td><input type="text" name="optionPrice[]" class="optionPrice"></td>'+
-//                      '</tr>'
-//     		);
-//     	}else{//체크 안되면
-//     		console.log("체크노노");
-//     		$('#optionResult').val(4);
-//     		$('#tableOption').empty();
-//     	}
-//     });
 	
 		//옵션 추가 체크박스 선택
 	$("#tableOption").empty();//옵션추가 테이블 한번 비우고
@@ -523,7 +502,7 @@ $(document).ready(function(){
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
                         '<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="0"></td>'+
+                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="100만원 미만으로 입력하세요" value="0"></td>'+
 //                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
     		);
@@ -548,7 +527,7 @@ $(document).ready(function(){
 	   		$('#tableOption').append(
 	  				'<tr>'+
 				'<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-				'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="0"></td>'+
+				'<td><input type="number" min="1" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="100만원 미만으로 입력하세요" value="0"></td>'+
 				'<td><button class="delete">삭제</button></td>'+
 				'</tr>'
 	   		);
@@ -654,13 +633,13 @@ $(document).ready(function(){
 						if(index==0){
 							$('#tableOption').append(
 								'<tr><td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName" value="'+value.kind+'"></td>'+
-								'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="'+value.price+'"></td>'+
+								'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" step="100" title="100만원 미만으로 입력하세요" value="'+value.price+'"></td>'+
 								'<td></td></tr>'
 							);
 						}else{
 							$('#tableOption').append(
 								'<tr><td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName" value="'+value.kind+'"></td>'+
-								'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요" value="'+value.price+'"></td>'+
+								'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" step="100" title="100만원 미만으로 입력하세요" value="'+value.price+'"></td>'+
 								'<td>'+'<input type="button" class="delete" value="삭제">'+'</td></tr>'
 							);
 						}					
@@ -703,7 +682,7 @@ $(document).ready(function(){
 							<div class="fh5co-pricing-table" id="bckground">
 							<form id="detailInfo" action="updateBoard.do" method="post" enctype="multipart/form-data" >
 								<table class="table" id="bckgrndtable">
-									<tr><th>* 카테고리 </th><th>
+									<tr><th>* 카테고리(필수) </th><th>
 										<select name="major" id="major">
 											<c:forEach items="${categoryList}" var="high">
 												<c:if test="${high.no eq board.category_major}">
@@ -725,11 +704,13 @@ $(document).ready(function(){
 											</c:forEach>
 										</select>
 									</th></tr>
-									<tr><th>* 글제목</th><th> <input type="text" pattern="[가-힣\sa-zA-Z0-9!\-#$%^&*\.()?+=\/]{1,30}" name="title" value="${board.title}"> </th></tr>
-									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker"> 
+									<tr><th>* 글제목(필수)</th><th class="condition"> <input type="text" pattern="[가-힣\sa-zA-Z0-9!\-#$%^&*\.()?+=\/]{1,30}" name="title" value="${board.title}">
+									<br>제목은 30자 이내로 입력하세요 </th></tr>
+									<tr><th>* 등록 마감일(필수)</th><th> <input type="date" name="end_date" id="datePicker"> 
 										<input type="hidden" id="dateSetting" value="${board.end_date}">
 									</th></tr>
-									<tr><th>* 인원 또는 건수</th><th> <input type="number" min="1" max="99" name="quantity" value="${board.quantity }"> </th></tr>
+									<tr><th>* 인원 또는 건수</th><th class="condition"> <input type="number" min="1" max="99" name="quantity" value="${board.quantity }"> 
+									<br>1명 이상 100명 미만으로 입력하세요 </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 										<input type="radio" name="way" value="1" checked="checked">주소
           								<input type="radio" name="way" value="2"> 키워드<br>
@@ -784,7 +765,8 @@ $(document).ready(function(){
 									
 									
 									</td></tr>
-									<tr><th>* 기본가격</th><td><input type="number" min="0" max="999900" name="price" value="${board.price}"></td></tr>
+									<tr><th>* 기본가격(필수)</th><th class="condition"><input type="number" min="0" max="999900" step="100" name="price" title="100만원 미만으로 입력하세요" value="${board.price}">
+									<br>가격은 100원 단위로 입력하세요(100만원 미만) </th></tr>
 									<tr><th>옵션사항</th>
 									<td>
 									<div><input type="checkbox" id="optionRadio">옵션 여부</div>
@@ -799,7 +781,8 @@ $(document).ready(function(){
 										</table>
 									</div>
 									</th></tr>
-									<tr><th>상세내용</th><th> <textarea rows="10" cols="60" name="content">${board.content}</textarea> </th></tr>
+									<tr><th>상세내용</th><th> <textarea rows="10" cols="60" name="content">${board.content}</textarea> 
+									<div>상세내용은 1000자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp0/1000</div></th></tr>
 									<tr><th>상세 이미지</th>
 									<th> 
 										<table class="fileTable">
