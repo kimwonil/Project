@@ -88,6 +88,11 @@ border-top: hidden;
 #mapDiv{
 display: none;
 }
+
+.condition{
+font-size: 14px;
+font-weight: normal;
+}
 </style>
 
 <script type="text/javascript">
@@ -218,9 +223,11 @@ $(document).ready(function(){
   	 	주소로 검색하는 경우
   	 	*/
   	 	else if(way == 1){//주소로 검색하는 경우(way==1)
- 	 		$('#table tr:gt(0)').empty();
-			
+//  	 		$('#table tr:gt(0)').empty();
+  	 		$('#table').empty();
+  	 		$('#table').append('<tr><th width="30"></th><th width="230">주소</th></tr>');
 				
+  	 		
 		    naver.maps.Service.geocode({address: $('#inputAddr').val()}, function(status, response) {
 		    	if (status !== naver.maps.Service.Status.OK) {
 		    		return alert('검색방법이 잘못 되었거나 기타 네트워크 에러');
@@ -253,7 +260,7 @@ $(document).ready(function(){
 	        	$.each(result.items, function(index, value){
 		          	$('#table tbody').append(
 		          			'<tr>'+
-		          			'<td><div class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+		          			'<td><div><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
 		          			'<input type="hidden" name="ttt" value="'+value.title+'"></div></td><td><div class="tdA">'+ value.address + '</div></td></tr>'
 		          	);
 		        });
@@ -506,7 +513,7 @@ $(document).ready(function(){
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
                         '<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
+                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
 //                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
     		);
@@ -529,12 +536,33 @@ $(document).ready(function(){
 	   		$('#tableOption').append(
 	  				'<tr>'+
 				'<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-				'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
+				'<td><input type="number" min="1" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
 				'<td><button class="delete">삭제</button></td>'+
 				'</tr>'
 	   		);
 		}
+
+   		
    	});
+	
+	
+	//content글자수 오버되면 막기
+	$(document).on("keydown", 'textarea[name=content]', function(){
+		//글자수 체크해서 알려주기
+		var contentLength = $('textarea[name=content]').val().length;
+		console.log(contentLength);
+		$(this).parent().find('div').empty();
+		$(this).parent().find('div').html(
+				'상세내용은 1000자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + contentLength+'/1000');
+
+		//1000자 넘으면 막기
+		if($('textarea[name=content]').val().length > 10 ){
+			alert("상세 내용은 글자수 1000자 이하로 쓰세요");
+			var cntnt = $(this).val().substr(0,10);
+			console.log(cntnt);
+			$(this).val(cntnt);
+		}
+	});
 
 	
 	
@@ -638,7 +666,7 @@ $(document).ready(function(){
 							<div class="fh5co-pricing-table" id="bckground">
 							<form id="detailInfo" action="insertBoard.do" method="post" enctype="multipart/form-data" >
 								<table class="table" id="bckgrndtable">
-									<tr><th>* 카테고리 </th><th width="515">
+									<tr><th>* 카테고리(필수) </th><th width="515">
 									<select name="major" id="major">
 										<option>대분류</option>
 										<c:forEach items="${categoryList}" var="high">
@@ -649,9 +677,12 @@ $(document).ready(function(){
 										<option>소분류</option><option>대분류를 선택하세요</option>
 									</select>
 									</th></tr>
-									<tr><th>* 글제목</th><th> <input type="text" pattern="[가-힣\sa-zA-Z0-9!\-#$%^&*\.()?+=\/]{1,30}" title="제목은 30자 이하로 입력하세요" name="title"> </th></tr>
-									<tr><th>* 등록 마감일</th><th> <input type="date" name="end_date" id="datePicker" title="오늘 이전 날짜는 선택할 수 없습니다"> </th></tr>
-									<tr><th>* 인원 또는 건수</th><th> <input type="number" min="1" max="99" name="quantity" title="100명 미만으로 입력하세요"> </th></tr>
+									<tr><th>* 글제목(필수)</th><th class="condition"> 
+									<input type="text" pattern="[가-힣\sa-zA-Z0-9!\-#$%^&*\.()?+=\/]{1,30}" title="제목은 30자 이하로 입력하세요"  name="title"><br>
+									제목은 30자 이내로 입력하세요 </th></tr>
+									<tr><th>* 등록 마감일(필수)</th><th> <input type="date" name="end_date" id="datePicker" title="오늘 이전 날짜는 선택할 수 없습니다"> </th></tr>
+									<tr><th>* 인원 또는 건수(필수)</th><th class="condition"> <input type="number" min="1" max="99" name="quantity" title="100명 미만으로 입력하세요"><br>
+									1명 이상 100명 미만으로 입력하세요 </th></tr>
 									<tr><th>장소 또는 지역</th><th>
 									
 										<input type="radio" name="way" value="1" checked="checked">주소
@@ -692,14 +723,16 @@ $(document).ready(function(){
 									
 									
 									</td></tr>
-									<tr><th>* 기본가격</th><th> <input type="number" min="0" max="999999" name="price" title="100만원 미만으로 입력하세요"> </th></tr>
+									<tr><th>* 기본가격(필수)</th><th class="condition"> <input type="number" min="0" max="999999" step="100" name="price" title="100만원 미만으로 입력하세요"><br>
+									가격은 100원 단위로 입력하세요(100만원 미만) </th></tr>
 									<tr><th>옵션사항</th><th> 
 										<input type="checkbox" id="optionRadio"> 판매옵션 있음
 										<table id="tableOption">
 			                            </table>
 									</th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files" > </th></tr>
-									<tr><th>상세내용</th><th> <textarea rows="10" cols="60" name="content"></textarea> </th></tr>
+									<tr><th>상세내용</th><th class="condition"> <textarea rows="10" cols="60" name="content"></textarea>
+									<div>상세내용은 1000자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp0/1000</div> </th></tr>
 									<tr><th>상세 이미지</th>
 									<th> 
 									<input type="file" name="files">
