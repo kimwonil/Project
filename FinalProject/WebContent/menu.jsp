@@ -93,12 +93,12 @@
 }
 
 .menu {
-	height: 110px;
+	height: 100px;
 	position: fixed;
 	z-index:10;
 	left:0%;
 	width: 100%;
-	margin: 0px auto;
+	margin: -23px auto;
 	background: #60ccbd;
 	background: -webkit-linear-gradient(top, #60ccbd 0%, #60ccbd 100%);
 	background: -moz-linear-gradient(top, #60ccbd 0%, #60ccbd 100%);
@@ -127,7 +127,6 @@
 .menu li a {
 	display: block;
 	padding: 0 14px;
-	margin: 6px 0;
 	line-height: 28px;
 	text-decoration: none;
 	font-family: Helvetica, Arial, sans-serif;
@@ -221,7 +220,7 @@
 }
 #searchInput{
 	height: 30px;
-	width:300px;
+	width:170px;
 	display: inline;
 }
 .searchIcon{
@@ -229,8 +228,9 @@
 	height: 20px;
 }
 #searchForm{
-	float: left;
-	margin-left: 10px;
+	position: absolute;
+	left: 60px;
+	top: 30px;
 }
 .fh5co-menu-btn{
 	display: none;
@@ -241,6 +241,63 @@
 #receiverLabel{
 	height: 20px;
 }
+
+
+/* //////////////////////////////////// */
+.iframeDiv{
+	position:fixed;
+    left:100%;
+    width:300px;
+    height:600px;
+    -webkit-transition: left 1s; /* Safari */
+    transition: left 1s;
+    background-color: white;
+}
+#iframeDiv{
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+}
+#iframeMain{
+	height: 600px;
+}
+:target{
+	left:80%;
+}
+
+@media (min-width: 1200px) {
+	
+  :target{
+  	left:74%;
+  }
+}
+@media (min-width: 1400px) {
+	
+  :target{
+  	left:78%;
+  }
+}
+@media (min-width: 1600px) {
+	
+  :target{
+  	left:81%;
+  }
+}
+@media (min-width: 1800px) {
+	
+  :target{
+  	left:84%;
+  }
+}
+
+#ChtMain{
+	z-index:15;
+	position:fixed;
+	left: 100%;
+	top:33%;
+}
+
+
+/* /////////////////////////////////////// */
 
 </style>
 
@@ -637,7 +694,7 @@
 				<a href="#"><img src="images/search.png" class="searchIcon"></a>
 			</form>
 			<div id="linkGroup">
-			
+				<a href="#iframeDiv">채팅</a>
 				<c:if test="${member ne null}">
 					${member.nickname}님 환영합니다.&nbsp
 					<a href="logout.do">로그아웃</a>&nbsp
@@ -657,7 +714,7 @@
 		<!-- 		카테고리 메뉴                    -->
 		<div class="row">
 			<ul class="menu categoryMenu">
-				<li><img class="category_img" src="images/design.jpg" alt="디자인"><a href="#">디자인/그래픽</a>
+				<li><img class="category_img" src="images/art.png" alt="디자인"><a href="#">디자인/그래픽</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=101" class="documents">캐리커쳐/인물/캐릭터/아이콘</a></li>
 						<li><a href="categoryMenu.do?no=102" class="documents">일러스트/초상화/스케치</a></li>
@@ -671,7 +728,7 @@
 						<li><a href="categoryMenu.do?no=109" class="documents">도면/CAD/인테리어/3D</a></li>
 						<li><a href="categoryMenu.do?no=110" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/marketing.jpg" alt="마케팅"><a href="#">마케팅/광고</a>
+				<li><img class="category_img" src="images/marketing.png" alt="마케팅"><a href="#">마케팅/광고</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=201" class="documents">블로그/카페/체험단</a></li>
 						<li><a href="categoryMenu.do?no=202" class="documents">인스타그램/페이스북/카카오/트위터</a></li>
@@ -681,7 +738,7 @@
 						<li><a href="categoryMenu.do?no=205" class="documents">언론/기사/보도자료</a></li>
 						<li><a href="categoryMenu.do?no=206" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/document.jpg" alt="문서"><a href="#">문서/서식</a>
+				<li><img class="category_img" src="images/write.png" alt="문서"><a href="#">문서/서식</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=301" class="documents">워드/타이핑/엑셀/통계</a></li>
 						<li><a href="categoryMenu.do?no=302" class="documents">창작/대본/시나리오/카피라이팅</a></li>
@@ -694,7 +751,7 @@
 						<li><a href="categoryMenu.do?no=309" class="documents">논문 컨설팅/보고서/리서치</a></li>
 						<li><a href="categoryMenu.do?no=310" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/computer.jpg" alt="컴퓨터"><a href="#">컴퓨터/개발</a>
+				<li><img class="category_img" src="images/computer.png" alt="컴퓨터"><a href="#">컴퓨터/개발</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=401" class="documents">홈페이지/웹개발</a></li>
 						<li><a href="categoryMenu.do?no=402" class="documents">모바일/Web/App/어플</a></li>
@@ -703,7 +760,7 @@
 						<li><a href="categoryMenu.do?no=405" class="documents">플래시/스크립트</a></li>
 						<li><a href="categoryMenu.do?no=406" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/music_video.jpg" alt="음악"><a href="#">음악/영상</a>
+				<li><img class="category_img" src="images/video.png" alt="음악"><a href="#">음악/영상</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=501" class="documents">영상제작/자막제작/편집</a></li>
 						<li><a href="categoryMenu.do?no=502" class="documents">작사/작곡/MR/음악편집/녹음</a></li>
@@ -712,7 +769,7 @@
 						<li><a href="categoryMenu.do?no=505" class="documents">인디음악/창작음악</a></li>
 						<li><a href="categoryMenu.do?no=506" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/counseling.jpg" alt="생활"><a href="#">생활/대행/상담</a>
+				<li><img class="category_img" src="images/speach.png" alt="생활"><a href="#">생활/대행/상담</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=601" class="documents">고민상담/진로상담/취업상담/기타상담</a></li>
 						<li><a href="categoryMenu.do?no=602" class="documents">점/운세/사주/토정비결/궁합</a></li>
@@ -725,7 +782,7 @@
 						<li><a href="categoryMenu.do?no=609" class="documents">구매대행</a></li>
 						<li><a href="categoryMenu.do?no=610" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/knowhow.jpg" alt="노하우"><a href="#">노하우/여행</a>
+				<li><img class="category_img" src="images/journey.png" alt="노하우"><a href="#">노하우/여행</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=701" class="documents">생활지식/비법/수리/노하우/팁</a></li>
 						<li><a href="categoryMenu.do?no=702" class="documents">투자/재테크</a></li>
@@ -736,7 +793,7 @@
 						<li><a href="categoryMenu.do?no=707" class="documents">온라인게임</a></li>
 						<li><a href="categoryMenu.do?no=708" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/startup.jpg" alt="창업"><a href="#">비즈니스/창업</a>
+				<li><img class="category_img" src="images/business.png" alt="창업"><a href="#">비즈니스/창업</a>
 					<ul>
 
 						<li><a href="categoryMenu.do?no=801" class="documents">사업계획/사업제안</a></li>
@@ -749,7 +806,7 @@
 						<li><a href="categoryMenu.do?no=808" class="documents">기타</a></li>
 
 					</ul></li>
-				<li><img class="category_img" src="images/translate.jpg" alt="번역"><a href="#">번역/외국어</a>
+				<li><img class="category_img" src="images/translation.png" alt="번역"><a href="#">번역/외국어</a>
 					<ul style="left:-100px;">
 						<li><a href="categoryMenu.do?no=901" class="documents">영어</a></li>
 						<li><a href="categoryMenu.do?no=902" class="documents">일본어</a></li>
@@ -787,8 +844,18 @@
 	<script src="js/salvattore.min.js"></script>
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
-	<div class="fh5co-spacer fh5co-spacer-lg"></div>
-<div class="fh5co-spacer fh5co-spacer-lg"></div>
-<div class="fh5co-spacer fh5co-spacer-lg"></div>
+<div id="ChtMain">
+	
+	<div id="iframeDiv" class="iframeDiv">
+		<iframe id="iframeMain" height="300" width="300" name="iframe_a" >
+		
+		</iframe><br>
+		<a href="http://192.168.0.109:3000/?nickname=${member.nickname}" target="iframe_a"class="btn-sm btn-primary">입장</a>
+		<a href="#" class="btn-sm btn-danger">닫기</a>
+	</div>
+	</div>
+
+
+
 </body>
 </html>

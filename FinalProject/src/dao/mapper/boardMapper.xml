@@ -112,11 +112,11 @@
  </select>
  
  <select id="getCount" resultType="int">
- 	select count(no) from board where premium=1 and state=0
+ 	select count(no) from board where state=0
  </select>
  
  <select id="getCountCategory" parameterType="java.util.HashMap" resultType="int">
- 	select count(no) from board where premium=1 and state=0 and category_major=#{category_major} and category_minor=#{category_minor}
+ 	select count(no) from board where state=0 and category_major=#{category_major} and category_minor=#{category_minor}
  </select>
  
  <select id="getCountForNickname" parameterType="java.util.HashMap" resultType="int">
@@ -151,7 +151,7 @@
  	SELECT A.* FROM ( 
 	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board 
 	, (SELECT @searchnum:= 0) R 
-	where premium=1 and state=0
+	where state=0
 	<if test="category_major != null">
 		and category_major=#{category_major} and category_minor=#{category_minor}
 	</if>
@@ -162,13 +162,13 @@
  	SELECT A.* FROM ( 
 	SELECT @searchnum := @searchnum+ 1 AS searchnum, board.*  FROM board 
 	, (SELECT @searchnum:= 0) R 
-	where premium=1 and state=0 order by price ) A WHERE A.searchnum between #{start} and #{end}
+	where state=0 order by price ) A WHERE A.searchnum between #{start} and #{end}
  </select>
  
  <select id="panmaesun" parameterType="java.util.HashMap" resultType="Board">
     select DISTINCT board.no, board.title, board.price, board.read_count, board.writer, board.num_evaluator,
  	(select count(no) from purchase where no = board.no and state in(20,30)) as salesvolume 
- 	from board left join purchase on board.no=purchase.no where premium=1 and board.state=0 order by salesvolume desc limit #{start}, 5
+ 	from board left join purchase on board.no=purchase.no where board.state=0 order by salesvolume desc limit #{start}, 5
  </select>
 
 

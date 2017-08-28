@@ -126,6 +126,11 @@
 			
 			$(document).on('click', '.privateAuthority', function(){
 				var nickname = $(this).val();
+				privateAuthorityList(nickname);
+			});
+			
+			function privateAuthorityList(nickname){
+				var nickname=nickname;
 				$.ajax({
 					url:"privateAuthority.do",
 					type:"POST",
@@ -134,28 +139,54 @@
 					},
 					dataType:"json",
 					success:function(data){
-						$('#authorityNickname').text(nickname);
+						console.log(data);
+						$('#authorityNickname').text(data.nickname);
 						$('#authorityTable tr:gt(0)').remove();
-						for(var i=0;i<data.length;i++){
+							
+						$.each(data.authorityList, function(index, item){
 							$('#authorityTable').append(
-									"<tr><td><input type='radio' value='"+data[i].no+"'></td><td>"
-									+data[i].categoryName+"</td><td>"
-									+data[i].date+"</td><td>"
-									+"<button class='btn-sm btn-info authorityCancel' value='"+data[i].no+"'>취소</button>"
+									"<tr><td>"
+									+item.categoryName+"</td><td>"
+									+item.date+"</td><td>"
+									+"<button class='btn-sm btn-info authorityCancel' value='"+item.no+"'>취소</button>"
 									+"</td></tr>"
 							);
-						}
-					$('#authorityTable input[type="radio"]:eq(0)').attr("checked", "checked");
-					$('#authorityModal').modal('show');
+						});	
+						
+						$('#authorityTable input[type="radio"]:eq(0)').attr("checked", "checked");
+						$('#authorityModal').modal('show');
 					},
 					error:function(){
 						alert("실패");
 					}
 				});
-			});
+				
+			}
+			
+			
+			
+			
+			
+			
 			
 			$(document).on('click', '.authorityCancel', function(){
-				alert($(this).val());
+				$.ajax({
+					url:"authorityCancel.do",
+					type:"POST",
+					data:{
+						no:$(this).val(),
+						nickname:$('#authorityNickname').text()
+					},
+					dataType:"text",
+					success:function(data){
+						privateAuthorityList(data);
+					},
+					error:function(){
+						alert("실패");
+					}
+				});
+				
+				
 			});
 			
 		});//document.ready
@@ -256,9 +287,9 @@
 								</div>
 								<div class="modal-body">
 									<h4><label id="authorityNickname"></label></h4>
+									<input type="hidden" id="authorityNick">
 									<table id="authorityTable">
 										<tr>
-											<td>체크</td>
 											<td>카테고리</td>
 											<td>등록일</td>
 											<td>권한 취소</td>
@@ -267,7 +298,7 @@
 									
 								</div>
 								<div>
-									<button class="btn btn-sm btn-info updateBtn">수정</button>
+									<button class="btn btn-sm btn-info" data-dismiss="modal">닫기</button>
 								</div>
 							</div>
 

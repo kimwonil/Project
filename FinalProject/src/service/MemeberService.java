@@ -204,5 +204,9 @@ public class MemeberService {
 		return memberDao.selectNickOne(map);
 	}
 
+	public List<Authority> privateAuthority(String nickname) {
+		return memberDao.privateAuthority(nickname);
+	}
+
 	
 }

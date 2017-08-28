@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 </head>
 <style>
+
 .normal>.item{
 	width: 200px;
 	height: 350px;
@@ -258,11 +259,13 @@ $(document).on('click', '.noticeLink', function(){
 <body>
 
 <!-- ////////////////////////////////////////////////////////////////// -->
+<div class="fh5co-spacer fh5co-spacer-lg"></div>
+<div class="fh5co-spacer fh5co-spacer-lg"></div>
 <div id="fh5co-main">
 	<div class="container">
-	<div>
-		<h3>공지사항</h3>
-		<p>
+	<div> 
+		<h3>공지사항</h3>  
+		<p> 
 		<div class="slideshow-container notice-container">
 			<c:forEach items="${noticeList}" var="notice">
 				<div class="noticeSlides noticefade">
@@ -410,9 +413,6 @@ function noticeSlides() {
 		<span>
 			<table id="orderTable">
 			<tr>
-			<td>
-				<a href="http://192.168.0.109:3000/?nickname=${member.nickname}" target="iframe_a"class="btn-sm btn-primary">관리자와 채팅</a>
-			</td>
 			<td><button id="latest" class="btn-sm btn-primary">최신순</button></td>
 			<td><button id="panmaesun" class="btn-sm btn-primary">판매순</button></td>
 			<td><button id="gageocksun" class="btn-sm btn-primary">낮은가격순</button></td>
@@ -542,9 +542,5 @@ function noticeSlides() {
     </div>
   </div>
 	
-<iframe height="300" width="300" name="iframe_a" >
-
-</iframe>
-
 </body>
 </html>

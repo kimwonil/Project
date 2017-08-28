@@ -802,12 +802,16 @@ public class MemberController {
 		response.setContentType("text/xml;charset=UTF-8");
 		String nickname = request.getParameter("nickname");
 		
-		List<Authority> authorityList = memberService.myAuthority(nickname);
+		List<Authority> authorityList = memberService.privateAuthority(nickname);
 		for(Authority authority : authorityList) {
 			authority.setCategoryName(boardService.category_majorName(authority.getCategory_no()));
 		}
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("nickname", nickname);
+		map.put("authorityList", authorityList);
 		try {
-			String json = gson.toJson(authorityList);
+			String json = gson.toJson(map);
 			response.getWriter().write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -1014,6 +1018,27 @@ public class MemberController {
 		File file = new File(path+"/"+no+"/"+name);
 		//다운 가능한 뷰 이동
 		return new ModelAndView("downLoadCustomView", "file", file);
+	}
+	
+	/**
+	 * 권한 취소
+	 * */
+	@RequestMapping("authorityCancel.do")
+	public void authorityCancel(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("no", request.getParameter("no"));
+		map.put("state", 3);
+		memberService.authorityUpdate(map);
+		
+		String nickname = request.getParameter("nickname");
+		try {
+			response.getWriter().write(nickname);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

@@ -105,6 +105,10 @@
  	select * from authority where nickname=#{nickname}
  </select>
  
+ <select id="privateAuthority" parameterType="String" resultType="Authority">
+     select * from authority where nickname=#{nickname} and state in(1,2)
+ </select>
+ 
  <select id="totalPageAuthority" parameterType="java.util.HashMap" resultType="int">
  	select count(no) from authority where nickname=#{nickname}
  </select>
