@@ -46,10 +46,12 @@
 </head>
 <style>
 .category_img{
-	width: 100px;
-	height: 70px;
+	width: 50px;
+	height: 50px;
 }
-
+.home-brand{
+	font-weight: 100 !important;
+}
 
 
 
@@ -93,12 +95,14 @@
 }
 
 .menu {
-	height: 100px;
+	height: 85px;
 	position: fixed;
 	z-index:10;
 	left:0%;
 	width: 100%;
-	margin: -23px auto;
+	padding-left:6%;
+	padding-right:6%;
+	margin: -10px auto;
 	background: #60ccbd;
 	background: -webkit-linear-gradient(top, #60ccbd 0%, #60ccbd 100%);
 	background: -moz-linear-gradient(top, #60ccbd 0%, #60ccbd 100%);
@@ -156,7 +160,7 @@
 .menu ul {
 	position: absolute;
 	z-index: 5;
-	top: 110px;
+	top: 85px;
 	left: 0;
 	opacity: 0;
 	background: #60ccbd; 
@@ -683,7 +687,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i
-					class="icon-menu"></i></a> <a class="navbar-brand" href="index.jsp">ShareAbility</a>
+					class="icon-menu"></i></a> <a class="navbar-brand home-brand" href="index.jsp">ShareAbility</a>
 			</div>
 		</div>
 		<div class="row">
@@ -769,7 +773,7 @@
 						<li><a href="categoryMenu.do?no=505" class="documents">인디음악/창작음악</a></li>
 						<li><a href="categoryMenu.do?no=506" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/speach.png" alt="생활"><a href="#">생활/대행/상담</a>
+				<li><img class="category_img" src="images/speach.png" alt="생활"><a href="#">생활/상담</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=601" class="documents">고민상담/진로상담/취업상담/기타상담</a></li>
 						<li><a href="categoryMenu.do?no=602" class="documents">점/운세/사주/토정비결/궁합</a></li>

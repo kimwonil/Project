@@ -28,7 +28,7 @@
 	width: 100%;
 }
 .infoTable{
-	width: 100%;
+	width: 91%;
 }
 .star-ratings-css{
 	font-size: 15px;
