@@ -406,7 +406,7 @@ function noticeSlides() {
 			
 		<input type="hidden" id="currentMajor" name="currentMajor" value="${currentMajor}">
 		<input type="hidden" id="currentMinor" name="currentMinor" value="${currentMinor}">	
-		<h3>일반글</h3>&nbsp;&nbsp;&nbsp;&nbsp;<label id="currentCategoryName">카테고리 이름</label>
+		<h3>일반글</h3>&nbsp;&nbsp;&nbsp;&nbsp;<label id="currentCategoryName"></label>
 		
 		<span>
 			<table id="orderTable">
