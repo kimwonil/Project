@@ -144,7 +144,9 @@ font-size: 16px;
 	text-align: right;
 	margin-right: 40px;
 }
-
+textarea{
+resize: none;
+}
 </style>
 
 <script>
@@ -387,9 +389,10 @@ font-size: 16px;
 					
 					$('#ReportinsertModal').modal('hide');
 				},
-				error:function(){
-					alert("실패");
-				}
+				error:function(jqXHR, textStatus, errorThrown){
+	    			alert(textStatus);     //응답상태
+	    			alert(errorThrown);     //응답에 대한 메세지
+	    		}
 			});
 		});
 		
@@ -839,8 +842,7 @@ font-size: 16px;
 							<td width="80%">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목
 								: <input type="text" class="messageInput" id="messageTitle">
 							</td>
-							<td width="20%" rowspan="2" align="center"><button
-									type="button" id="messageSend" class="btn btn-sm btn-info">보내기</button></td>
+							<td width="20%" rowspan="2" align="center"></td>
 						</tr>
 						<tr>
 
@@ -855,6 +857,7 @@ font-size: 16px;
 					</table>
 				</div>
 				<div class="modal-footer">
+					<button	type="button" id="messageSend" class="btn btn-sm btn-primary">보내기</button>
 					<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">취소</button>
 				</div>
 			</div>
