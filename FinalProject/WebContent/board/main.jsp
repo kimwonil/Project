@@ -259,8 +259,6 @@ $(document).on('click', '.noticeLink', function(){
 <body>
 
 <!-- ////////////////////////////////////////////////////////////////// -->
-<div class="fh5co-spacer fh5co-spacer-lg"></div>
-<div class="fh5co-spacer fh5co-spacer-lg"></div>
 <div id="fh5co-main">
 	<div class="container">
 	<div> 

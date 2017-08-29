@@ -826,8 +826,9 @@
 	
 	</header>
 	<!-- END .header -->
-
-
+	<div class="fh5co-spacer fh5co-spacer-lg"></div>
+<div class="fh5co-spacer fh5co-spacer-lg"></div>
+<div class="fh5co-spacer fh5co-spacer-sm"></div>
 
 
 	<!-- jQuery -->
