@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="../menu.jsp" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -536,6 +537,27 @@ $(document).ready(function(){
 	   		);
 		}
    	});
+  
+  
+	//content글자수 오버되면 막기
+	$(document).on("keyup", 'textarea[name=content]', function(){
+		//글자수 체크해서 알려주기
+		var contentLength = $('textarea[name=content]').val().length;
+		console.log(contentLength);
+		$(this).parent().find('div').empty();
+		$(this).parent().find('div').html(
+				'상세내용은 1000자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + contentLength+'/1000');
+
+		//1000자 넘으면 막기
+		if($('textarea[name=content]').val().length > 1000 ){
+			alert("상세 내용은 글자수 1000자 이하로 쓰세요");
+			$(this).parent().find('div').html(
+					'상세내용은 1000자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp1000/1000');
+			var cntnt = $(this).val().substr(0,1000);
+			console.log(cntnt);
+			$(this).val(cntnt);
+		}
+	});
 	
 	
 	
@@ -787,7 +809,7 @@ $(document).ready(function(){
 									</div>
 									</th></tr>
 									<tr><th>상세내용</th><th> <textarea rows="10" cols="60" name="content">${board.content}</textarea> 
-									<div>상세내용은 1000자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp0/1000</div></th></tr>
+									<div>상세내용은 1000자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${fn:length(board.content) }/1000</div></th></tr>
 									<tr><th>상세 이미지</th>
 									<th> 
 										<table class="fileTable">

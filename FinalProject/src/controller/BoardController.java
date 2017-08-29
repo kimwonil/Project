@@ -1030,7 +1030,7 @@ public class BoardController{
 				}else{
 					//interest table에 글번호 insert
 					boardService.insertInterest(params);
-					pw.println("성공");
+					pw.println("찜 성공! 프로필>찜목록을 확인하세요");
 				}
 			}
 		} catch (IOException e) {
