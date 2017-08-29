@@ -46,7 +46,7 @@
 						console.log(value);
 						$('#tabs-1 > table').append(
 							'<tr><td><input type="radio" value="' + value.no + '" name="premiumRadio"></td><td>' + value.date + 
-							'</td><td><span class="titlecut1"><a href="detailOneBoard.do?no='+value.no+'">' + value.title + '</a></span></td><td>' +
+							'</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut1">' + value.title + '</div></a></td><td>' +
 							value.count + ' / ' + value.quantity + '</td><td>' + 
 							(value.state == 0 ? "대기중" : value.state == 1 ? "인원마감" : value.state==2 ? "마감일 초과" : "판매 중단") + '</td><td>' +
 							'<button class="btn-sm btn-info continueBtn" value="' + value.no + '">진행</button>'+
@@ -94,8 +94,8 @@
 						});
 
 						$('#tabs-2 > table').append(
-							'<tr><td>' + value.date + '</td><td><span class="titlecut2"><a href="detailOneBoard.do?no='+value.no+'">' + 
-							value.boardTitle + '</a></span></td><td>' +
+							'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut2">' + 
+							value.boardTitle + '</div></a></td><td>' +
 							value.purchaser + '</td><td><a href="#" class="optionList"><span>' + comma(total) + '</span></a><input type="hidden" value="' + value.purchase_no + '"></td><td>진행중</td><td>' +
 							'<button class="btn-sm btn-info completeBtn" value="' + value.purchase_no + '">완료</button> <button class="btn-sm btn-info stopBtn" value="' + value.purchase_no + '">취소</button></td></tr>'
 						);
@@ -143,8 +143,8 @@
 						});
 
 						$('#tabs-3 > table').append(
-							'<tr><td>' + value.date + '</td><td><span class="titlecut3"><a href="detailOneBoard.do?no='+
-							value.no+'">' + value.boardTitle + '</a></span></td><td>' +
+							'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+
+							value.no+'"><div class="titlecut3">' + value.boardTitle + '</div></a></td><td>' +
 							value.purchaser + '</td><td><a href="#" class="optionList">' + comma(total) + '</a><input type="hidden" value="' + value.purchase_no + '"></td><td>' +
 							(value.state == 11 ? "완료 대기" : value.state == 20 ? "정산 대기" : "정산 완료") + '</td><td>' +
 							(value.state == 11 ? "" : value.state == 20 ? '<button class="btn-sm btn-info calculateBtn" value="' +
@@ -193,8 +193,8 @@
 						});
 
 						$('#tabs-4 > table').append(
-							'<tr><td>' + value.date + '</td><td><span class="titlecut4"><a href="detailOneBoard.do?no='+
-							value.no+'">' + value.boardTitle + '</a></span></td><td>' +
+							'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+
+							value.no+'"><div class="titlecut4">' + value.boardTitle + '</div></a></td><td>' +
 							value.purchaser + '</td><td><a href="#" class="optionList">' + comma(total) + '</a><input type="hidden" value="' + value.purchase_no + '"></td><td>' +
 							(value.state == 40 ? "구매자 취소" : value.state == 41 ? "취소 대기" : "취소 완료") + '</td><td>' +
 							(value.state == 40 ? '<button class="btn-sm btn-info cancellComfirm" value="' + value.purchase_no + '">확인</button> ' : "")
@@ -234,8 +234,8 @@
 						console.log(data);
 						$.each(data.list, function(index, value) {
 							$('#tabs-5 > table').append(
-								'<tr><td>' + value.date + '</td><td><span class="titlecut5"><a href="detailOneBoard.do?no='+
-								value.no+'">' + value.title + '</a></span></td><td>' +
+								'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+
+								value.no+'"><div class="titlecut5">' + value.title + '</div></a></td><td>' +
 								value.time + '일 </td><td>' + value.formatPrice + '</td><td>' +
 								(value.state==1?"대기중<br>"+value.start+"부터":value.state==2?"진행중<br>"+value.end+"까지":"종료") + '</td><td>비고</td></tr>'
 							);
@@ -740,8 +740,8 @@ table {
 }
 
 
-#tabs-1 div, #tabs-2 div, #tabs-3 div, #tabs-4 div, #tabs-5 div {
-	text-align: center;
+.pagingDiv{
+	text-align:center;
 	position: absolute;
 	top: 90%;
 	left: 40%;
@@ -774,7 +774,7 @@ table {
 	text-overflow: ellipsis;
 	white-space: nowrap; 
 	display:block;
-	width: 240px;
+	width: 279px;
 	height: 20px;
 }
 .titlecut2{
@@ -782,7 +782,8 @@ table {
 	text-overflow: ellipsis;
 	white-space: nowrap; 
 	display:block;
-	width: 135px;
+	width: 199px;
+	margin-right:-64px;
 	height: 20px;
 }
 .titlecut3{
@@ -790,7 +791,8 @@ table {
 	text-overflow: ellipsis;
 	white-space: nowrap; 
 	display:block;
-	width: 335px;
+	width: 384px;
+	margin-right:-48px;
 	height: 20px;
 }
 .titlecut4{
@@ -798,7 +800,8 @@ table {
 	text-overflow: ellipsis;
 	white-space: nowrap; 
 	display:block;
-	width: 330px;
+	width: 381px;
+	margin-right:-51px;
 	height: 20px;
 }
 .titlecut5{
@@ -806,7 +809,8 @@ table {
 	text-overflow: ellipsis;
 	white-space: nowrap; 
 	display:block;
-	width: 290px;
+	width: 354px;
+	margin-right:-65px;
 	height: 20px;
 }
 </style>
@@ -844,7 +848,7 @@ table {
 									<th width="20%">비고</th>
 								</tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;
 								<button class="btn-sm btn-info next" value="">다음</button>
@@ -861,7 +865,7 @@ table {
 									<th>비고</th>
 								</tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;
 								<button class="btn-sm btn-info next" value="">다음</button>
@@ -879,7 +883,7 @@ table {
 									<th>비고</th>
 								</tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;
 								<button class="btn-sm btn-info next" value="">다음</button>
@@ -896,7 +900,7 @@ table {
 									<th>비고</th>
 								</tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;
 								<button class="btn-sm btn-info next" value="">다음</button>
@@ -913,7 +917,7 @@ table {
 									<th width="5%">비고</th>
 								</tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;
 								<button class="btn-sm btn-info next" value="">다음</button>
@@ -949,7 +953,7 @@ table {
 						</tr>
 					</table>
 
-					<button id="submitBtn" class="btn-sm btn-info">확인</button>
+					<button id="submitBtn" class="btn-sm btn-info">확인</button>&nbsp;
 					<button id="closeBtn" class="btn-sm btn-info">닫기</button>
 
 				</div>

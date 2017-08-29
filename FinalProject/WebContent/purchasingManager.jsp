@@ -54,7 +54,8 @@ text-align: center;
 							});
 							
 							$('#tabs-1 > table').append(
-									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut1">' + 
+									value.boardTitle + '</div></a></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+comma(total)+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+'</td><td>'+
 									'<button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
@@ -101,7 +102,8 @@ text-align: center;
 							});
 							
 							$('#tabs-2 > table').append(
-									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut2">' + 
+									value.boardTitle + '</div></a></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+comma(total)+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+
 									'</td></tr>'		
@@ -149,7 +151,8 @@ text-align: center;
 							});
 							
 							$('#tabs-3 > table').append(
-									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut3">' + 
+									value.boardTitle + '</div></a></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+comma(total)+'</span></a><input type="hidden" value="'+value.purchase_no+
 									'"></td></tr>'		
 							);								
@@ -229,8 +232,8 @@ text-align: center;
 				
 				
 	 			$('.popupLayer').css({
-	 				"top": mouseY,
-	 				"left": mouseX,
+	 				"top": mouseY+10,
+	 				"left": mouseX+10,
 	 				"visibility":"visible"
 	 			});
 				
@@ -253,6 +256,24 @@ text-align: center;
 			$('#hiddenPurchase_no').val($(this).parent().parent().find('input').val());
 		});
 		
+		//content글자수 오버되면 막기
+        $(document).on("keyup", '#review', function(){
+               //글자수 체크해서 알려주기
+               var contentLength = $('#review').val().length;
+               console.log(contentLength);
+               $('#count').empty();
+               $('#count').html(
+                            '리뷰는 100자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + contentLength+'/100');
+               //1000자 넘으면 막기
+               if($('#review').val().length > 100 ){
+                     alert("리뷰는 100자 이하로 입력하세요");
+                     $('#count').html(
+                                   '리뷰는 100자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp100/100');
+                     var cntnt = $(this).val().substr(0,100);
+                     console.log(cntnt);
+                     $(this).val(cntnt);
+               }
+        });
 		
 		//별점&리뷰 입력 후 확인 누르면 ajax
 		$(document).on('click', '#starReview', function(){
@@ -379,8 +400,7 @@ text-align: center;
 .star-cb-group *{
  font-size: 3rem;
 }
-
-#tabs-1 div, #tabs-2 div, #tabs-3 div{
+.pagingDiv{
 	text-align:center;
 	position: absolute;
 	top: 90%;
@@ -401,6 +421,36 @@ text-align: center;
 	border-bottom: 1px solid #e4e4e4;
 	border-top: 1px solid #e4e4e4;
 }
+.titlecut1{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	display:block;
+	width: 295px;
+	height: 20px;
+}
+.titlecut2{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	display:block;
+	width: 291px;
+	height: 20px;
+	margin-right: -130px;
+}
+.titlecut3{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	display:block;
+	width: 317px;
+	height: 20px;
+	margin-right: -156px;
+}
+textarea{
+	resize:none;
+}
+
 </style>
 </head>
 <body>
@@ -425,7 +475,7 @@ text-align: center;
 							<table>
 								<tr><th width="15%">등록일</th><th width="40%">글제목</th><th width="15%">판매자</th><th width="10%">총액</th><th width="10%">상태</th><th width="10%">비고</th></tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>
 						</div>
@@ -433,7 +483,7 @@ text-align: center;
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>총액</th><th>상태</th></tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>
 						</div>
@@ -441,7 +491,7 @@ text-align: center;
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>총액</th></tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>
 						</div>
@@ -483,13 +533,13 @@ text-align: center;
 		
 		<div>리뷰작성</div>
 		<textarea id="review" rows="3" cols="78"></textarea>
-
+		<div id="count"></div>
       </div>
       <div class="modal-footer">
-      	<button type="button"  id="starReview">확인</button>
+      	<button type="button"  id="starReview" class="btn btn-sm btn-primary">확인</button>
       	<input type="hidden" id="hiddenBoard_no">
       	<input type="hidden" id="hiddenPurchase_no">
-        <button type="button" class="btn" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">취소</button>
       </div>
     </div>
   </div>

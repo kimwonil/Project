@@ -549,17 +549,19 @@ $(document).ready(function(){
 	
 	
 	//content글자수 오버되면 막기
-	$(document).on("keydown", 'textarea[name=content]', function(){
+	$(document).on("keyup", 'textarea[name=content]', function(){
 		//글자수 체크해서 알려주기
 		var contentLength = $('textarea[name=content]').val().length;
-		console.log(contentLength);
+		console.log(contentLength+"//길이");
 		$(this).parent().find('div').empty();
 		$(this).parent().find('div').html(
 				'상세내용은 1000자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + contentLength+'/1000');
 
 		//1000자 넘으면 막기
-		if($('textarea[name=content]').val().length > 10 ){
+		if($('textarea[name=content]').val().length > 1000 ){
 			alert("상세 내용은 글자수 1000자 이하로 쓰세요");
+			$(this).parent().find('div').html(
+					'상세내용은 1000자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp1000/1000');
 			var cntnt = $(this).val().substr(0,10);
 			console.log(cntnt);
 			$(this).val(cntnt);

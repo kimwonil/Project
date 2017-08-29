@@ -5,7 +5,32 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2017-08-22T15:15:00Z</updated>
+  <updated>2017-08-29T05:28:57Z</updated>
+  <entry>
+    <title>This Week in Spring -  August 29th, 2017</title>
+    <link rel="alternate" href="https://spring.io/blog/2017/08/29/this-week-in-spring-august-29th-2017" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Josh Long</name>
+    </author>
+    <id>tag:spring.io,2017-08-29:3008</id>
+    <updated>2017-08-29T05:28:57Z</updated>
+    <content type="html">&lt;p&gt;Hi Spring fans! Welcome to another installment of &lt;em&gt;This Week in Spring&lt;/em&gt;! This week I was in Beijing, China for the &lt;em&gt;fabulous&lt;/em&gt; Spring Summit event which saw technologists from all around China descend on the capitol for a discussion of all things cloud native and Spring. Then I&amp;rsquo;m off to Shenzhen, China and Hong Kong for customer visits.&lt;/p&gt;
+&lt;img src ="https://pbs.twimg.com/media/DIX3CIwXoAAVZJ2.jpg" width = "600" /&gt;
+&lt;ul&gt;
+  &lt;li&gt;Pivotal have released &lt;a href="https://content.pivotal.io/announcements/security-innovation-through-platform-automation-pivotal-launches-concourse-for-pivotal-cloud-foundry"&gt;a commercial version of the Concourse CI pipeline tool&lt;/a&gt; for Cloud Foundry. Check it, and &lt;a href="https://spring.io/blog/2016/10/18/spring-cloud-pipelines"&gt;Spring Cloud Pipelines&lt;/a&gt;, out!&lt;/li&gt;
+  &lt;li&gt;I liked Bruno Leite&amp;rsquo;s post &lt;a href="https://www.toptal.com/java/spring-boot-rest-api-error-handling"&gt;on error handling in a Spring Boot-based REST API&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;You might like Baeldung&amp;rsquo;s post on &lt;a href="http://www.baeldung.com/spring-graphql"&gt;using GraphQL with Spring Boot&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;This project seems interesting, though I haven&amp;rsquo;t used it yet. It lets you use &lt;a href="http://modelmapper.org/"&gt;ModelMapper&lt;/a&gt; with &lt;a href="https://github.com/rozidan/modelmapper-spring-boot-starter"&gt;Spring Boot applications&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;This is a great find by community legend &lt;a href="https://twitter.com/TommyLudwig"&gt;Tommy Ludwig&lt;/a&gt; who noticed that &lt;a href="https://confluence.atlassian.com/bitbucketserver/bitbucket-server-5-0-release-notes-889528342.html#BitbucketServer5.0releasenotes-CustomizationstoBitbucket'sserver.xmlfilemustbemigratedtobitbucket.properties"&gt;Bitbucket is now running on Spring Boot&lt;/a&gt;!&lt;/li&gt;
+  &lt;li&gt;This &lt;a href="http://mmrath.com/post/websockets-with-angular2-and-spring-boot/"&gt;post&lt;/a&gt; is an oldie but a goodie since my JavaScript-fu is not the strongest. It looks at how to use Angular (2 or better) with websockets powered by a Spring Boot application.&lt;/li&gt;
+  &lt;li&gt;IntelliJ advocate and superstar Trisha Gee looks at &lt;a href="https://blog.jetbrains.com/idea/2017/08/intellij-idea-2017-2-spring-boot-improvements/"&gt;the new features in IntelliJ IDEA 2017.2 designed to support Spring Boot&lt;/a&gt; applications.&lt;/li&gt;
+  &lt;li&gt;Distributed tracing guru Adrian Cole looks at &lt;a href="https://www.infoq.com/presentations/distributed-tracing-zipkin"&gt;how to properly blame things for latency&lt;/a&gt; in this epic microXchg talk.&lt;/li&gt;
+  &lt;li&gt;This article is a recap of a talk by David Dawson. It has little to do with Spring itself, directly, and &lt;a href="https://www.infoq.com/news/2017/08/selecting-event-architecture"&gt;everything to do with event-driven architectures&lt;/a&gt;. It&amp;rsquo;s a nice discussion and you&amp;rsquo;ll find supporting tools in technologies like Spring Cloud Stream, Spring Cloud Data Flow and the Axon framework.&lt;/li&gt;
+  &lt;li&gt;I liked this look at the new &lt;a href="https://javax0.wordpress.com/2017/08/16/new-regex-features-in-java-9/amp/"&gt;support for regular expressions in Java 9&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;The branch of the US gov&amp;rsquo;t charged with digital transformation - started many years ago - &lt;a href="https://18f.gsa.gov/join/"&gt;is looking for some cloud natives familiar with Cloud Foundry to help them&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</content>
+  </entry>
   <entry>
     <title>This Week in Spring - August 22nd, 2017</title>
     <link rel="alternate" href="https://spring.io/blog/2017/08/22/this-week-in-spring-august-22nd-2017" />
@@ -1412,19 +1437,5 @@ public MongoItemReader&amp;lt;String&amp;gt; mongoItemReader() {&#xD;
 &lt;p&gt;We want to take a minute today to also announce that the &lt;a href="http://docs.spring.io/spring-batch-admin/"&gt;Spring Batch Admin&lt;/a&gt; project will be moving into the Spring Attic with an end of life date to be December 31, 2017. The functionality of Spring Batch Admin has been mostly duplicated and expanded upon via &lt;a href="http://cloud.spring.io/spring-cloud-dataflow/"&gt;Spring Cloud Data Flow&lt;/a&gt; and we encourage all users to migrate to that going forward. Documentation on that migration process can be found in the Spring Batch Admin Github repository &lt;a href="https://github.com/spring-projects/spring-batch-admin/blob/master/MIGRATION.md"&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;h2&gt;&lt;a href="#what-do-you-think" class="anchor" name="what-do-you-think"&gt;&lt;/a&gt;What do you think?&lt;/h2&gt;
 &lt;p&gt;We look forward to your feedback on these new features in &lt;a href="https://jira.spring.io/browse/BATCH/"&gt;Jira&lt;/a&gt;, &lt;a href="https://stackoverflow.com/tags/spring-batch"&gt;StackOverflow&lt;/a&gt;, or to me directly via Twitter &lt;a href="https://twitter.com/michaelminella"&gt;@michaelminella&lt;/a&gt;!&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://projects.spring.io/spring-batch/"&gt;Spring Batch Home&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-batch"&gt;Source on GitHub&lt;/a&gt; | &lt;a href="http://docs.spring.io/spring-batch/4.0.x/reference/html/index.html"&gt;Reference Documentation&lt;/a&gt;&lt;/p&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring Boot 2.0.0.M3 available now</title>
-    <link rel="alternate" href="https://spring.io/blog/2017/07/26/spring-boot-2-0-0-m3-available-now" />
-    <category term="releases" label="Releases" />
-    <author>
-      <name>Madhura Bhave</name>
-    </author>
-    <id>tag:spring.io,2017-07-26:2987</id>
-    <updated>2017-07-26T19:59:24Z</updated>
-    <content type="html">&lt;p&gt;The third milestone of Spring Boot 2.0 is available now from the &lt;a href="http://repo.spring.io/milestone/"&gt;Spring milestone repository&lt;/a&gt;. This milestone ensures compatibility with Spring Framework 5.0.0.RC3 and contains a number of other &lt;a href="https://github.com/spring-projects/spring-boot/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.0.0.M3+label%3A%22type%3A+dependency-upgrade%22"&gt;dependency upgrades&lt;/a&gt;. This release closes over &lt;a href="https://github.com/spring-projects/spring-boot/milestone/55?closed=1"&gt;100 issues and pull requests&lt;/a&gt;, thanks to all that contributed!&lt;/p&gt;
-&lt;p&gt;For a complete list of changes, and upgrade instructions, see the &lt;a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0.0-M3-Release-Notes"&gt;Spring Boot 2.0.0.M3 Release Notes&lt;/a&gt; on the WIKI and the &lt;a href="http://docs.spring.io/spring-boot/docs/2.0.0.M3/reference/htmlsingle/"&gt;updated reference documentation&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;If you want to get started and discover the new features, you can easily bootstrap a new project on &lt;a href="https://start.spring.io"&gt;https://start.spring.io&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://projects.spring.io/spring-boot/"&gt;Project Page&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-boot"&gt;GitHub&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-boot/issues"&gt;Issues&lt;/a&gt; | &lt;a href="http://docs.spring.io/spring-boot/docs/2.0.0.M3/reference/htmlsingle"&gt;Documentation&lt;/a&gt; | &lt;a href="http://stackoverflow.com/questions/tagged/spring-boot"&gt;Stack Overflow&lt;/a&gt; | &lt;a href="https://gitter.im/spring-projects/spring-boot"&gt;Gitter&lt;/a&gt;&lt;/p&gt;</content>
   </entry>
 </feed>

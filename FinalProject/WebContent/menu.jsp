@@ -252,7 +252,7 @@
 	position:fixed;
     left:100%;
     width:300px;
-    height:600px;
+    height:500px;
     -webkit-transition: left 1s; /* Safari */
     transition: left 1s;
     background-color: white;
@@ -262,7 +262,7 @@
     transition-timing-function: ease;
 }
 #iframeMain{
-	height: 600px;
+	height: 500px;
 }
 :target{
 	left:80%;
@@ -297,7 +297,7 @@
 	z-index:15;
 	position:fixed;
 	left: 100%;
-	top:33%;
+	top:240px;
 }
 
 
@@ -373,7 +373,7 @@
 				$('#messageDelete').val(data.no);
 				$('#messageRe').val(data.no);
 				MessageList();
-				MessageNum();
+// 				MessageNum();
 			},
 			error : function() {
 				alert("실패");
@@ -493,7 +493,7 @@
 			//인터벌로 3초마다 알림에 표시되는 읽지않은 메세지 숫자
 			var messageCount = setInterval(function() {
 				MessageNum();
-			}, 1000);
+			}, 10000);
 		}
 		
 		
@@ -852,7 +852,7 @@
 <div id="ChtMain">
 	
 	<div id="iframeDiv" class="iframeDiv">
-		<iframe id="iframeMain" height="300" width="300" name="iframe_a" >
+		<iframe id="iframeMain" height="500" width="300" name="iframe_a" >
 		
 		</iframe><br>
 		<a href="http://192.168.0.109:3000/?nickname=${member.nickname}" target="iframe_a"class="btn-sm btn-primary">입장</a>
