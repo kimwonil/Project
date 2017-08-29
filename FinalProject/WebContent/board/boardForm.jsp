@@ -513,13 +513,15 @@ $(document).ready(function(){
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
                         '<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
+                        '<td><input type="number" min="0" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="가격은 100원 단위로 입력하세요(100만원 미만)"></td>'+
 //                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
     		);
+    		$('.cndtn').text('가격은 100원 단위로 입력하세요(100만원 미만)');
     	}else{//체크 안되면
     		$('#optionResult').val(4);
     		$('#tableOption').empty();
+    		$('.cndtn').text('');
     	}
     });
 	
@@ -536,7 +538,7 @@ $(document).ready(function(){
 	   		$('#tableOption').append(
 	  				'<tr>'+
 				'<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-				'<td><input type="number" min="1" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="100만원 미만으로 입력하세요"></td>'+
+				'<td><input type="number" min="0" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="가격은 100원 단위로 입력하세요(100만원 미만)"></td>'+
 				'<td><button class="delete">삭제</button></td>'+
 				'</tr>'
 	   		);
@@ -723,12 +725,13 @@ $(document).ready(function(){
 									
 									
 									</td></tr>
-									<tr><th>* 기본가격(필수)</th><th class="condition"> <input type="number" min="0" max="999999" step="100" name="price" title="100만원 미만으로 입력하세요"><br>
+									<tr><th>* 기본가격(필수)</th><th class="condition"> <input type="number" min="0" max="999999" step="100" name="price" title="가격은 100원 단위로 입력하세요(100만원 미만)"><br>
 									가격은 100원 단위로 입력하세요(100만원 미만) </th></tr>
 									<tr><th>옵션사항</th><th> 
 										<input type="checkbox" id="optionRadio"> 판매옵션 있음
 										<table id="tableOption">
 			                            </table>
+			                            <div class="condition cndtn"></div>
 									</th></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files" > </th></tr>
 									<tr><th>상세내용</th><th class="condition"> <textarea rows="10" cols="60" name="content"></textarea>

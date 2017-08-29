@@ -502,14 +502,17 @@ $(document).ready(function(){
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
                         '<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-                        '<td><input type="number" min="1" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="100만원 미만으로 입력하세요" value="0"></td>'+
+                        '<td><input type="number" min="0" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="가격은 100원 단위로 입력하세요(100만원 미만)" value="0"></td>'+
 //                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
     		);
+    		$('.cndtn').text('가격은 100원 단위로 입력하세요(100만원 미만)');
     	}else{//체크 안되면
     		$('#optionResult').val(4);
     		$('#tableOption').empty();
-    	}
+    		
+    		$('.cndtn').text('');    	
+    		}
     });
 
 
@@ -527,7 +530,7 @@ $(document).ready(function(){
 	   		$('#tableOption').append(
 	  				'<tr>'+
 				'<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
-				'<td><input type="number" min="1" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="100만원 미만으로 입력하세요" value="0"></td>'+
+				'<td><input type="number" min="0" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="가격은 100원 단위로 입력하세요(100만원 미만)" value="0"></td>'+
 				'<td><button class="delete">삭제</button></td>'+
 				'</tr>'
 	   		);
@@ -628,18 +631,19 @@ $(document).ready(function(){
 					$('#tableOption tr:gt(0)').remove();
 					$('#tableOption').append(
 						'<tr><td>옵션종류</td><td>추가가격</td><td><input type="button" class="add" value="추가"></td></tr>'
-					);	
+					);
+					$('.cndtn').text('가격은 100원 단위로 입력하세요(100만원 미만)');
 					$.each(data,function(index, value){
 						if(index==0){
 							$('#tableOption').append(
 								'<tr><td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName" value="'+value.kind+'"></td>'+
-								'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" step="100" title="100만원 미만으로 입력하세요" value="'+value.price+'"></td>'+
+								'<td><input type="number" min="0" max="999999" name="optionPrice[]" class="optionPrice" step="100" title="가격은 100원 단위로 입력하세요(100만원 미만)" value="'+value.price+'"></td>'+
 								'<td></td></tr>'
 							);
 						}else{
 							$('#tableOption').append(
 								'<tr><td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName" value="'+value.kind+'"></td>'+
-								'<td><input type="number" min="1" max="999999" name="optionPrice[]" class="optionPrice" step="100" title="100만원 미만으로 입력하세요" value="'+value.price+'"></td>'+
+								'<td><input type="number" min="0" max="999999" name="optionPrice[]" class="optionPrice" step="100" title="가격은 100원 단위로 입력하세요(100만원 미만)" value="'+value.price+'"></td>'+
 								'<td>'+'<input type="button" class="delete" value="삭제">'+'</td></tr>'
 							);
 						}					
@@ -765,13 +769,14 @@ $(document).ready(function(){
 									
 									
 									</td></tr>
-									<tr><th>* 기본가격(필수)</th><th class="condition"><input type="number" min="0" max="999900" step="100" name="price" title="100만원 미만으로 입력하세요" value="${board.price}">
+									<tr><th>* 기본가격(필수)</th><th class="condition"><input type="number" min="0" max="999900" step="100" name="price" title="가격은 100원 단위로 입력하세요(100만원 미만)" value="${board.price}">
 									<br>가격은 100원 단위로 입력하세요(100만원 미만) </th></tr>
 									<tr><th>옵션사항</th>
 									<td>
 									<div><input type="checkbox" id="optionRadio">옵션 여부</div>
 										<table id="tableOption">
 										</table>
+										<div class="condition cndtn"></div>
 									</td></tr>
 									<tr><th>썸네일</th><th> <input type="file" name="files"> 
 									<div>
