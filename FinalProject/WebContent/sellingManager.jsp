@@ -44,7 +44,7 @@
 				}else{
 					$.each(data.list, function(index, value){
 						$('#tabs-1 > table').append(
-							'<tr><td>' + value.date + '</td><td>' + value.title + '</td><td>' +
+							'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut1">' + value.title + '</div></a></td><td>' +
 							value.count + ' / ' + value.quantity + '</td><td>'+(value.state==0?"대기중":value.state==1?"인원마감":"마감일 초과")+'</td><td>'+
 							'<button class="btn-sm btn-info continueBtn" value="'+value.no+'">진행</button> <button class="btn-sm btn-info stopBtn" value="'+value.no+'">중단</button></td></tr>'		
 						);
@@ -89,7 +89,8 @@
 							});
 							
 							$('#tabs-2 > table').append(
-									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut2">' + 
+									value.boardTitle + '</div></a></td><td>' +
 									value.purchaser + '</td><td><a href="#" class="optionList"><span>'+comma(total)+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>진행중</td><td>'+
 									'<button class="btn-sm btn-info completeBtn" value="'+value.purchase_no+'">완료</button> <button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
 							);								
@@ -137,7 +138,8 @@
 							});
 							
 							$('#tabs-3 > table').append(
-									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+
+									value.no+'"><div class="titlecut3">' + value.boardTitle + '</div></a></td><td>' +
 									value.purchaser + '</td><td><a href="#" class="optionList">'+comma(total)+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==11?"완료 대기":value.state==20?"정산 대기":"정산 완료")+'</td><td>'+
 									(value.state==11?"":value.state==20?'<button class="btn-sm btn-info calculateBtn" value="'+
@@ -186,7 +188,7 @@
 							});
 							
 							$('#tabs-4 > table').append(
-									'<tr><td>' + value.date + '</td><td>' + value.boardTitle + '</td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut4">' + value.boardTitle + '</div></a></td><td>' +
 									value.purchaser + '</td><td><a href="#" class="optionList">'+comma(total)+'</a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==40?"구매자 취소":value.state==41?"취소 대기":"취소 완료")+'</td><td>'+
 									(value.state==40?'<button class="btn-sm btn-info" value="'+value.purchase_no+'">확인</button> ':"")		
@@ -218,6 +220,7 @@
 		
 		//등록한 재능글에서 진행 버튼 -> modal
 		$(document).on('click','.continueBtn', function(){
+			var continueNum = $(this).val();
 			$.ajax({
 				url:"purchaseList.do",
 				type:"POST",
@@ -267,7 +270,7 @@
 			});
 			
 			
-			
+			$('#submitBtn').val(continueNum);
 			$('#continueModal').modal('show');
 			
 			
@@ -324,6 +327,7 @@
 		
 		//modal 안에 있는 진행 버튼
 		$(document).on('click', '#submitBtn', function(){
+			var continue_no = $(this).val();
 			var Arr = new Array();
 			$($('input[name=purchaseCheck]:checked')).each(function(){
 				Arr.push($(this).val());
@@ -336,7 +340,8 @@
 				type:"POST",
 				data:{
 					list:Arr,
-					state:10
+					state:10,
+					continue_no:continue_no
 				},
 // 				dataType:"json",
 				success:function(data){
@@ -344,8 +349,10 @@
 					$('#continueModal').modal('hide');
 					sellingList($('#currentPage').val());
 				},
-				error:function(){
-					alert("실패");
+				error:function(jqXHR, textStatus, errorThrown){
+					console.log(textStatus);
+					console.log(errorThrown);
+					
 				}
 			});
 			
@@ -520,7 +527,7 @@ table{
 	display: block;
 }
 
-#tabs-1 div, #tabs-2 div, #tabs-3 div, #tabs-4 div{
+.pagingDiv{
 	text-align:center;
 	position: absolute;
 	top: 90%;
@@ -541,7 +548,44 @@ table{
 	border-bottom: 1px solid #e4e4e4;
 	border-top: 1px solid #e4e4e4;
 }
-
+.titlecut1{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	display:block;
+	width: 279px;
+	height: 20px;
+}
+.titlecut2{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	display:block;
+	margin-right:-49px;
+	width: 119px;
+	height: 20px;
+}
+.titlecut3{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	display:block;
+	width: 368px;
+	margin-right:-18px;
+	height: 20px;
+}
+.titlecut4{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	display:block;
+	width: 350px;
+	margin-right:-20px;
+	height: 20px;
+}
+.modal-align{
+	text-align: right;
+}
 
 </style>
 </head>
@@ -568,7 +612,7 @@ table{
 							<table>
 								<tr><th width="15%">등록일</th><th width="40%">글제목</th><th width="15%">구매자</th><th width="10%">상태</th><th width="20%">비고</th></tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>
 						</div>
@@ -576,7 +620,7 @@ table{
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>총액</th><th>상태</th><th>비고</th></tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>
 							
@@ -585,7 +629,7 @@ table{
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>총액</th><th>상태</th><th>비고</th></tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>
 						</div>
@@ -593,7 +637,7 @@ table{
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>구매자</th><th>총액</th><th>상태</th><th>비고</th></tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>
 						</div>
@@ -615,7 +659,7 @@ table{
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 									<h4 class="modal-title">구매자 현황</h4>
 								</div>
-								<div class="modal-body">
+								<div class="modal-body modal-align">
 									<table id="purchaseTable">
 										<tr>
 											<td>선택</td>
@@ -627,7 +671,7 @@ table{
 										</tr>
 									</table>
 									
-									<button id="submitBtn" class="btn-sm btn-info">확인</button><button id="closeBtn" class="btn-sm btn-info">닫기</button>
+									<button id="submitBtn" class="btn-sm btn-info">확인</button>&nbsp;<button id="closeBtn" class="btn-sm btn-info">닫기</button>
 									
 								</div>
 							</div>

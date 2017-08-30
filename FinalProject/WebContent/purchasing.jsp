@@ -50,8 +50,8 @@
 							});
 							
 							$('#tabs-1 > table').append(
-									'<tr><td>' + value.date + '</td><td><span class="titlecut1"><a href="detailOneBoard.do?no='+value.no+'">' + 
-									value.boardTitle + '</a></span></td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut1">' + 
+									value.boardTitle + '</div></a></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+comma(total)+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+'</td><td>'+
 									'<button class="btn-sm btn-info stopBtn" value="'+value.purchase_no+'">취소</button></td></tr>'		
@@ -98,8 +98,8 @@
 							});
 							
 							$('#tabs-2 > table').append(
-									'<tr><td>' + value.date + '</td><td><span class="titlecut2"><a href="detailOneBoard.do?no='+value.no+'">' + 
-									value.boardTitle + '</a></span></td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut2">' + 
+									value.boardTitle + '</div></a></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+comma(total)+'</span></a><input type="hidden" value="'+value.purchase_no+'"></td><td>'+
 									(value.state==0?"대기중":value.state==10?"진행중":value.state==11?'<button class="btn-sm btn-info completeBtn" value="'+value.no+'">완료</button>':"완료")+
 									'</td></tr>'		
@@ -147,8 +147,8 @@
 							});
 							
 							$('#tabs-3 > table').append(
-									'<tr><td>' + value.date + '</td><td><span class="titlecut3"><a href="detailOneBoard.do?no='+value.no+'">' + 
-									value.boardTitle + '</a></span></td><td>' +
+									'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut3">' + 
+									value.boardTitle + '</div></a></td><td>' +
 									value.seller + '</td><td><a href="#" class="optionList"><span>'+comma(total)+'</span></a><input type="hidden" value="'+value.purchase_no+
 									'"></td><td>'+(value.state==40?'취소 대기':value.state==41?'<button class="btn-sm btn-info cancelBtn" value="' + value.purchase_no + '">취소</button>':'취소 완료')+'</td></tr>'		
 							);								
@@ -252,7 +252,24 @@
 			$('#hiddenBoard_no').val($(this).val());
 			$('#hiddenPurchase_no').val($(this).parent().parent().find('input').val());
 		});
-		
+		//content글자수 오버되면 막기
+        $(document).on("keyup", '#review', function(){
+               //글자수 체크해서 알려주기
+               var contentLength = $('#review').val().length;
+               console.log(contentLength);
+               $('#count').empty();
+               $('#count').html(
+                            '리뷰는 100자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + contentLength+'/100');
+               //1000자 넘으면 막기
+               if($('#review').val().length > 100 ){
+                     alert("리뷰는 100자 이하로 입력하세요");
+                     $('#count').html(
+                                   '리뷰는 100자 이하로 입력하세요&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp100/100');
+                     var cntnt = $(this).val().substr(0,100);
+                     console.log(cntnt);
+                     $(this).val(cntnt);
+               }
+        });
 		
 		//별점&리뷰 입력 후 확인 누르면 ajax
 		$(document).on('click', '#starReview', function(){
@@ -416,7 +433,7 @@
  font-size: 3rem;
 }
 
-#tabs-1 div, #tabs-2 div, #tabs-3 div{
+.pagingDiv{
 	text-align:center;
 	position: absolute;
 	top: 90%;
@@ -453,8 +470,9 @@
 	text-overflow: ellipsis;
 	white-space: nowrap; 
 	display:block;
-	width: 160px;
+	width: 291px;
 	height: 20px;
+	margin-right: -130px;
 }
 </style>
 </head>
@@ -480,7 +498,7 @@
 							<table>
 								<tr><th width="15%">등록일</th><th width="40%">글제목</th><th width="15%">판매자</th><th width="10%">총액</th><th width="10%">상태</th><th width="10%">비고</th></tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>
 						</div>
@@ -488,7 +506,7 @@
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>총액</th><th>상태</th></tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>
 						</div>
@@ -496,7 +514,7 @@
 							<table>
 								<tr><th>등록일</th><th>글제목</th><th>판매자</th><th>총액</th><th>상태</th></tr>
 							</table>
-							<div>
+							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
 							</div>
 						</div>
@@ -538,7 +556,7 @@
 		
 		<div>리뷰작성</div>
 		<textarea id="review" rows="3" cols="78" ></textarea>
-
+		<div id="count"></div>
       </div>
       <div class="modal-footer">
       	<button type="button"  id="starReview" class="btn btn-sm btn-info">확인</button>

@@ -373,6 +373,7 @@ public class DealControll {
 		}
 		
 		if(state==10) { //판매자
+			System.out.println("확인확인확인");
 			//현재 게시물 소환!
 			Board board = boardService.selectOneBoard(continue_no);
 			//진행된 구매자 수
