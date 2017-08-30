@@ -17,21 +17,32 @@
 </head>
 <style>
 #miniProfile {
-	background-color: lightgray;
+	background-color: #60ccbd;
 	border-radius: 10px;
 	position: absolute;
-/*  	text-align: right; */
+	color:white;
+	font-weight:bold;
 	width: 300px;
 	top:20%;
 	left:0%;
 }
+#miniProfile td{
+	padding-left:10px;
+}
 
+textarea{
+	padding-left:10px;
+	padding-right:10px;
+}
+#writerMini{
+	font-family : Helvetica, Arial, sans-serif;
+}
 .miniImg {
 	width: 100px;
 	height: 100px;
 	position: absolute;
 	z-index: 4;
-	left: 47%;
+	left: 35%;
 	top: 0%;
 }
 
@@ -135,7 +146,12 @@ font-size: 16px;
 	margin-top: 20px;
 }
 #introduce{
+	margin-left:-10px;
 	resize:none;
+	font-weight:100;
+	background-color: #f5f6f7;
+	color:#697179;
+	
 }
 #reportMajor, #reportTitle{
 	width: 700px;
@@ -347,7 +363,6 @@ font-size: 16px;
 		//판매자 아이디 마우스 아웃했을때 안보이게하는 부분
 		$(document).on('mouseleave', '#writerMini', function() {
 			a = false;
-// 			alert(a);
 			$('#writerMini').css("display", "none");
 		})
 
@@ -889,7 +904,7 @@ font-size: 16px;
 						</td>
 					</tr>
 					<tr>
-						<td>완료된 작업수 :</td>
+						<td>판매 건수 :</td>
 						<td><label id="End"></label></td>
 					</tr>
 					<tr>
@@ -897,7 +912,7 @@ font-size: 16px;
 					</tr>
 					<tr>
 						<td colspan="2">
-							<textarea id="introduce" rows="5" cols="50" disabled="disabled"></textarea>
+							<textarea id="introduce" rows="5" cols="32" disabled="disabled"></textarea>
 						</td>
 					</tr>
 					<tr>
