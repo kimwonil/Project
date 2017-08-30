@@ -38,22 +38,21 @@ $(document).ready(function(){
 </script>
 <style type="text/css">
 	#miniProfile{
-		background-color:lightgray;
+		background-color:#60ccbd;
 		border-radius:10px;
 		position: fixed;
 		top:400px;
-		left:100px;
-		text-align: center;
+		left:10%;
 		width:200px;
+		font-weight: bold;
+		color:white;
 	}
 	.miniImg{
 		width: 100px;
 		height: 100px;
-		
-		position: fixed;
-		left: 150px;
-		top: 340px;
-		
+		position: absolute;
+		left:25%;
+		top:-20%;
 		z-index:4;
 	}
 	#imgSpace{
@@ -70,44 +69,52 @@ $(document).ready(function(){
 		left: 10%;
 		top: 40%;
 	}
+	.miniAlign{
+		text-align: center;
+	}
+	.minipadding{
+		padding-left: 10px;
+	}
 </style>
 </head>
 <body>
 <div id="miniProfileDiv">
-<c:if test="${member.photo eq null}">
-	<img class="img-circle miniImg" src="<c:url value="/images"/>/noimage.jpg">
-</c:if>
-<c:if test="${member.photo ne null}">
-	<img class="img-circle miniImg" src="<c:url value="/user/profile/${member.id}/${member.login}"/>/${member.photo}">
-</c:if>
+
 <table id="miniProfile">
-	<tr>
-		<td id="imgSpace" colspan="2"></td>
+	<tr class="miniAlign">
+		<td id="imgSpace" colspan="2">
+			<c:if test="${member.photo eq null}">
+				<img class="img-circle miniImg" src="<c:url value="/images"/>/noimage.jpg">
+			</c:if>
+			<c:if test="${member.photo ne null}">
+				<img class="img-circle miniImg" src="<c:url value="/user/profile/${member.id}/${member.login}"/>/${member.photo}">
+			</c:if>
+		</td>
 	</tr>
 
-	<tr>
+	<tr class="miniAlign">
 		<td colspan="2">${member.nickname }</td>
 	</tr>
-	<tr>
+	<tr class="miniAlign">
 		<td colspan="2"><label class="balance"><fmt:formatNumber value="${member.balance}" type="number"/></label>원</td>
 	</tr>
-	<tr>
-		<td colspan="2"><input id="chargeCash" type="button" value="충전" class="btn btn-sm btn-info"></td>
+	<tr class="miniAlign">
+		<td colspan="2"><input id="chargeCash" type="button" value="충전" class="btn btn-sm btn-danger"></td>
 	</tr>
 	<tr>
-		<td>나의 재능 : </td><td><a href="profile.do"><div id="profileNum">0</div>건</a></td>
+		<td class="minipadding">나의 재능 : </td><td><a href="profile.do"><div id="profileNum">0</div>건</a></td>
 	</tr>
 	<tr>
-		<td>판매중인 재능 : </td><td><a href="selling.do"><div id="sellingNum">0</div>건</a></td>
+		<td class="minipadding">판매중인 재능 : </td><td><a href="selling.do"><div id="sellingNum">0</div>건</a></td>
 	</tr>
 	<tr>
-		<td>구매중인 재능 : </td><td><a href="purchasing.do"><div id="purchasingNum">0</div>건</a></td>
+		<td class="minipadding">구매중인 재능 : </td><td><a href="purchasing.do"><div id="purchasingNum">0</div>건</a></td>
 	</tr>
 	<tr>
-		<td>찜목록 : </td><td><a href="dipsList.do?id=${member.id}"><div id="dipsListNum">0</div>건</a></td>
+		<td class="minipadding">찜목록 : </td><td><a href="dipsList.do?id=${member.id}"><div id="dipsListNum">0</div>건</a></td>
 	</tr>
 	<tr>
-		<td>쪽지 : </td><td><a href="message.do"><div id="messageNum">0</div>건</a></td>
+		<td class="minipadding">쪽지 : </td><td><a href="message.do"><div id="messageNum">0</div>건</a></td>
 	</tr>
 </table>
 </div>
