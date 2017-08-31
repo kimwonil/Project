@@ -80,6 +80,8 @@ $(document).ready(function(){
 	#chargeCash { padding: 4px; margin-top: 0px; margin-bottom: 15px;}
 	
 	#room {height: 10px;}
+	
+
 </style>
 </head>
 <body>

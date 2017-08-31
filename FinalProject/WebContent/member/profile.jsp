@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="../menu.jsp" %>
+    <%@ include file="../miniProfile.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 	
 	</head>
+	<link rel="stylesheet" href="css/starStyle.css">
 	<body>
 	<style>
 	.photo{
@@ -35,13 +37,25 @@
 		margin-top: 70px;
 	}
 	#introduce textarea{
-		margin: 10px;
+		margin: 2px 0px 4px 0px;
 	}
 	#bottomTable{
 		
 	}
+	.col-md-offset-2 {margin-left: 32.66667% !important; }
+	.star-ratings-css{margin: -6px 30px 5px  10px; float: left;}
+	#star {width: }
+	#totalNum {position: relative; top: 4px;}
 	</style>
 	<script type="text/javascript">
+	
+	//별점 넣기
+	$(document).ready(function(){
+		$('#star').css('width', $('#hiddenStar').val()*25+'%');
+		
+	});//별점넣기 끝
+	
+	
 		$(document).on('click', '#updateBtn', function(){
 			var length = $('#accountNum').val();
 			if(!$.isNumeric(length) || length.length > 15){
@@ -52,6 +66,7 @@
 				$('#updataForm').submit();
 			}
 		});
+	
 	
 	</script>
 	
@@ -72,15 +87,25 @@
 							<td>아이디 : ${member.id}</td>
 						</tr>
 						<tr>
-							<td>닉네임 : ${member.nickname}</td>
-						</tr>
-						<tr>
 							<td>사진 : ${member.photo}</td>
 						</tr>
 						<tr>
-							<td>포인트 : <fmt:formatNumber value="${member.balance}"
-									type="number" /> P
-							</td>
+							<td>계좌 : ${member.bank} / ${member.account}</td>
+						</tr>
+						<tr>
+							<td><div>판매평점 : </div>
+							<div class="star-ratings-css">
+								<div class="star-ratings-css-top" id="star">
+									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+								</div>
+								<div class="star-ratings-css-bottom">
+									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+								</div>
+							
+							<input type="hidden" value="${star}" id="hiddenStar">
+							</div>
+							
+							<span id="totalNum"> (${totalNum})</span>	</td>
 						</tr>
 <!-- 						<tr> -->
 <%-- 							<td>관리자 : ${member.admin}</td> --%>
@@ -95,22 +120,14 @@
 						<td></td>
 						</tr>
 					</table>
-					<br>
 					<table id="introduce">
+					<tr><td>소개글</td></tr>
 						<tr>
 							<td><textarea rows="10" cols="75" readonly="readonly">${member.introduce}</textarea></td>
 						</tr>
 					</table>
 					<table id="bottomTable">
-						<tr>
-							<td>판매중 : </td><td><a href="selling.do"><div>${selling}건</div></a></td>
-						</tr>
-						<tr>
-							<td>구매중 :  </td><td><a href="purchasing.do"><div>${purchase}건</div></a></td>
-						</tr>
-						<tr>
-							<td>판매평점 :  </td><td>00점</td>
-						</tr>
+					
 						<tr>
 							<td colspan="2">판매 가능 재능 목록</td>
 						</tr>

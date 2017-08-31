@@ -40,6 +40,7 @@ import model.Member;
 import model.Message;
 import service.BoardService;
 import service.MemeberService;
+import service.NoticeService;
 
 @Controller
 public class MemberController {
@@ -52,6 +53,8 @@ public class MemberController {
 	private GoogleConnectionFactory googleConnectionFactory;
 	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
+	@Autowired
+	private NoticeService noticeService;
 	
 	Gson gson = new Gson();
 	
@@ -266,6 +269,21 @@ public class MemberController {
 //				introduce = introduce.replaceAll("&nbsp;", "\u0020");
 //				member.setIntroduce(introduce);
 //			}
+			
+			//미니별점
+			float star=0;
+			Integer totalStar=noticeService.getWriterSumStar(member.getNickname());
+			System.out.println("totalStar"+totalStar);
+			Integer totalNum=noticeService.getWriterSumNum(member.getNickname());
+			System.out.println("totalNum"+totalNum);
+			if(totalNum!=0 && totalStar != null && totalNum != null)
+			{
+				star=(float)totalStar/(float)totalNum;
+			}
+			System.out.println("별점"+star);
+			session.setAttribute("star", star);
+			session.setAttribute("totalNum", totalNum);
+			
 			session.setAttribute("member", member);
 			//판매중
 			session.setAttribute("selling", memberService.countSelling(member.getNickname()));
