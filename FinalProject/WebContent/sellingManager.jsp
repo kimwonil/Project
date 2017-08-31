@@ -610,7 +610,7 @@ table{
 						
 						<div id="tabs-1" >
 							<table>
-								<tr><th width="15%">등록일</th><th width="40%">글제목</th><th width="15%">구매자</th><th width="10%">상태</th><th width="20%">비고</th></tr>
+								<tr><th width="15%">등록일</th><th width="40%">글제목</th><th width="15%">구매자</th><th width="12%">상태</th><th width="18%">비고</th></tr>
 							</table>
 							<div class="pagingDiv">
 								<button class="btn-sm btn-info prev" value="">이전</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-sm btn-info next" value="">다음</button>
