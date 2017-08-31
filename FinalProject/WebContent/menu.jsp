@@ -500,7 +500,7 @@ h3, h2, .ui-tabs-anchor{
 <script type="text/javascript">
 $(document).ready(function(){
 
-	$('select').each(function(){
+	$('#searchSelect').each(function(){
 	    var $this = $(this), numberOfOptions = $(this).children('option').length;
 	  
 	    $this.addClass('select-hidden'); 
@@ -953,7 +953,7 @@ $(document).ready(function(){
 		</div>
 		<div class="row">
 			<form id="searchForm" action="search.do" method="post">
-				<select name="major" id="categoryForSearch" >
+				<select id="searchSelect" name="major" id="categoryForSearch" >
 					  <option value="1">닉네임</option>
 					  <option value="0">카테고리 전체</option>
 					  <option value="100">디자인/그래픽</option>

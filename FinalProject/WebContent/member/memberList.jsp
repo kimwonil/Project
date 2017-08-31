@@ -210,7 +210,6 @@
 	}
 	
 	#memberTable td, #updateTable td{
-		border:1px solid black;
 		text-align: center;
 	}
 	#updateTable input[type=text]{
@@ -221,7 +220,13 @@
 		position: relative;
 		left:45%;
 	}
-	
+	#memberTable>tbody>tr:first-child, #tabs-4 table>tbody>tr:first-child{
+		background-color: #cecece;
+	}
+	#memberTable>tbody>tr, #tabs-4 table>tbody>tr {
+		border-bottom: 1px solid #e4e4e4;
+		border-top: 1px solid #e4e4e4;
+	}
 	</style>
 	</head>
 	<body>
