@@ -104,8 +104,8 @@
 						$.each(data.list,function(index, value){
 							$('#tradeTable').append("<tr><td>"+value.date+"</td><td>"
 															+value.amount+"</td><td>"
-															+value.balance+"</td><td>"
-															+value.code+"</td><td>"
+															+value.balance+"</td><td><span class='titlecut1'"
+															+value.code+"</span></td><td>"
 															+(value.state==1?"충전":value.state==2?"구매":value.state==3?"환불":value.state==4?"정산대기":"정산완료")+"</td></tr>");
 						});
 					}
@@ -268,6 +268,14 @@
 #tabs-2 table>tbody>tr, #tabs-4 table>tbody>tr {
 	border-bottom: 1px solid #e4e4e4;
 	border-top: 1px solid #e4e4e4;
+}
+.titlecut1{
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	display:block;
+	width: 209px;
+	height: 27px;
 }
 </style>
 </head>
