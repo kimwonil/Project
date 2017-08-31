@@ -38,14 +38,15 @@ $(document).ready(function(){
 </script>
 <style type="text/css">
 	#miniProfile{
-		background-color:#60ccbd;
+		background-color:#eeeeee;
 		border-radius:10px;
 		position: fixed;
 		top:280px;
 		left:10%;
 		width:200px;
-		font-weight: bold;
-		color:white;
+		font-weight: normal;
+		color:#333333;
+		box-shadow: 3px 3px 9px 0px rgba(0, 0, 0, 0.3);
 	}
 	.miniImg{
 		width: 100px;
@@ -63,6 +64,7 @@ $(document).ready(function(){
 	}
 	#miniProfile div{
 		display: inline;
+		font-size: 14px;
 	}
 	#miniProfileDiv{
 		position: absolute;
@@ -75,6 +77,9 @@ $(document).ready(function(){
 	.minipadding{
 		padding-left: 10px;
 	}
+	#chargeCash { padding: 4px; margin-top: 0px; margin-bottom: 15px;}
+	
+	#room {height: 10px;}
 </style>
 </head>
 <body>
@@ -116,6 +121,7 @@ $(document).ready(function(){
 	<tr>
 		<td class="minipadding">쪽지 : </td><td><a href="message.do"><div id="messageNum">0</div>건</a></td>
 	</tr>
+	<tr id="room"><td> </td></tr>
 </table>
 </div>
 </body>
