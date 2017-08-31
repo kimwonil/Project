@@ -109,7 +109,10 @@ width: 220px;
 	height: 20px;
 }
 
-
+.item{
+	background-color: white;
+	width: 200px;
+}
 /* ////////////////////////////////////////////////// */
 
 
