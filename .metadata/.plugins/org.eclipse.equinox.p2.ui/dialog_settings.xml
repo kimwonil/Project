@@ -29,7 +29,7 @@
 		<item value="1020" key="DIALOG_WIDTH"/>
 		<item value="1|맑은 고딕|9.75|0|WINDOWS|1|-13|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
 		<item value="769" key="DIALOG_HEIGHT"/>
-		<item value="49" key="DIALOG_X_ORIGIN"/>
-		<item value="54" key="DIALOG_Y_ORIGIN"/>
+		<item value="161" key="DIALOG_X_ORIGIN"/>
+		<item value="123" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
