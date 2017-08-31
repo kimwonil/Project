@@ -41,7 +41,7 @@ $(document).ready(function(){
 		background-color:#60ccbd;
 		border-radius:10px;
 		position: fixed;
-		top:400px;
+		top:280px;
 		left:10%;
 		width:200px;
 		font-weight: bold;

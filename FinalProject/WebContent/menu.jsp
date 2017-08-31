@@ -45,6 +45,11 @@
 	<![endif]-->
 </head>
 <style>
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+
+h3, h2, .ui-tabs-anchor{
+	font-family:'Nanum Gothic';
+}
 .category_img{
 	width: 50px;
 	height: 50px;
@@ -57,9 +62,8 @@
 
 #linkGroup {
 	position: relative;
-	right: 1%;
 	float: right;
-	font-family: Helvetica, Arial, sans-serif;
+	font-family:'Nanum Gothic';
 	color: #f3f3f3;
 	font-weight: bold;
 }
@@ -95,7 +99,7 @@
 }
 
 .menu {
-	height: 85px;
+	height: 35px;
 	position: fixed;
 	z-index:10;
 	left:0%;
@@ -133,10 +137,10 @@
 	padding: 0 14px;
 	line-height: 28px;
 	text-decoration: none;
-	font-family: Helvetica, Arial, sans-serif;
+	font-family:'Nanum Gothic';
 	font-weight: bold;
-	font-size: 13px;
-	color: #f3f3f3;
+	font-size: 15px;
+	color: #fff;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, .6);
 	-webkit-transition: color .2s ease-in-out;
 	-moz-transition: color .2s ease-in-out;
@@ -160,7 +164,7 @@
 .menu ul {
 	position: absolute;
 	z-index: 5;
-	top: 85px;
+	top: 35px;
 	left: 0;
 	opacity: 0;
 	background: #60ccbd; 
@@ -209,23 +213,28 @@
 /* 	.menu ul li:last-child a { border: none; } */
 
 .fh5co-header{
+
 	position: fixed;
 	z-index: 10;
 	background: white;
 
 }
-
+#fh5co-header{
+	opacity:0.8;
+}
 
 
 
 /* //////////////////////////////////////////////////////////////// */
 #categoryForSearch{
 	height: 30px;
+	border-radius:5px;
 }
 #searchInput{
-	height: 30px;
+	height: 43px;
 	width:170px;
 	display: inline;
+	color: white;
 }
 .searchIcon{
 	width: 20px;
@@ -248,6 +257,16 @@
 
 
 /* //////////////////////////////////// */
+#chtIcon{
+	position: fixed;
+	left: 93%;
+	top: 90%;
+	z-index: 20;
+}
+#chtIcon img{
+	width: 65px;
+}
+
 .iframeDiv{
 	position:fixed;
     left:100%;
@@ -260,34 +279,115 @@
 #iframeDiv{
     -webkit-transition-timing-function: ease;
     transition-timing-function: ease;
+    box-shadow:0px 0px 9px 0px rgba(0, 0, 0, 0.3);
+    border-radius:7px;
 }
 #iframeMain{
 	height: 500px;
+	border:0px;
 }
 :target{
 	left:80%;
 }
 
 @media (min-width: 1200px) {
+	.menu{
+		padding-left: 4%;
+		padding-right: 4%;
+	}
+	.menu li a{
+		display: block;
+		padding: 0 14px;
+		line-height: 28px;
+		text-decoration: none;
+		font-family:'Nanum Gothic';
+		font-weight: bold;
+		font-size: 14px;
+		color: #fff;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, .6);
+		-webkit-transition: color .2s ease-in-out;
+		-moz-transition: color .2s ease-in-out;
+		-o-transition: color .2s ease-in-out;
+		-ms-transition: color .2s ease-in-out;
+		transition: color .2s ease-in-out;
+	}
+	
 	
   :target{
   	left:74%;
   }
 }
 @media (min-width: 1400px) {
-	
+	.menu{
+		padding-left: 6%;
+		padding-right: 6%;
+	}
+	.menu li a{
+		display: block;
+		padding: 0 14px;
+		line-height: 28px;
+		text-decoration: none;
+		font-family:'Nanum Gothic';
+		font-weight: bold;
+		font-size: 15px;
+		color: #fff;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, .6);
+		-webkit-transition: color .2s ease-in-out;
+		-moz-transition: color .2s ease-in-out;
+		-o-transition: color .2s ease-in-out;
+		-ms-transition: color .2s ease-in-out;
+		transition: color .2s ease-in-out;
+	}
   :target{
   	left:78%;
   }
 }
 @media (min-width: 1600px) {
-	
+	.menu{
+		padding-left: 6%;
+		padding-right: 6%;
+	}
+	.menu li a{
+		display: block;
+		padding: 0 14px;
+		line-height: 28px;
+		text-decoration: none;
+		font-family:'Nanum Gothic';
+		font-weight: bold;
+		font-size: 15px;
+		color: #fff;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, .6);
+		-webkit-transition: color .2s ease-in-out;
+		-moz-transition: color .2s ease-in-out;
+		-o-transition: color .2s ease-in-out;
+		-ms-transition: color .2s ease-in-out;
+		transition: color .2s ease-in-out;
+	}
   :target{
   	left:81%;
   }
 }
 @media (min-width: 1800px) {
-	
+	.menu{
+		padding-left: 6%;
+		padding-right: 6%;
+	}
+	.menu li a{
+		display: block;
+		padding: 0 14px;
+		line-height: 28px;
+		text-decoration: none;
+		font-family:'Nanum Gothic';
+		font-weight: bold;
+		font-size: 15px;
+		color: #fff;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, .6);
+		-webkit-transition: color .2s ease-in-out;
+		-moz-transition: color .2s ease-in-out;
+		-o-transition: color .2s ease-in-out;
+		-ms-transition: color .2s ease-in-out;
+		transition: color .2s ease-in-out;
+	}
   :target{
   	left:84%;
   }
@@ -299,15 +399,182 @@
 	left: 100%;
 	top:240px;
 }
-
+.topMenu{
+	height: 50px;
+	padding: 0px;
+}
 
 /* /////////////////////////////////////// */
 
 </style>
+<style>
 
+
+.select-hidden {
+  display: none;
+  visibility: hidden;
+  padding-right: 10px;
+}
+
+.select {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  color: #fff;
+  width: 150px;
+  height: 40px;
+}
+
+.select-styled {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #60ccbd;
+  padding: 8px 15px;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  border: 2px solid #444;
+  border-radius: 5px;
+}
+
+.select-styled:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  border-color: #fff transparent transparent transparent;
+  position: absolute;
+  top: 16px;
+  right: 10px;
+}
+
+.select-styled:hover { background-color: #22a9b9; }
+
+.select-styled:active, .select-styled.active { background-color: #60ccbd; }
+
+.select-styled:active:after, .select-styled.active:after {
+  top: 9px;
+  border-color: transparent transparent #fff transparent;
+}
+
+.select-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #60ccbd;
+  border: 2px solid #444;
+  border-radius:0px 0px 10px 10px;
+}
+
+.select-options li {
+  margin: 0;
+  padding: 10px 0;
+  text-indent: 15px;
+  border-top: 1px solid #1c8a97;
+  -moz-transition: all 0.15s ease-in;
+  -o-transition: all 0.15s ease-in;
+  -webkit-transition: all 0.15s ease-in;
+  transition: all 0.15s ease-in;
+}
+
+.select-options li:hover {
+  color: #24b1c2;
+  background: #fff;
+}
+
+.select-options li[rel="hide"] { display: none; }
+</style>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$('select').each(function(){
+	    var $this = $(this), numberOfOptions = $(this).children('option').length;
+	  
+	    $this.addClass('select-hidden'); 
+	    $this.wrap('<div class="select"></div>');
+	    $this.after('<div class="select-styled"></div>');
+	
+	    var $styledSelect = $this.next('div.select-styled');
+	    $styledSelect.text($this.children('option').eq(0).text());
+	  
+	    var $list = $('<ul />', {
+	        'class': 'select-options'
+	    }).insertAfter($styledSelect);
+	  
+	    for (var i = 0; i < numberOfOptions; i++) {
+	        $('<li />', {
+	            text: $this.children('option').eq(i).text(),
+	            rel: $this.children('option').eq(i).val()
+	        }).appendTo($list);
+	    }
+	  
+	    var $listItems = $list.children('li');
+	
+	 
+	  
+	  $styledSelect.click(function(e) {
+	     if($('.select-options').is(':visible')) {
+	        e.stopPropagation();
+	        $styledSelect.text($(this).text()).removeClass('active');
+	        $this.val($(this).attr('rel'));
+	      
+	        $list.hide();
+	        //console.log($this.val());   
+	
+	     } else {
+	        e.stopPropagation();
+	        $('div.select-styled.active').each(function(){
+	            $(this).removeClass('active').next('ul.select-options').hide();
+	        });
+	        $(this).toggleClass('active').next('ul.select-options').toggle();
+	     }//end if
+	    });
+	  
+	    $listItems.click(function(e) {
+	        e.stopPropagation();
+	        $styledSelect.text($(this).text()).removeClass('active');
+	        $this.val($(this).attr('rel'));
+	        $list.hide();
+	        //console.log($this.val());
+	    });
+	    
+	    $(document).click(function() {
+	        $styledSelect.removeClass('active');
+	        $list.hide();
+	    });
+	
+	});
+});
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
 
 
 <script>
@@ -516,32 +783,6 @@
 
 		});
 		
-		//검색부분 카테고리 가져오기
-		function bringCategory(){
-			$.ajax({
-				url : "bringCategory.do",
-				type : "post",
-				dataType : "json",
-				success : function(data){
-					$('#categoryForSearch').empty();
-					$('#categoryForSearch').append('<option value="1">판매자 닉네임</option>');
-					 $('#categoryForSearch').append(
-		                     ($('#hiddenMajor').val() ==0 ? '<option value="0" selected>카테고리 전체</option>' : '<option value="0">카테고리 전체</option>')
-		                     
-		               );
-					$.each(data, function(index, value){
-						$('#categoryForSearch').append(
-								(value.no == $('#hiddenMajor').val() ? '<option value="'+value.no+'" selected>'+value.category_name+'</option>' : '<option value="'+value.no+'">'+value.category_name+'</option>')
-						);//append 끝
-					});//each 끝
-				},error:function(jqXHR, textStatus, errorThrown){
-	    			alert(textStatus);     //응답상태
-	    			alert(errorThrown);     //응답에 대한 메세지
-	    		}
-			});//카테고리 가져오는 ajax 끝
-		}
-		
-		bringCategory();
 		//검색시작!
 		$(document).on('keydown', '#searchInput', function(key){
 			if(key.keyCode == 13){ //엔터눌렀을때
@@ -576,6 +817,13 @@
 		});
 		
 		
+		$(document).on('click', '#chtIcon', function(){
+			$(this).css('display','none');
+		});
+		
+		$(document).on('click', '#chtClose', function(){
+			$('#chtIcon').css('display','inline');
+		});
 	
 	});
 </script>
@@ -685,22 +933,14 @@
 	<header id="fh5co-header" role="banner">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12 topMenu">
 				<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i
 					class="icon-menu"></i></a> <a class="navbar-brand home-brand" href="index.jsp">ShareAbility</a>
 			</div>
-		</div>
-		<div class="row">
-			<form id="searchForm" action="search.do" method="post">
-				<select name="major" id="categoryForSearch">
-				</select> 
-				<input type="text" class="form-control" id="searchInput" name="word" value="${word}">
-				<a href="#"><img src="images/search.png" class="searchIcon"></a>
-			</form>
+			
 			<div id="linkGroup">
-				<a href="#iframeDiv">채팅</a>
+				
 				<c:if test="${member ne null}">
-					${member.nickname}님 환영합니다.&nbsp
 					<a href="logout.do">로그아웃</a>&nbsp
 					<a href='boardForm.do' id="boardForm">판매등록</a>&nbsp
 					<a href='#' id="toggler">알림 <span class="badge" id="togglerNum"></span>
@@ -709,8 +949,26 @@
 					<a href='loginForm.do'>로그인</a>&nbsp
 					<a href='boardForm.do' id="boardForm">판매등록</a>
 				</c:if>
-					
 			</div>
+		</div>
+		<div class="row">
+			<form id="searchForm" action="search.do" method="post">
+				<select name="major" id="categoryForSearch" >
+					  <option value="1">닉네임</option>
+					  <option value="0">카테고리 전체</option>
+					  <option value="100">디자인/그래픽</option>
+					  <option value="200">마케팅/광고</option>
+					  <option value="300">문서/서식</option>
+					  <option value="400">컴퓨터/개발</option>
+					  <option value="500">음악/영상</option>
+					  <option value="600">생활/상담</option>
+					  <option value="700">노하우/여행</option>
+					  <option value="800">비즈니스/창업</option>
+					  <option value="900">번역/외국어</option>
+				</select> 
+				<input type="text" class="form-control" id="searchInput" name="word" value="${word}">
+				<a href="#"><img src="images/search.png" class="searchIcon"></a>
+			</form>
 		</div>
 		<p>
 		
@@ -718,12 +976,12 @@
 		<!-- 		카테고리 메뉴                    -->
 		<div class="row">
 			<ul class="menu categoryMenu">
-				<li><img class="category_img" src="images/art.png" alt="디자인"><a href="#">디자인/그래픽</a>
+				<li><a href="#">디자인/그래픽</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=101" class="documents">캐리커쳐/인물/캐릭터/아이콘</a></li>
 						<li><a href="categoryMenu.do?no=102" class="documents">일러스트/초상화/스케치</a></li>
 						<li><a href="categoryMenu.do?no=103" class="documents">PPT
-								디자인/인포그래픽/캘리그라피/폰트/싸인</a></li>
+								디자인/인포그래픽/캘리그라피/폰트</a></li>
 						<li><a href="categoryMenu.do?no=104" class="documents">만화/웹툰</a></li>
 						<li><a href="categoryMenu.do?no=105" class="documents">사진/명함/이미지/포토샵/보정/합성</a></li>
 						<li><a href="categoryMenu.do?no=106" class="documents">블로그&카페 디자인/페이지/배경</a></li>
@@ -732,17 +990,16 @@
 						<li><a href="categoryMenu.do?no=109" class="documents">도면/CAD/인테리어/3D</a></li>
 						<li><a href="categoryMenu.do?no=110" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/marketing.png" alt="마케팅"><a href="#">마케팅/광고</a>
+				<li><a href="#">마케팅/광고</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=201" class="documents">블로그/카페/체험단</a></li>
 						<li><a href="categoryMenu.do?no=202" class="documents">인스타그램/페이스북/카카오/트위터</a></li>
-						<li><a href="categoryMenu.do?no=203" class="documents">일반광고/옥외광고/광고대행/디스플레이
-								광고</a></li>
+						<li><a href="categoryMenu.do?no=203" class="documents">일반광고/옥외광고/광고대행</a></li>
 						<li><a href="categoryMenu.do?no=204" class="documents">기획/컨설팅/분석/마케팅자료</a></li>
 						<li><a href="categoryMenu.do?no=205" class="documents">언론/기사/보도자료</a></li>
 						<li><a href="categoryMenu.do?no=206" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/write.png" alt="문서"><a href="#">문서/서식</a>
+				<li><a href="#">문서/서식</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=301" class="documents">워드/타이핑/엑셀/통계</a></li>
 						<li><a href="categoryMenu.do?no=302" class="documents">창작/대본/시나리오/카피라이팅</a></li>
@@ -755,7 +1012,7 @@
 						<li><a href="categoryMenu.do?no=309" class="documents">논문 컨설팅/보고서/리서치</a></li>
 						<li><a href="categoryMenu.do?no=310" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/computer.png" alt="컴퓨터"><a href="#">컴퓨터/개발</a>
+				<li><a href="#">컴퓨터/개발</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=401" class="documents">홈페이지/웹개발</a></li>
 						<li><a href="categoryMenu.do?no=402" class="documents">모바일/Web/App/어플</a></li>
@@ -764,7 +1021,7 @@
 						<li><a href="categoryMenu.do?no=405" class="documents">플래시/스크립트</a></li>
 						<li><a href="categoryMenu.do?no=406" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/video.png" alt="음악"><a href="#">음악/영상</a>
+				<li><a href="#">음악/영상</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=501" class="documents">영상제작/자막제작/편집</a></li>
 						<li><a href="categoryMenu.do?no=502" class="documents">작사/작곡/MR/음악편집/녹음</a></li>
@@ -773,7 +1030,7 @@
 						<li><a href="categoryMenu.do?no=505" class="documents">인디음악/창작음악</a></li>
 						<li><a href="categoryMenu.do?no=506" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/speach.png" alt="생활"><a href="#">생활/상담</a>
+				<li><a href="#">생활/상담</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=601" class="documents">고민상담/진로상담/취업상담/기타상담</a></li>
 						<li><a href="categoryMenu.do?no=602" class="documents">점/운세/사주/토정비결/궁합</a></li>
@@ -786,7 +1043,7 @@
 						<li><a href="categoryMenu.do?no=609" class="documents">구매대행</a></li>
 						<li><a href="categoryMenu.do?no=610" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/journey.png" alt="노하우"><a href="#">노하우/여행</a>
+				<li><a href="#">노하우/여행</a>
 					<ul>
 						<li><a href="categoryMenu.do?no=701" class="documents">생활지식/비법/수리/노하우/팁</a></li>
 						<li><a href="categoryMenu.do?no=702" class="documents">투자/재테크</a></li>
@@ -797,7 +1054,7 @@
 						<li><a href="categoryMenu.do?no=707" class="documents">온라인게임</a></li>
 						<li><a href="categoryMenu.do?no=708" class="documents">기타</a></li>
 					</ul></li>
-				<li><img class="category_img" src="images/business.png" alt="창업"><a href="#">비즈니스/창업</a>
+				<li><a href="#">비즈니스/창업</a>
 					<ul>
 
 						<li><a href="categoryMenu.do?no=801" class="documents">사업계획/사업제안</a></li>
@@ -810,7 +1067,7 @@
 						<li><a href="categoryMenu.do?no=808" class="documents">기타</a></li>
 
 					</ul></li>
-				<li><img class="category_img" src="images/translation.png" alt="번역"><a href="#">번역/외국어</a>
+				<li><a href="#">번역/외국어</a>
 					<ul style="left:-100px;">
 						<li><a href="categoryMenu.do?no=901" class="documents">영어</a></li>
 						<li><a href="categoryMenu.do?no=902" class="documents">일본어</a></li>
@@ -831,7 +1088,6 @@
 	</header>
 	<!-- END .header -->
 	<div class="fh5co-spacer fh5co-spacer-lg"></div>
-<div class="fh5co-spacer fh5co-spacer-lg"></div>
 <div class="fh5co-spacer fh5co-spacer-sm"></div>
 
 
@@ -855,12 +1111,12 @@
 		<iframe id="iframeMain" height="500" width="300" name="iframe_a" scrolling="no">
 		
 		</iframe><br>
-		<a href="http://192.168.0.109:3000/?nickname=${member.nickname}" target="iframe_a"class="btn-sm btn-primary">입장</a>
-		<a href="#" class="btn-sm btn-danger">닫기</a>
+		<a href="http://192.168.0.109:3000/?nickname=${member.nickname}&admin=${member.admin}" target="iframe_a"class="btn-sm btn-primary">입장</a>
+		<a id="chtClose" href="#" class="btn-sm btn-danger">닫기</a>
 	</div>
 	</div>
 
-
+<a id="chtIcon" href="#iframeDiv"><img src="images/s.png"></a>
 
 </body>
 </html>
