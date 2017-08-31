@@ -73,7 +73,9 @@ h3, h2, .ui-tabs-anchor{
 	display: none;
 	top: 20%;
 	right: 5%;
-	
+	overflow:hidden;
+	border-radius:10px;
+	box-shadow:0px 0px 9px 0px;
 	min-height: 250px;
 }
 
@@ -264,7 +266,8 @@ h3, h2, .ui-tabs-anchor{
 	z-index: 20;
 }
 #chtIcon img{
-	width: 65px;
+	width: 65px !important;
+	height: 65px !important;
 }
 
 .iframeDiv{

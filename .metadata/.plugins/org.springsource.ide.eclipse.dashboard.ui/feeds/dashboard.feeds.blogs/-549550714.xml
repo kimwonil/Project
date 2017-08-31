@@ -5,7 +5,7 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2017-08-30T20:39:52Z</updated>
+  <updated>2017-08-30T20:39:00Z</updated>
   <entry>
     <title>Spring Cloud Finchley M2 is available</title>
     <link rel="alternate" href="https://spring.io/blog/2017/08/30/spring-cloud-finchley-m2-is-available" />
@@ -14,7 +14,7 @@
       <name>Spencer Gibb</name>
     </author>
     <id>tag:spring.io,2017-08-24:3007</id>
-    <updated>2017-08-30T20:39:52Z</updated>
+    <updated>2017-08-30T20:39:00Z</updated>
     <content type="html">&lt;p&gt;On behalf of the community, I am pleased to announce that the Milestone 2 (M2) of the &lt;a href="https://cloud.spring.io"&gt;Spring Cloud Finchley&lt;/a&gt; Release Train is available today. The release can be found in &lt;a href="https://repo.spring.io/milestone/"&gt;Spring Milestone&lt;/a&gt; repository. You can check out the Finchley &lt;a href="https://github.com/spring-projects/spring-cloud/wiki/Spring-Cloud-Finchley-Release-Notes"&gt;release notes for more information&lt;/a&gt;.&lt;/p&gt;&lt;h2&gt;&lt;a href="#notable-changes-in-the-finchley-release-train" class="anchor" name="notable-changes-in-the-finchley-release-train"&gt;&lt;/a&gt;Notable Changes in the Finchley Release Train&lt;/h2&gt;&lt;h3&gt;&lt;a href="#spring-boot-starter" class="anchor" name="spring-boot-starter"&gt;&lt;/a&gt;Spring Boot Starter&lt;/h3&gt;
 &lt;p&gt;The Finchley.M2 release builds on top of the Spring Boot 2.0.0.M3, Spring Framework 5.0.0.RC3, and Project Reactor Bismuth-M3 releases.&lt;/p&gt;&lt;h3&gt;&lt;a href="#spring-cloud-gateway" class="anchor" name="spring-cloud-gateway"&gt;&lt;/a&gt;Spring Cloud Gateway&lt;/h3&gt;
 &lt;p&gt;The major new feature in the Gateway is WebSocket support (route uri&amp;rsquo;s with a &lt;code&gt;ws://&lt;/code&gt; scheme) along with a Request Rate Limiter based on Redis, more &lt;a href="https://github.com/spring-cloud/spring-cloud-gateway/blob/2.0.x/docs/src/main/asciidoc/spring-cloud-gateway.adoc"&gt;documentation&lt;/a&gt; and a &lt;a href="http://cloud.spring.io/spring-cloud-gateway/"&gt;site&lt;/a&gt;.&lt;/p&gt;&lt;h3&gt;&lt;a href="#spring-cloud-commons" class="anchor" name="spring-cloud-commons"&gt;&lt;/a&gt;Spring Cloud Commons&lt;/h3&gt;
@@ -32,7 +32,7 @@
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td&gt;Spring Cloud Sleuth &lt;/td&gt;
-      &lt;td&gt;2.0.0.M1 &lt;/td&gt;
+      &lt;td&gt;2.0.0.M2 &lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Spring Cloud Cloudfoundry &lt;/td&gt;
@@ -76,7 +76,7 @@
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Spring Cloud Contract &lt;/td&gt;
-      &lt;td&gt;2.0.0.M1 &lt;/td&gt;
+      &lt;td&gt;2.0.0.M2 &lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Spring Boot Dependencies &lt;/td&gt;
