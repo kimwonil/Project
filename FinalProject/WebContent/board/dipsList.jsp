@@ -90,14 +90,13 @@ img{
 h3{
 	text-align: center;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> 34316340bf49f087ce1d62acf78f8b5b67c12015
 #categoryList>tbody>tr>td div{
- 	line-height: 50px; 
-/*  	background-color: gray; */
+ 	line-height: 30px; 
+}
+#entire{
+ 	width: 80px;
+ 	text-align: center; 
 }
 #categoryList>tbody>tr>td{
 /* 	background-color: red; */
@@ -115,18 +114,18 @@ h3{
 #categoryList a{
 	color: white;
 }
+#left{text-align: left;}
 
 </style>
 <body>
 <div id="fh5co-main">
 	<div class="container">
 	
-
-		<h4>찜목록을 보여주자</h4>
+		<h3 id="left">나의 찜목록</h3>
 		<table id="categoryList">
-		<tr>
+		<tr><td><a href="dipsList.do?nickname=${member.nickname}"><div id="entire">전체</div></a></td>
 		<c:forEach items="${category}" var="major">
-		<td height="50px"><a href="dipsCategory.do?category_no=${major.no}"><div style="line-height: 50px">${major.category_name}</div></a></td>
+		<td height="50px"><a href="dipsCategory.do?category_no=${major.no}"><div>${major.category_name}</div></a></td>
 		</c:forEach>
 		</tr>
 		</table>
