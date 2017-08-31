@@ -30,7 +30,7 @@
   </select>
  
  <update id="memberUpdate" parameterType="Member">
- 	update profile set photo=#{photo}, balance=#{balance}, admin=#{admin}, account=#{account}, bank=#{bank}, introduce=#{introduce} where nickname=#{nickname}
+ 	update profile set photo=#{photo}, balance=#{balance}, admin=#{admin}, account=#{account}, bank=#{bank}, introduce=#{introduce}, nickname=#{nickname} where id=#{id} and login=#{login} 
  </update>
  
  <delete id="memberDelete" parameterType="String">

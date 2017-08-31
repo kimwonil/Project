@@ -747,8 +747,11 @@ public class MemberController {
 		String photo = request.getParameter("photo");
 		int balance = Integer.parseInt(request.getParameter("balance"));
 		int admin = Integer.parseInt(request.getParameter("admin"));
+		int login = Integer.parseInt(request.getParameter("login"));
 		Member member = new Member(id, nickName, photo, balance, admin);
-		
+		member.setLogin(login);
+		System.out.println("회원수정");
+		System.out.println(member);
 		memberService.memberUpdate(member);
 		
 	}

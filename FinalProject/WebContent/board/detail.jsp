@@ -160,8 +160,13 @@ font-size: 16px;
 	text-align: right;
 	margin-right: 40px;
 }
+<<<<<<< HEAD
 textarea{
 resize: none;
+=======
+.functionBtn{
+	text-align: center;
+>>>>>>> wonil
 }
 </style>
 
@@ -687,7 +692,7 @@ resize: none;
 												type="hidden" value="${board.no}" name="no" id="boardNo"></td>
 										</tr>
 										<tr>
-											<td colspan="2"><c:choose>
+											<td colspan="2" class="functionBtn"><c:choose>
 													<c:when test="${member.admin eq 1}">
 														<button class="btn btn-sm btn-primary" id="modify"
 															value="${board.state}">글수정</button>

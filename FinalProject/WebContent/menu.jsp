@@ -852,7 +852,7 @@
 <div id="ChtMain">
 	
 	<div id="iframeDiv" class="iframeDiv">
-		<iframe id="iframeMain" height="500" width="300" name="iframe_a" >
+		<iframe id="iframeMain" height="500" width="300" name="iframe_a" scrolling="no">
 		
 		</iframe><br>
 		<a href="http://192.168.0.109:3000/?nickname=${member.nickname}" target="iframe_a"class="btn-sm btn-primary">입장</a>

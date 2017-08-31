@@ -67,7 +67,8 @@
 								+"<tr><td>닉네임</td><td><input id='memberNickname' type='text' value='"+data.nickname+"'></td></tr>"
 								+"<tr><td>사진</td><td><label id='memberPhoto'>"+data.photo+"</label></td></tr>"
 								+"<tr><td>포인트</td><td><input id='memberBalance' type='text' value='"+data.balance+"'></td></tr>"
-								+"<tr><td>종류</td><td>"+(data.login==1?"네이버":data.login==2?"카카오":"구글")+"</td></tr>"
+								+"<tr><td>종류</td><td>"+(data.login==1?"네이버":data.login==2?"카카오":"구글")+
+								"<input type='hidden' value='"+data.login+"' id='loginvalue'></td></tr>"
 								+"<tr><td>비고</td><td>"+select+"</td></tr>"
 						);
 					},
@@ -88,11 +89,12 @@
 					url:"memberUpdate.do",
 					type:"POST",
 					data:{
-						id:$('input[name=memberCheck]:checked').val(),
+						id:$('#memberId').text(),
 						nickname:$('#memberNickname').val(),
 						photo:$('#memberPhoto').text(),
 						balance:$('#memberBalance').val(),
-						admin:$('input[name=memberAdmin]:checked').val()
+						admin:$('input[name=memberAdmin]:checked').val(),
+						login:$('#loginvalue').val()
 					},
 					success:function(){
 						$('#updateModal').modal("hide");

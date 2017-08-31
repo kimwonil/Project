@@ -139,7 +139,7 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", nickname=" + nickname + ", photo=" + photo + ", balance=" + balance + ", admin="
-				+ admin + ", code=" + code + ", amount=" + amount + "]";
+				+ admin + ", code=" + code + ", amount=" + amount + ", login=" + login + "]";
 	}
 
 	
