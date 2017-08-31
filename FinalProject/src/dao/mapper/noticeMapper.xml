@@ -6,7 +6,7 @@
  <mapper namespace="dao.NoticeDao">
  
  <insert id="insertNotice" parameterType="java.util.HashMap">
- 	insert into notice values(0,sysdate(),#{category_no},#{title},#{writer},0,#{content})
+ 	insert into notice values(0,sysdate(),#{title},#{writer},0,#{content})
  </insert>
  
  <select id="selectAllNotice" resultType="Notice">
@@ -18,7 +18,7 @@
  </select>
  
  <update id="updateNotice" parameterType="java.util.HashMap">
- 	update Notice set title=#{title},content=#{content},category_no=#{category_no} where no= #{no}
+ 	update Notice set title=#{title},content=#{content} where no= #{no}
  </update>
  
   <update id="updateNoticeCount" parameterType="java.util.HashMap">
@@ -45,9 +45,6 @@
 		<if test="startdate != null">
 		   and date between #{startdate} and #{enddate}
 		</if>
-		<if test="category_no != null">
-			and category_no=#{category_no}
-		</if>
          order by no desc limit #{skip},#{qty}
     </select>
  
@@ -66,9 +63,7 @@
 		<if test="startdate != null">
 		    and date between #{startdate} and #{enddate}
 		</if>
-		<if test="category_no != null">
-			and category_no=#{category_no}
-		</if>
+	
     </select>
  
  

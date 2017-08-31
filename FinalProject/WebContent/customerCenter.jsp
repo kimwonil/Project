@@ -468,8 +468,8 @@ function qnaList(page,type,keyword,start,end){
 					$('#qnaTable').append("<tr><td>"+data[i].date+"</td><td>"
 							+data[i].no+"</td><td>"
 							+"<a id='"+data[i].no+"'class='QnADetail' data-toggle='modal' data-target='#QnAContentModal'>"
-							+data[i].title+"</a></td><td>"
-							+(data[i].open==0?data[i].writer:"비공개")+"</td><td>"
+							+(data[i].open==1?"비공개":data[i].title)+"</a></td><td>"
+							+data[i].writer+"</td><td>"
 							+(data[i].state==0?"미답변":"답변완료")+"</td><td>"
 							+data[i].read_count+"</td></tr>");
 							};
@@ -681,17 +681,13 @@ function reportList(page,type,keyword,start,end){
 		});
 		//공지 등록
 		$(document).on('click','#noticeinsert',function(){
-			var cateChk=true;
+			
 			var titleChk=true;
 			var contentChk=true;
 			
 			
-			if($('#noticeMajor').val()=='대분류')
-				{
-				alert("카테고리를 입력하세요.");
-				cateChk=false;
-				}
-			else if($('#noticeTitle').val()=='')
+			
+			if($('#noticeTitle').val()=='')
 				{
 				alert("제목을 입력하세요.");
 				titleChk=false;
@@ -702,14 +698,13 @@ function reportList(page,type,keyword,start,end){
 				contentChk=false;
 				}
 			
-			if(cateChk==true && titleChk==true && contentChk==true)
+			if(titleChk==true && contentChk==true)
 				{
 				$.ajax({
 					url:"insertNotice.do",
 					type:"POST",
 					data:{
-						major:$('#noticeMajor').val(),
-						minor:$('#noticeMinor').val(),
+						
 						title:$('#noticeTitle').val(),
 						content:$('#noticeContent').val(),
 					},
@@ -717,8 +712,6 @@ function reportList(page,type,keyword,start,end){
 						
 						noticeList(Noticepage,Noticetype,Noticekeyword,Noticestart,Noticeend);
 						$('#NoticeinsertModal').modal('hide');
-						$('#noticeMajor option:eq(0)').prop("selected", true);
-						$('#noticeMinor option:eq(0)').prop("selected", true);
 						$('#noticeTitle').val("");
 						$('#noticeContent').val("");
 					},
@@ -746,8 +739,7 @@ function reportList(page,type,keyword,start,end){
 					noticeList(Noticepage,Noticetype,Noticekeyword,Noticestart,Noticeend);
 					$('#NoticetitleLabel').text(data.title);
 					$('#NoticewriterLabel').text(data.writer);
-					$('#NoticeMajorLabel').text(data.HighName);
-					$('#NoticeMinorLabel').text(data.LowName);
+
 					$('#NoticecontentLabel').text(data.content);
 					$('#NoticeUpdateForm').val(data.no);
 					$('#NoticeDelete').val(data.no);
@@ -777,44 +769,9 @@ function reportList(page,type,keyword,start,end){
 				success:function(data){
 					noticeList(Noticepage,Noticetype,Noticekeyword,Noticestart,Noticeend);
 
-					var cate=data.category_no+"";
-			
-					var major=cate.substr(0, 3);
-					var minor=cate.substring(3, cate.lengh);
-					
-					major/=100;
-					minor*=1;
+				
 					
 					$('#NoticeContentModal').modal('hide');
-					$('#NoticeMajorUpdate option:eq('+major+')').prop("selected", true);
-					
-					$.ajax({
-			   			url:"Low.do",
-			   			type:"POST",
-			   			data:{high_no:$('#NoticeMajorUpdate').val()},
-			   			dataType:"json",
-			   			success:function(data){
-			   				console.log(data);
-			   				$('#NoticeMinorUpdate').empty();
-			   				$.each(data, function(index, value){
-				   				$('#NoticeMinorUpdate').append(
-				   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-				   				);
-				   				
-				   				$('#NoticeMinorUpdate option:eq('+(minor-1)+')').prop("selected", true);
-			   				});
-
-			   			},
-			   			error:function(jqXHR, textStatus, errorThrown){
-							alert("실패");
-							console.log(textStatus);
-							console.log(errorThrown);
-						}
-			   			
-			   		});
-					
-					
-					
 					$('#NoticetitleUpdate').val(data.title);
 					$('#NoticecontentUpdate').val(data.content);
 					$('#NoticeUpdateBtn').val(data.no);
@@ -829,19 +786,15 @@ function reportList(page,type,keyword,start,end){
 		//공지 수정
 		$(document).on('click','#NoticeUpdateBtn',function(){
 
-			var category=""+$('#NoticeMajorUpdate').val()+""+$('#NoticeMinorUpdate').val();
+		
 
-			var cateChk=true;
+			
 			var titleChk=true;
 			var contentChk=true;
 			
 			
-			if($('#NoticeMajorUpdate').val()=='대분류')
-				{
-				alert("카테고리를 입력하세요.");
-				cateChk=false;
-				}
-			else if($('#NoticetitleUpdate').val()=='')
+			
+			if($('#NoticetitleUpdate').val()=='')
 				{
 				alert("제목을 입력하세요.");
 				titleChk=false;
@@ -852,7 +805,7 @@ function reportList(page,type,keyword,start,end){
 				contentChk=false;
 				}
 			
-			if(cateChk==true && titleChk==true && contentChk==true)
+			if(titleChk==true && contentChk==true)
 				{
 			
 			$.ajax({
@@ -860,7 +813,6 @@ function reportList(page,type,keyword,start,end){
 				type:"POST",
 				data:{
 				no:$("#NoticeUpdateBtn").val(),
-				category_no:category,
 				title:$('#NoticetitleUpdate').val(),
 				content:$('#NoticecontentUpdate').val()
 				},
@@ -1783,15 +1735,7 @@ textarea{
 										</div>
 										<div class="modal-body">
 											<table class="table">
-												<tr>
-													<th>카테고리</th>
-													<th><select name="major" id="noticeMajor">
-															<option selected>대분류</option>
-													</select> <select name="minor" id="noticeMinor">
-															<option selected>소분류</option>
-															<option>대분류를 선택하세요</option>
-													</select></th>
-												</tr>
+							
 												<tr>
 													<th>공지 제목</th>
 													<th><input type="text" name="title" id="noticeTitle"></th>
@@ -1830,16 +1774,7 @@ textarea{
 
 
 											<table class="table">
-												<tr>
-													<th>카테고리</th>
-													<th><select name="major" id="qnaMajor">
-															<option selected>대분류</option>
-
-													</select> <select name="minor" id="qnaMinor">
-															<option selected>소분류</option>
-															<option>대분류를 선택하세요</option>
-													</select></th>
-												</tr>
+												
 												<tr>
 													<th>질문 제목</th>
 													<th><input type="text" name="title" id="qnaTitle"></th>
@@ -1939,11 +1874,7 @@ textarea{
 											<td width="80%">작성자 : <label id="QnAwriterLabel"></label>
 											</td>
 										</tr>
-										<tr>
-											<td>대분류 : <label id="QnAMajorLabel"></label>
-												&nbsp;&nbsp;&nbsp; 소분류 : <label id="QnAMinorLabel"></label>
-											</td>
-										</tr>
+										
 										<tr>
 											<td colspan="3"><textarea id="QnAcontentLabel" rows="5"
 													cols="78" readonly="readonly"></textarea></td>
@@ -2105,18 +2036,7 @@ textarea{
 								</div>
 								<div class="modal-body">
 									<table id="qnaDetail" class="table">
-										<tr>
-											<th>카테고리</th>
-											<th><select id="QnAMajorUpdate" name="major">
-													<option>대분류</option>
-
-											</select> <select id="QnAMinorUpdate" name="minor">
-													<option>소분류</option>
-													<option value="1">카테고리1</option>
-													<option value="2">카테고리2</option>
-													<option value="3">카테고리3</option>
-											</select></th>
-										</tr>
+										
 										<tr>
 											<th>제목 :</th>
 											<td><input size="48" type="text" id="QnAtitleUpdate"></td>
@@ -2167,11 +2087,7 @@ textarea{
 											<td width="80%">작성자 : <label id="NoticewriterLabel"></label>
 											</td>
 										</tr>
-										<tr>
-											<td>대분류 : <label id="NoticeMajorLabel"></label>
-												&nbsp;&nbsp;&nbsp; 소분류 : <label id="NoticeMinorLabel"></label>
-											</td>
-										</tr>
+										
 										<tr>
 											<td colspan="3"><textarea id="NoticecontentLabel"
 													rows="10" cols="78" readonly="readonly"></textarea></td>
@@ -2206,16 +2122,7 @@ textarea{
 								</div>
 								<div class="modal-body">
 									<table id="NoticeDetail" class="table">
-										<tr>
-											<th>카테고리</th>
-											<th><select id="NoticeMajorUpdate" name="major">
-													<option>대분류</option>
-
-											</select> <select id="NoticeMinorUpdate" name="minor">
-													<option>소분류</option>
-
-											</select></th>
-										</tr>
+										
 										<tr>
 											<th>제목 :</th>
 											<td><input size="48" type="text" id="NoticetitleUpdate"></td>

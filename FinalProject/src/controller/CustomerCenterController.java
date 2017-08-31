@@ -433,7 +433,7 @@ public class CustomerCenterController {
 		}
 	}
 
-	// 질문 페이징
+	// 신고 페이징
 	@RequestMapping("reportPage.do")
 	public void reportPage(HttpServletRequest request, HttpServletResponse response, HttpSession session,
 			@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int type) {
@@ -491,15 +491,9 @@ public class CustomerCenterController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		Notice notice = noticeService.selectOneNotice(no);
-		String str = notice.getCategory_no() + "";
-		int major = Integer.parseInt(str.substring(0, 3));
-		int minor = Integer.parseInt(str.substring(3, str.length()));
-		HashMap<String, Object> pa = new HashMap<String, Object>();
-		pa.put("major", major);
-		pa.put("minor", minor);
-		String HighName = noticeService.getHighName(pa);
-		String LowName = noticeService.getLowName(pa);
-		System.out.println(HighName + "  " + LowName);
+
+		
+
 		int read_count = notice.getRead_count();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("no", no);
@@ -509,9 +503,6 @@ public class CustomerCenterController {
 		result.put("no", notice.getNo());
 		result.put("title", notice.getTitle());
 		result.put("writer", notice.getWriter());
-		result.put("category_no", notice.getCategory_no());
-		result.put("HighName", HighName);
-		result.put("LowName", LowName);
 		result.put("content", notice.getContent());
 
 		System.out.println(result);
@@ -544,13 +535,13 @@ public class CustomerCenterController {
 	public void NoticeUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
 		int no = Integer.parseInt(request.getParameter("no"));
-		int category_no = Integer.parseInt((request.getParameter("category_no")));
+		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("no", no);
-		params.put("category_no", category_no);
+		
 		params.put("title", title);
 		params.put("content", content);
 
@@ -600,13 +591,13 @@ public class CustomerCenterController {
 	@RequestMapping("insertNotice.do")
 	public void insertNotice(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String nickname = ((Member) session.getAttribute("member")).getNickname();
-		int category_no = Integer.parseInt((request.getParameter("major") + request.getParameter("minor")));
+		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("writer", nickname);
-		params.put("category_no", category_no);
+		
 		params.put("title", title);
 		params.put("content", content);
 
@@ -629,13 +620,13 @@ public class CustomerCenterController {
 	@RequestMapping("insertQuestion.do")
 	public void insertQuestion(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String nickname = ((Member) session.getAttribute("member")).getNickname();
-		int category_no = Integer.parseInt((request.getParameter("major") + request.getParameter("minor")));
+		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		int open = Integer.parseInt(request.getParameter("open"));
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("writer", nickname);
-		params.put("category_no", category_no);
+		
 		params.put("title", title);
 		params.put("content", content);
 		params.put("open", open);
@@ -697,15 +688,8 @@ public class CustomerCenterController {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		QnA qna = qnaService.selectOneQnA(no);
-		String str = qna.getCategory_no() + "";
-		int major = Integer.parseInt(str.substring(0, 3));
-		int minor = Integer.parseInt(str.substring(3, str.length()));
-		HashMap<String, Object> pa = new HashMap<String, Object>();
-		pa.put("major", major);
-		pa.put("minor", minor);
-		String HighName = noticeService.getHighName(pa);
-		String LowName = noticeService.getLowName(pa);
-
+		
+	
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		int read_count = qna.getRead_count();
 		System.out.println("디비에 작성자" + qna.getWriter());
@@ -724,8 +708,6 @@ public class CustomerCenterController {
 				params.put("title", qna.getTitle());
 				params.put("writer", qna.getWriter());
 				params.put("content", qna.getContent());
-				params.put("HighName", HighName);
-				params.put("LowName", LowName);
 				params.put("state", qna.getState());
 				params.put("category_no", qna.getCategory_no());
 				params.put("open", qna.getOpen());
@@ -743,10 +725,8 @@ public class CustomerCenterController {
 				}
 				params.remove("read_count");
 				params.put("title", "비공개");
-				params.put("writer", "비공개");
+				params.put("writer", qna.getWriter());
 				params.put("content", "비공개");
-				params.put("HighName", "비공개");
-				params.put("LowName", "비공개");
 				params.put("state", qna.getState());
 				params.put("category_no", qna.getCategory_no());
 				params.put("open", qna.getOpen());
@@ -768,8 +748,6 @@ public class CustomerCenterController {
 			params.put("title", qna.getTitle());
 			params.put("writer", qna.getWriter());
 			params.put("content", qna.getContent());
-			params.put("HighName", HighName);
-			params.put("LowName", LowName);
 			params.put("state", qna.getState());
 			params.put("category_no", qna.getCategory_no());
 			params.put("open", qna.getOpen());
@@ -789,13 +767,13 @@ public class CustomerCenterController {
 	@RequestMapping("QnAUpdate.do")
 	public void QnAUpdate(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int no = Integer.parseInt(request.getParameter("no"));
-		int category_no = Integer.parseInt((request.getParameter("category_no")));
+	
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		int open = Integer.parseInt(request.getParameter("open"));
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("no", no);
-		params.put("category_no", category_no);
+	
 		params.put("title", title);
 		params.put("content", content);
 		params.put("open", open);
