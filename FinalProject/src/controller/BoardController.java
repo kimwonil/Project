@@ -65,6 +65,46 @@ public class BoardController{
 	@Autowired
 	private NoticeService noticeService;
 	
+	
+	
+	/**
+	 * 테스트용 로그인-0901추가
+	 * */
+	@RequestMapping("testLogin.do")
+	public String testLogin(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+		Gson gson = new Gson();
+		String email = "testAdmin@naver.com";
+		int login = 1;
+		session.setAttribute("email", email);
+		session.setAttribute("login", login);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", email);
+		map.put("login", login);
+		Member member = memberService.selectOne(map);
+		System.out.println(member);
+		session.setAttribute("member", member);///연경추가-0901
+//		try {
+//			if(member == null) {
+//				map.put("result", false);
+//				String json = gson.toJson(map);
+//				resp.getWriter().write(json);
+//			}else {
+//				map.put("result", true);
+//				String json = gson.toJson(map);
+//				session.setAttribute("member", member);
+//				resp.getWriter().write(json);
+//			}
+//			
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		return "redirect:load.do";
+	}
+	
+	
+	
 	/**
 	 * 검색 api
 	 * */
