@@ -37,6 +37,7 @@
 	  <url-pattern>/*</url-pattern>
   </filter-mapping>
   
+  
   <error-page>
   	<error-code>404</error-code>
   	<location>/errorPage.do</location>
@@ -61,5 +62,6 @@
   	<error-code>405</error-code>
   	<location>/errorPage.do</location>
   </error-page>
+  
   
 </web-app>

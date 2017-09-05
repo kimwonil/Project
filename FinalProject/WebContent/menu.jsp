@@ -852,8 +852,8 @@ $(document).ready(function(){
 			<a class="navbar-brand" href="index.jsp">Home</a>
 		</h1>
 		<ul>
-			<li><a href="profile.do">프로필</a></li>
-			<li><a href="authority.do">권한 신청</a></li>
+			<li><a href="profile.do">프 로 필</a></li>
+			<li><a href="authority.do">권한신청</a></li>
 			<li><a href="selling.do">판매관리</a></li>
 			<li><a href="purchasing.do">구매관리</a></li>
 			<li><a href="cashPage.do">캐시관리</a></li>

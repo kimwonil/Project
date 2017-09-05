@@ -23,13 +23,6 @@
 </bean>
 
 
-<!-- <bean id="MemberController" class="controller.MemberController"> -->
-<!-- 	<property name="googleConnectionFactory" ref="googleConnectionFactory"/> -->
-<!-- 	<property name="googleOAuth2Parameters" ref="googleOAuth2Parameters"></property> -->
-<!-- </bean> -->
-
-<!--  로그인 관련 -->
-
 
 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="suffix" value=".jsp"></property>
