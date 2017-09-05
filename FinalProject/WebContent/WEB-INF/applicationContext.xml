@@ -14,9 +14,9 @@
 <bean id="dataSource"
 	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-	<property name="url" value="jdbc:mysql://192.168.0.143:3306/shareability"></property>
-	<property name="username" value="final"></property>
-	<property name="password" value="mysql"></property>
+	<property name="url" value="jdbc:mysql://localhost:3306/ykson83"></property>
+	<property name="username" value="ykson83"></property>
+	<property name="password" value="thsdusrud8300"></property>
 </bean>
 
 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -60,16 +60,6 @@
 	<property name="mapperInterface" value="dao.ReportDao"></property>
 </bean>
 
-<!-- email 연동 관련 추가예정
-<bean id="EmailInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-	<property name="mapperInterface" value="dao.EmailInfoDao"></property>
-</bean>
-
- -->
  
-
-
-
 
 </beans>

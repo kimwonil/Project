@@ -5,7 +5,89 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2017-08-30T20:39:00Z</updated>
+  <updated>2017-08-31T14:10:00Z</updated>
+  <entry>
+    <title>Simple installation of Data Flow for Kubernetes with Helm</title>
+    <link rel="alternate" href="https://spring.io/blog/2017/08/31/simple-installation-of-data-flow-for-kubernetes-with-helm" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Thomas Risberg</name>
+    </author>
+    <id>tag:spring.io,2017-08-31:3012</id>
+    <updated>2017-08-31T14:10:00Z</updated>
+    <content type="html">&lt;div class="paragraph"&gt;
+&lt;p&gt;With the new &lt;a href="https://kubeapps.com/charts/incubator/spring-cloud-data-flow"&gt;Helm chart for &lt;em&gt;Spring Cloud Data Flow for Kubernetes&lt;/em&gt;&lt;/a&gt;, there is now a much simpler way of installing the software.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;&lt;a href="https://docs.helm.sh/"&gt;Helm&lt;/a&gt; is a package manager for Kubernetes, similar to apt, yum or homebrew. It is very easy to &lt;a href="https://github.com/kubernetes/helm/blob/master/README.md#install"&gt;install&lt;/a&gt; and it greatly simplifies installation of an application and its dependencies into your Kubernetes cluster. The application package contents and configuration is defined in a &lt;em&gt;chart&lt;/em&gt;. When you install it you can override any default configuration values. Helm will install any required services in addition to the ones defined in the chart. For &lt;em&gt;Spring Cloud Data Flow&lt;/em&gt;, you have three required services: MySQL and Redis are used as the stores for &lt;em&gt;Spring Cloud Data Flow&lt;/em&gt; state and RabbitMQ is used for the pipelines' messaging layer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;Once you have the Helm client installed on your local system, you can proceed with the cluster installation of Helm&amp;#8217;s server portion called &lt;em&gt;Tiller&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;To install &lt;em&gt;tiller&lt;/em&gt;, run &lt;code&gt;helm init&lt;/code&gt;. Once this completes, you should be able to see the pod running via a &lt;code&gt;kubectl get po --namespace kube-system&lt;/code&gt; command.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;You are now ready to install the chart package for &lt;em&gt;Spring Cloud Data Flow&lt;/em&gt;. Since the chart currently is in the &lt;em&gt;incubator&lt;/em&gt; repository, you need to add this repository to our Helm install by running:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="listingblock"&gt;
+&lt;div class="content"&gt;
+&lt;pre class="prettyprint highlight"&gt;&lt;code class="language-sh" data-lang="sh"&gt;helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com
+helm repo update&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;Next, run the chart install using:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="listingblock"&gt;
+&lt;div class="content"&gt;
+&lt;pre class="prettyprint highlight"&gt;&lt;code class="language-sh" data-lang="sh"&gt;helm install --name my-release incubator/spring-cloud-data-flow&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="sect2"&gt;
+&lt;h3 id="note"&gt;&lt;a class="anchor" href="#note"&gt;&lt;/a&gt;NOTE:&lt;/h3&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;If you are running on a cluster without a load balancer, such as &lt;a href="https://kubernetes.io/docs/getting-started-guides/minikube/"&gt;Minikube&lt;/a&gt;, then you should override the service type to use &lt;em&gt;NodePort&lt;/em&gt;. Use the following command instead:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="listingblock"&gt;
+&lt;div class="content"&gt;
+&lt;pre&gt;helm install --name my-release --set server.service.type=NodePort \
+    incubator/spring-cloud-data-flow&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;You should see the following output:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="imageblock"&gt;
+&lt;div class="content"&gt;
+&lt;img src="https://raw.githubusercontent.com/trisberg/images/master/my-release.png" alt="my-release"&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;You have just created a new &lt;em&gt;release&lt;/em&gt; in the &lt;em&gt;default&lt;/em&gt; namespace of your Kubernetes cluster. The notes section gives instructions for connecting to the newly installed server. It takes a couple of minutes for the application and its required services to start up. You can check on the status by issuing a &lt;code&gt;get pod -w&lt;/code&gt; command. Wait for the READY column to show "1/1" for all pods. Once that is done, you can connect to the Data Flow server using the external ip listed via a &lt;code&gt;kubectl get svc my-release-data-flow-server&lt;/code&gt; command. The default &lt;em&gt;username&lt;/em&gt; is &lt;code&gt;user&lt;/code&gt;, and the &lt;em&gt;password&lt;/em&gt; is &lt;code&gt;password&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;To see what Helm releases you have running, you can use the &lt;code&gt;helm list&lt;/code&gt; command. When it is time to delete the release run &lt;code&gt;helm delete my-release&lt;/code&gt;. This removes any resources created for the release but keeps release information so you can rollback any changes using a &lt;code&gt;helm rollback my-release 1&lt;/code&gt; command. To completely delete the release and purge any release metadata, use &lt;code&gt;helm delete my-release --purge&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="sect2"&gt;
+&lt;h3 id="note-2"&gt;&lt;a class="anchor" href="#note-2"&gt;&lt;/a&gt;NOTE:&lt;/h3&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;There is an &lt;a href="https://github.com/kubernetes/charts/issues/980"&gt;issue&lt;/a&gt; with generated secrets used for the required services getting rotated on chart upgrades. To avoid this set the password for these services when installing the chart. You can use:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="listingblock"&gt;
+&lt;div class="content"&gt;
+&lt;pre&gt;helm install --name my-release \
+    --set rabbitmq.rabbitmqPassword=rabbitpwd \
+    --set mysql.mysqlRootPassword=mysqlpwd \
+    --set redis.redisPassword=redispwd incubator/spring-cloud-data-flow&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;Happy Helming!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content>
+  </entry>
   <entry>
     <title>Spring Cloud Finchley M2 is available</title>
     <link rel="alternate" href="https://spring.io/blog/2017/08/30/spring-cloud-finchley-m2-is-available" />
@@ -1405,20 +1487,5 @@ fun main(args: Array&amp;lt;String&amp;gt;) {&#xD;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;&lt;a href="http://projects.spring.io/spring-session-data-mongodb/"&gt;Project Site&lt;/a&gt; | &lt;a href="http://docs.spring.io/spring-session-data-mongodb/docs/2.0.0.M2/reference/htmlsingle/"&gt;Reference&lt;/a&gt; | &lt;a href="https://stackoverflow.com/questions/tagged/spring-session+mongodb"&gt;Help&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring Boot 1.5.6 available now</title>
-    <link rel="alternate" href="https://spring.io/blog/2017/07/27/spring-boot-1-5-6-available-now" />
-    <category term="releases" label="Releases" />
-    <author>
-      <name>Andy Wilkinson</name>
-    </author>
-    <id>tag:spring.io,2017-07-27:2991</id>
-    <updated>2017-07-27T09:15:00Z</updated>
-    <content type="html">&lt;p&gt;On behalf of the team, I am pleased to announce that Spring Boot 1.5.6 has been released and is available now from &lt;a href="http://repo.spring.io/release"&gt;repo.spring.io&lt;/a&gt; and &lt;a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.springframework.boot%22"&gt;Maven Central&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Spring Boot 1.5.6 fixes a &lt;a href="https://github.com/spring-projects/spring-boot/issues/9871"&gt;problem with Spring Data&amp;rsquo;s dependency management&lt;/a&gt; that was introduced in 1.5.5. Sorry for the inconvenience.&lt;/p&gt;&lt;h3&gt;&lt;a href="#what-rsquo-s-next" class="anchor" name="what-rsquo-s-next"&gt;&lt;/a&gt;What&amp;rsquo;s next?&lt;/h3&gt;
-&lt;p&gt;After the &lt;a href="https://spring.io/blog/2017/07/24/spring-framework-5-0-rc3-on-the-way-to-ga"&gt;recent release of Spring Framework 5.0 RC3&lt;/a&gt; and the flurry of other releases that followed, Spring Boot 2.0 M3 &lt;a href="https://spring.io/blog/2017/07/26/spring-boot-2-0-0-m3-available-now"&gt;has just been released&lt;/a&gt;. If you want to take an early look at Spring Boot 2, and we¡¯d love to hear your feedback if you do, please go to &lt;a href="https://start.spring.io"&gt;start.spring.io&lt;/a&gt; and select Spring Boot &lt;code&gt;2.0.0.M3&lt;/code&gt; or &lt;code&gt;2.0.0.BUILD-SNAPSHOT&lt;/code&gt;.&lt;/p&gt;&lt;h3&gt;&lt;a href="#how-can-you-help" class="anchor" name="how-can-you-help"&gt;&lt;/a&gt;How can you help?&lt;/h3&gt;
-&lt;p&gt;If you&amp;rsquo;re interested in helping out, check out the &lt;a href="https://github.com/spring-projects/spring-boot/labels/status%3A%20ideal-for-contribution"&gt;&amp;ldquo;ideal for contribution&amp;rdquo; tag&lt;/a&gt; in the issue repository. If you have general questions, please ask on &lt;a href="http://stackoverflow.com"&gt;stackoverflow.com&lt;/a&gt; using the &lt;a href="http://stackoverflow.com/tags/spring-boot"&gt;&lt;code&gt;spring-boot&lt;/code&gt; tag&lt;/a&gt; or chat with the community on &lt;a href="https://gitter.im/spring-projects/spring-boot"&gt;Gitter&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://projects.spring.io/spring-boot/"&gt;Project Page&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-boot"&gt;GitHub&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-boot/issues"&gt;Issues&lt;/a&gt; | &lt;a href="http://docs.spring.io/spring-boot/docs/1.5.6.RELEASE/reference/htmlsingle"&gt;Documentation&lt;/a&gt; | &lt;a href="http://stackoverflow.com/questions/tagged/spring-boot"&gt;Stack Overflow&lt;/a&gt; | &lt;a href="https://gitter.im/spring-projects/spring-boot"&gt;Gitter&lt;/a&gt;&lt;/p&gt;</content>
   </entry>
 </feed>

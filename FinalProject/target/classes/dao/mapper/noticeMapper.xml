@@ -10,11 +10,11 @@
  </insert>
  
  <select id="selectAllNotice" resultType="Notice">
- 	select * from Notice
+ 	select * from notice
  </select>
  
  <select id="selectOneNotice" parameterType="int" resultType="Notice">
- 	select * from Notice where no=#{no}
+ 	select * from notice where no=#{no}
  </select>
  
  <update id="updateNotice" parameterType="java.util.HashMap">
