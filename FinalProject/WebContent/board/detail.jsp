@@ -368,10 +368,10 @@ resize: none;
 			
 		})
 		//판매자 아이디 마우스 아웃했을때 안보이게하는 부분
-		$(document).on('mouseleave', '#writerMini', function() {
-			a = false;
-			$('#writerMini').css("display", "none");
-		})
+// 		$(document).on('mouseleave', '#writerMini', function() {
+// 			a = false;
+// 			$('#writerMini').css("display", "none");
+// 		})
 
 		
 // $('#writerMini').css("display", "none");

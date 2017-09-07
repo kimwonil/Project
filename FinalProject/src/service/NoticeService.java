@@ -122,12 +122,26 @@ public class NoticeService {
 	
 	public int getWriterSumStar(String nickname)
 	{
-		return noticeDao.getWriterSumStar(nickname);
+		int star = 0;
+		String starStr = noticeDao.getWriterSumStar(nickname);
+		if(starStr == null){
+			star = 0;
+		}else{
+			star = Integer.parseInt(noticeDao.getWriterSumStar(nickname));
+		}
+		return star;
 	}
 	
 	public int getWriterSumNum(String nickname)
 	{
-		return noticeDao.getWriterSumNum(nickname);
+		int evaluator = 0;
+		String starStr = noticeDao.getWriterSumNum(nickname);
+		if(starStr == null){
+			evaluator = 0;
+		}else{
+			evaluator = Integer.parseInt(noticeDao.getWriterSumNum(nickname));
+		}
+		return evaluator;
 	}
 	
 	public List<Board> getListNo(String nickname)

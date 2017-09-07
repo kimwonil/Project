@@ -166,7 +166,8 @@ public class MemberController {
 		map.put("id", email);
 		map.put("login", login);
 		Member member = memberService.selectOne(map);
-		
+		System.out.println(member);
+		session.setAttribute("member", member);///연경추가-0901
 		try {
 			if(member == null) {
 				map.put("result", false);
@@ -257,6 +258,7 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView("member/profile");
 		Member member = null;
 		HashMap<String, Object> map = new HashMap<>();
+		System.out.println("테스트로 프로필조회"+session.getAttribute("member"));
 		if(session.getAttribute("member") != null) {
 			member = (Member)session.getAttribute("member");
 			map.put("id", member.getId());
