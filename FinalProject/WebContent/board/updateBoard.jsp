@@ -86,10 +86,19 @@ border-top: hidden;
 #mapDiv{
 display: none;
 }
+
+.condition{
+font-size: 14px;
+font-weight: normal;
+}
+
 .fileTable td{
 padding-right: 10px;
 }
 
+#destination{
+padding-left: 23px;
+}
 </style>
 
 <script type="text/javascript">
@@ -134,10 +143,10 @@ $(document).ready(function(){
 	  			data : {inputAddr:$('#inputAddr').val()},
 	  			dataType : 'json',
 	  			success : function(data){
-	  				$('#table tr:gt(0)').empty();//주소 결과리스트 내용 지우고
-			      
+  					$('#table').empty();
+  					$('#table').append('<tr><th id="destination" width="100">  명칭</th><th width="230">주소</th></tr>');
 	  				$.each(data.items, function(index, value){//결과들 table에 표시
-			          	$('#table tbody').append(
+	  					$('#table tbody').append(
 			          		'<tr>'+
 			          		'<td><div class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
 			          		'<input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</div></td><td><div class="tdA">'+value.address + '</div></td>'+
@@ -219,8 +228,8 @@ $(document).ready(function(){
   	 	주소로 검색하는 경우
   	 	*/
   	 	else if(way == 1){//주소로 검색하는 경우(way==1)
- 	 		$('#table tr:gt(0)').empty();
-			
+  	 		$('#table').empty();
+  	 		$('#table').append('<tr><th width="30"></th><th width="230">주소</th></tr>');
 				
 		    naver.maps.Service.geocode({address: $('#inputAddr').val()}, function(status, response) {
 		    	if (status !== naver.maps.Service.Status.OK) {
@@ -254,7 +263,7 @@ $(document).ready(function(){
 	        	$.each(result.items, function(index, value){
 		          	$('#table tbody').append(
 		          			'<tr>'+
-		          			'<td><div class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
+		          			'<td><div><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
 		          			'<input type="hidden" name="ttt" value="'+value.title+'"></div></td><td><div class="tdA">'+ value.address + '</div></td></tr>'
 		          	);
 		        });
@@ -465,7 +474,6 @@ $(document).ready(function(){
    				});
    			},
    			error:function(){
-   				alert("실패");
    			}
    		});
    	});
@@ -674,7 +682,7 @@ $(document).ready(function(){
 				}	  			
 	  		},
 	  		error:function(){
-	  			alert("실패");
+	  			console.log("실패");
 	  		}
 	  	});
     };
@@ -779,7 +787,7 @@ $(document).ready(function(){
 										<tr><td id="mapTableList" width="50%">
 											<div id="scroll">
 											<table id="table">
-											<tr><th width="100">명칭</th><th width="230">주소</th></tr>
+											
 											</table>
 											</div>
 										</td><td width="50%">
