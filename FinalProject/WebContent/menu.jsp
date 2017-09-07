@@ -1112,9 +1112,8 @@ $(document).ready(function(){
 	
 	<div id="iframeDiv" class="iframeDiv">
 		<iframe id="iframeMain" height="500" width="300" name="iframe_a" scrolling="no">
-		
 		</iframe><br>
-		<a href="http://192.168.0.109:3000/?nickname=${member.nickname}&admin=${member.admin}" target="iframe_a"class="btn-sm btn-primary">입장</a>
+		<a href="http://ykson8300.cafe24app.com/?nickname=${member.nickname}&admin=${member.admin}" target="iframe_a"class="btn-sm btn-primary">입장</a>
 		<a id="chtClose" href="#" class="btn-sm btn-danger">닫기</a>
 	</div>
 	</div>

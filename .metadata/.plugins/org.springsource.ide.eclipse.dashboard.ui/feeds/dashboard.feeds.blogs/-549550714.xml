@@ -5,7 +5,7 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2017-09-04T21:45:43Z</updated>
+  <updated>2017-09-04T21:45:00Z</updated>
   <entry>
     <title>This Week in Spring - September 5th, 2017</title>
     <link rel="alternate" href="https://spring.io/blog/2017/09/04/this-week-in-spring-september-5th-2017" />
@@ -14,7 +14,7 @@
       <name>Josh Long</name>
     </author>
     <id>tag:spring.io,2017-09-04:3013</id>
-    <updated>2017-09-04T21:45:43Z</updated>
+    <updated>2017-09-04T21:45:00Z</updated>
     <content type="html">&lt;p&gt;Hi Spring fans and welcome to another installment of &lt;em&gt;This Week in Spring&lt;/em&gt;! This week I&amp;rsquo;m in Hong Kong for the amazing &lt;a href="http://www.yowconference.hk/"&gt;YOW! Hong Kong&lt;/a&gt; event and then it&amp;rsquo;s off to Singapore for the &lt;a href="http://www.yowconference.sg"&gt;YOW! Singapore&lt;/a&gt; event. If you&amp;rsquo;re in either region, these conferences are world-class events from Australia and they&amp;rsquo;re new in the region so I hope you&amp;rsquo;ll give them a shot. &lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Check out this first of many introductions to various aspects of Spring Cloud Data Flow. This first introduction, by Spring Cloud Data Flow ninja Eric Bottard, &lt;a href="https://spring.io/blog/2017/08/29/spring-cloud-data-flow-tips-tricks-interacting-with-the-shell"&gt;looks at the Spring Cloud Data Flow shell&lt;/a&gt; itself.&lt;/li&gt;
@@ -23,12 +23,12 @@
   &lt;li&gt;Spring Cloud Data Flow ninja Thomas Risberg &lt;a href="https://spring.io/blog/2017/08/31/simple-installation-of-data-flow-for-kubernetes-with-helm"&gt;introduces the Helm installer for Spring Cloud Data Flow for Kubernetes in this post&lt;/a&gt;. Helm is a package manager for Kubernetes.&lt;/li&gt;
   &lt;li&gt;This Pivotal and Apigee whitepaper on &lt;a href="https://content.pivotal.io/apigee/application-modernization?_lrsc=9d76ba9e-eb43-42fb-b85d-9e5b48373ac4"&gt;application modernization was a pretty good read&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;This is an oldie-but-a-goodie from earlier this year by Matt McCandless called &lt;a href="https://dzone.com/articles/spring-boot-the-right-boot-for-you-1"&gt;&lt;em&gt;Spring Boot: The Right Boot for You&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="http://www.opencodez.com/java/quartz-scheduler-with-spring-boot.htm"&gt;Quartz Scheduler with Spring Boot - opencodez&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;this post on &lt;a href="http://www.opencodez.com/java/quartz-scheduler-with-spring-boot.htm"&gt;the Quartz Scheduler with Spring Boot&lt;/a&gt; was a blast-from-the-past sort of article. I dig it.&lt;/li&gt;
   &lt;li&gt;It&amp;rsquo;s looking like there will be &lt;a href="https://jcp.org/aboutJava/communityprocess/ec-public/materials/2017-08-15/JCP-EC-Minutes-August-2017.html"&gt;a 6 month cadence for new Java releases&lt;/a&gt; after Java 9 ships. I personally welcome this idea.&lt;/li&gt;
   &lt;li&gt;I really liked this Russian-language &lt;a href="https://alexkosarev.name/2017/08/08/application-development-with-spring-part-1/"&gt;post introducing application development with Spring Boot&lt;/a&gt;.&lt;/li&gt;
   &lt;li&gt;Last week Pivotal, in conjunction with &lt;a href="https://www.blog.google/topics/google-cloud/vmware-and-pivotal-launch-new-hybrid-kubernetes-solution-optimized-gcp/"&gt;Google&lt;/a&gt; and VMWare, announced a very important next step for the Pivotal Cloud Foundry ecosystem - &lt;em&gt;Pivotal Container Service&lt;/em&gt; - a Kubernetes-service managed by BOSH. Get the skinny on how &lt;a href="https://techcrunch.com/2017/08/29/seven-moves-that-led-to-the-vmware-pivotal-google-partnership/amp/"&gt;we got here from this TechCrunch piece&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;I loved this Auth0 piece on integrating &lt;a href="https://auth0.com/blog/integrating-spring-data-jpa-postgresql-liquibase/"&gt;Spring Boot with a SQL database (PostgreSQL), JPA and Liquibase&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;a href="http://www.jhipster.tech/doing-api-first-development/"&gt;Doing API-First development&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;this post from JHipster on &lt;a href="http://www.jhipster.tech/doing-api-first-development/"&gt;Doing API-First development&lt;/a&gt; was interesting.&lt;/li&gt;
   &lt;li&gt;Spring Boot 2.0, with a reactive Spring Framework 5 and Java 8 baseline, is sure to impress. One of my favorite features in the new release is REST-stack agnostic (reactive Spring WebFlux, Spring MVC or JAX-RS) &lt;a href="https://www.infoq.com/news/2017/08/spring-boot-2-actuator-endpoints"&gt;support for the Spring Boot Actuator endpoints&lt;/a&gt;, which this blog post details.&lt;/li&gt;
   &lt;li&gt;Check out this excellent webinar &lt;a href="https://blog.jetbrains.com/idea/2017/07/webinar-recording-why-intellij-idea-is-the-premier-ide-for-grails-3/"&gt;on why IntelliJ IDEA is the premier choice for Grails applications&lt;/a&gt;. I love this because Grails 3 is based on Spring Boot and because Jeff Scott Brown&amp;rsquo;s a great speaker and because IntelliJ make a pretty darned good IDE.&lt;/li&gt;
   &lt;li&gt;This isn&amp;rsquo;t strictly-speaking related to Spring, but it is a worthy read. &lt;a href="https://specto.io/blog/2016/8/16/recipe-for-designing-building-testing-microservices/"&gt;Daniel Bryant describes a wholistic approach to testing microservices&lt;/a&gt; - and all the components you might use withint them - in this post.&lt;/li&gt;
