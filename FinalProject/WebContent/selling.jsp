@@ -645,6 +645,10 @@
 		$('#premiumSubmit').click(function(){
 			var approval = confirm("신청 하시겠습니까?");
 			if(approval){
+				console.log($(this).siblings('input').val());
+				console.log($('#premiumTime').val());
+				
+				
 				$.ajax({
 					url:"premiumUpdate.do",
 					type:"POST",

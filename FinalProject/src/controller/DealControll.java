@@ -753,6 +753,7 @@ public class DealControll {
 		int balance = member.getBalance();
 		int premium = Integer.parseInt(request.getParameter("premium"));
 		int no = Integer.parseInt(request.getParameter("no"));
+		System.out.println("글번호 확인 : "+no);
 		int time = Integer.parseInt(request.getParameter("time"));
 		int price = 0;
 		String msg="";

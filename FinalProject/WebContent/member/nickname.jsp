@@ -123,7 +123,8 @@ table {
 			<tr>
 				<td colspan="2" height="100">
 					<button id="submitBtn" class="btn btn-sm btn-info">확인</button> 
-					<input type="button" onclick="history.back()" class="btn btn-sm btn-info" value="취소">
+<!-- 					<input type="button" onclick="history.back()" class="btn btn-sm btn-info" value="취소"> -->
+					<a href="load.do" class="btn btn-sm btn-info">취소</a>
 				</td>
 				<td></td>
 			</tr>

@@ -160,13 +160,11 @@ font-size: 16px;
 	text-align: right;
 	margin-right: 40px;
 }
-<<<<<<< HEAD
 textarea{
 resize: none;
-=======
+}
 .functionBtn{
 	text-align: center;
->>>>>>> wonil
 }
 </style>
 
@@ -368,13 +366,12 @@ resize: none;
 			
 		})
 		//판매자 아이디 마우스 아웃했을때 안보이게하는 부분
-// 		$(document).on('mouseleave', '#writerMini', function() {
-// 			a = false;
-// 			$('#writerMini').css("display", "none");
-// 		})
+		$(document).on('mouseleave', '#writerMini', function() {
+			a = false;
+			$('#writerMini').css("display", "none");
+		})
 
 		
-// $('#writerMini').css("display", "none");
 
 		//글수정 가기 전에 state확인
 		$('#modify').on('click', function() {
