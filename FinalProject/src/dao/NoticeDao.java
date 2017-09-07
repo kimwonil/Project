@@ -24,8 +24,8 @@ public interface NoticeDao {
 	public Member getWriterInfo(String nickname);
 	public int getWriterCount(String nickname);
 
-	public int getWriterSumNum(String string);
-	public int getWriterSumStar(String nickname);
+	public String getWriterSumNum(String string);
+	public String getWriterSumStar(String nickname);
 
 	public List<Board> getListNo(String nickname);
 	public List<Integer> getBoardState(int no);

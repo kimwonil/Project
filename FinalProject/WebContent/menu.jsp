@@ -812,6 +812,7 @@ $(document).ready(function(){
 		//판매등록 누르면 로그인 검사하고 보내기
 		$(document).on('click', '#boardForm', function(){
 			if($('#memberLogin').val() == null || $('#memberLogin').val() == ''){
+				console.log($('#memberLogin').val());
 				alert('로그인 후에 이용하실 수 있습니다');
 				return false;
 			}else{
@@ -827,7 +828,43 @@ $(document).ready(function(){
 		$(document).on('click', '#chtClose', function(){
 			$('#chtIcon').css('display','inline');
 		});
-	
+		
+		
+	//////test용 로그인 연경 추가 0901
+// 	$(document).on('click', '#testLogin', function(){
+			
+		
+// 		$.ajax({
+// 			url : "login.do",
+// 			type : "POST",
+// 			data : {
+// 				email : "testAdmin@naver.com",
+// 				login : "1"
+// 			},
+// 			dataType : "json",
+// 			success : function(data) {
+// 				if (data.result) {
+// 					$('#main').submit();
+// 					$('#memberLogin').val(1);
+// 					alert("테스트용으로 로그인 되었습니다");
+// 				} else {
+// 					$('#id').val(data.id);
+// 					$('#login').val(data.login);
+// 					$('#insertForm').submit();
+// 				}
+
+// 			},
+// 			error : function() {
+// 				alert("실패");
+// 			}
+// 		});
+// 	})
+
+// 	$(document).on('click', '#testLogin', function(){
+// 		location.herf="testLogin.do";
+		
+// 	})
+	///////
 	});
 </script>
 <body>
@@ -942,6 +979,9 @@ $(document).ready(function(){
 			</div>
 			
 			<div id="linkGroup">
+				<c:if test="${member eq null}">
+					<a href="testLogin.do" id="testLogin">테스트로그인</a>&nbsp
+				</c:if>
 				
 				<c:if test="${member ne null}">
 					<a href="logout.do">로그아웃</a>&nbsp

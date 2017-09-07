@@ -85,11 +85,11 @@
  		select count(*) from board where writer=#{nickname}
  	</select>
  	
- 	<select id="getWriterSumStar" resultType="int" parameterType="String">
+ 	<select id="getWriterSumStar" resultType="String" parameterType="String">
  		select sum(total_star) from board where writer=#{nickname}
  	</select>
  		
- 	<select id="getWriterSumNum" resultType="int" parameterType="String">
+ 	<select id="getWriterSumNum" resultType="String" parameterType="String">
  		select sum(num_evaluator) from board where writer=#{nickname}
  	</select>
  	
