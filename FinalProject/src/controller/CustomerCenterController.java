@@ -64,10 +64,11 @@ public class CustomerCenterController {
 		response.setContentType("text/xml;charset=UTF-8");
 		String nickname = request.getParameter("nickname");
 		Member member=noticeService.getWriterInfo(nickname);
-		int star=0;
+		System.out.println("글쓴이 닉네임으로 profile 테이블 검색해서 가져옴"+member);
+		float star=0;
 		int count=noticeService.getWriterCount(nickname);
-		int totalStar=noticeService.getWriterSumStar(nickname);
-		int totalNum=noticeService.getWriterSumNum(nickname);
+		float totalStar=noticeService.getWriterSumStar(nickname);
+		float totalNum=noticeService.getWriterSumNum(nickname);
 		System.out.println("글수 "+count);
 		System.out.println(totalStar+"  "+totalNum);
 		List<Board> nolist=noticeService.getListNo(nickname);
