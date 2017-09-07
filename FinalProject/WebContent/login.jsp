@@ -53,7 +53,7 @@
 
 </body>
 <script type="text/javascript">
-	var naver_id_login = new naver_id_login("q9jIL5jkbHpYtx4IhwrT", "http://192.168.0.143:8080/FinalProject/login.jsp");
+	var naver_id_login = new naver_id_login("q9jIL5jkbHpYtx4IhwrT", "http://ykson83.cafe24.com/login.jsp");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("green", 3, 65);
 	naver_id_login.setState(state);
