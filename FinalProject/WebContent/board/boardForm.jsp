@@ -93,6 +93,10 @@ display: none;
 font-size: 14px;
 font-weight: normal;
 }
+
+#destination{
+padding-left: 23px;
+}
 </style>
 
 <script type="text/javascript">
@@ -139,9 +143,11 @@ $(document).ready(function(){
 	  			dataType : 'json',
 	  			success : function(data){
 	  		    
-	  				$('#table tr:gt(0)').empty();//주소 결과리스트 내용 지우고
+// 	  				$('#table tr:gt(0)').empty();//주소 결과리스트 내용 지우고
+	  					$('#table').empty();
+	  					$('#table').append('<tr><th id="destination" width="100">  명칭</th><th width="230">주소</th></tr>');
 	  				$.each(data.items, function(index, value){//결과들 table에 표시
-			          	$('#table tbody').append(
+			          	$('#table').append(
 			          		'<tr>'+
 			          		'<td><div class="tdT"><input class="addrRadio" type="radio" name="address" value="'+value.address+'">'+
 			          		'<input type="hidden" name="ttt" value="'+value.title+'">' + value.title +'</div></td><td><div class="tdA">'+value.address + '</td></td>'+
@@ -223,7 +229,6 @@ $(document).ready(function(){
   	 	주소로 검색하는 경우
   	 	*/
   	 	else if(way == 1){//주소로 검색하는 경우(way==1)
-//  	 		$('#table tr:gt(0)').empty();
   	 		$('#table').empty();
   	 		$('#table').append('<tr><th width="30"></th><th width="230">주소</th></tr>');
 				
@@ -478,7 +483,6 @@ $(document).ready(function(){
    				});
    			},
    			error:function(){
-   				alert("실패");
    			}
    		});
    	});
@@ -713,7 +717,7 @@ $(document).ready(function(){
 										<tr><td id="mapTableList" width="50%">
 											<div id="scroll">
 											<table id="table">
-											<tr><th width="100">명칭</th><th width="230">주소</th></tr>
+											
 											</table>
 											</div>
 										</td><td width="50%">
