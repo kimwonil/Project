@@ -25,7 +25,6 @@
 	 	noticeList(1,0,"0");
 	 	qnaList(1,0,"0");
 	 	reportList(1,0,"0");
-	 	high();
 	 	
 	});
 	
@@ -56,265 +55,10 @@
 	var Reportkeyword;
 	var Reportstart;
 	var Reportend;
-	//카테고리 하이 불러오기
-	function high(){
 	
-		$.ajax({
-			url:"high.do",
-			type:"POST",
-			dataType:"json",
-			success:function(data){
-				console.log(data);
 
-   				$.each(data, function(index, value){
-	   				$('#noticeMajor').append(
-	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-	   				);
-	   				$('#NoticeMajorUpdate').append(
-	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-	   				);
-	   				$('#SearchnoticeMajor').append(
-	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-	   				);
-	   				
-	   				$('#qnaMajor').append(
-	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-	   						);
-	   				$('#QnAMajorUpdate').append(
-	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-	   						);
-	   				
-	   				$('#ReportMajorUpdate').append(
-	   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-	   				);
-	   				
-   				});
-			},
-			error:function(jqXHR, textStatus, errorThrown){
-				console.log(textStatus);
-				console.log(errorThrown);
-			}
-		});
+	
 		
-	}
-
-	//공지 카테고리 로우 불러오기
-		$(document).on('change','#noticeMajor', function(){
-			
-			if($('#noticeMajor').val()=='대분류')
-				{
-				$('#noticeMinor').empty();
-				$('#noticeMinor').append(
-   						'<option>소분류</option><option>대분류를 선택해주세요</option>'
-   				);
-				}
-			
-			else{
-				$.ajax({
-		   			url:"Low.do",
-		   			type:"POST",
-		   			data:{high_no:$(this).val()},
-		   			dataType:"json",
-		   			success:function(data){
-		   				console.log(data);
-		   				$('#noticeMinor').empty();
-		   				$.each(data, function(index, value){
-			   				$('#noticeMinor').append(
-			   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-			   				);
-		   				});
-
-		   			},
-		   			error:function(){
-		   				alert("실패");
-		   			}
-		   			
-		   		});
-			}
-	   		
-		});
-	
-		//qna 업데이트 카테고리 로우 불러오기
-		$(document).on('change','#NoticeMajorUpdate', function(){
-	   		
-			if($('#NoticeMajorUpdate').val()=='대분류')
-			{
-			$('#NoticeMinorUpdate').empty();
-			$('#NoticeMinorUpdate').append(
-						'<option>소분류</option><option>대분류를 선택해주세요</option>'
-				);
-			}
-			else
-				{
-				$.ajax({
-		   			url:"Low.do",
-		   			type:"POST",
-		   			data:{high_no:$(this).val()},
-		   			dataType:"json",
-		   			success:function(data){
-		   				console.log(data);
-		   				$('#NoticeMinorUpdate').empty();
-		   				$.each(data, function(index, value){
-			   				$('#NoticeMinorUpdate').append(
-			   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-			   				);
-		   				});
-
-		   			},
-		   			error:function(){
-		   				alert("실패");
-		   			}
-		   			
-		   		});
-				}
-			
-		});
-	
-		//공지 검색 카테고리 로우 불러오기
-				$(document).on('change','#SearchnoticeMajor', function(){
-					
-					if($('#SearchnoticeMajor').val()=='대분류')
-					{
-					$('#SearchnoticeMinor').empty();
-					$('#SearchnoticeMinor').append(
-								'<option>소분류</option><option>대분류를 선택해주세요</option>'
-						);
-					}
-					
-					else{
-						$.ajax({
-				   			url:"Low.do",
-				   			type:"POST",
-				   			data:{high_no:$(this).val()},
-				   			dataType:"json",
-				   			success:function(data){
-				   				console.log(data);
-				   				$('#SearchnoticeMinor').empty();
-				   				$.each(data, function(index, value){
-					   				$('#SearchnoticeMinor').append(
-					   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-					   				);
-				   				});
-
-				   			},
-				   			error:function(){
-				   				alert("실패");
-				   			}
-				   			
-				   		});
-					}
-			   		
-				});
-				
-				
-		
-		//qna 카테고리 로우 불러오기
-				$(document).on('change','#qnaMajor', function(){
-					
-					if($('#qnaMajor').val()=='대분류')
-					{
-					$('#qnaMinor').empty();
-					$('#qnaMinor').append(
-								'<option>소분류</option><option>대부분를 선택해주세요</option>'
-						);
-					}
-					else
-						{
-						$.ajax({
-				   			url:"Low.do",
-				   			type:"POST",
-				   			data:{high_no:$(this).val()},
-				   			dataType:"json",
-				   			success:function(data){
-				   				console.log(data);
-				   				$('#qnaMinor').empty();
-				   				$.each(data, function(index, value){
-					   				$('#qnaMinor').append(
-					   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-					   				);
-				   				});
-
-				   			},
-				   			error:function(){
-				   				alert("실패");
-				   			}
-				   			
-				   		});
-						}
-			   		
-				});
-				//qna 업데이트 카테고리 로우 불러오기
-				$(document).on('change','#QnAMajorUpdate', function(){
-					
-					if($('#QnAMajorUpdate').val()=='대분류')
-					{
-					$('#QnAMinorUpdate').empty();
-					$('#QnAMinorUpdate').append(
-								'<option>소분류</option><option>대부분를 선택해주세요</option>'
-						);
-					}
-					
-					else
-						{
-						$.ajax({
-				   			url:"Low.do",
-				   			type:"POST",
-				   			data:{high_no:$(this).val()},
-				   			dataType:"json",
-				   			success:function(data){
-				   				console.log(data);
-				   				$('#QnAMinorUpdate').empty();
-				   				$.each(data, function(index, value){
-					   				$('#QnAMinorUpdate').append(
-					   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-					   				);
-				   				});
-
-				   			},
-				   			error:function(){
-				   				alert("실패");
-				   			}
-				   			
-				   		});
-						}
-			   		
-				});
-				//report 업데이트 카테고리 로우 불러오기
-				$(document).on('change','#ReportMajorUpdate', function(){
-					
-					if($('#ReportMajorUpdate').val()=='대분류')
-					{
-					$('#ReportMinorUpdate').empty();
-					$('#ReportMinorUpdate').append(
-								'<option>소분류</option><option>대부분를 선택해주세요</option>'
-						);
-					}
-					
-					else
-						{
-						$.ajax({
-				   			url:"Low.do",
-				   			type:"POST",
-				   			data:{high_no:$(this).val()},
-				   			dataType:"json",
-				   			success:function(data){
-				   				console.log(data);
-				   				$('#ReportMinorUpdate').empty();
-				   				$.each(data, function(index, value){
-					   				$('#ReportMinorUpdate').append(
-					   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-					   				);
-				   				});
-
-				   			},
-				   			error:function(){
-				   				alert("실패");
-				   			}
-				   			
-				   		});
-						}
-			   	
-				});
 	//공지 리스트
 function noticeList(page,type,keyword,start,end){
 
@@ -750,9 +494,10 @@ function reportList(page,type,keyword,start,end){
 					$('#NoticeDelete').hide();
 					}
 				},
-				error:function(){
-					alert("실패");
-				}
+				error:function(jqXHR, textStatus, errorThrown){
+	    			alert(textStatus);     //응답상태
+	    			alert(errorThrown);     //응답에 대한 메세지
+	    		}
 			});
 			
 		});
@@ -1166,28 +911,6 @@ function reportList(page,type,keyword,start,end){
 		
 					$('#QnAContentModal').modal('hide');
 					$('#QnAMajorUpdate option:eq('+major+')').prop("selected", true);
-					$.ajax({
-			   			url:"Low.do",
-			   			type:"POST",
-			   			data:{high_no:$('#QnAMajorUpdate').val()},
-			   			dataType:"json",
-			   			success:function(data){
-			   				console.log(data);
-			   				$('#QnAMinorUpdate').empty();
-			   				$.each(data, function(index, value){
-				   				$('#QnAMinorUpdate').append(
-				   						'<option value="'+value.no+'">'+value.category_name+'</option>'	
-				   				);
-				   				
-				   				$('#QnAMinorUpdate option:eq('+(minor-1)+')').prop("selected", true);
-			   				});
-
-			   			},
-			   			error:function(){
-			   				alert("실패");
-			   			}
-			   			
-			   		});
 					$('#QnAtitleUpdate').val(data.title);
 					$('#QnAcontentUpdate').val(data.content);
 					$('#QnAUpdateBtn').val(data.no);
@@ -2044,8 +1767,9 @@ textarea{
 
 										<tr>
 											<th>내용 :</th>
-											<td><input type="text" size="48" id="QnAcontentUpdate"
-												style="height: 200px;"></td>
+											<td>
+												<textarea id="QnAcontentUpdate" rows="10" cols="78"></textarea>
+											</td>
 										</tr>
 										<tr>
 											<th>공개/비공개</th>
@@ -2054,7 +1778,7 @@ textarea{
 											</th>
 										</tr>
 										<tr>
-											<td style="text-align: right;"><button type="button" class="btn btn-sm btn-danger"
+											<td colspan="2" style="text-align: right;"><button type="button" class="btn btn-sm btn-danger"
 													id="QnAUpdateBtn">질문 수정</button></td>
 										</tr>
 									</table>
@@ -2130,8 +1854,9 @@ textarea{
 
 										<tr>
 											<th>내용 :</th>
-											<td><input type="text" size="48"
-												id="NoticecontentUpdate" style="height: 200px;"></td>
+											<td>
+												<textarea id="NoticecontentUpdate" rows="10" cols="78"></textarea>
+											</td>
 										</tr>
 
 										<tr>

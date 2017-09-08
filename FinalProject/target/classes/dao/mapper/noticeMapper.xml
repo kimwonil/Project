@@ -18,11 +18,11 @@
  </select>
  
  <update id="updateNotice" parameterType="java.util.HashMap">
- 	update Notice set title=#{title},content=#{content} where no= #{no}
+ 	update notice set title=#{title}, content=#{content} where no= #{no}
  </update>
  
-  <update id="updateNoticeCount" parameterType="java.util.HashMap">
- 	update Notice set read_count=#{read_count} where no= #{no}
+  <update id="updateNoticeCount" parameterType="int">
+ 	update notice set read_count=read_count+1 where no=#{no}
  </update>
  
  <delete id="deleteNotice" parameterType="int">
