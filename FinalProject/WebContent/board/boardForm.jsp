@@ -516,7 +516,7 @@ $(document).ready(function(){
     		$('#tableOption').append(
     				 '<tr><th>옵션종류</th><th>추가가격</th><th><input type="button" class="add" value="추가"></th></tr>'+
                      '<tr>'+
-                        '<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
+                        '<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.,()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
                         '<td><input type="number" min="0" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="가격은 100원 단위로 입력하세요(100만원 미만)"></td>'+
 //                         '<td><button class="delete">삭제</button></td>'+
                      '</tr>'
@@ -541,7 +541,7 @@ $(document).ready(function(){
 		}else{
 	   		$('#tableOption').append(
 	  				'<tr>'+
-				'<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
+				'<td><input type="text" pattern="[가-힣\\sa-zA-Z0-9!\\-#$%^&*.,()?+=\/]{1,20}" title="옵션명은 20자 이하로 입력하세요" name="option[]" class="optionName"></td>'+
 				'<td><input type="number" min="0" max="999999" name="optionPrice[]" step="100" class="optionPrice" title="가격은 100원 단위로 입력하세요(100만원 미만)"></td>'+
 				'<td><button class="delete">삭제</button></td>'+
 				'</tr>'
@@ -686,7 +686,7 @@ $(document).ready(function(){
 									</select>
 									</th></tr>
 									<tr><th>* 글제목(필수)</th><th class="condition"> 
-									<input type="text" pattern="[가-힣\sa-zA-Z0-9!\-#$%^&*\.()?+=\/]{1,30}" title="제목은 30자 이하로 입력하세요"  name="title"><br>
+									<input type="text" pattern="[가-힣\sa-zA-Z0-9!\-#$%^&*\.,()?+=\/]{1,30}" title="제목은 30자 이하로 입력하세요"  name="title"><br>
 									제목은 30자 이내로 입력하세요 </th></tr>
 									<tr><th>* 등록 마감일(필수)</th><th> <input type="date" name="end_date" id="datePicker" title="오늘 이전 날짜는 선택할 수 없습니다"> </th></tr>
 									<tr><th>* 인원 또는 건수(필수)</th><th class="condition"> <input type="number" min="1" max="99" name="quantity" title="100명 미만으로 입력하세요"><br>

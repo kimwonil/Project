@@ -183,6 +183,10 @@ resize: none;
 			dataType : "json",
 			success : function(data) {
 				$('#selectUserReview').empty();
+				if(data.length == 0){
+					$('#selectUserReview').append('<table><tr><td>등록된 리뷰가 없습니다</td></tr></table>');
+				}
+				
 				$.each(data, function(index, value) {
 					console.log(value);
 					//사용자 리뷰 탭에 table만들어서 넣을거야
@@ -653,7 +657,7 @@ resize: none;
 
 									<table>
 										<tr>
-											<td colspan="3" style="padding: 10px;">${board.title}</td>
+											<td colspan="3" style="padding: 10px; font-weight: bold;">${board.title}</td>
 										</tr>
 										<tr>
 											<td width="70%" style="padding: 10px;">${category_major}<br>
