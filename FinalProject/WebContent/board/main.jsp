@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>ShareAbility</title>
 </head>
 <style>
 
@@ -28,7 +28,7 @@
 	width: 100%;
 }
 .infoTable{
-	width: 91%;
+	width: 100%;
 }
 .star-ratings-css{
 	font-size: 15px;
@@ -320,8 +320,8 @@ $(document).on('click', '.noticeLink', function(){
 										</tr>
 										
 										<tr>
-											<td colspan="3" width="90%" height="20%" class="price"><fmt:formatNumber value="${premium.price}" groupingUsed="true"/></td>
-											<td width="10%" class="read_count">조회수${premium.read_count}회</td>
+											<td colspan="3"  height="20%" class="price"><fmt:formatNumber value="${premium.price}" groupingUsed="true"/></td>
+											<td  class="read_count">조회수${premium.read_count}회</td>
 										</tr>
 										
 										<tr>

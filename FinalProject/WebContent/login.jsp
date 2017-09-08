@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>로그인</title>
+<title>ShareAbility</title>
 
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id"

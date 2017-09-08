@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>오류 페이지</title>
+<title>ShareAbility</title>
 <style type="text/css">
 #errorImg{
 	position: fixed;

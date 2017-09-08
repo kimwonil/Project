@@ -763,7 +763,7 @@ $(document).ready(function(){
 			//인터벌로 3초마다 알림에 표시되는 읽지않은 메세지 숫자
 			var messageCount = setInterval(function() {
 				MessageNum();
-			}, 10000);
+			}, 3000);
 		}
 		
 		

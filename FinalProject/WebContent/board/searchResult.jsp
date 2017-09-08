@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="css/starStyle.css">
-<title>Insert title here</title>
+<title>ShareAbility</title>
 </head>
 <style>
 /* slide관련 */

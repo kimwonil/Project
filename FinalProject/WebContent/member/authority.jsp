@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>ShareAbility</title>
 <script src="js/jquery.form.js"></script>
 <script src="js/jquery.MetaData.js"></script>
 <script src="js/jQuery.MultiFile.min.js"></script>
