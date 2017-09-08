@@ -44,9 +44,9 @@ public class NoticeService {
 		return noticeDao.deleteNotice(no);
 	}
 	
-	public boolean updateNoticeCount(HashMap<String, Object> params)
+	public boolean updateNoticeCount(int no)
 	{
-		return noticeDao.updateNoticeCount(params);
+		return noticeDao.updateNoticeCount(no);
 	}
 	
 	public List<Notice> getNoticeListPage(HashMap<String, Object> params,int page) {

@@ -13,7 +13,7 @@ public interface NoticeDao {
 	public Notice selectOneNotice(int no);
 	public boolean updateNotice(HashMap<String , Object> params);
 	public boolean deleteNotice(int no);
-	public boolean updateNoticeCount(HashMap<String , Object> params);
+	public boolean updateNoticeCount(int no);
 
 
 	public List<Notice> selectNoticePage(HashMap<String, Object> params);

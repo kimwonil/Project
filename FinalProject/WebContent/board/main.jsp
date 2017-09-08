@@ -531,7 +531,7 @@ function noticeSlides() {
           		<td><label id="noticeWriter"></label></td>
           	</tr>
           	<tr>
-          		<td colspan="2"> <textarea id="noticeContent" cols="78" rows="10"></textarea></td>
+          		<td colspan="2"> <textarea id="noticeContent" cols="78" rows="10" readonly="readonly"></textarea></td>
           	</tr>
           </table>
         </div>

@@ -516,6 +516,7 @@ public class MemberController {
 		map.put("balance", currentBalance);
 		map.put("nickname", member.getNickname());
 		map.put("id", member.getId());
+		map.put("login", member.getLogin());
 		int result = memberService.exchange(map);
 		
 		session.setAttribute("member", memberService.selectOne(map));

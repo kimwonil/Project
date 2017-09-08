@@ -498,8 +498,7 @@ public class CustomerCenterController {
 		int read_count = notice.getRead_count();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("no", no);
-		params.put("read_count", read_count + 1);
-		noticeService.updateNoticeCount(params);
+		noticeService.updateNoticeCount(no);
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("no", notice.getNo());
 		result.put("title", notice.getTitle());
@@ -547,10 +546,6 @@ public class CustomerCenterController {
 		params.put("content", content);
 
 		noticeService.updateNotice(params);
-		Notice notice = noticeService.selectOneNotice(no);
-		int read_count = notice.getRead_count();
-		params.put("read_count", read_count - 1);
-		noticeService.updateNoticeCount(params);
 
 	}
 

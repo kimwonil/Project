@@ -161,6 +161,7 @@ public class BoardController{
 		resp.setContentType("text/html; charset=utf-8");
 		int no = Integer.parseInt(req.getParameter("no"));
 		Notice notice = noticeService.selectOneNotice(no);
+		noticeService.updateNoticeCount(no);
 		
 		Gson gson = new Gson();
 		String json = gson.toJson(notice);
