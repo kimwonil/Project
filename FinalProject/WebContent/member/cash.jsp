@@ -104,7 +104,7 @@
 						$.each(data.list,function(index, value){
 							$('#tradeTable').append("<tr><td>"+value.date+"</td><td>"
 															+value.amount+"</td><td>"
-															+value.balance+"</td><td><span class='titlecut1'"
+															+value.balance+"</td><td><span class='titlecut1'>"
 															+value.code+"</span></td><td>"
 															+(value.state==1?"충전":value.state==2?"구매":value.state==3?"환불":value.state==4?"정산대기":"정산완료")+"</td></tr>");
 						});

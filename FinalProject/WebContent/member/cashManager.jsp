@@ -62,7 +62,7 @@
 			},
 			dataType:"json",
 			success:function(data){
-//					console.log(data);
+					console.log(data);
 				$('#exchangeTable tr:gt(0)').remove();
 				
 				if(data.list == ""){
@@ -70,7 +70,7 @@
 				}else{
 					$.each(data.list, function(index, value){
 						$('#exchangeTable').append("<tr><td>"+value.date+"</td><td>"
-								+value.id+"</td><td>"
+								+value.nickname+"</td><td>"
 								+value.request+"</td><td>"
 								+value.balance+"</td><td>"
 								+(value.state==1?"<button class='approvalBtn btn btn-info' value='"+value.no+"'>승인</button><button class='cancelBtn btn btn-info' value='"+value.no+"'>취소</button>":value.state==2?"환전완료":"환전취소")+"</td></tr>");					
