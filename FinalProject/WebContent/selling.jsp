@@ -49,7 +49,7 @@
 							'</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut1">' + value.title + '</div></a></td><td>' +
 							value.count + ' / ' + value.quantity + '</td><td>' + 
 							(value.state == 0 ? "대기중" : value.state == 1 ? "인원마감" : value.state==2 ? "마감일 초과" : "판매 중단") + '</td><td>' +
-							'<button class="btn-sm btn-info continueBtn" value="' + value.no + '">진행</button>'+
+							'<button class="btn-sm btn-info continueBtn" value="' + value.no + '">진행</button>&nbsp;'+
 							(value.state==4 ? '<button class="btn-sm btn-info reBoardBtn" value="' + value.no + '">판매</button></td></tr>' : '<button class="btn-sm btn-info stopBoardBtn" value="' + value.no + '">중단</button></td></tr>')
 						);
 					});
@@ -914,10 +914,10 @@ table {
 							<table>
 								<tr>
 									<th width="10%">등록일</th>
-									<th width="25%">글제목</th>
+									<th width="40%">글제목</th>
 									<th width="5%">기간</th>
 									<th width="5%">비용</th>
-									<th width="10%">상태</th>
+									<th width="15%">상태</th>
 									<th width="5%">비고</th>
 								</tr>
 							</table>

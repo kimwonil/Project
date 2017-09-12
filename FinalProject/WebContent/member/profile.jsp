@@ -18,6 +18,10 @@
 		height: 300px;
 		
 	}
+	.btn{
+		margin: auto;
+	}
+	
 	#mainTable{
 		display: inline;
 	}
@@ -111,7 +115,7 @@
 <%-- 							<td>관리자 : ${member.admin}</td> --%>
 <!-- 						</tr> -->
 						<tr>
-							<td>관심분야 : <button onclick="location.href='dipsList.do?nickname=${member.nickname}'">찜목록</button></td>
+							<td>관심분야 : <button onclick="location.href='dipsList.do?nickname=${member.nickname}'" class="btn btn-info btn-sm">찜목록</button></td>
 						</tr>
 				
 						<tr>

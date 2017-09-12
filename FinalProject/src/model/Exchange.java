@@ -7,7 +7,7 @@ public class Exchange {
 	private int request;
 	private int balance;
 	private int state;
-	private String id;
+	private String nickname;
 	
 	public int getNo() {
 		return no;
@@ -39,17 +39,17 @@ public class Exchange {
 	public void setState(int state) {
 		this.state = state;
 	}
-	public String getId() {
-		return id;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 	@Override
 	public String toString() {
 		return "Exchange [no=" + no + ", date=" + date + ", request=" + request + ", balance=" + balance + ", state="
-				+ state + ", id=" + id + "]";
+				+ state + ", nickname=" + nickname + "]";
 	}
 	
 	

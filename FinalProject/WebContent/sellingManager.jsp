@@ -46,7 +46,7 @@
 						$('#tabs-1 > table').append(
 							'<tr><td>' + value.date + '</td><td><a href="detailOneBoard.do?no='+value.no+'"><div class="titlecut1">' + value.title + '</div></a></td><td>' +
 							value.count + ' / ' + value.quantity + '</td><td>'+(value.state==0?"대기중":value.state==1?"인원마감":"마감일 초과")+'</td><td>'+
-							'<button class="btn-sm btn-info continueBtn" value="'+value.no+'">진행</button> <button class="btn-sm btn-info stopBtn" value="'+value.no+'">중단</button></td></tr>'		
+							'<button class="btn-sm btn-info continueBtn" value="'+value.no+'">진행</button>&nbsp;<button class="btn-sm btn-info stopBtn" value="'+value.no+'">중단</button></td></tr>'		
 						);
 					});
 					$('#currentPage').val(data.page);
