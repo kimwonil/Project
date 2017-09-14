@@ -104,4 +104,6 @@ public class ReportService {
 		return num * 10;
 	}
 	
+	
+	
 }

@@ -17,6 +17,9 @@
 	<property name="url" value="jdbc:mysql://localhost:3306/ykson83"></property>
 	<property name="username" value="ykson83"></property>
 	<property name="password" value="thsdusrud8300"></property>
+<!-- 	<property name="url" value="jdbc:mysql://localhost:3306/shareability"></property> -->
+<!-- 	<property name="username" value="root"></property> -->
+<!-- 	<property name="password" value="mysql"></property> -->
 </bean>
 
 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

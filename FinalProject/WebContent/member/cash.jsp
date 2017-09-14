@@ -12,6 +12,12 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 <title>ShareAbility</title>
 <script>
+function comma(str) {
+	str = String(str);
+	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+
 	$(function() {
 		$("#tabs").tabs();
 	});
@@ -103,10 +109,10 @@
 					}else{
 						$.each(data.list,function(index, value){
 							$('#tradeTable').append("<tr><td>"+value.date+"</td><td>"
-															+value.amount+"</td><td>"
-															+value.balance+"</td><td><span class='titlecut1'>"
+															+comma(value.amount)+"</td><td>"
+															+comma(value.balance)+"</td><td><span class='titlecut1'>"
 															+value.code+"</span></td><td>"
-															+(value.state==1?"충전":value.state==2?"구매":value.state==3?"환불":value.state==4?"정산대기":"정산완료")+"</td></tr>");
+															+(value.state==1?"충전":value.state==2?"구매":value.state==3?"환불":"정산완료")+"</td></tr>");
 						});
 					}
 					
@@ -191,8 +197,8 @@
 					}else{
 						$.each(data.list, function(index, value){
 							$('#exchangeTable').append("<tr><td>"+value.date+"</td><td>"
-									+value.request+"</td><td>"
-									+value.balance+"</td><td>"
+									+comma(value.request)+"</td><td>"
+									+comma(value.balance)+"</td><td>"
 									+(value.state==1?"환전대기":value.state==2?"환전완료":"환전취소")+"</td></tr>");	
 						});
 					}

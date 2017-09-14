@@ -48,7 +48,6 @@
 <fullyQualifiedTypeName name="model.Bank"/>
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="service.MemeberService"/>
-<fullyQualifiedTypeName name="model.Board"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="model.Notice"/>
 <fullyQualifiedTypeName name="com.google.gson.Gson"/>
@@ -56,7 +55,8 @@
 <fullyQualifiedTypeName name="model.Authority"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
 <fullyQualifiedTypeName name="model.Member"/>
-<fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="model.Board"/>
 </qualifiedTypeNameHistroy>

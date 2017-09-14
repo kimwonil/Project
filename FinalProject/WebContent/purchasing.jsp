@@ -309,7 +309,7 @@
 					type:"POST",
 					data:{
 						no:$(this).val(),
-						state:42
+						state:41
 					},
 					dataType:"json",
 					success:function(data){

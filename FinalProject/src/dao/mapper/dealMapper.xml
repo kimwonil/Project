@@ -191,6 +191,12 @@
 		select amount from purchase_option where no=#{purchaseNo} and kind='기본항목'
 	</select>
 	
+	<select id="getBoardNo" parameterType="int" resultType="int">
+	    select no from purchase where purchase_no=#{no} 
+	</select>
+	
+	
+	
  </mapper>
  
  

@@ -314,8 +314,20 @@ public class DealControll {
 				map.put("total", total);
 				map.put("purchaser", purchaser);
 				memberService.returnBalance(map);
+				
 			}
-			
+			if(state==40) {
+				int purchaseCount = dealService.getAmount(no.toString());
+				System.out.println(purchaseCount+"// 취소할 갯수");
+				Board board = boardService.selectOneBoard(dealService.getBoardNo(no));
+				System.out.println(board);
+				
+				map.put("no", board.getNo());
+				map.put("count", board.getCount()-purchaseCount);
+				System.out.println("감소 후 갯수");
+				System.out.println(map.get("count"));
+				boardService.updateCount(map);
+			}
 			
 			//미니프로필 현재 금액 업데이트
 			try {

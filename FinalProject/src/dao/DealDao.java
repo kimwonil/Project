@@ -81,6 +81,7 @@ public interface DealDao {
 	
 	
 	public int getAmount(String purchaseNo);
+	public int getBoardNo(Integer no);
 	
 	
 	

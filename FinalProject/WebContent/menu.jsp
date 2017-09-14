@@ -92,6 +92,10 @@ h3, h2, .ui-tabs-anchor{
 }
 
 
+textarea{
+	width: 100%;
+}
+
 /* ///////////////////////DropDown/////////////////////////////////// */
 .menu, .menu ul, .menu li, .menu a {
 	margin: 0;
@@ -979,17 +983,15 @@ $(document).ready(function(){
 			</div>
 			
 			<div id="linkGroup">
-				<c:if test="${member eq null}">
-					<a href="testLogin.do" id="testLogin">테스트로그인</a>&nbsp
-				</c:if>
 				
 				<c:if test="${member ne null}">
-					<a href="logout.do">로그아웃</a>&nbsp
-					<a href='boardForm.do' id="boardForm">판매등록</a>&nbsp
+					<a href="logout.do">로그아웃</a>&nbsp;&nbsp;
+					<a href='boardForm.do' id="boardForm">판매등록</a>&nbsp;&nbsp;
 					<a href='#' id="toggler">알림 <span class="badge" id="togglerNum"></span>
 				</c:if>
 				<c:if test="${member eq null }">
-					<a href='loginForm.do'>로그인</a>&nbsp
+					<a href="testLogin.do" id="testLogin">테스트로그인</a>&nbsp;&nbsp;
+					<a href='loginForm.do'>로그인</a>&nbsp;&nbsp;
 					<a href='boardForm.do' id="boardForm">판매등록</a>
 				</c:if>
 			</div>

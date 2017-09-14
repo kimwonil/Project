@@ -213,6 +213,10 @@ public class DealService {
 		return dealDao.getAmount(purchaseNo);
 	}
 
+	public int getBoardNo(Integer no) {
+		return dealDao.getBoardNo(no);
+	}
+
 
 
 	
